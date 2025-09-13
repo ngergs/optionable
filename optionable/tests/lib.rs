@@ -46,8 +46,8 @@ fn derive_named_struct_required() {
 #[test]
 /// Tuple with visibility modifiers
 fn derive_unnamed_struct() {
-    #[derive(Optionable)]
     #[allow(dead_code)]
+    #[derive(Optionable)]
     struct DeriveExample(String, pub i32);
 
     let _ = DeriveExampleOpt(None, None);
@@ -68,8 +68,8 @@ fn derive_unnamed_struct_required() {
 #[test]
 /// Check that the derive macro works.
 fn derive_generic() {
-    #[derive(Optionable)]
     #[allow(dead_code)]
+    #[derive(Optionable)]
     struct DeriveExample<T, T2> {
         name: T,
         surname: T2,
@@ -130,8 +130,8 @@ fn derive_nested() {
 #[test]
 /// Check that the derive macro works for enums
 fn derive_enum() {
-    #[derive(Optionable)]
     #[allow(dead_code)]
+    #[derive(Optionable)]
     enum DeriveExample {
         Unit,
         Plain(String),
