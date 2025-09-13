@@ -1,3 +1,4 @@
+use crate::derive::FieldHandling::{IsOption, Other, Required};
 use crate::error;
 use darling::util::PathList;
 use darling::{FromAttributes, FromDeriveInput};
@@ -84,7 +85,8 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
                 None
             })
             .to_token_stream();
-            let fields = optioned_fields(&s.fields, skip_optionable_if_serde_serialize.as_ref())?;
+            let fields = into_field_handling(s.fields)?;
+            let fields = optioned_fields(&fields, skip_optionable_if_serde_serialize.as_ref());
 
             Ok(quote! {
                 #[automatically_derived]
@@ -100,8 +102,9 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
                 .into_iter()
                 .map(|v| {
                     error_on_helper_attributes(&v.attrs, ERR_MSG_HELPER_ATTR_ENUM_VARIANTS)?;
+                    let fields = into_field_handling(v.fields)?;
                     let fields =
-                        optioned_fields(&v.fields, skip_optionable_if_serde_serialize.as_ref())?;
+                        optioned_fields(&fields, skip_optionable_if_serde_serialize.as_ref());
                     Ok::<_, Error>((v.ident, fields))
                 })
                 .collect::<Result<Vec<_>, _>>()?
@@ -124,56 +127,21 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
 /// Returns a tokenstream for the fields and potential convert implementation of the optioned object (struct/enum variants).
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
-fn optioned_fields(
-    fields: &Fields,
-    serde_attributes: Option<&TokenStream>,
-) -> syn::Result<TokenStream> {
-    fields_to_tokenstream(
-        fields,
-        &FieldHandlers {
-            required: |Field { vis, ident, ty, .. }| {
-                let colon = ident.as_ref().map(|_| quote! {:});
-                quote! {#vis #ident #colon #ty}
-            },
-            option: |Field { vis, ident, ty, .. }| {
-                let colon = ident.as_ref().map(|_| quote! {:});
-                quote! {#serde_attributes #vis #ident #colon <#ty as ::optionable::Optionable>::Optioned}
-            },
-            fallback: |Field { vis, ident, ty, .. }| {
-                let colon = ident.as_ref().map(|_| quote! {:});
-                quote! {#serde_attributes #vis #ident #colon Option<<#ty as ::optionable::Optionable>::Optioned>}
-            },
-        },
-    )
-}
-
-/// Maps the fields to a tokenstream calling the provided `FieldHandlers` for the mapping.
-fn fields_to_tokenstream<F1, F2, F3>(
-    fields: &Fields,
-    field_handlers: &FieldHandlers<F1, F2, F3>,
-) -> syn::Result<TokenStream>
-where
-    F1: Fn(&Field) -> TokenStream,
-    F2: Fn(&Field) -> TokenStream,
-    F3: Fn(&Field) -> TokenStream,
-{
-    let fields_iter: Box<dyn Iterator<Item = &Field>> = match &fields {
-        Fields::Named(f) => Box::new(f.named.iter()),
-        Fields::Unnamed(f) => Box::new(f.unnamed.iter()),
-        Fields::Unit => Box::new(iter::empty()),
-    };
-    let fields_tokenstream = fields_iter
-        .map(|f| call_field_handler(field_handlers, f))
-        .collect::<Result<Vec<_>, _>>()?;
-    Ok(match fields {
-        Fields::Named(_) => quote!({
-            #(#fields_tokenstream),*
-        }),
-        Fields::Unnamed(_) => quote!((
-            #(#fields_tokenstream),*
-        )),
-        Fields::Unit => quote!(),
-    })
+fn optioned_fields(fields: &FieldsParsed, serde_attributes: Option<&TokenStream>) -> TokenStream {
+    let fields_token = fields.fields.iter().map(|f| {
+        let colon = f.field.ident.as_ref().map(|_| quote! {:});
+        let Field { vis, ident, ty, .. } = &f.field;
+        match f.handling {
+            Required => quote! {#vis #ident #colon #ty},
+            IsOption => quote! {#serde_attributes #vis #ident #colon <#ty as ::optionable::Optionable>::Optioned},
+            Other => quote! {#serde_attributes #vis #ident #colon Option<<#ty as ::optionable::Optionable>::Optioned>},
+        }
+    });
+    match fields.struct_named {
+        StructNameType::Named => quote!({#(#fields_token),*}),
+        StructNameType::Unnamed => quote!((#(#fields_token),*)),
+        StructNameType::Unit => quote!(),
+    }
 }
 
 /// Adjusts the where clause to add the `Optionable` type bounds.
@@ -223,42 +191,65 @@ fn error_on_helper_attributes(attrs: &[Attribute], err_msg: &'static str) -> syn
     }
 }
 
-/// How to handle different cases
-struct FieldHandlers<F1, F2, F3>
-where
-    F1: Fn(&Field) -> TokenStream,
-    F2: Fn(&Field) -> TokenStream,
-    F3: Fn(&Field) -> TokenStream,
-{
-    /// Called if the field has the `#[optionable(required)]` helper attribute
-    required: F1,
-    /// Called if the field is not required and of type `Option<...>`
-    option: F2,
-    /// Called for other cases
-    fallback: F3,
+/// Extracts information about the fields we care about, like
+/// whether #[optional(required)] is set or whether the type is `Option<...>`.
+fn into_field_handling(fields: Fields) -> Result<FieldsParsed, Error> {
+    let struct_named = match &fields {
+        Fields::Named(_) => StructNameType::Named,
+        Fields::Unnamed(_) => StructNameType::Unnamed,
+        Fields::Unit => StructNameType::Unit,
+    };
+
+    let fields_iter: Box<dyn Iterator<Item = Field>> = match fields {
+        Fields::Named(f) => Box::new(f.named.into_iter()),
+        Fields::Unnamed(f) => Box::new(f.unnamed.into_iter()),
+        Fields::Unit => Box::new(iter::empty()),
+    };
+    let fields_with_handling = fields_iter
+        .map(|field| {
+            let attrs = FieldHelperAttributes::from_attributes(&field.attrs)?;
+            let handling = if attrs.required.is_some() {
+                Required
+            } else if is_option(&field.ty) {
+                IsOption
+            } else {
+                Other
+            };
+            Ok::<_, Error>(FieldParsed { field, handling })
+        })
+        .collect::<Result<Vec<_>, _>>()?;
+
+    Ok(FieldsParsed {
+        struct_named,
+        fields: fields_with_handling,
+    })
 }
 
-/// Takes care of dispatching to the correct field handler
-fn call_field_handler<F1, F2, F3>(
-    handlers: &FieldHandlers<F1, F2, F3>,
-    field: &Field,
-) -> Result<TokenStream, Error>
-where
-    F1: Fn(&Field) -> TokenStream,
-    F2: Fn(&Field) -> TokenStream,
-    F3: Fn(&Field) -> TokenStream,
-{
-    let attrs = FieldHelperAttributes::from_attributes(&field.attrs)?;
-    Ok::<_, Error>(if attrs.required.is_some() {
-        (handlers.required)(field)
-        //quote! {#vis #ident: #ty}
-    } else if is_option(&field.ty) {
-        (handlers.option)(field)
-        //quote! {#serde_attributes #vis #ident: <#ty as ::optionable::Optionable>::Optioned}
-    } else {
-        (handlers.fallback)(field)
-        //quote! {#serde_attributes #vis #ident: Option<<#ty as ::optionable::Optionable>::Optioned>}
-    })
+/// How we handle different cases in order of importance/detection.
+/// E.g. if a field is `Required` we don't care whether it's of `Option` type or not.
+enum FieldHandling {
+    Required,
+    IsOption,
+    Other,
+}
+
+/// Just a combination of a field and which handling case it is
+struct FieldParsed {
+    field: Field,
+    handling: FieldHandling,
+}
+
+/// Type of the Struct we handle
+enum StructNameType {
+    Named,
+    Unnamed,
+    Unit,
+}
+
+/// Fields with extracted data how we want to handle them
+struct FieldsParsed {
+    struct_named: StructNameType,
+    fields: Vec<FieldParsed>,
 }
 
 /// Checks whether this type identifier is a `std::option::Option` or a shortened variant of it.
@@ -279,7 +270,6 @@ fn is_option(ty: &Type) -> bool {
                     && segments[2].ident == "Option")
         }
     {
-        println!("{:?}", path.segments);
         true
     } else {
         false
