@@ -1,4 +1,4 @@
-use optionable::Optionable;
+use optionable::{Optionable, OptionableConvert};
 use serde::Deserialize;
 use serde::Serialize;
 
@@ -6,7 +6,7 @@ use serde::Serialize;
 /// Check that the derive macro works with visibility modifier.
 fn derive_named_struct() {
     #[derive(Optionable)]
-    #[allow(dead_code)]
+    #[optionable(derive(Clone))]
     struct DeriveExample {
         name: String,
         pub surname: String,
@@ -16,10 +16,20 @@ fn derive_named_struct() {
         name: None,
         surname: None,
     };
-    let _ = DeriveExampleOpt {
+    let partial = DeriveExampleOpt {
+        name: None,
+        surname: Some("c".to_owned()),
+    };
+    let full_partial = DeriveExampleOpt {
         name: Some("a".to_owned()),
         surname: Some("b".to_owned()),
     };
+    let mut full = DeriveExample::try_from_optioned(full_partial.clone()).unwrap();
+    assert_eq!(full.name, full_partial.name.clone().unwrap());
+    assert_eq!(full.surname, full_partial.surname.unwrap());
+    full.merge(partial.clone()).unwrap();
+    assert_eq!(full.name, full_partial.name.unwrap());
+    assert_eq!(full.surname, partial.surname.unwrap());
 }
 
 #[test]
