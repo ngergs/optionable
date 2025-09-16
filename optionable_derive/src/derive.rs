@@ -105,9 +105,15 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
             let optioned_fields =
                 optioned_fields(&fields, skip_optionable_if_serde_serialize.as_ref());
 
-            let into_optioned_fields = into_optioned(&fields, None);
-            let try_from_optioned_fields = try_from_optioned(&fields, None);
-            let merge_fields = merge_fields(&fields, None, None);
+            let into_optioned_fields = into_optioned(&fields, |selector| quote! { self.#selector });
+            let try_from_optioned_fields =
+                try_from_optioned(&fields, |selector| quote! { value.#selector });
+            let merge_fields = merge_fields(
+                &fields,
+                |selector| quote! { self.#selector },
+                |selector| quote! { other.#selector },
+                true,
+            );
 
             Ok(quote! {
                 #[automatically_derived]
@@ -154,7 +160,9 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
             let into_variants = variants
                 .iter()
                 .map(|(variant, f)| {
-                    let fields = into_optioned(f, Some(&quote! {self_}));
+                    let fields = into_optioned(f, |selector| {
+                        format_ident!("{self_prefix}{selector}").to_token_stream()
+                    });
                     let destruct = destructure(f, &self_prefix)?;
                     Ok::<_, Error>(
                         quote!( Self::#variant #destruct => #type_ident_opt::#variant #fields ),
@@ -164,8 +172,9 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
             let try_from_variants = variants
                 .iter()
                 .map(|(variant, f)| {
-                    let fields = try_from_optioned(f, Some(&quote! {value_}));
-                    // can't have these for unit types
+                    let fields = try_from_optioned(f, |selector| {
+                        format_ident!("{value_prefix}{selector}").to_token_stream()
+                    });
                     let destruct = destructure(f, &value_prefix)?;
                     Ok::<_, Error>(
                         quote!( #type_ident_opt::#variant #destruct => Self::#variant #fields ),
@@ -175,7 +184,10 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
             let merge_variants = variants
                 .iter()
                 .map(|(variant, f)| {
-                    let fields = merge_fields(f, Some(&self_prefix), Some(&other_prefix));
+                    let fields = merge_fields(f,
+                    |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
+                    |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
+                    false);
                     // can't have these for unit types
                     let self_mut_destructure = destructure(f, &self_prefix)?;
                     let other_destructure = destructure(f,  &other_prefix)?;
@@ -277,7 +289,10 @@ fn optioned_fields(fields: &FieldsParsed, serde_attributes: Option<&TokenStream>
 /// Returns the field mapping implementation for `into_optioned`.
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
-fn into_optioned(fields: &FieldsParsed, self_token: Option<&TokenStream>) -> TokenStream {
+fn into_optioned(
+    fields: &FieldsParsed,
+    self_selector_fn: impl Fn(&TokenStream) -> TokenStream,
+) -> TokenStream {
     let fields_token = fields.fields.iter().enumerate().map(|(i, f)| {
         let colon = f.field.ident.as_ref().map(|_| quote! {:});
         let Field { ident, ty, .. } = &f.field;
@@ -285,11 +300,7 @@ fn into_optioned(fields: &FieldsParsed, self_token: Option<&TokenStream>) -> Tok
             let i = Literal::usize_unsuffixed(i);
             quote! {#i}
         }, ToTokens::to_token_stream);
-        let self_selector=  if let Some(self_token)=self_token{
-            format_ident!("{self_token}{selector}").to_token_stream()
-        } else{
-            quote! { self.#selector }
-        };
+        let self_selector= self_selector_fn(&selector);
         match f.handling {
             Required => quote! {#ident #colon #self_selector},
             IsOption => quote! {#ident #colon <#ty as ::optionable::OptionableConvert>::into_optioned(#self_selector)},
@@ -302,18 +313,17 @@ fn into_optioned(fields: &FieldsParsed, self_token: Option<&TokenStream>) -> Tok
 /// Returns the field-mappings implementation for `try_from_optioned`.
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
-fn try_from_optioned(fields: &FieldsParsed, value_token: Option<&TokenStream>) -> TokenStream {
+fn try_from_optioned(
+    fields: &FieldsParsed,
+    value_selector_fn: impl Fn(&TokenStream) -> TokenStream,
+) -> TokenStream {
     let fields_token = fields.fields.iter().enumerate().map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling })| {
         let colon = ident.as_ref().map(|_| quote! {:});
         let selector = ident.as_ref().map_or_else(|| {
             let i = Literal::usize_unsuffixed(i);
             quote! {#i}
         }, ToTokens::to_token_stream);
-        let value_selector=  if let Some(value_token)=value_token{
-            format_ident!("{value_token}{selector}").to_token_stream()
-        } else{
-            quote! { value.#selector }
-        };
+        let value_selector= value_selector_fn(&selector);
         match handling {
             Required => quote! {#ident #colon value.#selector},
             IsOption => quote! {
@@ -338,10 +348,13 @@ fn try_from_optioned(fields: &FieldsParsed, value_token: Option<&TokenStream>) -
 /// Returns the field-mappings implementation for `try_from_optioned`.
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
+///
+/// `merge_self_mut` should be true when the `self_selector` merge argument should be modified with a `& mut` on recursive calls.
 fn merge_fields(
     fields: &FieldsParsed,
-    self_token: Option<&TokenStream>,
-    other_token: Option<&TokenStream>,
+    self_selector_fn: impl Fn(&TokenStream) -> TokenStream,
+    other_selector_fn: impl Fn(&TokenStream) -> TokenStream,
+    merge_self_mut: bool,
 ) -> TokenStream {
     let fields_token = fields.fields.iter().enumerate().map(
         |(
@@ -358,17 +371,9 @@ fn merge_fields(
                 },
                 ToTokens::to_token_stream,
             );
-            let self_merge_mut_modifier=self_token.is_none().then(||quote! {&mut});
-            let self_selector=  if let Some(self_token)=self_token{
-                format_ident!("{self_token}{selector}").to_token_stream()
-            } else{
-                quote! { self.#selector }
-            };
-            let other_selector=  if let Some(other_token)=other_token{
-                format_ident!("{other_token}{selector}").to_token_stream()
-            } else{
-                quote! { other.#selector }
-            };
+            let self_merge_mut_modifier=merge_self_mut.then(||quote! {&mut});
+            let self_selector= self_selector_fn(&selector);
+            let other_selector=other_selector_fn(&selector);
             match handling {
                 Required => quote! {#self_selector = #other_selector;},
                 IsOption => quote! {
