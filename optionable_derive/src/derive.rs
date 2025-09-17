@@ -23,15 +23,20 @@ const ERR_MSG_HELPER_ATTR_ENUM_VARIANTS: &str =
 #[darling(attributes(optionable))]
 /// Helper attributes on the type definition level (attached to the `struct` or `enum` itself).
 struct TypeHelperAttributes {
+    /// Derive-macros that should be added to the optioned type
     derive: Option<PathList>,
     #[darling(default=default_suffix)]
+    /// Explicit suffix to use for the optioned type.
     suffix: LitStr,
+    /// Skip generating `OptionableConvert` impl
+    no_convert: Option<()>,
 }
 
 #[derive(FromAttributes)]
 #[darling(attributes(optionable))]
 /// Helper attributes on the type definition level (attached to the `struct` or `enum` itself).
 struct FieldHelperAttributes {
+    /// Given field won't be optioned, it will also be required for the derived optioned type.
     required: Option<()>,
 }
 
@@ -61,12 +66,16 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
             where_token: Where::default(),
             predicates: Punctuated::default(),
         });
-    let mut where_clause_convert = where_clause.clone();
+    let where_clause_convert = attrs.no_convert.is_none().then(|| {
+        let mut where_clause = where_clause.clone();
+
+        patch_where_clause_bounds(&mut where_clause, &input.generics.params, |_| {
+            quote!(::optionable::OptionableConvert)
+        });
+        where_clause
+    });
     patch_where_clause_bounds(&mut where_clause, &input.generics.params, |_| {
         quote!(::optionable::Optionable)
-    });
-    patch_where_clause_bounds(&mut where_clause_convert, &input.generics.params, |_| {
-        quote!(::optionable::OptionableConvert)
     });
 
     // the impl statements are actually independent of deriving
@@ -105,15 +114,33 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
             let optioned_fields =
                 optioned_fields(&fields, skip_optionable_if_serde_serialize.as_ref());
 
-            let into_optioned_fields = into_optioned(&fields, |selector| quote! { self.#selector });
-            let try_from_optioned_fields =
-                try_from_optioned(&fields, |selector| quote! { value.#selector });
-            let merge_fields = merge_fields(
-                &fields,
-                |selector| quote! { self.#selector },
-                |selector| quote! { other.#selector },
-                true,
-            );
+            let impl_optionable_convert=attrs.no_convert.is_none().then(||{
+                let into_optioned_fields = into_optioned(&fields, |selector| quote! { self.#selector });
+                let try_from_optioned_fields =
+                    try_from_optioned(&fields, |selector| quote! { value.#selector });
+                let merge_fields = merge_fields(
+                    &fields,
+                    |selector| quote! { self.#selector },
+                    |selector| quote! { other.#selector },
+                    true);
+                quote! {
+                    #[automatically_derived]
+                    impl #impl_generics ::optionable::OptionableConvert for #type_ident #ty_generics #where_clause_convert {
+                        fn into_optioned(self) -> #type_ident_opt #ty_generics {
+                            #type_ident_opt #generics_colon #ty_generics #into_optioned_fields
+                        }
+
+                        fn try_from_optioned(value: #type_ident_opt #ty_generics) -> Result<Self,::optionable::optionable::Error>{
+                            Ok(Self #try_from_optioned_fields)
+                        }
+
+                        fn merge(&mut self, other: #type_ident_opt #ty_generics) -> Result<(), ::optionable::optionable::Error>{
+                            #merge_fields
+                            Ok(())
+                        }
+                    }
+                }
+            });
 
             Ok(quote! {
                 #[automatically_derived]
@@ -122,21 +149,7 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
 
                 #impls_optionable
 
-                #[automatically_derived]
-                impl #impl_generics ::optionable::OptionableConvert for #type_ident #ty_generics #where_clause_convert {
-                    fn into_optioned(self) -> #type_ident_opt #ty_generics {
-                        #type_ident_opt #generics_colon #ty_generics #into_optioned_fields
-                    }
-
-                    fn try_from_optioned(value: #type_ident_opt #ty_generics) -> Result<Self,::optionable::optionable::Error>{
-                        Ok(Self #try_from_optioned_fields)
-                    }
-
-                    fn merge(&mut self, other: #type_ident_opt #ty_generics) -> Result<(), ::optionable::optionable::Error>{
-                        #merge_fields
-                        Ok(())
-                    }
-                }
+                #impl_optionable_convert
             })
         }
         Data::Enum(e) => {
@@ -157,49 +170,75 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
                 let fields = optioned_fields(f, skip_optionable_if_serde_serialize.as_ref());
                 quote!( #variant #fields )
             });
-            let into_variants = variants
-                .iter()
-                .map(|(variant, f)| {
-                    let fields = into_optioned(f, |selector| {
-                        format_ident!("{self_prefix}{selector}").to_token_stream()
-                    });
-                    let destruct = destructure(f, &self_prefix)?;
-                    Ok::<_, Error>(
-                        quote!( Self::#variant #destruct => #type_ident_opt::#variant #fields ),
-                    )
-                })
-                .collect::<Result<Vec<_>, _>>()?;
-            let try_from_variants = variants
-                .iter()
-                .map(|(variant, f)| {
-                    let fields = try_from_optioned(f, |selector| {
-                        format_ident!("{value_prefix}{selector}").to_token_stream()
-                    });
-                    let destruct = destructure(f, &value_prefix)?;
-                    Ok::<_, Error>(
-                        quote!( #type_ident_opt::#variant #destruct => Self::#variant #fields ),
-                    )
-                })
-                .collect::<Result<Vec<_>, _>>()?;
-            let merge_variants = variants
-                .iter()
-                .map(|(variant, f)| {
-                    let fields = merge_fields(f,
-                    |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
-                    |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
-                    false);
-                    // can't have these for unit types
-                    let self_mut_destructure = destructure(f, &self_prefix)?;
-                    let other_destructure = destructure(f,  &other_prefix)?;
-                    Ok::<_, Error>(quote!( #type_ident_opt::#variant #other_destructure => {
-                        if let Self::#variant #self_mut_destructure = self {
-                            #fields
-                        } else {
-                            *self = Self::try_from_optioned(#type_ident_opt::#variant #other_destructure)?;
+
+            let impl_optionable_convert=attrs.no_convert.is_none().then(|| {
+                let into_variants = variants
+                    .iter()
+                    .map(|(variant, f)| {
+                        let fields = into_optioned(f, |selector| {
+                            format_ident!("{self_prefix}{selector}").to_token_stream()
+                        });
+                        let destruct = destructure(f, &self_prefix)?;
+                        Ok::<_, Error>(
+                            quote!( Self::#variant #destruct => #type_ident_opt::#variant #fields ),
+                        )
+                    })
+                    .collect::<Result<Vec<_>, _>>()?;
+                let try_from_variants = variants
+                    .iter()
+                    .map(|(variant, f)| {
+                        let fields = try_from_optioned(f, |selector| {
+                            format_ident!("{value_prefix}{selector}").to_token_stream()
+                        });
+                        let destruct = destructure(f, &value_prefix)?;
+                        Ok::<_, Error>(
+                            quote!( #type_ident_opt::#variant #destruct => Self::#variant #fields ),
+                        )
+                    })
+                    .collect::<Result<Vec<_>, _>>()?;
+                let merge_variants = variants
+                    .iter()
+                    .map(|(variant, f)| {
+                        let fields = merge_fields(f,
+                                                  |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
+                                                  |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
+                                                  false);
+                        // can't have these for unit types
+                        let self_mut_destructure = destructure(f, &self_prefix)?;
+                        let other_destructure = destructure(f, &other_prefix)?;
+                        Ok::<_, Error>(quote!( #type_ident_opt::#variant #other_destructure => {
+                            if let Self::#variant #self_mut_destructure = self {
+                                #fields
+                            } else {
+                                *self = Self::try_from_optioned(#type_ident_opt::#variant #other_destructure)?;
+                            }
+                        }))
+                    })
+                    .collect::<Result<Vec<_>, _>>()?;
+                Ok::<_,Error>(quote! {
+                    #[automatically_derived]
+                    impl #impl_generics ::optionable::OptionableConvert for #type_ident #ty_generics #where_clause_convert {
+                        fn into_optioned(self) -> #type_ident_opt #ty_generics {
+                            match self {
+                                #(#into_variants),*
+                            }
                         }
-                    }))
+
+                        fn try_from_optioned(value: #type_ident_opt #ty_generics)->Result<Self,::optionable::optionable::Error>{
+                            Ok(match value{
+                                #(#try_from_variants),*
+                            })
+                        }
+
+                        fn merge(&mut self, other: #type_ident_opt #ty_generics) -> Result<(), ::optionable::optionable::Error>{
+                            match other{
+                                #(#merge_variants),*
+                            }
+                            Ok(())
+                        }
+                    }
                 })
-                .collect::<Result<Vec<_>, _>>()?;
+            }).transpose()?;
 
             Ok(quote!(
                 #[automatically_derived]
@@ -210,27 +249,7 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
 
                 #impls_optionable
 
-                #[automatically_derived]
-                impl #impl_generics ::optionable::OptionableConvert for #type_ident #ty_generics #where_clause_convert {
-                    fn into_optioned(self) -> #type_ident_opt #ty_generics {
-                        match self {
-                            #(#into_variants),*
-                        }
-                    }
-
-                    fn try_from_optioned(value: #type_ident_opt #ty_generics)->Result<Self,::optionable::optionable::Error>{
-                        Ok(match value{
-                            #(#try_from_variants),*
-                        })
-                    }
-
-                    fn merge(&mut self, other: #type_ident_opt #ty_generics) -> Result<(), ::optionable::optionable::Error>{
-                        match other{
-                            #(#merge_variants),*
-                        }
-                        Ok(())
-                    }
-                }
+                #impl_optionable_convert
             ))
         }
         Data::Union(_) => error("#[derive(Optionable)] not supported for unit structs"),
@@ -632,6 +651,34 @@ mod tests {
                             }
                             Ok(())
                         }
+                    }
+                },
+            },
+            // named struct fields, no convert impl
+            TestCase {
+                input: quote! {
+                    #[derive(Optionable)]
+                    #[optionable(no_convert)]
+                    struct DeriveExample {
+                        name: String,
+                        pub surname: String,
+                    }
+                },
+                output: quote! {
+                    #[automatically_derived]
+                    struct DeriveExampleOpt {
+                        name: Option<<String as ::optionable::Optionable>::Optioned>,
+                        pub surname: Option<<String as ::optionable::Optionable>::Optioned>
+                    }
+
+                    #[automatically_derived]
+                    impl ::optionable::Optionable for DeriveExample {
+                        type Optioned = DeriveExampleOpt;
+                    }
+
+                    #[automatically_derived]
+                    impl ::optionable::Optionable for DeriveExampleOpt {
+                        type Optioned = DeriveExampleOpt;
                     }
                 },
             },

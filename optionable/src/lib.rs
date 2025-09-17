@@ -136,8 +136,7 @@ pub trait Optionable {
     type Optioned;
 }
 
-/// Helper methods to transform in and from optioned objects as well as merging.
-/// Only available for sized types.
+/// Extension trait for sized [`trait@Optionable`] to transform in and from optioned objects as well as merging.
 pub trait OptionableConvert: Sized + Optionable {
     /// Transforms this object into an optioned variant which all fields set.
     ///
@@ -167,9 +166,8 @@ pub trait OptionableConvert: Sized + Optionable {
 /// Prevent implementation outside of this crate.
 trait Sealed<T> {}
 
-/// Helper method to transform to a full non-optioned type.
-/// Will be automatically implemented for every target `T:Optionable`
-/// and can't be custom implemented.
+/// Sealed helper trait to transform from the perspective of the optioned type.
+/// Will be automatically implemented for every target `<T as Optionable>:Optioned`.
 #[allow(private_bounds)]
 pub trait OptionedConvert<T>: Sized + Sealed<T>
 where

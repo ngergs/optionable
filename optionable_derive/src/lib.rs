@@ -20,6 +20,14 @@ mod derive;
 ///   #[optionable(derive(Deserialize, Serialize))]
 ///   struct MyStruct{}
 ///   ```
+/// - **`no_convert`**: Does not derive the `OptionableConvert` implementation.
+///   Might be required if the target type involves smart pointers or unsized fields.
+///   Example:
+///   ```rust,ignore
+///   #[derive(optionable)]
+///   #[optionable(no_convert)]
+///   struct MyStruct{}
+///   ```
 /// - **`suffix`**: The name of the generated optioned struct/enum will be `<original><suffix>` with suffix
 ///   defaulting to `"Opt"`. The suffix value can be adjusted via e.g. `#[optionable(suffix="Ac")]`.
 ///   Example:
