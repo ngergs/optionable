@@ -9,7 +9,7 @@ While trivial to write for plain structures this quickly becomes tedious for nes
 ## Deriving optional structs/enums
 
 The core utility of this library is to provide an `Optionable`-derive macro that derives such an optioned type.
-It supports nested structures as well as various container and pointer wrapper.
+It supports nested structures, enums as well as various container types.
 
 The general logic is the same as for other rust derives, If you want to use the derive `Optionable` for a struct/enum
 every field of it needs to also have implemented the corresponding `Optionable` trait (see below):

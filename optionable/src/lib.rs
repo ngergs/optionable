@@ -9,7 +9,8 @@
 //! ## Deriving optional structs/enums
 //!
 //! The core utility of this library is to provide an [`derive@Optionable`]-derive macro that derives such an optioned type.
-//! It supports nested structures as well as various container and pointer wrapper.
+//! It supports nested structures, enums as well as various container types.
+//!
 //! The general logic is the same as for other rust derives, If you want to use the [`derive@Optionable`]-derive macro for a struct/enum
 //! every field of it needs to also have implemented the corresponding [`trait@Optionable`] trait (see below):
 //! ```rust
