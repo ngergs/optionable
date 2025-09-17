@@ -37,6 +37,7 @@ fn derive_named_struct() {
 /// Named struct with a required field
 fn derive_named_struct_required() {
     #[derive(Optionable)]
+    #[optionable(derive(Clone))]
     #[allow(dead_code)]
     struct DeriveExample {
         name: String,
@@ -44,14 +45,21 @@ fn derive_named_struct_required() {
         surname: String,
     }
 
-    let _ = DeriveExampleOpt {
+    let partial = DeriveExampleOpt {
         name: None,
-        surname: "b".to_owned(),
+        surname: "c".to_owned(),
     };
-    let _ = DeriveExampleOpt {
+    let full_partial = DeriveExampleOpt {
         name: Some("a".to_owned()),
         surname: "b".to_owned(),
     };
+
+    let mut full: DeriveExample = full_partial.clone().try_into_optionable().unwrap();
+    assert_eq!(full_partial.clone().name.unwrap(), full.name);
+    assert_eq!(full_partial.surname, full.surname);
+    full.merge(partial.clone()).unwrap();
+    assert_eq!(full_partial.name.unwrap(), full.name);
+    assert_eq!(partial.surname, full.surname);
 }
 
 #[test]
@@ -160,12 +168,33 @@ fn derive_enum() {
     };
     let _ = DeriveExampleOpt::AddressTuple(None, None);
 
-    let _ = DeriveExampleOpt::Plain(Some("a".to_owned()));
-    let _ = DeriveExampleOpt::Address {
+    let plain_optioned = DeriveExampleOpt::Plain(Some("a".to_owned()));
+    let plain: DeriveExample = plain_optioned.try_into_optionable().unwrap();
+    if let DeriveExample::Plain(val) = plain {
+        assert_eq!(val, "a".to_owned());
+    } else {
+        panic!("optioned variant does not coincide with expected");
+    }
+
+    let address_optioned = DeriveExampleOpt::Address {
         street: Some("a".to_owned()),
         number: Some(42),
     };
-    let _ = DeriveExampleOpt::AddressTuple(Some("a".to_owned()), Some(42));
+    let address: DeriveExample = address_optioned.try_into_optionable().unwrap();
+    if let DeriveExample::Address { street, number } = address {
+        assert_eq!(street, "a".to_owned());
+        assert_eq!(number, 42)
+    } else {
+        panic!("optioned variant does not coincide with expected");
+    }
+    let address2_optioned = DeriveExampleOpt::AddressTuple(Some("a".to_owned()), Some(42));
+    let address2: DeriveExample = address2_optioned.try_into_optionable().unwrap();
+    if let DeriveExample::AddressTuple(street, number) = address2 {
+        assert_eq!(street, "a".to_owned());
+        assert_eq!(number, 42)
+    } else {
+        panic!("optioned variant does not coincide with expected");
+    }
 }
 
 #[test]
