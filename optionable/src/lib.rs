@@ -75,7 +75,7 @@
 //! for the optioned object.
 //!
 //! ## How it works
-//! The main [`trait@Optionable`] trait is quite simple
+//! The main [`trait@Optionable`] trait is quite simple:
 //! ```rust
 //! pub trait Optionable {
 //!     type Optioned;

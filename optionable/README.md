@@ -83,7 +83,7 @@ pub trait OptionedConvert<T>: Sized + Sealed<T>
 ```
 
 ## How it works
-The main `Optionable` trait is quite simple
+The main `Optionable` trait is quite simple:
 ```rust
 pub trait Optionable {
     type Optioned;
