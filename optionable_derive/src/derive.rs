@@ -256,8 +256,8 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
     }
 }
 
-/// Constructs a destructure selector for the given fields, e.g. a `vec!(field_a, field_b)`
-/// for a named enum or `vec!(0,1)` for an unnamed enum.
+/// Constructs a destructure selector for the given fields, e.g. a `std::vec!(field_a, field_b)`
+/// for a named enum or `std::vec!(0,1)` for an unnamed enum.
 fn destructure(fields: &FieldsParsed, prefix: &TokenStream) -> Result<TokenStream, Error> {
     Ok(match fields.struct_type {
         StructType::Named => {
@@ -354,7 +354,7 @@ fn try_from_optioned(
                 let selector_quoted=LitStr::new(&selector.to_string(), ident.span());
                 quote! {
                     #ident #colon <#ty as ::optionable::OptionableConvert>::try_from_optioned(
-                        #value_selector.ok_or(optionable::optionable::Error{ missing_fields: vec![#selector_quoted] })?
+                        #value_selector.ok_or(optionable::optionable::Error{ missing_fields: std::vec![#selector_quoted] })?
                     )?
                 }
             }
@@ -599,7 +599,7 @@ mod tests {
     #[test]
     #[allow(clippy::too_many_lines)]
     fn test_optionable() {
-        let tcs = vec![
+        let tcs = std::vec![
             // named struct fields
             TestCase {
                 input: quote! {
@@ -637,8 +637,8 @@ mod tests {
 
                         fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok(Self{
-                                name: <String as ::optionable::OptionableConvert>::try_from_optioned(value.name.ok_or(optionable::optionable::Error { missing_fields: vec!["name"] })?)?,
-                                surname: <String as ::optionable::OptionableConvert>::try_from_optioned(value.surname.ok_or(optionable::optionable::Error { missing_fields: vec!["surname"] })?)?
+                                name: <String as ::optionable::OptionableConvert>::try_from_optioned(value.name.ok_or(optionable::optionable::Error { missing_fields: std::vec!["name"] })?)?,
+                                surname: <String as ::optionable::OptionableConvert>::try_from_optioned(value.surname.ok_or(optionable::optionable::Error { missing_fields: std::vec!["surname"] })?)?
                             })
                         }
 
@@ -720,7 +720,7 @@ mod tests {
 
                         fn try_from_optioned(value:DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok (Self {
-                                name: <String as ::optionable::OptionableConvert>::try_from_optioned(value.name.ok_or(optionable::optionable::Error { missing_fields: vec! ["name"] })?)?,
+                                name: <String as ::optionable::OptionableConvert>::try_from_optioned(value.name.ok_or(optionable::optionable::Error { missing_fields: std::vec! ["name"] })?)?,
                                 surname: value.surname
                             })
                         }
@@ -780,9 +780,9 @@ mod tests {
 
                         fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok(Self{
-                                name: <String as ::optionable::OptionableConvert>::try_from_optioned(value.name.ok_or(optionable::optionable::Error { missing_fields: vec!["name"]})?)?,
+                                name: <String as ::optionable::OptionableConvert>::try_from_optioned(value.name.ok_or(optionable::optionable::Error { missing_fields: std::vec!["name"]})?)?,
                                 middle_name: <Option<String> as ::optionable::OptionableConvert>::try_from_optioned(value.middle_name)?,
-                                surname: <String as ::optionable::OptionableConvert>::try_from_optioned(value.surname.ok_or(optionable::optionable::Error { missing_fields: vec!["surname"]})?)?
+                                surname: <String as ::optionable::OptionableConvert>::try_from_optioned(value.surname.ok_or(optionable::optionable::Error { missing_fields: std::vec!["surname"]})?)?
                             })
                         }
 
@@ -840,8 +840,8 @@ mod tests {
 
                         fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::optionable::Error> {
                              Ok(Self{
-                                name: <String as ::optionable::OptionableConvert>::try_from_optioned(value.name.ok_or(optionable::optionable::Error{ missing_fields: vec!["name"]})?)?,
-                                surname: <String as ::optionable::OptionableConvert>::try_from_optioned(value.surname.ok_or(optionable::optionable::Error{ missing_fields: vec!["surname"]})?)?
+                                name: <String as ::optionable::OptionableConvert>::try_from_optioned(value.name.ok_or(optionable::optionable::Error{ missing_fields: std::vec!["name"]})?)?,
+                                surname: <String as ::optionable::OptionableConvert>::try_from_optioned(value.surname.ok_or(optionable::optionable::Error{ missing_fields: std::vec!["surname"]})?)?
                             })
                         }
 
@@ -891,8 +891,8 @@ mod tests {
 
                          fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok(Self(
-                                <String as ::optionable::OptionableConvert>::try_from_optioned(value.0.ok_or(optionable::optionable::Error { missing_fields: vec!["0"] })?)?,
-                                <i32 as ::optionable::OptionableConvert>::try_from_optioned(value.1.ok_or(optionable::optionable::Error { missing_fields: vec!["1"] })?)?
+                                <String as ::optionable::OptionableConvert>::try_from_optioned(value.0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?)?,
+                                <i32 as ::optionable::OptionableConvert>::try_from_optioned(value.1.ok_or(optionable::optionable::Error { missing_fields: std::vec!["1"] })?)?
                             ))
                         }
 
@@ -942,7 +942,7 @@ mod tests {
 
                          fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok(Self(
-                                <String as ::optionable::OptionableConvert>::try_from_optioned(value.0.ok_or(optionable::optionable::Error { missing_fields: vec!["0"] })?)?,
+                                <String as ::optionable::OptionableConvert>::try_from_optioned(value.0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?)?,
                                 value.1))
                         }
 
@@ -1001,8 +1001,8 @@ mod tests {
 
                          fn try_from_optioned(value: DeriveExampleOpt<T, T2> ) -> Result <Self, ::optionable::optionable::Error> {
                              Ok(Self{
-                                output: <T as ::optionable::OptionableConvert>::try_from_optioned(value.output.ok_or(optionable::optionable::Error { missing_fields: vec!["output"] })?)?,
-                                input: <T2 as ::optionable::OptionableConvert>::try_from_optioned(value.input.ok_or(optionable::optionable::Error { missing_fields: vec!["input"] })?)?
+                                output: <T as ::optionable::OptionableConvert>::try_from_optioned(value.output.ok_or(optionable::optionable::Error { missing_fields: std::vec!["output"] })?)?,
+                                input: <T2 as ::optionable::OptionableConvert>::try_from_optioned(value.input.ok_or(optionable::optionable::Error { missing_fields: std::vec!["input"] })?)?
                             })
                         }
 
@@ -1070,14 +1070,14 @@ mod tests {
                             Ok (match value {
                                 DeriveExampleOpt::Unit => Self::Unit,
                                 DeriveExampleOpt::Plain(value_0) => Self::Plain(
-                                    <String as ::optionable::OptionableConvert>::try_from_optioned(value_0.ok_or(optionable::optionable::Error { missing_fields: vec!["0"] })?)?
+                                    <String as ::optionable::OptionableConvert>::try_from_optioned(value_0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?)?
                                 ),
                                 DeriveExampleOpt::Address{street: value_street, number: value_number} => Self::Address{
-                                    street: <String as ::optionable::OptionableConvert>::try_from_optioned(value_street.ok_or(optionable::optionable::Error { missing_fields: vec!["street"] })?)?,
-                                    number: <u32 as ::optionable::OptionableConvert> ::try_from_optioned(value_number.ok_or(optionable::optionable::Error { missing_fields: vec!["number"] })?)?
+                                    street: <String as ::optionable::OptionableConvert>::try_from_optioned(value_street.ok_or(optionable::optionable::Error { missing_fields: std::vec!["street"] })?)?,
+                                    number: <u32 as ::optionable::OptionableConvert> ::try_from_optioned(value_number.ok_or(optionable::optionable::Error { missing_fields: std::vec!["number"] })?)?
                                 },
                                 DeriveExampleOpt::Address2(value_0, value_1) => Self::Address2(
-                                    <String as ::optionable::OptionableConvert>::try_from_optioned(value_0.ok_or(optionable::optionable::Error { missing_fields: vec!["0"] })?)?,
+                                    <String as ::optionable::OptionableConvert>::try_from_optioned(value_0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?)?,
                                     <u32 as ::optionable::OptionableConvert>::try_from_optioned(value_1.ok_or(optionable::optionable::Error { missing_fields: vec ! ["1"] })?)?)
                             })
                         }
