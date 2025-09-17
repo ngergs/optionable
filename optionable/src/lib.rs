@@ -75,7 +75,7 @@
 //!     type Optioned;
 //! }
 //! ```
-//! It is a marker trait that allows to express for a given type `T` which type should be considered its `Optioned` type
+//! It is a marker trait that allows to express for a given type `T` which type should be considered its `T::Optioned` type
 //! such that `Option<Optioned>` would represent all variants of partial completeness.
 //! For types without inner structure this means that the `Optioned` type will just resolve to the type itself, e.g.
 //! ```rust,ignore
@@ -157,3 +157,33 @@ pub trait OptionableConvert: Sized + Optionable {
     ///   and `Some` value for `other`. The `T::try_from(T::Optioned)` can fail is fields are missing for this subfield.
     fn merge(&mut self, other: Self::Optioned) -> Result<(), Error>;
 }
+
+/// Prevent implementation outside of this crate.
+trait Sealed<T> {}
+
+/// Helper method to transform to a full non-optioned type.
+/// Will be automatically implemented for every target `T:Optionable`
+/// and can't be custom implemented.
+#[allow(private_bounds)]
+pub trait OptionedConvert<T>: Sized + Sealed<T>
+where
+    T: Optionable<Optioned = Self> + OptionableConvert,
+{
+    /// Gets an optioned variant with all fields set.
+    ///
+    /// We cannot implement `From` from the stdlib as we need to implement this
+    /// for various stdlib primitives and containers.
+    fn from_optionable(value: T) -> Self {
+        value.into_optioned()
+    }
+
+    /// Try to build a full type from this optioned variant.
+    /// # Errors
+    /// - If fields required by the full type are not set.
+    fn try_into_optionable(self) -> Result<T, Error> {
+        T::try_from_optioned(self)
+    }
+}
+
+impl<T, TOpt> Sealed<T> for TOpt where T: Optionable<Optioned = TOpt> + OptionableConvert {}
+impl<T, TOpt> OptionedConvert<T> for TOpt where T: Optionable<Optioned = TOpt> + OptionableConvert {}

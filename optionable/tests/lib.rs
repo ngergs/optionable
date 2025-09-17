@@ -1,3 +1,4 @@
+use optionable::OptionedConvert;
 use optionable::{Optionable, OptionableConvert};
 use serde::Deserialize;
 use serde::Serialize;
@@ -24,7 +25,7 @@ fn derive_named_struct() {
         name: Some("a".to_owned()),
         surname: Some("b".to_owned()),
     };
-    let mut full = DeriveExample::try_from_optioned(full_partial.clone()).unwrap();
+    let mut full: DeriveExample = full_partial.clone().try_into_optionable().unwrap();
     assert_eq!(full.name, full_partial.name.clone().unwrap());
     assert_eq!(full.surname, full_partial.surname.unwrap());
     full.merge(partial.clone()).unwrap();
