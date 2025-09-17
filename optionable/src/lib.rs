@@ -68,6 +68,12 @@
 //! }
 //! ```
 //!
+//! ## Conversion
+//! Per default also conversion traits aiming for struct/enums with sized fields will be generated.
+//! The relevant traits are [`OptionableConvert`] which is an extension trait for sized-fields only [`trait@Optionable`]
+//! objects. From this trait the sealed convenience trait [`OptionedConvert`] is auto-implemented
+//! for the optioned object.
+//!
 //! ## How it works
 //! The main [`trait@Optionable`] trait is quite simple
 //! ```rust

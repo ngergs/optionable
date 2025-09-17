@@ -64,6 +64,24 @@ enum DeriveExampleOpt {
 }
 ```
 
+## Conversion
+Per default also conversion traits aiming for struct/enums with sized fields will be generated.
+The relevant traits are (shown here without comments and `where` clauses):
+```rust
+pub trait OptionableConvert: Sized + Optionable {
+    fn into_optioned(self) -> Self::Optioned;
+    fn try_from_optioned(value: Self::Optioned) -> Result<Self, Error>;
+    fn merge(&mut self, other: Self::Optioned) -> Result<(), Error>;
+}
+
+// auto-implemented from `OptionableConvert`
+pub trait OptionedConvert<T>: Sized + Sealed<T>
+{
+    fn from_optionable(value: T) -> Self;
+    fn try_into_optionable(self) -> Result<T, Error>;
+}
+```
+
 ## How it works
 The main `Optionable` trait is quite simple
 ```rust
