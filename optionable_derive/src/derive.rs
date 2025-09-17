@@ -599,7 +599,7 @@ mod tests {
     #[test]
     #[allow(clippy::too_many_lines)]
     fn test_optionable() {
-        let tcs = std::vec![
+        let tcs = vec![
             // named struct fields
             TestCase {
                 input: quote! {
@@ -1078,7 +1078,7 @@ mod tests {
                                 },
                                 DeriveExampleOpt::Address2(value_0, value_1) => Self::Address2(
                                     <String as ::optionable::OptionableConvert>::try_from_optioned(value_0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?)?,
-                                    <u32 as ::optionable::OptionableConvert>::try_from_optioned(value_1.ok_or(optionable::optionable::Error { missing_fields: vec ! ["1"] })?)?)
+                                    <u32 as ::optionable::OptionableConvert>::try_from_optioned(value_1.ok_or(optionable::optionable::Error { missing_fields: std::vec! ["1"] })?)?)
                             })
                         }
 
