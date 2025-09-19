@@ -294,14 +294,25 @@ fn destructure(fields: &FieldsParsed, prefix: &TokenStream) -> Result<TokenStrea
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
 fn optioned_fields(fields: &FieldsParsed, serde_attributes: Option<&TokenStream>) -> TokenStream {
-    let fields_token = fields.fields.iter().map(|FieldParsed { field: Field { vis, ident, ty, .. }, handling }| {
-        let colon = ident.as_ref().map(|_| quote! {:});
-        match handling {
-            Required => quote! {#vis #ident #colon #ty},
-            IsOption => quote! {#serde_attributes #vis #ident #colon <#ty as ::optionable::Optionable>::Optioned},
-            Other => quote! {#serde_attributes #vis #ident #colon Option<<#ty as ::optionable::Optionable>::Optioned>},
-        }
-    });
+    let fields_token = fields.fields.iter().map(
+        |FieldParsed {
+             field: Field { vis, ident, ty, .. },
+             handling,
+         }| {
+            let colon = ident.as_ref().map(|_| quote! {:});
+            match handling {
+                Required => quote! {#vis #ident #colon #ty},
+                IsOption => {
+                    let ty_optioned = optioned_ty(ty);
+                    quote! {#serde_attributes #vis #ident #colon #ty_optioned}
+                }
+                Other => {
+                    let ty_optioned = optioned_ty(ty);
+                    quote! {#serde_attributes #vis #ident #colon Option<#ty_optioned>}
+                }
+            }
+        },
+    );
     struct_wrapper(fields_token, &fields.struct_type)
 }
 
@@ -520,9 +531,30 @@ fn into_field_handling(fields: Fields) -> Result<FieldsParsed, Error> {
     })
 }
 
+const SELF_RESOLVING_TYPES: [&str; 17] = [
+    // Rust primitives don't have inner structure, https://doc.rust-lang.org/rust-by-example/primitives.html
+    "i8", "i16", "i32", "i64", "i128", "isize", "u8", "u16", "u32", "u64", "u128", "usize", "f32",
+    "f64", "char", "bool", // Other types without inner structure
+    "String",
+];
+
+/// Tries to resolve the optioned type analogous to what we do in the main crate.
+/// Due to limitations to macro resolving (no order guaranteed) we have to have an explicit
+/// list of well-known types and their optioned types.
+/// For now limited to self-resolving (mostly primitive) types
+fn optioned_ty(ty: &Type) -> TokenStream {
+    if let Type::Path(TypePath { qself, path }) = &ty
+        && qself.is_none()
+        && SELF_RESOLVING_TYPES.contains(&&*path.to_token_stream().to_string())
+    {
+        ty.to_token_stream()
+    } else {
+        quote! { <#ty as ::optionable::Optionable>::Optioned }
+    }
+}
+
 /// How we handle different cases in order of importance/detection.
 /// E.g. if a field is `Required` we don't care whether it's of `Option` type or not.
-
 #[derive(Debug)]
 enum FieldHandling {
     Required,
@@ -531,7 +563,6 @@ enum FieldHandling {
 }
 
 /// Just a combination of a field and which handling case it is
-
 #[derive(Debug)]
 struct FieldParsed {
     field: Field,
@@ -612,8 +643,8 @@ mod tests {
                 output: quote! {
                     #[automatically_derived]
                     struct DeriveExampleOpt {
-                        name: Option<<String as ::optionable::Optionable>::Optioned>,
-                        pub surname: Option<<String as ::optionable::Optionable>::Optioned>
+                        name: Option<String>,
+                        pub surname: Option<String>
                     }
 
                     #[automatically_derived]
@@ -667,8 +698,8 @@ mod tests {
                 output: quote! {
                     #[automatically_derived]
                     struct DeriveExampleOpt {
-                        name: Option<<String as ::optionable::Optionable>::Optioned>,
-                        pub surname: Option<<String as ::optionable::Optionable>::Optioned>
+                        name: Option<String>,
+                        pub surname: Option<String>
                     }
 
                     #[automatically_derived]
@@ -695,7 +726,7 @@ mod tests {
                 output: quote! {
                     #[automatically_derived]
                     struct DeriveExampleOpt {
-                        name: Option<<String as ::optionable::Optionable>::Optioned>,
+                        name: Option<String>,
                         pub surname: String
                     }
 
@@ -751,11 +782,11 @@ mod tests {
                     #[derive(Deserialize, Serialize)]
                     struct DeriveExampleAc {
                         #[serde(skip_serializing_if = "Option::is_none")]
-                        name: Option<<String as ::optionable::Optionable>::Optioned>,
+                        name: Option<String>,
                         #[serde(skip_serializing_if = "Option::is_none")]
                         middle_name: <Option<String> as ::optionable::Optionable>::Optioned,
                         #[serde(skip_serializing_if = "Option::is_none")]
-                        surname: Option<<String as ::optionable::Optionable>::Optioned>
+                        surname: Option<String>
                     }
 
                     #[automatically_derived]
@@ -814,9 +845,9 @@ mod tests {
                     #[derive(serde::Deserialize, serde::Serialize)]
                     struct DeriveExampleAc {
                         #[serde(skip_serializing_if = "Option::is_none")]
-                        name: Option<<String as ::optionable::Optionable>::Optioned>,
+                        name: Option<String>,
                         #[serde(skip_serializing_if = "Option::is_none")]
-                        surname: Option<<String as ::optionable::Optionable>::Optioned>
+                        surname: Option<String >
                     }
 
                     #[automatically_derived]
@@ -866,8 +897,8 @@ mod tests {
                 output: quote! {
                     #[automatically_derived]
                     struct DeriveExampleOpt(
-                        pub Option<<String as ::optionable::Optionable>::Optioned>,
-                        Option<<i32 as ::optionable::Optionable>::Optioned>
+                        pub Option<String>,
+                        Option<i32>
                     );
 
                     #[automatically_derived]
@@ -917,7 +948,7 @@ mod tests {
                 output: quote! {
                     #[automatically_derived]
                     struct DeriveExampleOpt(
-                        pub Option<<String as ::optionable::Optionable>::Optioned>,
+                        pub Option<String>,
                         i32
                     );
 
@@ -970,8 +1001,8 @@ mod tests {
                     struct DeriveExampleOpt<T, T2: Serialize>
                         where T: DeserializeOwned + ::optionable::Optionable,
                               T2: ::optionable::Optionable {
-                        output: Option<<T as ::optionable::Optionable>::Optioned>,
-                        input: Option<<T2 as ::optionable::Optionable>::Optioned>
+                        output: Option< <T as ::optionable::Optionable>::Optioned>,
+                        input: Option< <T2 as ::optionable::Optionable>::Optioned>
                     }
 
                     #[automatically_derived]
@@ -1032,9 +1063,9 @@ mod tests {
                     # [automatically_derived]
                     enum DeriveExampleOpt {
                         Unit,
-                        Plain( Option<<String as ::optionable::Optionable>::Optioned> ),
-                        Address{ street: Option<< String as ::optionable::Optionable>::Optioned>, number:Option<<u32 as ::optionable::Optionable>::Optioned> },
-                        Address2( Option<<String as ::optionable::Optionable>::Optioned>, Option<<u32 as ::optionable::Optionable>::Optioned> )
+                        Plain( Option<String> ),
+                        Address{ street: Option<String>, number:Option<u32> },
+                        Address2( Option<String>, Option<u32> )
                     }
 
                     #[automatically_derived]
