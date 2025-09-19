@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4](https://github.com/ngergs/optionable/compare/optionable_derive-v0.1.3...optionable_derive-v0.1.4) - 2025-09-19
+
+### Fixed
+
+- resolve self-resolving types like i32 immediately when deriving optioned structs/enums
+
 ## [0.1.3](https://github.com/ngergs/optionable/compare/optionable_derive-v0.1.2...optionable_derive-v0.1.3) - 2025-09-17
 
 ### Added
