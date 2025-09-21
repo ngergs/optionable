@@ -18,3 +18,4 @@ quote = "1.0.40"
 syn = { version = "2.0.106", default-features = false, features = ["proc-macro"] }
 proc-macro2 = "1.0.101"
 darling = { version = "0.21.3", default-features = false }
+itertools = "0.14.0"

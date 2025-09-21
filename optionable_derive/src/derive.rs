@@ -2,6 +2,7 @@ use crate::derive::FieldHandling::{IsOption, Other, Required};
 use crate::error;
 use darling::util::PathList;
 use darling::{FromAttributes, FromDeriveInput};
+use itertools::MultiUnzip;
 use proc_macro2::{Ident, Literal, Span, TokenStream};
 use quote::{format_ident, quote, ToTokens};
 use std::cmp::PartialEq;
@@ -154,7 +155,6 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
         }
         Data::Enum(e) => {
             let self_prefix = quote! {self_};
-            let value_prefix = quote! {value_};
             let other_prefix = quote! {other_};
 
             let variants = e
@@ -172,49 +172,35 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
             });
 
             let impl_optionable_convert=attrs.no_convert.is_none().then(|| {
-                let into_variants = variants
+                let (into_variants, try_from_variants, merge_variants):(Vec<_>,Vec<_>,Vec<_>) = variants
                     .iter()
                     .map(|(variant, f)| {
-                        let fields = into_optioned(f, |selector| {
+                        let fields_into = into_optioned(f, |selector| {
                             format_ident!("{self_prefix}{selector}").to_token_stream()
                         });
-                        let destruct = destructure(f, &self_prefix)?;
-                        Ok::<_, Error>(
-                            quote!( Self::#variant #destruct => #type_ident_opt::#variant #fields ),
-                        )
-                    })
-                    .collect::<Result<Vec<_>, _>>()?;
-                let try_from_variants = variants
-                    .iter()
-                    .map(|(variant, f)| {
-                        let fields = try_from_optioned(f, |selector| {
-                            format_ident!("{value_prefix}{selector}").to_token_stream()
+                        let fields_try_from = try_from_optioned(f, |selector| {
+                            format_ident!("{other_prefix}{selector}").to_token_stream()
                         });
-                        let destruct = destructure(f, &value_prefix)?;
-                        Ok::<_, Error>(
-                            quote!( #type_ident_opt::#variant #destruct => Self::#variant #fields ),
-                        )
-                    })
-                    .collect::<Result<Vec<_>, _>>()?;
-                let merge_variants = variants
-                    .iter()
-                    .map(|(variant, f)| {
-                        let fields = merge_fields(f,
+                        let fields_merge = merge_fields(f,
                                                   |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
                                                   |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
                                                   false);
-                        // can't have these for unit types
-                        let self_mut_destructure = destructure(f, &self_prefix)?;
+                        let self_destructure = destructure(f, &self_prefix)?;
                         let other_destructure = destructure(f, &other_prefix)?;
-                        Ok::<_, Error>(quote!( #type_ident_opt::#variant #other_destructure => {
-                            if let Self::#variant #self_mut_destructure = self {
-                                #fields
-                            } else {
-                                *self = Self::try_from_optioned(#type_ident_opt::#variant #other_destructure)?;
-                            }
-                        }))
+                        Ok::<_, Error>((
+                            quote!( Self::#variant #self_destructure => #type_ident_opt::#variant #fields_into ),
+                            quote!( #type_ident_opt::#variant #other_destructure => Self::#variant #fields_try_from ),
+                            quote!( #type_ident_opt::#variant #other_destructure => {
+                                if let Self::#variant #self_destructure = self {
+                                    #fields_merge
+                                } else {
+                                    *self = Self::try_from_optioned(#type_ident_opt::#variant #other_destructure)?;
+                                }
+                            })
+                        ))
                     })
-                    .collect::<Result<Vec<_>, _>>()?;
+                    .collect::<Result<Vec<_>, _>>()?
+                    .into_iter().multiunzip();
                 Ok::<_,Error>(quote! {
                     #[automatically_derived]
                     impl #impl_generics ::optionable::OptionableConvert for #type_ident #ty_generics #where_clause_convert {
@@ -224,8 +210,8 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
                             }
                         }
 
-                        fn try_from_optioned(value: #type_ident_opt #ty_generics)->Result<Self,::optionable::optionable::Error>{
-                            Ok(match value{
+                        fn try_from_optioned(other: #type_ident_opt #ty_generics)->Result<Self,::optionable::optionable::Error>{
+                            Ok(match other{
                                 #(#try_from_variants),*
                             })
                         }
@@ -522,7 +508,6 @@ fn into_field_handling(fields: Fields) -> Result<FieldsParsed, Error> {
 
 /// How we handle different cases in order of importance/detection.
 /// E.g. if a field is `Required` we don't care whether it's of `Option` type or not.
-
 #[derive(Debug)]
 enum FieldHandling {
     Required,
@@ -531,7 +516,6 @@ enum FieldHandling {
 }
 
 /// Just a combination of a field and which handling case it is
-
 #[derive(Debug)]
 struct FieldParsed {
     field: Field,
@@ -1066,19 +1050,19 @@ mod tests {
                             }
                         }
 
-                         fn try_from_optioned(value: DeriveExampleOpt) -> Result <Self, ::optionable::optionable::Error> {
-                            Ok (match value {
+                         fn try_from_optioned(other: DeriveExampleOpt) -> Result <Self, ::optionable::optionable::Error> {
+                            Ok (match other {
                                 DeriveExampleOpt::Unit => Self::Unit,
-                                DeriveExampleOpt::Plain(value_0) => Self::Plain(
-                                    <String as ::optionable::OptionableConvert>::try_from_optioned(value_0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?)?
+                                DeriveExampleOpt::Plain(other_0) => Self::Plain(
+                                    <String as ::optionable::OptionableConvert>::try_from_optioned(other_0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?)?
                                 ),
-                                DeriveExampleOpt::Address{street: value_street, number: value_number} => Self::Address{
-                                    street: <String as ::optionable::OptionableConvert>::try_from_optioned(value_street.ok_or(optionable::optionable::Error { missing_fields: std::vec!["street"] })?)?,
-                                    number: <u32 as ::optionable::OptionableConvert> ::try_from_optioned(value_number.ok_or(optionable::optionable::Error { missing_fields: std::vec!["number"] })?)?
+                                DeriveExampleOpt::Address{street: other_street, number: other_number} => Self::Address{
+                                    street: <String as ::optionable::OptionableConvert>::try_from_optioned(other_street.ok_or(optionable::optionable::Error { missing_fields: std::vec!["street"] })?)?,
+                                    number: <u32 as ::optionable::OptionableConvert> ::try_from_optioned(other_number.ok_or(optionable::optionable::Error { missing_fields: std::vec!["number"] })?)?
                                 },
-                                DeriveExampleOpt::Address2(value_0, value_1) => Self::Address2(
-                                    <String as ::optionable::OptionableConvert>::try_from_optioned(value_0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?)?,
-                                    <u32 as ::optionable::OptionableConvert>::try_from_optioned(value_1.ok_or(optionable::optionable::Error { missing_fields: std::vec! ["1"] })?)?)
+                                DeriveExampleOpt::Address2(other_0, other_1) => Self::Address2(
+                                    <String as ::optionable::OptionableConvert>::try_from_optioned(other_0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?)?,
+                                    <u32 as ::optionable::OptionableConvert>::try_from_optioned(other_1.ok_or(optionable::optionable::Error { missing_fields: std::vec! ["1"] })?)?)
                             })
                         }
 
