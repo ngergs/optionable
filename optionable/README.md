@@ -118,3 +118,9 @@ when using wrong types the associated types are resolved.
 Another crate with similar scope is [optional_struct](https://crates.io/crates/optional_struct).
 It focuses specifically on structs (not enums) and offers a more manual approach, especially in respect to nested sub-struct,
 providing many fine-grained configuration options.
+
+### License
+You can use this under the conditions of the [MIT license](LICENSE-MIT) or the [Apache License, Version 2.0](LICENSE-APACHE) at your option.
+
+#### Contributing
+Any contributor has to agree to have their contribution also dual-licensed under the MIT or Apache-2.0 license as linked above.
