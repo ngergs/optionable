@@ -80,7 +80,7 @@ fn derive_unnamed_struct_required() {
     #[allow(dead_code)]
     struct DeriveExample(String, #[optionable(required)] i32);
 
-    let _ = DeriveExampleOpt(None, 42);
+    let a = DeriveExampleOpt(None, 42);
     let _ = DeriveExampleOpt(Some("a".to_owned()), 42);
 }
 

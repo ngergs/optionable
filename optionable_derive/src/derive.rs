@@ -16,14 +16,14 @@ use syn::{
     Type, TypePath, WhereClause, WherePredicate,
 };
 
-const HELPER_IDENT: &str = "optionable";
-const ERR_MSG_HELPER_ATTR_ENUM_VARIANTS: &str =
+const derive_helper_IDENT: &str = "optionable";
+const ERR_MSG_derive_helper_ATTR_ENUM_VARIANTS: &str =
     "#[optionable] helper attributes not supported on enum variant level.";
 
 #[derive(FromDeriveInput)]
 #[darling(attributes(optionable))]
-/// Helper attributes on the type definition level (attached to the `struct` or `enum` itself).
-struct TypeHelperAttributes {
+/// helper attributes on the type definition level (attached to the `struct` or `enum` itself).
+struct Typederive_helperAttributes {
     /// Derive-macros that should be added to the optioned type
     derive: Option<PathList>,
     #[darling(default=default_suffix)]
@@ -35,8 +35,8 @@ struct TypeHelperAttributes {
 
 #[derive(FromAttributes)]
 #[darling(attributes(optionable))]
-/// Helper attributes on the type definition level (attached to the `struct` or `enum` itself).
-struct FieldHelperAttributes {
+/// helper attributes on the type definition level (attached to the `struct` or `enum` itself).
+struct Fieldderive_helperAttributes {
     /// Given field won't be optioned, it will also be required for the derived optioned type.
     required: Option<()>,
 }
@@ -49,7 +49,7 @@ fn default_suffix() -> LitStr {
 #[allow(clippy::too_many_lines)]
 pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> {
     let input = syn::parse2::<DeriveInput>(input)?;
-    let attrs = TypeHelperAttributes::from_derive_input(&input)?;
+    let attrs = Typederive_helperAttributes::from_derive_input(&input)?;
     let vis = input.vis;
     let type_ident_opt = Ident::new(
         &(input.ident.to_string() + &attrs.suffix.value()),
@@ -161,7 +161,10 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
                 .variants
                 .into_iter()
                 .map(|v| {
-                    error_on_helper_attributes(&v.attrs, ERR_MSG_HELPER_ATTR_ENUM_VARIANTS)?;
+                    error_on_derive_helper_attributes(
+                        &v.attrs,
+                        ERR_MSG_derive_helper_ATTR_ENUM_VARIANTS,
+                    )?;
                     Ok::<_, Error>((v.ident, into_field_handling(v.fields)?))
                 })
                 .collect::<Result<Vec<_>, _>>()?;
@@ -300,16 +303,23 @@ fn into_optioned(
 ) -> TokenStream {
     let fields_token = fields.fields.iter().enumerate().map(|(i, f)| {
         let colon = f.field.ident.as_ref().map(|_| quote! {:});
-        let Field { ident, ty, .. } = &f.field;
-        let selector = ident.as_ref().map_or_else(|| {
-            let i = Literal::usize_unsuffixed(i);
-            quote! {#i}
-        }, ToTokens::to_token_stream);
-        let self_selector= self_selector_fn(&selector);
+        let Field { ident, .. } = &f.field;
+        let selector = ident.as_ref().map_or_else(
+            || {
+                let i = Literal::usize_unsuffixed(i);
+                quote! {#i}
+            },
+            ToTokens::to_token_stream,
+        );
+        let self_selector = self_selector_fn(&selector);
         match f.handling {
             Required => quote! {#ident #colon #self_selector},
-            IsOption => quote! {#ident #colon <#ty as ::optionable::OptionableConvert>::into_optioned(#self_selector)},
-            Other => quote! {#ident #colon Some(<#ty as ::optionable::OptionableConvert>::into_optioned(#self_selector))}
+            IsOption => {
+                quote! {#ident #colon ::optionable::derive_helper::into_optioned(#self_selector)}
+            }
+            Other => {
+                quote! {#ident #colon ::optionable::derive_helper::into_optioned_some(#self_selector)}
+            }
         }
     });
     struct_wrapper(fields_token, &fields.struct_type)
@@ -339,9 +349,7 @@ fn try_from_optioned(
             Other => {
                 let selector_quoted=LitStr::new(&selector.to_string(), ident.span());
                 quote! {
-                    #ident #colon <#ty as ::optionable::OptionableConvert>::try_from_optioned(
-                        #value_selector.ok_or(optionable::optionable::Error{ missing_fields: std::vec![#selector_quoted] })?
-                    )?
+                    #ident #colon ::optionable::derive_helper::try_from_optioned(#value_selector, #selector_quoted)?
                 }
             }
         }
@@ -365,7 +373,7 @@ fn merge_fields(
         |(
              i,
              FieldParsed {
-                 field: Field { ident, ty, .. },
+                 field: Field { ident, .. },
                  handling,
              },
          )| {
@@ -382,12 +390,10 @@ fn merge_fields(
             match handling {
                 Required => quote! {#self_selector = #other_selector;},
                 IsOption => quote! {
-                    <#ty as ::optionable::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
+                   ::optionable::derive_helper::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
                 },
                 Other => quote! {
-                    if let Some(other_value)=#other_selector{
-                        <#ty as ::optionable::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, other_value)?;
-                    }
+                   ::optionable::derive_helper::merge_option(#self_merge_mut_modifier #self_selector, #other_selector)?;
                 }
             }
         },
@@ -454,14 +460,17 @@ fn add_where_clause_predicate(
     }
 }
 
-/// Goes through the attributes, filters for our [`HELPER_IDENT`] helper-attribute identifier
+/// Goes through the attributes, filters for our [`derive_helper_IDENT`] derive_helper-attribute identifier
 /// and reports an error if anything is found.
-fn error_on_helper_attributes(attrs: &[Attribute], err_msg: &'static str) -> syn::Result<()> {
+fn error_on_derive_helper_attributes(
+    attrs: &[Attribute],
+    err_msg: &'static str,
+) -> syn::Result<()> {
     if attrs
         .iter()
         .filter(|attr| {
             println!("{}", attr.path().to_token_stream());
-            attr.path().is_ident(HELPER_IDENT)
+            attr.path().is_ident(derive_helper_IDENT)
         })
         .collect::<Vec<_>>()
         .is_empty()
@@ -488,7 +497,7 @@ fn into_field_handling(fields: Fields) -> Result<FieldsParsed, Error> {
     };
     let fields_with_handling = fields_iter
         .map(|field| {
-            let attrs = FieldHelperAttributes::from_attributes(&field.attrs)?;
+            let attrs = Fieldderive_helperAttributes::from_attributes(&field.attrs)?;
             let handling = if attrs.required.is_some() {
                 Required
             } else if is_option(&field.ty) {
@@ -614,22 +623,20 @@ mod tests {
                     impl ::optionable::OptionableConvert for DeriveExample {
                         fn into_optioned (self) -> DeriveExampleOpt {
                             DeriveExampleOpt  {
-                                name: Some(<String as::optionable::OptionableConvert>::into_optioned(self.name)),
-                                surname:Some(<String as::optionable::OptionableConvert>::into_optioned(self.surname))
+                                name: optionable::derive_helper::into_optioned_some(self.name),
+                                surname: optionable::derive_helper::into_optioned_some(self.surname)
                             }
                         }
 
                         fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok(Self{
-                                name: <String as ::optionable::OptionableConvert>::try_from_optioned(value.name.ok_or(optionable::optionable::Error { missing_fields: std::vec!["name"] })?)?,
-                                surname: <String as ::optionable::OptionableConvert>::try_from_optioned(value.surname.ok_or(optionable::optionable::Error { missing_fields: std::vec!["surname"] })?)?
+                                name: optionable::derive_helper::try_from_optioned(value.name)?,
+                                surname: optionable::derive_helper::try_from_optioned(value.surname)?,
                             })
                         }
 
                         fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::optionable::Error> {
-                            if let Some(other_value) = other.name {
-                                <String as ::optionable::OptionableConvert>::merge(&mut self.name, other_value)?;
-                            }
+                            optionable::derive_helper::merge_option(&mut self.name, value.name)?,
                             if let Some(other_value) = other.surname {
                                 <String as ::optionable::OptionableConvert>::merge(&mut self.surname, other_value)?;
                             }

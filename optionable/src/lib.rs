@@ -123,6 +123,9 @@ mod chrono;
 #[cfg(feature = "serde_json")]
 mod serde_json;
 
+#[doc(hidden)]
+pub mod derive_helper;
+
 /// Marker trait that associated this type with a corresponding type where potential
 /// inner sub-fields are recursively optional if possible for the given use case of the type.
 /// Implementations of the trait can decide that some fields are also non-optional for the optioned type.
