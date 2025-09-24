@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.5](https://github.com/ngergs/optionable/compare/optionable-v0.1.4...optionable-v0.1.5) - 2025-09-24
+
+### Fixed
+
+- dual-license under apache version 2.0 in addition to MIT
+
 ## [0.1.4](https://github.com/ngergs/optionable/compare/optionable-v0.1.3...optionable-v0.1.4) - 2025-09-24
 
 ### Added
