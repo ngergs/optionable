@@ -1,9 +1,10 @@
 # optionable
 
-Library to derive structs/enums with all fields recursively replaced with `Option`-variants.
+The [optionable crate](https://crates.io/crates/optionable) is a library to derive `optioned` structs/enums versions of existing types
+where all fields have been recursively replaced with `Option`-variants.
 
-One common problem when expressing patches e.g. for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations).
-is that one would need for a given rust struct `T` a corresponding struct `TOpt` where all fields are optional.
+The motivation is that it is a common problem when expressing patches e.g. for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations)
+that one would need for a given rust struct `T` a corresponding struct `TOpt` where all fields are optional.
 While trivial to write for plain structures this quickly becomes tedious for nested structs/enums.
 
 ## Deriving optional structs/enums
