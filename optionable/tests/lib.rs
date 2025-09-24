@@ -180,10 +180,21 @@ fn derive_enum() {
         street: Some("a".to_owned()),
         number: Some(42),
     };
-    let address: DeriveExample = address_optioned.try_into_optionable().unwrap();
-    if let DeriveExample::Address { street, number } = address {
-        assert_eq!(street, "a".to_owned());
-        assert_eq!(number, 42)
+    let mut address: DeriveExample = address_optioned.try_into_optionable().unwrap();
+    if let DeriveExample::Address { street, number } = &address {
+        assert_eq!(*street, "a".to_owned());
+        assert_eq!(*number, 42);
+    } else {
+        panic!("optioned variant does not coincide with expected");
+    }
+    let address_patch = DeriveExampleOpt::Address {
+        street: Some("b".to_owned()),
+        number: None,
+    };
+    address.merge(address_patch).unwrap();
+    if let DeriveExample::Address { street, number } = &address {
+        assert_eq!(*street, "b".to_owned());
+        assert_eq!(*number, 42);
     } else {
         panic!("optioned variant does not coincide with expected");
     }
@@ -191,7 +202,7 @@ fn derive_enum() {
     let address2: DeriveExample = address2_optioned.try_into_optionable().unwrap();
     if let DeriveExample::AddressTuple(street, number) = address2 {
         assert_eq!(street, "a".to_owned());
-        assert_eq!(number, 42)
+        assert_eq!(number, 42);
     } else {
         panic!("optioned variant does not coincide with expected");
     }
