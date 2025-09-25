@@ -1,5 +1,4 @@
-use crate::derive::FieldHandling::{IsOption, Other, Required};
-use crate::error;
+use crate::FieldHandling::{IsOption, Other, Required};
 use darling::util::PathList;
 use darling::{FromAttributes, FromDeriveInput};
 use itertools::MultiUnzip;
@@ -7,7 +6,7 @@ use proc_macro2::{Ident, Literal, Span, TokenStream};
 use quote::{format_ident, quote, ToTokens};
 use std::cmp::PartialEq;
 use std::default::Default;
-use std::iter;
+use std::{fmt, iter};
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::token::Where;
@@ -46,8 +45,11 @@ fn default_suffix() -> LitStr {
 }
 
 /// Derives the `Optionable`-trait from the main `optionable`-library.
+/// # Errors
+/// - on misplaced helper attributes
+/// - internal implementation errors
 #[allow(clippy::too_many_lines)]
-pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> {
+pub fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> {
     let input = syn::parse2::<DeriveInput>(input)?;
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
     let vis = input.vis;
@@ -115,7 +117,7 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
             let optioned_fields =
                 optioned_fields(&fields, skip_optionable_if_serde_serialize.as_ref());
 
-            let impl_optionable_convert=attrs.no_convert.is_none().then(||{
+            let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
                 let into_optioned_fields = into_optioned(&fields, |selector| quote! { self.#selector });
                 let try_from_optioned_fields =
                     try_from_optioned(&fields, |selector| quote! { value.#selector });
@@ -171,8 +173,8 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
                 quote!( #variant #fields )
             });
 
-            let impl_optionable_convert=attrs.no_convert.is_none().then(|| {
-                let (into_variants, try_from_variants, merge_variants):(Vec<_>,Vec<_>,Vec<_>) = variants
+            let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
+                let (into_variants, try_from_variants, merge_variants): (Vec<_>, Vec<_>, Vec<_>) = variants
                     .iter()
                     .map(|(variant, f)| {
                         let fields_into = into_optioned(f, |selector| {
@@ -182,9 +184,9 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
                             format_ident!("{other_prefix}{selector}").to_token_stream()
                         });
                         let fields_merge = merge_fields(f,
-                                                  |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
-                                                  |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
-                                                  false);
+                                                        |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
+                                                        |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
+                                                        false);
                         let self_destructure = destructure(f, &self_prefix)?;
                         let other_destructure = destructure(f, &other_prefix)?;
                         Ok::<_, Error>((
@@ -201,7 +203,7 @@ pub(crate) fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> 
                     })
                     .collect::<Result<Vec<_>, _>>()?
                     .into_iter().multiunzip();
-                Ok::<_,Error>(quote! {
+                Ok::<_, Error>(quote! {
                     #[automatically_derived]
                     impl #impl_generics ::optionable::OptionableConvert for #type_ident #ty_generics #where_clause_convert {
                         fn into_optioned(self) -> #type_ident_opt #ty_generics {
@@ -305,17 +307,17 @@ fn into_optioned(
     self_selector_fn: impl Fn(&TokenStream) -> TokenStream,
 ) -> TokenStream {
     let fields_token = fields.fields.iter().enumerate().map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling })| {
-        let colon =ident.as_ref().map(|_| quote! {:});
+        let colon = ident.as_ref().map(|_| quote! {:});
         let selector = ident.as_ref().map_or_else(|| {
             let i = Literal::usize_unsuffixed(i);
             quote! {#i}
         }, ToTokens::to_token_stream);
-        let self_selector= self_selector_fn(&selector);
-        match (handling, is_self_resolving_optioned(ty)){
-            (Required,_)|(IsOption,true) => quote! {#ident #colon #self_selector},
-            (IsOption,false) => quote! {#ident #colon <#ty as ::optionable::OptionableConvert>::into_optioned(#self_selector)},
-            (Other,true) => quote! {#ident #colon Some(#self_selector)},
-            (Other,false) => quote! {#ident #colon Some(<#ty as ::optionable::OptionableConvert>::into_optioned(#self_selector))}
+        let self_selector = self_selector_fn(&selector);
+        match (handling, is_self_resolving_optioned(ty)) {
+            (Required, _) | (IsOption, true) => quote! {#ident #colon #self_selector},
+            (IsOption, false) => quote! {#ident #colon <#ty as ::optionable::OptionableConvert>::into_optioned(#self_selector)},
+            (Other, true) => quote! {#ident #colon Some(#self_selector)},
+            (Other, false) => quote! {#ident #colon Some(<#ty as ::optionable::OptionableConvert>::into_optioned(#self_selector))}
         }
     });
     struct_wrapper(fields_token, &fields.struct_type)
@@ -334,22 +336,22 @@ fn try_from_optioned(
             let i = Literal::usize_unsuffixed(i);
             quote! {#i}
         }, ToTokens::to_token_stream);
-        let value_selector= value_selector_fn(&selector);
-        match (handling, is_self_resolving_optioned(ty)){
-            (Required,_)|(IsOption,true) => quote! {#ident #colon value.#selector},
-            (IsOption,false) => quote! {
+        let value_selector = value_selector_fn(&selector);
+        match (handling, is_self_resolving_optioned(ty)) {
+            (Required, _) | (IsOption, true) => quote! {#ident #colon value.#selector},
+            (IsOption, false) => quote! {
                 #ident #colon <#ty as ::optionable::OptionableConvert>::try_from_optioned(
                     #value_selector
                 )?
             },
-            (Other,true) => {
-                let selector_quoted=LitStr::new(&selector.to_string(), ident.span());
+            (Other, true) => {
+                let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 quote! {
                     #ident #colon #value_selector.ok_or(optionable::optionable::Error{ missing_fields: std::vec![#selector_quoted] })?
                 }
             }
-            (Other,false) => {
-                let selector_quoted=LitStr::new(&selector.to_string(), ident.span());
+            (Other, false) => {
+                let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 quote! {
                     #ident #colon <#ty as ::optionable::OptionableConvert>::try_from_optioned(
                         #value_selector.ok_or(optionable::optionable::Error{ missing_fields: std::vec![#selector_quoted] })?
@@ -388,21 +390,21 @@ fn merge_fields(
                 },
                 ToTokens::to_token_stream,
             );
-            let self_merge_mut_modifier=merge_self_mut.then(||quote! {&mut});
-            let deref_modifier=(!merge_self_mut).then(||quote! {*});
-            let self_selector= self_selector_fn(&selector);
-            let other_selector=other_selector_fn(&selector);
-            match (handling, is_self_resolving_optioned(ty)){
-                (Required,_)|(IsOption,true) => quote! {#deref_modifier #self_selector = #other_selector;},
-                (IsOption,false) => quote! {
+            let self_merge_mut_modifier = merge_self_mut.then(|| quote! {&mut});
+            let deref_modifier = (!merge_self_mut).then(|| quote! {*});
+            let self_selector = self_selector_fn(&selector);
+            let other_selector = other_selector_fn(&selector);
+            match (handling, is_self_resolving_optioned(ty)) {
+                (Required, _) | (IsOption, true) => quote! {#deref_modifier #self_selector = #other_selector;},
+                (IsOption, false) => quote! {
                     <#ty as ::optionable::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
                 },
-                (Other,true) => quote! {
+                (Other, true) => quote! {
                     if let Some(other_value)=#other_selector{
                         #deref_modifier #self_selector = other_value;
                     }
                 },
-                (Other,false) => quote! {
+                (Other, false) => quote! {
                     if let Some(other_value)=#other_selector{
                         <#ty as ::optionable::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, other_value)?;
                     }
@@ -619,9 +621,14 @@ fn is_self_resolving_optioned(ty: &Type) -> bool {
     }
 }
 
+/// error just prepares an error message that references the source span
+pub(crate) fn error<S: AsRef<str> + fmt::Display, T>(msg: S) -> syn::Result<T> {
+    Err(Error::new(Span::call_site(), msg))
+}
+
 #[cfg(test)]
 mod tests {
-    use crate::derive::derive_optionable;
+    use crate::derive_optionable;
     use proc_macro2::TokenStream;
     use quote::quote;
 

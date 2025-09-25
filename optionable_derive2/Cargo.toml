@@ -1,0 +1,23 @@
+[package]
+name = "optionable_derive2"
+version = "0.1.5"
+edition = "2024"
+description = "proc_macro2 functions for the derive macro and codegen implementations in the `optionable_derive` crate to derive nested structs/enums with all subfields being optional (e.g. for patches or Kubernetes server side apply)."
+repository = "https://github.com/ngergs/optionable"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+
+[features]
+default = []
+codegen = ["dep:prettyplease"]
+
+[lints.clippy]
+pedantic = "warn"
+
+[dependencies]
+quote = "1.0.40"
+syn = { version = "2.0.106", default-features = false, features = ["proc-macro"] }
+proc-macro2 = "1.0.101"
+darling = { version = "0.21.3", default-features = false }
+itertools = "0.14.0"
+prettyplease = { version = "0.2.37", optional = true }

@@ -14,8 +14,5 @@ pedantic = "warn"
 proc-macro = true
 
 [dependencies]
-quote = "1.0.40"
-syn = { version = "2.0.106", default-features = false, features = ["proc-macro"] }
-proc-macro2 = "1.0.101"
-darling = { version = "0.21.3", default-features = false }
-itertools = "0.14.0"
+optionable_derive2 = "0.1.5"
+syn = { version = "2.0.106", default-features = false }
