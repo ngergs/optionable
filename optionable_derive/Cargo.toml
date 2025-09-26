@@ -14,5 +14,5 @@ pedantic = "warn"
 proc-macro = true
 
 [dependencies]
-optionable_derive2 = "0.1.5"
+optionable_codegen = "0.1.5"
 syn = { version = "2.0.106", default-features = false }

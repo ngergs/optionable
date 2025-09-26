@@ -1,10 +1,10 @@
 [workspace]
 resolver = "3"
-members = ["optionable", "optionable_derive2", "optionable_derive"]
+members = ["optionable", "optionable_codegen", "optionable_derive"]
 
 [patch.crates-io]
 optionable_derive = { path = "optionable_derive" }
-optionable_derive2 = { path = "optionable_derive2" }
+optionable_codegen = { path = "optionable_codegen" }
 
 # see https://github.com/johnthagen/min-sized-rust
 [profile.release]

@@ -1,11 +1,11 @@
 #[cfg(feature = "codegen")]
-use quote::ToTokens;
-#[cfg(feature = "codegen")]
 use std::env::args;
 #[cfg(feature = "codegen")]
 use std::fs;
 #[cfg(feature = "codegen")]
 use std::fs::create_dir_all;
+#[cfg(feature = "codegen")]
+use syn::DeriveInput;
 #[cfg(feature = "codegen")]
 use syn::Error;
 #[cfg(feature = "codegen")]
@@ -49,8 +49,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 #[cfg(feature = "codegen")]
 /// Calls the `optionable`-derive macro with the provided argument.
-fn codegen(input: impl ToTokens) -> Result<Option<String>, Error> {
-    let result = optionable_derive2::derive_optionable(input.into_token_stream())?;
+fn codegen(input: impl Into<DeriveInput>) -> Result<Option<String>, Error> {
+    let result = optionable_codegen::derive_optionable(input.into())?;
     let file = syn::parse2(result)?;
     Ok::<_, Error>(Some(prettyplease::unparse(&file)))
 }

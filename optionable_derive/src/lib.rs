@@ -48,7 +48,10 @@ use proc_macro::TokenStream;
 ///   ```
 #[proc_macro_derive(Optionable, attributes(optionable))]
 pub fn derive_optionable(input: TokenStream) -> TokenStream {
-    optionable_derive2::derive_optionable(input.into())
-        .unwrap_or_else(syn::Error::into_compile_error)
-        .into()
+    try_derive_optionable(input).unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
+}
+
+/// Internal method for `derive_optionable` to simplify error handling
+fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> {
+    Ok(optionable_codegen::derive_optionable(syn::parse2(input.into())?)?.into())
 }

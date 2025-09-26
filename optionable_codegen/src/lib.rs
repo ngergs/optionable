@@ -45,12 +45,12 @@ fn default_suffix() -> LitStr {
 }
 
 /// Derives the `Optionable`-trait from the main `optionable`-library.
+///
 /// # Errors
 /// - on misplaced helper attributes
 /// - internal implementation errors
 #[allow(clippy::too_many_lines)]
-pub fn derive_optionable(input: TokenStream) -> syn::Result<TokenStream> {
-    let input = syn::parse2::<DeriveInput>(input)?;
+pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
     let vis = input.vis;
     let type_ident_opt = Ident::new(
@@ -1171,7 +1171,8 @@ mod tests {
             },
         ];
         for tc in tcs {
-            let output = derive_optionable(tc.input).unwrap();
+            let input = syn::parse2(tc.input).unwrap();
+            let output = derive_optionable(input).unwrap();
             println!("{output}");
             assert_eq!(tc.output.to_string(), output.to_string());
         }

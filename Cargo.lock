@@ -110,15 +110,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "optionable_derive"
-version = "0.1.5"
-dependencies = [
- "optionable_derive2",
- "syn",
-]
-
-[[package]]
-name = "optionable_derive2"
+name = "optionable_codegen"
 version = "0.1.5"
 dependencies = [
  "darling",
@@ -126,6 +118,14 @@ dependencies = [
  "prettyplease",
  "proc-macro2",
  "quote",
+ "syn",
+]
+
+[[package]]
+name = "optionable_derive"
+version = "0.1.5"
+dependencies = [
+ "optionable_codegen",
  "syn",
 ]
 
