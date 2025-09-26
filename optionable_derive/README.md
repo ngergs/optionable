@@ -1,6 +1,6 @@
 # optionable_derive
 
-This package is as a library on its own not really usable. It is re-exported together with the required
+This `proc-macro`-library on its own not really usable. It is re-exported together with the required
 traits in the [optionable](https://crates.io/crates/optionable) crate. The relevant docs can be also found there.
 
 This is only a separate crate as derive macros have to be a separate crate.
