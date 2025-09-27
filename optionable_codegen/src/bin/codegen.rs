@@ -4,6 +4,7 @@ use std::env::args;
 use std::fs;
 #[cfg(feature = "codegen")]
 use std::fs::create_dir_all;
+use std::path::Path;
 #[cfg(feature = "codegen")]
 use syn::DeriveInput;
 #[cfg(feature = "codegen")]
@@ -21,7 +22,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .collect::<Result<Vec<_>, _>>()?
         .into_iter()
         .filter(|file| file.file_name().to_string_lossy().ends_with(".rs"));
-    let output_dir = args.next().ok_or("missing output directory argument")?;
+    let output_path_input = args
+        .next()
+        .ok_or("missing output directory argument")?
+        .to_string();
+    let output_path: &Path = Path::new(&output_path_input);
     for file in files {
         let content_str = fs::read_to_string(file.path())?;
         let content = syn::parse_file(&content_str)?;
@@ -38,11 +43,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             .flatten()
             .collect::<Vec<_>>()
             .join("\n\n");
-        create_dir_all(&output_dir)?;
-        fs::write(
-            format!("{output_dir}/{}", file.file_name().to_string_lossy()),
-            result,
-        )?;
+        create_dir_all(&output_path)?;
+        fs::write(output_path.join(file.file_name()), result)?;
     }
     Ok(())
 }
