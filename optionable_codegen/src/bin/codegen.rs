@@ -3,6 +3,7 @@ use clap::Parser;
 use std::fs;
 #[cfg(feature = "codegen")]
 use std::fs::create_dir_all;
+use std::io;
 use std::path::PathBuf;
 #[cfg(feature = "codegen")]
 use syn::DeriveInput;
@@ -24,11 +25,36 @@ struct Args {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
     create_dir_all(&args.output_dir)?;
-    let files = fs::read_dir(args.input_dir)?
-        .collect::<Result<Vec<_>, _>>()?
-        .into_iter()
-        .filter(|file| file.file_name().to_string_lossy().ends_with(".rs"));
-    for file in files {
+    file_codegen(&args.input_dir, &args.output_dir)
+}
+
+#[cfg(feature = "codegen")]
+fn file_codegen(
+    input_dir: &PathBuf,
+    output_dir: &PathBuf,
+) -> Result<(), Box<dyn std::error::Error>> {
+    create_dir_all(output_dir)?;
+    let files = fs::read_dir(input_dir)?
+        .map(|file| {
+            let file = file?;
+            let file_type = file.file_type()?;
+            Ok::<_, io::Error>((file, file_type))
+        })
+        .collect::<Result<Vec<_>, _>>()?;
+    files
+        .iter()
+        .filter(|(_, filetype)| filetype.is_dir())
+        .map(|(file, _)| {
+            file_codegen(
+                &input_dir.join(file.file_name()),
+                &output_dir.join(file.file_name()),
+            )
+        })
+        .collect::<Result<Vec<_>, _>>()?;
+    let files = files.into_iter().filter(|(file, filetype)| {
+        filetype.is_file() && file.file_name().to_string_lossy().ends_with(".rs")
+    });
+    for (file, _) in files {
         let content_str = fs::read_to_string(file.path())?;
         let content = syn::parse_file(&content_str)?;
         let result = content
@@ -44,7 +70,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             .flatten()
             .collect::<Vec<_>>()
             .join("\n\n");
-        fs::write(args.output_dir.join(file.file_name()), result)?;
+        fs::write(output_dir.join(file.file_name()), result)?;
     }
     Ok(())
 }
