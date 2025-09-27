@@ -11,6 +11,7 @@ use syn::DeriveInput;
 use syn::Error;
 #[cfg(feature = "codegen")]
 use syn::Item::{Enum, Struct};
+use syn::{parse_quote, Attribute};
 
 /// Generates `Optionable` and `OptionableConvert` implementation for structs/enums in
 /// all `*.rs` files in the input folder.
@@ -19,19 +20,28 @@ use syn::Item::{Enum, Struct};
 struct Args {
     input_dir: PathBuf,
     output_dir: PathBuf,
+    /// Number of times to greet
+    #[arg(long, default_value_t = false)]
+    no_convert: bool,
 }
 
 #[cfg(feature = "codegen")]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
     create_dir_all(&args.output_dir)?;
-    file_codegen(&args.input_dir, &args.output_dir)
+    let mut type_header = Vec::new();
+    if args.no_convert {
+        type_header.push(parse_quote! {
+            #[optionable(no_convert)]
+        });
+    }
+    file_codegen(&args.input_dir, &args.output_dir, &type_header)
 }
-
 #[cfg(feature = "codegen")]
 fn file_codegen(
     input_dir: &PathBuf,
     output_dir: &PathBuf,
+    type_attrs: &Vec<Attribute>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     create_dir_all(output_dir)?;
     let files = fs::read_dir(input_dir)?
@@ -48,6 +58,7 @@ fn file_codegen(
             file_codegen(
                 &input_dir.join(file.file_name()),
                 &output_dir.join(file.file_name()),
+                type_attrs,
             )
         })
         .collect::<Result<Vec<_>, _>>()?;
@@ -61,8 +72,14 @@ fn file_codegen(
             .items
             .into_iter()
             .map(|item| match item {
-                Struct(item) => Ok::<_, Error>(codegen(item)?),
-                Enum(item) => Ok::<_, Error>(codegen(item)?),
+                Struct(mut item) => {
+                    item.attrs.append(&mut type_attrs.clone());
+                    Ok::<_, Error>(codegen(item)?)
+                }
+                Enum(mut item) => {
+                    item.attrs.append(&mut type_attrs.clone());
+                    Ok::<_, Error>(codegen(item)?)
+                }
                 _ => Ok(None),
             })
             .collect::<Result<Vec<_>, _>>()?
