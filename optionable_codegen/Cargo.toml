@@ -9,7 +9,7 @@ readme = "README.md"
 
 [features]
 default = []
-codegen = ["dep:prettyplease"]
+codegen = ["dep:clap", "dep:prettyplease"]
 
 [lints.clippy]
 pedantic = "warn"
@@ -20,4 +20,5 @@ syn = { version = "2.0.106", default-features = false, features = ["proc-macro"]
 proc-macro2 = "1.0.101"
 darling = { version = "0.21.3", default-features = false }
 itertools = "0.14.0"
+clap = { version = "4.5.48", features = ["derive"], optional = true }
 prettyplease = { version = "0.2.37", optional = true }

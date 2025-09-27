@@ -1,10 +1,9 @@
-#[cfg(feature = "codegen")]
-use std::env::args;
+use clap::Parser;
 #[cfg(feature = "codegen")]
 use std::fs;
 #[cfg(feature = "codegen")]
 use std::fs::create_dir_all;
-use std::path::Path;
+use std::path::PathBuf;
 #[cfg(feature = "codegen")]
 use syn::DeriveInput;
 #[cfg(feature = "codegen")]
@@ -12,21 +11,23 @@ use syn::Error;
 #[cfg(feature = "codegen")]
 use syn::Item::{Enum, Struct};
 
+/// Generates `Optionable` and `OptionableConvert` implementation for structs/enums in
+/// all `*.rs` files in the input folder.
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    input_dir: PathBuf,
+    output_dir: PathBuf,
+}
+
 #[cfg(feature = "codegen")]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut args = args();
-    if args.len() != 3 {
-        return Err("wrong number of arguments. Expected: <target-dir> <output-dir>".into());
-    }
-    let files = fs::read_dir(args.nth(1).ok_or("missing input file argument")?)?
+    let args = Args::parse();
+    create_dir_all(&args.output_dir)?;
+    let files = fs::read_dir(args.input_dir)?
         .collect::<Result<Vec<_>, _>>()?
         .into_iter()
         .filter(|file| file.file_name().to_string_lossy().ends_with(".rs"));
-    let output_path_input = args
-        .next()
-        .ok_or("missing output directory argument")?
-        .to_string();
-    let output_path: &Path = Path::new(&output_path_input);
     for file in files {
         let content_str = fs::read_to_string(file.path())?;
         let content = syn::parse_file(&content_str)?;
@@ -43,8 +44,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             .flatten()
             .collect::<Vec<_>>()
             .join("\n\n");
-        create_dir_all(&output_path)?;
-        fs::write(output_path.join(file.file_name()), result)?;
+        fs::write(args.output_dir.join(file.file_name()), result)?;
     }
     Ok(())
 }
