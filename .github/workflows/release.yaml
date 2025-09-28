@@ -30,7 +30,7 @@ jobs:
       - name: Pre-release tests
         run: |-
           cargo test
-          cargo test --manifest-path=optionable/Cargo.toml --features chrono,serde_json
+          cargo test --manifest-path=optionable/Cargo.toml --features codegen,chrono,serde_json
           cargo clippy
           cargo install --locked cargo-deny
           cargo deny check license
