@@ -57,11 +57,23 @@ fn default_suffix() -> LitStr {
     LitStr::new("Opt", Span::call_site())
 }
 
-/// Returns the attribute for opting-out of `OptionableConvert`-impl generation
-// can't be made static as `Attribute` is not `sync`
+/// Returns the attribute for opting-out of `OptionableConvert`-impl generation.
 #[must_use]
 pub fn attribute_no_convert() -> Attribute {
     parse_quote!(#[optionable(no_convert)])
+}
+
+/// Returns the attribute for setting a custom struct/enum name suffix instead of `Opt`.
+#[must_use]
+pub fn attribute_suffix(suffix: &str) -> Attribute {
+    parse_quote!(#[optionable(suffix=#suffix)])
+}
+
+/// Returns the attribute for setting that the given identifiers should be added as
+/// derive macro to the optioned struct/enum.
+#[must_use]
+pub fn attribute_derives(derives: &PathList) -> Attribute {
+    parse_quote!(#[optionable(derive(#(#derives),*))])
 }
 
 /// Derives the `Optionable`-trait from the main `optionable`-library.

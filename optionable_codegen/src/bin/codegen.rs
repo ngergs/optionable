@@ -1,46 +1,61 @@
 use clap::Parser;
-use optionable_codegen::attribute_no_convert;
+use optionable_codegen::{attribute_derives, attribute_no_convert};
 #[cfg(feature = "codegen")]
 use std::fs;
 #[cfg(feature = "codegen")]
 use std::fs::create_dir_all;
 use std::io;
 use std::path::PathBuf;
+use syn::Attribute;
 #[cfg(feature = "codegen")]
 use syn::DeriveInput;
 #[cfg(feature = "codegen")]
 use syn::Error;
 #[cfg(feature = "codegen")]
 use syn::Item::{Enum, Struct};
-use syn::Attribute;
 
 /// Generates `Optionable` and `OptionableConvert` implementation for structs/enums in
 /// all `*.rs` files in the input folder.
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
+    /// Input directory, will be traversed recursively.
     input_dir: PathBuf,
+    /// Output directory
     output_dir: PathBuf,
-    /// Number of times to greet
+    /// Whether to out-out of generating `OptionableConvert`-trait implementations.
     #[arg(long, default_value_t = false)]
     no_convert: bool,
+    /// Identifiers for which derive statements should be added to the generated structs/enums.
+    #[arg(long, short)]
+    derive: Vec<String>,
 }
 
 #[cfg(feature = "codegen")]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
-    let type_attrs = input_type_attrs(&args);
+    let type_attrs = input_type_attrs(&args)?;
     create_dir_all(&args.output_dir)?;
     file_codegen(&args.input_dir, &args.output_dir, &type_attrs)
 }
 
 /// Parses the input args and generated corresponding type attributes
-fn input_type_attrs(args: &Args) -> Vec<Attribute> {
+fn input_type_attrs(args: &Args) -> Result<Vec<Attribute>, Error> {
     let mut type_attrs = Vec::new();
     if args.no_convert {
         type_attrs.push(attribute_no_convert());
     }
-    type_attrs
+    if !args.derive.is_empty() {
+        let derives = args
+            .derive
+            .iter()
+            .map(|d| syn::parse_str(d))
+            .collect::<Result<Vec<_>, _>>()?
+            .into();
+
+        type_attrs.push(attribute_derives(&derives));
+    }
+    Ok(type_attrs)
 }
 
 #[cfg(feature = "codegen")]
