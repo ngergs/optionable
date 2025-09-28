@@ -1,12 +1,10 @@
-//! # optionable
-//!
 //! Library to derive structs/enums with all fields recursively replaced with `Option`-variants.
 //!
 //! One common problem when expressing patches e.g. for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations).
 //! is that one would need for a given rust struct `T` a corresponding struct `TOpt` where all fields are optional.
 //! While trivial to write for plain structures this quickly becomes tedious for nested structs/enums.
 //!
-//! ## Deriving optional structs/enums
+//! # Deriving optional structs/enums
 //!
 //! The core utility of this library is to provide an [`derive@Optionable`]-derive macro that derives such an optioned type.
 //! It supports nested structures, enums as well as various container types.
@@ -46,7 +44,7 @@
 //! }
 //! ```
 //!
-//! ### Also works for enums
+//! ## Also works for enums
 //! Enums are also supported for the derive macro, e.g.
 //!
 //! ```rust
@@ -69,13 +67,13 @@
 //! }
 //! ```
 //!
-//! ## Conversion
+//! # Conversion
 //! Per default also conversion traits aiming for struct/enums with sized fields will be generated.
 //! The relevant traits are [`OptionableConvert`] which is an extension trait for sized-fields only [`trait@Optionable`]
 //! objects. From this trait the sealed convenience trait [`OptionedConvert`] is auto-implemented
 //! for the optioned object.
 //!
-//! ## How it works
+//! ## Core concept
 //! The main [`trait@Optionable`] trait is quite simple:
 //! ```rust
 //! pub trait Optionable {
@@ -92,27 +90,28 @@
 //! ```
 //! For many primitive types as well as common wrapper or collection types the `Optionable`-trait is already implemented.
 
-//! ## Crate features
+//! # Crate features
 //! - `chrono`: Derive [`trait@Optionable`] for types from [chrono](https://docs.rs/chrono/latest/chrono/).
 //! - `serde_json`: Derive [`trait@Optionable`] for [serde_json](https://docs.rs/serde_json/latest/serde_json/)`::Value`.
 //!
-//! ## Limitations
+//! # Limitations
 //!
-//! ### External types
+//! ## External types
 //! Due to the orphan rule the usage of the library becomes cumbersome if one has a use case which heavily relies on crate-external types.
 //! For well-established libraries adding corresponding `impl` to this crate (feature-gated) would be a worthwhile approach.
 //!
-//! ### IDE: Resolving associated types
+//! ## IDE: Resolving associated types
 //! Due to the use of associated types some IDE-hints do not fully resolve the associated types leaving you with
 //! `<i32 as Optionable>::Optioned` instead of `i32`. Luckily, for checking type correctness and also for error messages
 //! when using wrong types the associated types are resolved.
 //!
-//! ## Similar crates
+//! # Similar crates
 //! Another crate with similar scope is [optional_struct](https://crates.io/crates/optional_struct).
 //! It focuses specifically on structs (not enums) and offers a more manual approach, especially in respect to nested sub-struct,
 //! providing many fine-grained configuration options.
 
 use crate::optionable::Error;
+#[cfg(feature = "derive")]
 #[doc(inline)]
 pub use optionable_derive::Optionable;
 

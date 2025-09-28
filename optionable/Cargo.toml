@@ -8,7 +8,8 @@ license = "MIT OR Apache-2.0"
 readme = "README.md"
 
 [features]
-default = []
+default = ["derive"]
+derive = ["dep:optionable_derive"]
 chrono = ["dep:chrono"]
 serde_json = ["dep:serde_json"]
 
@@ -16,7 +17,7 @@ serde_json = ["dep:serde_json"]
 pedantic = "warn"
 
 [dependencies]
-optionable_derive = "0.1.2"
+optionable_derive = { version = "0.1.2", optional = true }
 chrono = { version = "0.4.42", default-features = false, optional = true }
 serde_json = { version = "1.0.145", default-features = false, optional = true }
 
