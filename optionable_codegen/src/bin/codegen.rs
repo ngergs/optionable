@@ -1,4 +1,5 @@
 use clap::Parser;
+use optionable_codegen::attribute_no_convert;
 #[cfg(feature = "codegen")]
 use std::fs;
 #[cfg(feature = "codegen")]
@@ -11,7 +12,7 @@ use syn::DeriveInput;
 use syn::Error;
 #[cfg(feature = "codegen")]
 use syn::Item::{Enum, Struct};
-use syn::{parse_quote, Attribute};
+use syn::Attribute;
 
 /// Generates `Optionable` and `OptionableConvert` implementation for structs/enums in
 /// all `*.rs` files in the input folder.
@@ -28,15 +29,20 @@ struct Args {
 #[cfg(feature = "codegen")]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
+    let type_attrs = input_type_attrs(&args);
     create_dir_all(&args.output_dir)?;
-    let mut type_header = Vec::new();
-    if args.no_convert {
-        type_header.push(parse_quote! {
-            #[optionable(no_convert)]
-        });
-    }
-    file_codegen(&args.input_dir, &args.output_dir, &type_header)
+    file_codegen(&args.input_dir, &args.output_dir, &type_attrs)
 }
+
+/// Parses the input args and generated corresponding type attributes
+fn input_type_attrs(args: &Args) -> Vec<Attribute> {
+    let mut type_attrs = Vec::new();
+    if args.no_convert {
+        type_attrs.push(attribute_no_convert());
+    }
+    type_attrs
+}
+
 #[cfg(feature = "codegen")]
 fn file_codegen(
     input_dir: &PathBuf,

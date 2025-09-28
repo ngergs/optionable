@@ -1,3 +1,16 @@
+//! # `optionable_codegen`
+//!
+//! The relevant main crate is [optionable](https://crates.io/crates/optionable). The relevant docs can be found there.
+//!
+//! ## Purpose
+//! This code generation `proc_macro2` code generation library serves two purposes:
+//! - Used by [optionable_derive](https://crates.io/crates/optionable_derive) to implement the `#[derive(Optionable)]`-macro
+//!   re-exported by [optionable](https://crates.io/crates/optionable_derive).
+//! - Used by the [bin/codegen.rs](bin/codegen.rs) crate to support generating `Optionable`-implementations for external packages.
+//!   Due to the orphan rule  the generated code has to be added to the `Optionable`-package (PRs welcome).
+//!
+//! It has to be a separate crate from [optionable_derive](https://crates.io/crates/optionable_derive) as the proc-macro crates
+//! can't export its non-macro functions (even the `proc_macro2` ones) for the usage by the codegen part.
 use crate::FieldHandling::{IsOption, Other, Required};
 use darling::util::PathList;
 use darling::{FromAttributes, FromDeriveInput};
@@ -42,6 +55,13 @@ struct FieldHelperAttributes {
 
 fn default_suffix() -> LitStr {
     LitStr::new("Opt", Span::call_site())
+}
+
+/// Returns the attribute for opting-out of `OptionableConvert`-impl generation
+// can't be made static as `Attribute` is not `sync`
+#[must_use]
+pub fn attribute_no_convert() -> Attribute {
+    parse_quote!(#[optionable(no_convert)])
 }
 
 /// Derives the `Optionable`-trait from the main `optionable`-library.
