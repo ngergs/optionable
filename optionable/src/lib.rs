@@ -36,7 +36,7 @@
 //! ```rust
 //! # use serde::{Serialize,Deserialize};
 //! #
-//! #[derive(Serialize,Deserialize)]
+//! #[derive(Default,Serialize,Deserialize)]
 //! struct AddressOpt {
 //!     street_name: Option<String>,
 //!     number: Option<u8>,
