@@ -9,13 +9,30 @@ to specify.
 
 While trivial to write for plain structures this quickly becomes tedious for nested structs/enums.
 
+## Core concept
+The main `Optionable` trait is quite simple:
+```rust
+pub trait Optionable {
+    type Optioned;
+}
+```
+It is a marker trait that allows to express for a given type `T` which type should be considered its `T::Optioned` type
+such that `Option<Optioned>` would represent all variants of partial completeness.
+For types without inner structure this means that the `Optioned` type will just resolve to the type itself, e.g.
+```rust
+impl Optionable for String {
+    type Optioned = String;
+}
+```
+For many primitive types as well as common wrapper or collection types the `Optionable`-trait is already implemented.
+
 ## Deriving optional structs/enums
 
-The core utility of this library is to provide an `Optionable`-derive macro that derives such an optioned type.
-It supports nested structures, enums as well as various container types.
+The core utility of this library is to provide an `Optionable`-derive macro that derives such an optioned type
+and implements the `Optionable`-trait. It supports nested structures, enums as well as various container types.
 
-The general logic is the same as for other rust derives, If you want to use the derive `Optionable` for a struct/enum
-every field of it needs to also have implemented the corresponding `Optionable` trait (see below):
+The general logic is the same as for other rust derives. If you want to use the derive `Optionable` for a struct/enum
+every type used for a field needs to also have implemented the corresponding `Optionable` trait:
 ```rust
 #[derive(Optionable)]
 #[optionable(derive(Default,Serialize,Deserialize))]
@@ -35,7 +52,7 @@ fn example(){
 
 The generated optioned type is (shown here with resolved associated types) as follows:
 ```rust
-#[derive(Serialize,Deserialize)]
+#[derive(Default,Serialize,Deserialize)]
 struct AddressOpt {
     street_name: Option<String>,
     number: Option<u8>,
@@ -77,23 +94,6 @@ pub trait OptionedConvert<T>: Sized + Sealed<T>
     fn try_into_optionable(self) -> Result<T, Error>;
 }
 ```
-
-## How it works
-The main `Optionable` trait is quite simple:
-```rust
-pub trait Optionable {
-    type Optioned;
-}
-```
-It is a marker trait that allows to express for a given type `T` which type should be considered its `T::Optioned` type
-such that `Option<Optioned>` would represent all variants of partial completeness.
-For types without inner structure this means that the `Optioned` type will just resolve to the type itself, e.g.
-```rust
-impl Optionable for String {
-    type Optioned = String;
-}
-```
-For many primitive types as well as common wrapper or collection types the `Optionable`-trait is already implemented.
 
 ## Crate features
 - `chrono`: Derive `Optionable` for types from [chrono](https://docs.rs/chrono/latest/chrono/)

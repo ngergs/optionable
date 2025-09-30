@@ -7,13 +7,30 @@
 //!
 //! While trivial to write for plain structures this quickly becomes tedious for nested structs/enums.
 //!
+//! ## Core concept
+//! The main [`trait@Optionable`] trait is quite simple:
+//! ```rust
+//! pub trait Optionable {
+//!     type Optioned;
+//! }
+//! ```
+//! It is a marker trait that allows to express for a given type `T` which type should be considered its `T::Optioned` type
+//! such that `Option<Optioned>` would represent all variants of partial completeness.
+//! For types without inner structure this means that the `Optioned` type will just resolve to the type itself, e.g.
+//! ```rust,ignore
+//! impl Optionable for String {
+//!     type Optioned = String;
+//! }
+//! ```
+//! For many primitive types as well as common wrapper or collection types the [`trait@Optionable`]-trait is already implemented.
+//!
 //! # Deriving optional structs/enums
 //!
-//! The core utility of this library is to provide an [`derive@Optionable`]-derive macro that derives such an optioned type.
-//! It supports nested structures, enums as well as various container types.
+//! The core utility of this library is to provide an `Optionable`-derive macro that derives such an optioned type
+//! and implements the `Optionable`-trait. It supports nested structures, enums as well as various container types.
 //!
 //! The general logic is the same as for other rust derives, If you want to use the [`derive@Optionable`]-derive macro for a struct/enum
-//! every field of it needs to also have implemented the corresponding [`trait@Optionable`] trait (see below):
+//! every field of it needs to also have implemented the corresponding [`trait@Optionable`] trait:
 //!```rust
 //! # use optionable::Optionable;
 //! # use serde::{Serialize,Deserialize};
@@ -90,23 +107,6 @@
 //!     fn try_into_optionable(self) -> Result<T, Error>;
 //! }
 //! ```
-//!
-//! ## Core concept
-//! The main [`trait@Optionable`] trait is quite simple:
-//! ```rust
-//! pub trait Optionable {
-//!     type Optioned;
-//! }
-//! ```
-//! It is a marker trait that allows to express for a given type `T` which type should be considered its `T::Optioned` type
-//! such that `Option<Optioned>` would represent all variants of partial completeness.
-//! For types without inner structure this means that the `Optioned` type will just resolve to the type itself, e.g.
-//! ```rust,ignore
-//! impl Optionable for String {
-//!     type Optioned = String;
-//! }
-//! ```
-//! For many primitive types as well as common wrapper or collection types the [`trait@Optionable`]-trait is already implemented.
 //!
 //! # Crate features
 //! - `chrono`: Derive [`trait@Optionable`] for types from [chrono](https://docs.rs/chrono/latest/chrono/).
