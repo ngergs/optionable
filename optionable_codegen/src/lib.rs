@@ -1,7 +1,7 @@
-//! The relevant main crate is [optionable](https://crates.io/crates/optionable). The relevant docs can be found there.
+//! The relevant main crate is [optionable](https://crates.io/crates/optionable). The docs can be found there.
 //!
 //! # Purpose
-//! This code generation `proc_macro2` code generation library serves two purposes:
+//! This code generation `proc_macro2` library serves two purposes:
 //! - Used by [optionable_derive](https://crates.io/crates/optionable_derive) to implement the `#[derive(Optionable)]`-macro
 //!   re-exported by [optionable](https://crates.io/crates/optionable_derive).
 //! - Used by the [bin/codegen.rs](bin/codegen.rs) crate to support generating `Optionable`-implementations for external packages.
