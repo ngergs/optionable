@@ -1,0 +1,32 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [0.1.0](https://github.com/ngergs/optionable/releases/tag/optionable_codegen-v0.1.0) - 2025-09-30
+
+### Added
+
+- default-enabled feature for derive re-export
+- codegen option to add derives for generated types
+- codegen add public function for attributes
+- codegen option for --no-convert
+- rename codegen crate, use DeriveInput as input arg
+
+### Fixed
+
+- simplify codegen feature config logic
+- codegen for nested directories
+- use clap for codegen arg parsing
+- osString handling for codegen output
+
+### Other
+
+- docs
+- codegen tests
+- adjust codegen version
+- readme
