@@ -27,6 +27,7 @@
 //!
 //! let _ = AddressOpt{
 //!    street_name: Some("a".to_owned()),
+//!    // fill the other fields with `None`
 //!    ..Default::default()
 //! };
 //! ```
