@@ -1,7 +1,10 @@
-//! Library to derive structs/enums with all fields recursively replaced with `Option`-variants.
+//! Library to derive `optioned` structs/enums versions of existing types
+//! where all fields have been recursively replaced with versions that support setting just a subset of the relevant fields (or none at all).
 //!
-//! One common problem when expressing patches e.g. for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations).
-//! is that one would need for a given rust struct `T` a corresponding struct `TOpt` where all fields are optional.
+//! One motivation for this concept is the common problem when expressing patches e.g. for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations)
+//! that for a given rust struct `T` a corresponding struct `T::Optioned` would be required where all fields are recursively optional
+//! to specify.
+//!
 //! While trivial to write for plain structures this quickly becomes tedious for nested structs/enums.
 //!
 //! # Deriving optional structs/enums
@@ -11,67 +14,73 @@
 //!
 //! The general logic is the same as for other rust derives, If you want to use the [`derive@Optionable`]-derive macro for a struct/enum
 //! every field of it needs to also have implemented the corresponding [`trait@Optionable`] trait (see below):
-//! ```rust
+//!```rust
 //! # use optionable::Optionable;
 //! # use serde::{Serialize,Deserialize};
 //! #
 //! #[derive(Optionable)]
-//! #[optionable(derive(Serialize,Deserialize))]
-//! struct DeriveExample {
-//!     name: String,
-//!     addresses: Vec<Address>,
-//! }
-//! #[derive(Optionable)]
-//! #[optionable(derive(Serialize,Deserialize))]
+//! #[optionable(derive(Default,Serialize,Deserialize))]
 //! struct Address {
 //!     street_name: String,
 //!     number: u8,
 //! }
+//! #[derive(Optionable)]
+//! #[optionable(derive(Serialize,Deserialize))]
+//! enum AddressEnum {
+//!     Plain(String),
+//!     AddressExplicit { street: String, number: u32 },
+//!     AddressNested(Address)
+//! }
+//!
+//! let _ = AddressOpt{
+//!    street_name: Some("a".to_owned()),
+//!    ..Default::default()
+//! };
+//! let _ = AddressEnumOpt::AddressExplicit{
+//!    street: Some("a".to_owned()),
+//!    number: None
+//! };
 //! ```
 //!
-//! The generated optioned struct is (shown here with resolved associated types):
-//!  ```rust
+//! The generated optioned types are (shown here with resolved associated types) as follows. They can be also referenced as
+//! `Address::Optioned` and `AddressEnum::Optioned` respectively.
+//! ```rust
 //! # use serde::{Serialize,Deserialize};
-//! #[derive(Serialize,Deserialize)]
-//! struct DeriveExampleOpt {
-//!     name: Option<String>,
-//!     addresses: Option<Vec<AddressOpt>>,
-//! }
+//! #
 //! #[derive(Serialize,Deserialize)]
 //! struct AddressOpt {
 //!     street_name: Option<String>,
 //!     number: Option<u8>,
 //! }
-//! ```
 //!
-//! ## Also works for enums
-//! Enums are also supported for the derive macro, e.g.
-//!
-//! ```rust
-//! # use optionable::Optionable;
-//! #[derive(Optionable)]
-//! enum DeriveExample {
-//!     Unit,
-//!     Plain(String),
-//!     Address { street: String, number: u32 },
-//!     Address2(String, u32),
-//! }
-//! ```
-//! generates the following enum (shown here with resolved associated types):
-//! ```rust
-//! enum DeriveExampleOpt {
-//!     Unit,
+//! #[derive(Serialize,Deserialize)]
+//! enum AddressEnum {
 //!     Plain(Option<String>),
-//!     Address { street: Option<String>, number: Option<u32> },
-//!     AddressTuple(Option<String>, Option<u32>),
+//!     AddressExplicit { street: Option<String>, number: Option<u32> },
+//!     AddressNested( Option<AddressOpt> )
 //! }
 //! ```
 //!
 //! # Conversion
-//! Per default also conversion traits aiming for struct/enums with sized fields will be generated.
+//! Per default also conversion traits for struct/enums with sized fields will be generated.
 //! The relevant traits are [`OptionableConvert`] which is an extension trait for sized-fields only [`trait@Optionable`]
 //! objects. From this trait the sealed convenience trait [`OptionedConvert`] is auto-implemented
 //! for the optioned object.
+//! They are (shown here without comments and `where` clauses):
+//! ```rust,ignore
+//! pub trait OptionableConvert: Sized + Optionable {
+//!     fn into_optioned(self) -> Self::Optioned;
+//!     fn try_from_optioned(value: Self::Optioned) -> Result<Self, Error>;
+//!     fn merge(&mut self, other: Self::Optioned) -> Result<(), Error>;
+//! }
+//!
+//! // sealed, auto-implemented from `OptionableConvert`
+//! pub trait OptionedConvert<T>: Sized
+//! {
+//!     fn from_optionable(value: T) -> Self;
+//!     fn try_into_optionable(self) -> Result<T, Error>;
+//! }
+//! ```
 //!
 //! ## Core concept
 //! The main [`trait@Optionable`] trait is quite simple:
@@ -88,8 +97,8 @@
 //!     type Optioned = String;
 //! }
 //! ```
-//! For many primitive types as well as common wrapper or collection types the `Optionable`-trait is already implemented.
-
+//! For many primitive types as well as common wrapper or collection types the [`trait@Optionable`]-trait is already implemented.
+//!
 //! # Crate features
 //! - `chrono`: Derive [`trait@Optionable`] for types from [chrono](https://docs.rs/chrono/latest/chrono/).
 //! - `serde_json`: Derive [`trait@Optionable`] for [serde_json](https://docs.rs/serde_json/latest/serde_json/)`::Value`.

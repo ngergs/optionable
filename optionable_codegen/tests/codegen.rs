@@ -6,23 +6,19 @@ use tempfile::TempDir;
 
 #[test]
 fn simple() {
-    test("example/simple/input", "example/simple/output", vec![]);
+    test("example/input", "example/simple", vec![]);
 }
 
 #[test]
 fn no_convert() {
-    test(
-        "example/no_convert/input",
-        "example/no_convert/output",
-        vec!["--no-convert"],
-    );
+    test("example/input", "example/no_convert", vec!["--no-convert"]);
 }
 
 #[test]
 fn extra_derives() {
     test(
-        "example/extra_derives/input",
-        "example/extra_derives/output",
+        "example/input",
+        "example/extra_derives",
         vec!["-d", "serde::Serialize", "-d", "serde::Deserialize"],
     );
 }

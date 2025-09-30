@@ -1,10 +1,12 @@
 # optionable
 
-The [optionable crate](https://crates.io/crates/optionable) is a library to derive `optioned` structs/enums versions of existing types
-where all fields have been recursively replaced with `Option`-variants.
+[The optionable crate](https://crates.io/crates/optionable) is a library to derive `optioned` structs/enums versions of existing types
+where all fields have been recursively replaced with versions that support setting just a subset of the relevant fields (or none at all).
 
-The motivation is that it is a common problem when expressing patches e.g. for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations)
-that one would need for a given rust struct `T` a corresponding struct `TOpt` where all fields are optional.
+One motivation for this concept is the common problem when expressing patches e.g. for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations)
+that for a given rust struct `T` a corresponding struct `T::Optioned` would be required where all fields are recursively optional
+to specify.
+
 While trivial to write for plain structures this quickly becomes tedious for nested structs/enums.
 
 ## Deriving optional structs/enums
@@ -16,57 +18,52 @@ The general logic is the same as for other rust derives, If you want to use the 
 every field of it needs to also have implemented the corresponding `Optionable` trait (see below):
 ```rust
 #[derive(Optionable)]
-#[optionable(derive(Serialize,Deserialize))]
-struct DeriveExample {
-    name: String,
-    addresses: Vec<Address>,
-}
-#[derive(Optionable)]
-#[optionable(derive(Serialize,Deserialize))]
+#[optionable(derive(Default,Serialize,Deserialize))]
 struct Address {
     street_name: String,
     number: u8,
 }
+#[derive(Optionable)]
+#[optionable(derive(Serialize,Deserialize))]
+enum AddressEnum {
+    Unit,
+    Plain(String),
+    AddressExplicit { street: String, number: u32 },
+    AddressNested(Address)
+}
+
+fn example(){
+    let _ = AddressOpt{
+        street_name: Some("a".to_owned()),
+        ..Default::default()
+    };
+    let _ = AddressEnumOpt::AddressExplicit{ 
+        street: Some("a".to_owned()),
+        number: None
+    };
+}
 ```
 
-The generated optioned struct is (shown here with resolved associated types):
+The generated optioned types are (shown here with resolved associated types) as follows. They can be also referenced as
+`Address::Optioned` and `AddressEnum::Optioned` respectively.
 ```rust
-#[derive(Serialize,Deserialize)]
-struct DeriveExampleOpt {
-    name: Option<String>,
-    addresses: Option<Vec<AddressOpt>>,
-}
 #[derive(Serialize,Deserialize)]
 struct AddressOpt {
     street_name: Option<String>,
     number: Option<u8>,
 }
-```
 
-### Also works for enums
-Enums are also supported for the derive macro, e.g.
-
-```rust
-#[derive(Optionable)]
-enum DeriveExample {
+#[derive(Serialize,Deserialize)]
+enum AddressEnum {
     Unit,
     Plain(String),
-    Address { street: String, number: u32 },
-    Address2(String, u32),
-}
-```
-generates the following enum (shown here with resolved associated types):
-```rust
-enum DeriveExampleOpt {
-    Unit,
-    Plain(Option<String>),
-    Address { street: Option<String>, number: Option<u32> },
-    AddressTuple(Option<String>, Option<u32>),
+    AddressExplicit { street: Option<String>, number: Option<u32> },
+    AddressNested( Option<AddressOpt> )
 }
 ```
 
 ## Conversion
-Per default also conversion traits aiming for struct/enums with sized fields will be generated.
+Per default also conversion traits for struct/enums with sized fields will be generated.
 The relevant traits are (shown here without comments and `where` clauses):
 ```rust
 pub trait OptionableConvert: Sized + Optionable {
@@ -124,4 +121,5 @@ providing many fine-grained configuration options.
 You can use this under the conditions of the [MIT license](LICENSE-MIT) or the [Apache License, Version 2.0](LICENSE-APACHE) at your option.
 
 #### Contributing
-Any contributor has to agree to have their contribution also dual-licensed under the MIT or Apache-2.0 license as linked above.
+Any contributor has to agree to have their contribution also dual-licensed under the MIT as well as Apache-2.0 license as
+specified above in the `License` subsection.
