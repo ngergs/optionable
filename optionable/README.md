@@ -23,42 +23,39 @@ struct Address {
     street_name: String,
     number: u8,
 }
-#[derive(Optionable)]
-#[optionable(derive(Serialize,Deserialize))]
-enum AddressEnum {
-    Unit,
-    Plain(String),
-    AddressExplicit { street: String, number: u32 },
-    AddressNested(Address)
-}
 
 fn example(){
     let _ = AddressOpt{
         street_name: Some("a".to_owned()),
         ..Default::default()
     };
-    let _ = AddressEnumOpt::AddressExplicit{ 
-        street: Some("a".to_owned()),
-        number: None
-    };
 }
 ```
 
-The generated optioned types are (shown here with resolved associated types) as follows. They can be also referenced as
-`Address::Optioned` and `AddressEnum::Optioned` respectively.
+The generated optioned type is (shown here with resolved associated types) as follows:
 ```rust
 #[derive(Serialize,Deserialize)]
 struct AddressOpt {
     street_name: Option<String>,
     number: Option<u8>,
 }
+```
 
-#[derive(Serialize,Deserialize)]
+### Enum support
+Deriving optioned versions also works with enums:
+```rust
+#[derive(Optionable)]
 enum AddressEnum {
-    Unit,
-    Plain(String),
-    AddressExplicit { street: Option<String>, number: Option<u32> },
-    AddressNested( Option<AddressOpt> )
+     Plain(String),
+     AddressExplicit { street: String, number: u32 },
+     AddressNested(Address)
+}
+
+fn example(){
+    let _ = AddressEnumOpt::AddressExplicit{
+        street: Some("a".to_owned()),
+        number: None 
+    };
 }
 ```
 

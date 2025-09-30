@@ -24,21 +24,10 @@
 //!     street_name: String,
 //!     number: u8,
 //! }
-//! #[derive(Optionable)]
-//! #[optionable(derive(Serialize,Deserialize))]
-//! enum AddressEnum {
-//!     Plain(String),
-//!     AddressExplicit { street: String, number: u32 },
-//!     AddressNested(Address)
-//! }
 //!
 //! let _ = AddressOpt{
 //!    street_name: Some("a".to_owned()),
 //!    ..Default::default()
-//! };
-//! let _ = AddressEnumOpt::AddressExplicit{
-//!    street: Some("a".to_owned()),
-//!    number: None
 //! };
 //! ```
 //!
@@ -52,12 +41,31 @@
 //!     street_name: Option<String>,
 //!     number: Option<u8>,
 //! }
+//! ```
 //!
-//! #[derive(Serialize,Deserialize)]
+//! ### Enum support
+//! Deriving optioned versions also works with enums:
+//! ```rust
+//! # use optionable::Optionable;
+//! #
+//! # #[derive(Optionable)]
+//! # struct Address {
+//! #     street_name: String,
+//! #     number: u8,
+//! # }
+//! #
+//! #[derive(Optionable)]
 //! enum AddressEnum {
-//!     Plain(Option<String>),
-//!     AddressExplicit { street: Option<String>, number: Option<u32> },
-//!     AddressNested( Option<AddressOpt> )
+//!      Plain(String),
+//!      AddressExplicit { street: String, number: u32 },
+//!      AddressNested(Address)
+//! }
+//!
+//! fn example(){
+//!     let _ = AddressEnumOpt::AddressExplicit{
+//!         street: Some("a".to_owned()),
+//!         number: None
+//!     };
 //! }
 //! ```
 //!
