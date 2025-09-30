@@ -25,6 +25,8 @@ jobs:
           fetch-depth: 0
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
       - name: Configure cache
         uses: Swatinem/rust-cache@v2
       - name: Pre-release tests
