@@ -67,10 +67,18 @@ fn derive_named_struct_required() {
 fn derive_unnamed_struct() {
     #[allow(dead_code)]
     #[derive(Optionable)]
+    #[optionable(derive(Clone))]
     struct DeriveExample(String, pub i32);
 
-    let _ = DeriveExampleOpt(None, None);
-    let _ = DeriveExampleOpt(Some("a".to_owned()), Some(42));
+    let partial = DeriveExampleOpt(None, Some(1));
+    let full_partial = DeriveExampleOpt(Some("a".to_owned()), Some(42));
+
+    let mut full: DeriveExample = full_partial.clone().try_into_optionable().unwrap();
+    assert_eq!(full_partial.clone().0.unwrap(), full.0);
+    assert_eq!(full_partial.1.unwrap(), full.1);
+    full.merge(partial.clone()).unwrap();
+    assert_eq!(full_partial.0.unwrap(), full.0);
+    assert_eq!(partial.1.unwrap(), full.1);
 }
 
 #[test]
@@ -78,10 +86,18 @@ fn derive_unnamed_struct() {
 fn derive_unnamed_struct_required() {
     #[derive(Optionable)]
     #[allow(dead_code)]
+    #[optionable(derive(Clone))]
     struct DeriveExample(String, #[optionable(required)] i32);
 
-    let _ = DeriveExampleOpt(None, 42);
-    let _ = DeriveExampleOpt(Some("a".to_owned()), 42);
+    let partial = DeriveExampleOpt(None, 1);
+    let full_partial = DeriveExampleOpt(Some("a".to_owned()), 42);
+
+    let mut full: DeriveExample = full_partial.clone().try_into_optionable().unwrap();
+    assert_eq!(full_partial.clone().0.unwrap(), full.0);
+    assert_eq!(full_partial.1, full.1);
+    full.merge(partial.clone()).unwrap();
+    assert_eq!(full_partial.0.unwrap(), full.0);
+    assert_eq!(partial.1, full.1);
 }
 
 #[test]
@@ -89,19 +105,33 @@ fn derive_unnamed_struct_required() {
 fn derive_generic() {
     #[allow(dead_code)]
     #[derive(Optionable)]
-    struct DeriveExample<T, T2> {
+    #[optionable(derive(Clone))]
+    struct DeriveExample<T, T2>
+    where
+        T: Optionable,
+        T2: Optionable,
+        T::Optioned: Clone,
+        T2::Optioned: Clone,
+    {
         name: T,
         surname: T2,
     }
 
-    let _ = DeriveExampleOpt::<i32, String> {
-        name: None,
+    let partial = DeriveExampleOpt::<i32, String> {
+        name: Some(42),
         surname: None,
     };
-    let _ = DeriveExampleOpt::<i32, String> {
+    let full_partial = DeriveExampleOpt::<i32, String> {
         name: Some(2),
         surname: Some("b".to_owned()),
     };
+
+    let mut full: DeriveExample<_, _> = full_partial.clone().try_into_optionable().unwrap();
+    assert_eq!(full_partial.clone().name.unwrap(), full.name);
+    assert_eq!(full_partial.surname.clone().unwrap(), full.surname);
+    full.merge(partial.clone()).unwrap();
+    assert_eq!(partial.name.unwrap(), full.name);
+    assert_eq!(full_partial.surname.unwrap(), full.surname);
 }
 
 type _String = <String as ::optionable::Optionable>::Optioned;
