@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.6](https://github.com/ngergs/optionable/compare/optionable-v0.1.5...optionable-v0.1.6) - 2025-09-30
+
+### Added
+
+- default-enabled feature for derive re-export
+
+### Other
+
+- cleanup gitignore
+- integration tests
+- docs
+- docs
+- docs
+- docs
+- readme
+
 ## [0.1.5](https://github.com/ngergs/optionable/compare/optionable-v0.1.4...optionable-v0.1.5) - 2025-09-24
 
 ### Fixed

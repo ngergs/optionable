@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.6](https://github.com/ngergs/optionable/compare/optionable_derive-v0.1.5...optionable_derive-v0.1.6) - 2025-09-30
+
+### Added
+
+- default-enabled feature for derive re-export
+- rename codegen crate, use DeriveInput as input arg
+- codegen to simplify implementation for external packages
+
+### Fixed
+
+- update dependencies
+
+### Other
+
+- readme
+
 ## [0.1.5](https://github.com/ngergs/optionable/compare/optionable_derive-v0.1.4...optionable_derive-v0.1.5) - 2025-09-24
 
 ### Fixed
