@@ -15,7 +15,7 @@
 //! }
 //! ```
 //! It is a marker trait that allows to express for a given type `T` which type should be considered its `T::Optioned` type
-//! such that `Option<Optioned>` would represent all variants of partial completeness.
+//! such that `Option<T::Optioned>` would represent all variants of partial completeness.
 //! For types without inner structure this means that the `Optioned` type will just resolve to the type itself, e.g.
 //! ```rust,ignore
 //! impl Optionable for String {
