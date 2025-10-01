@@ -22,8 +22,8 @@ use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::token::Where;
 use syn::{
-    parse_quote, Attribute, Data, DeriveInput, Error, Field, Fields, GenericParam, LitStr, Meta, Path,
-    Token, Type, TypePath, WhereClause, WherePredicate,
+    parse_quote, Attribute, Data, DeriveInput, Error, Field, Fields, GenericParam, LitStr, Meta, MetaList,
+    Path, Token, Type, TypePath, WhereClause, WherePredicate,
 };
 
 const HELPER_IDENT: &str = "optionable";
@@ -670,12 +670,12 @@ fn forwarded_attributes(attrs: &[Attribute]) -> Option<TokenStream> {
                 return None;
             }
             match &attr.meta {
-                Meta::List(l) => Some(l.tokens.clone()),
+                Meta::List(MetaList { tokens, .. }) => Some(quote!(#[#tokens])),
                 _ => None,
             }
         })
-        .collect::<Vec<_>>();
-    (!forward_attrs.is_empty()).then(|| quote!(#[#(#forward_attrs),*]))
+        .collect::<TokenStream>();
+    (!forward_attrs.is_empty()).then_some(forward_attrs)
 }
 
 /// error just prepares an error message that references the source span
@@ -837,8 +837,9 @@ mod tests {
             TestCase {
                 input: quote! {
                     #[derive(Optionable)]
-                    #[optionable(derive(Deserialize,Serialize),suffix="Ac")]
-                    #[optionable_attr(serde(rename_all = "camelCase"))]
+                    #[optionable(derive(Deserialize,Serialize,Default),suffix="Ac")]
+                    #[optionable_attr(serde(rename_all = "camelCase", deny_unknown_fields))]
+                    #[optionable_attr(serde(default))]
                     struct DeriveExample {
                         #[optionable_attr(serde(rename = "firstName"))]
                         name: String,
@@ -848,8 +849,9 @@ mod tests {
                 },
                 output: quote! {
                     #[automatically_derived]
-                    #[derive(Deserialize, Serialize)]
-                    #[serde(rename_all = "camelCase")]
+                    #[derive(Deserialize, Serialize,Default)]
+                    #[serde(rename_all = "camelCase", deny_unknown_fields)]
+                    #[serde(default)]
                     struct DeriveExampleAc {
                         #[serde(rename = "firstName")]
                         #[serde(skip_serializing_if = "Option::is_none")]

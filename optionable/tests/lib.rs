@@ -247,8 +247,9 @@ fn derive_enum() {
 /// Check that forwarding other derives via helper attributes works
 fn derive_forward_other_derives() {
     #[derive(Optionable)]
-    #[optionable(derive(Deserialize, Serialize))]
-    #[optionable_attr(serde(rename_all = "camelCase"))]
+    #[optionable(derive(Deserialize, Serialize, Default))]
+    #[optionable_attr(serde(rename_all = "camelCase", deny_unknown_fields))]
+    #[optionable_attr(serde(default))]
     #[allow(dead_code)]
     struct DeriveExample {
         #[optionable_attr(serde(rename = "firstName"))]
