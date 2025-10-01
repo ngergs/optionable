@@ -9,7 +9,6 @@ use proc_macro::TokenStream;
 /// All non-required fields have to implement the `Optionable` trait. This trait is already implemented by this library
 /// for many primitive types, wrapper and container types.
 ///
-/// ### Forwarding attributes///
 /// ### Type-level attributes (on the struct/enum level)
 /// - **`derive`**: Allows to specify derive attributes that should be attached to the generate optioned struct/enum.
 ///   If you need to forward additional helper attributes to the generated type use `optionable_attr`
