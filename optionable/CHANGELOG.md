@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.7](https://github.com/ngergs/optionable/compare/optionable-v0.1.6...optionable-v0.1.7) - 2025-10-01
+
+### Added
+
+- support forwarding of helper attributes to derived optioned types
+
+### Other
+
+- docs
+
 ## [0.1.6](https://github.com/ngergs/optionable/compare/optionable-v0.1.5...optionable-v0.1.6) - 2025-09-30
 
 ### Added

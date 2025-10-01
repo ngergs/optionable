@@ -312,7 +312,7 @@ checksum = "a4895175b425cb1f87721b59f0f286c2092bd4af812243672510e1ac53e2e0ad"
 
 [[package]]
 name = "optionable"
-version = "0.1.6"
+version = "0.1.7"
 dependencies = [
  "chrono",
  "optionable_derive",
@@ -322,7 +322,7 @@ dependencies = [
 
 [[package]]
 name = "optionable_codegen"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "assert_cmd",
  "clap",
@@ -337,7 +337,7 @@ dependencies = [
 
 [[package]]
 name = "optionable_derive"
-version = "0.1.6"
+version = "0.1.7"
 dependencies = [
  "optionable_codegen",
  "syn",
