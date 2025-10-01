@@ -181,10 +181,15 @@ fn derive_nested() {
 fn derive_enum() {
     #[allow(dead_code)]
     #[derive(Optionable)]
+    #[optionable(derive(Default))]
     enum DeriveExample {
+        #[optionable_attr(default)]
         Unit,
         Plain(String),
-        Address { street: String, number: u32 },
+        Address {
+            street: String,
+            number: u32,
+        },
         AddressTuple(String, u32),
     }
 

@@ -197,19 +197,23 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
                 .into_iter()
                 .map(|v| {
                     error_on_helper_attributes(&v.attrs, ERR_MSG_HELPER_ATTR_ENUM_VARIANTS)?;
-                    Ok::<_, Error>((v.ident, into_field_handling(v.fields)?))
+                    Ok::<_, Error>((
+                        v.ident,
+                        forwarded_attributes(&v.attrs),
+                        into_field_handling(v.fields)?,
+                    ))
                 })
                 .collect::<Result<Vec<_>, _>>()?;
 
-            let optioned_variants = variants.iter().map(|(variant, f)| {
+            let optioned_variants = variants.iter().map(|(variant, forward_attrs, f)| {
                 let fields = optioned_fields(f, skip_optionable_if_serde_serialize.as_ref());
-                quote!( #variant #fields )
+                quote!( #forward_attrs #variant #fields )
             });
 
             let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
                 let (into_variants, try_from_variants, merge_variants): (Vec<_>, Vec<_>, Vec<_>) = variants
                     .iter()
-                    .map(|(variant, f)| {
+                    .map(|(variant,_, f)| {
                         let fields_into = into_optioned(f, |selector| {
                             format_ident!("{self_prefix}{selector}").to_token_stream()
                         });
