@@ -4,21 +4,28 @@
 //! This is only a separate crate as derive macros have to be a separate crate.
 use proc_macro::TokenStream;
 
-/// Derive macro to derive the `Optionable` trait for structs/enums recursively. All non-required
-/// fields have to implement the `Optionable` trait. This trait is already implemented by this library
+/// Derive macro to derive the `Optionable` trait for structs/enums recursively by generating
+/// a type with all fields recursively replaced with `Option` versions.
+/// All non-required fields have to implement the `Optionable` trait. This trait is already implemented by this library
 /// for many primitive types, wrapper and container types.
 ///
+/// ### Forwarding attributes///
 /// ### Type-level attributes (on the struct/enum level)
 /// - **`derive`**: Allows to specify derive attributes that should be attached to the generate optioned struct/enum.
-///   Example:
+///   If you need to forward additional helper attributes to the generated type use `optionable_attr`
+///   with the attribute to forward as content (works for type and field attributes).
 ///   ```rust,ignore
 ///   #[derive(optionable)]
 ///   #[optionable(derive(Deserialize, Serialize))]
-///   struct MyStruct{}
+///   #[optionable_attr(serde(rename_all = "camelCase"))]
+///   struct MyStruct{
+///     #[optionable_attr(serde(rename = "firstName"))]
+///     name: String,
+///     surname: String,
+///   }
 ///   ```
 /// - **`no_convert`**: Does not derive the `OptionableConvert` implementation.
 ///   Might be required if the target type involves smart pointers or unsized fields.
-///   Example:
 ///   ```rust,ignore
 ///   #[derive(optionable)]
 ///   #[optionable(no_convert)]
@@ -26,16 +33,15 @@ use proc_macro::TokenStream;
 ///   ```
 /// - **`suffix`**: The name of the generated optioned struct/enum will be `<original><suffix>` with suffix
 ///   defaulting to `"Opt"`. The suffix value can be adjusted via e.g. `#[optionable(suffix="Ac")]`.
-///   Example:
 ///   ```rust,ignore
 ///   #[derive(optionable)]
 ///   #[optionable(suffix="Ac")]
 ///   struct MyStruct{}
 ///   ```
+///
 /// ### Field-level attributes (for structs and struct-typed enum variants)
 /// - **`required`**: The annotated field will be kept as is and won't be transformed into some optional variant
 ///   for the derived optioned Struct.
-///   Example:
 ///   ```rust,ignore
 ///   #[derive(optionable)]
 ///   struct MyStruct{
@@ -44,7 +50,7 @@ use proc_macro::TokenStream;
 ///     number: u32; // will also be a u32 in the derived `MyStructOpt`.
 ///   }
 ///   ```
-#[proc_macro_derive(Optionable, attributes(optionable))]
+#[proc_macro_derive(Optionable, attributes(optionable, optionable_attr))]
 pub fn derive_optionable(input: TokenStream) -> TokenStream {
     try_derive_optionable(input).unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
 }

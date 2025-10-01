@@ -243,8 +243,10 @@ fn derive_enum() {
 fn derive_forward_other_derives() {
     #[derive(Optionable)]
     #[optionable(derive(Deserialize, Serialize))]
+    #[optionable_attr(serde(rename_all = "camelCase"))]
     #[allow(dead_code)]
     struct DeriveExample {
+        #[optionable_attr(serde(rename = "firstName"))]
         name: String,
         middle_name: Option<String>,
         surname: String,
@@ -256,5 +258,5 @@ fn derive_forward_other_derives() {
         surname: None,
     };
     let a_json = serde_json::to_string(&a).unwrap();
-    assert_eq!(a_json, "{\"name\":\"a\",\"middle_name\":\"b\"}");
+    assert_eq!(a_json, "{\"firstName\":\"a\",\"middleName\":\"b\"}");
 }

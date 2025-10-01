@@ -22,11 +22,12 @@ use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::token::Where;
 use syn::{
-    parse_quote, Attribute, Data, DeriveInput, Error, Field, Fields, GenericParam, LitStr, Path, Token,
-    Type, TypePath, WhereClause, WherePredicate,
+    parse_quote, Attribute, Data, DeriveInput, Error, Field, Fields, GenericParam, LitStr, Meta, Path,
+    Token, Type, TypePath, WhereClause, WherePredicate,
 };
 
 const HELPER_IDENT: &str = "optionable";
+const HELPER_ATTR_IDENT: &str = "optionable_attr";
 const ERR_MSG_HELPER_ATTR_ENUM_VARIANTS: &str =
     "#[optionable] helper attributes not supported on enum variant level.";
 
@@ -82,6 +83,7 @@ pub fn attribute_derives(derives: &PathList) -> Attribute {
 #[allow(clippy::too_many_lines)]
 pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
+    let forward_attrs = forwarded_attributes(&input.attrs);
     let vis = input.vis;
     let type_ident_opt = Ident::new(
         &(input.ident.to_string() + &attrs.suffix.value()),
@@ -178,6 +180,7 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
             Ok(quote! {
                 #[automatically_derived]
                 #derives
+                #forward_attrs
                 #vis struct #type_ident_opt #impl_generics #where_clause #optioned_fields #unnamed_struct_semicolon
 
                 #impls_optionable
@@ -261,6 +264,7 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
             Ok(quote!(
                 #[automatically_derived]
                 #derives
+                #forward_attrs
                 #vis enum #type_ident_opt #impl_generics #where_clause {
                     #(#optioned_variants),*
                 }
@@ -314,15 +318,16 @@ fn destructure(fields: &FieldsParsed, prefix: &TokenStream) -> Result<TokenStrea
 fn optioned_fields(fields: &FieldsParsed, serde_attributes: Option<&TokenStream>) -> TokenStream {
     let fields_token = fields.fields.iter().map(
         |FieldParsed {
-             field: Field { vis, ident, ty, .. },
+             field: Field { attrs,vis, ident, ty, .. },
              handling,
          }| {
+            let forward_attrs = forwarded_attributes(attrs);
             let optioned_ty = optioned_ty(ty);
             let colon = ident.as_ref().map(|_| quote! {:});
             match handling {
-                Required => quote! {#vis #ident #colon #ty},
-                IsOption => quote! {#serde_attributes #vis #ident #colon #optioned_ty},
-                Other => quote! {#serde_attributes #vis #ident #colon Option<#optioned_ty>},
+                Required => quote! {#forward_attrs #vis #ident #colon #ty},
+                IsOption => quote! {#forward_attrs #serde_attributes #vis #ident #colon #optioned_ty},
+                Other => quote! {#forward_attrs #serde_attributes #vis #ident #colon Option<#optioned_ty>},
             }
         },
     );
@@ -651,6 +656,24 @@ fn is_self_resolving_optioned(ty: &Type) -> bool {
     }
 }
 
+/// Extracts the `HELPER_ATTR_IDENT` attributes, unwraps them and returns them
+/// as `TokenStream` that can be used as respective attribute.
+fn forwarded_attributes(attrs: &[Attribute]) -> Option<TokenStream> {
+    let forward_attrs = attrs
+        .iter()
+        .filter_map(|attr| {
+            if !attr.path().is_ident(HELPER_ATTR_IDENT) {
+                return None;
+            }
+            match &attr.meta {
+                Meta::List(l) => Some(l.tokens.clone()),
+                _ => None,
+            }
+        })
+        .collect::<Vec<_>>();
+    (!forward_attrs.is_empty()).then(|| quote!(#[#(#forward_attrs),*]))
+}
+
 /// error just prepares an error message that references the source span
 pub(crate) fn error<S: AsRef<str> + fmt::Display, T>(msg: S) -> syn::Result<T> {
     Err(Error::new(Span::call_site(), msg))
@@ -811,7 +834,9 @@ mod tests {
                 input: quote! {
                     #[derive(Optionable)]
                     #[optionable(derive(Deserialize,Serialize),suffix="Ac")]
+                    #[optionable_attr(serde(rename_all = "camelCase"))]
                     struct DeriveExample {
+                        #[optionable_attr(serde(rename = "firstName"))]
                         name: String,
                         middle_name: Option<String>,
                         surname: String,
@@ -820,7 +845,9 @@ mod tests {
                 output: quote! {
                     #[automatically_derived]
                     #[derive(Deserialize, Serialize)]
+                    #[serde(rename_all = "camelCase")]
                     struct DeriveExampleAc {
+                        #[serde(rename = "firstName")]
                         #[serde(skip_serializing_if = "Option::is_none")]
                         name: Option<String>,
                         #[serde(skip_serializing_if = "Option::is_none")]
