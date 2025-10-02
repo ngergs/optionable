@@ -81,6 +81,7 @@ pub fn attribute_derives(derives: &PathList) -> Attribute {
 /// - on misplaced helper attributes
 /// - internal implementation errors
 #[allow(clippy::too_many_lines)]
+#[allow(clippy::items_after_statements)]
 pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
     let forward_attrs = forwarded_attributes(&input.attrs);
@@ -126,7 +127,20 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
         .is_empty())
     .then(|| quote! {#[derive(#(#derives),*)]});
 
-    match input.data {
+    /// Helper to collect the enum/struct specific derived code aspects in a typesafe way
+    struct Derived {
+        /// Either `enum` or `struct`
+        enum_struct: TokenStream,
+        /// The generated fields, including wrapping brackets
+        fields: TokenStream,
+        /// The `OptionableConvert` implementation if not configured to be skipped, including the `impl`-wrapper
+        impl_optionable_convert: Option<TokenStream>,
+    }
+    let Derived {
+        enum_struct,
+        fields,
+        impl_optionable_convert,
+    } = match input.data {
         Data::Struct(s) => {
             let fields = into_field_handling(s.fields)?;
             let unnamed_struct_semicolon =
@@ -161,16 +175,11 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
                     }
                 }
             });
-
-            Ok(quote! {
-                #derives
-                #forward_attrs
-                #vis struct #type_ident_opt #impl_generics #where_clause #optioned_fields #unnamed_struct_semicolon
-
-                #impls_optionable
-
-                #impl_optionable_convert
-            })
+            Derived {
+                enum_struct: quote! {struct},
+                fields: quote! {#optioned_fields #unnamed_struct_semicolon},
+                impl_optionable_convert,
+            }
         }
         Data::Enum(e) => {
             let self_prefix = quote! {self_};
@@ -197,7 +206,7 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
             let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
                 let (into_variants, try_from_variants, merge_variants): (Vec<_>, Vec<_>, Vec<_>) = variants
                     .iter()
-                    .map(|(variant,_, f)| {
+                    .map(|(variant, _, f)| {
                         let fields_into = into_optioned(f, |selector| {
                             format_ident!("{self_prefix}{selector}").to_token_stream()
                         });
@@ -248,21 +257,23 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
                     }
                 })
             }).transpose()?;
-
-            Ok(quote!(
+            Derived {
+                enum_struct: quote! {enum},
+                fields: quote! {{#(#optioned_variants),*}},
+                impl_optionable_convert,
+            }
+        }
+        Data::Union(_) => return error("#[derive(Optionable)] not supported for unit structs"),
+    };
+    Ok(quote! {
                 #derives
                 #forward_attrs
-                #vis enum #type_ident_opt #impl_generics #where_clause {
-                    #(#optioned_variants),*
-                }
+                #vis #enum_struct #type_ident_opt #impl_generics #where_clause #fields
 
                 #impls_optionable
 
                 #impl_optionable_convert
-            ))
-        }
-        Data::Union(_) => error("#[derive(Optionable)] not supported for unit structs"),
-    }
+    })
 }
 
 /// Constructs a destructure selector for the given fields, e.g. a `std::vec!(field_a, field_b)`
@@ -305,7 +316,7 @@ fn destructure(fields: &FieldsParsed, prefix: &TokenStream) -> Result<TokenStrea
 fn optioned_fields(fields: &FieldsParsed, serde_attributes: Option<&TokenStream>) -> TokenStream {
     let fields_token = fields.fields.iter().map(
         |FieldParsed {
-             field: Field { attrs,vis, ident, ty, .. },
+             field: Field { attrs, vis, ident, ty, .. },
              handling,
          }| {
             let forward_attrs = forwarded_attributes(attrs);
@@ -488,7 +499,7 @@ fn where_clauses(generics: &Generics, attrs: &TypeHelperAttributes) -> WhereClau
 }
 
 /// Adjusts the where clause to add the provided predicate  type bounds.
-/// Basically the original where clause with a type bound to the preodicate added
+/// Basically the original where clause with a type bound to the predicate added
 /// for every generic type parameter (todo: that is not excluded via the `required` helper attribute.)
 fn patch_where_clause_bounds(
     where_clause: &mut WhereClause,
