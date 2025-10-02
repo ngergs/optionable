@@ -22,8 +22,8 @@ use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::token::Where;
 use syn::{
-    parse_quote, Attribute, Data, DeriveInput, Error, Field, Fields, GenericParam, LitStr, Meta, MetaList,
-    Path, Token, Type, TypePath, WhereClause, WherePredicate,
+    parse_quote, Attribute, Data, DeriveInput, Error, Field, Fields, GenericParam, Generics, LitStr,
+    Meta, MetaList, Path, Token, Type, TypePath, WhereClause, WherePredicate,
 };
 
 const HELPER_IDENT: &str = "optionable";
@@ -85,33 +85,18 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
     let forward_attrs = forwarded_attributes(&input.attrs);
     let vis = input.vis;
+    let type_ident = &input.ident;
     let type_ident_opt = Ident::new(
         &(input.ident.to_string() + &attrs.suffix.value()),
         input.ident.span(),
     );
-    let type_ident = &input.ident;
 
-    let generics_colon = (!input.generics.params.is_empty()).then(|| quote! {::});
     let (impl_generics, ty_generics, _) = input.generics.split_for_impl();
-    let mut where_clause = input
-        .generics
-        .where_clause
-        .clone()
-        .unwrap_or_else(|| WhereClause {
-            where_token: Where::default(),
-            predicates: Punctuated::default(),
-        });
-    let where_clause_convert = attrs.no_convert.is_none().then(|| {
-        let mut where_clause = where_clause.clone();
-
-        patch_where_clause_bounds(&mut where_clause, &input.generics.params, |_| {
-            quote!(::optionable::OptionableConvert)
-        });
-        where_clause
-    });
-    patch_where_clause_bounds(&mut where_clause, &input.generics.params, |_| {
-        quote!(::optionable::Optionable)
-    });
+    let generics_colon = (!input.generics.params.is_empty()).then(|| quote! {::});
+    let WhereClauses {
+        normal: where_clause,
+        convert: where_clause_convert,
+    } = where_clauses(&input.generics, &attrs);
 
     // the impl statements are actually independent of deriving
     // the relevant associated type #type_ident_opt referenced by them
@@ -178,7 +163,6 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
             });
 
             Ok(quote! {
-                #[automatically_derived]
                 #derives
                 #forward_attrs
                 #vis struct #type_ident_opt #impl_generics #where_clause #optioned_fields #unnamed_struct_semicolon
@@ -266,7 +250,6 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
             }).transpose()?;
 
             Ok(quote!(
-                #[automatically_derived]
                 #derives
                 #forward_attrs
                 #vis enum #type_ident_opt #impl_generics #where_clause {
@@ -467,6 +450,40 @@ fn struct_wrapper(
         StructType::Named => quote!({#(#tokens),*}),
         StructType::Unnamed => quote!((#(#tokens),*)),
         StructType::Unit => quote!(),
+    }
+}
+
+/// `WhereClauses` for the derived optioned types
+struct WhereClauses {
+    /// Normal where clause for the optioned type
+    normal: WhereClause,
+    /// Where clause for the `OptionableConvert` implementation
+    convert: Option<WhereClause>,
+}
+
+/// Extracts the where clauses from the input, patching the bound to the optioned types.
+fn where_clauses(generics: &Generics, attrs: &TypeHelperAttributes) -> WhereClauses {
+    let mut where_clause = generics
+        .where_clause
+        .clone()
+        .unwrap_or_else(|| WhereClause {
+            where_token: Where::default(),
+            predicates: Punctuated::default(),
+        });
+    let where_clause_convert = attrs.no_convert.is_none().then(|| {
+        let mut where_clause = where_clause.clone();
+
+        patch_where_clause_bounds(&mut where_clause, &generics.params, |_| {
+            quote!(::optionable::OptionableConvert)
+        });
+        where_clause
+    });
+    patch_where_clause_bounds(&mut where_clause, &generics.params, |_| {
+        quote!(::optionable::Optionable)
+    });
+    WhereClauses {
+        normal: where_clause,
+        convert: where_clause_convert,
     }
 }
 
@@ -708,7 +725,6 @@ mod tests {
                     }
                 },
                 output: quote! {
-                    #[automatically_derived]
                     struct DeriveExampleOpt {
                         name: Option<String>,
                         pub surname: Option<String>
@@ -763,7 +779,6 @@ mod tests {
                     }
                 },
                 output: quote! {
-                    #[automatically_derived]
                     struct DeriveExampleOpt {
                         name: Option<String>,
                         pub surname: Option<String>
@@ -791,7 +806,6 @@ mod tests {
                     }
                 },
                 output: quote! {
-                    #[automatically_derived]
                     struct DeriveExampleOpt {
                         name: Option<String>,
                         pub surname: String
@@ -848,7 +862,6 @@ mod tests {
                     }
                 },
                 output: quote! {
-                    #[automatically_derived]
                     #[derive(Deserialize, Serialize,Default)]
                     #[serde(rename_all = "camelCase", deny_unknown_fields)]
                     #[serde(default)]
@@ -914,7 +927,6 @@ mod tests {
                     }
                 },
                 output: quote! {
-                    #[automatically_derived]
                     #[derive(serde::Deserialize, serde::Serialize)]
                     struct DeriveExampleAc {
                         #[serde(skip_serializing_if = "Option::is_none")]
@@ -968,7 +980,6 @@ mod tests {
                     struct DeriveExample(pub String, i32);
                 },
                 output: quote! {
-                    #[automatically_derived]
                     struct DeriveExampleOpt(
                         pub Option<String>,
                         Option<i32>
@@ -1019,7 +1030,6 @@ mod tests {
                     struct DeriveExample(pub String, #[optionable(required)] i32);
                 },
                 output: quote! {
-                    #[automatically_derived]
                     struct DeriveExampleOpt(
                         pub Option<String>,
                         i32
@@ -1070,7 +1080,6 @@ mod tests {
                     }
                 },
                 output: quote! {
-                    #[automatically_derived]
                     struct DeriveExampleOpt<T, T2: Serialize>
                         where T: DeserializeOwned + ::optionable::Optionable,
                               T2: ::optionable::Optionable {
@@ -1133,7 +1142,6 @@ mod tests {
                     }
                 },
                 output: quote! {
-                    # [automatically_derived]
                     enum DeriveExampleOpt {
                         Unit,
                         Plain( Option<String> ),

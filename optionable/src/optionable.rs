@@ -48,6 +48,7 @@ macro_rules! impl_optional_self {
         })*
     };
 }
+pub(crate) use impl_optional_self;
 
 impl_optional_self!(
     // Rust primitives don't have inner structure, https://doc.rust-lang.org/rust-by-example/primitives.html
@@ -55,7 +56,6 @@ impl_optional_self!(
     // Other types without inner structure
     String,
 );
-pub(crate) use impl_optional_self;
 
 impl Optionable for &str {
     type Optioned = Self;
@@ -86,7 +86,7 @@ macro_rules! impl_container {
     };
 }
 
-/// Static macro to hold the inner impl for an `IntoIterator` type
+/// Static macro to hold the inner impl (i.e. the code inside the impl{...}) for an `IntoIterator` type
 macro_rules! inner_impl_convert_into_iter {
     ($t:ident) => {
         fn into_optioned(self) -> <$t<T> as Optionable>::Optioned {

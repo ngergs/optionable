@@ -1,4 +1,3 @@
-#[automatically_derived]
 #[derive(serde::Serialize, serde::Deserialize)]
 struct MemberNestedOpt {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -66,7 +65,6 @@ impl ::optionable::OptionableConvert for MemberNested {
 }
 
 
-#[automatically_derived]
 #[derive(serde::Serialize, serde::Deserialize)]
 struct AddressNestedOpt {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -121,7 +119,6 @@ impl ::optionable::OptionableConvert for AddressNested {
 }
 
 
-#[automatically_derived]
 #[derive(serde::Serialize, serde::Deserialize)]
 enum AddressEnumNestedOpt {
     Unit,

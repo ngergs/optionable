@@ -1,4 +1,3 @@
-#[automatically_derived]
 struct MemberNestedOpt {
     name: Option<String>,
     addresses: Option<<Vec<Address> as ::optionable::Optionable>::Optioned>,
@@ -13,7 +12,6 @@ impl ::optionable::Optionable for MemberNestedOpt {
 }
 
 
-#[automatically_derived]
 struct AddressNestedOpt {
     street_name: Option<String>,
     number: Option<u8>,
@@ -28,7 +26,6 @@ impl ::optionable::Optionable for AddressNestedOpt {
 }
 
 
-#[automatically_derived]
 enum AddressEnumNestedOpt {
     Unit,
     Plain(Option<String>),
