@@ -1,0 +1,11 @@
+[package]
+name = "optionable_codegen_example"
+version = "0.1.0"
+edition = "2024"
+description = "Just an example input for the codegen use"
+publish = false
+
+[lints.clippy]
+pedantic = "warn"
+
+[workspace]

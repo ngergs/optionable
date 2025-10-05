@@ -13,8 +13,8 @@ It has to be a separate crate from [optionable_derive](https://crates.io/crates/
 can't export its non-macro functions (even the proc_macro2 ones) for the usage by the codegen part.
 
 ## codegen
-The binary `codegen` target traverses all `.rs`-files in a given folder and generates optioned versions
-of the found struct and enums.
+The binary `codegen` generates optioned versions for all structs/enums in the given rust file and included internal modules
+recursively.
 ```bash
-cargo run --features codegen --bin codegen example/input example/output
+cargo run --features codegen --bin codegen example/input/src/lib.rs example/output
 ```

@@ -6,18 +6,22 @@ use tempfile::TempDir;
 
 #[test]
 fn simple() {
-    test("example/input", "example/simple", vec![]);
+    test("example/input/src/lib.rs", "example/simple", vec![]);
 }
 
 #[test]
 fn no_convert() {
-    test("example/input", "example/no_convert", vec!["--no-convert"]);
+    test(
+        "example/input/src/lib.rs",
+        "example/no_convert",
+        vec!["--no-convert"],
+    );
 }
 
 #[test]
 fn extra_derives() {
     test(
-        "example/input",
+        "example/input/src/lib.rs",
         "example/extra_derives",
         vec!["-d", "serde::Serialize", "-d", "serde::Deserialize"],
     );
@@ -26,10 +30,10 @@ fn extra_derives() {
 /// Implementation of the core integration test for the codegen.
 /// Checks that the codegen returns without errors and verifies that the
 /// expected output in the output directory is generated (into a temp directory).
-fn test(input_path: &str, expected_output_path: &str, extra_args: Vec<&str>) {
+fn test(input_file: &str, expected_output_path: &str, extra_args: Vec<&str>) {
     let temp_dir = TempDir::new().unwrap();
     let mut args = vec![
-        input_path.to_owned(),
+        input_file.to_owned(),
         temp_dir.path().to_str().unwrap().to_owned(),
     ];
     let mut extra_args = extra_args.iter().map(|e| e.to_string()).collect::<Vec<_>>();

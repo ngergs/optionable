@@ -1,20 +1,23 @@
+extern crate core;
+
 #[cfg(feature = "codegen")]
 mod codegen {
     use clap::Parser;
     use optionable_codegen::{attribute_derives, attribute_no_convert};
     use std::fs::create_dir_all;
-    use std::path::PathBuf;
+    use std::mem::take;
+    use std::path::{Path, PathBuf};
     use std::{fs, io};
-    use syn::Item::{Enum, Struct};
-    use syn::{Attribute, DeriveInput, Error};
+    use syn::Item::{Enum, Mod, Struct};
+    use syn::{Attribute, DeriveInput, Error, Item};
 
     /// Generates `Optionable` and `OptionableConvert` implementation for structs/enums in
-    /// all `*.rs` files in the input folder.
+    /// the referenced `input_file` and all included internal modules recursively.
     #[derive(Parser, Debug)]
     #[command(version, about, long_about = None)]
     struct Args {
-        /// Input directory, will be traversed recursively.
-        input_dir: PathBuf,
+        /// Input file.
+        input_file: PathBuf,
         /// Output directory
         output_dir: PathBuf,
         /// Whether to opt-out of generating `OptionableConvert`-trait implementations.
@@ -29,7 +32,7 @@ mod codegen {
         let args = Args::parse();
         let type_attrs = input_type_attrs(&args)?;
         create_dir_all(&args.output_dir)?;
-        file_codegen(&args.input_dir, &args.output_dir, &type_attrs)
+        file_codegen(&args.input_file, &args.output_dir, &type_attrs)
     }
 
     /// Parses the input args and generated corresponding type attributes
@@ -52,64 +55,94 @@ mod codegen {
     }
 
     fn file_codegen(
-        input_dir: &PathBuf,
-        output_dir: &PathBuf,
+        input_file: &Path,
+        output_path: &Path,
         type_attrs: &Vec<Attribute>,
     ) -> Result<(), Box<dyn std::error::Error>> {
-        create_dir_all(output_dir)?;
-        let files = fs::read_dir(input_dir)?
-            .map(|file| {
-                let file = file?;
-                let file_type = file.file_type()?;
-                Ok::<_, io::Error>((file, file_type))
-            })
-            .collect::<Result<Vec<_>, _>>()?;
-        files
-            .iter()
-            .filter(|(_, filetype)| filetype.is_dir())
-            .map(|(file, _)| {
-                file_codegen(
-                    &input_dir.join(file.file_name()),
-                    &output_dir.join(file.file_name()),
-                    type_attrs,
-                )
-            })
-            .collect::<Result<Vec<_>, _>>()?;
-        let files = files.into_iter().filter(|(file, filetype)| {
-            filetype.is_file() && file.file_name().to_string_lossy().ends_with(".rs")
-        });
-        for (file, _) in files {
-            let content_str = fs::read_to_string(file.path())?;
-            let content = syn::parse_file(&content_str)?;
-            let result = content
-                .items
-                .into_iter()
-                .map(|item| match item {
-                    Struct(mut item) => {
-                        item.attrs.append(&mut type_attrs.clone());
-                        Ok::<_, Error>(codegen(item)?)
-                    }
-                    Enum(mut item) => {
-                        item.attrs.append(&mut type_attrs.clone());
-                        Ok::<_, Error>(codegen(item)?)
-                    }
-                    _ => Ok(None),
-                })
-                .collect::<Result<Vec<_>, _>>()?
-                .into_iter()
-                .flatten()
-                .collect::<Vec<_>>()
-                .join("\n\n");
-            fs::write(output_dir.join(file.file_name()), result)?;
-        }
+        create_dir_all(output_path)?;
+        let content_str = fs::read_to_string(input_file)?;
+        let content = syn::parse_file(&content_str)?;
+        let input_path = input_file
+            .parent()
+            .ok_or("current file {input_file} has no parent")?;
+        let result = content
+            .items
+            .into_iter()
+            .map(|item| item_codegen(item, type_attrs, input_path, output_path))
+            .collect::<Result<Vec<_>, _>>()?
+            .into_iter()
+            .flatten()
+            .collect::<Vec<_>>();
+        let result = syn::File {
+            shebang: None,
+            attrs: vec![],
+            items: result,
+        };
+        let result = prettyplease::unparse(&result);
+        fs::write(
+            output_path.join(input_file.file_name().ok_or::<io::Error>(io::Error::new(
+                io::ErrorKind::InvalidInput,
+                "file name ends with `..` which is not supported: {input_file}",
+            ))?),
+            result,
+        )?;
         Ok(())
     }
 
+    /// Calls codegen for the respective item
+    fn item_codegen(
+        item: Item,
+        type_attrs: &Vec<Attribute>,
+        input_path: &Path,
+        output_path: &Path,
+    ) -> Result<Vec<Item>, Box<dyn std::error::Error>> {
+        match item {
+            Struct(mut item) => {
+                item.attrs.append(&mut type_attrs.clone());
+                Ok::<_, Box<dyn std::error::Error>>(codegen(item)?)
+            }
+            Enum(mut item) => {
+                item.attrs.append(&mut type_attrs.clone());
+                Ok::<_, Box<dyn std::error::Error>>(codegen(item)?)
+            }
+            Mod(mut mod_entry) => {
+                if let Some(content) = mod_entry.content.as_mut() {
+                    let items = take(&mut content.1);
+                    content.1 = items
+                        .into_iter()
+                        .map(|item| item_codegen(item, type_attrs, input_path, output_path))
+                        .collect::<Result<Vec<_>, _>>()?
+                        .into_iter()
+                        .flatten()
+                        .collect();
+                    Ok(vec![Mod(mod_entry)])
+                } else {
+                    // include of a module from another file
+                    let same_folder_mod_path = input_path.join(format!("{}.rs", mod_entry.ident));
+                    if same_folder_mod_path.exists() {
+                        file_codegen(&same_folder_mod_path, output_path, &mod_entry.attrs)?;
+                    } else {
+                        let sub_folder_mod_path =
+                            input_path.join(mod_entry.ident.to_string()).join("mod.rs");
+                        file_codegen(
+                            &sub_folder_mod_path,
+                            &output_path.join(mod_entry.ident.to_string()),
+                            &mod_entry.attrs,
+                        )?;
+                    }
+                    Ok(vec![Mod(mod_entry)])
+                }
+            }
+            _ => Ok(vec![]),
+        }
+    }
+
     /// Calls the `optionable`-derive macro with the provided argument.
-    fn codegen(input: impl Into<DeriveInput>) -> Result<Option<String>, Error> {
+    fn codegen(input: impl Into<DeriveInput>) -> Result<Vec<Item>, Error> {
         let result = optionable_codegen::derive_optionable(input.into())?;
-        let file = syn::parse2(result)?;
-        Ok::<_, Error>(Some(prettyplease::unparse(&file)))
+        syn::parse2(result).map(|f: syn::File| f.items)
+        // do at the very end
+        //        Ok::<_, Error>(Some(prettyplease::unparse(&file)))
     }
 }
 
