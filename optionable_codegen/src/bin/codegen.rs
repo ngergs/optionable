@@ -99,11 +99,11 @@ mod codegen {
         match item {
             Struct(mut item) => {
                 item.attrs.append(&mut type_attrs.clone());
-                Ok::<_, Box<dyn std::error::Error>>(codegen(item)?)
+                Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item)?)
             }
             Enum(mut item) => {
                 item.attrs.append(&mut type_attrs.clone());
-                Ok::<_, Box<dyn std::error::Error>>(codegen(item)?)
+                Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item)?)
             }
             Mod(mut mod_entry) => {
                 if let Some(content) = mod_entry.content.as_mut() {
@@ -137,12 +137,10 @@ mod codegen {
         }
     }
 
-    /// Calls the `optionable`-derive macro with the provided argument.
-    fn codegen(input: impl Into<DeriveInput>) -> Result<Vec<Item>, Error> {
+    /// Calls the `optionable`-derive macro with the provided `DeriveInput` argument.
+    fn derive_codegen(input: impl Into<DeriveInput>) -> Result<Vec<Item>, Error> {
         let result = optionable_codegen::derive_optionable(input.into())?;
         syn::parse2(result).map(|f: syn::File| f.items)
-        // do at the very end
-        //        Ok::<_, Error>(Some(prettyplease::unparse(&file)))
     }
 }
 
