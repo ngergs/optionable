@@ -54,6 +54,8 @@ mod codegen {
         Ok(type_attrs)
     }
 
+    /// Read the respective `input_file` and calls codegen for it. The result is written
+    /// into the `output_path` under the same `file_name` as the input.
     fn file_codegen(
         input_file: &Path,
         output_path: &Path,
@@ -89,7 +91,7 @@ mod codegen {
         Ok(())
     }
 
-    /// Calls codegen for the respective item
+    /// Calls codegen for the respective item.
     fn item_codegen(
         item: Item,
         type_attrs: &Vec<Attribute>,
