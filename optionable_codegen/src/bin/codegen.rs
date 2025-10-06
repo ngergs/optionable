@@ -25,8 +25,9 @@ mod codegen {
         /// Whether to opt-out of generating `OptionableConvert`-trait implementations.
         #[arg(long, default_value_t = false)]
         no_convert: bool,
-        /// Whether to generate code for the optionable crate, i.e. replace `::optionable`
-        /// with `crate` in the generated code.
+        /// Whether to generate code for the optionable crate as intended place of usage.
+        /// If enabled in the generated code e.g. the trait reference `::optionable::Optionable`
+        /// is replaced with `crate::Optionable`.
         #[arg(long, default_value_t = false)]
         for_optionable_crate: bool,
         /// Identifiers for which derive statements should be added to the generated structs/enums.
