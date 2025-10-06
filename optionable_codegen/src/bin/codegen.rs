@@ -3,7 +3,9 @@ extern crate core;
 #[cfg(feature = "codegen")]
 mod codegen {
     use clap::Parser;
-    use optionable_codegen::{attribute_derives, attribute_no_convert};
+    use optionable_codegen::{
+        attribute_derives, attribute_no_convert, attribute_optionable_crate_name,
+    };
     use std::fs::create_dir_all;
     use std::mem::take;
     use std::path::{Path, PathBuf};
@@ -23,6 +25,10 @@ mod codegen {
         /// Whether to opt-out of generating `OptionableConvert`-trait implementations.
         #[arg(long, default_value_t = false)]
         no_convert: bool,
+        /// Whether to generate code for the optionable crate, i.e. replace `::optionable`
+        /// with `crate` in the generated code.
+        #[arg(long, default_value_t = false)]
+        for_optionable_crate: bool,
         /// Identifiers for which derive statements should be added to the generated structs/enums.
         #[arg(long, short)]
         derive: Vec<String>,
@@ -40,6 +46,9 @@ mod codegen {
         let mut type_attrs = Vec::new();
         if args.no_convert {
             type_attrs.push(attribute_no_convert());
+        }
+        if args.for_optionable_crate {
+            type_attrs.push(attribute_optionable_crate_name("crate"));
         }
         if !args.derive.is_empty() {
             let derives = args

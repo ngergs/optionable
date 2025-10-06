@@ -42,6 +42,11 @@ struct TypeHelperAttributes {
     suffix: LitStr,
     /// Skip generating `OptionableConvert` impl
     no_convert: Option<()>,
+    /// Name of the optionable crate to use for the generated code including potentially
+    /// leading `::`. Useful to set when generating code for the `optionable`
+    /// crate itself where one needs to refer to it as `crate`.
+    #[darling(default=default_optionable_crate_name)]
+    optionable_crate_name: Path,
 }
 
 #[derive(FromAttributes)]
@@ -56,6 +61,10 @@ fn default_suffix() -> LitStr {
     LitStr::new("Opt", Span::call_site())
 }
 
+fn default_optionable_crate_name() -> Path {
+    parse_quote!(::optionable)
+}
+
 /// Returns the attribute for opting-out of `OptionableConvert`-impl generation.
 #[must_use]
 pub fn attribute_no_convert() -> Attribute {
@@ -66,6 +75,11 @@ pub fn attribute_no_convert() -> Attribute {
 #[must_use]
 pub fn attribute_suffix(suffix: &str) -> Attribute {
     parse_quote!(#[optionable(suffix=#suffix)])
+}
+
+#[must_use]
+pub fn attribute_optionable_crate_name(crate_name: &str) -> Attribute {
+    parse_quote!(#[optionable(optionable_crate_name=#crate_name)])
 }
 
 /// Returns the attribute for setting that the given identifiers should be added as
@@ -84,6 +98,7 @@ pub fn attribute_derives(derives: &PathList) -> Attribute {
 #[allow(clippy::items_after_statements)]
 pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
+    let crate_name = &attrs.optionable_crate_name;
     let forward_attrs = forwarded_attributes(&input.attrs);
     let vis = input.vis;
     let type_ident = &input.ident;
@@ -97,18 +112,18 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
     let WhereClauses {
         normal: where_clause,
         convert: where_clause_convert,
-    } = where_clauses(&input.generics, &attrs);
+    } = where_clauses(crate_name, &input.generics, &attrs);
 
     // the impl statements are actually independent of deriving
     // the relevant associated type #type_ident_opt referenced by them
     let impls_optionable = quote! {
         #[automatically_derived]
-        impl #impl_generics ::optionable::Optionable for #type_ident #ty_generics #where_clause {
+        impl #impl_generics #crate_name::Optionable for #type_ident #ty_generics #where_clause {
             type Optioned = #type_ident_opt #ty_generics;
         }
 
         #[automatically_derived]
-        impl #impl_generics ::optionable::Optionable for #type_ident_opt #ty_generics #where_clause {
+        impl #impl_generics #crate_name::Optionable for #type_ident_opt #ty_generics #where_clause {
             type Optioned = #type_ident_opt #ty_generics;
         }
     };
@@ -145,30 +160,33 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
             let fields = into_field_handling(s.fields)?;
             let unnamed_struct_semicolon =
                 (fields.struct_type == StructType::Unnamed).then(|| quote!(;));
-            let optioned_fields =
-                optioned_fields(&fields, skip_optionable_if_serde_serialize.as_ref());
+            let optioned_fields = optioned_fields(
+                crate_name,
+                &fields,
+                skip_optionable_if_serde_serialize.as_ref(),
+            );
 
             let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
-                let into_optioned_fields = into_optioned(&fields, |selector| quote! { self.#selector });
+                let into_optioned_fields = into_optioned(crate_name,&fields, |selector| quote! { self.#selector });
                 let try_from_optioned_fields =
-                    try_from_optioned(&fields, |selector| quote! { value.#selector });
-                let merge_fields = merge_fields(
+                    try_from_optioned(crate_name,&fields, |selector| quote! { value.#selector });
+                let merge_fields = merge_fields(crate_name,
                     &fields,
                     |selector| quote! { self.#selector },
                     |selector| quote! { other.#selector },
                     true);
                 quote! {
                     #[automatically_derived]
-                    impl #impl_generics ::optionable::OptionableConvert for #type_ident #ty_generics #where_clause_convert {
+                    impl #impl_generics #crate_name::OptionableConvert for #type_ident #ty_generics #where_clause_convert {
                         fn into_optioned(self) -> #type_ident_opt #ty_generics {
                             #type_ident_opt #generics_colon #ty_generics #into_optioned_fields
                         }
 
-                        fn try_from_optioned(value: #type_ident_opt #ty_generics) -> Result<Self,::optionable::optionable::Error>{
+                        fn try_from_optioned(value: #type_ident_opt #ty_generics) -> Result<Self, #crate_name::optionable::Error>{
                             Ok(Self #try_from_optioned_fields)
                         }
 
-                        fn merge(&mut self, other: #type_ident_opt #ty_generics) -> Result<(), ::optionable::optionable::Error>{
+                        fn merge(&mut self, other: #type_ident_opt #ty_generics) -> Result<(), #crate_name::optionable::Error>{
                             #merge_fields
                             Ok(())
                         }
@@ -199,7 +217,8 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
                 .collect::<Result<Vec<_>, _>>()?;
 
             let optioned_variants = variants.iter().map(|(variant, forward_attrs, f)| {
-                let fields = optioned_fields(f, skip_optionable_if_serde_serialize.as_ref());
+                let fields =
+                    optioned_fields(crate_name, f, skip_optionable_if_serde_serialize.as_ref());
                 quote!( #forward_attrs #variant #fields )
             });
 
@@ -207,13 +226,13 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
                 let (into_variants, try_from_variants, merge_variants): (Vec<_>, Vec<_>, Vec<_>) = variants
                     .iter()
                     .map(|(variant, _, f)| {
-                        let fields_into = into_optioned(f, |selector| {
+                        let fields_into = into_optioned(crate_name,f, |selector| {
                             format_ident!("{self_prefix}{selector}").to_token_stream()
                         });
-                        let fields_try_from = try_from_optioned(f, |selector| {
+                        let fields_try_from = try_from_optioned(crate_name,f, |selector| {
                             format_ident!("{other_prefix}{selector}").to_token_stream()
                         });
-                        let fields_merge = merge_fields(f,
+                        let fields_merge = merge_fields(crate_name,f,
                                                         |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
                                                         |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
                                                         false);
@@ -242,13 +261,13 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
                             }
                         }
 
-                        fn try_from_optioned(other: #type_ident_opt #ty_generics)->Result<Self,::optionable::optionable::Error>{
+                        fn try_from_optioned(other: #type_ident_opt #ty_generics)->Result<Self,#crate_name::optionable::Error>{
                             Ok(match other{
                                 #(#try_from_variants),*
                             })
                         }
 
-                        fn merge(&mut self, other: #type_ident_opt #ty_generics) -> Result<(), ::optionable::optionable::Error>{
+                        fn merge(&mut self, other: #type_ident_opt #ty_generics) -> Result<(), #crate_name::optionable::Error>{
                             match other{
                                 #(#merge_variants),*
                             }
@@ -313,14 +332,18 @@ fn destructure(fields: &FieldsParsed, prefix: &TokenStream) -> Result<TokenStrea
 /// Returns a tokenstream for the optioned fields and potential convert implementation of the optioned object (struct/enum variants).
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
-fn optioned_fields(fields: &FieldsParsed, serde_attributes: Option<&TokenStream>) -> TokenStream {
+fn optioned_fields(
+    crate_name: &Path,
+    fields: &FieldsParsed,
+    serde_attributes: Option<&TokenStream>,
+) -> TokenStream {
     let fields_token = fields.fields.iter().map(
         |FieldParsed {
              field: Field { attrs, vis, ident, ty, .. },
              handling,
          }| {
             let forward_attrs = forwarded_attributes(attrs);
-            let optioned_ty = optioned_ty(ty);
+            let optioned_ty = optioned_ty(crate_name,ty);
             let colon = ident.as_ref().map(|_| quote! {:});
             match handling {
                 Required => quote! {#forward_attrs #vis #ident #colon #ty},
@@ -336,6 +359,7 @@ fn optioned_fields(fields: &FieldsParsed, serde_attributes: Option<&TokenStream>
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
 fn into_optioned(
+    crate_name: &Path,
     fields: &FieldsParsed,
     self_selector_fn: impl Fn(&TokenStream) -> TokenStream,
 ) -> TokenStream {
@@ -348,9 +372,9 @@ fn into_optioned(
         let self_selector = self_selector_fn(&selector);
         match (handling, is_self_resolving_optioned(ty)) {
             (Required, _) | (IsOption, true) => quote! {#ident #colon #self_selector},
-            (IsOption, false) => quote! {#ident #colon <#ty as ::optionable::OptionableConvert>::into_optioned(#self_selector)},
+            (IsOption, false) => quote! {#ident #colon <#ty as #crate_name::OptionableConvert>::into_optioned(#self_selector)},
             (Other, true) => quote! {#ident #colon Some(#self_selector)},
-            (Other, false) => quote! {#ident #colon Some(<#ty as ::optionable::OptionableConvert>::into_optioned(#self_selector))}
+            (Other, false) => quote! {#ident #colon Some(<#ty as #crate_name::OptionableConvert>::into_optioned(#self_selector))}
         }
     });
     struct_wrapper(fields_token, &fields.struct_type)
@@ -360,6 +384,7 @@ fn into_optioned(
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
 fn try_from_optioned(
+    crate_name: &Path,
     fields: &FieldsParsed,
     value_selector_fn: impl Fn(&TokenStream) -> TokenStream,
 ) -> TokenStream {
@@ -373,21 +398,21 @@ fn try_from_optioned(
         match (handling, is_self_resolving_optioned(ty)) {
             (Required, _) | (IsOption, true) => quote! {#ident #colon value.#selector},
             (IsOption, false) => quote! {
-                #ident #colon <#ty as ::optionable::OptionableConvert>::try_from_optioned(
+                #ident #colon <#ty as #crate_name::OptionableConvert>::try_from_optioned(
                     #value_selector
                 )?
             },
             (Other, true) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 quote! {
-                    #ident #colon #value_selector.ok_or(optionable::optionable::Error{ missing_fields: std::vec![#selector_quoted] })?
+                    #ident #colon #value_selector.ok_or(#crate_name::optionable::Error{ missing_fields: std::vec![#selector_quoted] })?
                 }
             }
             (Other, false) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 quote! {
-                    #ident #colon <#ty as ::optionable::OptionableConvert>::try_from_optioned(
-                        #value_selector.ok_or(optionable::optionable::Error{ missing_fields: std::vec![#selector_quoted] })?
+                    #ident #colon <#ty as #crate_name::OptionableConvert>::try_from_optioned(
+                        #value_selector.ok_or(#crate_name::optionable::Error{ missing_fields: std::vec![#selector_quoted] })?
                     )?
                 }
             }
@@ -403,6 +428,7 @@ fn try_from_optioned(
 ///
 /// `merge_self_mut` should be true when the `self_selector` merge argument should be modified with a `& mut` on recursive calls.
 fn merge_fields(
+    crate_name: &Path,
     fields: &FieldsParsed,
     self_selector_fn: impl Fn(&TokenStream) -> TokenStream,
     other_selector_fn: impl Fn(&TokenStream) -> TokenStream,
@@ -430,7 +456,7 @@ fn merge_fields(
             match (handling, is_self_resolving_optioned(ty)) {
                 (Required, _) | (IsOption, true) => quote! {#deref_modifier #self_selector = #other_selector;},
                 (IsOption, false) => quote! {
-                    <#ty as ::optionable::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
+                    <#ty as #crate_name::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
                 },
                 (Other, true) => quote! {
                     if let Some(other_value)=#other_selector{
@@ -439,7 +465,7 @@ fn merge_fields(
                 },
                 (Other, false) => quote! {
                     if let Some(other_value)=#other_selector{
-                        <#ty as ::optionable::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, other_value)?;
+                        <#ty as #crate_name::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, other_value)?;
                     }
                 }
             }
@@ -473,7 +499,11 @@ struct WhereClauses {
 }
 
 /// Extracts the where clauses from the input, patching the bound to the optioned types.
-fn where_clauses(generics: &Generics, attrs: &TypeHelperAttributes) -> WhereClauses {
+fn where_clauses(
+    crate_name: &Path,
+    generics: &Generics,
+    attrs: &TypeHelperAttributes,
+) -> WhereClauses {
     let mut where_clause = generics
         .where_clause
         .clone()
@@ -484,14 +514,18 @@ fn where_clauses(generics: &Generics, attrs: &TypeHelperAttributes) -> WhereClau
     let where_clause_convert = attrs.no_convert.is_none().then(|| {
         let mut where_clause = where_clause.clone();
 
-        patch_where_clause_bounds(&mut where_clause, &generics.params, |_| {
-            quote!(::optionable::OptionableConvert)
-        });
+        patch_where_clause_bounds(
+            &mut where_clause,
+            &generics.params,
+            |_| quote!(#crate_name::OptionableConvert),
+        );
         where_clause
     });
-    patch_where_clause_bounds(&mut where_clause, &generics.params, |_| {
-        quote!(::optionable::Optionable)
-    });
+    patch_where_clause_bounds(
+        &mut where_clause,
+        &generics.params,
+        |_| quote!(#crate_name::Optionable),
+    );
     WhereClauses {
         normal: where_clause,
         convert: where_clause_convert,
@@ -660,11 +694,11 @@ fn is_serialize(path: &Path) -> bool {
 /// Due to limitations to macro resolving (no order guaranteed) we have to have an explicit
 /// list of well-known types and their optioned types.
 /// For now limited to self-resolving (mostly primitive) types
-fn optioned_ty(ty: &Type) -> TokenStream {
+fn optioned_ty(crate_name: &Path, ty: &Type) -> TokenStream {
     if is_self_resolving_optioned(ty) {
         ty.to_token_stream()
     } else {
-        quote! { <#ty as ::optionable::Optionable>::Optioned }
+        quote! { <#ty as #crate_name::Optionable>::Optioned }
     }
 }
 
@@ -762,8 +796,8 @@ mod tests {
 
                         fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok(Self{
-                                name: value.name.ok_or(optionable::optionable::Error { missing_fields: std::vec!["name"] })?,
-                                surname: value.surname.ok_or(optionable::optionable::Error { missing_fields: std::vec!["surname"] })?
+                                name: value.name.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["name"] })?,
+                                surname: value.surname.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["surname"] })?
                             })
                         }
 
@@ -843,7 +877,7 @@ mod tests {
 
                         fn try_from_optioned(value:DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok (Self {
-                                name: value.name.ok_or(optionable::optionable::Error { missing_fields: std::vec! ["name"] })?,
+                                name: value.name.ok_or(::optionable::optionable::Error { missing_fields: std::vec! ["name"] })?,
                                 surname: value.surname
                             })
                         }
@@ -908,9 +942,9 @@ mod tests {
 
                         fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok(Self{
-                                name: value.name.ok_or(optionable::optionable::Error { missing_fields: std::vec!["name"]})?,
+                                name: value.name.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["name"]})?,
                                 middle_name: <Option<String> as ::optionable::OptionableConvert>::try_from_optioned(value.middle_name)?,
-                                surname: value.surname.ok_or(optionable::optionable::Error { missing_fields: std::vec!["surname"]})?
+                                surname: value.surname.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["surname"]})?
                             })
                         }
 
@@ -967,8 +1001,8 @@ mod tests {
 
                         fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::optionable::Error> {
                              Ok(Self{
-                                name: value.name.ok_or(optionable::optionable::Error{ missing_fields: std::vec!["name"]})?,
-                                surname: value.surname.ok_or(optionable::optionable::Error{ missing_fields: std::vec!["surname"]})?
+                                name: value.name.ok_or(::optionable::optionable::Error{ missing_fields: std::vec!["name"]})?,
+                                surname: value.surname.ok_or(::optionable::optionable::Error{ missing_fields: std::vec!["surname"]})?
                             })
                         }
 
@@ -1017,8 +1051,8 @@ mod tests {
 
                          fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok(Self(
-                                value.0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?,
-                                value.1.ok_or(optionable::optionable::Error { missing_fields: std::vec!["1"] })?
+                                value.0.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["0"] })?,
+                                value.1.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["1"] })?
                             ))
                         }
 
@@ -1067,7 +1101,7 @@ mod tests {
 
                          fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok(Self(
-                                value.0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?,
+                                value.0.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["0"] })?,
                                 value.1))
                         }
 
@@ -1125,8 +1159,8 @@ mod tests {
 
                          fn try_from_optioned(value: DeriveExampleOpt<T, T2> ) -> Result <Self, ::optionable::optionable::Error> {
                              Ok(Self{
-                                output: <T as ::optionable::OptionableConvert>::try_from_optioned(value.output.ok_or(optionable::optionable::Error { missing_fields: std::vec!["output"] })?)?,
-                                input: <T2 as ::optionable::OptionableConvert>::try_from_optioned(value.input.ok_or(optionable::optionable::Error { missing_fields: std::vec!["input"] })?)?
+                                output: <T as ::optionable::OptionableConvert>::try_from_optioned(value.output.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["output"] })?)?,
+                                input: <T2 as ::optionable::OptionableConvert>::try_from_optioned(value.input.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["input"] })?)?
                             })
                         }
 
@@ -1193,15 +1227,15 @@ mod tests {
                             Ok (match other {
                                 DeriveExampleOpt::Unit => Self::Unit,
                                 DeriveExampleOpt::Plain(other_0) => Self::Plain(
-                                    other_0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?
+                                    other_0.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["0"] })?
                                 ),
                                 DeriveExampleOpt::Address{street: other_street, number: other_number} => Self::Address{
-                                    street: other_street.ok_or(optionable::optionable::Error { missing_fields: std::vec!["street"] })?,
-                                    number: other_number.ok_or(optionable::optionable::Error { missing_fields: std::vec!["number"] })?
+                                    street: other_street.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["street"] })?,
+                                    number: other_number.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["number"] })?
                                 },
                                 DeriveExampleOpt::Address2(other_0, other_1) => Self::Address2(
-                                    other_0.ok_or(optionable::optionable::Error { missing_fields: std::vec!["0"] })?,
-                                    other_1.ok_or(optionable::optionable::Error { missing_fields: std::vec! ["1"] })?)
+                                    other_0.ok_or(::optionable::optionable::Error { missing_fields: std::vec!["0"] })?,
+                                    other_1.ok_or(::optionable::optionable::Error { missing_fields: std::vec! ["1"] })?)
                             })
                         }
 
