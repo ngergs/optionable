@@ -1,6 +1,7 @@
+#[derive(serde::Serialize, serde::Deserialize)]
 pub(crate) enum AddressOpt {
-    NumberOnly(Option<u64>),
-    Address(Option<String>),
+    NumberOnly(#[serde(skip_serializing_if = "Option::is_none")] Option<u64>),
+    Address(#[serde(skip_serializing_if = "Option::is_none")] Option<String>),
 }
 #[automatically_derived]
 impl ::optionable::Optionable for Address {

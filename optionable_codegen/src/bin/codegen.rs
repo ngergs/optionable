@@ -70,7 +70,7 @@ mod codegen {
         let result = content
             .items
             .into_iter()
-            .map(|item| item_codegen(item, type_attrs, input_path, output_path))
+            .map(|item| item_codegen(item, input_path, output_path, type_attrs))
             .collect::<Result<Vec<_>, _>>()?
             .into_iter()
             .flatten()
@@ -94,9 +94,9 @@ mod codegen {
     /// Calls codegen for the respective item.
     fn item_codegen(
         item: Item,
-        type_attrs: &Vec<Attribute>,
         input_path: &Path,
         output_path: &Path,
+        type_attrs: &Vec<Attribute>,
     ) -> Result<Vec<Item>, Box<dyn std::error::Error>> {
         match item {
             Struct(mut item) => {
@@ -112,7 +112,7 @@ mod codegen {
                     let items = take(&mut content.1);
                     content.1 = items
                         .into_iter()
-                        .map(|item| item_codegen(item, type_attrs, input_path, output_path))
+                        .map(|item| item_codegen(item, input_path, output_path, type_attrs))
                         .collect::<Result<Vec<_>, _>>()?
                         .into_iter()
                         .flatten()
@@ -122,14 +122,14 @@ mod codegen {
                     // include of a module from another file
                     let same_folder_mod_path = input_path.join(format!("{}.rs", mod_entry.ident));
                     if same_folder_mod_path.exists() {
-                        file_codegen(&same_folder_mod_path, output_path, &mod_entry.attrs)?;
+                        file_codegen(&same_folder_mod_path, output_path, type_attrs)?;
                     } else {
                         let sub_folder_mod_path =
                             input_path.join(mod_entry.ident.to_string()).join("mod.rs");
                         file_codegen(
                             &sub_folder_mod_path,
                             &output_path.join(mod_entry.ident.to_string()),
-                            &mod_entry.attrs,
+                            type_attrs,
                         )?;
                     }
                     Ok(vec![Mod(mod_entry)])

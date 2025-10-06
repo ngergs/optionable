@@ -1,12 +1,12 @@
 use assert_cmd::assert::OutputAssertExt;
 use assert_cmd::Command;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::{fs, io};
 use tempfile::TempDir;
 
 #[test]
 fn simple() {
-    test("example/input/src/lib.rs", "example/simple", vec![]);
+    test("example/input/src/lib.rs", "example/simple", &vec![]);
 }
 
 #[test]
@@ -14,7 +14,7 @@ fn no_convert() {
     test(
         "example/input/src/lib.rs",
         "example/no_convert",
-        vec!["--no-convert"],
+        &vec!["--no-convert"],
     );
 }
 
@@ -23,28 +23,31 @@ fn extra_derives() {
     test(
         "example/input/src/lib.rs",
         "example/extra_derives",
-        vec!["-d", "serde::Serialize", "-d", "serde::Deserialize"],
+        &vec!["-d", "serde::Serialize", "-d", "serde::Deserialize"],
     );
 }
 
 /// Implementation of the core integration test for the codegen.
 /// Checks that the codegen returns without errors and verifies that the
 /// expected output in the output directory is generated (into a temp directory).
-fn test(input_file: &str, expected_output_path: &str, extra_args: Vec<&str>) {
+fn test(input_file: &str, expected_output_path: &str, extra_args: &Vec<&str>) {
     let temp_dir = TempDir::new().unwrap();
     let mut args = vec![
         input_file.to_owned(),
         temp_dir.path().to_str().unwrap().to_owned(),
     ];
-    let mut extra_args = extra_args.iter().map(|e| e.to_string()).collect::<Vec<_>>();
+    let mut extra_args = extra_args
+        .iter()
+        .map(ToString::to_string)
+        .collect::<Vec<_>>();
     args.append(&mut extra_args);
     let cmd = Command::cargo_bin("codegen").unwrap().args(args).unwrap();
     cmd.assert().success();
-    assert!(dirs_contained(&expected_output_path.into(), &temp_dir.path().into()).unwrap());
+    assert!(dirs_contained(&expected_output_path.into(), temp_dir.path()).unwrap());
 }
 
 /// Checks whether the file content of all files in the input directory are contained in the others directory.
-fn dirs_contained(input: &PathBuf, other: &PathBuf) -> Result<bool, io::Error> {
+fn dirs_contained(input: &PathBuf, other: &Path) -> Result<bool, io::Error> {
     let files_input = fs::read_dir(input)?
         .map(|file| {
             let file = file?;
@@ -52,11 +55,16 @@ fn dirs_contained(input: &PathBuf, other: &PathBuf) -> Result<bool, io::Error> {
             Ok::<_, io::Error>((file, file_type))
         })
         .collect::<Result<Vec<_>, _>>()?;
-    files_input
+    if !files_input
         .iter()
         .filter(|&(_, file_type)| file_type.is_dir())
         .map(|(f, _)| dirs_contained(&input.join(f.file_name()), &other.join(f.file_name())))
-        .collect::<Result<Vec<_>, _>>()?;
+        .collect::<Result<Vec<_>, _>>()?
+        .into_iter()
+        .all(|el| el)
+    {
+        return Ok(false);
+    }
     let files_input = files_input
         .into_iter()
         .filter(|&(_, file_type)| file_type.is_file());
