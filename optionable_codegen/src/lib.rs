@@ -15,15 +15,17 @@ use darling::{FromAttributes, FromDeriveInput};
 use itertools::MultiUnzip;
 use proc_macro2::{Ident, Literal, Span, TokenStream};
 use quote::{format_ident, quote, ToTokens};
+use std::borrow::Cow;
 use std::cmp::PartialEq;
 use std::default::Default;
 use std::{fmt, iter};
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
-use syn::token::Where;
+use syn::token::{PathSep, Where};
 use syn::{
-    parse_quote, Attribute, Data, DeriveInput, Error, Field, Fields, GenericParam, Generics, LitStr,
-    Meta, MetaList, Path, Token, Type, TypePath, WhereClause, WherePredicate,
+    parse_quote, Attribute, Data, DeriveInput, Error, Field, Fields, GenericArgument, GenericParam,
+    Generics, LitStr, Meta, MetaList, Path, PathArguments, Token, Type, TypePath,
+    WhereClause, WherePredicate,
 };
 
 const HELPER_IDENT: &str = "optionable";
@@ -42,11 +44,31 @@ struct TypeHelperAttributes {
     suffix: LitStr,
     /// Skip generating `OptionableConvert` impl
     no_convert: Option<()>,
+}
+
+#[derive(FromDeriveInput, Debug, Clone)]
+#[darling(attributes(optionable))]
+/// Settings that are only available to be set via the rust function signature of `derive_optionable`
+/// but not via the derive macro (as they are not useful in that context and would lead to an
+/// increased but not useful API surface of the derive macro helpers).
+pub struct CodegenSettings {
     /// Name of the optionable crate to use for the generated code including potentially
     /// leading `::`. Useful to set when generating code for the `optionable`
     /// crate itself where one needs to refer to it as `crate`.
-    #[darling(default=default_optionable_crate_name)]
-    optionable_crate_name: Path,
+    pub optionable_crate_name: Path,
+    /// Replacement for the keyword `crate` in the input type/enum definition or references.
+    /// Useful when generating code for the `optionable` crate as pre-existing `crate` references
+    /// need to be replaced with the concret crate name.
+    pub input_crate_replacement: Option<Ident>,
+}
+
+impl Default for CodegenSettings {
+    fn default() -> Self {
+        Self {
+            optionable_crate_name: parse_quote!(::optionable),
+            input_crate_replacement: None,
+        }
+    }
 }
 
 #[derive(FromAttributes)]
@@ -61,10 +83,6 @@ fn default_suffix() -> LitStr {
     LitStr::new("Opt", Span::call_site())
 }
 
-fn default_optionable_crate_name() -> Path {
-    parse_quote!(::optionable)
-}
-
 /// Returns the attribute for opting-out of `OptionableConvert`-impl generation.
 #[must_use]
 pub fn attribute_no_convert() -> Attribute {
@@ -75,11 +93,6 @@ pub fn attribute_no_convert() -> Attribute {
 #[must_use]
 pub fn attribute_suffix(suffix: &str) -> Attribute {
     parse_quote!(#[optionable(suffix=#suffix)])
-}
-
-#[must_use]
-pub fn attribute_optionable_crate_name(crate_name: &str) -> Attribute {
-    parse_quote!(#[optionable(optionable_crate_name=#crate_name)])
 }
 
 /// Returns the attribute for setting that the given identifiers should be added as
@@ -96,9 +109,13 @@ pub fn attribute_derives(derives: &PathList) -> Attribute {
 /// - internal implementation errors
 #[allow(clippy::too_many_lines)]
 #[allow(clippy::items_after_statements)]
-pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
+pub fn derive_optionable(
+    input: DeriveInput,
+    settings: Option<Cow<CodegenSettings>>,
+) -> syn::Result<TokenStream> {
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
-    let crate_name = &attrs.optionable_crate_name;
+    let settings = settings.unwrap_or_default();
+    let crate_name = &settings.optionable_crate_name;
     let forward_attrs = forwarded_attributes(&input.attrs);
     let vis = input.vis;
     let type_ident = &input.ident;
@@ -157,7 +174,7 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
         impl_optionable_convert,
     } = match input.data {
         Data::Struct(s) => {
-            let fields = into_field_handling(s.fields)?;
+            let fields = into_field_handling(s.fields, settings.input_crate_replacement.as_ref())?;
             let unnamed_struct_semicolon =
                 (fields.struct_type == StructType::Unnamed).then(|| quote!(;));
             let optioned_fields = optioned_fields(
@@ -167,14 +184,14 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
             );
 
             let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
-                let into_optioned_fields = into_optioned(crate_name,&fields, |selector| quote! { self.#selector });
+                let into_optioned_fields = into_optioned(crate_name, &fields, |selector| quote! { self.#selector });
                 let try_from_optioned_fields =
-                    try_from_optioned(crate_name,&fields, |selector| quote! { value.#selector });
+                    try_from_optioned(crate_name, &fields, |selector| quote! { value.#selector });
                 let merge_fields = merge_fields(crate_name,
-                    &fields,
-                    |selector| quote! { self.#selector },
-                    |selector| quote! { other.#selector },
-                    true);
+                                                &fields,
+                                                |selector| quote! { self.#selector },
+                                                |selector| quote! { other.#selector },
+                                                true);
                 quote! {
                     #[automatically_derived]
                     impl #impl_generics #crate_name::OptionableConvert for #type_ident #ty_generics #where_clause_convert {
@@ -211,7 +228,7 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
                     Ok::<_, Error>((
                         v.ident,
                         forwarded_attributes(&v.attrs),
-                        into_field_handling(v.fields)?,
+                        into_field_handling(v.fields, settings.input_crate_replacement.as_ref())?,
                     ))
                 })
                 .collect::<Result<Vec<_>, _>>()?;
@@ -226,13 +243,13 @@ pub fn derive_optionable(input: DeriveInput) -> syn::Result<TokenStream> {
                 let (into_variants, try_from_variants, merge_variants): (Vec<_>, Vec<_>, Vec<_>) = variants
                     .iter()
                     .map(|(variant, _, f)| {
-                        let fields_into = into_optioned(crate_name,f, |selector| {
+                        let fields_into = into_optioned(crate_name, f, |selector| {
                             format_ident!("{self_prefix}{selector}").to_token_stream()
                         });
-                        let fields_try_from = try_from_optioned(crate_name,f, |selector| {
+                        let fields_try_from = try_from_optioned(crate_name, f, |selector| {
                             format_ident!("{other_prefix}{selector}").to_token_stream()
                         });
-                        let fields_merge = merge_fields(crate_name,f,
+                        let fields_merge = merge_fields(crate_name, f,
                                                         |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
                                                         |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
                                                         false);
@@ -343,7 +360,7 @@ fn optioned_fields(
              handling,
          }| {
             let forward_attrs = forwarded_attributes(attrs);
-            let optioned_ty = optioned_ty(crate_name,ty);
+            let optioned_ty = optioned_ty(crate_name, ty);
             let colon = ident.as_ref().map(|_| quote! {:});
             match handling {
                 Required => quote! {#forward_attrs #vis #ident #colon #ty},
@@ -595,7 +612,10 @@ fn error_on_helper_attributes(attrs: &[Attribute], err_msg: &'static str) -> syn
 
 /// Extracts information about the fields we care about, like
 /// whether #[optional(required)] is set or whether the type is `Option<...>`.
-fn into_field_handling(fields: Fields) -> Result<FieldsParsed, Error> {
+fn into_field_handling(
+    fields: Fields,
+    input_crate_replacement: Option<&Ident>,
+) -> Result<FieldsParsed, Error> {
     let struct_named = match &fields {
         Fields::Named(_) => StructType::Named,
         Fields::Unnamed(_) => StructType::Unnamed,
@@ -608,8 +628,12 @@ fn into_field_handling(fields: Fields) -> Result<FieldsParsed, Error> {
         Fields::Unit => Box::new(iter::empty()),
     };
     let fields_with_handling = fields_iter
-        .map(|field| {
+        .map(|mut field| {
             let attrs = FieldHelperAttributes::from_attributes(&field.attrs)?;
+            // check whether input `crate` replacement is set and whether we have a path type that has `crate` as first entry.
+            if let Some(input_crate_replacement) = input_crate_replacement {
+                type_path_replace_crate(&mut field.ty, input_crate_replacement);
+            }
             let handling = if attrs.required.is_some() {
                 Required
             } else if is_option(&field.ty) {
@@ -625,6 +649,28 @@ fn into_field_handling(fields: Fields) -> Result<FieldsParsed, Error> {
         struct_type: struct_named,
         fields: fields_with_handling,
     })
+}
+
+/// Replaces `crate` in the path and all angle-bracketed path arguments with the provided value.
+/// Does nothing if the type is not a path.
+fn type_path_replace_crate(ty: &mut Type, replacement: &Ident) {
+    if let Type::Path(ty_path) = ty {
+        if let Some(first_path_segment) = ty_path.path.segments.first_mut()
+            && first_path_segment.ident == "crate"
+        {
+            first_path_segment.ident = replacement.clone();
+            ty_path.path.leading_colon = Some(PathSep::default());
+        }
+        ty_path.path.segments.iter_mut().for_each(|p| {
+            if let PathArguments::AngleBracketed(args) = &mut p.arguments {
+                args.args.iter_mut().for_each(|arg| {
+                    if let GenericArgument::Type(ty) = arg {
+                        type_path_replace_crate(ty, replacement);
+                    }
+                });
+            }
+        });
+    }
 }
 
 /// How we handle different cases in order of importance/detection.
@@ -747,9 +793,12 @@ pub(crate) fn error<S: AsRef<str> + fmt::Display, T>(msg: S) -> syn::Result<T> {
 
 #[cfg(test)]
 mod tests {
-    use crate::derive_optionable;
+    use crate::{derive_optionable, CodegenSettings};
+    use darling::FromMeta;
     use proc_macro2::TokenStream;
     use quote::quote;
+    use std::borrow::Cow;
+    use syn::{parse_quote, Path};
 
     struct TestCase {
         input: TokenStream,
@@ -1288,8 +1337,78 @@ mod tests {
         ];
         for tc in tcs {
             let input = syn::parse2(tc.input).unwrap();
-            let output = derive_optionable(input).unwrap();
+            let output = derive_optionable(input, None).unwrap();
             println!("{output}");
+            assert_eq!(tc.output.to_string(), output.to_string());
+        }
+    }
+
+    #[test]
+    #[allow(clippy::too_many_lines)]
+    /// Tests of the crate replacement settings available via codegen settings only
+    fn test_crate_replacement() {
+        let tcs = vec![TestCase {
+            input: quote! {
+                #[derive(Optionable)]
+                struct DeriveExample {
+                    name: crate::Name,
+                    pub surname: Box<crate::SurName>,
+                }
+            },
+            output: quote! {
+                struct DeriveExampleOpt {
+                    name: Option< <::testcrate::Name as crate::Optionable>::Optioned>,
+                    pub surname: Option< <Box<::testcrate::SurName> as crate::Optionable>::Optioned>
+                }
+
+                #[automatically_derived]
+                impl crate::Optionable for DeriveExample {
+                    type Optioned = DeriveExampleOpt;
+                }
+
+                #[automatically_derived]
+                impl crate::Optionable for DeriveExampleOpt {
+                    type Optioned = DeriveExampleOpt;
+                }
+
+                #[automatically_derived]
+                impl crate::OptionableConvert for DeriveExample {
+                    fn into_optioned (self) -> DeriveExampleOpt {
+                        DeriveExampleOpt  {
+                            name: Some(<::testcrate::Name as crate::OptionableConvert>::into_optioned(self.name)),
+                            surname: Some(<Box<::testcrate::SurName> as crate::OptionableConvert>::into_optioned(self.surname))
+                        }
+                    }
+
+                    fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, crate::optionable::Error> {
+                        Ok(Self{
+                            name: <::testcrate::Name as crate::OptionableConvert>::try_from_optioned(value.name.ok_or(crate::optionable::Error { missing_fields: std::vec!["name"] })?)?,
+                            surname: <Box<::testcrate::SurName> as crate::OptionableConvert>::try_from_optioned(value.surname.ok_or(crate::optionable::Error { missing_fields: std::vec!["surname"] })?)?
+                        })
+                    }
+
+                    fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), crate::optionable::Error> {
+                        if let Some(other_value) = other.name {
+                             <::testcrate::Name as crate::OptionableConvert>::merge(&mut self.name, other_value)?;
+                        }
+                        if let Some(other_value) = other.surname {
+                             <Box<::testcrate::SurName> as crate::OptionableConvert>::merge(&mut self.surname, other_value)?;
+                        }
+                        Ok(())
+                    }
+                }
+            },
+        }];
+        for tc in tcs {
+            let input = syn::parse2(tc.input).unwrap();
+            let output = derive_optionable(
+                input,
+                Some(Cow::Borrowed(&CodegenSettings {
+                    optionable_crate_name: Path::from_string("crate").unwrap(),
+                    input_crate_replacement: Some(parse_quote!(testcrate)),
+                })),
+            )
+            .unwrap();
             assert_eq!(tc.output.to_string(), output.to_string());
         }
     }

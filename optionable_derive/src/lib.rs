@@ -56,5 +56,5 @@ pub fn derive_optionable(input: TokenStream) -> TokenStream {
 
 /// Internal method for `derive_optionable` to simplify error handling
 fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> {
-    Ok(optionable_codegen::derive_optionable(syn::parse2(input.into())?)?.into())
+    Ok(optionable_codegen::derive_optionable(syn::parse2(input.into())?, None)?.into())
 }

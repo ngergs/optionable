@@ -3,9 +3,10 @@ extern crate core;
 #[cfg(feature = "codegen")]
 mod codegen {
     use clap::Parser;
-    use optionable_codegen::{
-        attribute_derives, attribute_no_convert, attribute_optionable_crate_name,
-    };
+    use darling::FromMeta;
+    use optionable_codegen::{attribute_derives, attribute_no_convert, CodegenSettings};
+    use proc_macro2::Span;
+    use std::borrow::Cow;
     use std::fs::create_dir_all;
     use std::mem::take;
     use std::path::{Path, PathBuf};
@@ -25,21 +26,27 @@ mod codegen {
         /// Whether to opt-out of generating `OptionableConvert`-trait implementations.
         #[arg(long, default_value_t = false)]
         no_convert: bool,
-        /// Whether to generate code for the optionable crate as intended place of usage.
-        /// If enabled in the generated code e.g. the trait reference `::optionable::Optionable`
-        /// is replaced with `crate::Optionable`.
-        #[arg(long, default_value_t = false)]
-        for_optionable_crate: bool,
         /// Identifiers for which derive statements should be added to the generated structs/enums.
         #[arg(long, short)]
         derive: Vec<String>,
+        /// Flag for the purpose of generating code that should be added to the optionable crate itself.
+        /// Replaces the keyword `crate` in the input with the provided string value and also
+        /// uses in the generated code `crate` instead of `::optionable` to refer to the optionable crate.
+        #[arg(long)]
+        replace_crate_name: Option<String>,
     }
 
     pub(crate) fn main() -> Result<(), Box<dyn std::error::Error>> {
         let args = Args::parse();
         let type_attrs = input_type_attrs(&args)?;
+        let codegen_settings = input_codegen_settings(&args)?;
         create_dir_all(&args.output_dir)?;
-        file_codegen(&args.input_file, &args.output_dir, &type_attrs)
+        file_codegen(
+            &args.input_file,
+            &args.output_dir,
+            &type_attrs,
+            &codegen_settings,
+        )
     }
 
     /// Parses the input args and generated corresponding type attributes
@@ -47,9 +54,6 @@ mod codegen {
         let mut type_attrs = Vec::new();
         if args.no_convert {
             type_attrs.push(attribute_no_convert());
-        }
-        if args.for_optionable_crate {
-            type_attrs.push(attribute_optionable_crate_name("crate"));
         }
         if !args.derive.is_empty() {
             let derives = args
@@ -64,12 +68,23 @@ mod codegen {
         Ok(type_attrs)
     }
 
+    fn input_codegen_settings(args: &Args) -> Result<CodegenSettings, Error> {
+        let mut settings = CodegenSettings::default();
+        if let Some(replace_crate_name) = &args.replace_crate_name {
+            settings.optionable_crate_name = syn::Path::from_string("crate")?;
+            settings.input_crate_replacement =
+                Some(syn::Ident::new(replace_crate_name, Span::call_site()));
+        }
+        Ok(settings)
+    }
+
     /// Read the respective `input_file` and calls codegen for it. The result is written
     /// into the `output_path` under the same `file_name` as the input.
     fn file_codegen(
         input_file: &Path,
         output_path: &Path,
         type_attrs: &Vec<Attribute>,
+        codegen_settings: &CodegenSettings,
     ) -> Result<(), Box<dyn std::error::Error>> {
         create_dir_all(output_path)?;
         let content_str = fs::read_to_string(input_file)?;
@@ -80,7 +95,7 @@ mod codegen {
         let result = content
             .items
             .into_iter()
-            .map(|item| item_codegen(item, input_path, output_path, type_attrs))
+            .map(|item| item_codegen(item, input_path, output_path, type_attrs, codegen_settings))
             .collect::<Result<Vec<_>, _>>()?
             .into_iter()
             .flatten()
@@ -107,22 +122,31 @@ mod codegen {
         input_path: &Path,
         output_path: &Path,
         type_attrs: &Vec<Attribute>,
+        codegen_settings: &CodegenSettings,
     ) -> Result<Vec<Item>, Box<dyn std::error::Error>> {
         match item {
             Struct(mut item) => {
                 item.attrs.append(&mut type_attrs.clone());
-                Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item)?)
+                Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, codegen_settings)?)
             }
             Enum(mut item) => {
                 item.attrs.append(&mut type_attrs.clone());
-                Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item)?)
+                Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, codegen_settings)?)
             }
             Mod(mut mod_entry) => {
                 if let Some(content) = mod_entry.content.as_mut() {
                     let items = take(&mut content.1);
                     content.1 = items
                         .into_iter()
-                        .map(|item| item_codegen(item, input_path, output_path, type_attrs))
+                        .map(|item| {
+                            item_codegen(
+                                item,
+                                input_path,
+                                output_path,
+                                type_attrs,
+                                codegen_settings,
+                            )
+                        })
                         .collect::<Result<Vec<_>, _>>()?
                         .into_iter()
                         .flatten()
@@ -132,7 +156,12 @@ mod codegen {
                     // include of a module from another file
                     let same_folder_mod_path = input_path.join(format!("{}.rs", mod_entry.ident));
                     if same_folder_mod_path.exists() {
-                        file_codegen(&same_folder_mod_path, output_path, type_attrs)?;
+                        file_codegen(
+                            &same_folder_mod_path,
+                            output_path,
+                            type_attrs,
+                            codegen_settings,
+                        )?;
                     } else {
                         let sub_folder_mod_path =
                             input_path.join(mod_entry.ident.to_string()).join("mod.rs");
@@ -140,6 +169,7 @@ mod codegen {
                             &sub_folder_mod_path,
                             &output_path.join(mod_entry.ident.to_string()),
                             type_attrs,
+                            codegen_settings,
                         )?;
                     }
                     Ok(vec![Mod(mod_entry)])
@@ -150,8 +180,14 @@ mod codegen {
     }
 
     /// Calls the `optionable`-derive macro with the provided `DeriveInput` argument.
-    fn derive_codegen(input: impl Into<DeriveInput>) -> Result<Vec<Item>, Error> {
-        let result = optionable_codegen::derive_optionable(input.into())?;
+    fn derive_codegen(
+        input: impl Into<DeriveInput>,
+        codegen_settings: &CodegenSettings,
+    ) -> Result<Vec<Item>, Error> {
+        let result = optionable_codegen::derive_optionable(
+            input.into(),
+            Some(Cow::Borrowed(codegen_settings)),
+        )?;
         syn::parse2(result).map(|f: syn::File| f.items)
     }
 }
