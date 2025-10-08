@@ -1,4 +1,5 @@
 use crate::{Optionable, OptionableConvert};
+use std::borrow::Cow;
 use std::cell::RefCell;
 use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, LinkedList, VecDeque};
 use std::hash::{BuildHasher, Hash};
@@ -154,6 +155,34 @@ impl<T: OptionableConvert> OptionableConvert for Option<T> {
     }
 }
 
+impl<'a, T: Optionable + Clone> Optionable for Cow<'a, T>
+where
+    T::Optioned: Clone,
+{
+    type Optioned = Cow<'a, T::Optioned>;
+}
+
+impl<T: OptionableConvert + Clone> OptionableConvert for Cow<'_, T>
+where
+    T::Optioned: Clone,
+{
+    fn into_optioned(self) -> Self::Optioned {
+        Cow::Owned(self.into_owned().into_optioned())
+    }
+
+    fn try_from_optioned(value: Self::Optioned) -> Result<Self, Error> {
+        T::try_from_optioned(value.into_owned()).map(Cow::Owned)
+    }
+
+    fn merge(&mut self, other: Self::Optioned) -> Result<(), Error> {
+        let mut self_owned = self.clone().into_owned();
+        let other_owned = other.into_owned();
+        self_owned.merge(other_owned)?;
+        *self = Cow::Owned(self_owned);
+        Ok(())
+    }
+}
+
 impl<T: OptionableConvert> OptionableConvert for Box<T> {
     fn into_optioned(self) -> Box<T::Optioned> {
         let inner = *self;
@@ -246,6 +275,7 @@ impl<K: Ord + Hash, T: OptionableConvert, S: BuildHasher + Default> OptionableCo
 #[cfg(test)]
 mod tests {
     use crate::Optionable;
+    use std::borrow::Cow;
     use std::collections::{BTreeMap, HashMap};
     use std::fmt::Error;
 
@@ -278,6 +308,15 @@ mod tests {
     fn container() {
         let a = vec![1, 2, 3];
         let _: <Vec<i64> as Optionable>::Optioned = a;
+    }
+
+    #[test]
+    /// Check that `Cow` implements optionable.
+    fn cow() {
+        let a = Cow::Owned("hello".to_owned());
+        let _: <Cow<String> as Optionable>::Optioned = a;
+        let b: Cow<String> = Cow::Borrowed(&a);
+        let _: <Cow<String> as Optionable>::Optioned = b;
     }
 
     #[test]
