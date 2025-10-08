@@ -4,7 +4,7 @@ pub(crate) enum AddressOpt {
     Address(#[serde(skip_serializing_if = "Option::is_none")] Option<String>),
 }
 #[automatically_derived]
-impl ::optionable::Optionable for Address {
+impl ::optionable::Optionable for address::Address {
     type Optioned = AddressOpt;
 }
 #[automatically_derived]
@@ -12,7 +12,7 @@ impl ::optionable::Optionable for AddressOpt {
     type Optioned = AddressOpt;
 }
 #[automatically_derived]
-impl ::optionable::OptionableConvert for Address {
+impl ::optionable::OptionableConvert for address::Address {
     fn into_optioned(self) -> AddressOpt {
         match self {
             Self::NumberOnly(self_0) => AddressOpt::NumberOnly(Some(self_0)),

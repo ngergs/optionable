@@ -30,8 +30,9 @@ mod codegen {
         #[arg(long, short)]
         derive: Vec<String>,
         /// Flag for the purpose of generating code that should be added to the optionable crate itself.
-        /// Replaces the keyword `crate` in the input with the provided string value and also
-        /// uses in the generated code `crate` instead of `::optionable` to refer to the optionable crate.
+        /// - Replaces the keyword `crate` in the input with the provided string value.
+        /// - Prepends the provided string crate name and the respective package subpath to the `impl` definitions.
+        /// - Uses in the generated code `crate` instead of `::optionable` to refer to the optionable crate.
         #[arg(long)]
         replace_crate_name: Option<String>,
     }
@@ -72,6 +73,7 @@ mod codegen {
         let mut settings = CodegenSettings::default();
         if let Some(replace_crate_name) = &args.replace_crate_name {
             settings.optionable_crate_name = syn::Path::from_string("crate")?;
+            settings.ty_prefix = Some(syn::Path::from_string(&format!("::{replace_crate_name}"))?);
             settings.input_crate_replacement =
                 Some(syn::Ident::new(replace_crate_name, Span::call_site()));
         }
@@ -154,13 +156,21 @@ mod codegen {
                     Ok(vec![Mod(mod_entry)])
                 } else {
                     // include of a module from another file
+                    let mut codegen_settings = codegen_settings.clone();
+                    codegen_settings.ty_prefix =
+                        if let Some(mut ty_prefix) = codegen_settings.ty_prefix {
+                            ty_prefix.segments.push(mod_entry.ident.clone().into());
+                            Some(ty_prefix)
+                        } else {
+                            Some(mod_entry.ident.clone().into())
+                        };
                     let same_folder_mod_path = input_path.join(format!("{}.rs", mod_entry.ident));
                     if same_folder_mod_path.exists() {
                         file_codegen(
                             &same_folder_mod_path,
                             output_path,
                             type_attrs,
-                            codegen_settings,
+                            &codegen_settings,
                         )?;
                     } else {
                         let sub_folder_mod_path =
@@ -169,7 +179,7 @@ mod codegen {
                             &sub_folder_mod_path,
                             &output_path.join(mod_entry.ident.to_string()),
                             type_attrs,
-                            codegen_settings,
+                            &codegen_settings,
                         )?;
                     }
                     Ok(vec![Mod(mod_entry)])

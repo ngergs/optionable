@@ -133,10 +133,9 @@ use crate::optionable::Error;
 #[doc(inline)]
 pub use optionable_derive::Optionable;
 
-pub mod optionable;
-
 #[cfg(feature = "chrono")]
 mod chrono;
+pub mod optionable;
 #[cfg(feature = "serde_json")]
 mod serde_json;
 

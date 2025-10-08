@@ -56,6 +56,9 @@ pub struct CodegenSettings {
     /// leading `::`. Useful to set when generating code for the `optionable`
     /// crate itself where one needs to refer to it as `crate`.
     pub optionable_crate_name: Path,
+    /// Path prefix to prepend to the respective type. E.g. with a `ty_prefix` of `::mycrate`
+    /// the output would be (simplified) `impl Optionable for ::mycrate::mytype`.
+    pub ty_prefix: Option<Path>,
     /// Replacement for the keyword `crate` in the input type/enum definition or references.
     /// Useful when generating code for the `optionable` crate as pre-existing `crate` references
     /// need to be replaced with the concret crate name.
@@ -66,6 +69,7 @@ impl Default for CodegenSettings {
     fn default() -> Self {
         Self {
             optionable_crate_name: parse_quote!(::optionable),
+            ty_prefix: None,
             input_crate_replacement: None,
         }
     }
@@ -118,11 +122,16 @@ pub fn derive_optionable(
     let crate_name = &settings.optionable_crate_name;
     let forward_attrs = forwarded_attributes(&input.attrs);
     let vis = input.vis;
-    let type_ident = &input.ident;
     let type_ident_opt = Ident::new(
         &(input.ident.to_string() + &attrs.suffix.value()),
         input.ident.span(),
     );
+    let type_ident = if let Some(mut ty_prefix) = settings.ty_prefix.clone() {
+        ty_prefix.segments.push(input.ident.into());
+        ty_prefix
+    } else {
+        input.ident.into()
+    };
 
     let (impl_generics, ty_generics, _) = input.generics.split_for_impl();
     let generics_colon = (!input.generics.params.is_empty()).then(|| quote! {::});
@@ -1362,7 +1371,7 @@ mod tests {
                 }
 
                 #[automatically_derived]
-                impl crate::Optionable for DeriveExample {
+                impl crate::Optionable for ::crate_prefix::DeriveExample {
                     type Optioned = DeriveExampleOpt;
                 }
 
@@ -1372,7 +1381,7 @@ mod tests {
                 }
 
                 #[automatically_derived]
-                impl crate::OptionableConvert for DeriveExample {
+                impl crate::OptionableConvert for ::crate_prefix::DeriveExample {
                     fn into_optioned (self) -> DeriveExampleOpt {
                         DeriveExampleOpt  {
                             name: Some(<::testcrate::Name as crate::OptionableConvert>::into_optioned(self.name)),
@@ -1404,6 +1413,7 @@ mod tests {
             let output = derive_optionable(
                 input,
                 Some(Cow::Borrowed(&CodegenSettings {
+                    ty_prefix: Some(Path::from_string("::crate_prefix").unwrap()),
                     optionable_crate_name: Path::from_string("crate").unwrap(),
                     input_crate_replacement: Some(parse_quote!(testcrate)),
                 })),

@@ -3,7 +3,7 @@ pub(crate) enum AddressOpt {
     Address(Option<String>),
 }
 #[automatically_derived]
-impl ::optionable::Optionable for Address {
+impl ::optionable::Optionable for address::Address {
     type Optioned = AddressOpt;
 }
 #[automatically_derived]
