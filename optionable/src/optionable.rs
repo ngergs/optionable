@@ -21,7 +21,7 @@ pub fn merge_errors(mut a: Error, mut b: Error) -> Error {
 }
 
 // Blanket implementation for references to `Optionable` types.
-impl<'a, T: Optionable> Optionable for &'a T {
+impl<'a, T: ?Sized + Optionable> Optionable for &'a T {
     type Optioned = &'a T::Optioned;
 }
 
@@ -58,30 +58,28 @@ impl_optional_self!(
     String,
 );
 
-impl Optionable for &str {
-    type Optioned = Self;
-}
-
-impl<'a> OptionableConvert for &'a str {
-    fn into_optioned(self) -> &'a str {
-        self
-    }
-
-    fn try_from_optioned(value: &'a str) -> Result<Self, Error> {
-        Ok(value)
-    }
-
-    fn merge(&mut self, other: &'a str) -> Result<(), Error> {
-        *self = other;
-        Ok(())
-    }
+impl Optionable for str {
+    type Optioned = str;
 }
 
 /// Helper macro to generate an impl for `Optionable` for Containers.
 /// Containers can be made optional by getting a corresponding container over the associated optional type.
-macro_rules! impl_container {
+macro_rules! impl_container{
     ($($t:ident),* $(,)?) => {
-        $(impl<T: Optionable> Optionable for $t<T>{
+        $(impl<T: Optionable> Optionable for $t<T>
+            where T::Optioned: Sized
+        {
+            type Optioned = $t<T::Optioned>;
+        })*
+    };
+}
+
+/// Helper macro to generate an impl for `Optionable` for Containers that do not require the wrapped value to be sized.
+/// Containers can be made optional by getting a corresponding container over the associated optional type.
+macro_rules! impl_container_unsized {
+    ($($t:ident),* $(,)?) => {
+        $(impl<T: Optionable> Optionable for $t<T>
+        {
             type Optioned = $t<T::Optioned>;
         })*
     };
@@ -108,7 +106,8 @@ macro_rules! inner_impl_convert_into_iter {
 /// Helper macro to generate an impl for `OptionableConvert` for Containers with linear structure (e.g. `Vec`).
 macro_rules! impl_container_convert_linear {
     ($($t:ident),* $(, where=$w:ident)?) => {
-        $(impl<T: OptionableConvert> OptionableConvert for $t<T>{
+        $(impl<T: OptionableConvert> OptionableConvert for $t<T>
+            where T::Optioned: Sized{
             inner_impl_convert_into_iter!($t);
         })*
     };
@@ -119,7 +118,7 @@ macro_rules! impl_container_convert_linear_ord {
     ($($t:ident),* $(, where=$w:ident)?) => {
         $(impl<T: OptionableConvert> OptionableConvert for $t<T>
             where T: Ord,
-                  T::Optioned: Ord{
+                  T::Optioned: Sized+Ord{
             inner_impl_convert_into_iter!($t);
         })*
     };
@@ -129,12 +128,15 @@ impl_container!(
     Option,
     // Collections without an extra key, https://doc.rust-lang.org/std/collections/index.html
     Vec, VecDeque, LinkedList, BTreeSet, BinaryHeap, // Smart pointer and sync-container
-    Box, Rc, Arc, RefCell, Mutex,
 );
+impl_container_unsized!(Box, Rc, Arc, RefCell, Mutex);
 impl_container_convert_linear!(Vec, VecDeque, LinkedList);
 impl_container_convert_linear_ord!(BTreeSet, BinaryHeap);
 
-impl<T: OptionableConvert> OptionableConvert for Option<T> {
+impl<T: OptionableConvert> OptionableConvert for Option<T>
+where
+    T::Optioned: Sized,
+{
     fn into_optioned(self) -> Option<T::Optioned> {
         self.map(T::into_optioned)
     }
@@ -155,9 +157,9 @@ impl<T: OptionableConvert> OptionableConvert for Option<T> {
     }
 }
 
-impl<'a, T: Optionable + Clone> Optionable for Cow<'a, T>
+impl<'a, T: ?Sized + Optionable + ToOwned> Optionable for Cow<'a, T>
 where
-    T::Optioned: Clone,
+    T::Optioned: ToOwned,
 {
     type Optioned = Cow<'a, T::Optioned>;
 }
@@ -183,7 +185,10 @@ where
     }
 }
 
-impl<T: OptionableConvert> OptionableConvert for Box<T> {
+impl<T: OptionableConvert> OptionableConvert for Box<T>
+where
+    T::Optioned: Sized,
+{
     fn into_optioned(self) -> Box<T::Optioned> {
         let inner = *self;
         Box::new(T::into_optioned(inner))
@@ -202,18 +207,24 @@ impl<T: OptionableConvert> OptionableConvert for Box<T> {
     }
 }
 
-impl<T: Optionable, E> Optionable for Result<T, E> {
+impl<T: Optionable, E> Optionable for Result<T, E>
+where
+    T::Optioned: Sized,
+{
     type Optioned = Result<T::Optioned, E>;
 }
 
-impl<T: Optionable, S> Optionable for HashSet<T, S> {
+impl<T: Optionable, S> Optionable for HashSet<T, S>
+where
+    T::Optioned: Sized,
+{
     type Optioned = HashSet<T::Optioned, S>;
 }
 
 impl<T: OptionableConvert, S: Default + BuildHasher> OptionableConvert for HashSet<T, S>
 where
     T: Ord + Hash,
-    T::Optioned: Eq + Hash,
+    T::Optioned: Sized + Eq + Hash,
 {
     fn into_optioned(self) -> HashSet<T::Optioned, S> {
         self.into_iter().map(T::into_optioned).collect()
@@ -229,7 +240,10 @@ where
     }
 }
 
-impl<K, T: Optionable> Optionable for BTreeMap<K, T> {
+impl<K, T: Optionable> Optionable for BTreeMap<K, T>
+where
+    T::Optioned: Sized,
+{
     type Optioned = BTreeMap<K, T::Optioned>;
 }
 
@@ -258,16 +272,24 @@ macro_rules! inner_impl_convert_map {
     };
 }
 
-impl<K: Ord, T: OptionableConvert> OptionableConvert for BTreeMap<K, T> {
+impl<K: Ord, T: OptionableConvert> OptionableConvert for BTreeMap<K, T>
+where
+    T::Optioned: Sized,
+{
     inner_impl_convert_map!(BTreeMap<K, T::Optioned>);
 }
 
-impl<K, T: Optionable, S> Optionable for HashMap<K, T, S> {
+impl<K, T: Optionable, S> Optionable for HashMap<K, T, S>
+where
+    T::Optioned: Sized,
+{
     type Optioned = HashMap<K, T::Optioned, S>;
 }
 
 impl<K: Ord + Hash, T: OptionableConvert, S: BuildHasher + Default> OptionableConvert
     for HashMap<K, T, S>
+where
+    T::Optioned: Sized,
 {
     inner_impl_convert_map!(HashMap<K, T::Optioned, S>);
 }
@@ -317,6 +339,8 @@ mod tests {
         let _: <Cow<String> as Optionable>::Optioned = a;
         let b: Cow<String> = Cow::Borrowed(&a);
         let _: <Cow<String> as Optionable>::Optioned = b;
+        let c: Cow<str> = Cow::Borrowed("hello");
+        let _: <Cow<str> as Optionable>::Optioned = c;
     }
 
     #[test]

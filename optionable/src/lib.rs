@@ -150,7 +150,7 @@ mod serde_json;
 /// as e.g. `Option<i32>` already expresses the needed granularity.
 pub trait Optionable {
     /// The associated type where fields (if possible for the given use case) are recursively optional.
-    type Optioned;
+    type Optioned: ?Sized;
 }
 
 /// Extension trait for sized [`trait@Optionable`] to transform in and from optioned objects as well as merging.

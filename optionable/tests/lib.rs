@@ -101,8 +101,30 @@ fn derive_unnamed_struct_required() {
 }
 
 #[test]
-/// Check that the derive macro works.
+/// Check that the derive macro works. Without convert to check type bounds without any special
+/// limitations.
 fn derive_generic() {
+    #[allow(dead_code)]
+    #[derive(Optionable)]
+    #[optionable(no_convert)]
+    struct DeriveExample<T, T2> {
+        name: T,
+        surname: T2,
+    }
+
+    let _ = DeriveExampleOpt::<i32, String> {
+        name: Some(42),
+        surname: None,
+    };
+    let _ = DeriveExampleOpt::<i32, String> {
+        name: Some(2),
+        surname: Some("b".to_owned()),
+    };
+}
+
+#[test]
+/// Check that the derive macro works.
+fn derive_generic_convert() {
     #[allow(dead_code)]
     #[derive(Optionable)]
     #[optionable(derive(Clone))]

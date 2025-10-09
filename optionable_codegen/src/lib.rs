@@ -541,16 +541,21 @@ fn where_clauses(
         let mut where_clause = where_clause.clone();
 
         patch_where_clause_bounds(
+            crate_name,
             &mut where_clause,
             &generics.params,
             |_| quote!(#crate_name::OptionableConvert),
+            |_| quote!(Sized),
         );
         where_clause
     });
     patch_where_clause_bounds(
+        crate_name,
         &mut where_clause,
         &generics.params,
         |_| quote!(#crate_name::Optionable),
+        // todo: excludes the usage of types that allow unsized types, like a generic parameter `T::Optioned=Cow<...>`
+        |_| quote!(Sized),
     );
     WhereClauses {
         normal: where_clause,
@@ -562,17 +567,25 @@ fn where_clauses(
 /// Basically the original where clause with a type bound to the predicate added
 /// for every generic type parameter (todo: that is not excluded via the `required` helper attribute.)
 fn patch_where_clause_bounds(
+    crate_name: &Path,
     where_clause: &mut WhereClause,
     params: &Punctuated<GenericParam, Token![,]>,
     predicate: impl Fn(&Type) -> TokenStream,
+    predicate_optioned: impl Fn(&Type) -> TokenStream,
 ) {
     params.iter().for_each(|param| {
         if let GenericParam::Type(type_param) = param {
-            let path = &Type::Path(TypePath {
+            let ty_ident = &type_param.ident;
+            let ty_path = &Type::Path(TypePath {
                 qself: None,
-                path: type_param.ident.clone().into(),
+                path: ty_ident.clone().into(),
             });
-            add_where_clause_predicate(where_clause, path, &predicate);
+            add_where_clause_predicate(where_clause, ty_path, &predicate);
+            add_where_clause_predicate(
+                where_clause,
+                &Type::Path(parse_quote!(<#ty_ident as #crate_name::Optionable>::Optioned)),
+                &predicate_optioned,
+            );
         }
     });
 }
@@ -1185,7 +1198,10 @@ mod tests {
                 output: quote! {
                     struct DeriveExampleOpt<T, T2: Serialize>
                         where T: DeserializeOwned + ::optionable::Optionable,
-                              T2: ::optionable::Optionable {
+                              <T as ::optionable::Optionable>::Optioned: Sized,
+                              T2: ::optionable::Optionable,
+                              <T2 as ::optionable::Optionable>::Optioned: Sized
+                    {
                         output: Option< <T as ::optionable::Optionable>::Optioned>,
                         input: Option< <T2 as ::optionable::Optionable>::Optioned>
                     }
@@ -1193,21 +1209,30 @@ mod tests {
                     #[automatically_derived]
                     impl<T, T2: Serialize> ::optionable::Optionable for DeriveExample<T, T2>
                         where T: DeserializeOwned + ::optionable::Optionable,
-                              T2: ::optionable::Optionable  {
+                              <T as ::optionable::Optionable>::Optioned: Sized,
+                              T2: ::optionable::Optionable,
+                              <T2 as ::optionable::Optionable>::Optioned: Sized
+                    {
                         type Optioned = DeriveExampleOpt<T,T2>;
                     }
 
                     #[automatically_derived]
                     impl<T, T2: Serialize> ::optionable::Optionable for DeriveExampleOpt<T, T2>
                         where T: DeserializeOwned + ::optionable::Optionable,
-                              T2: ::optionable::Optionable  {
+                              <T as ::optionable::Optionable>::Optioned: Sized,
+                              T2: ::optionable::Optionable,
+                              <T2 as ::optionable::Optionable>::Optioned: Sized
+                    {
                         type Optioned = DeriveExampleOpt<T,T2>;
                     }
 
                     #[automatically_derived]
                     impl <T, T2:Serialize> ::optionable::OptionableConvert for DeriveExample<T, T2 >
                         where T: DeserializeOwned + ::optionable::OptionableConvert,
-                              T2: ::optionable::OptionableConvert {
+                              <T as ::optionable::Optionable>::Optioned: Sized,
+                              T2: ::optionable::OptionableConvert,
+                              <T2 as ::optionable::Optionable>::Optioned: Sized
+                    {
                         fn into_optioned (self) -> DeriveExampleOpt<T, T2> {
                             DeriveExampleOpt::<T, T2> {
                                 output: Some(<T as::optionable::OptionableConvert>::into_optioned(self.output)),
