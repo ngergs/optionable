@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.1.3...optionable_codegen-v0.2.0) - 2025-10-10
+
+### Added
+
+- generalize `Optionable` trait to unsized
+- codegen option to prefix type path for generated `Optionable` impl
+- codegen settings/flags for targetting optionable
+- codegen option to adjust the crate name used for the `Optionable` traits
+- rework codegen to start from all files and follow internal module included recursively
+
+### Fixed
+
+- pass codegen flags through for subfolders
+- codegen internal fn naming
+- simplify derive code
+- no automatically_derived on struct/enum definitions, refactor derive code
+
+### Other
+
+- docs
+- readme
+- codegen internal docs
+
 ## [0.1.3](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.1.2...optionable_codegen-v0.1.3) - 2025-10-01
 
 ### Fixed
