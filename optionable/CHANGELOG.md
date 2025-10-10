@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.10](https://github.com/ngergs/optionable/compare/optionable-v0.1.9...optionable-v0.1.10) - 2025-10-10
+
+### Added
+
+- generalize `Optionable` trait to unsized
+- implement the `Optionable` trait for `Cow`
+- codegen option to prefix type path for generated `Optionable` impl
+
+### Fixed
+
+- no automatically_derived on struct/enum definitions, refactor derive code
+
 ## [0.1.9](https://github.com/ngergs/optionable/compare/optionable-v0.1.8...optionable-v0.1.9) - 2025-10-01
 
 ### Fixed
