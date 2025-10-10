@@ -1,6 +1,7 @@
 # optionable
 
-[The optionable crate](https://crates.io/crates/optionable) is a library to derive `optioned` structs/enums versions of existing types
+The [optionable crate](https://crates.io/crates/optionable) ([rust documentation](https://docs.rs/optionable/)) 
+is is a library to derive `optioned` structs/enums versions of existing types
 where all fields have been recursively replaced with versions that support setting just a subset of the relevant fields (or none at all).
 
 One motivation for this concept is the common problem when expressing patches e.g. for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations)
@@ -8,6 +9,8 @@ that for a given rust struct `T` a corresponding struct `T::Optioned` would be r
 to specify.
 
 While trivial to write for plain structures this quickly becomes tedious for nested structs/enums.
+
+The rust documentation can be foundc.
 
 ## Core concept
 The main `Optionable` trait is quite simple:
