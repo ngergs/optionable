@@ -10,6 +10,7 @@ use proc_macro::TokenStream;
 /// for many primitive types, wrapper and container types.
 ///
 /// ### Type-level attributes (on the struct/enum level)
+/// - **`optionable_attr`**: Helper for the `derive` type-level attribute, for details see the `derive` attribute.
 /// - **`derive`**: Allows to specify derive attributes that should be attached to the generate optioned struct/enum.
 ///   If you need to forward additional helper attributes to the generated type use `optionable_attr`
 ///   with the attribute to forward as content (works for type and field attributes).
@@ -39,6 +40,7 @@ use proc_macro::TokenStream;
 ///   ```
 ///
 /// ### Field-level attributes (for structs and struct-typed enum variants)
+/// - **`optionable_attr`**: Helper for the `derive` type-level attribute, for details see the `derive` attribute.
 /// - **`required`**: The annotated field will be kept as is and won't be transformed into some optional variant
 ///   for the derived optioned Struct.
 ///   ```rust,ignore
