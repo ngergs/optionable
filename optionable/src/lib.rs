@@ -109,6 +109,7 @@
 //! ```
 //!
 //! # Crate features
+//! - `derive`: Default-feature, re-exports the [`derive@Optionable`] derive macro.
 //! - `chrono`: Derive [`trait@Optionable`] for types from [chrono](https://docs.rs/chrono/latest/chrono/).
 //! - `serde_json`: Derive [`trait@Optionable`] for [serde_json](https://docs.rs/serde_json/latest/serde_json/)`::Value`.
 //!

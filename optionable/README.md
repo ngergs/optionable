@@ -101,6 +101,7 @@ pub trait OptionedConvert<T>: Sized + Sealed<T>
 ```
 
 ## Crate features
+- `derive`: Default-feature, re-exports the `Optionable` derive macro.
 - `chrono`: Derive `Optionable` for types from [chrono](https://docs.rs/chrono/latest/chrono/)
 - `serde_json`: Derive `Optionable` for [serde_json](https://docs.rs/serde_json/latest/serde_json/)::Value
 
