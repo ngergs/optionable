@@ -1,8 +1,7 @@
 # optionable
-
-The [optionable crate](https://crates.io/crates/optionable) ([rust documentation](https://docs.rs/optionable/)) 
-is is a library to derive `optioned` structs/enums versions of existing types
-where all fields have been recursively replaced with versions that support setting just a subset of the relevant fields (or none at all).
+ 
+A library to derive `optioned` structs/enums versions of existing types where all fields have been recursively replaced
+with versions that support setting just a subset of the relevant fields (or none at all).
 
 One motivation for this concept is the common problem when expressing patches e.g. for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations)
 that for a given rust struct `T` a corresponding struct `T::Optioned` would be required where all fields are recursively optional
@@ -10,29 +9,15 @@ to specify.
 
 While trivial to write for plain structures this quickly becomes tedious for nested structs/enums.
 
-The rust documentation can be foundc.
-
-## Core concept
-The main `Optionable` trait is quite simple:
-```rust
-pub trait Optionable {
-    type Optioned;
-}
-```
-It is a marker trait that allows to express for a given type `T` which type should be considered its `T::Optioned` type
-such that `Option<T::Optioned>` would represent all variants of partial completeness.
-For types without inner structure this means that the `Optioned` type will just resolve to the type itself, e.g.
-```rust
-impl Optionable for String {
-    type Optioned = String;
-}
-```
-For many primitive types as well as common wrapper or collection types the `Optionable`-trait is already implemented.
+#### Links
+- [crates.io](https://crates.io/crates/optionable)
+- [rust documentation](https://docs.rs/optionable/)
 
 ## Deriving optional structs/enums
 
 The core utility of this library is to provide an `Optionable`-derive macro that derives such an optioned type
-and implements the `Optionable`-trait. It supports nested structures, enums as well as various container types.
+and implements the corresponding `Optionable`-trait (see below for details).
+It supports nested structures, enums as well as various container types.
 
 The general logic is the same as for other rust derives. If you want to use the derive `Optionable` for a struct/enum
 every type used for a field needs to also have implemented the corresponding `Optionable` trait:
@@ -80,7 +65,24 @@ fn example(){
 }
 ```
 
-## Conversion
+## Core concept
+The main `Optionable` trait is quite simple:
+```rust
+pub trait Optionable {
+    type Optioned;
+}
+```
+It is a marker trait that allows to express for a given type `T` which type should be considered its `T::Optioned` type
+such that `Option<T::Optioned>` would represent all variants of partial completeness.
+For types without inner structure this means that the `Optioned` type will just resolve to the type itself, e.g.
+```rust
+impl Optionable for String {
+    type Optioned = String;
+}
+```
+For many primitive types as well as common wrapper or collection types the `Optionable`-trait is already implemented.
+
+### Conversion
 Per default also conversion traits for struct/enums with sized fields will be generated.
 The relevant traits are (shown here without comments and `where` clauses):
 ```rust
