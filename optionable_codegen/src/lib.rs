@@ -620,7 +620,6 @@ fn error_on_helper_attributes(attrs: &[Attribute], err_msg: &'static str) -> syn
     if attrs
         .iter()
         .filter(|attr| {
-            println!("{}", attr.path().to_token_stream());
             attr.path().is_ident(HELPER_IDENT)
         })
         .collect::<Vec<_>>()

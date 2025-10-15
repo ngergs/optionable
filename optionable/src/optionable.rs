@@ -55,7 +55,7 @@ impl_optional_self!(
     // Rust primitives don't have inner structure, https://doc.rust-lang.org/rust-by-example/primitives.html
     i8, i16, i32, i64, i128, isize, u8, u16, u32, u64, u128, usize, f32, f64, char, bool,
     // Other types without inner structure
-    String,
+    (), String,
 );
 
 impl Optionable for str {
