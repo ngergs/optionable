@@ -6,7 +6,6 @@ mod codegen {
     use darling::FromMeta;
     use optionable_codegen::{attribute_derives, attribute_no_convert, CodegenSettings};
     use proc_macro2::Span;
-    use std::borrow::Cow;
     use std::fs::create_dir_all;
     use std::mem::take;
     use std::path::{Path, PathBuf};
@@ -196,7 +195,7 @@ mod codegen {
     ) -> Result<Vec<Item>, Error> {
         let result = optionable_codegen::derive_optionable(
             input.into(),
-            Some(Cow::Borrowed(codegen_settings)),
+            Some(&codegen_settings),
         )?;
         syn::parse2(result).map(|f: syn::File| f.items)
     }

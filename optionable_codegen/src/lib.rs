@@ -115,10 +115,10 @@ pub fn attribute_derives(derives: &PathList) -> Attribute {
 #[allow(clippy::items_after_statements)]
 pub fn derive_optionable(
     input: DeriveInput,
-    settings: Option<Cow<CodegenSettings>>,
+    settings: Option<&CodegenSettings>,
 ) -> syn::Result<TokenStream> {
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
-    let settings = settings.unwrap_or_default();
+    let settings = settings.map(|e|Cow::Borrowed(e)).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
     let forward_attrs = forwarded_attributes(&input.attrs);
     let vis = input.vis;
@@ -818,7 +818,6 @@ mod tests {
     use darling::FromMeta;
     use proc_macro2::TokenStream;
     use quote::quote;
-    use std::borrow::Cow;
     use syn::{parse_quote, Path};
 
     struct TestCase {
@@ -1436,11 +1435,11 @@ mod tests {
             let input = syn::parse2(tc.input).unwrap();
             let output = derive_optionable(
                 input,
-                Some(Cow::Borrowed(&CodegenSettings {
+                Some(&CodegenSettings {
                     ty_prefix: Some(Path::from_string("::crate_prefix").unwrap()),
                     optionable_crate_name: Path::from_string("crate").unwrap(),
                     input_crate_replacement: Some(parse_quote!(testcrate)),
-                })),
+                }),
             )
             .unwrap();
             assert_eq!(tc.output.to_string(), output.to_string());
