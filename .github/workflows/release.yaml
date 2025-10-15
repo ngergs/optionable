@@ -20,6 +20,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: clippy
+      - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
@@ -27,8 +31,8 @@ jobs:
         uses: Swatinem/rust-cache@v2
       - name: Pre-release tests
         run: |-
-          cargo test --features codegen
-          cargo test --manifest-path=optionable/Cargo.toml --features chrono,serde_json
+          cargo +nightly test --all-features
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --features chrono,serde_json
           cargo clippy
           cargo install --locked cargo-deny
           cargo deny check license

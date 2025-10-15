@@ -131,7 +131,11 @@
 //! It focuses specifically on structs (not enums) and offers a more manual approach, especially in respect to nested sub-struct,
 //! providing many fine-grained configuration options.
 
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 use crate::optionable::Error;
+
+#[cfg_attr(docsrs, doc(cfg(feature = "derive")))]
 #[cfg(feature = "derive")]
 #[doc(inline)]
 pub use optionable_derive::Optionable;

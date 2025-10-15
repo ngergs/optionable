@@ -118,7 +118,7 @@ pub fn derive_optionable(
     settings: Option<&CodegenSettings>,
 ) -> syn::Result<TokenStream> {
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
-    let settings = settings.map(|e|Cow::Borrowed(e)).unwrap_or_default();
+    let settings = settings.map(Cow::Borrowed).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
     let forward_attrs = forwarded_attributes(&input.attrs);
     let vis = input.vis;
