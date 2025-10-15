@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.2.0...optionable_codegen-v0.3.0) - 2025-10-15
+
+### Added
+
+- implement `Optionable` for ()
+
+### Fixed
+
+- document feature-gated derive macro and impls
+- [**breaking**] refactor derive_optionable to avoid Cow in the fn signature
+
 ## [0.2.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.1.3...optionable_codegen-v0.2.0) - 2025-10-10
 
 ### Added
