@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.13](https://github.com/ngergs/optionable/compare/optionable-v0.1.12...optionable-v0.1.13) - 2025-10-16
+
+### Added
+
+- implement Error trait for our Error struct
+- implement `Optionable` for `[T;N]`
+
+### Other
+
+- readme
+
 ## [0.1.12](https://github.com/ngergs/optionable/compare/optionable-v0.1.11...optionable-v0.1.12) - 2025-10-16
 
 ### Fixed
