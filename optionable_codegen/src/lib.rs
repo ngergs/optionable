@@ -619,9 +619,7 @@ fn add_where_clause_predicate(
 fn error_on_helper_attributes(attrs: &[Attribute], err_msg: &'static str) -> syn::Result<()> {
     if attrs
         .iter()
-        .filter(|attr| {
-            attr.path().is_ident(HELPER_IDENT)
-        })
+        .filter(|attr| attr.path().is_ident(HELPER_IDENT))
         .collect::<Vec<_>>()
         .is_empty()
     {

@@ -16,11 +16,15 @@ pub struct Error {
 
 impl Display for Error {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "The following required fields are missing: {:?}", self.missing_fields)
+        write!(
+            f,
+            "The following required fields are missing: {:?}",
+            self.missing_fields
+        )
     }
 }
 
-impl std::error::Error for Error{}
+impl std::error::Error for Error {}
 
 /// Merges the errors from the two arguments by appending the missing field lists.
 #[must_use]
@@ -62,9 +66,25 @@ pub(crate) use impl_optional_self;
 
 impl_optional_self!(
     // Rust primitives don't have inner structure, https://doc.rust-lang.org/rust-by-example/primitives.html
-    i8, i16, i32, i64, i128, isize, u8, u16, u32, u64, u128, usize, f32, f64, char, bool,
+    i8,
+    i16,
+    i32,
+    i64,
+    i128,
+    isize,
+    u8,
+    u16,
+    u32,
+    u64,
+    u128,
+    usize,
+    f32,
+    f64,
+    char,
+    bool,
     // Other types without inner structure
-    (), String,
+    (),
+    String,
 );
 
 impl Optionable for str {
@@ -142,21 +162,30 @@ impl_container_unsized!(Box, Rc, Arc, RefCell, Mutex);
 impl_container_convert_linear!(Vec, VecDeque, LinkedList);
 impl_container_convert_linear_ord!(BTreeSet, BinaryHeap);
 
-impl<T: Optionable, const N: usize> Optionable for [T;N]
-where T::Optioned: Sized {
+impl<T: Optionable, const N: usize> Optionable for [T; N]
+where
+    T::Optioned: Sized,
+{
     type Optioned = [T::Optioned; N];
 }
 
-impl<T: OptionableConvert, const N: usize> OptionableConvert for [T;N]
-where T:Debug,
-      T::Optioned: Sized {
+impl<T: OptionableConvert, const N: usize> OptionableConvert for [T; N]
+where
+    T: Debug,
+    T::Optioned: Sized,
+{
     fn into_optioned(self) -> Self::Optioned {
         self.map(T::into_optioned)
     }
 
     fn try_from_optioned(value: Self::Optioned) -> Result<Self, Error> {
         // unwrapping here is safe as it just would error if we would not produce N outputs from N inputs
-        Ok(value.into_iter().map(T::try_from_optioned).collect::<Result::<Vec<_>,_>>()?.try_into().unwrap())
+        Ok(value
+            .into_iter()
+            .map(T::try_from_optioned)
+            .collect::<Result<Vec<_>, _>>()?
+            .try_into()
+            .unwrap())
     }
 
     fn merge(&mut self, other: Self::Optioned) -> Result<(), Error> {
@@ -349,8 +378,8 @@ mod tests {
     #[test]
     /// Check that an array implements optionable.
     fn array() {
-        let a=[1, 2, 3];
-        let _:<[i32;3] as Optionable>::Optioned=a;
+        let a = [1, 2, 3];
+        let _: <[i32; 3] as Optionable>::Optioned = a;
     }
 
     #[test]
