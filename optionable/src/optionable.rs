@@ -2,6 +2,7 @@ use crate::{Optionable, OptionableConvert};
 use std::borrow::Cow;
 use std::cell::RefCell;
 use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, LinkedList, VecDeque};
+use std::fmt::Debug;
 use std::hash::{BuildHasher, Hash};
 use std::rc::Rc;
 use std::sync::{Arc, Mutex};
@@ -87,16 +88,16 @@ macro_rules! impl_container_unsized {
 
 /// Static macro to hold the inner impl (i.e. the code inside the impl{...}) for an `IntoIterator` type
 macro_rules! inner_impl_convert_into_iter {
-    ($t:ident) => {
-        fn into_optioned(self) -> <$t<T> as Optionable>::Optioned {
+    ($t:ty) => {
+        fn into_optioned(self) -> <$t as Optionable>::Optioned {
             self.into_iter().map(T::into_optioned).collect()
         }
 
-        fn try_from_optioned(value: <$t<T> as Optionable>::Optioned) -> Result<Self, Error> {
+        fn try_from_optioned(value: <$t as Optionable>::Optioned) -> Result<Self, Error> {
             value.into_iter().map(T::try_from_optioned).collect()
         }
 
-        fn merge(&mut self, other: <$t<T> as Optionable>::Optioned) -> Result<(), Error> {
+        fn merge(&mut self, other: <$t as Optionable>::Optioned) -> Result<(), Error> {
             *self = Self::try_from_optioned(other)?;
             Ok(())
         }
@@ -108,7 +109,7 @@ macro_rules! impl_container_convert_linear {
     ($($t:ident),* $(, where=$w:ident)?) => {
         $(impl<T: OptionableConvert> OptionableConvert for $t<T>
             where T::Optioned: Sized{
-            inner_impl_convert_into_iter!($t);
+            inner_impl_convert_into_iter!($t<T>);
         })*
     };
 }
@@ -119,7 +120,7 @@ macro_rules! impl_container_convert_linear_ord {
         $(impl<T: OptionableConvert> OptionableConvert for $t<T>
             where T: Ord,
                   T::Optioned: Sized+Ord{
-            inner_impl_convert_into_iter!($t);
+            inner_impl_convert_into_iter!($t<T>);
         })*
     };
 }
@@ -132,6 +133,29 @@ impl_container!(
 impl_container_unsized!(Box, Rc, Arc, RefCell, Mutex);
 impl_container_convert_linear!(Vec, VecDeque, LinkedList);
 impl_container_convert_linear_ord!(BTreeSet, BinaryHeap);
+
+impl<T: Optionable, const N: usize> Optionable for [T;N]
+where T::Optioned: Sized {
+    type Optioned = [T::Optioned; N];
+}
+
+impl<T: OptionableConvert, const N: usize> OptionableConvert for [T;N]
+where T:Debug,
+      T::Optioned: Sized {
+    fn into_optioned(self) -> Self::Optioned {
+        self.map(T::into_optioned)
+    }
+
+    fn try_from_optioned(value: Self::Optioned) -> Result<Self, Error> {
+        // unwrapping here is safe as it just would error if we would not produce N outputs from N inputs
+        Ok(value.into_iter().map(T::try_from_optioned).collect::<Result::<Vec<_>,_>>()?.try_into().unwrap())
+    }
+
+    fn merge(&mut self, other: Self::Optioned) -> Result<(), Error> {
+        *self = Self::try_from_optioned(other)?;
+        Ok(())
+    }
+}
 
 impl<T: OptionableConvert> OptionableConvert for Option<T>
 where
@@ -226,18 +250,7 @@ where
     T: Ord + Hash,
     T::Optioned: Sized + Eq + Hash,
 {
-    fn into_optioned(self) -> HashSet<T::Optioned, S> {
-        self.into_iter().map(T::into_optioned).collect()
-    }
-
-    fn try_from_optioned(value: HashSet<T::Optioned, S>) -> Result<Self, Error> {
-        value.into_iter().map(T::try_from_optioned).collect()
-    }
-
-    fn merge(&mut self, other: HashSet<T::Optioned, S>) -> Result<(), Error> {
-        *self = Self::try_from_optioned(other)?;
-        Ok(())
-    }
+    inner_impl_convert_into_iter!(HashSet<T,S>);
 }
 
 impl<K, T: Optionable> Optionable for BTreeMap<K, T>
@@ -249,7 +262,7 @@ where
 
 /// Static macro to hold the inner impl for map-like types
 macro_rules! inner_impl_convert_map {
-    ($t:path) => {
+    ($t:ty) => {
         fn into_optioned(self) -> $t {
             self.into_iter()
                 .map(|(k, v)| (k, T::into_optioned(v)))
@@ -323,6 +336,13 @@ mod tests {
     fn ptr() {
         let a = 2;
         let _: <&i32 as Optionable>::Optioned = &a;
+    }
+
+    #[test]
+    /// Check that an array implements optionable.
+    fn array() {
+        let a=[1, 2, 3];
+        let _:<[i32;3] as Optionable>::Optioned=a;
     }
 
     #[test]
