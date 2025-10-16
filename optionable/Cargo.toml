@@ -28,6 +28,7 @@ serde_json = { version = "1.0.145", default-features = false, features = ["std"]
 [package.metadata.docs.rs]
 # to be able to document feature dependent settings, see https://users.rust-lang.org/t/how-to-document-optional-features-in-api-docs/64577/3
 rustdoc-args = ["--cfg", "docsrs"]
-# needed for serde_json
-features = ["serde-json/std"]
-all-features = true
+# std needed for serde_json
+# todo: only set serde_json/std here and use all-features=true once chrono has a release that does not use doc_auto_cfg anymore
+features = ["derive","serde_json","serde_json/std"]
+all-features = false
