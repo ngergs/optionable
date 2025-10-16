@@ -2,7 +2,7 @@ use crate::{Optionable, OptionableConvert};
 use std::borrow::Cow;
 use std::cell::RefCell;
 use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, LinkedList, VecDeque};
-use std::fmt::Debug;
+use std::fmt::{Debug, Display, Formatter};
 use std::hash::{BuildHasher, Hash};
 use std::rc::Rc;
 use std::sync::{Arc, Mutex};
@@ -13,6 +13,14 @@ pub struct Error {
     /// Fields that are missing
     pub missing_fields: Vec<&'static str>,
 }
+
+impl Display for Error {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "The following required fields are missing: {:?}", self.missing_fields)
+    }
+}
+
+impl std::error::Error for Error{}
 
 /// Merges the errors from the two arguments by appending the missing field lists.
 #[must_use]
