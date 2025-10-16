@@ -119,9 +119,12 @@ Due to the use of associated types some IDE-hints do not fully resolve the assoc
 when using wrong types the associated types are resolved.
 
 ## Similar crates
-Another crate with similar scope is [optional_struct](https://crates.io/crates/optional_struct).
+One crate with similar scope is [optional_struct](https://crates.io/crates/optional_struct).
 It focuses specifically on structs (not enums) and offers a more manual approach, especially in respect to nested sub-struct,
 providing many fine-grained configuration options.
+
+Another crate is [struct-patch](https://github.com/yanganto/struct-patch/).
+It focuses on patching structs (not enums), especially from serde inputs. Nesting is supported with manual helper annotations.
 
 ### License
 You can use this under the conditions of the [MIT license](LICENSE-MIT) or the [Apache License, Version 2.0](LICENSE-APACHE) at your option.
