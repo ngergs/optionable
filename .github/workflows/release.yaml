@@ -31,6 +31,7 @@ jobs:
         uses: Swatinem/rust-cache@v2
       - name: Pre-release tests
         run: |-
+          cargo +nightly doc --manifest-path=optionable/Cargo.toml --features serde_json/std,serde_json,derive
           cargo +nightly test --all-features
           cargo +nightly test --manifest-path=optionable/Cargo.toml --features chrono,serde_json
           cargo clippy
