@@ -4,8 +4,8 @@ use std::cell::RefCell;
 use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, LinkedList, VecDeque};
 use std::fmt::{Debug, Display, Formatter};
 use std::hash::{BuildHasher, Hash};
-use std::rc::Rc;
-use std::sync::{Arc, Mutex};
+use std::rc::{Rc, Weak as RcWeak};
+use std::sync::{Arc, Mutex, Weak as ArcWeak};
 
 /// Represents errors that occur when trying to build a full type from its optioned variant.
 #[derive(Debug)]
@@ -158,7 +158,7 @@ impl_container!(
     // Collections without an extra key, https://doc.rust-lang.org/std/collections/index.html
     Vec, VecDeque, LinkedList, BTreeSet, BinaryHeap, // Smart pointer and sync-container
 );
-impl_container_unsized!(Box, Rc, Arc, RefCell, Mutex);
+impl_container_unsized!(Box, Rc, RcWeak, Arc, ArcWeak, RefCell, Mutex);
 impl_container_convert_linear!(Vec, VecDeque, LinkedList);
 impl_container_convert_linear_ord!(BTreeSet, BinaryHeap);
 
