@@ -90,7 +90,7 @@
 //! For many primitive types as well as common wrapper or collection types the [`trait@Optionable`]-trait is already implemented.
 //!
 //! ## Conversion
-//! Per default also conversion traits for struct/enums with sized fields will be generated.
+//! Per default also conversion traits for struct/enums with sized fields will be derived.
 //! The relevant traits are [`OptionableConvert`] which is an extension trait for sized-fields only [`trait@Optionable`]
 //! objects. From this trait the sealed convenience trait [`OptionedConvert`] is auto-implemented
 //! for the optioned object.
@@ -102,8 +102,10 @@
 //!     fn merge(&mut self, other: Self::Optioned) -> Result<(), Error>;
 //! }
 //!
-//! // sealed, auto-implemented from `OptionableConvert`
-//! pub trait OptionedConvert<T>: Sized
+//! // sealed, auto-implemented from `OptionableConvert` for every respective `T::Optioned`
+//! pub trait OptionedConvert<T>
+//! where
+//!     T: Optionable<Optioned=Self> + OptionableConvert,
 //! {
 //!     fn from_optionable(value: T) -> Self;
 //!     fn try_into_optionable(self) -> Result<T, Error>;
@@ -131,7 +133,7 @@
 //! It focuses specifically on structs (not enums) and offers a more manual approach, especially in respect to nested sub-struct,
 //! providing many fine-grained configuration options.
 //!
-//! Another crate is [struct-patch](https://github.com/yanganto/struct-patch/).
+//! Another crate is [struct-patch](https://crates.io/crates/struct-patch).
 //! It focuses on patching structs (not enums), especially from serde inputs. Nesting is supported with manual helper annotations.
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
