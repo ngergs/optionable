@@ -7,6 +7,7 @@ use std::fmt::{Debug, Display, Formatter};
 use std::hash::{BuildHasher, Hash};
 use std::rc::{Rc, Weak as RcWeak};
 use std::sync::{Arc, Mutex, Weak as ArcWeak};
+use std::time::Duration;
 
 /// Represents errors that occur when trying to build a full type from its optioned variant.
 #[derive(Debug)]
@@ -87,6 +88,7 @@ impl_optional_self!(
     (),
     String,
     OsString,
+    Duration,
 );
 
 impl Optionable for str {
