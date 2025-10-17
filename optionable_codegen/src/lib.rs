@@ -767,11 +767,11 @@ fn optioned_ty(crate_name: &Path, ty: &Type) -> TokenStream {
     }
 }
 
-const SELF_RESOLVING_TYPES: [&str; 17] = [
+const SELF_RESOLVING_TYPES: [&str; 18] = [
     // Rust primitives don't have inner structure, https://doc.rust-lang.org/rust-by-example/primitives.html
     "i8", "i16", "i32", "i64", "i128", "isize", "u8", "u16", "u32", "u64", "u128", "usize", "f32",
     "f64", "char", "bool", // Other types without inner structure
-    "String",
+    "String", "OsString",
 ];
 
 /// Checks when it is well known that the type resolves to itself as its `Optioned`.
