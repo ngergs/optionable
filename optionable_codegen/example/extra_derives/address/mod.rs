@@ -28,7 +28,7 @@ impl ::optionable::OptionableConvert for address::Address {
                     Self::NumberOnly(
                         other_0
                             .ok_or(::optionable::optionable::Error {
-                                missing_fields: std::vec!["0"],
+                                missing_field: "0",
                             })?,
                     )
                 }
@@ -36,7 +36,7 @@ impl ::optionable::OptionableConvert for address::Address {
                     Self::Address(
                         other_0
                             .ok_or(::optionable::optionable::Error {
-                                missing_fields: std::vec!["0"],
+                                missing_field: "0",
                             })?,
                     )
                 }

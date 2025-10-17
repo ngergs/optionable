@@ -1,40 +1,54 @@
+macro_rules! import_std_or_alloc {
+    ($($path:ident)::* :: {$($id:ident $(as $alias:ident)?),* $(,)?}) => {
+        #[cfg(all(feature = "alloc", not(feature = "std")))]
+        use alloc::$($path)::*::{$($id $(as $alias)?),*};
+        #[cfg(feature = "std")]
+        use std::$($path)::*::{$($id $(as $alias)?),*};
+    };
+}
+
 use crate::{Optionable, OptionableConvert};
-use std::borrow::Cow;
-use std::cell::RefCell;
-use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, LinkedList, VecDeque};
+use core::cell::{Cell, RefCell};
+use core::fmt::{Debug, Display, Formatter};
+
+import_std_or_alloc!(boxed::{Box});
+import_std_or_alloc!(borrow::{Cow, ToOwned});
+import_std_or_alloc!(vec::{Vec});
+import_std_or_alloc!(collections::{BTreeMap, BTreeSet, BinaryHeap, LinkedList, VecDeque});
+#[cfg(feature = "std")]
+use std::collections::{HashMap, HashSet};
+import_std_or_alloc!(string::{String});
+#[cfg(feature = "std")]
 use std::ffi::{OsStr, OsString};
-use std::fmt::{Debug, Display, Formatter};
+#[cfg(feature = "std")]
 use std::hash::{BuildHasher, Hash};
+#[cfg(feature = "std")]
 use std::path::{Path, PathBuf};
-use std::rc::{Rc, Weak as RcWeak};
-use std::sync::{Arc, Mutex, Weak as ArcWeak};
+import_std_or_alloc!(rc::{Rc, Weak as RcWeak});
+import_std_or_alloc!(sync::{Arc, Weak as ArcWeak});
+#[cfg(feature = "std")]
+use std::sync::{Mutex, RwLock};
+#[cfg(feature = "std")]
 use std::time::Duration;
 
 /// Represents errors that occur when trying to build a full type from its optioned variant.
 #[derive(Debug)]
 pub struct Error {
-    /// Fields that are missing
-    pub missing_fields: Vec<&'static str>,
+    /// Field that is missing
+    pub missing_field: &'static str,
 }
 
 impl Display for Error {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         write!(
             f,
-            "The following required fields are missing: {:?}",
-            self.missing_fields
+            "The following required field is missing: {:?}",
+            self.missing_field
         )
     }
 }
 
-impl std::error::Error for Error {}
-
-/// Merges the errors from the two arguments by appending the missing field lists.
-#[must_use]
-pub fn merge_errors(mut a: Error, mut b: Error) -> Error {
-    a.missing_fields.append(&mut b.missing_fields);
-    a
-}
+impl core::error::Error for Error {}
 
 // Blanket implementation for references to `Optionable` types.
 impl<'a, T: ?Sized + Optionable> Optionable for &'a T {
@@ -44,34 +58,40 @@ impl<'a, T: ?Sized + Optionable> Optionable for &'a T {
 /// Helper macro to generate an impl for `Optionalable` where the `Optioned` type
 /// resolves to itself for types without inner structure like primitives (e.g. `i32`).
 macro_rules! impl_optional_self {
-    ($($t:ty),* $(,)?) => {
-        $(impl crate::Optionable for $t{
-            type Optioned = Self;
-        }
-
-        impl crate::OptionableConvert for $t{
-            fn into_optioned(self) -> $t {
-                self
+    ($($(#[$attr:meta])? $t:ty),+ $(,)?) => {
+        $(
+            $(#[$attr])?
+            impl crate::Optionable for $t{
+                type Optioned = Self;
             }
 
-            fn try_from_optioned(value: Self::Optioned) -> Result<Self, crate::optionable::Error> {
-                Ok(value)
-            }
+            $(#[$attr])?
+            impl crate::OptionableConvert for $t{
+                fn into_optioned(self) -> $t {
+                    self
+                }
 
-            fn merge(&mut self, other: Self::Optioned) -> Result<(), crate::optionable::Error> {
-                *self = other;
-                Ok(())
-            }
+                fn try_from_optioned(value: Self::Optioned) -> Result<Self, crate::optionable::Error> {
+                    Ok(value)
+                }
+
+                fn merge(&mut self, other: Self::Optioned) -> Result<(), crate::optionable::Error> {
+                    *self = other;
+                    Ok(())
+                }
         })*
     };
 }
+#[cfg(any(feature = "chrono", feature = "serde_json"))]
 pub(crate) use impl_optional_self;
 
 /// Only implements `Optionable`, not `OptionableConvert`
 macro_rules! impl_optional_self_unsized {
-    ($($t:ty),* $(,)?) => {
-        $(impl crate::Optionable for $t{
-            type Optioned = Self;
+    ($($(#[$attr:meta])? $t:ty),+ $(,)?) => {
+        $(
+            $(#[$attr])?
+            impl crate::Optionable for $t{
+                type Optioned = Self;
         })*
     }
 }
@@ -96,22 +116,34 @@ impl_optional_self!(
     bool,
     // Other types without inner structure
     (),
+    #[cfg(any(feature = "alloc", feature = "std"))]
     String,
+    #[cfg(feature = "std")]
     OsString,
+    #[cfg(feature = "std")]
     Duration,
-    PathBuf,
+    #[cfg(feature = "std")]
+    PathBuf
 );
 
-impl_optional_self_unsized!(str, OsStr, Path,);
+impl_optional_self_unsized!(
+    str,
+    #[cfg(feature = "std")]
+    OsStr,
+    #[cfg(feature = "std")]
+    Path
+);
 
 /// Helper macro to generate an impl for `Optionable` for Containers.
 /// Containers can be made optional by getting a corresponding container over the associated optional type.
 macro_rules! impl_container{
-    ($($t:ident),* $(,)?) => {
-        $(impl<T: Optionable> Optionable for $t<T>
-            where T::Optioned: Sized
-        {
-            type Optioned = $t<T::Optioned>;
+    ($($(#[$attr:meta])? $t:ident),* $(,)?) => {
+        $(
+            $(#[$attr])?
+            impl<T: Optionable> Optionable for $t<T>
+                where T::Optioned: Sized
+            {
+                type Optioned = $t<T::Optioned>;
         })*
     };
 }
@@ -119,15 +151,18 @@ macro_rules! impl_container{
 /// Helper macro to generate an impl for `Optionable` for Containers that do not require the wrapped value to be sized.
 /// Containers can be made optional by getting a corresponding container over the associated optional type.
 macro_rules! impl_container_unsized {
-    ($($t:ident),* $(,)?) => {
-        $(impl<T: Optionable> Optionable for $t<T>
-        {
-            type Optioned = $t<T::Optioned>;
+    ($($(#[$attr:meta])? $t:ident),* $(,)?) => {
+        $(
+            $(#[$attr])?
+            impl<T: Optionable> Optionable for $t<T>
+            {
+                type Optioned = $t<T::Optioned>;
         })*
     };
 }
 
 /// Static macro to hold the inner impl (i.e. the code inside the impl{...}) for an `IntoIterator` type
+#[cfg(any(feature = "alloc", feature = "std"))]
 macro_rules! inner_impl_convert_into_iter {
     ($t:ty) => {
         fn into_optioned(self) -> <$t as Optionable>::Optioned {
@@ -146,8 +181,11 @@ macro_rules! inner_impl_convert_into_iter {
 }
 
 /// Helper macro to generate an impl for `OptionableConvert` for Containers with linear structure (e.g. `Vec`).
+/// Automatically adds to the impl #[cfg(any(feature = "alloc", feature = "std"))]
+#[cfg(any(feature = "alloc", feature = "std"))]
 macro_rules! impl_container_convert_linear {
-    ($($t:ident),* $(, where=$w:ident)?) => {
+    ($($t:ident),+ $(, where=$w:ident)?) => {
+        #[cfg(any(feature = "alloc", feature = "std"))]
         $(impl<T: OptionableConvert> OptionableConvert for $t<T>
             where T::Optioned: Sized{
             inner_impl_convert_into_iter!($t<T>);
@@ -156,8 +194,11 @@ macro_rules! impl_container_convert_linear {
 }
 
 /// Helper macro to generate an impl for `OptionableConvert` for Containers with linear structure that require `cmp:Ord` (e.g. `BTreeSet`).
+/// Automatically adds to the impl #[cfg(any(feature = "alloc", feature = "std"))]
+#[cfg(any(feature = "alloc", feature = "std"))]
 macro_rules! impl_container_convert_linear_ord {
-    ($($t:ident),* $(, where=$w:ident)?) => {
+    ($($t:ident),+ $(, where=$w:ident)?) => {
+        #[cfg(any(feature = "alloc", feature = "std"))]
         $(impl<T: OptionableConvert> OptionableConvert for $t<T>
             where T: Ord,
                   T::Optioned: Sized+Ord{
@@ -168,11 +209,38 @@ macro_rules! impl_container_convert_linear_ord {
 
 impl_container!(
     Option,
-    // Collections without an extra key, https://doc.rust-lang.org/std/collections/index.html
-    Vec, VecDeque, LinkedList, BTreeSet, BinaryHeap, // Smart pointer and sync-container
+    #[cfg(any(feature = "alloc", feature = "std"))]
+    Vec,
+    #[cfg(any(feature = "alloc", feature = "std"))]
+    VecDeque,
+    #[cfg(any(feature = "alloc", feature = "std"))]
+    LinkedList,
+    #[cfg(any(feature = "alloc", feature = "std"))]
+    BTreeSet,
+    #[cfg(any(feature = "alloc", feature = "std"))]
+    BinaryHeap
 );
-impl_container_unsized!(Box, Rc, RcWeak, Arc, ArcWeak, RefCell, Mutex);
+impl_container_unsized!(
+    Cell,
+    RefCell,
+    #[cfg(any(feature = "alloc", feature = "std"))]
+    Box,
+    #[cfg(any(feature = "alloc", feature = "std"))]
+    Rc,
+    #[cfg(any(feature = "alloc", feature = "std"))]
+    RcWeak,
+    #[cfg(any(feature = "alloc", feature = "std"))]
+    Arc,
+    #[cfg(any(feature = "alloc", feature = "std"))]
+    ArcWeak,
+    #[cfg(feature = "std")]
+    Mutex,
+    #[cfg(feature = "std")]
+    RwLock,
+);
+#[cfg(any(feature = "alloc", feature = "std"))]
 impl_container_convert_linear!(Vec, VecDeque, LinkedList);
+#[cfg(any(feature = "alloc", feature = "std"))]
 impl_container_convert_linear_ord!(BTreeSet, BinaryHeap);
 
 impl<T: Optionable, const N: usize> Optionable for [T; N]
@@ -182,6 +250,7 @@ where
     type Optioned = [T::Optioned; N];
 }
 
+#[cfg(any(feature = "alloc", feature = "std"))]
 impl<T: OptionableConvert, const N: usize> OptionableConvert for [T; N]
 where
     T: Debug,
@@ -231,6 +300,7 @@ where
     }
 }
 
+#[cfg(any(feature = "alloc", feature = "std"))]
 impl<'a, T: ?Sized + Optionable + ToOwned> Optionable for Cow<'a, T>
 where
     T::Optioned: ToOwned,
@@ -238,6 +308,7 @@ where
     type Optioned = Cow<'a, T::Optioned>;
 }
 
+#[cfg(any(feature = "alloc", feature = "std"))]
 impl<T: OptionableConvert + Clone> OptionableConvert for Cow<'_, T>
 where
     T::Optioned: Clone,
@@ -259,6 +330,7 @@ where
     }
 }
 
+#[cfg(any(feature = "alloc", feature = "std"))]
 impl<T: OptionableConvert> OptionableConvert for Box<T>
 where
     T::Optioned: Sized,
@@ -288,6 +360,7 @@ where
     type Optioned = Result<T::Optioned, E>;
 }
 
+#[cfg(feature = "std")]
 impl<T: Optionable, S> Optionable for HashSet<T, S>
 where
     T::Optioned: Sized,
@@ -295,6 +368,7 @@ where
     type Optioned = HashSet<T::Optioned, S>;
 }
 
+#[cfg(feature = "std")]
 impl<T: OptionableConvert, S: Default + BuildHasher> OptionableConvert for HashSet<T, S>
 where
     T: Ord + Hash,
@@ -303,6 +377,7 @@ where
     inner_impl_convert_into_iter!(HashSet<T,S>);
 }
 
+#[cfg(any(feature = "alloc", feature = "std"))]
 impl<K, T: Optionable> Optionable for BTreeMap<K, T>
 where
     T::Optioned: Sized,
@@ -335,6 +410,7 @@ macro_rules! inner_impl_convert_map {
     };
 }
 
+#[cfg(any(feature = "alloc", feature = "std"))]
 impl<K: Ord, T: OptionableConvert> OptionableConvert for BTreeMap<K, T>
 where
     T::Optioned: Sized,
@@ -342,6 +418,7 @@ where
     inner_impl_convert_map!(BTreeMap<K, T::Optioned>);
 }
 
+#[cfg(feature = "std")]
 impl<K, T: Optionable, S> Optionable for HashMap<K, T, S>
 where
     T::Optioned: Sized,
@@ -349,6 +426,7 @@ where
     type Optioned = HashMap<K, T::Optioned, S>;
 }
 
+#[cfg(feature = "std")]
 impl<K: Ord + Hash, T: OptionableConvert, S: BuildHasher + Default> OptionableConvert
     for HashMap<K, T, S>
 where
@@ -360,9 +438,16 @@ where
 #[cfg(test)]
 mod tests {
     use crate::Optionable;
-    use std::borrow::Cow;
+    #[cfg(all(feature = "alloc", not(feature = "std")))]
+    use alloc::vec;
+    #[cfg(feature = "std")]
+    use std::vec;
+    import_std_or_alloc!(vec::{Vec});
+    import_std_or_alloc!(string::{String});
+    import_std_or_alloc!(borrow::{Cow,ToOwned});
+    use crate::optionable::Error;
+    #[cfg(feature = "std")]
     use std::collections::{BTreeMap, HashMap};
-    use std::fmt::Error;
 
     #[test]
     /// Check that an exemplary primitive type like `i32` resolves to itself as `Optioned` type.
@@ -396,6 +481,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(any(feature = "alloc", feature = "std"))]
     /// Check that `Vec` implements optionable as an example container.
     fn container() {
         let a = vec![1, 2, 3];
@@ -403,6 +489,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(any(feature = "alloc", feature = "std"))]
     /// Check that `Cow` implements optionable.
     fn cow() {
         let a = Cow::Owned("hello".to_owned());
@@ -421,6 +508,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(feature = "std")]
     /// Check that `HashMap` and `BTreeMap` implements optionable.
     fn map() {
         let a = HashMap::from([(1, "a".to_owned())]);

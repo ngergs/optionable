@@ -136,7 +136,10 @@
 //! Another crate is [struct-patch](https://crates.io/crates/struct-patch).
 //! It focuses on patching structs (not enums), especially from serde inputs. Nesting is supported with manual helper annotations.
 
+#![cfg_attr(not(feature = "std"), no_std)]
 #![cfg_attr(docsrs, feature(doc_cfg))]
+#[cfg(feature = "alloc")]
+extern crate alloc;
 
 use crate::optionable::Error;
 

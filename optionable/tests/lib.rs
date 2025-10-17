@@ -1,6 +1,8 @@
 use optionable::OptionedConvert;
 use optionable::{Optionable, OptionableConvert};
+#[cfg(any(feature = "alloc", feature = "std"))]
 use serde::Deserialize;
+#[cfg(any(feature = "alloc", feature = "std"))]
 use serde::Serialize;
 
 #[test]
@@ -112,13 +114,13 @@ fn derive_generic() {
         surname: T2,
     }
 
-    let _ = DeriveExampleOpt::<i32, String> {
+    let _ = DeriveExampleOpt::<i32, f32> {
         name: Some(42),
         surname: None,
     };
-    let _ = DeriveExampleOpt::<i32, String> {
+    let _ = DeriveExampleOpt::<i32, f32> {
         name: Some(2),
-        surname: Some("b".to_owned()),
+        surname: Some(0.25),
     };
 }
 
@@ -139,13 +141,13 @@ fn derive_generic_convert() {
         surname: T2,
     }
 
-    let partial = DeriveExampleOpt::<i32, String> {
+    let partial = DeriveExampleOpt::<i32, f32> {
         name: Some(42),
         surname: None,
     };
-    let full_partial = DeriveExampleOpt::<i32, String> {
+    let full_partial = DeriveExampleOpt::<i32, f32> {
         name: Some(2),
-        surname: Some("b".to_owned()),
+        surname: Some(0.25),
     };
 
     let mut full: DeriveExample<_, _> = full_partial.clone().try_into_optionable().unwrap();
@@ -159,7 +161,8 @@ fn derive_generic_convert() {
 type _String = <String as ::optionable::Optionable>::Optioned;
 
 #[test]
-/// Check that the derive macro works with nested structs
+/// Check that the derive macro works with nested structs and container types like `Vec`
+#[cfg(any(feature = "alloc", feature = "std"))]
 fn derive_nested() {
     #[derive(Optionable)]
     #[allow(dead_code)]
@@ -266,6 +269,7 @@ fn derive_enum() {
 }
 
 #[test]
+#[cfg(any(feature = "alloc", feature = "std"))]
 /// Check that forwarding other derives via helper attributes works
 fn derive_forward_other_derives() {
     #[derive(Optionable)]

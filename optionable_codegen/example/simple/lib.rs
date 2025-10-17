@@ -30,7 +30,7 @@ impl ::optionable::OptionableConvert for Member {
             name: value
                 .name
                 .ok_or(::optionable::optionable::Error {
-                    missing_fields: std::vec!["name"],
+                    missing_field: "name",
                 })?,
             addresses: <Vec<
                 Address,
@@ -38,7 +38,7 @@ impl ::optionable::OptionableConvert for Member {
                 value
                     .addresses
                     .ok_or(::optionable::optionable::Error {
-                        missing_fields: std::vec!["addresses"],
+                        missing_field: "addresses",
                     })?,
             )?,
         })
@@ -94,7 +94,7 @@ mod test {
                 name: value
                     .name
                     .ok_or(::optionable::optionable::Error {
-                        missing_fields: std::vec!["name"],
+                        missing_field: "name",
                     })?,
                 addresses: <Vec<
                     Address,
@@ -102,7 +102,7 @@ mod test {
                     value
                         .addresses
                         .ok_or(::optionable::optionable::Error {
-                            missing_fields: std::vec!["addresses"],
+                            missing_field: "addresses",
                         })?,
                 )?,
             })

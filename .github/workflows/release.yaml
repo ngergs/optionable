@@ -33,6 +33,9 @@ jobs:
         run: |-
           cargo +nightly doc --manifest-path=optionable/Cargo.toml --features serde_json/std,serde_json,derive
           cargo +nightly test --all-features
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features derive,chrono,serde_json
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono,serde_json
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features alloc,derive,chrono,serde_json
           cargo +nightly test --manifest-path=optionable/Cargo.toml --features chrono,serde_json
           cargo clippy
           cargo install --locked cargo-deny

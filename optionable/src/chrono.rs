@@ -2,12 +2,10 @@ use crate::optionable::{impl_optional_self, Error};
 use crate::{Optionable, OptionableConvert};
 use chrono::{DateTime, Days, Months, NaiveDate, NaiveDateTime, NaiveTime, TimeDelta, TimeZone};
 
-#[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl<Tz: TimeZone> Optionable for DateTime<Tz> {
     type Optioned = Self;
 }
 
-#[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl<Tz: TimeZone> OptionableConvert for DateTime<Tz> {
     fn into_optioned(self) -> Self::Optioned {
         self
@@ -23,5 +21,4 @@ impl<Tz: TimeZone> OptionableConvert for DateTime<Tz> {
     }
 }
 
-#[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl_optional_self!(Days, Months, NaiveDate, NaiveDateTime, NaiveTime, TimeDelta);
