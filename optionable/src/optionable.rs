@@ -2,6 +2,7 @@ use crate::{Optionable, OptionableConvert};
 use std::borrow::Cow;
 use std::cell::RefCell;
 use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, LinkedList, VecDeque};
+use std::ffi::{OsStr, OsString};
 use std::fmt::{Debug, Display, Formatter};
 use std::hash::{BuildHasher, Hash};
 use std::rc::{Rc, Weak as RcWeak};
@@ -85,10 +86,15 @@ impl_optional_self!(
     // Other types without inner structure
     (),
     String,
+    OsString,
 );
 
 impl Optionable for str {
     type Optioned = str;
+}
+
+impl Optionable for OsStr {
+    type Optioned = OsStr;
 }
 
 /// Helper macro to generate an impl for `Optionable` for Containers.
