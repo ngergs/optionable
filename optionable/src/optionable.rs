@@ -5,6 +5,7 @@ use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, LinkedL
 use std::ffi::{OsStr, OsString};
 use std::fmt::{Debug, Display, Formatter};
 use std::hash::{BuildHasher, Hash};
+use std::path::{Path, PathBuf};
 use std::rc::{Rc, Weak as RcWeak};
 use std::sync::{Arc, Mutex, Weak as ArcWeak};
 use std::time::Duration;
@@ -66,6 +67,15 @@ macro_rules! impl_optional_self {
 }
 pub(crate) use impl_optional_self;
 
+/// Only implements `Optionable`, not `OptionableConvert`
+macro_rules! impl_optional_self_unsized {
+    ($($t:ty),* $(,)?) => {
+        $(impl crate::Optionable for $t{
+            type Optioned = Self;
+        })*
+    }
+}
+
 impl_optional_self!(
     // Rust primitives don't have inner structure, https://doc.rust-lang.org/rust-by-example/primitives.html
     i8,
@@ -89,15 +99,10 @@ impl_optional_self!(
     String,
     OsString,
     Duration,
+    PathBuf,
 );
 
-impl Optionable for str {
-    type Optioned = str;
-}
-
-impl Optionable for OsStr {
-    type Optioned = OsStr;
-}
+impl_optional_self_unsized!(str, OsStr, Path,);
 
 /// Helper macro to generate an impl for `Optionable` for Containers.
 /// Containers can be made optional by getting a corresponding container over the associated optional type.
