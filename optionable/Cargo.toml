@@ -8,7 +8,9 @@ license = "MIT OR Apache-2.0"
 readme = "README.md"
 
 [features]
-default = ["derive"]
+default = ["derive", "std"]
+alloc = []
+std = []
 derive = ["dep:optionable_derive"]
 chrono = ["dep:chrono"]
 serde_json = ["dep:serde_json"]
@@ -30,5 +32,5 @@ serde_json = { version = "1.0.145", default-features = false, features = ["std"]
 rustdoc-args = ["--cfg", "docsrs"]
 # std needed for serde_json
 # todo: only set serde_json/std here and use all-features=true once chrono has a release that does not use doc_auto_cfg anymore
-features = ["derive","serde_json","serde_json/std"]
+features = ["derive", "std", "serde_json", "serde_json/std"]
 all-features = false
