@@ -193,7 +193,7 @@ mod codegen {
         input: impl Into<DeriveInput>,
         codegen_settings: &CodegenSettings,
     ) -> Result<Vec<Item>, Error> {
-        let result = optionable_codegen::derive_optionable(input.into(), Some(&codegen_settings))?;
+        let result = optionable_codegen::derive_optionable(input.into(), Some(codegen_settings))?;
         syn::parse2(result).map(|f: syn::File| f.items)
     }
 }

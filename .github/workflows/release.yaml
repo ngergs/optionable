@@ -37,7 +37,7 @@ jobs:
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono,serde_json
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features alloc,derive,chrono,serde_json
           cargo +nightly test --manifest-path=optionable/Cargo.toml --features chrono,serde_json
-          cargo clippy
+          cargo clippy --all-features --features serde_json/std
           cargo install --locked cargo-deny
           cargo deny check license
       - name: Run release-plz
