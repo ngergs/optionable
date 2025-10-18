@@ -386,6 +386,7 @@ where
 }
 
 /// Static macro to hold the inner impl for map-like types
+#[cfg(any(feature = "alloc", feature = "std"))]
 macro_rules! inner_impl_convert_map {
     ($t:ty) => {
         fn into_optioned(self) -> $t {
