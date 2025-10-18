@@ -185,8 +185,9 @@ macro_rules! inner_impl_convert_into_iter {
 #[cfg(any(feature = "alloc", feature = "std"))]
 macro_rules! impl_container_convert_linear {
     ($($t:ident),+ $(, where=$w:ident)?) => {
-        #[cfg(any(feature = "alloc", feature = "std"))]
-        $(impl<T: OptionableConvert> OptionableConvert for $t<T>
+        $(
+            #[cfg(any(feature = "alloc", feature = "std"))]
+            impl<T: OptionableConvert> OptionableConvert for $t<T>
             where T::Optioned: Sized{
             inner_impl_convert_into_iter!($t<T>);
         })*
@@ -198,8 +199,9 @@ macro_rules! impl_container_convert_linear {
 #[cfg(any(feature = "alloc", feature = "std"))]
 macro_rules! impl_container_convert_linear_ord {
     ($($t:ident),+ $(, where=$w:ident)?) => {
-        #[cfg(any(feature = "alloc", feature = "std"))]
-        $(impl<T: OptionableConvert> OptionableConvert for $t<T>
+        $(
+            #[cfg(any(feature = "alloc", feature = "std"))]
+            impl<T: OptionableConvert> OptionableConvert for $t<T>
             where T: Ord,
                   T::Optioned: Sized+Ord{
             inner_impl_convert_into_iter!($t<T>);
