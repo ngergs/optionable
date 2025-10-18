@@ -114,6 +114,8 @@
 //!
 //! # Crate features
 //! - `derive`: Default-feature, re-exports the [`derive@Optionable`] derive macro.
+//! - `std`: Default-feature. Adds `Optionable`-implementations for many stdlib types.
+//! - `alloc`: Adds `Optionable`-implementations for `alloc` types (only useful when not enabling the `std` feature).
 //! - `chrono`: Derive [`trait@Optionable`] for types from [chrono](https://docs.rs/chrono/latest/chrono/).
 //! - `serde_json`: Derive [`trait@Optionable`] for [serde_json](https://docs.rs/serde_json/latest/serde_json/)`::Value`.
 //!
