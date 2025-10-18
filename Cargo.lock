@@ -315,9 +315,22 @@ name = "optionable"
 version = "0.2.0"
 dependencies = [
  "chrono",
- "optionable_derive",
+ "optionable_derive 0.1.9",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "optionable_codegen"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dada1d2b24a6e99774c6d0d53beeaadc409c6f1758e266f5b09d7318e9aa143f"
+dependencies = [
+ "darling",
+ "itertools",
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -338,8 +351,18 @@ dependencies = [
 [[package]]
 name = "optionable_derive"
 version = "0.1.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8e12513cc6e3569fced36e8b420c508976e8773667bca4910ee389df451cc876"
 dependencies = [
- "optionable_codegen",
+ "optionable_codegen 0.3.0",
+ "syn",
+]
+
+[[package]]
+name = "optionable_derive"
+version = "0.2.0"
+dependencies = [
+ "optionable_codegen 0.4.0",
  "syn",
 ]
 
