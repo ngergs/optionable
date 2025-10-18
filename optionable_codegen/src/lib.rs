@@ -736,7 +736,7 @@ fn is_option(ty: &Type) -> bool {
                     && segments[0].ident == "option"
                     && segments[1].ident == "Option")
                 || (segments.len() == 3
-                    && segments[0].ident == "std"
+                    && (segments[0].ident == "core" || segments[0].ident == "std")
                     && segments[1].ident == "option"
                     && segments[2].ident == "Option")
         }
