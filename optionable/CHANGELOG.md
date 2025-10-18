@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0](https://github.com/ngergs/optionable/compare/optionable-v0.1.13...optionable-v0.2.0) - 2025-10-18
+
+### Added
+
+- [**breaking**] std and alloc features to support opting-out of linking to the stdlib
+- implement `Optionable` for `PathBuf` and `Path`
+- implement `Optionable` for `Duration`
+- implement `Optionable` for `OsString` and `OsStr`
+- implement `Optionable` for weak `Rc`/`Arc`
+
+### Other
+
+- clippy, make partially unused code feature-dependent
+- document std/alloc features
+- docs
+- fmt
+
 ## [0.1.13](https://github.com/ngergs/optionable/compare/optionable-v0.1.12...optionable-v0.1.13) - 2025-10-16
 
 ### Added
