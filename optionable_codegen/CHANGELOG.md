@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.3.0...optionable_codegen-v0.4.0) - 2025-10-18
+
+### Added
+
+- also check for full core import path for `is_option` check
+- [**breaking**] std and alloc features to support opting-out of linking to the stdlib
+- update self-resolving types
+
+### Fixed
+
+- clippy
+
+### Other
+
+- fmt
+
 ## [0.3.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.2.0...optionable_codegen-v0.3.0) - 2025-10-15
 
 ### Added
