@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1](https://github.com/ngergs/optionable/compare/optionable-v0.2.0...optionable-v0.2.1) - 2025-10-18
+
+### Fixed
+
+- add missing documentation for feature-dependent availability of some `OptionableConvert` implementations
+
 ## [0.2.0](https://github.com/ngergs/optionable/compare/optionable-v0.1.13...optionable-v0.2.0) - 2025-10-18
 
 ### Added
