@@ -295,21 +295,33 @@ fn derive_forward_other_derives() {
 }
 
 #[test]
+#[cfg(any(feature = "alloc", feature = "std"))]
 /// Check that the derive macro works for a bunch of not plain types.
 fn derive_generic_advanced_types() {
     #[allow(dead_code)]
     #[derive(Optionable)]
     #[optionable(derive(Clone))]
-    struct DeriveExample<T>
+    struct DeriveExample<T, T2, T3>
     where
         T: Optionable + Debug,
         T::Optioned: Clone,
+        T2: Optionable,
+        T2::Optioned: Clone,
+        T3: Optionable,
+        T3::Optioned: Clone,
     {
-        array2: [T; 3],
+        array: [T; 3],
+        tuple: (T, T2, T3),
     }
+
+    let _ = DeriveExampleOpt::<u32, &'static str, i32> {
+        array: Some([0, 1, 2]),
+        tuple: Some((2, "a", -1)),
+    };
 }
 
 /// Check that the derive macro works for a bunch of not plain types that are not expected to support convert.
+#[test]
 fn derive_generic_advanced_types_no_convert() {
     #[allow(dead_code)]
     #[derive(Optionable)]

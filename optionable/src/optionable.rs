@@ -449,6 +449,185 @@ where
 {
     inner_impl_convert_map!(HashMap<K, T::Optioned, S>);
 }
+macro_rules! impl_tuple {
+    // For tuples of length 2: (T1, T2)
+    ($(($T:ident, $i:tt)),*) => {
+        impl<$($T),*> Optionable for ($($T),*)
+        where
+            $(
+                $T: Optionable,
+                $T::Optioned: Sized
+            ),*
+        {
+            type Optioned = ($($T::Optioned),*);
+        }
+
+        impl<$($T),*> OptionableConvert for ($($T),*)
+        where
+            $(
+                $T: OptionableConvert,
+                $T::Optioned: Sized
+            ),*
+        {
+            fn into_optioned(self) -> Self::Optioned {
+                ($(self.$i.into_optioned()),*)
+            }
+
+            fn try_from_optioned(value: Self::Optioned) -> Result<Self, Error> {
+                Ok((
+                    $($T::try_from_optioned(value.$i)?),*
+                ))
+            }
+
+            fn merge(&mut self, other: Self::Optioned) -> Result<(), Error> {
+                $(self.$i.merge(other.$i)?;)*
+                Ok(())
+            }
+        }
+    };
+}
+
+// Tuple implementation...
+impl_tuple!((T0, 0), (T1, 1));
+impl_tuple!((T0, 0), (T1, 1), (T2, 2));
+impl_tuple!((T0, 0), (T1, 1), (T2, 2), (T3, 3));
+impl_tuple!((T0, 0), (T1, 1), (T2, 2), (T3, 3), (T4, 4));
+impl_tuple!((T0, 0), (T1, 1), (T2, 2), (T3, 3), (T4, 4), (T5, 5));
+impl_tuple!(
+    (T0, 0),
+    (T1, 1),
+    (T2, 2),
+    (T3, 3),
+    (T4, 4),
+    (T5, 5),
+    (T6, 6)
+);
+impl_tuple!(
+    (T0, 0),
+    (T1, 1),
+    (T2, 2),
+    (T3, 3),
+    (T4, 4),
+    (T5, 5),
+    (T6, 6),
+    (T7, 7)
+);
+impl_tuple!(
+    (T0, 0),
+    (T1, 1),
+    (T2, 2),
+    (T3, 3),
+    (T4, 4),
+    (T5, 5),
+    (T6, 6),
+    (T7, 7),
+    (T8, 8)
+);
+impl_tuple!(
+    (T0, 0),
+    (T1, 1),
+    (T2, 2),
+    (T3, 3),
+    (T4, 4),
+    (T5, 5),
+    (T6, 6),
+    (T7, 7),
+    (T8, 8),
+    (T9, 9)
+);
+impl_tuple!(
+    (T0, 0),
+    (T1, 1),
+    (T2, 2),
+    (T3, 3),
+    (T4, 4),
+    (T5, 5),
+    (T6, 6),
+    (T7, 7),
+    (T8, 8),
+    (T9, 9),
+    (T10, 10)
+);
+impl_tuple!(
+    (T0, 0),
+    (T1, 1),
+    (T2, 2),
+    (T3, 3),
+    (T4, 4),
+    (T5, 5),
+    (T6, 6),
+    (T7, 7),
+    (T8, 8),
+    (T9, 9),
+    (T10, 10),
+    (T11, 11)
+);
+impl_tuple!(
+    (T0, 0),
+    (T1, 1),
+    (T2, 2),
+    (T3, 3),
+    (T4, 4),
+    (T5, 5),
+    (T6, 6),
+    (T7, 7),
+    (T8, 8),
+    (T9, 9),
+    (T10, 10),
+    (T11, 11),
+    (T12, 12)
+);
+impl_tuple!(
+    (T0, 0),
+    (T1, 1),
+    (T2, 2),
+    (T3, 3),
+    (T4, 4),
+    (T5, 5),
+    (T6, 6),
+    (T7, 7),
+    (T8, 8),
+    (T9, 9),
+    (T10, 10),
+    (T11, 11),
+    (T12, 12),
+    (T13, 13)
+);
+impl_tuple!(
+    (T0, 0),
+    (T1, 1),
+    (T2, 2),
+    (T3, 3),
+    (T4, 4),
+    (T5, 5),
+    (T6, 6),
+    (T7, 7),
+    (T8, 8),
+    (T9, 9),
+    (T10, 10),
+    (T11, 11),
+    (T12, 12),
+    (T13, 13),
+    (T14, 14)
+);
+impl_tuple!(
+    (T0, 0),
+    (T1, 1),
+    (T2, 2),
+    (T3, 3),
+    (T4, 4),
+    (T5, 5),
+    (T6, 6),
+    (T7, 7),
+    (T8, 8),
+    (T9, 9),
+    (T10, 10),
+    (T11, 11),
+    (T12, 12),
+    (T13, 13),
+    (T14, 14),
+    (T15, 15)
+);
 
 #[cfg(test)]
 mod tests {
