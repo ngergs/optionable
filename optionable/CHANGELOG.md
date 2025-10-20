@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2](https://github.com/ngergs/optionable/compare/optionable-v0.2.1...optionable-v0.2.2) - 2025-10-20
+
+### Added
+
+- implement `Optionable` for tuples with up to 16 elements
+- blanket `Optionable` implementation for mutable references
+- implement `Optionable` for slices `[T]`
+
 ## [0.2.1](https://github.com/ngergs/optionable/compare/optionable-v0.2.0...optionable-v0.2.1) - 2025-10-18
 
 ### Fixed
