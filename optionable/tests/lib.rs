@@ -316,7 +316,7 @@ fn derive_generic_advanced_types() {
 
     let _ = DeriveExampleOpt::<u32, &'static str, i32> {
         array: Some([0, 1, 2]),
-        tuple: Some((2, "a", -1)),
+        tuple: Some((Some(2), Some("a"), Some(-1))),
     };
 }
 

@@ -459,7 +459,7 @@ macro_rules! impl_tuple {
                 $T::Optioned: Sized
             ),*
         {
-            type Optioned = ($($T::Optioned),*);
+            type Optioned = ($(Option::<$T::Optioned>),*);
         }
 
         impl<$($T),*> OptionableConvert for ($($T),*)
@@ -470,17 +470,17 @@ macro_rules! impl_tuple {
             ),*
         {
             fn into_optioned(self) -> Self::Optioned {
-                ($(self.$i.into_optioned()),*)
+                ($(Some(self.$i.into_optioned())),*)
             }
 
             fn try_from_optioned(value: Self::Optioned) -> Result<Self, Error> {
                 Ok((
-                    $($T::try_from_optioned(value.$i)?),*
+                    $($T::try_from_optioned(value.$i.ok_or(Error { missing_field: "$i" })?)?),*
                 ))
             }
 
             fn merge(&mut self, other: Self::Optioned) -> Result<(), Error> {
-                $(self.$i.merge(other.$i)?;)*
+                $(if let Some(other_value) = other.$i { self.$i.merge(other_value)?; })*
                 Ok(())
             }
         }
