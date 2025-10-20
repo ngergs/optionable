@@ -4,6 +4,7 @@ use optionable::{Optionable, OptionableConvert};
 use serde::Deserialize;
 #[cfg(any(feature = "alloc", feature = "std"))]
 use serde::Serialize;
+use std::fmt::Debug;
 
 #[test]
 /// Check that the derive macro works with visibility modifier.
@@ -291,4 +292,33 @@ fn derive_forward_other_derives() {
     };
     let a_json = serde_json::to_string(&a).unwrap();
     assert_eq!(a_json, "{\"firstName\":\"a\",\"middleName\":\"b\"}");
+}
+
+#[test]
+/// Check that the derive macro works for a bunch of not plain types.
+fn derive_generic_advanced_types() {
+    #[allow(dead_code)]
+    #[derive(Optionable)]
+    #[optionable(derive(Clone))]
+    struct DeriveExample<T>
+    where
+        T: Optionable + Debug,
+        T::Optioned: Clone,
+    {
+        array2: [T; 3],
+    }
+}
+
+/// Check that the derive macro works for a bunch of not plain types that are not expected to support convert.
+fn derive_generic_advanced_types_no_convert() {
+    #[allow(dead_code)]
+    #[derive(Optionable)]
+    #[optionable(no_convert, derive(Clone))]
+    struct DeriveExample<'a, T>
+    where
+        T: Optionable,
+        T::Optioned: Clone,
+    {
+        slice: &'a [T],
+    }
 }

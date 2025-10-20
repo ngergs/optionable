@@ -278,6 +278,13 @@ where
     }
 }
 
+impl<T: Optionable> Optionable for [T]
+where
+    T::Optioned: Sized,
+{
+    type Optioned = [T::Optioned];
+}
+
 impl<T: OptionableConvert> OptionableConvert for Option<T>
 where
     T::Optioned: Sized,
