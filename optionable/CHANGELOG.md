@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.3](https://github.com/ngergs/optionable/compare/optionable-v0.2.2...optionable-v0.2.3) - 2025-10-20
+
+### Fixed
+
+- make `Optionable` tuple implementation consistent with pre-existing derived logic
+
 ## [0.2.2](https://github.com/ngergs/optionable/compare/optionable-v0.2.1...optionable-v0.2.2) - 2025-10-20
 
 ### Added
