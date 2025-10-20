@@ -320,5 +320,6 @@ fn derive_generic_advanced_types_no_convert() {
         T::Optioned: Clone,
     {
         slice: &'a [T],
+        slice_mut: &'a mut [T],
     }
 }

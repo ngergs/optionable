@@ -55,6 +55,11 @@ impl<'a, T: ?Sized + Optionable> Optionable for &'a T {
     type Optioned = &'a T::Optioned;
 }
 
+// Blanket implementation for mut references to `Optionable` types.
+impl<'a, T: ?Sized + Optionable> Optionable for &'a mut T {
+    type Optioned = &'a T::Optioned;
+}
+
 /// Helper macro to generate an impl for `Optionalable` where the `Optioned` type
 /// resolves to itself for types without inner structure like primitives (e.g. `i32`).
 macro_rules! impl_optional_self {
