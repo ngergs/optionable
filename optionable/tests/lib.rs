@@ -110,18 +110,25 @@ fn derive_generic() {
     #[allow(dead_code)]
     #[derive(Optionable)]
     #[optionable(no_convert)]
-    struct DeriveExample<T, T2> {
+    struct DeriveExample<T, T2, T3> {
         name: T,
-        surname: T2,
+        middle_name: T2,
+        #[optionable(required)]
+        surname: T3,
     }
 
-    let _ = DeriveExampleOpt::<i32, f32> {
+    // Random types that work without std/alloc. Pick something for T3 that does not
+    // implement Optionable to verify that it is unbound by it.
+    struct NotOptionable {}
+    let _ = DeriveExampleOpt::<i32, f32, NotOptionable> {
         name: Some(42),
-        surname: None,
+        middle_name: None,
+        surname: NotOptionable {},
     };
-    let _ = DeriveExampleOpt::<i32, f32> {
+    let _ = DeriveExampleOpt::<i32, f32, NotOptionable> {
         name: Some(2),
-        surname: Some(0.25),
+        middle_name: Some(0.25),
+        surname: NotOptionable {},
     };
 }
 

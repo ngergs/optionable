@@ -17,15 +17,17 @@ use proc_macro2::{Ident, Literal, Span, TokenStream};
 use quote::{format_ident, quote, ToTokens};
 use std::borrow::Cow;
 use std::cmp::PartialEq;
+use std::collections::BTreeMap;
 use std::default::Default;
 use std::{fmt, iter};
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::token::{PathSep, Where};
+use syn::visit::Visit;
 use syn::{
-    parse_quote, Attribute, Data, DeriveInput, Error, Field, Fields, GenericArgument, GenericParam,
-    Generics, LitStr, Meta, MetaList, Path, PathArguments, Token, Type, TypePath,
-    WhereClause, WherePredicate,
+    parse_quote, visit, Attribute, Data, DeriveInput, Error, Field, Fields, GenericArgument,
+    GenericParam, Generics, LitStr, Meta, MetaList, Path, PathArguments, PathSegment, Type,
+    TypePath, WhereClause, WherePredicate,
 };
 
 const HELPER_IDENT: &str = "optionable";
@@ -135,28 +137,10 @@ pub fn derive_optionable(
 
     let (impl_generics, ty_generics, _) = input.generics.split_for_impl();
     let generics_colon = (!input.generics.params.is_empty()).then(|| quote! {::});
-    let WhereClauses {
-        normal: where_clause,
-        convert: where_clause_convert,
-    } = where_clauses(crate_name, &input.generics, &attrs);
-
-    // the impl statements are actually independent of deriving
-    // the relevant associated type #type_ident_opt referenced by them
-    let impls_optionable = quote! {
-        #[automatically_derived]
-        impl #impl_generics #crate_name::Optionable for #type_ident #ty_generics #where_clause {
-            type Optioned = #type_ident_opt #ty_generics;
-        }
-
-        #[automatically_derived]
-        impl #impl_generics #crate_name::Optionable for #type_ident_opt #ty_generics #where_clause {
-            type Optioned = #type_ident_opt #ty_generics;
-        }
-    };
 
     // now we have to derive the actual implementation of #type_ident_opt
     // and add the #impl from above
-    let derives = attrs.derive.unwrap_or_default();
+    let derives = attrs.derive.clone().unwrap_or_default();
     let skip_optionable_if_serde_serialize = derives
         .iter()
         .any(is_serialize)
@@ -174,16 +158,23 @@ pub fn derive_optionable(
         enum_struct: TokenStream,
         /// The generated fields, including wrapping brackets
         fields: TokenStream,
+        /// The `where`-clause for everything except `OptionableConvert`
+        where_clause: WhereClause,
         /// The `OptionableConvert` implementation if not configured to be skipped, including the `impl`-wrapper
         impl_optionable_convert: Option<TokenStream>,
     }
     let Derived {
         enum_struct,
         fields,
+        where_clause,
         impl_optionable_convert,
     } = match input.data {
         Data::Struct(s) => {
             let fields = into_field_handling(s.fields, settings.input_crate_replacement.as_ref())?;
+            let WhereClauses {
+                normal: where_clause_optionable,
+                convert: where_clause_optionable_convert,
+            } = where_clauses(crate_name, &input.generics, &fields.fields, &attrs);
             let unnamed_struct_semicolon =
                 (fields.struct_type == StructType::Unnamed).then(|| quote!(;));
             let optioned_fields = optioned_fields(
@@ -203,7 +194,7 @@ pub fn derive_optionable(
                                                 true);
                 quote! {
                     #[automatically_derived]
-                    impl #impl_generics #crate_name::OptionableConvert for #type_ident #ty_generics #where_clause_convert {
+                    impl #impl_generics #crate_name::OptionableConvert for #type_ident #ty_generics #where_clause_optionable_convert {
                         fn into_optioned(self) -> #type_ident_opt #ty_generics {
                             #type_ident_opt #generics_colon #ty_generics #into_optioned_fields
                         }
@@ -222,6 +213,7 @@ pub fn derive_optionable(
             Derived {
                 enum_struct: quote! {struct},
                 fields: quote! {#optioned_fields #unnamed_struct_semicolon},
+                where_clause: where_clause_optionable,
                 impl_optionable_convert,
             }
         }
@@ -241,6 +233,14 @@ pub fn derive_optionable(
                     ))
                 })
                 .collect::<Result<Vec<_>, _>>()?;
+            let all_fields = variants
+                .iter()
+                .flat_map(|(_, _, fields)| &fields.fields)
+                .collect::<Vec<_>>();
+            let WhereClauses {
+                normal: where_clause_optionable,
+                convert: where_clause_optionable_convert,
+            } = where_clauses(crate_name, &input.generics, all_fields, &attrs);
 
             let optioned_variants = variants.iter().map(|(variant, forward_attrs, f)| {
                 let fields =
@@ -280,7 +280,7 @@ pub fn derive_optionable(
                     .into_iter().multiunzip();
                 Ok::<_, Error>(quote! {
                     #[automatically_derived]
-                    impl #impl_generics ::optionable::OptionableConvert for #type_ident #ty_generics #where_clause_convert {
+                    impl #impl_generics ::optionable::OptionableConvert for #type_ident #ty_generics #where_clause_optionable_convert {
                         fn into_optioned(self) -> #type_ident_opt #ty_generics {
                             match self {
                                 #(#into_variants),*
@@ -305,6 +305,7 @@ pub fn derive_optionable(
             Derived {
                 enum_struct: quote! {enum},
                 fields: quote! {{#(#optioned_variants),*}},
+                where_clause: where_clause_optionable,
                 impl_optionable_convert,
             }
         }
@@ -315,7 +316,15 @@ pub fn derive_optionable(
                 #forward_attrs
                 #vis #enum_struct #type_ident_opt #impl_generics #where_clause #fields
 
-                #impls_optionable
+                #[automatically_derived]
+                impl #impl_generics #crate_name::Optionable for #type_ident #ty_generics #where_clause {
+                    type Optioned = #type_ident_opt #ty_generics;
+                }
+
+                #[automatically_derived]
+                impl #impl_generics #crate_name::Optionable for #type_ident_opt #ty_generics #where_clause {
+                    type Optioned = #type_ident_opt #ty_generics;
+                }
 
                 #impl_optionable_convert
     })
@@ -525,11 +534,13 @@ struct WhereClauses {
 }
 
 /// Extracts the where clauses from the input, patching the bound to the optioned types.
-fn where_clauses(
+fn where_clauses<'a>(
     crate_name: &Path,
-    generics: &Generics,
+    generics: &'a Generics,
+    fields: impl IntoIterator<Item = &'a FieldParsed>,
     attrs: &TypeHelperAttributes,
 ) -> WhereClauses {
+    let generic_params = generic_params_need_optionable(&generics.params, fields);
     let mut where_clause = generics
         .where_clause
         .clone()
@@ -543,7 +554,7 @@ fn where_clauses(
         patch_where_clause_bounds(
             crate_name,
             &mut where_clause,
-            &generics.params,
+            &generic_params,
             |_| quote!(#crate_name::OptionableConvert),
             |_| quote!(Sized),
         );
@@ -552,7 +563,7 @@ fn where_clauses(
     patch_where_clause_bounds(
         crate_name,
         &mut where_clause,
-        &generics.params,
+        &generic_params,
         |_| quote!(#crate_name::Optionable),
         // todo: excludes the usage of types that allow unsized types, like a generic parameter `T::Optioned=Cow<...>`
         |_| quote!(Sized),
@@ -563,31 +574,76 @@ fn where_clauses(
     }
 }
 
+/// Gets the list of generic parameters `T` which needs to be restricted to implement `Optionable`.
+/// For this purpose the list of `fields` is gone through and all non-required fields are checked
+/// for using any generic parameters.
+fn generic_params_need_optionable<'a>(
+    generic_params: impl IntoIterator<Item = &'a GenericParam>,
+    fields: impl IntoIterator<Item = &'a FieldParsed>,
+) -> Vec<Ident> {
+    struct TypeNeedsOptionableVisitor(BTreeMap<Ident, bool>);
+    impl<'ast> Visit<'ast> for TypeNeedsOptionableVisitor {
+        fn visit_path_segment(&mut self, segment: &'ast PathSegment) {
+            if segment.arguments.is_none()
+                && self.0.contains_key(&segment.ident)
+                && !(*self
+                    .0
+                    .get(&segment.ident)
+                    .map(Cow::Borrowed)
+                    .unwrap_or_default())
+            {
+                self.0.insert(segment.ident.clone(), true);
+            }
+            // Call the default impl to recurse nested segments.
+            visit::visit_path_segment(self, segment);
+        }
+    }
+
+    let mut type_needs_optionable = TypeNeedsOptionableVisitor(
+        generic_params
+            .into_iter()
+            .filter_map(|param| {
+                if let GenericParam::Type(ty_param) = param {
+                    Some((ty_param.ident.clone(), false))
+                } else {
+                    None
+                }
+            })
+            .collect::<BTreeMap<_, _>>(),
+    );
+    fields
+        .into_iter()
+        .filter(|f| !matches!(f.handling, Required))
+        .for_each(|f| type_needs_optionable.visit_type(&f.field.ty));
+    type_needs_optionable
+        .0
+        .into_iter()
+        .filter_map(|(k, v)| if v { Some(k) } else { None })
+        .collect()
+}
+
 /// Adjusts the where clause to add the provided predicate  type bounds.
 /// Basically the original where clause with a type bound to the predicate added
-/// for every generic type parameter (todo: that is not excluded via the `required` helper attribute.)
-fn patch_where_clause_bounds(
+/// for every generic type parameter `params`.
+fn patch_where_clause_bounds<'a>(
     crate_name: &Path,
     where_clause: &mut WhereClause,
-    params: &Punctuated<GenericParam, Token![,]>,
+    params: impl IntoIterator<Item = &'a Ident>,
     predicate: impl Fn(&Type) -> TokenStream,
     predicate_optioned: impl Fn(&Type) -> TokenStream,
 ) {
-    params.iter().for_each(|param| {
-        if let GenericParam::Type(type_param) = param {
-            let ty_ident = &type_param.ident;
-            let ty_path = &Type::Path(TypePath {
-                qself: None,
-                path: ty_ident.clone().into(),
-            });
-            add_where_clause_predicate(where_clause, ty_path, &predicate);
-            add_where_clause_predicate(
-                where_clause,
-                &Type::Path(parse_quote!(<#ty_ident as #crate_name::Optionable>::Optioned)),
-                &predicate_optioned,
-            );
-        }
-    });
+    for ty_ident in params {
+        let ty_path = Type::Path(TypePath {
+            qself: None,
+            path: ty_ident.clone().into(),
+        });
+        add_where_clause_predicate(where_clause, &ty_path, &predicate);
+        add_where_clause_predicate(
+            where_clause,
+            &Type::Path(parse_quote!(<#ty_ident as #crate_name::Optionable>::Optioned)),
+            &predicate_optioned,
+        );
+    }
 }
 
 /// Goes through the list of predicates and appends the new restriction to an already existing
@@ -1186,70 +1242,76 @@ mod tests {
             TestCase {
                 input: quote! {
                     #[derive(Optionable)]
-                    struct DeriveExample<T, T2: Serialize> where T: DeserializeOwned {
+                    struct DeriveExample<T, T2: Serialize, T3> where T: DeserializeOwned {
                         output: T,
                         input: T2,
+                        #[optionable(required)]
+                        extra: T3,
                     }
                 },
                 output: quote! {
-                    struct DeriveExampleOpt<T, T2: Serialize>
+                    struct DeriveExampleOpt<T, T2: Serialize, T3>
                         where T: DeserializeOwned + ::optionable::Optionable,
                               <T as ::optionable::Optionable>::Optioned: Sized,
                               T2: ::optionable::Optionable,
                               <T2 as ::optionable::Optionable>::Optioned: Sized
                     {
                         output: Option< <T as ::optionable::Optionable>::Optioned>,
-                        input: Option< <T2 as ::optionable::Optionable>::Optioned>
+                        input: Option< <T2 as ::optionable::Optionable>::Optioned>,
+                        extra: T3
                     }
 
                     #[automatically_derived]
-                    impl<T, T2: Serialize> ::optionable::Optionable for DeriveExample<T, T2>
+                    impl<T, T2: Serialize, T3> ::optionable::Optionable for DeriveExample<T, T2, T3>
                         where T: DeserializeOwned + ::optionable::Optionable,
                               <T as ::optionable::Optionable>::Optioned: Sized,
                               T2: ::optionable::Optionable,
                               <T2 as ::optionable::Optionable>::Optioned: Sized
                     {
-                        type Optioned = DeriveExampleOpt<T,T2>;
+                        type Optioned = DeriveExampleOpt<T,T2,T3>;
                     }
 
                     #[automatically_derived]
-                    impl<T, T2: Serialize> ::optionable::Optionable for DeriveExampleOpt<T, T2>
+                    impl<T, T2: Serialize, T3> ::optionable::Optionable for DeriveExampleOpt<T, T2, T3>
                         where T: DeserializeOwned + ::optionable::Optionable,
                               <T as ::optionable::Optionable>::Optioned: Sized,
                               T2: ::optionable::Optionable,
                               <T2 as ::optionable::Optionable>::Optioned: Sized
                     {
-                        type Optioned = DeriveExampleOpt<T,T2>;
+                        type Optioned = DeriveExampleOpt<T, T2, T3>;
                     }
 
                     #[automatically_derived]
-                    impl <T, T2:Serialize> ::optionable::OptionableConvert for DeriveExample<T, T2 >
+                    impl <T, T2:Serialize, T3> ::optionable::OptionableConvert for DeriveExample<T, T2, T3>
                         where T: DeserializeOwned + ::optionable::OptionableConvert,
                               <T as ::optionable::Optionable>::Optioned: Sized,
                               T2: ::optionable::OptionableConvert,
                               <T2 as ::optionable::Optionable>::Optioned: Sized
                     {
-                        fn into_optioned (self) -> DeriveExampleOpt<T, T2> {
-                            DeriveExampleOpt::<T, T2> {
+                        fn into_optioned (self) -> DeriveExampleOpt<T, T2, T3> {
+                            DeriveExampleOpt::<T, T2, T3> {
                                 output: Some(<T as::optionable::OptionableConvert>::into_optioned(self.output)),
-                                input: Some(<T2 as::optionable::OptionableConvert>::into_optioned(self.input))
+                                input: Some(<T2 as::optionable::OptionableConvert>::into_optioned(self.input)),
+                                extra: self.extra
                             }
                         }
 
-                         fn try_from_optioned(value: DeriveExampleOpt<T, T2> ) -> Result <Self, ::optionable::optionable::Error> {
+                         fn try_from_optioned(value: DeriveExampleOpt<T, T2, T3> ) -> Result <Self, ::optionable::optionable::Error> {
                              Ok(Self{
                                 output: <T as ::optionable::OptionableConvert>::try_from_optioned(value.output.ok_or(::optionable::optionable::Error { missing_field: "output" })?)?,
-                                input: <T2 as ::optionable::OptionableConvert>::try_from_optioned(value.input.ok_or(::optionable::optionable::Error { missing_field: "input" })?)?
+                                input: <T2 as ::optionable::OptionableConvert>::try_from_optioned(value.input.ok_or(::optionable::optionable::Error { missing_field: "input" })?)?,
+                                extra: value.extra
                             })
                         }
 
-                        fn merge(&mut self, other: DeriveExampleOpt<T, T2> ) -> Result<(), ::optionable::optionable::Error> {
+                        fn merge(&mut self, other: DeriveExampleOpt<T, T2, T3> ) -> Result<(), ::optionable::optionable::Error> {
                             if let Some(other_value) = other.output {
                                 <T as ::optionable::OptionableConvert>::merge(&mut self.output, other_value)?;
                             }
                             if let Some(other_value) = other.input {
                                 <T2 as ::optionable::OptionableConvert>::merge(&mut self.input, other_value)?;
                             }
+                            self.extra=other.extra;
                             Ok(())
                         }
                     }
