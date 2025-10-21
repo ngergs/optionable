@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.4](https://github.com/ngergs/optionable/compare/optionable-v0.2.3...optionable-v0.2.4) - 2025-10-21
+
+### Added
+
+- relax type restrictions for derived types with generic parameter
+
 ## [0.2.3](https://github.com/ngergs/optionable/compare/optionable-v0.2.2...optionable-v0.2.3) - 2025-10-20
 
 ### Fixed
