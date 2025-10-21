@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.4.0...optionable_codegen-v0.4.1) - 2025-10-21
+
+### Added
+
+- relax type restrictions for derived types with generic parameter
+
 ## [0.4.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.3.0...optionable_codegen-v0.4.0) - 2025-10-18
 
 ### Added
