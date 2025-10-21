@@ -1,5 +1,4 @@
 use crate::parsed_input::{FieldHandling, FieldParsed};
-use crate::TypeHelperAttributes;
 use proc_macro2::{Ident, TokenStream};
 use quote::quote;
 use std::borrow::Cow;
@@ -12,21 +11,46 @@ use syn::{
     WhereClause, WherePredicate,
 };
 
-/// `WhereClauses` for the derived optioned types
-pub(crate) struct WhereClauses {
-    /// Normal where clause for the optioned type
-    pub normal: WhereClause,
-    /// Where clause for the `OptionableConvert` implementation
-    pub convert: Option<WhereClause>,
-}
-
-/// Extracts the where clauses from the input, patching the bound to the optioned types.
+/// Extracts the where clauses from the input for the `Optionable` trait, patching the bound to the optioned types.
 pub(crate) fn where_clauses<'a>(
     crate_name: &Path,
     generics: &'a Generics,
     fields: impl IntoIterator<Item = &'a FieldParsed>,
-    attrs: &TypeHelperAttributes,
-) -> WhereClauses {
+) -> WhereClause {
+    where_clauses_generalized(
+        crate_name,
+        generics,
+        fields,
+        &quote!(#crate_name::Optionable),
+        // todo: excludes the usage of types that allow unsized types, like a generic parameter `T::Optioned=Cow<...>`
+        &quote!(Sized),
+    )
+}
+
+/// Extracts the where clauses from the input for the `OptionableConvert` trait, patching the bound to the optioned types.
+pub(crate) fn where_clauses_convert<'a>(
+    crate_name: &Path,
+    generics: &'a Generics,
+    fields: impl IntoIterator<Item = &'a FieldParsed>,
+) -> WhereClause {
+    where_clauses_generalized(
+        crate_name,
+        generics,
+        fields,
+        &quote!(#crate_name::OptionableConvert),
+        // todo: excludes the usage of types that allow unsized types, like a generic parameter `T::Optioned=Cow<...>`
+        &quote!(Sized),
+    )
+}
+
+/// Internal generalized logic for the where clause
+fn where_clauses_generalized<'a>(
+    crate_name: &Path,
+    generics: &'a Generics,
+    fields: impl IntoIterator<Item = &'a FieldParsed>,
+    predicate: &TokenStream,
+    predicate_optioned: &TokenStream,
+) -> WhereClause {
     let generic_params = generic_params_need_optionable(&generics.params, fields);
     let mut where_clause = generics
         .where_clause
@@ -35,30 +59,14 @@ pub(crate) fn where_clauses<'a>(
             where_token: Where::default(),
             predicates: Punctuated::default(),
         });
-    let where_clause_convert = attrs.no_convert.is_none().then(|| {
-        let mut where_clause = where_clause.clone();
-
-        patch_where_clause_bounds(
-            crate_name,
-            &mut where_clause,
-            &generic_params,
-            |_| quote!(#crate_name::OptionableConvert),
-            |_| quote!(Sized),
-        );
-        where_clause
-    });
     patch_where_clause_bounds(
         crate_name,
         &mut where_clause,
         &generic_params,
-        |_| quote!(#crate_name::Optionable),
-        // todo: excludes the usage of types that allow unsized types, like a generic parameter `T::Optioned=Cow<...>`
-        |_| quote!(Sized),
+        predicate,
+        predicate_optioned,
     );
-    WhereClauses {
-        normal: where_clause,
-        convert: where_clause_convert,
-    }
+    where_clause
 }
 
 /// Gets the list of generic parameters `T` which needs to be restricted to implement `Optionable`.
@@ -116,30 +124,26 @@ fn patch_where_clause_bounds<'a>(
     crate_name: &Path,
     where_clause: &mut WhereClause,
     params: impl IntoIterator<Item = &'a Ident>,
-    predicate: impl Fn(&Type) -> TokenStream,
-    predicate_optioned: impl Fn(&Type) -> TokenStream,
+    predicate: &TokenStream,
+    predicate_optioned: &TokenStream,
 ) {
     for ty_ident in params {
         let ty_path = Type::Path(TypePath {
             qself: None,
             path: ty_ident.clone().into(),
         });
-        add_where_clause_predicate(where_clause, &ty_path, &predicate);
+        add_where_clause_predicate(where_clause, &ty_path, predicate);
         add_where_clause_predicate(
             where_clause,
             &Type::Path(parse_quote!(<#ty_ident as #crate_name::Optionable>::Optioned)),
-            &predicate_optioned,
+            predicate_optioned,
         );
     }
 }
 
 /// Goes through the list of predicates and appends the new restriction to an already existing
 /// entry if found or creates a new one
-fn add_where_clause_predicate(
-    where_clause: &mut WhereClause,
-    ty: &Type,
-    entry: impl Fn(&Type) -> TokenStream,
-) {
+fn add_where_clause_predicate(where_clause: &mut WhereClause, ty: &Type, entry: &TokenStream) {
     let bounds = where_clause.predicates.iter_mut().find_map(|pred| {
         if let WherePredicate::Type(pred_ty) = pred
             && *ty == pred_ty.bounded_ty
@@ -149,7 +153,6 @@ fn add_where_clause_predicate(
             None
         }
     });
-    let entry = entry(ty);
     if let Some(bounds) = bounds {
         bounds.push(parse_quote!(#entry));
     } else {

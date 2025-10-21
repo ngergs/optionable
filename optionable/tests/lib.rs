@@ -4,6 +4,7 @@ use optionable::{Optionable, OptionableConvert};
 use serde::Deserialize;
 #[cfg(any(feature = "alloc", feature = "std"))]
 use serde::Serialize;
+#[cfg(any(feature = "alloc", feature = "std"))]
 use std::fmt::Debug;
 
 #[test]

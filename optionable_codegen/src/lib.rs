@@ -18,7 +18,7 @@ use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize
 use crate::parsed_input::{
     into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
 };
-use crate::where_clause::{where_clauses, WhereClauses};
+use crate::where_clause::{where_clauses, where_clauses_convert};
 use darling::util::PathList;
 use darling::{FromAttributes, FromDeriveInput};
 use itertools::MultiUnzip;
@@ -136,13 +136,12 @@ pub fn derive_optionable(
     } else {
         input.ident.into()
     };
-
     let (impl_generics, ty_generics, _) = input.generics.split_for_impl();
     let generics_colon = (!input.generics.params.is_empty()).then(|| quote! {::});
 
     // now we have to derive the actual implementation of #type_ident_opt
     // and add the #impl from above
-    let derives = attrs.derive.clone().unwrap_or_default();
+    let derives = attrs.derive.unwrap_or_default();
     let skip_optionable_if_serde_serialize = derives
         .iter()
         .any(is_serialize)
@@ -177,10 +176,12 @@ pub fn derive_optionable(
                 s.fields,
                 settings.input_crate_replacement.as_ref(),
             )?;
-            let WhereClauses {
-                normal: where_clause_optionable,
-                convert: where_clause_optionable_convert,
-            } = where_clauses(crate_name, &input.generics, &struct_parsed.fields, &attrs);
+            let where_clause_optionable =
+                where_clauses(crate_name, &input.generics, &struct_parsed.fields);
+            let where_clause_optionable_convert = attrs
+                .no_convert
+                .is_none()
+                .then(|| where_clauses_convert(crate_name, &input.generics, &struct_parsed.fields));
             let unnamed_struct_semicolon =
                 (struct_parsed.struct_type == StructType::Unnamed).then(|| quote!(;));
             let optioned_fields =
@@ -244,10 +245,12 @@ pub fn derive_optionable(
                 .iter()
                 .flat_map(|(_, _, fields)| &fields.fields)
                 .collect::<Vec<_>>();
-            let WhereClauses {
-                normal: where_clause_optionable,
-                convert: where_clause_optionable_convert,
-            } = where_clauses(crate_name, &input.generics, all_fields, &attrs);
+            let where_clause_optionable =
+                where_clauses(crate_name, &input.generics, all_fields.clone());
+            let where_clause_optionable_convert = attrs
+                .no_convert
+                .is_none()
+                .then(|| where_clauses_convert(crate_name, &input.generics, all_fields));
 
             let optioned_variants = variants.iter().map(|(variant, forward_attrs, f)| {
                 let fields = optioned_fields(f, skip_optionable_if_serde_serialize.as_ref());
