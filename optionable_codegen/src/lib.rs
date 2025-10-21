@@ -9,25 +9,27 @@
 //!
 //! It has to be a separate crate from [optionable_derive](https://crates.io/crates/optionable_derive) as the proc-macro crates
 //! can't export its non-macro functions (even the `proc_macro2` ones) for the usage by the codegen part.
-use crate::FieldHandling::{IsOption, Other, Required};
+
+mod helper;
+mod parsed_input;
+mod where_clause;
+
+use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
+use crate::parsed_input::{
+    into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
+};
+use crate::where_clause::{where_clauses, WhereClauses};
 use darling::util::PathList;
 use darling::{FromAttributes, FromDeriveInput};
 use itertools::MultiUnzip;
 use proc_macro2::{Ident, Literal, Span, TokenStream};
 use quote::{format_ident, quote, ToTokens};
 use std::borrow::Cow;
-use std::cmp::PartialEq;
-use std::collections::BTreeMap;
 use std::default::Default;
-use std::{fmt, iter};
-use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
-use syn::token::{PathSep, Where};
-use syn::visit::Visit;
 use syn::{
-    parse_quote, visit, Attribute, Data, DeriveInput, Error, Field, Fields, GenericArgument,
-    GenericParam, Generics, LitStr, Meta, MetaList, Path, PathArguments, PathSegment, Type,
-    TypePath, WhereClause, WherePredicate,
+    parse_quote, Attribute, Data, DeriveInput, Error, Field, LitStr, Meta, MetaList, Path, Type,
+    TypePath, WhereClause,
 };
 
 const HELPER_IDENT: &str = "optionable";
@@ -170,28 +172,29 @@ pub fn derive_optionable(
         impl_optionable_convert,
     } = match input.data {
         Data::Struct(s) => {
-            let fields = into_field_handling(s.fields, settings.input_crate_replacement.as_ref())?;
+            let struct_parsed = into_field_handling(
+                crate_name.to_owned(),
+                s.fields,
+                settings.input_crate_replacement.as_ref(),
+            )?;
             let WhereClauses {
                 normal: where_clause_optionable,
                 convert: where_clause_optionable_convert,
-            } = where_clauses(crate_name, &input.generics, &fields.fields, &attrs);
+            } = where_clauses(crate_name, &input.generics, &struct_parsed.fields, &attrs);
             let unnamed_struct_semicolon =
-                (fields.struct_type == StructType::Unnamed).then(|| quote!(;));
-            let optioned_fields = optioned_fields(
-                crate_name,
-                &fields,
-                skip_optionable_if_serde_serialize.as_ref(),
-            );
+                (struct_parsed.struct_type == StructType::Unnamed).then(|| quote!(;));
+            let optioned_fields =
+                optioned_fields(&struct_parsed, skip_optionable_if_serde_serialize.as_ref());
 
             let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
-                let into_optioned_fields = into_optioned(crate_name, &fields, |selector| quote! { self.#selector });
+                let into_optioned_fields = into_optioned(&struct_parsed, |selector| quote! { self.#selector });
                 let try_from_optioned_fields =
-                    try_from_optioned(crate_name, &fields, |selector| quote! { value.#selector });
-                let merge_fields = merge_fields(crate_name,
-                                                &fields,
-                                                |selector| quote! { self.#selector },
-                                                |selector| quote! { other.#selector },
-                                                true);
+                    try_from_optioned(&struct_parsed, |selector| quote! { value.#selector });
+                let merge_fields = merge_fields(
+                    &struct_parsed,
+                    |selector| quote! { self.#selector },
+                    |selector| quote! { other.#selector },
+                    true);
                 quote! {
                     #[automatically_derived]
                     impl #impl_generics #crate_name::OptionableConvert for #type_ident #ty_generics #where_clause_optionable_convert {
@@ -229,7 +232,11 @@ pub fn derive_optionable(
                     Ok::<_, Error>((
                         v.ident,
                         forwarded_attributes(&v.attrs),
-                        into_field_handling(v.fields, settings.input_crate_replacement.as_ref())?,
+                        into_field_handling(
+                            crate_name.to_owned(),
+                            v.fields,
+                            settings.input_crate_replacement.as_ref(),
+                        )?,
                     ))
                 })
                 .collect::<Result<Vec<_>, _>>()?;
@@ -243,27 +250,27 @@ pub fn derive_optionable(
             } = where_clauses(crate_name, &input.generics, all_fields, &attrs);
 
             let optioned_variants = variants.iter().map(|(variant, forward_attrs, f)| {
-                let fields =
-                    optioned_fields(crate_name, f, skip_optionable_if_serde_serialize.as_ref());
+                let fields = optioned_fields(f, skip_optionable_if_serde_serialize.as_ref());
                 quote!( #forward_attrs #variant #fields )
             });
 
             let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
                 let (into_variants, try_from_variants, merge_variants): (Vec<_>, Vec<_>, Vec<_>) = variants
                     .iter()
-                    .map(|(variant, _, f)| {
-                        let fields_into = into_optioned(crate_name, f, |selector| {
+                    .map(|(variant, _, struct_parsed)| {
+                        let fields_into = into_optioned(struct_parsed, |selector| {
                             format_ident!("{self_prefix}{selector}").to_token_stream()
                         });
-                        let fields_try_from = try_from_optioned(crate_name, f, |selector| {
+                        let fields_try_from = try_from_optioned
+                            (struct_parsed, |selector| {
                             format_ident!("{other_prefix}{selector}").to_token_stream()
                         });
-                        let fields_merge = merge_fields(crate_name, f,
+                        let fields_merge = merge_fields(struct_parsed,
                                                         |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
                                                         |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
                                                         false);
-                        let self_destructure = destructure(f, &self_prefix)?;
-                        let other_destructure = destructure(f, &other_prefix)?;
+                        let self_destructure = destructure(struct_parsed, &self_prefix)?;
+                        let other_destructure = destructure(struct_parsed, &other_prefix)?;
                         Ok::<_, Error>((
                             quote!( Self::#variant #self_destructure => #type_ident_opt::#variant #fields_into ),
                             quote!( #type_ident_opt::#variant #other_destructure => Self::#variant #fields_try_from ),
@@ -330,60 +337,22 @@ pub fn derive_optionable(
     })
 }
 
-/// Constructs a destructure selector for the given fields, e.g. a `(field_a, field_b)`
-/// for a named enum or `(0,1)` for an unnamed enum.
-fn destructure(fields: &FieldsParsed, prefix: &TokenStream) -> Result<TokenStream, Error> {
-    Ok(match fields.struct_type {
-        StructType::Named => {
-            let fields = fields
-                .fields
-                .iter()
-                .map(|f| {
-                    let ident = f.field.ident.as_ref().ok_or::<Error>(
-                        error::<_, Error>(format!(
-                            "expected field name but none present for {f:?}"
-                        ))
-                        .unwrap_err(),
-                    )?;
-                    let prefixed_ident = format_ident!("{1}{0}", ident.clone(), prefix.to_string());
-                    Ok::<_, Error>(quote! {#ident: #prefixed_ident})
-                })
-                .collect::<Result<Vec<_>, _>>()?;
-            quote! {{#(#fields),*}}
-        }
-        StructType::Unnamed => {
-            let indices: Vec<_> = (0..fields.fields.len())
-                .map(|i| {
-                    let prefixed = format_ident!("{1}{0}", i, prefix.to_string());
-                    quote! {#prefixed}
-                })
-                .collect();
-            quote! {(#(#indices),*)}
-        }
-        StructType::Unit => quote! {},
-    })
-}
-
 /// Returns a tokenstream for the optioned fields and potential convert implementation of the optioned object (struct/enum variants).
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
-fn optioned_fields(
-    crate_name: &Path,
-    fields: &FieldsParsed,
-    serde_attributes: Option<&TokenStream>,
-) -> TokenStream {
+fn optioned_fields(fields: &StructParsed, serde_attributes: Option<&TokenStream>) -> TokenStream {
     let fields_token = fields.fields.iter().map(
         |FieldParsed {
              field: Field { attrs, vis, ident, ty, .. },
              handling,
          }| {
             let forward_attrs = forwarded_attributes(attrs);
-            let optioned_ty = optioned_ty(crate_name, ty);
+            let optioned_ty = optioned_ty(&fields.crate_name, ty);
             let colon = ident.as_ref().map(|_| quote! {:});
             match handling {
-                Required => quote! {#forward_attrs #vis #ident #colon #ty},
-                IsOption => quote! {#forward_attrs #serde_attributes #vis #ident #colon #optioned_ty},
-                Other => quote! {#forward_attrs #serde_attributes #vis #ident #colon Option<#optioned_ty>},
+                FieldHandling::Required => quote! {#forward_attrs #vis #ident #colon #ty},
+                FieldHandling::IsOption => quote! {#forward_attrs #serde_attributes #vis #ident #colon #optioned_ty},
+                FieldHandling::Other => quote! {#forward_attrs #serde_attributes #vis #ident #colon Option<#optioned_ty>},
             }
         },
     );
@@ -394,56 +363,56 @@ fn optioned_fields(
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
 fn into_optioned(
-    crate_name: &Path,
-    fields: &FieldsParsed,
+    struct_parsed: &StructParsed,
     self_selector_fn: impl Fn(&TokenStream) -> TokenStream,
 ) -> TokenStream {
-    let fields_token = fields.fields.iter().enumerate().map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling })| {
+    let fields_token = struct_parsed.fields.iter().enumerate().map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling })| {
         let colon = ident.as_ref().map(|_| quote! {:});
         let selector = ident.as_ref().map_or_else(|| {
             let i = Literal::usize_unsuffixed(i);
             quote! {#i}
         }, ToTokens::to_token_stream);
         let self_selector = self_selector_fn(&selector);
+        let crate_name= &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
-            (Required, _) | (IsOption, true) => quote! {#ident #colon #self_selector},
-            (IsOption, false) => quote! {#ident #colon <#ty as #crate_name::OptionableConvert>::into_optioned(#self_selector)},
-            (Other, true) => quote! {#ident #colon Some(#self_selector)},
-            (Other, false) => quote! {#ident #colon Some(<#ty as #crate_name::OptionableConvert>::into_optioned(#self_selector))}
+            (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon #self_selector},
+            (FieldHandling::IsOption, false) => quote! {#ident #colon <#ty as #crate_name::OptionableConvert>::into_optioned(#self_selector)},
+            (FieldHandling::Other, true) => quote! {#ident #colon Some(#self_selector)},
+            (FieldHandling::Other, false) => quote! {#ident #colon Some(<#ty as #crate_name::OptionableConvert>::into_optioned(#self_selector))}
         }
     });
-    struct_wrapper(fields_token, &fields.struct_type)
+    struct_wrapper(fields_token, &struct_parsed.struct_type)
 }
 
 /// Returns the field-mappings implementation for `try_from_optioned`.
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
 fn try_from_optioned(
-    crate_name: &Path,
-    fields: &FieldsParsed,
+    struct_parsed: &StructParsed,
     value_selector_fn: impl Fn(&TokenStream) -> TokenStream,
 ) -> TokenStream {
-    let fields_token = fields.fields.iter().enumerate().map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling })| {
+    let fields_token = struct_parsed.fields.iter().enumerate().map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling })| {
         let colon = ident.as_ref().map(|_| quote! {:});
         let selector = ident.as_ref().map_or_else(|| {
             let i = Literal::usize_unsuffixed(i);
             quote! {#i}
         }, ToTokens::to_token_stream);
         let value_selector = value_selector_fn(&selector);
+        let crate_name= &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
-            (Required, _) | (IsOption, true) => quote! {#ident #colon value.#selector},
-            (IsOption, false) => quote! {
+            (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon value.#selector},
+            (FieldHandling::IsOption, false) => quote! {
                 #ident #colon <#ty as #crate_name::OptionableConvert>::try_from_optioned(
                     #value_selector
                 )?
             },
-            (Other, true) => {
+            (FieldHandling::Other, true) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 quote! {
                     #ident #colon #value_selector.ok_or(#crate_name::optionable::Error{ missing_field: #selector_quoted })?
                 }
             }
-            (Other, false) => {
+            (FieldHandling::Other, false) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 quote! {
                     #ident #colon <#ty as #crate_name::OptionableConvert>::try_from_optioned(
@@ -454,7 +423,7 @@ fn try_from_optioned(
         }
     });
 
-    struct_wrapper(fields_token, &fields.struct_type)
+    struct_wrapper(fields_token, &struct_parsed.struct_type)
 }
 
 /// Returns the field-mappings implementation for `try_from_optioned`.
@@ -463,13 +432,12 @@ fn try_from_optioned(
 ///
 /// `merge_self_mut` should be true when the `self_selector` merge argument should be modified with a `& mut` on recursive calls.
 fn merge_fields(
-    crate_name: &Path,
-    fields: &FieldsParsed,
+    struct_parsed: &StructParsed,
     self_selector_fn: impl Fn(&TokenStream) -> TokenStream,
     other_selector_fn: impl Fn(&TokenStream) -> TokenStream,
     merge_self_mut: bool,
 ) -> TokenStream {
-    let fields_token = fields.fields.iter().enumerate().map(
+    let fields_token = struct_parsed.fields.iter().enumerate().map(
         |(
              i,
              FieldParsed {
@@ -488,17 +456,18 @@ fn merge_fields(
             let deref_modifier = (!merge_self_mut).then(|| quote! {*});
             let self_selector = self_selector_fn(&selector);
             let other_selector = other_selector_fn(&selector);
+            let crate_name= &struct_parsed.crate_name;
             match (handling, is_self_resolving_optioned(ty)) {
-                (Required, _) | (IsOption, true) => quote! {#deref_modifier #self_selector = #other_selector;},
-                (IsOption, false) => quote! {
+                (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#deref_modifier #self_selector = #other_selector;},
+                (FieldHandling::IsOption, false) => quote! {
                     <#ty as #crate_name::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
                 },
-                (Other, true) => quote! {
+                (FieldHandling::Other, true) => quote! {
                     if let Some(other_value)=#other_selector{
                         #deref_modifier #self_selector = other_value;
                     }
                 },
-                (Other, false) => quote! {
+                (FieldHandling::Other, false) => quote! {
                     if let Some(other_value)=#other_selector{
                         <#ty as #crate_name::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, other_value)?;
                     }
@@ -511,306 +480,6 @@ fn merge_fields(
         #(#fields_token)*
     }
 }
-
-/// Resolves to a comma-serapated list of entries with a (...) wrapper for unnamed structs
-/// and {...} for named structs
-fn struct_wrapper(
-    tokens: impl Iterator<Item = TokenStream>,
-    struct_name_type: &StructType,
-) -> TokenStream {
-    match struct_name_type {
-        StructType::Named => quote!({#(#tokens),*}),
-        StructType::Unnamed => quote!((#(#tokens),*)),
-        StructType::Unit => quote!(),
-    }
-}
-
-/// `WhereClauses` for the derived optioned types
-struct WhereClauses {
-    /// Normal where clause for the optioned type
-    normal: WhereClause,
-    /// Where clause for the `OptionableConvert` implementation
-    convert: Option<WhereClause>,
-}
-
-/// Extracts the where clauses from the input, patching the bound to the optioned types.
-fn where_clauses<'a>(
-    crate_name: &Path,
-    generics: &'a Generics,
-    fields: impl IntoIterator<Item = &'a FieldParsed>,
-    attrs: &TypeHelperAttributes,
-) -> WhereClauses {
-    let generic_params = generic_params_need_optionable(&generics.params, fields);
-    let mut where_clause = generics
-        .where_clause
-        .clone()
-        .unwrap_or_else(|| WhereClause {
-            where_token: Where::default(),
-            predicates: Punctuated::default(),
-        });
-    let where_clause_convert = attrs.no_convert.is_none().then(|| {
-        let mut where_clause = where_clause.clone();
-
-        patch_where_clause_bounds(
-            crate_name,
-            &mut where_clause,
-            &generic_params,
-            |_| quote!(#crate_name::OptionableConvert),
-            |_| quote!(Sized),
-        );
-        where_clause
-    });
-    patch_where_clause_bounds(
-        crate_name,
-        &mut where_clause,
-        &generic_params,
-        |_| quote!(#crate_name::Optionable),
-        // todo: excludes the usage of types that allow unsized types, like a generic parameter `T::Optioned=Cow<...>`
-        |_| quote!(Sized),
-    );
-    WhereClauses {
-        normal: where_clause,
-        convert: where_clause_convert,
-    }
-}
-
-/// Gets the list of generic parameters `T` which needs to be restricted to implement `Optionable`.
-/// For this purpose the list of `fields` is gone through and all non-required fields are checked
-/// for using any generic parameters.
-fn generic_params_need_optionable<'a>(
-    generic_params: impl IntoIterator<Item = &'a GenericParam>,
-    fields: impl IntoIterator<Item = &'a FieldParsed>,
-) -> Vec<Ident> {
-    struct TypeNeedsOptionableVisitor(BTreeMap<Ident, bool>);
-    impl<'ast> Visit<'ast> for TypeNeedsOptionableVisitor {
-        fn visit_path_segment(&mut self, segment: &'ast PathSegment) {
-            if segment.arguments.is_none()
-                && self.0.contains_key(&segment.ident)
-                && !(*self
-                    .0
-                    .get(&segment.ident)
-                    .map(Cow::Borrowed)
-                    .unwrap_or_default())
-            {
-                self.0.insert(segment.ident.clone(), true);
-            }
-            // Call the default impl to recurse nested segments.
-            visit::visit_path_segment(self, segment);
-        }
-    }
-
-    let mut type_needs_optionable = TypeNeedsOptionableVisitor(
-        generic_params
-            .into_iter()
-            .filter_map(|param| {
-                if let GenericParam::Type(ty_param) = param {
-                    Some((ty_param.ident.clone(), false))
-                } else {
-                    None
-                }
-            })
-            .collect::<BTreeMap<_, _>>(),
-    );
-    fields
-        .into_iter()
-        .filter(|f| !matches!(f.handling, Required))
-        .for_each(|f| type_needs_optionable.visit_type(&f.field.ty));
-    type_needs_optionable
-        .0
-        .into_iter()
-        .filter_map(|(k, v)| if v { Some(k) } else { None })
-        .collect()
-}
-
-/// Adjusts the where clause to add the provided predicate  type bounds.
-/// Basically the original where clause with a type bound to the predicate added
-/// for every generic type parameter `params`.
-fn patch_where_clause_bounds<'a>(
-    crate_name: &Path,
-    where_clause: &mut WhereClause,
-    params: impl IntoIterator<Item = &'a Ident>,
-    predicate: impl Fn(&Type) -> TokenStream,
-    predicate_optioned: impl Fn(&Type) -> TokenStream,
-) {
-    for ty_ident in params {
-        let ty_path = Type::Path(TypePath {
-            qself: None,
-            path: ty_ident.clone().into(),
-        });
-        add_where_clause_predicate(where_clause, &ty_path, &predicate);
-        add_where_clause_predicate(
-            where_clause,
-            &Type::Path(parse_quote!(<#ty_ident as #crate_name::Optionable>::Optioned)),
-            &predicate_optioned,
-        );
-    }
-}
-
-/// Goes through the list of predicates and appends the new restriction to an already existing
-/// entry if found or creates a new one
-fn add_where_clause_predicate(
-    where_clause: &mut WhereClause,
-    ty: &Type,
-    entry: impl Fn(&Type) -> TokenStream,
-) {
-    let bounds = where_clause.predicates.iter_mut().find_map(|pred| {
-        if let WherePredicate::Type(pred_ty) = pred
-            && *ty == pred_ty.bounded_ty
-        {
-            Some(&mut pred_ty.bounds)
-        } else {
-            None
-        }
-    });
-    let entry = entry(ty);
-    if let Some(bounds) = bounds {
-        bounds.push(parse_quote!(#entry));
-    } else {
-        where_clause.predicates.push(parse_quote!(#ty: #entry));
-    }
-}
-
-/// Goes through the attributes, filters for our [`HELPER_IDENT`] helper-attribute identifier
-/// and reports an error if anything is found.
-fn error_on_helper_attributes(attrs: &[Attribute], err_msg: &'static str) -> syn::Result<()> {
-    if attrs
-        .iter()
-        .filter(|attr| attr.path().is_ident(HELPER_IDENT))
-        .collect::<Vec<_>>()
-        .is_empty()
-    {
-        Ok(())
-    } else {
-        error(err_msg)
-    }
-}
-
-/// Extracts information about the fields we care about, like
-/// whether #[optional(required)] is set or whether the type is `Option<...>`.
-fn into_field_handling(
-    fields: Fields,
-    input_crate_replacement: Option<&Ident>,
-) -> Result<FieldsParsed, Error> {
-    let struct_named = match &fields {
-        Fields::Named(_) => StructType::Named,
-        Fields::Unnamed(_) => StructType::Unnamed,
-        Fields::Unit => StructType::Unit,
-    };
-
-    let fields_iter: Box<dyn Iterator<Item = Field>> = match fields {
-        Fields::Named(f) => Box::new(f.named.into_iter()),
-        Fields::Unnamed(f) => Box::new(f.unnamed.into_iter()),
-        Fields::Unit => Box::new(iter::empty()),
-    };
-    let fields_with_handling = fields_iter
-        .map(|mut field| {
-            let attrs = FieldHelperAttributes::from_attributes(&field.attrs)?;
-            // check whether input `crate` replacement is set and whether we have a path type that has `crate` as first entry.
-            if let Some(input_crate_replacement) = input_crate_replacement {
-                type_path_replace_crate(&mut field.ty, input_crate_replacement);
-            }
-            let handling = if attrs.required.is_some() {
-                Required
-            } else if is_option(&field.ty) {
-                IsOption
-            } else {
-                Other
-            };
-            Ok::<_, Error>(FieldParsed { field, handling })
-        })
-        .collect::<Result<Vec<_>, _>>()?;
-
-    Ok(FieldsParsed {
-        struct_type: struct_named,
-        fields: fields_with_handling,
-    })
-}
-
-/// Replaces `crate` in the path and all angle-bracketed path arguments with the provided value.
-/// Does nothing if the type is not a path.
-fn type_path_replace_crate(ty: &mut Type, replacement: &Ident) {
-    if let Type::Path(ty_path) = ty {
-        if let Some(first_path_segment) = ty_path.path.segments.first_mut()
-            && first_path_segment.ident == "crate"
-        {
-            first_path_segment.ident = replacement.clone();
-            ty_path.path.leading_colon = Some(PathSep::default());
-        }
-        ty_path.path.segments.iter_mut().for_each(|p| {
-            if let PathArguments::AngleBracketed(args) = &mut p.arguments {
-                args.args.iter_mut().for_each(|arg| {
-                    if let GenericArgument::Type(ty) = arg {
-                        type_path_replace_crate(ty, replacement);
-                    }
-                });
-            }
-        });
-    }
-}
-
-/// How we handle different cases in order of importance/detection.
-/// E.g. if a field is `Required` we don't care whether it's of `Option` type or not.
-#[derive(Debug)]
-enum FieldHandling {
-    Required,
-    IsOption,
-    Other,
-}
-
-/// Just a combination of a field and which handling case it is
-#[derive(Debug)]
-struct FieldParsed {
-    field: Field,
-    handling: FieldHandling,
-}
-
-/// Type of the Struct we handle
-#[derive(Debug, PartialEq)]
-enum StructType {
-    Named,
-    Unnamed,
-    Unit,
-}
-
-/// Fields with extracted data how we want to handle them
-#[derive(Debug)]
-struct FieldsParsed {
-    struct_type: StructType,
-    fields: Vec<FieldParsed>,
-}
-
-/// Checks whether this type identifier is a `std::option::Option` or a shortened variant of it.
-fn is_option(ty: &Type) -> bool {
-    if let Type::Path(TypePath {
-        qself: _qself,
-        path,
-    }) = &ty
-        && {
-            let segments = &path.segments;
-            (segments.len() == 1 && segments[0].ident == "Option")
-                || (segments.len() == 2
-                    && segments[0].ident == "option"
-                    && segments[1].ident == "Option")
-                || (segments.len() == 3
-                    && (segments[0].ident == "core" || segments[0].ident == "std")
-                    && segments[1].ident == "option"
-                    && segments[2].ident == "Option")
-        }
-    {
-        true
-    } else {
-        false
-    }
-}
-
-/// Checks whether this path is `serde::Serialize` or a shortened version of it.
-fn is_serialize(path: &Path) -> bool {
-    path.is_ident("Serialize") || {
-        let segments = &path.segments;
-        segments.len() == 2 && segments[0].ident == "serde" && segments[1].ident == "Serialize"
-    }
-}
-
 /// Tries to resolve the optioned type analogous to what we do in the main crate.
 /// Due to limitations to macro resolving (no order guaranteed) we have to have an explicit
 /// list of well-known types and their optioned types.
@@ -859,11 +528,6 @@ fn forwarded_attributes(attrs: &[Attribute]) -> Option<TokenStream> {
         })
         .collect::<TokenStream>();
     (!forward_attrs.is_empty()).then_some(forward_attrs)
-}
-
-/// error just prepares an error message that references the source span
-pub(crate) fn error<S: AsRef<str> + fmt::Display, T>(msg: S) -> syn::Result<T> {
-    Err(Error::new(Span::call_site(), msg))
 }
 
 #[cfg(test)]
