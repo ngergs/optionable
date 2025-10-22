@@ -32,7 +32,7 @@ pub(crate) fn destructure(
                         ))
                         .unwrap_err(),
                     )?;
-                    let prefixed_ident = format_ident!("{1}{0}", ident.clone(), prefix.to_string());
+                    let prefixed_ident = format_ident!("{1}{0}", ident, prefix.to_string());
                     Ok::<_, Error>(quote! {#ident: #prefixed_ident})
                 })
                 .collect::<Result<Vec<_>, _>>()?;

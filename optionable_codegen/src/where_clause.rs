@@ -62,7 +62,7 @@ fn where_clauses_generalized<'a>(
     where_clause_add_params(
         crate_name,
         &mut where_clause,
-        &generic_params,
+        generic_params,
         predicate,
         predicate_optioned,
     );
@@ -75,9 +75,9 @@ fn where_clauses_generalized<'a>(
 fn generic_params_need_optionable<'a>(
     generic_params: impl IntoIterator<Item = &'a GenericParam>,
     fields: impl IntoIterator<Item = &'a FieldParsed>,
-) -> Vec<Ident> {
-    struct TypeNeedsOptionableVisitor(BTreeMap<Ident, bool>);
-    impl<'ast> Visit<'ast> for TypeNeedsOptionableVisitor {
+) -> Vec<&'a Ident> {
+    struct TypeNeedsOptionableVisitor<'a>(BTreeMap<&'a Ident, bool>);
+    impl<'ast> Visit<'ast> for TypeNeedsOptionableVisitor<'ast> {
         fn visit_path_segment(&mut self, segment: &'ast PathSegment) {
             if segment.arguments.is_none()
                 && self.0.contains_key(&segment.ident)
@@ -87,7 +87,7 @@ fn generic_params_need_optionable<'a>(
                     .map(Cow::Borrowed)
                     .unwrap_or_default())
             {
-                self.0.insert(segment.ident.clone(), true);
+                self.0.insert(&segment.ident, true);
             }
             // Call the default impl to recurse nested segments.
             visit::visit_path_segment(self, segment);
@@ -99,7 +99,7 @@ fn generic_params_need_optionable<'a>(
             .into_iter()
             .filter_map(|param| {
                 if let GenericParam::Type(ty_param) = param {
-                    Some((ty_param.ident.clone(), false))
+                    Some((&ty_param.ident, false))
                 } else {
                     None
                 }
