@@ -7,10 +7,7 @@ use proc_macro2::{Ident, Span, TokenStream};
 use quote::{format_ident, quote};
 use std::fmt;
 use syn::token::PathSep;
-use syn::{
-    Attribute, Error, GenericArgument, Path, PathArguments, Type, TypePath
-    ,
-};
+use syn::{Attribute, Error, GenericArgument, Path, PathArguments, Type, TypePath};
 
 /// error just prepares an error message that references the source span
 pub(crate) fn error<S: AsRef<str> + fmt::Display, T>(msg: S) -> syn::Result<T> {
@@ -57,9 +54,10 @@ pub(crate) fn destructure(
 /// Resolves to a comma-separated list of entries with a (...) wrapper for unnamed structs
 /// and {...} for named structs
 pub(crate) fn struct_wrapper(
-    tokens: impl Iterator<Item = TokenStream>,
+    tokens: impl IntoIterator<Item = TokenStream>,
     struct_name_type: &StructType,
 ) -> TokenStream {
+    let tokens = tokens.into_iter();
     match struct_name_type {
         StructType::Named => quote!({#(#tokens),*}),
         StructType::Unnamed => quote!((#(#tokens),*)),

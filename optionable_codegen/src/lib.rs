@@ -124,7 +124,7 @@ pub fn derive_optionable(
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
     let settings = settings.map(Cow::Borrowed).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
-    let forward_attrs = forwarded_attributes(&input.attrs);
+    let forward_attrs = forwarded_attributes(&input.attrs)?;
     let vis = input.vis;
     let type_ident_opt = Ident::new(
         &(input.ident.to_string() + &attrs.suffix.value()),
@@ -185,7 +185,7 @@ pub fn derive_optionable(
             let unnamed_struct_semicolon =
                 (struct_parsed.struct_type == StructType::Unnamed).then(|| quote!(;));
             let optioned_fields =
-                optioned_fields(&struct_parsed, skip_optionable_if_serde_serialize.as_ref());
+                optioned_fields(&struct_parsed, skip_optionable_if_serde_serialize.as_ref())?;
 
             let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
                 let into_optioned_fields = into_optioned(&struct_parsed, |selector| quote! { self.#selector });
@@ -232,7 +232,7 @@ pub fn derive_optionable(
                     error_on_helper_attributes(&v.attrs, ERR_MSG_HELPER_ATTR_ENUM_VARIANTS)?;
                     Ok::<_, Error>((
                         v.ident,
-                        forwarded_attributes(&v.attrs),
+                        forwarded_attributes(&v.attrs)?,
                         into_field_handling(
                             crate_name.to_owned(),
                             v.fields,
@@ -252,10 +252,13 @@ pub fn derive_optionable(
                 .is_none()
                 .then(|| where_clauses_convert(crate_name, &input.generics, all_fields));
 
-            let optioned_variants = variants.iter().map(|(variant, forward_attrs, f)| {
-                let fields = optioned_fields(f, skip_optionable_if_serde_serialize.as_ref());
-                quote!( #forward_attrs #variant #fields )
-            });
+            let optioned_variants = variants
+                .iter()
+                .map(|(variant, forward_attrs, f)| {
+                    let fields = optioned_fields(f, skip_optionable_if_serde_serialize.as_ref())?;
+                    Ok::<_, Error>(quote!( #forward_attrs #variant #fields ))
+                })
+                .collect::<Result<Vec<_>, _>>()?;
 
             let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
                 let (into_variants, try_from_variants, merge_variants): (Vec<_>, Vec<_>, Vec<_>) = variants
@@ -343,23 +346,26 @@ pub fn derive_optionable(
 /// Returns a tokenstream for the optioned fields and potential convert implementation of the optioned object (struct/enum variants).
 /// The returned tokenstream will be of the form `{...}` for named fields and `(...)` for unnamed fields.
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
-fn optioned_fields(fields: &StructParsed, serde_attributes: Option<&TokenStream>) -> TokenStream {
+fn optioned_fields(
+    fields: &StructParsed,
+    serde_attributes: Option<&TokenStream>,
+) -> Result<TokenStream, Error> {
     let fields_token = fields.fields.iter().map(
         |FieldParsed {
              field: Field { attrs, vis, ident, ty, .. },
              handling,
          }| {
-            let forward_attrs = forwarded_attributes(attrs);
+            let forward_attrs = forwarded_attributes(attrs)?;
             let optioned_ty = optioned_ty(&fields.crate_name, ty);
             let colon = ident.as_ref().map(|_| quote! {:});
-            match handling {
+            Ok::<_,Error>(match handling {
                 FieldHandling::Required => quote! {#forward_attrs #vis #ident #colon #ty},
                 FieldHandling::IsOption => quote! {#forward_attrs #serde_attributes #vis #ident #colon #optioned_ty},
                 FieldHandling::Other => quote! {#forward_attrs #serde_attributes #vis #ident #colon Option<#optioned_ty>},
-            }
+            })
         },
-    );
-    struct_wrapper(fields_token, &fields.struct_type)
+    ).collect::<Result<Vec<_>,_>>()?;
+    Ok(struct_wrapper(fields_token, &fields.struct_type))
 }
 
 /// Returns the field mapping implementation for `into_optioned`.
@@ -517,20 +523,20 @@ fn is_self_resolving_optioned(ty: &Type) -> bool {
 
 /// Extracts the `HELPER_ATTR_IDENT` attributes, unwraps them and returns them
 /// as `TokenStream` that can be used as respective attribute.
-fn forwarded_attributes(attrs: &[Attribute]) -> Option<TokenStream> {
+fn forwarded_attributes(attrs: &[Attribute]) -> Result<Option<TokenStream>, Error> {
     let forward_attrs = attrs
         .iter()
         .filter_map(|attr| {
             if !attr.path().is_ident(HELPER_ATTR_IDENT) {
                 return None;
             }
-            match &attr.meta {
-                Meta::List(MetaList { tokens, .. }) => Some(quote!(#[#tokens])),
-                _ => None,
-            }
+            Some(match &attr.meta {
+                Meta::List(MetaList { tokens, .. }) => Ok(quote!(#[#tokens])),
+                _ =>  error("Only lists like `#[optionable_attr(Serialize,Deserialize)]` are supported for `optionable_attr`"),
+            })
         })
-        .collect::<TokenStream>();
-    (!forward_attrs.is_empty()).then_some(forward_attrs)
+        .collect::<Result<TokenStream, Error>>()?;
+    Ok((!forward_attrs.is_empty()).then_some(forward_attrs))
 }
 
 #[cfg(test)]
