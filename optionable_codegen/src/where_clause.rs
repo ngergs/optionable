@@ -59,7 +59,7 @@ fn where_clauses_generalized<'a>(
             where_token: Where::default(),
             predicates: Punctuated::default(),
         });
-    patch_where_clause_bounds(
+    where_clause_add_params(
         crate_name,
         &mut where_clause,
         &generic_params,
@@ -106,21 +106,25 @@ fn generic_params_need_optionable<'a>(
             })
             .collect::<BTreeMap<_, _>>(),
     );
-    fields
-        .into_iter()
-        .filter(|f| !matches!(f.handling, FieldHandling::Required))
-        .for_each(|f| type_needs_optionable.visit_type(&f.field.ty));
-    type_needs_optionable
-        .0
-        .into_iter()
-        .filter_map(|(k, v)| if v { Some(k) } else { None })
-        .collect()
+    if type_needs_optionable.0.is_empty() {
+        vec![]
+    } else {
+        fields
+            .into_iter()
+            .filter(|f| !matches!(f.handling, FieldHandling::Required))
+            .for_each(|f| type_needs_optionable.visit_type(&f.field.ty));
+        type_needs_optionable
+            .0
+            .into_iter()
+            .filter_map(|(k, v)| if v { Some(k) } else { None })
+            .collect()
+    }
 }
 
-/// Adjusts the where clause to add the provided predicate  type bounds.
+/// Adjusts the where clause to add the provided predicate type bounds.
 /// Basically the original where clause with a type bound to the predicate added
 /// for every generic type parameter `params`.
-fn patch_where_clause_bounds<'a>(
+fn where_clause_add_params<'a>(
     crate_name: &Path,
     where_clause: &mut WhereClause,
     params: impl IntoIterator<Item = &'a Ident>,
@@ -132,8 +136,8 @@ fn patch_where_clause_bounds<'a>(
             qself: None,
             path: ty_ident.clone().into(),
         });
-        add_where_clause_predicate(where_clause, &ty_path, predicate);
-        add_where_clause_predicate(
+        where_clause_add_predicate(where_clause, &ty_path, predicate);
+        where_clause_add_predicate(
             where_clause,
             &Type::Path(parse_quote!(<#ty_ident as #crate_name::Optionable>::Optioned)),
             predicate_optioned,
@@ -143,7 +147,7 @@ fn patch_where_clause_bounds<'a>(
 
 /// Goes through the list of predicates and appends the new restriction to an already existing
 /// entry if found or creates a new one
-fn add_where_clause_predicate(where_clause: &mut WhereClause, ty: &Type, entry: &TokenStream) {
+fn where_clause_add_predicate(where_clause: &mut WhereClause, ty: &Type, entry: &TokenStream) {
     let bounds = where_clause.predicates.iter_mut().find_map(|pred| {
         if let WherePredicate::Type(pred_ty) = pred
             && *ty == pred_ty.bounded_ty
