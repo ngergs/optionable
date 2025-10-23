@@ -139,19 +139,13 @@ pub fn derive_optionable(
     let (impl_generics, ty_generics, _) = input.generics.split_for_impl();
     let generics_colon = (!input.generics.params.is_empty()).then(|| quote! {::});
 
-    // now we have to derive the actual implementation of #type_ident_opt
-    // and add the #impl from above
-    let derives = attrs.derive.unwrap_or_default();
+    let derives = attrs.derive;
     let skip_optionable_if_serde_serialize = derives
-        .iter()
-        .any(is_serialize)
+        .as_ref()
+        .is_some_and(|derives| derives.iter().any(is_serialize))
         .then(|| quote!(#[serde(skip_serializing_if = "Option::is_none")]));
-    let derives = (!derives
-        .iter()
-        .map(ToTokens::to_token_stream)
-        .collect::<Vec<_>>()
-        .is_empty())
-    .then(|| quote! {#[derive(#(#derives),*)]});
+    let derives =
+        derives.map(|derives| (!derives.is_empty()).then(|| quote! {#[derive(#(#derives),*)]}));
 
     /// Helper to collect the enum/struct specific derived code aspects in a typesafe way
     struct Derived {
