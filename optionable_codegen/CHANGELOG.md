@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.2](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.4.1...optionable_codegen-v0.4.2) - 2025-10-23
+
+### Added
+
+- codegen/derive: add type bounds for requested `derive` of the optioned type
+
+### Fixed
+
+- simplify codegen
+- remove some `clone`-calls from codegen
+- error on misused `optionable_attr` helper attribute
+- skip where_clause checks if no generic parameters are present
+- simplify where clause codegen implementation
+
+### Other
+
+- restructure codegen code
+
 ## [0.4.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.4.0...optionable_codegen-v0.4.1) - 2025-10-21
 
 ### Added
