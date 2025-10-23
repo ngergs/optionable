@@ -140,11 +140,6 @@ fn derive_generic_convert() {
     #[derive(Optionable)]
     #[optionable(derive(Clone))]
     struct DeriveExample<T, T2>
-    where
-        T: Optionable,
-        T2: Optionable,
-        T::Optioned: Clone,
-        T2::Optioned: Clone,
     {
         name: T,
         surname: T2,
@@ -311,12 +306,7 @@ fn derive_generic_advanced_types() {
     #[optionable(derive(Clone))]
     struct DeriveExample<T, T2, T3>
     where
-        T: Optionable + Debug,
-        T::Optioned: Clone,
-        T2: Optionable,
-        T2::Optioned: Clone,
-        T3: Optionable,
-        T3::Optioned: Clone,
+        T: Debug,
     {
         array: [T; 3],
         tuple: (T, T2, T3),
@@ -334,11 +324,7 @@ fn derive_generic_advanced_types_no_convert() {
     #[allow(dead_code)]
     #[derive(Optionable)]
     #[optionable(no_convert, derive(Clone))]
-    struct DeriveExample<'a, T>
-    where
-        T: Optionable,
-        T::Optioned: Clone,
-    {
+    struct DeriveExample<'a, T> {
         slice: &'a [T],
         slice_mut: &'a mut [T],
     }

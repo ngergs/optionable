@@ -8,7 +8,7 @@ use syn::{Error, Field, Fields, Path};
 
 /// How we handle different cases in order of importance/detection.
 /// E.g. if a field is `Required` we don't care whether it's of `Option` type or not.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) enum FieldHandling {
     Required,
     IsOption,
@@ -24,7 +24,7 @@ pub(crate) enum StructType {
 }
 
 /// The field and the given case we detected for handling it.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct FieldParsed {
     pub field: Field,
     pub handling: FieldHandling,

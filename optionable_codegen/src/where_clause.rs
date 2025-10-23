@@ -1,4 +1,5 @@
 use crate::parsed_input::{FieldHandling, FieldParsed};
+use crate::TypeHelperAttributes;
 use proc_macro2::{Ident, TokenStream};
 use quote::quote;
 use std::borrow::Cow;
@@ -11,40 +12,58 @@ use syn::{
     WhereClause, WherePredicate,
 };
 
-/// Extracts the where clauses from the input for the `Optionable` trait, patching the bound to the optioned types.
+pub(crate) struct WhereClauses {
+    pub struct_enum_def: WhereClause,
+    pub impl_optionable: WhereClause,
+    pub impl_optionable_convert: Option<WhereClause>,
+}
+
 pub(crate) fn where_clauses<'a>(
     crate_name: &Path,
     generics: &'a Generics,
-    fields: impl IntoIterator<Item = &'a FieldParsed>,
-) -> WhereClause {
-    where_clauses_generalized(
+    attrs: &TypeHelperAttributes,
+    fields: impl IntoIterator<Item = &'a FieldParsed> + Clone,
+) -> WhereClauses {
+    let predicate_struct_enum_optioned = if let Some(derive) = &attrs.derive
+        && !derive.is_empty()
+    {
+        &quote!(Sized + #(#derive)+*)
+    } else {
+        &quote!(Sized)
+    };
+    let where_clause_struct_enum_def = where_clause_generalized(
         crate_name,
         generics,
-        fields,
+        fields.clone(),
         &quote!(#crate_name::Optionable),
         // todo: excludes the usage of types that allow unsized types, like a generic parameter `T::Optioned=Cow<...>`
-        &quote!(Sized),
-    )
-}
-
-/// Extracts the where clauses from the input for the `OptionableConvert` trait, patching the bound to the optioned types.
-pub(crate) fn where_clauses_convert<'a>(
-    crate_name: &Path,
-    generics: &'a Generics,
-    fields: impl IntoIterator<Item = &'a FieldParsed>,
-) -> WhereClause {
-    where_clauses_generalized(
+        predicate_struct_enum_optioned,
+    );
+    let where_clause_impl = where_clause_generalized(
         crate_name,
         generics,
-        fields,
-        &quote!(#crate_name::OptionableConvert),
-        // todo: excludes the usage of types that allow unsized types, like a generic parameter `T::Optioned=Cow<...>`
-        &quote!(Sized),
-    )
+        fields.clone(),
+        &quote!(#crate_name::Optionable),
+        predicate_struct_enum_optioned,
+    );
+    let where_clause_impl_convert = attrs.no_convert.is_none().then(|| {
+        where_clause_generalized(
+            crate_name,
+            generics,
+            fields,
+            &quote!(#crate_name::OptionableConvert),
+            predicate_struct_enum_optioned,
+        )
+    });
+    WhereClauses {
+        struct_enum_def: where_clause_struct_enum_def,
+        impl_optionable: where_clause_impl,
+        impl_optionable_convert: where_clause_impl_convert,
+    }
 }
 
 /// Internal generalized logic for the where clause
-fn where_clauses_generalized<'a>(
+fn where_clause_generalized<'a>(
     crate_name: &Path,
     generics: &'a Generics,
     fields: impl IntoIterator<Item = &'a FieldParsed>,
