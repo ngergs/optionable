@@ -125,10 +125,35 @@
 //! Due to the orphan rule the usage of the library becomes cumbersome if one has a use case which heavily relies on crate-external types.
 //! For well-established libraries adding corresponding `impl` to this crate (feature-gated) would be a worthwhile approach.
 //!
-//! ## IDE: Resolving associated types
+//! ## Resolving associated types
 //! Due to the use of associated types some IDE-hints do not fully resolve the associated types leaving you with
 //! `<i32 as Optionable>::Optioned` instead of `i32`. Luckily, for checking type correctness and also for error messages
 //! when using wrong types the associated types are resolved.
+//!
+//! For the derived `Optioned`-structs/enums a related issue is that other derive macros for those derived types won't see the resolved
+//! associated types. Therefore corresponding type bounds have to be added (done by the `Optionable`-derive) to the `Optioned`-structs/enums:
+//! ```rust
+//! # use optionable::Optionable;
+//! # use serde::Serialize;
+//! #
+//! #[derive(Optionable)]
+//! #[optionable(derive(Serialize))]
+//! struct DeriveExample<T> {
+//!     name: T,
+//! }
+//!
+//! // The generated code for the struct is shown below (name adjusted and simplified)
+//! #[derive(Serialize)]
+//! struct DeriveExampleOpt2<T>
+//! where
+//!     T: Optionable,
+//!     // extra `Serialize` bound on the struct level
+//!     <T as Optionable>::Optioned: Sized + Serialize,
+//! {
+//!     #[serde(skip_serializing_if = "Option::is_none")]
+//!     name: Option<<T as Optionable>::Optioned>
+//! }
+//! ```
 //!
 //! # Similar crates
 //! One crate with similar scope is [optional_struct](https://crates.io/crates/optional_struct).
