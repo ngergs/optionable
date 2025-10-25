@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.6](https://github.com/ngergs/optionable/compare/optionable-v0.2.5...optionable-v0.2.6) - 2025-10-25
+
+### Other
+
+- document associated types limitations
+
 ## [0.2.5](https://github.com/ngergs/optionable/compare/optionable-v0.2.4...optionable-v0.2.5) - 2025-10-23
 
 ### Added

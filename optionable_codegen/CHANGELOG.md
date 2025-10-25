@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.4.2...optionable_codegen-v0.4.3) - 2025-10-25
+
+### Fixed
+
+- `replacement-crate` codegen options also adjusts where clauses
+
 ## [0.4.2](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.4.1...optionable_codegen-v0.4.2) - 2025-10-23
 
 ### Added
