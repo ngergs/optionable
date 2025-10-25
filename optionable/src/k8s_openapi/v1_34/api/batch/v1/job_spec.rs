@@ -1,0 +1,243 @@
+pub struct JobSpecOpt {
+    pub active_deadline_seconds: <Option<i64> as crate::Optionable>::Optioned,
+    pub backoff_limit: <Option<i32> as crate::Optionable>::Optioned,
+    pub backoff_limit_per_index: <Option<i32> as crate::Optionable>::Optioned,
+    pub completion_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub completions: <Option<i32> as crate::Optionable>::Optioned,
+    pub managed_by: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub manual_selector: <Option<bool> as crate::Optionable>::Optioned,
+    pub max_failed_indexes: <Option<i32> as crate::Optionable>::Optioned,
+    pub parallelism: <Option<i32> as crate::Optionable>::Optioned,
+    pub pod_failure_policy: <Option<
+        ::k8s_openapi::api::batch::v1::PodFailurePolicy,
+    > as crate::Optionable>::Optioned,
+    pub pod_replacement_policy: <Option<
+        std::string::String,
+    > as crate::Optionable>::Optioned,
+    pub selector: <Option<
+        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
+    > as crate::Optionable>::Optioned,
+    pub success_policy: <Option<
+        ::k8s_openapi::api::batch::v1::SuccessPolicy,
+    > as crate::Optionable>::Optioned,
+    pub suspend: <Option<bool> as crate::Optionable>::Optioned,
+    pub template: Option<
+        <::k8s_openapi::api::core::v1::PodTemplateSpec as crate::Optionable>::Optioned,
+    >,
+    pub ttl_seconds_after_finished: <Option<i32> as crate::Optionable>::Optioned,
+}
+#[automatically_derived]
+impl crate::Optionable for ::k8s_openapi::api::batch::v1::job_spec::JobSpec {
+    type Optioned = JobSpecOpt;
+}
+#[automatically_derived]
+impl crate::Optionable for JobSpecOpt {
+    type Optioned = JobSpecOpt;
+}
+#[automatically_derived]
+impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::job_spec::JobSpec {
+    fn into_optioned(self) -> JobSpecOpt {
+        JobSpecOpt {
+            active_deadline_seconds: <Option<
+                i64,
+            > as crate::OptionableConvert>::into_optioned(self.active_deadline_seconds),
+            backoff_limit: <Option<
+                i32,
+            > as crate::OptionableConvert>::into_optioned(self.backoff_limit),
+            backoff_limit_per_index: <Option<
+                i32,
+            > as crate::OptionableConvert>::into_optioned(self.backoff_limit_per_index),
+            completion_mode: <Option<
+                std::string::String,
+            > as crate::OptionableConvert>::into_optioned(self.completion_mode),
+            completions: <Option<
+                i32,
+            > as crate::OptionableConvert>::into_optioned(self.completions),
+            managed_by: <Option<
+                std::string::String,
+            > as crate::OptionableConvert>::into_optioned(self.managed_by),
+            manual_selector: <Option<
+                bool,
+            > as crate::OptionableConvert>::into_optioned(self.manual_selector),
+            max_failed_indexes: <Option<
+                i32,
+            > as crate::OptionableConvert>::into_optioned(self.max_failed_indexes),
+            parallelism: <Option<
+                i32,
+            > as crate::OptionableConvert>::into_optioned(self.parallelism),
+            pod_failure_policy: <Option<
+                ::k8s_openapi::api::batch::v1::PodFailurePolicy,
+            > as crate::OptionableConvert>::into_optioned(self.pod_failure_policy),
+            pod_replacement_policy: <Option<
+                std::string::String,
+            > as crate::OptionableConvert>::into_optioned(self.pod_replacement_policy),
+            selector: <Option<
+                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
+            > as crate::OptionableConvert>::into_optioned(self.selector),
+            success_policy: <Option<
+                ::k8s_openapi::api::batch::v1::SuccessPolicy,
+            > as crate::OptionableConvert>::into_optioned(self.success_policy),
+            suspend: <Option<
+                bool,
+            > as crate::OptionableConvert>::into_optioned(self.suspend),
+            template: Some(
+                <::k8s_openapi::api::core::v1::PodTemplateSpec as crate::OptionableConvert>::into_optioned(
+                    self.template,
+                ),
+            ),
+            ttl_seconds_after_finished: <Option<
+                i32,
+            > as crate::OptionableConvert>::into_optioned(
+                self.ttl_seconds_after_finished,
+            ),
+        }
+    }
+    fn try_from_optioned(value: JobSpecOpt) -> Result<Self, crate::optionable::Error> {
+        Ok(Self {
+            active_deadline_seconds: <Option<
+                i64,
+            > as crate::OptionableConvert>::try_from_optioned(
+                value.active_deadline_seconds,
+            )?,
+            backoff_limit: <Option<
+                i32,
+            > as crate::OptionableConvert>::try_from_optioned(value.backoff_limit)?,
+            backoff_limit_per_index: <Option<
+                i32,
+            > as crate::OptionableConvert>::try_from_optioned(
+                value.backoff_limit_per_index,
+            )?,
+            completion_mode: <Option<
+                std::string::String,
+            > as crate::OptionableConvert>::try_from_optioned(value.completion_mode)?,
+            completions: <Option<
+                i32,
+            > as crate::OptionableConvert>::try_from_optioned(value.completions)?,
+            managed_by: <Option<
+                std::string::String,
+            > as crate::OptionableConvert>::try_from_optioned(value.managed_by)?,
+            manual_selector: <Option<
+                bool,
+            > as crate::OptionableConvert>::try_from_optioned(value.manual_selector)?,
+            max_failed_indexes: <Option<
+                i32,
+            > as crate::OptionableConvert>::try_from_optioned(value.max_failed_indexes)?,
+            parallelism: <Option<
+                i32,
+            > as crate::OptionableConvert>::try_from_optioned(value.parallelism)?,
+            pod_failure_policy: <Option<
+                ::k8s_openapi::api::batch::v1::PodFailurePolicy,
+            > as crate::OptionableConvert>::try_from_optioned(value.pod_failure_policy)?,
+            pod_replacement_policy: <Option<
+                std::string::String,
+            > as crate::OptionableConvert>::try_from_optioned(
+                value.pod_replacement_policy,
+            )?,
+            selector: <Option<
+                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
+            > as crate::OptionableConvert>::try_from_optioned(value.selector)?,
+            success_policy: <Option<
+                ::k8s_openapi::api::batch::v1::SuccessPolicy,
+            > as crate::OptionableConvert>::try_from_optioned(value.success_policy)?,
+            suspend: <Option<
+                bool,
+            > as crate::OptionableConvert>::try_from_optioned(value.suspend)?,
+            template: <::k8s_openapi::api::core::v1::PodTemplateSpec as crate::OptionableConvert>::try_from_optioned(
+                value
+                    .template
+                    .ok_or(crate::optionable::Error {
+                        missing_field: "template",
+                    })?,
+            )?,
+            ttl_seconds_after_finished: <Option<
+                i32,
+            > as crate::OptionableConvert>::try_from_optioned(
+                value.ttl_seconds_after_finished,
+            )?,
+        })
+    }
+    fn merge(&mut self, other: JobSpecOpt) -> Result<(), crate::optionable::Error> {
+        <Option<
+            i64,
+        > as crate::OptionableConvert>::merge(
+            &mut self.active_deadline_seconds,
+            other.active_deadline_seconds,
+        )?;
+        <Option<
+            i32,
+        > as crate::OptionableConvert>::merge(
+            &mut self.backoff_limit,
+            other.backoff_limit,
+        )?;
+        <Option<
+            i32,
+        > as crate::OptionableConvert>::merge(
+            &mut self.backoff_limit_per_index,
+            other.backoff_limit_per_index,
+        )?;
+        <Option<
+            std::string::String,
+        > as crate::OptionableConvert>::merge(
+            &mut self.completion_mode,
+            other.completion_mode,
+        )?;
+        <Option<
+            i32,
+        > as crate::OptionableConvert>::merge(&mut self.completions, other.completions)?;
+        <Option<
+            std::string::String,
+        > as crate::OptionableConvert>::merge(&mut self.managed_by, other.managed_by)?;
+        <Option<
+            bool,
+        > as crate::OptionableConvert>::merge(
+            &mut self.manual_selector,
+            other.manual_selector,
+        )?;
+        <Option<
+            i32,
+        > as crate::OptionableConvert>::merge(
+            &mut self.max_failed_indexes,
+            other.max_failed_indexes,
+        )?;
+        <Option<
+            i32,
+        > as crate::OptionableConvert>::merge(&mut self.parallelism, other.parallelism)?;
+        <Option<
+            ::k8s_openapi::api::batch::v1::PodFailurePolicy,
+        > as crate::OptionableConvert>::merge(
+            &mut self.pod_failure_policy,
+            other.pod_failure_policy,
+        )?;
+        <Option<
+            std::string::String,
+        > as crate::OptionableConvert>::merge(
+            &mut self.pod_replacement_policy,
+            other.pod_replacement_policy,
+        )?;
+        <Option<
+            ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
+        > as crate::OptionableConvert>::merge(&mut self.selector, other.selector)?;
+        <Option<
+            ::k8s_openapi::api::batch::v1::SuccessPolicy,
+        > as crate::OptionableConvert>::merge(
+            &mut self.success_policy,
+            other.success_policy,
+        )?;
+        <Option<
+            bool,
+        > as crate::OptionableConvert>::merge(&mut self.suspend, other.suspend)?;
+        if let Some(other_value) = other.template {
+            <::k8s_openapi::api::core::v1::PodTemplateSpec as crate::OptionableConvert>::merge(
+                &mut self.template,
+                other_value,
+            )?;
+        }
+        <Option<
+            i32,
+        > as crate::OptionableConvert>::merge(
+            &mut self.ttl_seconds_after_finished,
+            other.ttl_seconds_after_finished,
+        )?;
+        Ok(())
+    }
+}

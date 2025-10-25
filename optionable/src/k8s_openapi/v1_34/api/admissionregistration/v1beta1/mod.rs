@@ -1,0 +1,13 @@
+mod apply_configuration;
+mod json_patch;
+mod match_condition;
+mod match_resources;
+mod mutating_admission_policy;
+mod mutating_admission_policy_binding;
+mod mutating_admission_policy_binding_spec;
+mod mutating_admission_policy_spec;
+mod mutation;
+mod named_rule_with_operations;
+mod param_kind;
+mod param_ref;
+mod variable;
