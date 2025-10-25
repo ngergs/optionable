@@ -175,7 +175,13 @@ pub fn derive_optionable(
                 struct_enum_def: where_clause_struct_enum,
                 impl_optionable: where_clause_impl_optionable,
                 impl_optionable_convert: where_clause_impl_optionable_convert,
-            } = where_clauses(crate_name, &input.generics, &attrs, &struct_parsed.fields);
+            } = where_clauses(
+                crate_name,
+                settings.input_crate_replacement.as_ref(),
+                &input.generics,
+                &attrs,
+                &struct_parsed.fields,
+            );
             let unnamed_struct_semicolon =
                 (struct_parsed.struct_type == StructType::Unnamed).then(|| quote!(;));
             let optioned_fields =
@@ -244,7 +250,13 @@ pub fn derive_optionable(
                 struct_enum_def: where_clause_struct_enum,
                 impl_optionable: where_clause_impl_optionable,
                 impl_optionable_convert: where_clause_impl_optionable_convert,
-            } = where_clauses(crate_name, &input.generics, &attrs, all_fields);
+            } = where_clauses(
+                crate_name,
+                settings.input_crate_replacement.as_ref(),
+                &input.generics,
+                &attrs,
+                all_fields,
+            );
 
             let optioned_variants = variants
                 .iter()
@@ -287,7 +299,7 @@ pub fn derive_optionable(
                     .into_iter().multiunzip();
                 Ok::<_, Error>(quote! {
                     #[automatically_derived]
-                    impl #impl_generics ::optionable::OptionableConvert for #type_ident #ty_generics # where_clause_impl_optionable_convert {
+                    impl #impl_generics #crate_name::OptionableConvert for #type_ident #ty_generics # where_clause_impl_optionable_convert {
                         fn into_optioned(self) -> #type_ident_opt #ty_generics {
                             match self {
                                 #(#into_variants),*

@@ -8,8 +8,8 @@ use syn::punctuated::Punctuated;
 use syn::token::Where;
 use syn::visit::Visit;
 use syn::{
-    parse_quote, visit, GenericParam, Generics, Path, PathSegment, Type, TypePath,
-    WhereClause, WherePredicate,
+    parse_quote, visit, GenericParam, Generics, Path, PathSegment, Type, TypeParamBound,
+    TypePath, WhereClause, WherePredicate,
 };
 
 pub(crate) struct WhereClauses {
@@ -20,10 +20,23 @@ pub(crate) struct WhereClauses {
 
 pub(crate) fn where_clauses<'a>(
     crate_name: &Path,
+    input_crate_replacement: Option<&Ident>,
     generics: &'a Generics,
     attrs: &TypeHelperAttributes,
     fields: impl IntoIterator<Item = &'a FieldParsed> + Clone,
 ) -> WhereClauses {
+    let generic_params = generic_params_need_optionable(&generics.params, fields);
+    let mut where_input = generics
+        .where_clause
+        .clone()
+        .unwrap_or_else(|| WhereClause {
+            where_token: Where::default(),
+            predicates: Punctuated::default(),
+        });
+    if let Some(input_crate_replacement) = input_crate_replacement {
+        where_clause_replace_input_crate_name(&mut where_input, input_crate_replacement);
+    }
+
     let predicate_struct_enum_optioned = if let Some(derive) = &attrs.derive
         && !derive.is_empty()
     {
@@ -33,24 +46,24 @@ pub(crate) fn where_clauses<'a>(
     };
     let where_clause_struct_enum_def = where_clause_generalized(
         crate_name,
-        generics,
-        fields.clone(),
+        &generic_params,
+        where_input.clone(),
         &quote!(#crate_name::Optionable),
         // todo: excludes the usage of types that allow unsized types, like a generic parameter `T::Optioned=Cow<...>`
         predicate_struct_enum_optioned,
     );
     let where_clause_impl = where_clause_generalized(
         crate_name,
-        generics,
-        fields.clone(),
+        &generic_params,
+        where_input.clone(),
         &quote!(#crate_name::Optionable),
         predicate_struct_enum_optioned,
     );
     let where_clause_impl_convert = attrs.no_convert.is_none().then(|| {
         where_clause_generalized(
             crate_name,
-            generics,
-            fields,
+            &generic_params,
+            where_input,
             &quote!(#crate_name::OptionableConvert),
             predicate_struct_enum_optioned,
         )
@@ -65,23 +78,15 @@ pub(crate) fn where_clauses<'a>(
 /// Internal generalized logic for the where clause
 fn where_clause_generalized<'a>(
     crate_name: &Path,
-    generics: &'a Generics,
-    fields: impl IntoIterator<Item = &'a FieldParsed>,
+    generic_params: &Vec<&Ident>,
+    mut where_clause: WhereClause,
     predicate: &TokenStream,
     predicate_optioned: &TokenStream,
 ) -> WhereClause {
-    let generic_params = generic_params_need_optionable(&generics.params, fields);
-    let mut where_clause = generics
-        .where_clause
-        .clone()
-        .unwrap_or_else(|| WhereClause {
-            where_token: Where::default(),
-            predicates: Punctuated::default(),
-        });
     where_clause_add_params(
         crate_name,
         &mut where_clause,
-        generic_params,
+        &generic_params,
         predicate,
         predicate_optioned,
     );
@@ -146,14 +151,14 @@ fn generic_params_need_optionable<'a>(
 fn where_clause_add_params<'a>(
     crate_name: &Path,
     where_clause: &mut WhereClause,
-    params: impl IntoIterator<Item = &'a Ident>,
+    params: &Vec<&Ident>,
     predicate: &TokenStream,
     predicate_optioned: &TokenStream,
 ) {
     for ty_ident in params {
         let ty_path = Type::Path(TypePath {
             qself: None,
-            path: ty_ident.clone().into(),
+            path: (*ty_ident).clone().into(),
         });
         where_clause_add_predicate(where_clause, &ty_path, predicate);
         where_clause_add_predicate(
@@ -181,4 +186,22 @@ fn where_clause_add_predicate(where_clause: &mut WhereClause, ty: &Type, entry: 
     } else {
         where_clause.predicates.push(parse_quote!(#ty: #entry));
     }
+}
+
+/// Replaces leading `crate` in the where clause bounds with the provided replacement crate.
+fn where_clause_replace_input_crate_name(
+    where_clause: &mut WhereClause,
+    replacement_crate_ident: &Ident,
+) {
+    where_clause.predicates.iter_mut().for_each(|pred| {
+        if let WherePredicate::Type(pred_ty) = pred {
+            pred_ty.bounds.iter_mut().for_each(|bound| {
+                if let TypeParamBound::Trait(trait_bound) = bound
+                    && trait_bound.path.segments[0].ident.to_string() == "crate"
+                {
+                    trait_bound.path.segments[0].ident = replacement_crate_ident.clone();
+                }
+            })
+        }
+    });
 }
