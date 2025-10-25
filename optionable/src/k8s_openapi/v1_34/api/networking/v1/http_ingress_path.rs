@@ -1,0 +1,81 @@
+pub struct HTTPIngressPathOpt {
+    pub backend: Option<
+        <::k8s_openapi::api::networking::v1::IngressBackend as crate::Optionable>::Optioned,
+    >,
+    pub path: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub path_type: Option<<std::string::String as crate::Optionable>::Optioned>,
+}
+#[automatically_derived]
+impl crate::Optionable
+for ::k8s_openapi::api::networking::v1::http_ingress_path::HTTPIngressPath {
+    type Optioned = HTTPIngressPathOpt;
+}
+#[automatically_derived]
+impl crate::Optionable for HTTPIngressPathOpt {
+    type Optioned = HTTPIngressPathOpt;
+}
+#[automatically_derived]
+impl crate::OptionableConvert
+for ::k8s_openapi::api::networking::v1::http_ingress_path::HTTPIngressPath {
+    fn into_optioned(self) -> HTTPIngressPathOpt {
+        HTTPIngressPathOpt {
+            backend: Some(
+                <::k8s_openapi::api::networking::v1::IngressBackend as crate::OptionableConvert>::into_optioned(
+                    self.backend,
+                ),
+            ),
+            path: <Option<
+                std::string::String,
+            > as crate::OptionableConvert>::into_optioned(self.path),
+            path_type: Some(
+                <std::string::String as crate::OptionableConvert>::into_optioned(
+                    self.path_type,
+                ),
+            ),
+        }
+    }
+    fn try_from_optioned(
+        value: HTTPIngressPathOpt,
+    ) -> Result<Self, crate::optionable::Error> {
+        Ok(Self {
+            backend: <::k8s_openapi::api::networking::v1::IngressBackend as crate::OptionableConvert>::try_from_optioned(
+                value
+                    .backend
+                    .ok_or(crate::optionable::Error {
+                        missing_field: "backend",
+                    })?,
+            )?,
+            path: <Option<
+                std::string::String,
+            > as crate::OptionableConvert>::try_from_optioned(value.path)?,
+            path_type: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+                value
+                    .path_type
+                    .ok_or(crate::optionable::Error {
+                        missing_field: "path_type",
+                    })?,
+            )?,
+        })
+    }
+    fn merge(
+        &mut self,
+        other: HTTPIngressPathOpt,
+    ) -> Result<(), crate::optionable::Error> {
+        if let Some(other_value) = other.backend {
+            <::k8s_openapi::api::networking::v1::IngressBackend as crate::OptionableConvert>::merge(
+                &mut self.backend,
+                other_value,
+            )?;
+        }
+        <Option<
+            std::string::String,
+        > as crate::OptionableConvert>::merge(&mut self.path, other.path)?;
+        if let Some(other_value) = other.path_type {
+            <std::string::String as crate::OptionableConvert>::merge(
+                &mut self.path_type,
+                other_value,
+            )?;
+        }
+        Ok(())
+    }
+}

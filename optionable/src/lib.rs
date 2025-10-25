@@ -169,15 +169,15 @@
 extern crate alloc;
 
 use crate::optionable::Error;
-
 #[cfg_attr(docsrs, doc(cfg(feature = "derive")))]
 #[cfg(feature = "derive")]
 #[doc(inline)]
 pub use optionable_derive::Optionable;
+pub mod optionable;
 
 #[cfg(feature = "chrono")]
 mod chrono;
-pub mod optionable;
+mod k8s_openapi;
 #[cfg(feature = "serde_json")]
 mod serde_json;
 

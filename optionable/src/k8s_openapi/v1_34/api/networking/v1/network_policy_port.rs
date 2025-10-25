@@ -1,0 +1,63 @@
+pub struct NetworkPolicyPortOpt {
+    pub end_port: <Option<i32> as crate::Optionable>::Optioned,
+    pub port: <Option<
+        ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+    > as crate::Optionable>::Optioned,
+    pub protocol: <Option<std::string::String> as crate::Optionable>::Optioned,
+}
+#[automatically_derived]
+impl crate::Optionable
+for ::k8s_openapi::api::networking::v1::network_policy_port::NetworkPolicyPort {
+    type Optioned = NetworkPolicyPortOpt;
+}
+#[automatically_derived]
+impl crate::Optionable for NetworkPolicyPortOpt {
+    type Optioned = NetworkPolicyPortOpt;
+}
+#[automatically_derived]
+impl crate::OptionableConvert
+for ::k8s_openapi::api::networking::v1::network_policy_port::NetworkPolicyPort {
+    fn into_optioned(self) -> NetworkPolicyPortOpt {
+        NetworkPolicyPortOpt {
+            end_port: <Option<
+                i32,
+            > as crate::OptionableConvert>::into_optioned(self.end_port),
+            port: <Option<
+                ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            > as crate::OptionableConvert>::into_optioned(self.port),
+            protocol: <Option<
+                std::string::String,
+            > as crate::OptionableConvert>::into_optioned(self.protocol),
+        }
+    }
+    fn try_from_optioned(
+        value: NetworkPolicyPortOpt,
+    ) -> Result<Self, crate::optionable::Error> {
+        Ok(Self {
+            end_port: <Option<
+                i32,
+            > as crate::OptionableConvert>::try_from_optioned(value.end_port)?,
+            port: <Option<
+                ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            > as crate::OptionableConvert>::try_from_optioned(value.port)?,
+            protocol: <Option<
+                std::string::String,
+            > as crate::OptionableConvert>::try_from_optioned(value.protocol)?,
+        })
+    }
+    fn merge(
+        &mut self,
+        other: NetworkPolicyPortOpt,
+    ) -> Result<(), crate::optionable::Error> {
+        <Option<
+            i32,
+        > as crate::OptionableConvert>::merge(&mut self.end_port, other.end_port)?;
+        <Option<
+            ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+        > as crate::OptionableConvert>::merge(&mut self.port, other.port)?;
+        <Option<
+            std::string::String,
+        > as crate::OptionableConvert>::merge(&mut self.protocol, other.protocol)?;
+        Ok(())
+    }
+}
