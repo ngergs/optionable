@@ -14,7 +14,7 @@ pub struct SubjectRulesReviewStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::authorization::v1::subject_rules_review_status::SubjectRulesReviewStatus {
+for ::k8s_openapi::api::authorization::v1::SubjectRulesReviewStatus {
     type Optioned = SubjectRulesReviewStatusOpt;
 }
 #[automatically_derived]
@@ -23,7 +23,7 @@ impl crate::Optionable for SubjectRulesReviewStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authorization::v1::subject_rules_review_status::SubjectRulesReviewStatus {
+for ::k8s_openapi::api::authorization::v1::SubjectRulesReviewStatus {
     fn into_optioned(self) -> SubjectRulesReviewStatusOpt {
         SubjectRulesReviewStatusOpt {
             evaluation_error: <Option<

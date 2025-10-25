@@ -11,7 +11,7 @@ pub struct LocalSubjectAccessReviewOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::authorization::v1::local_subject_access_review::LocalSubjectAccessReview {
+for ::k8s_openapi::api::authorization::v1::LocalSubjectAccessReview {
     type Optioned = LocalSubjectAccessReviewOpt;
 }
 #[automatically_derived]
@@ -20,7 +20,7 @@ impl crate::Optionable for LocalSubjectAccessReviewOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authorization::v1::local_subject_access_review::LocalSubjectAccessReview {
+for ::k8s_openapi::api::authorization::v1::LocalSubjectAccessReview {
     fn into_optioned(self) -> LocalSubjectAccessReviewOpt {
         LocalSubjectAccessReviewOpt {
             metadata: Some(

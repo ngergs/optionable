@@ -6,8 +6,7 @@ pub struct DeviceTolerationOpt {
     pub value: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1::device_toleration::DeviceToleration {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1::DeviceToleration {
     type Optioned = DeviceTolerationOpt;
 }
 #[automatically_derived]
@@ -15,8 +14,7 @@ impl crate::Optionable for DeviceTolerationOpt {
     type Optioned = DeviceTolerationOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1::device_toleration::DeviceToleration {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceToleration {
     fn into_optioned(self) -> DeviceTolerationOpt {
         DeviceTolerationOpt {
             effect: <Option<

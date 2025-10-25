@@ -5,8 +5,7 @@ pub struct StatefulSetUpdateStrategyOpt {
     pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::stateful_set_update_strategy::StatefulSetUpdateStrategy {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::StatefulSetUpdateStrategy {
     type Optioned = StatefulSetUpdateStrategyOpt;
 }
 #[automatically_derived]
@@ -15,7 +14,7 @@ impl crate::Optionable for StatefulSetUpdateStrategyOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::stateful_set_update_strategy::StatefulSetUpdateStrategy {
+for ::k8s_openapi::api::apps::v1::StatefulSetUpdateStrategy {
     fn into_optioned(self) -> StatefulSetUpdateStrategyOpt {
         StatefulSetUpdateStrategyOpt {
             rolling_update: <Option<

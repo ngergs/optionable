@@ -10,8 +10,7 @@ pub struct ServiceCIDROpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::networking::v1beta1::service_cidr::ServiceCIDR {
+impl crate::Optionable for ::k8s_openapi::api::networking::v1beta1::ServiceCIDR {
     type Optioned = ServiceCIDROpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for ServiceCIDROpt {
     type Optioned = ServiceCIDROpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1beta1::service_cidr::ServiceCIDR {
+impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1beta1::ServiceCIDR {
     fn into_optioned(self) -> ServiceCIDROpt {
         ServiceCIDROpt {
             metadata: Some(

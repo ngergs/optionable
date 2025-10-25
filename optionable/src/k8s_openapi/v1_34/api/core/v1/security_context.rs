@@ -23,8 +23,7 @@ pub struct SecurityContextOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::security_context::SecurityContext {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::SecurityContext {
     type Optioned = SecurityContextOpt;
 }
 #[automatically_derived]
@@ -32,8 +31,7 @@ impl crate::Optionable for SecurityContextOpt {
     type Optioned = SecurityContextOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::security_context::SecurityContext {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecurityContext {
     fn into_optioned(self) -> SecurityContextOpt {
         SecurityContextOpt {
             allow_privilege_escalation: <Option<

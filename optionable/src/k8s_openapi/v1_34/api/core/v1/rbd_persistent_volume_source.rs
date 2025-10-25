@@ -13,8 +13,7 @@ pub struct RBDPersistentVolumeSourceOpt {
     pub user: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::rbd_persistent_volume_source::RBDPersistentVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::RBDPersistentVolumeSource {
     type Optioned = RBDPersistentVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -23,7 +22,7 @@ impl crate::Optionable for RBDPersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::rbd_persistent_volume_source::RBDPersistentVolumeSource {
+for ::k8s_openapi::api::core::v1::RBDPersistentVolumeSource {
     fn into_optioned(self) -> RBDPersistentVolumeSourceOpt {
         RBDPersistentVolumeSourceOpt {
             fs_type: <Option<

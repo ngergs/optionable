@@ -15,7 +15,7 @@ pub struct PodCertificateRequestStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::certificates::v1alpha1::pod_certificate_request_status::PodCertificateRequestStatus {
+for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus {
     type Optioned = PodCertificateRequestStatusOpt;
 }
 #[automatically_derived]
@@ -24,7 +24,7 @@ impl crate::Optionable for PodCertificateRequestStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::certificates::v1alpha1::pod_certificate_request_status::PodCertificateRequestStatus {
+for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus {
     fn into_optioned(self) -> PodCertificateRequestStatusOpt {
         PodCertificateRequestStatusOpt {
             begin_refresh_at: <Option<

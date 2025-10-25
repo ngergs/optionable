@@ -11,8 +11,7 @@ pub struct CephFSVolumeSourceOpt {
     pub user: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::ceph_fs_volume_source::CephFSVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::CephFSVolumeSource {
     type Optioned = CephFSVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -20,8 +19,7 @@ impl crate::Optionable for CephFSVolumeSourceOpt {
     type Optioned = CephFSVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::ceph_fs_volume_source::CephFSVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CephFSVolumeSource {
     fn into_optioned(self) -> CephFSVolumeSourceOpt {
         CephFSVolumeSourceOpt {
             monitors: Some(

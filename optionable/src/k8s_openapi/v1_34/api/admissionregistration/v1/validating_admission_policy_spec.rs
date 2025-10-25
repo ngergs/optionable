@@ -21,7 +21,7 @@ pub struct ValidatingAdmissionPolicySpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1::validating_admission_policy_spec::ValidatingAdmissionPolicySpec {
+for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicySpec {
     type Optioned = ValidatingAdmissionPolicySpecOpt;
 }
 #[automatically_derived]
@@ -30,7 +30,7 @@ impl crate::Optionable for ValidatingAdmissionPolicySpecOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1::validating_admission_policy_spec::ValidatingAdmissionPolicySpec {
+for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicySpec {
     fn into_optioned(self) -> ValidatingAdmissionPolicySpecOpt {
         ValidatingAdmissionPolicySpecOpt {
             audit_annotations: <Option<

@@ -5,8 +5,7 @@ pub struct FileKeySelectorOpt {
     pub volume_name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::file_key_selector::FileKeySelector {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::FileKeySelector {
     type Optioned = FileKeySelectorOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for FileKeySelectorOpt {
     type Optioned = FileKeySelectorOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::file_key_selector::FileKeySelector {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FileKeySelector {
     fn into_optioned(self) -> FileKeySelectorOpt {
         FileKeySelectorOpt {
             key: Some(

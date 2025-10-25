@@ -5,13 +5,14 @@ mod codegen {
     use clap::Parser;
     use darling::FromMeta;
     use optionable_codegen::{attribute_derives, attribute_no_convert, CodegenSettings};
-    use proc_macro2::Span;
+    use proc_macro2::{Ident, Span};
+    use quote::ToTokens;
     use std::fs::create_dir_all;
     use std::mem::take;
     use std::path::{Path, PathBuf};
     use std::{fs, io};
     use syn::Item::{Enum, Mod, Struct};
-    use syn::{Attribute, DeriveInput, Error, Item};
+    use syn::{Attribute, DeriveInput, Error, Item, Token, UseTree, Visibility};
 
     /// Generates `Optionable` and `OptionableConvert` implementation for structs/enums in
     /// the referenced `input_file` and all included internal modules recursively.
@@ -46,6 +47,7 @@ mod codegen {
             &args.output_dir,
             &type_attrs,
             &codegen_settings,
+            &vec![],
         )
     }
 
@@ -74,7 +76,7 @@ mod codegen {
             settings.optionable_crate_name = syn::Path::from_string("crate")?;
             settings.ty_prefix = Some(syn::Path::from_string(&format!("::{replace_crate_name}"))?);
             settings.input_crate_replacement =
-                Some(syn::Ident::new(replace_crate_name, Span::call_site()));
+                Some(Ident::new(replace_crate_name, Span::call_site()));
         }
         Ok(settings)
     }
@@ -86,6 +88,7 @@ mod codegen {
         output_path: &Path,
         type_attrs: &Vec<Attribute>,
         codegen_settings: &CodegenSettings,
+        usage_aliases: &[(String, String)],
     ) -> Result<(), Box<dyn std::error::Error>> {
         create_dir_all(output_path)?;
         let content_str = fs::read_to_string(input_file)?;
@@ -93,14 +96,26 @@ mod codegen {
         let input_path = input_file
             .parent()
             .ok_or("current file {input_file} has no parent")?;
+        let mut usage_aliases: Vec<_> = usage_aliases.into();
+        usage_aliases.append(&mut get_usage_aliases(&content.items));
         let result = content
             .items
             .into_iter()
-            .map(|item| item_codegen(item, input_path, output_path, type_attrs, codegen_settings))
+            .map(|item| {
+                item_codegen(
+                    item,
+                    input_path,
+                    output_path,
+                    type_attrs,
+                    codegen_settings,
+                    &usage_aliases,
+                )
+            })
             .collect::<Result<Vec<_>, _>>()?
             .into_iter()
             .flatten()
-            .collect::<Vec<_>>();
+            .map(|item| patch_impl_references(item, &usage_aliases))
+            .collect::<Result<Vec<_>, _>>()?;
         let result = syn::File {
             shebang: None,
             attrs: vec![],
@@ -124,6 +139,7 @@ mod codegen {
         output_path: &Path,
         type_attrs: &Vec<Attribute>,
         codegen_settings: &CodegenSettings,
+        usage_aliases: &[(String, String)],
     ) -> Result<Vec<Item>, Box<dyn std::error::Error>> {
         match item {
             Struct(mut item) => {
@@ -137,6 +153,8 @@ mod codegen {
             Mod(mut mod_entry) => {
                 if let Some(content) = mod_entry.content.as_mut() {
                     let items = take(&mut content.1);
+                    let mut usage_aliases: Vec<_> = usage_aliases.into();
+                    usage_aliases.append(&mut get_usage_aliases(&items));
                     content.1 = items
                         .into_iter()
                         .map(|item| {
@@ -146,12 +164,14 @@ mod codegen {
                                 output_path,
                                 type_attrs,
                                 codegen_settings,
+                                &usage_aliases,
                             )
                         })
                         .collect::<Result<Vec<_>, _>>()?
                         .into_iter()
                         .flatten()
-                        .collect();
+                        .map(|item| patch_impl_references(item, &usage_aliases))
+                        .collect::<Result<Vec<_>, _>>()?;
                     Ok(vec![Mod(mod_entry)])
                 } else {
                     // include of a module from another file
@@ -170,6 +190,7 @@ mod codegen {
                             output_path,
                             type_attrs,
                             &codegen_settings,
+                            usage_aliases,
                         )?;
                     } else {
                         let sub_folder_mod_path =
@@ -179,12 +200,67 @@ mod codegen {
                             &output_path.join(mod_entry.ident.to_string()),
                             type_attrs,
                             &codegen_settings,
+                            usage_aliases,
                         )?;
                     }
                     Ok(vec![Mod(mod_entry)])
                 }
             }
             _ => Ok(vec![]),
+        }
+    }
+
+    /// Filter the items and returns usages of the form `use self::<...>` if they are `UseTree`s themselves.
+    fn get_usage_aliases<'a>(items: impl IntoIterator<Item = &'a Item>) -> Vec<(String, String)> {
+        items
+            .into_iter()
+            .filter_map(|item| {
+                if let Item::Use(item) = item
+                    && item.vis == Visibility::Public(Token![pub](Span::call_site()))
+                    && let UseTree::Path(path) = &item.tree
+                    && &path.ident == "self"
+                    && let UseTree::Path(path) = *path.tree.clone()
+                    && let Some(leaf) = leaf_element(&path.tree)
+                {
+                    // todo: less hacky?
+                    let mut path_prefixed = ":: ".to_owned();
+                    let path = path.to_token_stream().to_string();
+                    path_prefixed.push_str(&path);
+                    let mut leaf_prefixed = ":: ".to_owned();
+                    leaf_prefixed.push_str(&leaf.to_token_stream().to_string());
+                    Some((path_prefixed, leaf_prefixed))
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+    /// Lead element of a `UseTree`. Does only support plain paths, returns None for unsupported types.
+    fn leaf_element(tree: &UseTree) -> Option<Ident> {
+        match tree {
+            UseTree::Name(ident) => Some(ident.ident.clone()),
+            UseTree::Path(path) => leaf_element(&path.tree),
+            _ => None,
+        }
+    }
+
+    /// Patches the object the `impl` references according to the provided aliases.
+    fn patch_impl_references(
+        item: Item,
+        usage_aliases: &[(String, String)],
+    ) -> Result<Item, Error> {
+        if let Item::Impl(mut item) = item {
+            let mut ty = item.self_ty.to_token_stream().to_string();
+            for alias in usage_aliases {
+                if ty.contains(&alias.0) {
+                    ty = ty.replace(&alias.0, &alias.1);
+                }
+            }
+            item.self_ty = syn::parse_str::<syn::Type>(&ty)?.into();
+            Ok(Item::Impl(item))
+        } else {
+            Ok(item)
         }
     }
 

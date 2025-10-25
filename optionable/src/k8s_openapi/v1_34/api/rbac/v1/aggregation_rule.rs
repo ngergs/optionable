@@ -4,8 +4,7 @@ pub struct AggregationRuleOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::rbac::v1::aggregation_rule::AggregationRule {
+impl crate::Optionable for ::k8s_openapi::api::rbac::v1::AggregationRule {
     type Optioned = AggregationRuleOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for AggregationRuleOpt {
     type Optioned = AggregationRuleOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::rbac::v1::aggregation_rule::AggregationRule {
+impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::AggregationRule {
     fn into_optioned(self) -> AggregationRuleOpt {
         AggregationRuleOpt {
             cluster_role_selectors: <Option<

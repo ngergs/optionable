@@ -4,7 +4,7 @@ pub struct ContainerUserOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::container_user::ContainerUser {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerUser {
     type Optioned = ContainerUserOpt;
 }
 #[automatically_derived]
@@ -12,8 +12,7 @@ impl crate::Optionable for ContainerUserOpt {
     type Optioned = ContainerUserOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::container_user::ContainerUser {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerUser {
     fn into_optioned(self) -> ContainerUserOpt {
         ContainerUserOpt {
             linux: <Option<

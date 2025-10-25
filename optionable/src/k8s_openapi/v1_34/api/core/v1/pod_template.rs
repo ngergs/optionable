@@ -7,7 +7,7 @@ pub struct PodTemplateOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::pod_template::PodTemplate {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PodTemplate {
     type Optioned = PodTemplateOpt;
 }
 #[automatically_derived]
@@ -15,8 +15,7 @@ impl crate::Optionable for PodTemplateOpt {
     type Optioned = PodTemplateOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::pod_template::PodTemplate {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodTemplate {
     fn into_optioned(self) -> PodTemplateOpt {
         PodTemplateOpt {
             metadata: Some(

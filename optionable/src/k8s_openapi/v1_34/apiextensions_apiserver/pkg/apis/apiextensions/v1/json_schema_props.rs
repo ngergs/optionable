@@ -112,7 +112,7 @@ pub struct JSONSchemaPropsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::json_schema_props::JSONSchemaProps {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps {
     type Optioned = JSONSchemaPropsOpt;
 }
 #[automatically_derived]
@@ -121,7 +121,7 @@ impl crate::Optionable for JSONSchemaPropsOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::json_schema_props::JSONSchemaProps {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps {
     fn into_optioned(self) -> JSONSchemaPropsOpt {
         JSONSchemaPropsOpt {
             ref_path: <Option<

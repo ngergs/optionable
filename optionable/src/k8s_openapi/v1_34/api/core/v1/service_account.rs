@@ -11,8 +11,7 @@ pub struct ServiceAccountOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::service_account::ServiceAccount {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ServiceAccount {
     type Optioned = ServiceAccountOpt;
 }
 #[automatically_derived]
@@ -20,8 +19,7 @@ impl crate::Optionable for ServiceAccountOpt {
     type Optioned = ServiceAccountOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::service_account::ServiceAccount {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
     fn into_optioned(self) -> ServiceAccountOpt {
         ServiceAccountOpt {
             automount_service_account_token: <Option<

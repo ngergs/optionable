@@ -16,8 +16,7 @@ pub struct ResourceRequirementsOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::resource_requirements::ResourceRequirements {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ResourceRequirements {
     type Optioned = ResourceRequirementsOpt;
 }
 #[automatically_derived]
@@ -25,8 +24,7 @@ impl crate::Optionable for ResourceRequirementsOpt {
     type Optioned = ResourceRequirementsOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::resource_requirements::ResourceRequirements {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceRequirements {
     fn into_optioned(self) -> ResourceRequirementsOpt {
         ResourceRequirementsOpt {
             claims: <Option<

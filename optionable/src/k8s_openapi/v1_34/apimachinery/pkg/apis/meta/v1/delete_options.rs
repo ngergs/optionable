@@ -16,7 +16,7 @@ pub struct DeleteOptionsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::delete_options::DeleteOptions {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions {
     type Optioned = DeleteOptionsOpt;
 }
 #[automatically_derived]
@@ -25,7 +25,7 @@ impl crate::Optionable for DeleteOptionsOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::delete_options::DeleteOptions {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions {
     fn into_optioned(self) -> DeleteOptionsOpt {
         DeleteOptionsOpt {
             api_version: <Option<

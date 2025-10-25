@@ -4,8 +4,7 @@ pub struct QueuingConfigurationOpt {
     pub queues: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::queuing_configuration::QueuingConfiguration {
+impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::QueuingConfiguration {
     type Optioned = QueuingConfigurationOpt;
 }
 #[automatically_derived]
@@ -14,7 +13,7 @@ impl crate::Optionable for QueuingConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::queuing_configuration::QueuingConfiguration {
+for ::k8s_openapi::api::flowcontrol::v1::QueuingConfiguration {
     fn into_optioned(self) -> QueuingConfigurationOpt {
         QueuingConfigurationOpt {
             hand_size: <Option<

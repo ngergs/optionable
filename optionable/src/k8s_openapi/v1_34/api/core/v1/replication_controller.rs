@@ -10,8 +10,7 @@ pub struct ReplicationControllerOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::replication_controller::ReplicationController {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ReplicationController {
     type Optioned = ReplicationControllerOpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for ReplicationControllerOpt {
     type Optioned = ReplicationControllerOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::replication_controller::ReplicationController {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ReplicationController {
     fn into_optioned(self) -> ReplicationControllerOpt {
         ReplicationControllerOpt {
             metadata: Some(

@@ -5,7 +5,7 @@ pub struct SubjectOpt {
     pub namespace: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::rbac::v1::subject::Subject {
+impl crate::Optionable for ::k8s_openapi::api::rbac::v1::Subject {
     type Optioned = SubjectOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for SubjectOpt {
     type Optioned = SubjectOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::subject::Subject {
+impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::Subject {
     fn into_optioned(self) -> SubjectOpt {
         SubjectOpt {
             api_group: <Option<

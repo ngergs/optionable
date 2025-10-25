@@ -10,7 +10,7 @@ pub struct DeploymentOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::apps::v1::deployment::Deployment {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::Deployment {
     type Optioned = DeploymentOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for DeploymentOpt {
     type Optioned = DeploymentOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::deployment::Deployment {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::Deployment {
     fn into_optioned(self) -> DeploymentOpt {
         DeploymentOpt {
             metadata: Some(

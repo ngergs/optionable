@@ -11,8 +11,7 @@ pub struct VolumeAttachmentStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::storage::v1::volume_attachment_status::VolumeAttachmentStatus {
+impl crate::Optionable for ::k8s_openapi::api::storage::v1::VolumeAttachmentStatus {
     type Optioned = VolumeAttachmentStatusOpt;
 }
 #[automatically_derived]
@@ -21,7 +20,7 @@ impl crate::Optionable for VolumeAttachmentStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::storage::v1::volume_attachment_status::VolumeAttachmentStatus {
+for ::k8s_openapi::api::storage::v1::VolumeAttachmentStatus {
     fn into_optioned(self) -> VolumeAttachmentStatusOpt {
         VolumeAttachmentStatusOpt {
             attach_error: <Option<

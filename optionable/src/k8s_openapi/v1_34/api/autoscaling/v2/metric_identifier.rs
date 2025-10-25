@@ -5,8 +5,7 @@ pub struct MetricIdentifierOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v2::metric_identifier::MetricIdentifier {
+impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::MetricIdentifier {
     type Optioned = MetricIdentifierOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for MetricIdentifierOpt {
     type Optioned = MetricIdentifierOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v2::metric_identifier::MetricIdentifier {
+impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricIdentifier {
     fn into_optioned(self) -> MetricIdentifierOpt {
         MetricIdentifierOpt {
             name: Some(

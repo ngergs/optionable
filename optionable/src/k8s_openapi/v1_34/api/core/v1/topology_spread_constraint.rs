@@ -15,8 +15,7 @@ pub struct TopologySpreadConstraintOpt {
     pub when_unsatisfiable: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::topology_spread_constraint::TopologySpreadConstraint {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::TopologySpreadConstraint {
     type Optioned = TopologySpreadConstraintOpt;
 }
 #[automatically_derived]
@@ -25,7 +24,7 @@ impl crate::Optionable for TopologySpreadConstraintOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::topology_spread_constraint::TopologySpreadConstraint {
+for ::k8s_openapi::api::core::v1::TopologySpreadConstraint {
     fn into_optioned(self) -> TopologySpreadConstraintOpt {
         TopologySpreadConstraintOpt {
             label_selector: <Option<

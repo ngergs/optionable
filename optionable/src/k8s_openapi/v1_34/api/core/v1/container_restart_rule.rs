@@ -5,8 +5,7 @@ pub struct ContainerRestartRuleOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::container_restart_rule::ContainerRestartRule {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerRestartRule {
     type Optioned = ContainerRestartRuleOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for ContainerRestartRuleOpt {
     type Optioned = ContainerRestartRuleOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::container_restart_rule::ContainerRestartRule {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerRestartRule {
     fn into_optioned(self) -> ContainerRestartRuleOpt {
         ContainerRestartRuleOpt {
             action: Some(

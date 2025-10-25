@@ -5,7 +5,7 @@ pub struct GroupVersionResourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::storagemigration::v1alpha1::group_version_resource::GroupVersionResource {
+for ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource {
     type Optioned = GroupVersionResourceOpt;
 }
 #[automatically_derived]
@@ -14,7 +14,7 @@ impl crate::Optionable for GroupVersionResourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::storagemigration::v1alpha1::group_version_resource::GroupVersionResource {
+for ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource {
     fn into_optioned(self) -> GroupVersionResourceOpt {
         GroupVersionResourceOpt {
             group: <Option<

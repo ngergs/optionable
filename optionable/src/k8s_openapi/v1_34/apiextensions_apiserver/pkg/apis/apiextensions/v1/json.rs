@@ -3,7 +3,7 @@ pub struct JSONOpt(
 );
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::json::JSON {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSON {
     type Optioned = JSONOpt;
 }
 #[automatically_derived]
@@ -12,7 +12,7 @@ impl crate::Optionable for JSONOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::json::JSON {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSON {
     fn into_optioned(self) -> JSONOpt {
         JSONOpt(
             Some(

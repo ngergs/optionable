@@ -7,8 +7,7 @@ pub struct CinderVolumeSourceOpt {
     pub volume_id: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::cinder_volume_source::CinderVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::CinderVolumeSource {
     type Optioned = CinderVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for CinderVolumeSourceOpt {
     type Optioned = CinderVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::cinder_volume_source::CinderVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CinderVolumeSource {
     fn into_optioned(self) -> CinderVolumeSourceOpt {
         CinderVolumeSourceOpt {
             fs_type: <Option<

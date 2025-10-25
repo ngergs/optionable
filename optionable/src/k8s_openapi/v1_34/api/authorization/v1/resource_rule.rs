@@ -13,8 +13,7 @@ pub struct ResourceRuleOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::authorization::v1::resource_rule::ResourceRule {
+impl crate::Optionable for ::k8s_openapi::api::authorization::v1::ResourceRule {
     type Optioned = ResourceRuleOpt;
 }
 #[automatically_derived]
@@ -22,8 +21,7 @@ impl crate::Optionable for ResourceRuleOpt {
     type Optioned = ResourceRuleOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::authorization::v1::resource_rule::ResourceRule {
+impl crate::OptionableConvert for ::k8s_openapi::api::authorization::v1::ResourceRule {
     fn into_optioned(self) -> ResourceRuleOpt {
         ResourceRuleOpt {
             api_groups: <Option<

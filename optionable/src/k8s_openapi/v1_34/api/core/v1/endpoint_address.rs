@@ -7,8 +7,7 @@ pub struct EndpointAddressOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::endpoint_address::EndpointAddress {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::EndpointAddress {
     type Optioned = EndpointAddressOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for EndpointAddressOpt {
     type Optioned = EndpointAddressOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::endpoint_address::EndpointAddress {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointAddress {
     fn into_optioned(self) -> EndpointAddressOpt {
         EndpointAddressOpt {
             hostname: <Option<

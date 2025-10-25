@@ -12,8 +12,7 @@ pub struct PolicyRulesWithSubjectsOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::policy_rules_with_subjects::PolicyRulesWithSubjects {
+impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::PolicyRulesWithSubjects {
     type Optioned = PolicyRulesWithSubjectsOpt;
 }
 #[automatically_derived]
@@ -22,7 +21,7 @@ impl crate::Optionable for PolicyRulesWithSubjectsOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::policy_rules_with_subjects::PolicyRulesWithSubjects {
+for ::k8s_openapi::api::flowcontrol::v1::PolicyRulesWithSubjects {
     fn into_optioned(self) -> PolicyRulesWithSubjectsOpt {
         PolicyRulesWithSubjectsOpt {
             non_resource_rules: <Option<

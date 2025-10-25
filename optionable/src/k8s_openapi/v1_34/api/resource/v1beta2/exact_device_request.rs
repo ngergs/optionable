@@ -14,8 +14,7 @@ pub struct ExactDeviceRequestOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta2::exact_device_request::ExactDeviceRequest {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::ExactDeviceRequest {
     type Optioned = ExactDeviceRequestOpt;
 }
 #[automatically_derived]
@@ -24,7 +23,7 @@ impl crate::Optionable for ExactDeviceRequestOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta2::exact_device_request::ExactDeviceRequest {
+for ::k8s_openapi::api::resource::v1beta2::ExactDeviceRequest {
     fn into_optioned(self) -> ExactDeviceRequestOpt {
         ExactDeviceRequestOpt {
             admin_access: <Option<

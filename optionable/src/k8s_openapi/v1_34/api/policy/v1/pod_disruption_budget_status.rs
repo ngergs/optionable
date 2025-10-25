@@ -15,8 +15,7 @@ pub struct PodDisruptionBudgetStatusOpt {
     pub observed_generation: <Option<i64> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::policy::v1::pod_disruption_budget_status::PodDisruptionBudgetStatus {
+impl crate::Optionable for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetStatus {
     type Optioned = PodDisruptionBudgetStatusOpt;
 }
 #[automatically_derived]
@@ -25,7 +24,7 @@ impl crate::Optionable for PodDisruptionBudgetStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::policy::v1::pod_disruption_budget_status::PodDisruptionBudgetStatus {
+for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetStatus {
     fn into_optioned(self) -> PodDisruptionBudgetStatusOpt {
         PodDisruptionBudgetStatusOpt {
             conditions: <Option<

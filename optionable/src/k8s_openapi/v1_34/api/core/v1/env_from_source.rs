@@ -8,7 +8,7 @@ pub struct EnvFromSourceOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::env_from_source::EnvFromSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::EnvFromSource {
     type Optioned = EnvFromSourceOpt;
 }
 #[automatically_derived]
@@ -16,8 +16,7 @@ impl crate::Optionable for EnvFromSourceOpt {
     type Optioned = EnvFromSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::env_from_source::EnvFromSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EnvFromSource {
     fn into_optioned(self) -> EnvFromSourceOpt {
         EnvFromSourceOpt {
             config_map_ref: <Option<

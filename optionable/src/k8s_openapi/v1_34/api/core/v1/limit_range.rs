@@ -7,7 +7,7 @@ pub struct LimitRangeOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::limit_range::LimitRange {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::LimitRange {
     type Optioned = LimitRangeOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for LimitRangeOpt {
     type Optioned = LimitRangeOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::limit_range::LimitRange {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LimitRange {
     fn into_optioned(self) -> LimitRangeOpt {
         LimitRangeOpt {
             metadata: Some(

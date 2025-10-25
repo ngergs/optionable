@@ -5,7 +5,7 @@ pub struct CapabilitiesOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::capabilities::Capabilities {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::Capabilities {
     type Optioned = CapabilitiesOpt;
 }
 #[automatically_derived]
@@ -13,8 +13,7 @@ impl crate::Optionable for CapabilitiesOpt {
     type Optioned = CapabilitiesOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::capabilities::Capabilities {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Capabilities {
     fn into_optioned(self) -> CapabilitiesOpt {
         CapabilitiesOpt {
             add: <Option<

@@ -11,7 +11,7 @@ pub struct CapacityRequestPolicyRangeOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta2::capacity_request_policy_range::CapacityRequestPolicyRange {
+for ::k8s_openapi::api::resource::v1beta2::CapacityRequestPolicyRange {
     type Optioned = CapacityRequestPolicyRangeOpt;
 }
 #[automatically_derived]
@@ -20,7 +20,7 @@ impl crate::Optionable for CapacityRequestPolicyRangeOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta2::capacity_request_policy_range::CapacityRequestPolicyRange {
+for ::k8s_openapi::api::resource::v1beta2::CapacityRequestPolicyRange {
     fn into_optioned(self) -> CapacityRequestPolicyRangeOpt {
         CapacityRequestPolicyRangeOpt {
             max: <Option<

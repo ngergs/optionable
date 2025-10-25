@@ -6,7 +6,7 @@ pub struct VolumeErrorOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::storage::v1::volume_error::VolumeError {
+impl crate::Optionable for ::k8s_openapi::api::storage::v1::VolumeError {
     type Optioned = VolumeErrorOpt;
 }
 #[automatically_derived]
@@ -14,8 +14,7 @@ impl crate::Optionable for VolumeErrorOpt {
     type Optioned = VolumeErrorOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::storage::v1::volume_error::VolumeError {
+impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeError {
     fn into_optioned(self) -> VolumeErrorOpt {
         VolumeErrorOpt {
             error_code: <Option<

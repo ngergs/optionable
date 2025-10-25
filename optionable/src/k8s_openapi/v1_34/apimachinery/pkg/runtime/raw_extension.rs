@@ -2,8 +2,7 @@ pub struct RawExtensionOpt(
     pub Option<<::k8s_openapi::serde_json::Value as crate::Optionable>::Optioned>,
 );
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::runtime::raw_extension::RawExtension {
+impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::runtime::RawExtension {
     type Optioned = RawExtensionOpt;
 }
 #[automatically_derived]
@@ -12,7 +11,7 @@ impl crate::Optionable for RawExtensionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::runtime::raw_extension::RawExtension {
+for ::k8s_openapi::apimachinery::pkg::runtime::RawExtension {
     fn into_optioned(self) -> RawExtensionOpt {
         RawExtensionOpt(
             Some(

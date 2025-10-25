@@ -2,8 +2,7 @@ pub struct ClientIPConfigOpt {
     pub timeout_seconds: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::client_ip_config::ClientIPConfig {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ClientIPConfig {
     type Optioned = ClientIPConfigOpt;
 }
 #[automatically_derived]
@@ -11,8 +10,7 @@ impl crate::Optionable for ClientIPConfigOpt {
     type Optioned = ClientIPConfigOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::client_ip_config::ClientIPConfig {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ClientIPConfig {
     fn into_optioned(self) -> ClientIPConfigOpt {
         ClientIPConfigOpt {
             timeout_seconds: <Option<

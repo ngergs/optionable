@@ -7,8 +7,7 @@ pub struct DeviceCapacityOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1::device_capacity::DeviceCapacity {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1::DeviceCapacity {
     type Optioned = DeviceCapacityOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for DeviceCapacityOpt {
     type Optioned = DeviceCapacityOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1::device_capacity::DeviceCapacity {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceCapacity {
     fn into_optioned(self) -> DeviceCapacityOpt {
         DeviceCapacityOpt {
             request_policy: <Option<

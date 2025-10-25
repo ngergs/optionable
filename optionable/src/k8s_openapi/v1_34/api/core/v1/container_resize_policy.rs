@@ -3,8 +3,7 @@ pub struct ContainerResizePolicyOpt {
     pub restart_policy: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::container_resize_policy::ContainerResizePolicy {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerResizePolicy {
     type Optioned = ContainerResizePolicyOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,7 @@ impl crate::Optionable for ContainerResizePolicyOpt {
     type Optioned = ContainerResizePolicyOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::container_resize_policy::ContainerResizePolicy {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerResizePolicy {
     fn into_optioned(self) -> ContainerResizePolicyOpt {
         ContainerResizePolicyOpt {
             resource_name: Some(

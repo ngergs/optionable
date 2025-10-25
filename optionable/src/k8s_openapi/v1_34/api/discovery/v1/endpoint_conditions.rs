@@ -4,8 +4,7 @@ pub struct EndpointConditionsOpt {
     pub terminating: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::discovery::v1::endpoint_conditions::EndpointConditions {
+impl crate::Optionable for ::k8s_openapi::api::discovery::v1::EndpointConditions {
     type Optioned = EndpointConditionsOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for EndpointConditionsOpt {
     type Optioned = EndpointConditionsOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::discovery::v1::endpoint_conditions::EndpointConditions {
+impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointConditions {
     fn into_optioned(self) -> EndpointConditionsOpt {
         EndpointConditionsOpt {
             ready: <Option<bool> as crate::OptionableConvert>::into_optioned(self.ready),

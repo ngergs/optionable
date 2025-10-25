@@ -4,7 +4,7 @@ pub struct VariableOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1alpha1::variable::Variable {
+for ::k8s_openapi::api::admissionregistration::v1alpha1::Variable {
     type Optioned = VariableOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for VariableOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1alpha1::variable::Variable {
+for ::k8s_openapi::api::admissionregistration::v1alpha1::Variable {
     fn into_optioned(self) -> VariableOpt {
         VariableOpt {
             expression: Some(

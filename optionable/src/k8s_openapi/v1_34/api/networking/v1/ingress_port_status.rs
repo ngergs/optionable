@@ -4,8 +4,7 @@ pub struct IngressPortStatusOpt {
     pub protocol: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::networking::v1::ingress_port_status::IngressPortStatus {
+impl crate::Optionable for ::k8s_openapi::api::networking::v1::IngressPortStatus {
     type Optioned = IngressPortStatusOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for IngressPortStatusOpt {
     type Optioned = IngressPortStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1::ingress_port_status::IngressPortStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressPortStatus {
     fn into_optioned(self) -> IngressPortStatusOpt {
         IngressPortStatusOpt {
             error: <Option<

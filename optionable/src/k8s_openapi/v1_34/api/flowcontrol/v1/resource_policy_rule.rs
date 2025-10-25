@@ -14,8 +14,7 @@ pub struct ResourcePolicyRuleOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::resource_policy_rule::ResourcePolicyRule {
+impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::ResourcePolicyRule {
     type Optioned = ResourcePolicyRuleOpt;
 }
 #[automatically_derived]
@@ -24,7 +23,7 @@ impl crate::Optionable for ResourcePolicyRuleOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::resource_policy_rule::ResourcePolicyRule {
+for ::k8s_openapi::api::flowcontrol::v1::ResourcePolicyRule {
     fn into_optioned(self) -> ResourcePolicyRuleOpt {
         ResourcePolicyRuleOpt {
             api_groups: Some(

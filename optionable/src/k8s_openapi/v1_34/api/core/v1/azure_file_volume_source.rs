@@ -4,8 +4,7 @@ pub struct AzureFileVolumeSourceOpt {
     pub share_name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::azure_file_volume_source::AzureFileVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::AzureFileVolumeSource {
     type Optioned = AzureFileVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for AzureFileVolumeSourceOpt {
     type Optioned = AzureFileVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::azure_file_volume_source::AzureFileVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AzureFileVolumeSource {
     fn into_optioned(self) -> AzureFileVolumeSourceOpt {
         AzureFileVolumeSourceOpt {
             read_only: <Option<

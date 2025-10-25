@@ -20,7 +20,7 @@ pub struct PodCertificateRequestSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::certificates::v1alpha1::pod_certificate_request_spec::PodCertificateRequestSpec {
+for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestSpec {
     type Optioned = PodCertificateRequestSpecOpt;
 }
 #[automatically_derived]
@@ -29,7 +29,7 @@ impl crate::Optionable for PodCertificateRequestSpecOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::certificates::v1alpha1::pod_certificate_request_spec::PodCertificateRequestSpec {
+for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestSpec {
     fn into_optioned(self) -> PodCertificateRequestSpecOpt {
         PodCertificateRequestSpecOpt {
             max_expiration_seconds: <Option<

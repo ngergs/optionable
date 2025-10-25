@@ -2,8 +2,7 @@ pub struct PodReadinessGateOpt {
     pub condition_type: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::pod_readiness_gate::PodReadinessGate {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PodReadinessGate {
     type Optioned = PodReadinessGateOpt;
 }
 #[automatically_derived]
@@ -11,8 +10,7 @@ impl crate::Optionable for PodReadinessGateOpt {
     type Optioned = PodReadinessGateOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::pod_readiness_gate::PodReadinessGate {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodReadinessGate {
     fn into_optioned(self) -> PodReadinessGateOpt {
         PodReadinessGateOpt {
             condition_type: Some(

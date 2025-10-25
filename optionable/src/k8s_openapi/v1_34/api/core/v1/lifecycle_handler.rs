@@ -13,8 +13,7 @@ pub struct LifecycleHandlerOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::lifecycle_handler::LifecycleHandler {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::LifecycleHandler {
     type Optioned = LifecycleHandlerOpt;
 }
 #[automatically_derived]
@@ -22,8 +21,7 @@ impl crate::Optionable for LifecycleHandlerOpt {
     type Optioned = LifecycleHandlerOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::lifecycle_handler::LifecycleHandler {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LifecycleHandler {
     fn into_optioned(self) -> LifecycleHandlerOpt {
         LifecycleHandlerOpt {
             exec: <Option<

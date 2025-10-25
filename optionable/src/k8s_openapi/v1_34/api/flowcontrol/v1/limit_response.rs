@@ -5,8 +5,7 @@ pub struct LimitResponseOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::limit_response::LimitResponse {
+impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::LimitResponse {
     type Optioned = LimitResponseOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for LimitResponseOpt {
     type Optioned = LimitResponseOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::limit_response::LimitResponse {
+impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::LimitResponse {
     fn into_optioned(self) -> LimitResponseOpt {
         LimitResponseOpt {
             queuing: <Option<

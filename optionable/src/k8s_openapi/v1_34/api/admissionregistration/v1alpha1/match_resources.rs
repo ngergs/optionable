@@ -19,7 +19,7 @@ pub struct MatchResourcesOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1alpha1::match_resources::MatchResources {
+for ::k8s_openapi::api::admissionregistration::v1alpha1::MatchResources {
     type Optioned = MatchResourcesOpt;
 }
 #[automatically_derived]
@@ -28,7 +28,7 @@ impl crate::Optionable for MatchResourcesOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1alpha1::match_resources::MatchResources {
+for ::k8s_openapi::api::admissionregistration::v1alpha1::MatchResources {
     fn into_optioned(self) -> MatchResourcesOpt {
         MatchResourcesOpt {
             exclude_resource_rules: <Option<

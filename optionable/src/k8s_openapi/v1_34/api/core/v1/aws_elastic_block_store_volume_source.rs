@@ -6,7 +6,7 @@ pub struct AWSElasticBlockStoreVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::core::v1::aws_elastic_block_store_volume_source::AWSElasticBlockStoreVolumeSource {
+for ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource {
     type Optioned = AWSElasticBlockStoreVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for AWSElasticBlockStoreVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::aws_elastic_block_store_volume_source::AWSElasticBlockStoreVolumeSource {
+for ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource {
     fn into_optioned(self) -> AWSElasticBlockStoreVolumeSourceOpt {
         AWSElasticBlockStoreVolumeSourceOpt {
             fs_type: <Option<

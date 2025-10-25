@@ -13,8 +13,7 @@ pub struct ScaleIOVolumeSourceOpt {
     pub volume_name: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::scale_io_volume_source::ScaleIOVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ScaleIOVolumeSource {
     type Optioned = ScaleIOVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -22,8 +21,7 @@ impl crate::Optionable for ScaleIOVolumeSourceOpt {
     type Optioned = ScaleIOVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::scale_io_volume_source::ScaleIOVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScaleIOVolumeSource {
     fn into_optioned(self) -> ScaleIOVolumeSourceOpt {
         ScaleIOVolumeSourceOpt {
             fs_type: <Option<

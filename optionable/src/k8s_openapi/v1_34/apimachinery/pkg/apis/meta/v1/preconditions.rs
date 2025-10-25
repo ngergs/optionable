@@ -4,7 +4,7 @@ pub struct PreconditionsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::preconditions::Preconditions {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Preconditions {
     type Optioned = PreconditionsOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for PreconditionsOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::preconditions::Preconditions {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Preconditions {
     fn into_optioned(self) -> PreconditionsOpt {
         PreconditionsOpt {
             resource_version: <Option<

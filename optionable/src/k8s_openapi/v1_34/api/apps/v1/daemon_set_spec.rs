@@ -12,7 +12,7 @@ pub struct DaemonSetSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::apps::v1::daemon_set_spec::DaemonSetSpec {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::DaemonSetSpec {
     type Optioned = DaemonSetSpecOpt;
 }
 #[automatically_derived]
@@ -20,8 +20,7 @@ impl crate::Optionable for DaemonSetSpecOpt {
     type Optioned = DaemonSetSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::daemon_set_spec::DaemonSetSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetSpec {
     fn into_optioned(self) -> DaemonSetSpecOpt {
         DaemonSetSpecOpt {
             min_ready_seconds: <Option<

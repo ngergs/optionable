@@ -5,7 +5,7 @@ pub struct HostAliasOpt {
     pub ip: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::host_alias::HostAlias {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::HostAlias {
     type Optioned = HostAliasOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for HostAliasOpt {
     type Optioned = HostAliasOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::host_alias::HostAlias {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HostAlias {
     fn into_optioned(self) -> HostAliasOpt {
         HostAliasOpt {
             hostnames: <Option<

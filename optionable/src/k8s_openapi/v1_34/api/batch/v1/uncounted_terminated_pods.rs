@@ -7,8 +7,7 @@ pub struct UncountedTerminatedPodsOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::batch::v1::uncounted_terminated_pods::UncountedTerminatedPods {
+impl crate::Optionable for ::k8s_openapi::api::batch::v1::UncountedTerminatedPods {
     type Optioned = UncountedTerminatedPodsOpt;
 }
 #[automatically_derived]
@@ -17,7 +16,7 @@ impl crate::Optionable for UncountedTerminatedPodsOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::batch::v1::uncounted_terminated_pods::UncountedTerminatedPods {
+for ::k8s_openapi::api::batch::v1::UncountedTerminatedPods {
     fn into_optioned(self) -> UncountedTerminatedPodsOpt {
         UncountedTerminatedPodsOpt {
             failed: <Option<

@@ -5,8 +5,7 @@ pub struct DeviceAttributeOpt {
     pub version: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1::device_attribute::DeviceAttribute {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1::DeviceAttribute {
     type Optioned = DeviceAttributeOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for DeviceAttributeOpt {
     type Optioned = DeviceAttributeOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1::device_attribute::DeviceAttribute {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceAttribute {
     fn into_optioned(self) -> DeviceAttributeOpt {
         DeviceAttributeOpt {
             bool: <Option<bool> as crate::OptionableConvert>::into_optioned(self.bool),

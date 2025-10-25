@@ -5,7 +5,7 @@ pub struct StatusCauseOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::status_cause::StatusCause {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusCause {
     type Optioned = StatusCauseOpt;
 }
 #[automatically_derived]
@@ -14,7 +14,7 @@ impl crate::Optionable for StatusCauseOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::status_cause::StatusCause {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusCause {
     fn into_optioned(self) -> StatusCauseOpt {
         StatusCauseOpt {
             field: <Option<

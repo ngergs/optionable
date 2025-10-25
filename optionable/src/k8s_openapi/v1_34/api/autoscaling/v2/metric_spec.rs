@@ -17,7 +17,7 @@ pub struct MetricSpecOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::metric_spec::MetricSpec {
+impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::MetricSpec {
     type Optioned = MetricSpecOpt;
 }
 #[automatically_derived]
@@ -25,8 +25,7 @@ impl crate::Optionable for MetricSpecOpt {
     type Optioned = MetricSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v2::metric_spec::MetricSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricSpec {
     fn into_optioned(self) -> MetricSpecOpt {
         MetricSpecOpt {
             container_resource: <Option<

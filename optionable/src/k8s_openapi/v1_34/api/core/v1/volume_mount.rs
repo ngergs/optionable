@@ -10,7 +10,7 @@ pub struct VolumeMountOpt {
     pub sub_path_expr: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::volume_mount::VolumeMount {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::VolumeMount {
     type Optioned = VolumeMountOpt;
 }
 #[automatically_derived]
@@ -18,8 +18,7 @@ impl crate::Optionable for VolumeMountOpt {
     type Optioned = VolumeMountOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::volume_mount::VolumeMount {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeMount {
     fn into_optioned(self) -> VolumeMountOpt {
         VolumeMountOpt {
             mount_path: Some(

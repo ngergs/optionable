@@ -10,7 +10,7 @@ pub struct HTTPGetActionOpt {
     pub scheme: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::http_get_action::HTTPGetAction {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::HTTPGetAction {
     type Optioned = HTTPGetActionOpt;
 }
 #[automatically_derived]
@@ -18,8 +18,7 @@ impl crate::Optionable for HTTPGetActionOpt {
     type Optioned = HTTPGetActionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::http_get_action::HTTPGetAction {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HTTPGetAction {
     fn into_optioned(self) -> HTTPGetActionOpt {
         HTTPGetActionOpt {
             host: <Option<

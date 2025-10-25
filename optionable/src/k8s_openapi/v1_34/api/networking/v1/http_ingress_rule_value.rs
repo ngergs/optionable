@@ -6,8 +6,7 @@ pub struct HTTPIngressRuleValueOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::networking::v1::http_ingress_rule_value::HTTPIngressRuleValue {
+impl crate::Optionable for ::k8s_openapi::api::networking::v1::HTTPIngressRuleValue {
     type Optioned = HTTPIngressRuleValueOpt;
 }
 #[automatically_derived]
@@ -16,7 +15,7 @@ impl crate::Optionable for HTTPIngressRuleValueOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1::http_ingress_rule_value::HTTPIngressRuleValue {
+for ::k8s_openapi::api::networking::v1::HTTPIngressRuleValue {
     fn into_optioned(self) -> HTTPIngressRuleValueOpt {
         HTTPIngressRuleValueOpt {
             paths: Some(

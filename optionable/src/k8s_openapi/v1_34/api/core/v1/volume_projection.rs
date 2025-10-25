@@ -19,8 +19,7 @@ pub struct VolumeProjectionOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::volume_projection::VolumeProjection {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::VolumeProjection {
     type Optioned = VolumeProjectionOpt;
 }
 #[automatically_derived]
@@ -28,8 +27,7 @@ impl crate::Optionable for VolumeProjectionOpt {
     type Optioned = VolumeProjectionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::volume_projection::VolumeProjection {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeProjection {
     fn into_optioned(self) -> VolumeProjectionOpt {
         VolumeProjectionOpt {
             cluster_trust_bundle: <Option<

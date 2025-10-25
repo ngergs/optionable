@@ -9,7 +9,7 @@ pub struct CustomResourceDefinitionConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_definition_condition::CustomResourceDefinitionCondition {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionCondition {
     type Optioned = CustomResourceDefinitionConditionOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for CustomResourceDefinitionConditionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_definition_condition::CustomResourceDefinitionCondition {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionCondition {
     fn into_optioned(self) -> CustomResourceDefinitionConditionOpt {
         CustomResourceDefinitionConditionOpt {
             last_transition_time: <Option<

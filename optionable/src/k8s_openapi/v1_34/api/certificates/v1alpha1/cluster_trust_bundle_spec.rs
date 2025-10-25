@@ -4,7 +4,7 @@ pub struct ClusterTrustBundleSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::certificates::v1alpha1::cluster_trust_bundle_spec::ClusterTrustBundleSpec {
+for ::k8s_openapi::api::certificates::v1alpha1::ClusterTrustBundleSpec {
     type Optioned = ClusterTrustBundleSpecOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for ClusterTrustBundleSpecOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::certificates::v1alpha1::cluster_trust_bundle_spec::ClusterTrustBundleSpec {
+for ::k8s_openapi::api::certificates::v1alpha1::ClusterTrustBundleSpec {
     fn into_optioned(self) -> ClusterTrustBundleSpecOpt {
         ClusterTrustBundleSpecOpt {
             signer_name: <Option<

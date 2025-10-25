@@ -10,7 +10,7 @@ pub struct FlowSchemaOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::flow_schema::FlowSchema {
+impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::FlowSchema {
     type Optioned = FlowSchemaOpt;
 }
 #[automatically_derived]
@@ -18,8 +18,7 @@ impl crate::Optionable for FlowSchemaOpt {
     type Optioned = FlowSchemaOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::flow_schema::FlowSchema {
+impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::FlowSchema {
     fn into_optioned(self) -> FlowSchemaOpt {
         FlowSchemaOpt {
             metadata: Some(

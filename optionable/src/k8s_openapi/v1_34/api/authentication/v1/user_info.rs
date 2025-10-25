@@ -12,7 +12,7 @@ pub struct UserInfoOpt {
     pub username: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::authentication::v1::user_info::UserInfo {
+impl crate::Optionable for ::k8s_openapi::api::authentication::v1::UserInfo {
     type Optioned = UserInfoOpt;
 }
 #[automatically_derived]
@@ -20,8 +20,7 @@ impl crate::Optionable for UserInfoOpt {
     type Optioned = UserInfoOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::authentication::v1::user_info::UserInfo {
+impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::UserInfo {
     fn into_optioned(self) -> UserInfoOpt {
         UserInfoOpt {
             extra: <Option<

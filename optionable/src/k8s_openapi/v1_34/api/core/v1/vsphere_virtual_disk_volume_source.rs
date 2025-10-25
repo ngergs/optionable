@@ -7,8 +7,7 @@ pub struct VsphereVirtualDiskVolumeSourceOpt {
     pub volume_path: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::vsphere_virtual_disk_volume_source::VsphereVirtualDiskVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource {
     type Optioned = VsphereVirtualDiskVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -17,7 +16,7 @@ impl crate::Optionable for VsphereVirtualDiskVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::vsphere_virtual_disk_volume_source::VsphereVirtualDiskVolumeSource {
+for ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource {
     fn into_optioned(self) -> VsphereVirtualDiskVolumeSourceOpt {
         VsphereVirtualDiskVolumeSourceOpt {
             fs_type: <Option<

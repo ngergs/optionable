@@ -5,8 +5,7 @@ pub struct NodeRuntimeHandlerOpt {
     pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::node_runtime_handler::NodeRuntimeHandler {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeRuntimeHandler {
     type Optioned = NodeRuntimeHandlerOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for NodeRuntimeHandlerOpt {
     type Optioned = NodeRuntimeHandlerOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::node_runtime_handler::NodeRuntimeHandler {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeRuntimeHandler {
     fn into_optioned(self) -> NodeRuntimeHandlerOpt {
         NodeRuntimeHandlerOpt {
             features: <Option<

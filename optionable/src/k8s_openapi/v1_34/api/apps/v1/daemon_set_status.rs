@@ -13,8 +13,7 @@ pub struct DaemonSetStatusOpt {
     pub updated_number_scheduled: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::daemon_set_status::DaemonSetStatus {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::DaemonSetStatus {
     type Optioned = DaemonSetStatusOpt;
 }
 #[automatically_derived]
@@ -22,8 +21,7 @@ impl crate::Optionable for DaemonSetStatusOpt {
     type Optioned = DaemonSetStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::daemon_set_status::DaemonSetStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetStatus {
     fn into_optioned(self) -> DaemonSetStatusOpt {
         DaemonSetStatusOpt {
             collision_count: <Option<

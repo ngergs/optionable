@@ -93,8 +93,7 @@ pub struct PersistentVolumeSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::persistent_volume_spec::PersistentVolumeSpec {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PersistentVolumeSpec {
     type Optioned = PersistentVolumeSpecOpt;
 }
 #[automatically_derived]
@@ -102,8 +101,7 @@ impl crate::Optionable for PersistentVolumeSpecOpt {
     type Optioned = PersistentVolumeSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::persistent_volume_spec::PersistentVolumeSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolumeSpec {
     fn into_optioned(self) -> PersistentVolumeSpecOpt {
         PersistentVolumeSpecOpt {
             access_modes: <Option<

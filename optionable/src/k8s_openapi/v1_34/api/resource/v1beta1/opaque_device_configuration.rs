@@ -6,7 +6,7 @@ pub struct OpaqueDeviceConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta1::opaque_device_configuration::OpaqueDeviceConfiguration {
+for ::k8s_openapi::api::resource::v1beta1::OpaqueDeviceConfiguration {
     type Optioned = OpaqueDeviceConfigurationOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for OpaqueDeviceConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta1::opaque_device_configuration::OpaqueDeviceConfiguration {
+for ::k8s_openapi::api::resource::v1beta1::OpaqueDeviceConfiguration {
     fn into_optioned(self) -> OpaqueDeviceConfigurationOpt {
         OpaqueDeviceConfigurationOpt {
             driver: Some(

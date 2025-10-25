@@ -4,7 +4,7 @@ pub struct ExemptPriorityLevelConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::exempt_priority_level_configuration::ExemptPriorityLevelConfiguration {
+for ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration {
     type Optioned = ExemptPriorityLevelConfigurationOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for ExemptPriorityLevelConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::exempt_priority_level_configuration::ExemptPriorityLevelConfiguration {
+for ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration {
     fn into_optioned(self) -> ExemptPriorityLevelConfigurationOpt {
         ExemptPriorityLevelConfigurationOpt {
             lendable_percent: <Option<

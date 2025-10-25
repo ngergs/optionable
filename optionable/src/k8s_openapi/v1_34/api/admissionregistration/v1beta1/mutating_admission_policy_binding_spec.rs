@@ -9,7 +9,7 @@ pub struct MutatingAdmissionPolicyBindingSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1beta1::mutating_admission_policy_binding_spec::MutatingAdmissionPolicyBindingSpec {
+for ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBindingSpec {
     type Optioned = MutatingAdmissionPolicyBindingSpecOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for MutatingAdmissionPolicyBindingSpecOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1beta1::mutating_admission_policy_binding_spec::MutatingAdmissionPolicyBindingSpec {
+for ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBindingSpec {
     fn into_optioned(self) -> MutatingAdmissionPolicyBindingSpecOpt {
         MutatingAdmissionPolicyBindingSpecOpt {
             match_resources: <Option<

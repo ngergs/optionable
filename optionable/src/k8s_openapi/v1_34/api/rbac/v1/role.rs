@@ -7,7 +7,7 @@ pub struct RoleOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::rbac::v1::role::Role {
+impl crate::Optionable for ::k8s_openapi::api::rbac::v1::Role {
     type Optioned = RoleOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for RoleOpt {
     type Optioned = RoleOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::role::Role {
+impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::Role {
     fn into_optioned(self) -> RoleOpt {
         RoleOpt {
             metadata: Some(

@@ -10,8 +10,7 @@ pub struct TokenReviewOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::authentication::v1::token_review::TokenReview {
+impl crate::Optionable for ::k8s_openapi::api::authentication::v1::TokenReview {
     type Optioned = TokenReviewOpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for TokenReviewOpt {
     type Optioned = TokenReviewOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::authentication::v1::token_review::TokenReview {
+impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::TokenReview {
     fn into_optioned(self) -> TokenReviewOpt {
         TokenReviewOpt {
             metadata: Some(

@@ -4,7 +4,7 @@ pub struct RoleRefOpt {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::rbac::v1::role_ref::RoleRef {
+impl crate::Optionable for ::k8s_openapi::api::rbac::v1::RoleRef {
     type Optioned = RoleRefOpt;
 }
 #[automatically_derived]
@@ -12,7 +12,7 @@ impl crate::Optionable for RoleRefOpt {
     type Optioned = RoleRefOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::role_ref::RoleRef {
+impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleRef {
     fn into_optioned(self) -> RoleRefOpt {
         RoleRefOpt {
             api_group: Some(

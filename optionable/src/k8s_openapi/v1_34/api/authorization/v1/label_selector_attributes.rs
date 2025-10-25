@@ -8,7 +8,7 @@ pub struct LabelSelectorAttributesOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::authorization::v1::label_selector_attributes::LabelSelectorAttributes {
+for ::k8s_openapi::api::authorization::v1::LabelSelectorAttributes {
     type Optioned = LabelSelectorAttributesOpt;
 }
 #[automatically_derived]
@@ -17,7 +17,7 @@ impl crate::Optionable for LabelSelectorAttributesOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authorization::v1::label_selector_attributes::LabelSelectorAttributes {
+for ::k8s_openapi::api::authorization::v1::LabelSelectorAttributes {
     fn into_optioned(self) -> LabelSelectorAttributesOpt {
         LabelSelectorAttributesOpt {
             raw_selector: <Option<

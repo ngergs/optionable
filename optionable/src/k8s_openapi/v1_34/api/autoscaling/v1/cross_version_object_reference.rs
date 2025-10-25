@@ -5,7 +5,7 @@ pub struct CrossVersionObjectReferenceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v1::cross_version_object_reference::CrossVersionObjectReference {
+for ::k8s_openapi::api::autoscaling::v1::CrossVersionObjectReference {
     type Optioned = CrossVersionObjectReferenceOpt;
 }
 #[automatically_derived]
@@ -14,7 +14,7 @@ impl crate::Optionable for CrossVersionObjectReferenceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v1::cross_version_object_reference::CrossVersionObjectReference {
+for ::k8s_openapi::api::autoscaling::v1::CrossVersionObjectReference {
     fn into_optioned(self) -> CrossVersionObjectReferenceOpt {
         CrossVersionObjectReferenceOpt {
             api_version: <Option<

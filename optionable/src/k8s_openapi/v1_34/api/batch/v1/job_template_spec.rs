@@ -7,8 +7,7 @@ pub struct JobTemplateSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::batch::v1::job_template_spec::JobTemplateSpec {
+impl crate::Optionable for ::k8s_openapi::api::batch::v1::JobTemplateSpec {
     type Optioned = JobTemplateSpecOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for JobTemplateSpecOpt {
     type Optioned = JobTemplateSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::batch::v1::job_template_spec::JobTemplateSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobTemplateSpec {
     fn into_optioned(self) -> JobTemplateSpecOpt {
         JobTemplateSpecOpt {
             metadata: <Option<

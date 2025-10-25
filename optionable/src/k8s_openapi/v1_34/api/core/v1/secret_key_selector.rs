@@ -4,8 +4,7 @@ pub struct SecretKeySelectorOpt {
     pub optional: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::secret_key_selector::SecretKeySelector {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::SecretKeySelector {
     type Optioned = SecretKeySelectorOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for SecretKeySelectorOpt {
     type Optioned = SecretKeySelectorOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::secret_key_selector::SecretKeySelector {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretKeySelector {
     fn into_optioned(self) -> SecretKeySelectorOpt {
         SecretKeySelectorOpt {
             key: Some(
