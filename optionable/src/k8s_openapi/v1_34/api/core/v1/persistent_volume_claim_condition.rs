@@ -11,8 +11,7 @@ pub struct PersistentVolumeClaimConditionOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::persistent_volume_claim_condition::PersistentVolumeClaimCondition {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PersistentVolumeClaimCondition {
     type Optioned = PersistentVolumeClaimConditionOpt;
 }
 #[automatically_derived]
@@ -21,7 +20,7 @@ impl crate::Optionable for PersistentVolumeClaimConditionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::persistent_volume_claim_condition::PersistentVolumeClaimCondition {
+for ::k8s_openapi::api::core::v1::PersistentVolumeClaimCondition {
     fn into_optioned(self) -> PersistentVolumeClaimConditionOpt {
         PersistentVolumeClaimConditionOpt {
             last_probe_time: <Option<

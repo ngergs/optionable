@@ -9,8 +9,7 @@ pub struct WindowsSecurityContextOptionsOpt {
     pub run_as_user_name: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::windows_security_context_options::WindowsSecurityContextOptions {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::WindowsSecurityContextOptions {
     type Optioned = WindowsSecurityContextOptionsOpt;
 }
 #[automatically_derived]
@@ -19,7 +18,7 @@ impl crate::Optionable for WindowsSecurityContextOptionsOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::windows_security_context_options::WindowsSecurityContextOptions {
+for ::k8s_openapi::api::core::v1::WindowsSecurityContextOptions {
     fn into_optioned(self) -> WindowsSecurityContextOptionsOpt {
         WindowsSecurityContextOptionsOpt {
             gmsa_credential_spec: <Option<

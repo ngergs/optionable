@@ -8,8 +8,7 @@ pub struct ObjectReferenceOpt {
     pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::object_reference::ObjectReference {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ObjectReference {
     type Optioned = ObjectReferenceOpt;
 }
 #[automatically_derived]
@@ -17,8 +16,7 @@ impl crate::Optionable for ObjectReferenceOpt {
     type Optioned = ObjectReferenceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::object_reference::ObjectReference {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ObjectReference {
     fn into_optioned(self) -> ObjectReferenceOpt {
         ObjectReferenceOpt {
             api_version: <Option<

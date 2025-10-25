@@ -8,8 +8,7 @@ pub struct PodResourceClaimOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::pod_resource_claim::PodResourceClaim {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PodResourceClaim {
     type Optioned = PodResourceClaimOpt;
 }
 #[automatically_derived]
@@ -17,8 +16,7 @@ impl crate::Optionable for PodResourceClaimOpt {
     type Optioned = PodResourceClaimOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::pod_resource_claim::PodResourceClaim {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodResourceClaim {
     fn into_optioned(self) -> PodResourceClaimOpt {
         PodResourceClaimOpt {
             name: Some(

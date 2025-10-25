@@ -12,7 +12,7 @@ pub struct DeviceAllocationResultOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta2::device_allocation_result::DeviceAllocationResult {
+for ::k8s_openapi::api::resource::v1beta2::DeviceAllocationResult {
     type Optioned = DeviceAllocationResultOpt;
 }
 #[automatically_derived]
@@ -21,7 +21,7 @@ impl crate::Optionable for DeviceAllocationResultOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta2::device_allocation_result::DeviceAllocationResult {
+for ::k8s_openapi::api::resource::v1beta2::DeviceAllocationResult {
     fn into_optioned(self) -> DeviceAllocationResultOpt {
         DeviceAllocationResultOpt {
             config: <Option<

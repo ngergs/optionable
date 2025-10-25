@@ -14,8 +14,7 @@ pub struct CSIStorageCapacityOpt {
     pub storage_class_name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::storage::v1::csi_storage_capacity::CSIStorageCapacity {
+impl crate::Optionable for ::k8s_openapi::api::storage::v1::CSIStorageCapacity {
     type Optioned = CSIStorageCapacityOpt;
 }
 #[automatically_derived]
@@ -23,8 +22,7 @@ impl crate::Optionable for CSIStorageCapacityOpt {
     type Optioned = CSIStorageCapacityOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::storage::v1::csi_storage_capacity::CSIStorageCapacity {
+impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCapacity {
     fn into_optioned(self) -> CSIStorageCapacityOpt {
         CSIStorageCapacityOpt {
             capacity: <Option<

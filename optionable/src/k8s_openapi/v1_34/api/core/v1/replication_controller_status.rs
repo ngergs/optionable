@@ -9,8 +9,7 @@ pub struct ReplicationControllerStatusOpt {
     pub replicas: Option<i32>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::replication_controller_status::ReplicationControllerStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ReplicationControllerStatus {
     type Optioned = ReplicationControllerStatusOpt;
 }
 #[automatically_derived]
@@ -19,7 +18,7 @@ impl crate::Optionable for ReplicationControllerStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::replication_controller_status::ReplicationControllerStatus {
+for ::k8s_openapi::api::core::v1::ReplicationControllerStatus {
     fn into_optioned(self) -> ReplicationControllerStatusOpt {
         ReplicationControllerStatusOpt {
             available_replicas: <Option<

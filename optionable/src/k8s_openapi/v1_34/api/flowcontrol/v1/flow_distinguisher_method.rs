@@ -2,8 +2,7 @@ pub struct FlowDistinguisherMethodOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::flow_distinguisher_method::FlowDistinguisherMethod {
+impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::FlowDistinguisherMethod {
     type Optioned = FlowDistinguisherMethodOpt;
 }
 #[automatically_derived]
@@ -12,7 +11,7 @@ impl crate::Optionable for FlowDistinguisherMethodOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::flow_distinguisher_method::FlowDistinguisherMethod {
+for ::k8s_openapi::api::flowcontrol::v1::FlowDistinguisherMethod {
     fn into_optioned(self) -> FlowDistinguisherMethodOpt {
         FlowDistinguisherMethodOpt {
             type_: Some(

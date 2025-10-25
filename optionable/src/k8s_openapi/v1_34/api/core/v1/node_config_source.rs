@@ -4,8 +4,7 @@ pub struct NodeConfigSourceOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::node_config_source::NodeConfigSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeConfigSource {
     type Optioned = NodeConfigSourceOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for NodeConfigSourceOpt {
     type Optioned = NodeConfigSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::node_config_source::NodeConfigSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeConfigSource {
     fn into_optioned(self) -> NodeConfigSourceOpt {
         NodeConfigSourceOpt {
             config_map: <Option<

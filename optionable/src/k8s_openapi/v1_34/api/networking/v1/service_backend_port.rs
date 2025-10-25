@@ -3,8 +3,7 @@ pub struct ServiceBackendPortOpt {
     pub number: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::networking::v1::service_backend_port::ServiceBackendPort {
+impl crate::Optionable for ::k8s_openapi::api::networking::v1::ServiceBackendPort {
     type Optioned = ServiceBackendPortOpt;
 }
 #[automatically_derived]
@@ -13,7 +12,7 @@ impl crate::Optionable for ServiceBackendPortOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1::service_backend_port::ServiceBackendPort {
+for ::k8s_openapi::api::networking::v1::ServiceBackendPort {
     fn into_optioned(self) -> ServiceBackendPortOpt {
         ServiceBackendPortOpt {
             name: <Option<

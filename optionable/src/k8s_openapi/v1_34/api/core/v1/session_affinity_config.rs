@@ -4,8 +4,7 @@ pub struct SessionAffinityConfigOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::session_affinity_config::SessionAffinityConfig {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::SessionAffinityConfig {
     type Optioned = SessionAffinityConfigOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for SessionAffinityConfigOpt {
     type Optioned = SessionAffinityConfigOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::session_affinity_config::SessionAffinityConfig {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SessionAffinityConfig {
     fn into_optioned(self) -> SessionAffinityConfigOpt {
         SessionAffinityConfigOpt {
             client_ip: <Option<

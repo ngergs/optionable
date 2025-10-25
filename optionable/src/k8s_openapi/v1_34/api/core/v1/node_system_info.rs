@@ -16,8 +16,7 @@ pub struct NodeSystemInfoOpt {
     pub system_uuid: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::node_system_info::NodeSystemInfo {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeSystemInfo {
     type Optioned = NodeSystemInfoOpt;
 }
 #[automatically_derived]
@@ -25,8 +24,7 @@ impl crate::Optionable for NodeSystemInfoOpt {
     type Optioned = NodeSystemInfoOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::node_system_info::NodeSystemInfo {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSystemInfo {
     fn into_optioned(self) -> NodeSystemInfoOpt {
         NodeSystemInfoOpt {
             architecture: Some(

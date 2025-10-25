@@ -10,8 +10,7 @@ pub struct EndpointSubsetOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::endpoint_subset::EndpointSubset {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::EndpointSubset {
     type Optioned = EndpointSubsetOpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for EndpointSubsetOpt {
     type Optioned = EndpointSubsetOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::endpoint_subset::EndpointSubset {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointSubset {
     fn into_optioned(self) -> EndpointSubsetOpt {
         EndpointSubsetOpt {
             addresses: <Option<

@@ -10,8 +10,7 @@ pub struct ClusterRoleBindingOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::rbac::v1::cluster_role_binding::ClusterRoleBinding {
+impl crate::Optionable for ::k8s_openapi::api::rbac::v1::ClusterRoleBinding {
     type Optioned = ClusterRoleBindingOpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for ClusterRoleBindingOpt {
     type Optioned = ClusterRoleBindingOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::rbac::v1::cluster_role_binding::ClusterRoleBinding {
+impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRoleBinding {
     fn into_optioned(self) -> ClusterRoleBindingOpt {
         ClusterRoleBindingOpt {
             metadata: Some(

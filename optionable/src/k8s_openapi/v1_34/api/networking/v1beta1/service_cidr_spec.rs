@@ -4,8 +4,7 @@ pub struct ServiceCIDRSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::networking::v1beta1::service_cidr_spec::ServiceCIDRSpec {
+impl crate::Optionable for ::k8s_openapi::api::networking::v1beta1::ServiceCIDRSpec {
     type Optioned = ServiceCIDRSpecOpt;
 }
 #[automatically_derived]
@@ -14,7 +13,7 @@ impl crate::Optionable for ServiceCIDRSpecOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1beta1::service_cidr_spec::ServiceCIDRSpec {
+for ::k8s_openapi::api::networking::v1beta1::ServiceCIDRSpec {
     fn into_optioned(self) -> ServiceCIDRSpecOpt {
         ServiceCIDRSpecOpt {
             cidrs: <Option<

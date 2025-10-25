@@ -5,8 +5,7 @@ pub struct EmptyDirVolumeSourceOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::empty_dir_volume_source::EmptyDirVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::EmptyDirVolumeSource {
     type Optioned = EmptyDirVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for EmptyDirVolumeSourceOpt {
     type Optioned = EmptyDirVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::empty_dir_volume_source::EmptyDirVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EmptyDirVolumeSource {
     fn into_optioned(self) -> EmptyDirVolumeSourceOpt {
         EmptyDirVolumeSourceOpt {
             medium: <Option<

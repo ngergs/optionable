@@ -7,8 +7,7 @@ pub struct ExternalMetricStatusOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v2::external_metric_status::ExternalMetricStatus {
+impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::ExternalMetricStatus {
     type Optioned = ExternalMetricStatusOpt;
 }
 #[automatically_derived]
@@ -17,7 +16,7 @@ impl crate::Optionable for ExternalMetricStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v2::external_metric_status::ExternalMetricStatus {
+for ::k8s_openapi::api::autoscaling::v2::ExternalMetricStatus {
     fn into_optioned(self) -> ExternalMetricStatusOpt {
         ExternalMetricStatusOpt {
             current: Some(

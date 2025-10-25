@@ -11,7 +11,7 @@ pub struct PriorityLevelConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::priority_level_configuration::PriorityLevelConfiguration {
+for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfiguration {
     type Optioned = PriorityLevelConfigurationOpt;
 }
 #[automatically_derived]
@@ -20,7 +20,7 @@ impl crate::Optionable for PriorityLevelConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::priority_level_configuration::PriorityLevelConfiguration {
+for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfiguration {
     fn into_optioned(self) -> PriorityLevelConfigurationOpt {
         PriorityLevelConfigurationOpt {
             metadata: Some(

@@ -11,7 +11,7 @@ pub struct ConfigMapOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::config_map::ConfigMap {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMap {
     type Optioned = ConfigMapOpt;
 }
 #[automatically_derived]
@@ -19,7 +19,7 @@ impl crate::Optionable for ConfigMapOpt {
     type Optioned = ConfigMapOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::config_map::ConfigMap {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMap {
     fn into_optioned(self) -> ConfigMapOpt {
         ConfigMapOpt {
             binary_data: <Option<

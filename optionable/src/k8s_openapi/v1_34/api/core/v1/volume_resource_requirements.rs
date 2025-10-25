@@ -13,8 +13,7 @@ pub struct VolumeResourceRequirementsOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::volume_resource_requirements::VolumeResourceRequirements {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::VolumeResourceRequirements {
     type Optioned = VolumeResourceRequirementsOpt;
 }
 #[automatically_derived]
@@ -23,7 +22,7 @@ impl crate::Optionable for VolumeResourceRequirementsOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::volume_resource_requirements::VolumeResourceRequirements {
+for ::k8s_openapi::api::core::v1::VolumeResourceRequirements {
     fn into_optioned(self) -> VolumeResourceRequirementsOpt {
         VolumeResourceRequirementsOpt {
             limits: <Option<

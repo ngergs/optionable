@@ -8,7 +8,7 @@ pub struct WebhookConversionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::webhook_conversion::WebhookConversion {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion {
     type Optioned = WebhookConversionOpt;
 }
 #[automatically_derived]
@@ -17,7 +17,7 @@ impl crate::Optionable for WebhookConversionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::webhook_conversion::WebhookConversion {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion {
     fn into_optioned(self) -> WebhookConversionOpt {
         WebhookConversionOpt {
             client_config: <Option<

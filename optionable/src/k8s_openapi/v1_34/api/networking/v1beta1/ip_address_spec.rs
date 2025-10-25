@@ -4,8 +4,7 @@ pub struct IPAddressSpecOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::networking::v1beta1::ip_address_spec::IPAddressSpec {
+impl crate::Optionable for ::k8s_openapi::api::networking::v1beta1::IPAddressSpec {
     type Optioned = IPAddressSpecOpt;
 }
 #[automatically_derived]
@@ -14,7 +13,7 @@ impl crate::Optionable for IPAddressSpecOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1beta1::ip_address_spec::IPAddressSpec {
+for ::k8s_openapi::api::networking::v1beta1::IPAddressSpec {
     fn into_optioned(self) -> IPAddressSpecOpt {
         IPAddressSpecOpt {
             parent_ref: Some(

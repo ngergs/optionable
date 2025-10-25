@@ -8,7 +8,7 @@ pub struct LimitedPriorityLevelConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::limited_priority_level_configuration::LimitedPriorityLevelConfiguration {
+for ::k8s_openapi::api::flowcontrol::v1::LimitedPriorityLevelConfiguration {
     type Optioned = LimitedPriorityLevelConfigurationOpt;
 }
 #[automatically_derived]
@@ -17,7 +17,7 @@ impl crate::Optionable for LimitedPriorityLevelConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::limited_priority_level_configuration::LimitedPriorityLevelConfiguration {
+for ::k8s_openapi::api::flowcontrol::v1::LimitedPriorityLevelConfiguration {
     fn into_optioned(self) -> LimitedPriorityLevelConfigurationOpt {
         LimitedPriorityLevelConfigurationOpt {
             borrowing_limit_percent: <Option<

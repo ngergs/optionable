@@ -4,7 +4,7 @@ pub struct ServerAddressByClientCIDROpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::server_address_by_client_cidr::ServerAddressByClientCIDR {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR {
     type Optioned = ServerAddressByClientCIDROpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for ServerAddressByClientCIDROpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::server_address_by_client_cidr::ServerAddressByClientCIDR {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR {
     fn into_optioned(self) -> ServerAddressByClientCIDROpt {
         ServerAddressByClientCIDROpt {
             client_cidr: Some(

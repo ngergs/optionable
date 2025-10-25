@@ -4,7 +4,7 @@ pub struct ContainerRestartRuleOnExitCodesOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::core::v1::container_restart_rule_on_exit_codes::ContainerRestartRuleOnExitCodes {
+for ::k8s_openapi::api::core::v1::ContainerRestartRuleOnExitCodes {
     type Optioned = ContainerRestartRuleOnExitCodesOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for ContainerRestartRuleOnExitCodesOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::container_restart_rule_on_exit_codes::ContainerRestartRuleOnExitCodes {
+for ::k8s_openapi::api::core::v1::ContainerRestartRuleOnExitCodes {
     fn into_optioned(self) -> ContainerRestartRuleOnExitCodesOpt {
         ContainerRestartRuleOnExitCodesOpt {
             operator: Some(

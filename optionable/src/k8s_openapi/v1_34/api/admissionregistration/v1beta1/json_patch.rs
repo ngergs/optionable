@@ -3,7 +3,7 @@ pub struct JSONPatchOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1beta1::json_patch::JSONPatch {
+for ::k8s_openapi::api::admissionregistration::v1beta1::JSONPatch {
     type Optioned = JSONPatchOpt;
 }
 #[automatically_derived]
@@ -12,7 +12,7 @@ impl crate::Optionable for JSONPatchOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1beta1::json_patch::JSONPatch {
+for ::k8s_openapi::api::admissionregistration::v1beta1::JSONPatch {
     fn into_optioned(self) -> JSONPatchOpt {
         JSONPatchOpt {
             expression: <Option<

@@ -25,7 +25,7 @@ pub struct CustomResourceDefinitionVersionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_definition_version::CustomResourceDefinitionVersion {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionVersion {
     type Optioned = CustomResourceDefinitionVersionOpt;
 }
 #[automatically_derived]
@@ -34,7 +34,7 @@ impl crate::Optionable for CustomResourceDefinitionVersionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_definition_version::CustomResourceDefinitionVersion {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionVersion {
     fn into_optioned(self) -> CustomResourceDefinitionVersionOpt {
         CustomResourceDefinitionVersionOpt {
             additional_printer_columns: <Option<

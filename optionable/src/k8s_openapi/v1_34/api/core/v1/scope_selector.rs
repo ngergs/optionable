@@ -4,7 +4,7 @@ pub struct ScopeSelectorOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::scope_selector::ScopeSelector {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ScopeSelector {
     type Optioned = ScopeSelectorOpt;
 }
 #[automatically_derived]
@@ -12,8 +12,7 @@ impl crate::Optionable for ScopeSelectorOpt {
     type Optioned = ScopeSelectorOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::scope_selector::ScopeSelector {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScopeSelector {
     fn into_optioned(self) -> ScopeSelectorOpt {
         ScopeSelectorOpt {
             match_expressions: <Option<

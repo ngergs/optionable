@@ -19,7 +19,7 @@ pub struct ProbeOpt {
     pub timeout_seconds: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::probe::Probe {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::Probe {
     type Optioned = ProbeOpt;
 }
 #[automatically_derived]
@@ -27,7 +27,7 @@ impl crate::Optionable for ProbeOpt {
     type Optioned = ProbeOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::probe::Probe {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Probe {
     fn into_optioned(self) -> ProbeOpt {
         ProbeOpt {
             exec: <Option<

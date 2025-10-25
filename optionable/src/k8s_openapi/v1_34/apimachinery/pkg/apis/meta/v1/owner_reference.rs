@@ -8,7 +8,7 @@ pub struct OwnerReferenceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::owner_reference::OwnerReference {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::OwnerReference {
     type Optioned = OwnerReferenceOpt;
 }
 #[automatically_derived]
@@ -17,7 +17,7 @@ impl crate::Optionable for OwnerReferenceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::owner_reference::OwnerReference {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::OwnerReference {
     fn into_optioned(self) -> OwnerReferenceOpt {
         OwnerReferenceOpt {
             api_version: Some(

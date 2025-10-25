@@ -11,7 +11,7 @@ pub struct StorageVersionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::apiserverinternal::v1alpha1::storage_version::StorageVersion {
+for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion {
     type Optioned = StorageVersionOpt;
 }
 #[automatically_derived]
@@ -20,7 +20,7 @@ impl crate::Optionable for StorageVersionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::apiserverinternal::v1alpha1::storage_version::StorageVersion {
+for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion {
     fn into_optioned(self) -> StorageVersionOpt {
         StorageVersionOpt {
             metadata: Some(

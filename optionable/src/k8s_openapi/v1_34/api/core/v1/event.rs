@@ -34,7 +34,7 @@ pub struct EventOpt {
     pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::event::Event {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::Event {
     type Optioned = EventOpt;
 }
 #[automatically_derived]
@@ -42,7 +42,7 @@ impl crate::Optionable for EventOpt {
     type Optioned = EventOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::event::Event {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Event {
     fn into_optioned(self) -> EventOpt {
         EventOpt {
             action: <Option<

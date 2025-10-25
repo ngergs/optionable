@@ -5,8 +5,7 @@ pub struct ParentReferenceOpt {
     pub resource: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::networking::v1::parent_reference::ParentReference {
+impl crate::Optionable for ::k8s_openapi::api::networking::v1::ParentReference {
     type Optioned = ParentReferenceOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for ParentReferenceOpt {
     type Optioned = ParentReferenceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1::parent_reference::ParentReference {
+impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::ParentReference {
     fn into_optioned(self) -> ParentReferenceOpt {
         ParentReferenceOpt {
             group: <Option<

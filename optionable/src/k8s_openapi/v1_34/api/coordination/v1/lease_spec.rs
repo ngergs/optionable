@@ -12,7 +12,7 @@ pub struct LeaseSpecOpt {
     pub strategy: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::coordination::v1::lease_spec::LeaseSpec {
+impl crate::Optionable for ::k8s_openapi::api::coordination::v1::LeaseSpec {
     type Optioned = LeaseSpecOpt;
 }
 #[automatically_derived]
@@ -20,8 +20,7 @@ impl crate::Optionable for LeaseSpecOpt {
     type Optioned = LeaseSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::coordination::v1::lease_spec::LeaseSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::coordination::v1::LeaseSpec {
     fn into_optioned(self) -> LeaseSpecOpt {
         LeaseSpecOpt {
             acquire_time: <Option<

@@ -8,7 +8,7 @@ pub struct FieldSelectorAttributesOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::authorization::v1::field_selector_attributes::FieldSelectorAttributes {
+for ::k8s_openapi::api::authorization::v1::FieldSelectorAttributes {
     type Optioned = FieldSelectorAttributesOpt;
 }
 #[automatically_derived]
@@ -17,7 +17,7 @@ impl crate::Optionable for FieldSelectorAttributesOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authorization::v1::field_selector_attributes::FieldSelectorAttributes {
+for ::k8s_openapi::api::authorization::v1::FieldSelectorAttributes {
     fn into_optioned(self) -> FieldSelectorAttributesOpt {
         FieldSelectorAttributesOpt {
             raw_selector: <Option<

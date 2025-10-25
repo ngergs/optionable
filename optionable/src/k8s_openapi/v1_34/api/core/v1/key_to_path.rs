@@ -4,7 +4,7 @@ pub struct KeyToPathOpt {
     pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::key_to_path::KeyToPath {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::KeyToPath {
     type Optioned = KeyToPathOpt;
 }
 #[automatically_derived]
@@ -12,7 +12,7 @@ impl crate::Optionable for KeyToPathOpt {
     type Optioned = KeyToPathOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::key_to_path::KeyToPath {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::KeyToPath {
     fn into_optioned(self) -> KeyToPathOpt {
         KeyToPathOpt {
             key: Some(

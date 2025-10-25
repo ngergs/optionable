@@ -10,7 +10,7 @@ pub struct NodeOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::node::Node {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::Node {
     type Optioned = NodeOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for NodeOpt {
     type Optioned = NodeOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::node::Node {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Node {
     fn into_optioned(self) -> NodeOpt {
         NodeOpt {
             metadata: Some(

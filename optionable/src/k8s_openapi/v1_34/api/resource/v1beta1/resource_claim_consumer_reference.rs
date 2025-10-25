@@ -6,7 +6,7 @@ pub struct ResourceClaimConsumerReferenceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta1::resource_claim_consumer_reference::ResourceClaimConsumerReference {
+for ::k8s_openapi::api::resource::v1beta1::ResourceClaimConsumerReference {
     type Optioned = ResourceClaimConsumerReferenceOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for ResourceClaimConsumerReferenceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta1::resource_claim_consumer_reference::ResourceClaimConsumerReference {
+for ::k8s_openapi::api::resource::v1beta1::ResourceClaimConsumerReference {
     fn into_optioned(self) -> ResourceClaimConsumerReferenceOpt {
         ResourceClaimConsumerReferenceOpt {
             api_group: <Option<

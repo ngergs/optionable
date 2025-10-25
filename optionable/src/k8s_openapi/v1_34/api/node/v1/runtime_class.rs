@@ -11,7 +11,7 @@ pub struct RuntimeClassOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::node::v1::runtime_class::RuntimeClass {
+impl crate::Optionable for ::k8s_openapi::api::node::v1::RuntimeClass {
     type Optioned = RuntimeClassOpt;
 }
 #[automatically_derived]
@@ -19,8 +19,7 @@ impl crate::Optionable for RuntimeClassOpt {
     type Optioned = RuntimeClassOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::node::v1::runtime_class::RuntimeClass {
+impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
     fn into_optioned(self) -> RuntimeClassOpt {
         RuntimeClassOpt {
             handler: Some(

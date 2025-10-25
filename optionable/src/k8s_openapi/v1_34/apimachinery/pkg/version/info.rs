@@ -18,7 +18,7 @@ pub struct InfoOpt {
     pub platform: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::version::info::Info {
+impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::version::Info {
     type Optioned = InfoOpt;
 }
 #[automatically_derived]
@@ -26,7 +26,7 @@ impl crate::Optionable for InfoOpt {
     type Optioned = InfoOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::apimachinery::pkg::version::info::Info {
+impl crate::OptionableConvert for ::k8s_openapi::apimachinery::pkg::version::Info {
     fn into_optioned(self) -> InfoOpt {
         InfoOpt {
             build_date: Some(

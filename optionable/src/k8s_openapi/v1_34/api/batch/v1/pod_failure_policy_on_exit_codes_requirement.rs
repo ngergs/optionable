@@ -5,7 +5,7 @@ pub struct PodFailurePolicyOnExitCodesRequirementOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::batch::v1::pod_failure_policy_on_exit_codes_requirement::PodFailurePolicyOnExitCodesRequirement {
+for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnExitCodesRequirement {
     type Optioned = PodFailurePolicyOnExitCodesRequirementOpt;
 }
 #[automatically_derived]
@@ -14,7 +14,7 @@ impl crate::Optionable for PodFailurePolicyOnExitCodesRequirementOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::batch::v1::pod_failure_policy_on_exit_codes_requirement::PodFailurePolicyOnExitCodesRequirement {
+for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnExitCodesRequirement {
     fn into_optioned(self) -> PodFailurePolicyOnExitCodesRequirementOpt {
         PodFailurePolicyOnExitCodesRequirementOpt {
             container_name: <Option<

@@ -5,7 +5,7 @@ pub struct EventSeriesOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::events::v1::event_series::EventSeries {
+impl crate::Optionable for ::k8s_openapi::api::events::v1::EventSeries {
     type Optioned = EventSeriesOpt;
 }
 #[automatically_derived]
@@ -13,8 +13,7 @@ impl crate::Optionable for EventSeriesOpt {
     type Optioned = EventSeriesOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::events::v1::event_series::EventSeries {
+impl crate::OptionableConvert for ::k8s_openapi::api::events::v1::EventSeries {
     fn into_optioned(self) -> EventSeriesOpt {
         EventSeriesOpt {
             count: Some(self.count),

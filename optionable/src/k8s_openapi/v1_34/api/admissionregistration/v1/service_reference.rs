@@ -6,7 +6,7 @@ pub struct ServiceReferenceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1::service_reference::ServiceReference {
+for ::k8s_openapi::api::admissionregistration::v1::ServiceReference {
     type Optioned = ServiceReferenceOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for ServiceReferenceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1::service_reference::ServiceReference {
+for ::k8s_openapi::api::admissionregistration::v1::ServiceReference {
     fn into_optioned(self) -> ServiceReferenceOpt {
         ServiceReferenceOpt {
             name: Some(

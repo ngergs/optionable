@@ -6,8 +6,7 @@ pub struct SecretProjectionOpt {
     pub optional: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::secret_projection::SecretProjection {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::SecretProjection {
     type Optioned = SecretProjectionOpt;
 }
 #[automatically_derived]
@@ -15,8 +14,7 @@ impl crate::Optionable for SecretProjectionOpt {
     type Optioned = SecretProjectionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::secret_projection::SecretProjection {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretProjection {
     fn into_optioned(self) -> SecretProjectionOpt {
         SecretProjectionOpt {
             items: <Option<

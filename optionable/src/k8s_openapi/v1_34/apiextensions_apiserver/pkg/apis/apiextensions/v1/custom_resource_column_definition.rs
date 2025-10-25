@@ -8,7 +8,7 @@ pub struct CustomResourceColumnDefinitionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_column_definition::CustomResourceColumnDefinition {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceColumnDefinition {
     type Optioned = CustomResourceColumnDefinitionOpt;
 }
 #[automatically_derived]
@@ -17,7 +17,7 @@ impl crate::Optionable for CustomResourceColumnDefinitionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_column_definition::CustomResourceColumnDefinition {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceColumnDefinition {
     fn into_optioned(self) -> CustomResourceColumnDefinitionOpt {
         CustomResourceColumnDefinitionOpt {
             description: <Option<

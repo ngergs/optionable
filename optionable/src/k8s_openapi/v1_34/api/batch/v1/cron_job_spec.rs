@@ -11,7 +11,7 @@ pub struct CronJobSpecOpt {
     pub time_zone: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::batch::v1::cron_job_spec::CronJobSpec {
+impl crate::Optionable for ::k8s_openapi::api::batch::v1::CronJobSpec {
     type Optioned = CronJobSpecOpt;
 }
 #[automatically_derived]
@@ -19,8 +19,7 @@ impl crate::Optionable for CronJobSpecOpt {
     type Optioned = CronJobSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::batch::v1::cron_job_spec::CronJobSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJobSpec {
     fn into_optioned(self) -> CronJobSpecOpt {
         CronJobSpecOpt {
             concurrency_policy: <Option<

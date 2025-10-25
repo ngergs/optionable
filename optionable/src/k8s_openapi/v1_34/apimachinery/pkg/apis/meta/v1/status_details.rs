@@ -10,7 +10,7 @@ pub struct StatusDetailsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::status_details::StatusDetails {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusDetails {
     type Optioned = StatusDetailsOpt;
 }
 #[automatically_derived]
@@ -19,7 +19,7 @@ impl crate::Optionable for StatusDetailsOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::status_details::StatusDetails {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusDetails {
     fn into_optioned(self) -> StatusDetailsOpt {
         StatusDetailsOpt {
             causes: <Option<

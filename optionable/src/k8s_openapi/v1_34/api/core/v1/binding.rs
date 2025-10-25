@@ -7,7 +7,7 @@ pub struct BindingOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::binding::Binding {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::Binding {
     type Optioned = BindingOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for BindingOpt {
     type Optioned = BindingOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::binding::Binding {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Binding {
     fn into_optioned(self) -> BindingOpt {
         BindingOpt {
             metadata: Some(

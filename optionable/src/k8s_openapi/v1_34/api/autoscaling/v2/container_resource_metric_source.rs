@@ -7,7 +7,7 @@ pub struct ContainerResourceMetricSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v2::container_resource_metric_source::ContainerResourceMetricSource {
+for ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricSource {
     type Optioned = ContainerResourceMetricSourceOpt;
 }
 #[automatically_derived]
@@ -16,7 +16,7 @@ impl crate::Optionable for ContainerResourceMetricSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v2::container_resource_metric_source::ContainerResourceMetricSource {
+for ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricSource {
     fn into_optioned(self) -> ContainerResourceMetricSourceOpt {
         ContainerResourceMetricSourceOpt {
             container: Some(

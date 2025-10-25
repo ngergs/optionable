@@ -3,7 +3,7 @@ pub struct ApplyConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1alpha1::apply_configuration::ApplyConfiguration {
+for ::k8s_openapi::api::admissionregistration::v1alpha1::ApplyConfiguration {
     type Optioned = ApplyConfigurationOpt;
 }
 #[automatically_derived]
@@ -12,7 +12,7 @@ impl crate::Optionable for ApplyConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1alpha1::apply_configuration::ApplyConfiguration {
+for ::k8s_openapi::api::admissionregistration::v1alpha1::ApplyConfiguration {
     fn into_optioned(self) -> ApplyConfigurationOpt {
         ApplyConfigurationOpt {
             expression: <Option<

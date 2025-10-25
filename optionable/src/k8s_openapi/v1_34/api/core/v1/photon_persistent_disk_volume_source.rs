@@ -4,7 +4,7 @@ pub struct PhotonPersistentDiskVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::core::v1::photon_persistent_disk_volume_source::PhotonPersistentDiskVolumeSource {
+for ::k8s_openapi::api::core::v1::PhotonPersistentDiskVolumeSource {
     type Optioned = PhotonPersistentDiskVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for PhotonPersistentDiskVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::photon_persistent_disk_volume_source::PhotonPersistentDiskVolumeSource {
+for ::k8s_openapi::api::core::v1::PhotonPersistentDiskVolumeSource {
     fn into_optioned(self) -> PhotonPersistentDiskVolumeSourceOpt {
         PhotonPersistentDiskVolumeSourceOpt {
             fs_type: <Option<

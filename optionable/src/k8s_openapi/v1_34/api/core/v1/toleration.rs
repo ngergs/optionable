@@ -6,7 +6,7 @@ pub struct TolerationOpt {
     pub value: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::toleration::Toleration {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::Toleration {
     type Optioned = TolerationOpt;
 }
 #[automatically_derived]
@@ -14,7 +14,7 @@ impl crate::Optionable for TolerationOpt {
     type Optioned = TolerationOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::toleration::Toleration {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Toleration {
     fn into_optioned(self) -> TolerationOpt {
         TolerationOpt {
             effect: <Option<

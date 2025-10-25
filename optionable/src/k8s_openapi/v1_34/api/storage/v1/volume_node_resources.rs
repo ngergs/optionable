@@ -2,8 +2,7 @@ pub struct VolumeNodeResourcesOpt {
     pub count: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::storage::v1::volume_node_resources::VolumeNodeResources {
+impl crate::Optionable for ::k8s_openapi::api::storage::v1::VolumeNodeResources {
     type Optioned = VolumeNodeResourcesOpt;
 }
 #[automatically_derived]
@@ -11,8 +10,7 @@ impl crate::Optionable for VolumeNodeResourcesOpt {
     type Optioned = VolumeNodeResourcesOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::storage::v1::volume_node_resources::VolumeNodeResources {
+impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeNodeResources {
     fn into_optioned(self) -> VolumeNodeResourcesOpt {
         VolumeNodeResourcesOpt {
             count: <Option<i32> as crate::OptionableConvert>::into_optioned(self.count),

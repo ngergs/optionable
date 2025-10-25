@@ -32,8 +32,7 @@ pub struct ObjectMetaOpt {
     pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::object_meta::ObjectMeta {
+impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta {
     type Optioned = ObjectMetaOpt;
 }
 #[automatically_derived]
@@ -42,7 +41,7 @@ impl crate::Optionable for ObjectMetaOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::object_meta::ObjectMeta {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta {
     fn into_optioned(self) -> ObjectMetaOpt {
         ObjectMetaOpt {
             annotations: <Option<

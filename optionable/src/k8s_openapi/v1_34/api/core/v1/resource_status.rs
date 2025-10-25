@@ -5,8 +5,7 @@ pub struct ResourceStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::resource_status::ResourceStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ResourceStatus {
     type Optioned = ResourceStatusOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for ResourceStatusOpt {
     type Optioned = ResourceStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::resource_status::ResourceStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceStatus {
     fn into_optioned(self) -> ResourceStatusOpt {
         ResourceStatusOpt {
             name: Some(

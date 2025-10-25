@@ -7,7 +7,7 @@ pub struct ServiceStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::service_status::ServiceStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ServiceStatus {
     type Optioned = ServiceStatusOpt;
 }
 #[automatically_derived]
@@ -15,8 +15,7 @@ impl crate::Optionable for ServiceStatusOpt {
     type Optioned = ServiceStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::service_status::ServiceStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceStatus {
     fn into_optioned(self) -> ServiceStatusOpt {
         ServiceStatusOpt {
             conditions: <Option<

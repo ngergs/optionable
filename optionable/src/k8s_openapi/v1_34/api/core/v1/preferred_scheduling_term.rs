@@ -5,8 +5,7 @@ pub struct PreferredSchedulingTermOpt {
     pub weight: Option<i32>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::preferred_scheduling_term::PreferredSchedulingTerm {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PreferredSchedulingTerm {
     type Optioned = PreferredSchedulingTermOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for PreferredSchedulingTermOpt {
     type Optioned = PreferredSchedulingTermOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::preferred_scheduling_term::PreferredSchedulingTerm {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PreferredSchedulingTerm {
     fn into_optioned(self) -> PreferredSchedulingTermOpt {
         PreferredSchedulingTermOpt {
             preference: Some(

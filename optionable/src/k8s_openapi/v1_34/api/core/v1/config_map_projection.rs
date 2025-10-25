@@ -6,8 +6,7 @@ pub struct ConfigMapProjectionOpt {
     pub optional: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::config_map_projection::ConfigMapProjection {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMapProjection {
     type Optioned = ConfigMapProjectionOpt;
 }
 #[automatically_derived]
@@ -15,8 +14,7 @@ impl crate::Optionable for ConfigMapProjectionOpt {
     type Optioned = ConfigMapProjectionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::config_map_projection::ConfigMapProjection {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapProjection {
     fn into_optioned(self) -> ConfigMapProjectionOpt {
         ConfigMapProjectionOpt {
             items: <Option<

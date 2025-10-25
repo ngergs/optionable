@@ -5,8 +5,7 @@ pub struct TokenReviewSpecOpt {
     pub token: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::authentication::v1::token_review_spec::TokenReviewSpec {
+impl crate::Optionable for ::k8s_openapi::api::authentication::v1::TokenReviewSpec {
     type Optioned = TokenReviewSpecOpt;
 }
 #[automatically_derived]
@@ -15,7 +14,7 @@ impl crate::Optionable for TokenReviewSpecOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authentication::v1::token_review_spec::TokenReviewSpec {
+for ::k8s_openapi::api::authentication::v1::TokenReviewSpec {
     fn into_optioned(self) -> TokenReviewSpecOpt {
         TokenReviewSpecOpt {
             audiences: <Option<

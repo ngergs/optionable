@@ -7,7 +7,7 @@ pub struct ScopedResourceSelectorRequirementOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::core::v1::scoped_resource_selector_requirement::ScopedResourceSelectorRequirement {
+for ::k8s_openapi::api::core::v1::ScopedResourceSelectorRequirement {
     type Optioned = ScopedResourceSelectorRequirementOpt;
 }
 #[automatically_derived]
@@ -16,7 +16,7 @@ impl crate::Optionable for ScopedResourceSelectorRequirementOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::scoped_resource_selector_requirement::ScopedResourceSelectorRequirement {
+for ::k8s_openapi::api::core::v1::ScopedResourceSelectorRequirement {
     fn into_optioned(self) -> ScopedResourceSelectorRequirementOpt {
         ScopedResourceSelectorRequirementOpt {
             operator: Some(

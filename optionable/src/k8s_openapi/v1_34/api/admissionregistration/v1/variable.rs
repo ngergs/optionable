@@ -3,8 +3,7 @@ pub struct VariableOpt {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1::variable::Variable {
+impl crate::Optionable for ::k8s_openapi::api::admissionregistration::v1::Variable {
     type Optioned = VariableOpt;
 }
 #[automatically_derived]
@@ -13,7 +12,7 @@ impl crate::Optionable for VariableOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1::variable::Variable {
+for ::k8s_openapi::api::admissionregistration::v1::Variable {
     fn into_optioned(self) -> VariableOpt {
         VariableOpt {
             expression: Some(

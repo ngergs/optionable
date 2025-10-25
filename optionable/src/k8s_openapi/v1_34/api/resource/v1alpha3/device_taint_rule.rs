@@ -7,8 +7,7 @@ pub struct DeviceTaintRuleOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1alpha3::device_taint_rule::DeviceTaintRule {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRule {
     type Optioned = DeviceTaintRuleOpt;
 }
 #[automatically_derived]
@@ -17,7 +16,7 @@ impl crate::Optionable for DeviceTaintRuleOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1alpha3::device_taint_rule::DeviceTaintRule {
+for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRule {
     fn into_optioned(self) -> DeviceTaintRuleOpt {
         DeviceTaintRuleOpt {
             metadata: Some(

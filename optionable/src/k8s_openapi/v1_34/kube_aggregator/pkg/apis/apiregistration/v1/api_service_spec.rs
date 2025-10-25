@@ -11,7 +11,7 @@ pub struct APIServiceSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::api_service_spec::APIServiceSpec {
+for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec {
     type Optioned = APIServiceSpecOpt;
 }
 #[automatically_derived]
@@ -20,7 +20,7 @@ impl crate::Optionable for APIServiceSpecOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::api_service_spec::APIServiceSpec {
+for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec {
     fn into_optioned(self) -> APIServiceSpecOpt {
         APIServiceSpecOpt {
             ca_bundle: <Option<

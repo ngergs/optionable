@@ -7,8 +7,7 @@ pub struct QuobyteVolumeSourceOpt {
     pub volume: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::quobyte_volume_source::QuobyteVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::QuobyteVolumeSource {
     type Optioned = QuobyteVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for QuobyteVolumeSourceOpt {
     type Optioned = QuobyteVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::quobyte_volume_source::QuobyteVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::QuobyteVolumeSource {
     fn into_optioned(self) -> QuobyteVolumeSourceOpt {
         QuobyteVolumeSourceOpt {
             group: <Option<

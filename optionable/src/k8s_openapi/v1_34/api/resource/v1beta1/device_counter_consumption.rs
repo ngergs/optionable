@@ -9,7 +9,7 @@ pub struct DeviceCounterConsumptionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta1::device_counter_consumption::DeviceCounterConsumption {
+for ::k8s_openapi::api::resource::v1beta1::DeviceCounterConsumption {
     type Optioned = DeviceCounterConsumptionOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for DeviceCounterConsumptionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta1::device_counter_consumption::DeviceCounterConsumption {
+for ::k8s_openapi::api::resource::v1beta1::DeviceCounterConsumption {
     fn into_optioned(self) -> DeviceCounterConsumptionOpt {
         DeviceCounterConsumptionOpt {
             counter_set: Some(

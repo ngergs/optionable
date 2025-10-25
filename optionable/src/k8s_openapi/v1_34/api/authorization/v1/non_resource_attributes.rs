@@ -3,8 +3,7 @@ pub struct NonResourceAttributesOpt {
     pub verb: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::authorization::v1::non_resource_attributes::NonResourceAttributes {
+impl crate::Optionable for ::k8s_openapi::api::authorization::v1::NonResourceAttributes {
     type Optioned = NonResourceAttributesOpt;
 }
 #[automatically_derived]
@@ -13,7 +12,7 @@ impl crate::Optionable for NonResourceAttributesOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authorization::v1::non_resource_attributes::NonResourceAttributes {
+for ::k8s_openapi::api::authorization::v1::NonResourceAttributes {
     fn into_optioned(self) -> NonResourceAttributesOpt {
         NonResourceAttributesOpt {
             path: <Option<

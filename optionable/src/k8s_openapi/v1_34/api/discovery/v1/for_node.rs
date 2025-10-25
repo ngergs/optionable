@@ -2,7 +2,7 @@ pub struct ForNodeOpt {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::discovery::v1::for_node::ForNode {
+impl crate::Optionable for ::k8s_openapi::api::discovery::v1::ForNode {
     type Optioned = ForNodeOpt;
 }
 #[automatically_derived]
@@ -10,7 +10,7 @@ impl crate::Optionable for ForNodeOpt {
     type Optioned = ForNodeOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::for_node::ForNode {
+impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::ForNode {
     fn into_optioned(self) -> ForNodeOpt {
         ForNodeOpt {
             name: Some(

@@ -23,7 +23,7 @@ pub struct MutatingAdmissionPolicySpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1alpha1::mutating_admission_policy_spec::MutatingAdmissionPolicySpec {
+for ::k8s_openapi::api::admissionregistration::v1alpha1::MutatingAdmissionPolicySpec {
     type Optioned = MutatingAdmissionPolicySpecOpt;
 }
 #[automatically_derived]
@@ -32,7 +32,7 @@ impl crate::Optionable for MutatingAdmissionPolicySpecOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1alpha1::mutating_admission_policy_spec::MutatingAdmissionPolicySpec {
+for ::k8s_openapi::api::admissionregistration::v1alpha1::MutatingAdmissionPolicySpec {
     fn into_optioned(self) -> MutatingAdmissionPolicySpecOpt {
         MutatingAdmissionPolicySpecOpt {
             failure_policy: <Option<

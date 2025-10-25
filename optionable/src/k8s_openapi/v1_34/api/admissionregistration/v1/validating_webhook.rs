@@ -25,7 +25,7 @@ pub struct ValidatingWebhookOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1::validating_webhook::ValidatingWebhook {
+for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhook {
     type Optioned = ValidatingWebhookOpt;
 }
 #[automatically_derived]
@@ -34,7 +34,7 @@ impl crate::Optionable for ValidatingWebhookOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1::validating_webhook::ValidatingWebhook {
+for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhook {
     fn into_optioned(self) -> ValidatingWebhookOpt {
         ValidatingWebhookOpt {
             admission_review_versions: Some(

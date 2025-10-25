@@ -7,7 +7,7 @@ pub struct WebhookClientConfigOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::webhook_client_config::WebhookClientConfig {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookClientConfig {
     type Optioned = WebhookClientConfigOpt;
 }
 #[automatically_derived]
@@ -16,7 +16,7 @@ impl crate::Optionable for WebhookClientConfigOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::webhook_client_config::WebhookClientConfig {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookClientConfig {
     fn into_optioned(self) -> WebhookClientConfigOpt {
         WebhookClientConfigOpt {
             ca_bundle: <Option<

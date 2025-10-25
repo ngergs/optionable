@@ -92,7 +92,7 @@ pub struct VolumeOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::volume::Volume {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::Volume {
     type Optioned = VolumeOpt;
 }
 #[automatically_derived]
@@ -100,7 +100,7 @@ impl crate::Optionable for VolumeOpt {
     type Optioned = VolumeOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::volume::Volume {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Volume {
     fn into_optioned(self) -> VolumeOpt {
         VolumeOpt {
             aws_elastic_block_store: <Option<

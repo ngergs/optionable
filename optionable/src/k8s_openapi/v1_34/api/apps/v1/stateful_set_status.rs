@@ -13,8 +13,7 @@ pub struct StatefulSetStatusOpt {
     pub updated_replicas: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::stateful_set_status::StatefulSetStatus {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::StatefulSetStatus {
     type Optioned = StatefulSetStatusOpt;
 }
 #[automatically_derived]
@@ -22,8 +21,7 @@ impl crate::Optionable for StatefulSetStatusOpt {
     type Optioned = StatefulSetStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::stateful_set_status::StatefulSetStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetStatus {
     fn into_optioned(self) -> StatefulSetStatusOpt {
         StatefulSetStatusOpt {
             available_replicas: <Option<

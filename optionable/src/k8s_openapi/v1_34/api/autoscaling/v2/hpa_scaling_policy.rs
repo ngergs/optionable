@@ -4,8 +4,7 @@ pub struct HPAScalingPolicyOpt {
     pub value: Option<i32>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v2::hpa_scaling_policy::HPAScalingPolicy {
+impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::HPAScalingPolicy {
     type Optioned = HPAScalingPolicyOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for HPAScalingPolicyOpt {
     type Optioned = HPAScalingPolicyOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v2::hpa_scaling_policy::HPAScalingPolicy {
+impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalingPolicy {
     fn into_optioned(self) -> HPAScalingPolicyOpt {
         HPAScalingPolicyOpt {
             period_seconds: Some(self.period_seconds),

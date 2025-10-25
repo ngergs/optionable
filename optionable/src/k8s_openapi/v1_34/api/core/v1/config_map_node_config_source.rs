@@ -6,8 +6,7 @@ pub struct ConfigMapNodeConfigSourceOpt {
     pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::config_map_node_config_source::ConfigMapNodeConfigSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMapNodeConfigSource {
     type Optioned = ConfigMapNodeConfigSourceOpt;
 }
 #[automatically_derived]
@@ -16,7 +15,7 @@ impl crate::Optionable for ConfigMapNodeConfigSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::config_map_node_config_source::ConfigMapNodeConfigSource {
+for ::k8s_openapi::api::core::v1::ConfigMapNodeConfigSource {
     fn into_optioned(self) -> ConfigMapNodeConfigSourceOpt {
         ConfigMapNodeConfigSourceOpt {
             kubelet_config_key: Some(

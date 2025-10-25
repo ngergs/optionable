@@ -11,7 +11,7 @@ pub struct JobConditionOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::batch::v1::job_condition::JobCondition {
+impl crate::Optionable for ::k8s_openapi::api::batch::v1::JobCondition {
     type Optioned = JobConditionOpt;
 }
 #[automatically_derived]
@@ -19,8 +19,7 @@ impl crate::Optionable for JobConditionOpt {
     type Optioned = JobConditionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::batch::v1::job_condition::JobCondition {
+impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobCondition {
     fn into_optioned(self) -> JobConditionOpt {
         JobConditionOpt {
             last_probe_time: <Option<

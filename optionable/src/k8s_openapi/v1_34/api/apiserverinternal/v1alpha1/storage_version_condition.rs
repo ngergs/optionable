@@ -10,7 +10,7 @@ pub struct StorageVersionConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::apiserverinternal::v1alpha1::storage_version_condition::StorageVersionCondition {
+for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionCondition {
     type Optioned = StorageVersionConditionOpt;
 }
 #[automatically_derived]
@@ -19,7 +19,7 @@ impl crate::Optionable for StorageVersionConditionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::apiserverinternal::v1alpha1::storage_version_condition::StorageVersionCondition {
+for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionCondition {
     fn into_optioned(self) -> StorageVersionConditionOpt {
         StorageVersionConditionOpt {
             last_transition_time: <Option<

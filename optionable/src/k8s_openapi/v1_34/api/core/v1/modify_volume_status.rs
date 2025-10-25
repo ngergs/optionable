@@ -5,8 +5,7 @@ pub struct ModifyVolumeStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::modify_volume_status::ModifyVolumeStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ModifyVolumeStatus {
     type Optioned = ModifyVolumeStatusOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for ModifyVolumeStatusOpt {
     type Optioned = ModifyVolumeStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::modify_volume_status::ModifyVolumeStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ModifyVolumeStatus {
     fn into_optioned(self) -> ModifyVolumeStatusOpt {
         ModifyVolumeStatusOpt {
             status: Some(

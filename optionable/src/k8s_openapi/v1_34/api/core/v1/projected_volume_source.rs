@@ -5,8 +5,7 @@ pub struct ProjectedVolumeSourceOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::projected_volume_source::ProjectedVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ProjectedVolumeSource {
     type Optioned = ProjectedVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for ProjectedVolumeSourceOpt {
     type Optioned = ProjectedVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::projected_volume_source::ProjectedVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ProjectedVolumeSource {
     fn into_optioned(self) -> ProjectedVolumeSourceOpt {
         ProjectedVolumeSourceOpt {
             default_mode: <Option<

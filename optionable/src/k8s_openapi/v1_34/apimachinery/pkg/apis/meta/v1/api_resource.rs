@@ -20,7 +20,7 @@ pub struct APIResourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::api_resource::APIResource {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResource {
     type Optioned = APIResourceOpt;
 }
 #[automatically_derived]
@@ -29,7 +29,7 @@ impl crate::Optionable for APIResourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::api_resource::APIResource {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResource {
     fn into_optioned(self) -> APIResourceOpt {
         APIResourceOpt {
             categories: <Option<

@@ -3,7 +3,7 @@ pub struct TokenRequestOpt {
     pub expiration_seconds: <Option<i64> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::storage::v1::token_request::TokenRequest {
+impl crate::Optionable for ::k8s_openapi::api::storage::v1::TokenRequest {
     type Optioned = TokenRequestOpt;
 }
 #[automatically_derived]
@@ -11,8 +11,7 @@ impl crate::Optionable for TokenRequestOpt {
     type Optioned = TokenRequestOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::storage::v1::token_request::TokenRequest {
+impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::TokenRequest {
     fn into_optioned(self) -> TokenRequestOpt {
         TokenRequestOpt {
             audience: Some(

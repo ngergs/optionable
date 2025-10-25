@@ -4,7 +4,7 @@ pub struct GroupVersionForDiscoveryOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::group_version_for_discovery::GroupVersionForDiscovery {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery {
     type Optioned = GroupVersionForDiscoveryOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for GroupVersionForDiscoveryOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::group_version_for_discovery::GroupVersionForDiscovery {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery {
     fn into_optioned(self) -> GroupVersionForDiscoveryOpt {
         GroupVersionForDiscoveryOpt {
             group_version: Some(

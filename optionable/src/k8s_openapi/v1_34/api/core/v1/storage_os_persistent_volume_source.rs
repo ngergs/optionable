@@ -9,7 +9,7 @@ pub struct StorageOSPersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::core::v1::storage_os_persistent_volume_source::StorageOSPersistentVolumeSource {
+for ::k8s_openapi::api::core::v1::StorageOSPersistentVolumeSource {
     type Optioned = StorageOSPersistentVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for StorageOSPersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::storage_os_persistent_volume_source::StorageOSPersistentVolumeSource {
+for ::k8s_openapi::api::core::v1::StorageOSPersistentVolumeSource {
     fn into_optioned(self) -> StorageOSPersistentVolumeSourceOpt {
         StorageOSPersistentVolumeSourceOpt {
             fs_type: <Option<

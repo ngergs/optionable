@@ -4,8 +4,7 @@ pub struct NetworkDeviceDataOpt {
     pub ips: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1::network_device_data::NetworkDeviceData {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1::NetworkDeviceData {
     type Optioned = NetworkDeviceDataOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for NetworkDeviceDataOpt {
     type Optioned = NetworkDeviceDataOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1::network_device_data::NetworkDeviceData {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::NetworkDeviceData {
     fn into_optioned(self) -> NetworkDeviceDataOpt {
         NetworkDeviceDataOpt {
             hardware_address: <Option<

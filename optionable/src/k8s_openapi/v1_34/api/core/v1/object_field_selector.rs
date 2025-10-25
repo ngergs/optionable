@@ -3,8 +3,7 @@ pub struct ObjectFieldSelectorOpt {
     pub field_path: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::object_field_selector::ObjectFieldSelector {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ObjectFieldSelector {
     type Optioned = ObjectFieldSelectorOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,7 @@ impl crate::Optionable for ObjectFieldSelectorOpt {
     type Optioned = ObjectFieldSelectorOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::object_field_selector::ObjectFieldSelector {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ObjectFieldSelector {
     fn into_optioned(self) -> ObjectFieldSelectorOpt {
         ObjectFieldSelectorOpt {
             api_version: <Option<

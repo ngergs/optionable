@@ -7,8 +7,7 @@ pub struct ResourceClaimTemplateOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta2::resource_claim_template::ResourceClaimTemplate {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::ResourceClaimTemplate {
     type Optioned = ResourceClaimTemplateOpt;
 }
 #[automatically_derived]
@@ -17,7 +16,7 @@ impl crate::Optionable for ResourceClaimTemplateOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta2::resource_claim_template::ResourceClaimTemplate {
+for ::k8s_openapi::api::resource::v1beta2::ResourceClaimTemplate {
     fn into_optioned(self) -> ResourceClaimTemplateOpt {
         ResourceClaimTemplateOpt {
             metadata: Some(

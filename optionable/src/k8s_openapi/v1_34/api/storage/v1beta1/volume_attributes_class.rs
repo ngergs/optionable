@@ -8,8 +8,7 @@ pub struct VolumeAttributesClassOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::storage::v1beta1::volume_attributes_class::VolumeAttributesClass {
+impl crate::Optionable for ::k8s_openapi::api::storage::v1beta1::VolumeAttributesClass {
     type Optioned = VolumeAttributesClassOpt;
 }
 #[automatically_derived]
@@ -18,7 +17,7 @@ impl crate::Optionable for VolumeAttributesClassOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::storage::v1beta1::volume_attributes_class::VolumeAttributesClass {
+for ::k8s_openapi::api::storage::v1beta1::VolumeAttributesClass {
     fn into_optioned(self) -> VolumeAttributesClassOpt {
         VolumeAttributesClassOpt {
             driver_name: Some(

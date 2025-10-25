@@ -10,7 +10,7 @@ pub struct ScaleOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::autoscaling::v1::scale::Scale {
+impl crate::Optionable for ::k8s_openapi::api::autoscaling::v1::Scale {
     type Optioned = ScaleOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for ScaleOpt {
     type Optioned = ScaleOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v1::scale::Scale {
+impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v1::Scale {
     fn into_optioned(self) -> ScaleOpt {
         ScaleOpt {
             metadata: Some(

@@ -28,7 +28,7 @@ where
 }
 #[automatically_derived]
 impl<T> crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::watch_event::WatchEvent<T>
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::WatchEvent<T>
 where
     T: crate::Optionable,
     <T as crate::Optionable>::Optioned: Sized,
@@ -44,8 +44,8 @@ where
     type Optioned = WatchEventOpt<T>;
 }
 #[automatically_derived]
-impl<T> ::optionable::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::watch_event::WatchEvent<T>
+impl<T> crate::OptionableConvert
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::WatchEvent<T>
 where
     T: crate::OptionableConvert,
     <T as crate::Optionable>::Optioned: Sized,

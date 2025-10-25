@@ -3,7 +3,7 @@ pub struct NodeAddressOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::node_address::NodeAddress {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeAddress {
     type Optioned = NodeAddressOpt;
 }
 #[automatically_derived]
@@ -11,8 +11,7 @@ impl crate::Optionable for NodeAddressOpt {
     type Optioned = NodeAddressOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::node_address::NodeAddress {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAddress {
     fn into_optioned(self) -> NodeAddressOpt {
         NodeAddressOpt {
             address: Some(

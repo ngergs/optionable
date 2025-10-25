@@ -14,7 +14,7 @@ pub struct NodeSpecOpt {
     pub unschedulable: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::node_spec::NodeSpec {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeSpec {
     type Optioned = NodeSpecOpt;
 }
 #[automatically_derived]
@@ -22,7 +22,7 @@ impl crate::Optionable for NodeSpecOpt {
     type Optioned = NodeSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::node_spec::NodeSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSpec {
     fn into_optioned(self) -> NodeSpecOpt {
         NodeSpecOpt {
             config_source: <Option<

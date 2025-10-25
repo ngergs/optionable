@@ -2,8 +2,7 @@ pub struct DaemonEndpointOpt {
     pub port: Option<i32>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::daemon_endpoint::DaemonEndpoint {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::DaemonEndpoint {
     type Optioned = DaemonEndpointOpt;
 }
 #[automatically_derived]
@@ -11,8 +10,7 @@ impl crate::Optionable for DaemonEndpointOpt {
     type Optioned = DaemonEndpointOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::daemon_endpoint::DaemonEndpoint {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DaemonEndpoint {
     fn into_optioned(self) -> DaemonEndpointOpt {
         DaemonEndpointOpt {
             port: Some(self.port),

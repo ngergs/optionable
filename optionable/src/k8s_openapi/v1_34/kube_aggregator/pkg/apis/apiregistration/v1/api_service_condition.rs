@@ -9,7 +9,7 @@ pub struct APIServiceConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::api_service_condition::APIServiceCondition {
+for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCondition {
     type Optioned = APIServiceConditionOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for APIServiceConditionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::api_service_condition::APIServiceCondition {
+for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCondition {
     fn into_optioned(self) -> APIServiceConditionOpt {
         APIServiceConditionOpt {
             last_transition_time: <Option<

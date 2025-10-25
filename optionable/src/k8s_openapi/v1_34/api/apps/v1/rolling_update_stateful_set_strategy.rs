@@ -6,7 +6,7 @@ pub struct RollingUpdateStatefulSetStrategyOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::rolling_update_stateful_set_strategy::RollingUpdateStatefulSetStrategy {
+for ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy {
     type Optioned = RollingUpdateStatefulSetStrategyOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for RollingUpdateStatefulSetStrategyOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::rolling_update_stateful_set_strategy::RollingUpdateStatefulSetStrategy {
+for ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy {
     fn into_optioned(self) -> RollingUpdateStatefulSetStrategyOpt {
         RollingUpdateStatefulSetStrategyOpt {
             max_unavailable: <Option<

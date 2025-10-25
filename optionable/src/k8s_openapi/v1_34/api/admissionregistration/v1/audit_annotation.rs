@@ -4,7 +4,7 @@ pub struct AuditAnnotationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1::audit_annotation::AuditAnnotation {
+for ::k8s_openapi::api::admissionregistration::v1::AuditAnnotation {
     type Optioned = AuditAnnotationOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for AuditAnnotationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1::audit_annotation::AuditAnnotation {
+for ::k8s_openapi::api::admissionregistration::v1::AuditAnnotation {
     fn into_optioned(self) -> AuditAnnotationOpt {
         AuditAnnotationOpt {
             key: Some(

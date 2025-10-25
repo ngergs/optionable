@@ -63,8 +63,7 @@ pub struct EphemeralContainerOpt {
     pub working_dir: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::ephemeral_container::EphemeralContainer {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::EphemeralContainer {
     type Optioned = EphemeralContainerOpt;
 }
 #[automatically_derived]
@@ -72,8 +71,7 @@ impl crate::Optionable for EphemeralContainerOpt {
     type Optioned = EphemeralContainerOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::ephemeral_container::EphemeralContainer {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EphemeralContainer {
     fn into_optioned(self) -> EphemeralContainerOpt {
         EphemeralContainerOpt {
             args: <Option<

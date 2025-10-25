@@ -11,7 +11,7 @@ pub struct CertificateSigningRequestOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::certificates::v1::certificate_signing_request::CertificateSigningRequest {
+for ::k8s_openapi::api::certificates::v1::CertificateSigningRequest {
     type Optioned = CertificateSigningRequestOpt;
 }
 #[automatically_derived]
@@ -20,7 +20,7 @@ impl crate::Optionable for CertificateSigningRequestOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::certificates::v1::certificate_signing_request::CertificateSigningRequest {
+for ::k8s_openapi::api::certificates::v1::CertificateSigningRequest {
     fn into_optioned(self) -> CertificateSigningRequestOpt {
         CertificateSigningRequestOpt {
             metadata: Some(

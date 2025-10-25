@@ -3,8 +3,7 @@ pub struct ServiceAccountSubjectOpt {
     pub namespace: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::service_account_subject::ServiceAccountSubject {
+impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::ServiceAccountSubject {
     type Optioned = ServiceAccountSubjectOpt;
 }
 #[automatically_derived]
@@ -13,7 +12,7 @@ impl crate::Optionable for ServiceAccountSubjectOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::service_account_subject::ServiceAccountSubject {
+for ::k8s_openapi::api::flowcontrol::v1::ServiceAccountSubject {
     fn into_optioned(self) -> ServiceAccountSubjectOpt {
         ServiceAccountSubjectOpt {
             name: Some(

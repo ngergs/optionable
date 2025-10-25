@@ -4,8 +4,7 @@ pub struct ConfigMapKeySelectorOpt {
     pub optional: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::config_map_key_selector::ConfigMapKeySelector {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMapKeySelector {
     type Optioned = ConfigMapKeySelectorOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for ConfigMapKeySelectorOpt {
     type Optioned = ConfigMapKeySelectorOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::config_map_key_selector::ConfigMapKeySelector {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapKeySelector {
     fn into_optioned(self) -> ConfigMapKeySelectorOpt {
         ConfigMapKeySelectorOpt {
             key: Some(

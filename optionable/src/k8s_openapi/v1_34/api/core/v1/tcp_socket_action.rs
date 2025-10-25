@@ -5,8 +5,7 @@ pub struct TCPSocketActionOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::tcp_socket_action::TCPSocketAction {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::TCPSocketAction {
     type Optioned = TCPSocketActionOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for TCPSocketActionOpt {
     type Optioned = TCPSocketActionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::tcp_socket_action::TCPSocketAction {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TCPSocketAction {
     fn into_optioned(self) -> TCPSocketActionOpt {
         TCPSocketActionOpt {
             host: <Option<

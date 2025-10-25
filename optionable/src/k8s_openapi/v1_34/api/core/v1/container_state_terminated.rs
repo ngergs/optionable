@@ -12,8 +12,7 @@ pub struct ContainerStateTerminatedOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::container_state_terminated::ContainerStateTerminated {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerStateTerminated {
     type Optioned = ContainerStateTerminatedOpt;
 }
 #[automatically_derived]
@@ -22,7 +21,7 @@ impl crate::Optionable for ContainerStateTerminatedOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::container_state_terminated::ContainerStateTerminated {
+for ::k8s_openapi::api::core::v1::ContainerStateTerminated {
     fn into_optioned(self) -> ContainerStateTerminatedOpt {
         ContainerStateTerminatedOpt {
             container_id: <Option<

@@ -11,7 +11,7 @@ pub struct NodeConditionOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::node_condition::NodeCondition {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeCondition {
     type Optioned = NodeConditionOpt;
 }
 #[automatically_derived]
@@ -19,8 +19,7 @@ impl crate::Optionable for NodeConditionOpt {
     type Optioned = NodeConditionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::node_condition::NodeCondition {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeCondition {
     fn into_optioned(self) -> NodeConditionOpt {
         NodeConditionOpt {
             last_heartbeat_time: <Option<

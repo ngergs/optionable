@@ -3,8 +3,7 @@ pub struct SeccompProfileOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::seccomp_profile::SeccompProfile {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::SeccompProfile {
     type Optioned = SeccompProfileOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,7 @@ impl crate::Optionable for SeccompProfileOpt {
     type Optioned = SeccompProfileOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::seccomp_profile::SeccompProfile {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SeccompProfile {
     fn into_optioned(self) -> SeccompProfileOpt {
         SeccompProfileOpt {
             localhost_profile: <Option<

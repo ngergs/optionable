@@ -9,7 +9,7 @@ pub struct HorizontalPodAutoscalerStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v1::horizontal_pod_autoscaler_status::HorizontalPodAutoscalerStatus {
+for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
     type Optioned = HorizontalPodAutoscalerStatusOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for HorizontalPodAutoscalerStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v1::horizontal_pod_autoscaler_status::HorizontalPodAutoscalerStatus {
+for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
     fn into_optioned(self) -> HorizontalPodAutoscalerStatusOpt {
         HorizontalPodAutoscalerStatusOpt {
             current_cpu_utilization_percentage: <Option<

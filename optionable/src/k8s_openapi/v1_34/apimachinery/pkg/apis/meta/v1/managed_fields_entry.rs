@@ -13,7 +13,7 @@ pub struct ManagedFieldsEntryOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::managed_fields_entry::ManagedFieldsEntry {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
     type Optioned = ManagedFieldsEntryOpt;
 }
 #[automatically_derived]
@@ -22,7 +22,7 @@ impl crate::Optionable for ManagedFieldsEntryOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::managed_fields_entry::ManagedFieldsEntry {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
     fn into_optioned(self) -> ManagedFieldsEntryOpt {
         ManagedFieldsEntryOpt {
             api_version: <Option<

@@ -5,8 +5,7 @@ pub struct ListMetaOpt {
     pub self_link: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::list_meta::ListMeta {
+impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta {
     type Optioned = ListMetaOpt;
 }
 #[automatically_derived]
@@ -15,7 +14,7 @@ impl crate::Optionable for ListMetaOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::list_meta::ListMeta {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta {
     fn into_optioned(self) -> ListMetaOpt {
         ListMetaOpt {
             continue_: <Option<

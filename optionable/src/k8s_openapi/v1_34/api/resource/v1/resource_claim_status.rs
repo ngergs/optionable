@@ -10,8 +10,7 @@ pub struct ResourceClaimStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1::resource_claim_status::ResourceClaimStatus {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1::ResourceClaimStatus {
     type Optioned = ResourceClaimStatusOpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for ResourceClaimStatusOpt {
     type Optioned = ResourceClaimStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1::resource_claim_status::ResourceClaimStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ResourceClaimStatus {
     fn into_optioned(self) -> ResourceClaimStatusOpt {
         ResourceClaimStatusOpt {
             allocation: <Option<

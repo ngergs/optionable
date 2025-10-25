@@ -7,7 +7,7 @@ pub struct LabelSelectorRequirementOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::label_selector_requirement::LabelSelectorRequirement {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelectorRequirement {
     type Optioned = LabelSelectorRequirementOpt;
 }
 #[automatically_derived]
@@ -16,7 +16,7 @@ impl crate::Optionable for LabelSelectorRequirementOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::label_selector_requirement::LabelSelectorRequirement {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelectorRequirement {
     fn into_optioned(self) -> LabelSelectorRequirementOpt {
         LabelSelectorRequirementOpt {
             key: Some(

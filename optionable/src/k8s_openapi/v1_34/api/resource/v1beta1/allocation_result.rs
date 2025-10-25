@@ -10,8 +10,7 @@ pub struct AllocationResultOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta1::allocation_result::AllocationResult {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::AllocationResult {
     type Optioned = AllocationResultOpt;
 }
 #[automatically_derived]
@@ -20,7 +19,7 @@ impl crate::Optionable for AllocationResultOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta1::allocation_result::AllocationResult {
+for ::k8s_openapi::api::resource::v1beta1::AllocationResult {
     fn into_optioned(self) -> AllocationResultOpt {
         AllocationResultOpt {
             allocation_timestamp: <Option<

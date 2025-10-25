@@ -4,8 +4,7 @@ pub struct TopologySelectorTermOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::topology_selector_term::TopologySelectorTerm {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::TopologySelectorTerm {
     type Optioned = TopologySelectorTermOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for TopologySelectorTermOpt {
     type Optioned = TopologySelectorTermOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::topology_selector_term::TopologySelectorTerm {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TopologySelectorTerm {
     fn into_optioned(self) -> TopologySelectorTermOpt {
         TopologySelectorTermOpt {
             match_label_expressions: <Option<

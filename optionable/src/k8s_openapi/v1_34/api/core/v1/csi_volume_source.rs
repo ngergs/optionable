@@ -10,8 +10,7 @@ pub struct CSIVolumeSourceOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::csi_volume_source::CSIVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::CSIVolumeSource {
     type Optioned = CSIVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for CSIVolumeSourceOpt {
     type Optioned = CSIVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::csi_volume_source::CSIVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CSIVolumeSource {
     fn into_optioned(self) -> CSIVolumeSourceOpt {
         CSIVolumeSourceOpt {
             driver: Some(

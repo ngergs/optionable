@@ -3,8 +3,7 @@ pub struct AppArmorProfileOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::app_armor_profile::AppArmorProfile {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::AppArmorProfile {
     type Optioned = AppArmorProfileOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,7 @@ impl crate::Optionable for AppArmorProfileOpt {
     type Optioned = AppArmorProfileOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::app_armor_profile::AppArmorProfile {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AppArmorProfile {
     fn into_optioned(self) -> AppArmorProfileOpt {
         AppArmorProfileOpt {
             localhost_profile: <Option<

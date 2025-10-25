@@ -7,8 +7,7 @@ pub struct VolumeAttachmentSourceOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::storage::v1::volume_attachment_source::VolumeAttachmentSource {
+impl crate::Optionable for ::k8s_openapi::api::storage::v1::VolumeAttachmentSource {
     type Optioned = VolumeAttachmentSourceOpt;
 }
 #[automatically_derived]
@@ -17,7 +16,7 @@ impl crate::Optionable for VolumeAttachmentSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::storage::v1::volume_attachment_source::VolumeAttachmentSource {
+for ::k8s_openapi::api::storage::v1::VolumeAttachmentSource {
     fn into_optioned(self) -> VolumeAttachmentSourceOpt {
         VolumeAttachmentSourceOpt {
             inline_volume_spec: <Option<

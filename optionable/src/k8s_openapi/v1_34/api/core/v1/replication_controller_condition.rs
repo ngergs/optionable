@@ -8,8 +8,7 @@ pub struct ReplicationControllerConditionOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::replication_controller_condition::ReplicationControllerCondition {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ReplicationControllerCondition {
     type Optioned = ReplicationControllerConditionOpt;
 }
 #[automatically_derived]
@@ -18,7 +17,7 @@ impl crate::Optionable for ReplicationControllerConditionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::replication_controller_condition::ReplicationControllerCondition {
+for ::k8s_openapi::api::core::v1::ReplicationControllerCondition {
     fn into_optioned(self) -> ReplicationControllerConditionOpt {
         ReplicationControllerConditionOpt {
             last_transition_time: <Option<

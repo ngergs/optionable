@@ -7,8 +7,7 @@ pub struct NonResourceRuleOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::authorization::v1::non_resource_rule::NonResourceRule {
+impl crate::Optionable for ::k8s_openapi::api::authorization::v1::NonResourceRule {
     type Optioned = NonResourceRuleOpt;
 }
 #[automatically_derived]
@@ -17,7 +16,7 @@ impl crate::Optionable for NonResourceRuleOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authorization::v1::non_resource_rule::NonResourceRule {
+for ::k8s_openapi::api::authorization::v1::NonResourceRule {
     fn into_optioned(self) -> NonResourceRuleOpt {
         NonResourceRuleOpt {
             non_resource_urls: <Option<

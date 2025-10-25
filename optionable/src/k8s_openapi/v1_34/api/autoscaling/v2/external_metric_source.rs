@@ -7,8 +7,7 @@ pub struct ExternalMetricSourceOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v2::external_metric_source::ExternalMetricSource {
+impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::ExternalMetricSource {
     type Optioned = ExternalMetricSourceOpt;
 }
 #[automatically_derived]
@@ -17,7 +16,7 @@ impl crate::Optionable for ExternalMetricSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v2::external_metric_source::ExternalMetricSource {
+for ::k8s_openapi::api::autoscaling::v2::ExternalMetricSource {
     fn into_optioned(self) -> ExternalMetricSourceOpt {
         ExternalMetricSourceOpt {
             metric: Some(

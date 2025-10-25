@@ -5,8 +5,7 @@ pub struct PodResourceClaimStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::pod_resource_claim_status::PodResourceClaimStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PodResourceClaimStatus {
     type Optioned = PodResourceClaimStatusOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for PodResourceClaimStatusOpt {
     type Optioned = PodResourceClaimStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::pod_resource_claim_status::PodResourceClaimStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodResourceClaimStatus {
     fn into_optioned(self) -> PodResourceClaimStatusOpt {
         PodResourceClaimStatusOpt {
             name: Some(

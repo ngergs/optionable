@@ -10,8 +10,7 @@ pub struct HorizontalPodAutoscalerOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v2::horizontal_pod_autoscaler::HorizontalPodAutoscaler {
+impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscaler {
     type Optioned = HorizontalPodAutoscalerOpt;
 }
 #[automatically_derived]
@@ -20,7 +19,7 @@ impl crate::Optionable for HorizontalPodAutoscalerOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v2::horizontal_pod_autoscaler::HorizontalPodAutoscaler {
+for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscaler {
     fn into_optioned(self) -> HorizontalPodAutoscalerOpt {
         HorizontalPodAutoscalerOpt {
             metadata: Some(

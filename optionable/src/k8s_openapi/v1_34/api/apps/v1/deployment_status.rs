@@ -12,8 +12,7 @@ pub struct DeploymentStatusOpt {
     pub updated_replicas: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::deployment_status::DeploymentStatus {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::DeploymentStatus {
     type Optioned = DeploymentStatusOpt;
 }
 #[automatically_derived]
@@ -21,8 +20,7 @@ impl crate::Optionable for DeploymentStatusOpt {
     type Optioned = DeploymentStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::deployment_status::DeploymentStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentStatus {
     fn into_optioned(self) -> DeploymentStatusOpt {
         DeploymentStatusOpt {
             available_replicas: <Option<

@@ -10,7 +10,7 @@ pub struct LabelSelectorOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::label_selector::LabelSelector {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector {
     type Optioned = LabelSelectorOpt;
 }
 #[automatically_derived]
@@ -19,7 +19,7 @@ impl crate::Optionable for LabelSelectorOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::label_selector::LabelSelector {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector {
     fn into_optioned(self) -> LabelSelectorOpt {
         LabelSelectorOpt {
             match_expressions: <Option<

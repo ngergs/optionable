@@ -16,7 +16,7 @@ pub struct PolicyRuleOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::rbac::v1::policy_rule::PolicyRule {
+impl crate::Optionable for ::k8s_openapi::api::rbac::v1::PolicyRule {
     type Optioned = PolicyRuleOpt;
 }
 #[automatically_derived]
@@ -24,7 +24,7 @@ impl crate::Optionable for PolicyRuleOpt {
     type Optioned = PolicyRuleOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::policy_rule::PolicyRule {
+impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::PolicyRule {
     fn into_optioned(self) -> PolicyRuleOpt {
         PolicyRuleOpt {
             api_groups: <Option<

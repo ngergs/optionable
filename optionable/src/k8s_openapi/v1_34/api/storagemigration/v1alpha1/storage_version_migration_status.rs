@@ -6,7 +6,7 @@ pub struct StorageVersionMigrationStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::storagemigration::v1alpha1::storage_version_migration_status::StorageVersionMigrationStatus {
+for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationStatus {
     type Optioned = StorageVersionMigrationStatusOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for StorageVersionMigrationStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::storagemigration::v1alpha1::storage_version_migration_status::StorageVersionMigrationStatus {
+for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationStatus {
     fn into_optioned(self) -> StorageVersionMigrationStatusOpt {
         StorageVersionMigrationStatusOpt {
             conditions: <Option<

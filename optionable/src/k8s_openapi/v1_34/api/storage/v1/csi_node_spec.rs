@@ -6,7 +6,7 @@ pub struct CSINodeSpecOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::storage::v1::csi_node_spec::CSINodeSpec {
+impl crate::Optionable for ::k8s_openapi::api::storage::v1::CSINodeSpec {
     type Optioned = CSINodeSpecOpt;
 }
 #[automatically_derived]
@@ -14,8 +14,7 @@ impl crate::Optionable for CSINodeSpecOpt {
     type Optioned = CSINodeSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::storage::v1::csi_node_spec::CSINodeSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSINodeSpec {
     fn into_optioned(self) -> CSINodeSpecOpt {
         CSINodeSpecOpt {
             drivers: Some(

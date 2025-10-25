@@ -3,8 +3,7 @@ pub struct ContainerStateWaitingOpt {
     pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::container_state_waiting::ContainerStateWaiting {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerStateWaiting {
     type Optioned = ContainerStateWaitingOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,7 @@ impl crate::Optionable for ContainerStateWaitingOpt {
     type Optioned = ContainerStateWaitingOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::container_state_waiting::ContainerStateWaiting {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStateWaiting {
     fn into_optioned(self) -> ContainerStateWaitingOpt {
         ContainerStateWaitingOpt {
             message: <Option<

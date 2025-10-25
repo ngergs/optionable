@@ -33,8 +33,7 @@ pub struct ContainerStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::container_status::ContainerStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerStatus {
     type Optioned = ContainerStatusOpt;
 }
 #[automatically_derived]
@@ -42,8 +41,7 @@ impl crate::Optionable for ContainerStatusOpt {
     type Optioned = ContainerStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::container_status::ContainerStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStatus {
     fn into_optioned(self) -> ContainerStatusOpt {
         ContainerStatusOpt {
             allocated_resources: <Option<

@@ -29,8 +29,7 @@ pub struct PersistentVolumeClaimStatusOpt {
     pub phase: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::persistent_volume_claim_status::PersistentVolumeClaimStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PersistentVolumeClaimStatus {
     type Optioned = PersistentVolumeClaimStatusOpt;
 }
 #[automatically_derived]
@@ -39,7 +38,7 @@ impl crate::Optionable for PersistentVolumeClaimStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::persistent_volume_claim_status::PersistentVolumeClaimStatus {
+for ::k8s_openapi::api::core::v1::PersistentVolumeClaimStatus {
     fn into_optioned(self) -> PersistentVolumeClaimStatusOpt {
         PersistentVolumeClaimStatusOpt {
             access_modes: <Option<

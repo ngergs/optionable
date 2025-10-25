@@ -8,8 +8,7 @@ pub struct FlowSchemaConditionOpt {
     pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::flow_schema_condition::FlowSchemaCondition {
+impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaCondition {
     type Optioned = FlowSchemaConditionOpt;
 }
 #[automatically_derived]
@@ -18,7 +17,7 @@ impl crate::Optionable for FlowSchemaConditionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::flow_schema_condition::FlowSchemaCondition {
+for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaCondition {
     fn into_optioned(self) -> FlowSchemaConditionOpt {
         FlowSchemaConditionOpt {
             last_transition_time: <Option<

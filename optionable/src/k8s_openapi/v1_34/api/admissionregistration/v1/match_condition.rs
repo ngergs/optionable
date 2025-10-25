@@ -4,7 +4,7 @@ pub struct MatchConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1::match_condition::MatchCondition {
+for ::k8s_openapi::api::admissionregistration::v1::MatchCondition {
     type Optioned = MatchConditionOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for MatchConditionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1::match_condition::MatchCondition {
+for ::k8s_openapi::api::admissionregistration::v1::MatchCondition {
     fn into_optioned(self) -> MatchConditionOpt {
         MatchConditionOpt {
             expression: Some(

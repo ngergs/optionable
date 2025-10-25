@@ -10,8 +10,7 @@ pub struct DeviceClassSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1::device_class_spec::DeviceClassSpec {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1::DeviceClassSpec {
     type Optioned = DeviceClassSpecOpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for DeviceClassSpecOpt {
     type Optioned = DeviceClassSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1::device_class_spec::DeviceClassSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceClassSpec {
     fn into_optioned(self) -> DeviceClassSpecOpt {
         DeviceClassSpecOpt {
             config: <Option<

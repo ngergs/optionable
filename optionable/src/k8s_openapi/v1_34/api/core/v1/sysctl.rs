@@ -3,7 +3,7 @@ pub struct SysctlOpt {
     pub value: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::sysctl::Sysctl {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::Sysctl {
     type Optioned = SysctlOpt;
 }
 #[automatically_derived]
@@ -11,7 +11,7 @@ impl crate::Optionable for SysctlOpt {
     type Optioned = SysctlOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::sysctl::Sysctl {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Sysctl {
     fn into_optioned(self) -> SysctlOpt {
         SysctlOpt {
             name: Some(

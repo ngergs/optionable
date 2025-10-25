@@ -7,8 +7,7 @@ pub struct RollingUpdateDeploymentOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::rolling_update_deployment::RollingUpdateDeployment {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::RollingUpdateDeployment {
     type Optioned = RollingUpdateDeploymentOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for RollingUpdateDeploymentOpt {
     type Optioned = RollingUpdateDeploymentOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::rolling_update_deployment::RollingUpdateDeployment {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::RollingUpdateDeployment {
     fn into_optioned(self) -> RollingUpdateDeploymentOpt {
         RollingUpdateDeploymentOpt {
             max_surge: <Option<

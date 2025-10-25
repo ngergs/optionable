@@ -3,7 +3,7 @@ pub struct SelfSubjectRulesReviewSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::authorization::v1::self_subject_rules_review_spec::SelfSubjectRulesReviewSpec {
+for ::k8s_openapi::api::authorization::v1::SelfSubjectRulesReviewSpec {
     type Optioned = SelfSubjectRulesReviewSpecOpt;
 }
 #[automatically_derived]
@@ -12,7 +12,7 @@ impl crate::Optionable for SelfSubjectRulesReviewSpecOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authorization::v1::self_subject_rules_review_spec::SelfSubjectRulesReviewSpec {
+for ::k8s_openapi::api::authorization::v1::SelfSubjectRulesReviewSpec {
     fn into_optioned(self) -> SelfSubjectRulesReviewSpecOpt {
         SelfSubjectRulesReviewSpecOpt {
             namespace: <Option<

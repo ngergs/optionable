@@ -7,8 +7,7 @@ pub struct CapacityRequirementsOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1::capacity_requirements::CapacityRequirements {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1::CapacityRequirements {
     type Optioned = CapacityRequirementsOpt;
 }
 #[automatically_derived]
@@ -17,7 +16,7 @@ impl crate::Optionable for CapacityRequirementsOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1::capacity_requirements::CapacityRequirements {
+for ::k8s_openapi::api::resource::v1::CapacityRequirements {
     fn into_optioned(self) -> CapacityRequirementsOpt {
         CapacityRequirementsOpt {
             requests: <Option<

@@ -13,8 +13,7 @@ pub struct ResourceQuotaSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::resource_quota_spec::ResourceQuotaSpec {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ResourceQuotaSpec {
     type Optioned = ResourceQuotaSpecOpt;
 }
 #[automatically_derived]
@@ -22,8 +21,7 @@ impl crate::Optionable for ResourceQuotaSpecOpt {
     type Optioned = ResourceQuotaSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::resource_quota_spec::ResourceQuotaSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceQuotaSpec {
     fn into_optioned(self) -> ResourceQuotaSpecOpt {
         ResourceQuotaSpecOpt {
             hard: <Option<

@@ -4,7 +4,7 @@ pub struct ParamKindOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1beta1::param_kind::ParamKind {
+for ::k8s_openapi::api::admissionregistration::v1beta1::ParamKind {
     type Optioned = ParamKindOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for ParamKindOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1beta1::param_kind::ParamKind {
+for ::k8s_openapi::api::admissionregistration::v1beta1::ParamKind {
     fn into_optioned(self) -> ParamKindOpt {
         ParamKindOpt {
             api_version: <Option<

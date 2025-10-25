@@ -7,8 +7,7 @@ pub struct RollingUpdateDaemonSetOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::rolling_update_daemon_set::RollingUpdateDaemonSet {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::RollingUpdateDaemonSet {
     type Optioned = RollingUpdateDaemonSetOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for RollingUpdateDaemonSetOpt {
     type Optioned = RollingUpdateDaemonSetOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::rolling_update_daemon_set::RollingUpdateDaemonSet {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::RollingUpdateDaemonSet {
     fn into_optioned(self) -> RollingUpdateDaemonSetOpt {
         RollingUpdateDaemonSetOpt {
             max_surge: <Option<

@@ -4,8 +4,7 @@ pub struct VolumeNodeAffinityOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::volume_node_affinity::VolumeNodeAffinity {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::VolumeNodeAffinity {
     type Optioned = VolumeNodeAffinityOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for VolumeNodeAffinityOpt {
     type Optioned = VolumeNodeAffinityOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::volume_node_affinity::VolumeNodeAffinity {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeNodeAffinity {
     fn into_optioned(self) -> VolumeNodeAffinityOpt {
         VolumeNodeAffinityOpt {
             required: <Option<

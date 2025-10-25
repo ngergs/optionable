@@ -7,7 +7,7 @@ pub struct NodeAffinityOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::node_affinity::NodeAffinity {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeAffinity {
     type Optioned = NodeAffinityOpt;
 }
 #[automatically_derived]
@@ -15,8 +15,7 @@ impl crate::Optionable for NodeAffinityOpt {
     type Optioned = NodeAffinityOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::node_affinity::NodeAffinity {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAffinity {
     fn into_optioned(self) -> NodeAffinityOpt {
         NodeAffinityOpt {
             preferred_during_scheduling_ignored_during_execution: <Option<

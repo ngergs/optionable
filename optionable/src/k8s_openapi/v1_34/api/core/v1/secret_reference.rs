@@ -3,8 +3,7 @@ pub struct SecretReferenceOpt {
     pub namespace: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::secret_reference::SecretReference {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::SecretReference {
     type Optioned = SecretReferenceOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,7 @@ impl crate::Optionable for SecretReferenceOpt {
     type Optioned = SecretReferenceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::secret_reference::SecretReference {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretReference {
     fn into_optioned(self) -> SecretReferenceOpt {
         SecretReferenceOpt {
             name: <Option<

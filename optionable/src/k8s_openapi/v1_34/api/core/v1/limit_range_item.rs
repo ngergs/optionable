@@ -32,8 +32,7 @@ pub struct LimitRangeItemOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::limit_range_item::LimitRangeItem {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::LimitRangeItem {
     type Optioned = LimitRangeItemOpt;
 }
 #[automatically_derived]
@@ -41,8 +40,7 @@ impl crate::Optionable for LimitRangeItemOpt {
     type Optioned = LimitRangeItemOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::limit_range_item::LimitRangeItem {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LimitRangeItem {
     fn into_optioned(self) -> LimitRangeItemOpt {
         LimitRangeItemOpt {
             default: <Option<

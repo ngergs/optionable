@@ -3,7 +3,7 @@ pub struct CustomResourceSubresourceStatusOpt(
 );
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_subresource_status::CustomResourceSubresourceStatus {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresourceStatus {
     type Optioned = CustomResourceSubresourceStatusOpt;
 }
 #[automatically_derived]
@@ -12,7 +12,7 @@ impl crate::Optionable for CustomResourceSubresourceStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_subresource_status::CustomResourceSubresourceStatus {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresourceStatus {
     fn into_optioned(self) -> CustomResourceSubresourceStatusOpt {
         CustomResourceSubresourceStatusOpt(
             Some(

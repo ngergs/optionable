@@ -10,7 +10,7 @@ pub struct AffinityOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::affinity::Affinity {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::Affinity {
     type Optioned = AffinityOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for AffinityOpt {
     type Optioned = AffinityOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::affinity::Affinity {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Affinity {
     fn into_optioned(self) -> AffinityOpt {
         AffinityOpt {
             node_affinity: <Option<

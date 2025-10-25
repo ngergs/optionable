@@ -6,7 +6,7 @@ pub struct AzureFilePersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::core::v1::azure_file_persistent_volume_source::AzureFilePersistentVolumeSource {
+for ::k8s_openapi::api::core::v1::AzureFilePersistentVolumeSource {
     type Optioned = AzureFilePersistentVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for AzureFilePersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::azure_file_persistent_volume_source::AzureFilePersistentVolumeSource {
+for ::k8s_openapi::api::core::v1::AzureFilePersistentVolumeSource {
     fn into_optioned(self) -> AzureFilePersistentVolumeSourceOpt {
         AzureFilePersistentVolumeSourceOpt {
             read_only: <Option<

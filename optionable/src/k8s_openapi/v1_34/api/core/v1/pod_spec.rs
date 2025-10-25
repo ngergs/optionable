@@ -85,7 +85,7 @@ pub struct PodSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::pod_spec::PodSpec {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PodSpec {
     type Optioned = PodSpecOpt;
 }
 #[automatically_derived]
@@ -93,7 +93,7 @@ impl crate::Optionable for PodSpecOpt {
     type Optioned = PodSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::pod_spec::PodSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSpec {
     fn into_optioned(self) -> PodSpecOpt {
         PodSpecOpt {
             active_deadline_seconds: <Option<

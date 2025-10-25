@@ -6,8 +6,7 @@ pub struct LimitRangeSpecOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::limit_range_spec::LimitRangeSpec {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::LimitRangeSpec {
     type Optioned = LimitRangeSpecOpt;
 }
 #[automatically_derived]
@@ -15,8 +14,7 @@ impl crate::Optionable for LimitRangeSpecOpt {
     type Optioned = LimitRangeSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::limit_range_spec::LimitRangeSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LimitRangeSpec {
     fn into_optioned(self) -> LimitRangeSpecOpt {
         LimitRangeSpecOpt {
             limits: Some(

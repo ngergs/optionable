@@ -3,8 +3,7 @@ pub enum IntOrStringOpt {
     String(Option<<std::string::String as crate::Optionable>::Optioned>),
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::util::intstr::int_or_string::IntOrString {
+impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString {
     type Optioned = IntOrStringOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,8 @@ impl crate::Optionable for IntOrStringOpt {
     type Optioned = IntOrStringOpt;
 }
 #[automatically_derived]
-impl ::optionable::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::util::intstr::int_or_string::IntOrString {
+impl crate::OptionableConvert
+for ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString {
     fn into_optioned(self) -> IntOrStringOpt {
         match self {
             Self::Int(self_0) => IntOrStringOpt::Int(Some(self_0)),

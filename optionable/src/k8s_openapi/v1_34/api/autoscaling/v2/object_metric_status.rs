@@ -10,8 +10,7 @@ pub struct ObjectMetricStatusOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v2::object_metric_status::ObjectMetricStatus {
+impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::ObjectMetricStatus {
     type Optioned = ObjectMetricStatusOpt;
 }
 #[automatically_derived]
@@ -20,7 +19,7 @@ impl crate::Optionable for ObjectMetricStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v2::object_metric_status::ObjectMetricStatus {
+for ::k8s_openapi::api::autoscaling::v2::ObjectMetricStatus {
     fn into_optioned(self) -> ObjectMetricStatusOpt {
         ObjectMetricStatusOpt {
             current: Some(

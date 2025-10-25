@@ -10,8 +10,7 @@ pub struct ReplicaSetStatusOpt {
     pub terminating_replicas: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::replica_set_status::ReplicaSetStatus {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::ReplicaSetStatus {
     type Optioned = ReplicaSetStatusOpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for ReplicaSetStatusOpt {
     type Optioned = ReplicaSetStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::replica_set_status::ReplicaSetStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetStatus {
     fn into_optioned(self) -> ReplicaSetStatusOpt {
         ReplicaSetStatusOpt {
             available_replicas: <Option<

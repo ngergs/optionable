@@ -2,7 +2,7 @@ pub struct NodeFeaturesOpt {
     pub supplemental_groups_policy: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::node_features::NodeFeatures {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeFeatures {
     type Optioned = NodeFeaturesOpt;
 }
 #[automatically_derived]
@@ -10,8 +10,7 @@ impl crate::Optionable for NodeFeaturesOpt {
     type Optioned = NodeFeaturesOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::node_features::NodeFeatures {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeFeatures {
     fn into_optioned(self) -> NodeFeaturesOpt {
         NodeFeaturesOpt {
             supplemental_groups_policy: <Option<

@@ -3,8 +3,7 @@ pub struct SuccessPolicyRuleOpt {
     pub succeeded_indexes: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::batch::v1::success_policy_rule::SuccessPolicyRule {
+impl crate::Optionable for ::k8s_openapi::api::batch::v1::SuccessPolicyRule {
     type Optioned = SuccessPolicyRuleOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,7 @@ impl crate::Optionable for SuccessPolicyRuleOpt {
     type Optioned = SuccessPolicyRuleOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::batch::v1::success_policy_rule::SuccessPolicyRule {
+impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::SuccessPolicyRule {
     fn into_optioned(self) -> SuccessPolicyRuleOpt {
         SuccessPolicyRuleOpt {
             succeeded_count: <Option<

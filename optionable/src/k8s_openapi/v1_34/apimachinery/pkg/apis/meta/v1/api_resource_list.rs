@@ -8,7 +8,7 @@ pub struct APIResourceListOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::api_resource_list::APIResourceList {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList {
     type Optioned = APIResourceListOpt;
 }
 #[automatically_derived]
@@ -17,7 +17,7 @@ impl crate::Optionable for APIResourceListOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::api_resource_list::APIResourceList {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList {
     fn into_optioned(self) -> APIResourceListOpt {
         APIResourceListOpt {
             group_version: Some(

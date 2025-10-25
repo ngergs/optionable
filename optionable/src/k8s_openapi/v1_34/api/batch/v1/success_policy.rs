@@ -6,7 +6,7 @@ pub struct SuccessPolicyOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::batch::v1::success_policy::SuccessPolicy {
+impl crate::Optionable for ::k8s_openapi::api::batch::v1::SuccessPolicy {
     type Optioned = SuccessPolicyOpt;
 }
 #[automatically_derived]
@@ -14,8 +14,7 @@ impl crate::Optionable for SuccessPolicyOpt {
     type Optioned = SuccessPolicyOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::batch::v1::success_policy::SuccessPolicy {
+impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::SuccessPolicy {
     fn into_optioned(self) -> SuccessPolicyOpt {
         SuccessPolicyOpt {
             rules: Some(

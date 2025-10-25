@@ -2,8 +2,7 @@ pub struct GroupSubjectOpt {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::group_subject::GroupSubject {
+impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::GroupSubject {
     type Optioned = GroupSubjectOpt;
 }
 #[automatically_derived]
@@ -11,8 +10,7 @@ impl crate::Optionable for GroupSubjectOpt {
     type Optioned = GroupSubjectOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::group_subject::GroupSubject {
+impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::GroupSubject {
     fn into_optioned(self) -> GroupSubjectOpt {
         GroupSubjectOpt {
             name: Some(

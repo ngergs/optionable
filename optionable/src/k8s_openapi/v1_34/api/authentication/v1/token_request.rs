@@ -10,8 +10,7 @@ pub struct TokenRequestOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::authentication::v1::token_request::TokenRequest {
+impl crate::Optionable for ::k8s_openapi::api::authentication::v1::TokenRequest {
     type Optioned = TokenRequestOpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for TokenRequestOpt {
     type Optioned = TokenRequestOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::authentication::v1::token_request::TokenRequest {
+impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::TokenRequest {
     fn into_optioned(self) -> TokenRequestOpt {
         TokenRequestOpt {
             metadata: Some(

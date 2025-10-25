@@ -5,8 +5,7 @@ pub struct ValidationOpt {
     pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1::validation::Validation {
+impl crate::Optionable for ::k8s_openapi::api::admissionregistration::v1::Validation {
     type Optioned = ValidationOpt;
 }
 #[automatically_derived]
@@ -15,7 +14,7 @@ impl crate::Optionable for ValidationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1::validation::Validation {
+for ::k8s_openapi::api::admissionregistration::v1::Validation {
     fn into_optioned(self) -> ValidationOpt {
         ValidationOpt {
             expression: Some(

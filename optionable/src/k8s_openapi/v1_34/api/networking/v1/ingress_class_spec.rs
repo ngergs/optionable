@@ -5,8 +5,7 @@ pub struct IngressClassSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::networking::v1::ingress_class_spec::IngressClassSpec {
+impl crate::Optionable for ::k8s_openapi::api::networking::v1::IngressClassSpec {
     type Optioned = IngressClassSpecOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for IngressClassSpecOpt {
     type Optioned = IngressClassSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1::ingress_class_spec::IngressClassSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressClassSpec {
     fn into_optioned(self) -> IngressClassSpecOpt {
         IngressClassSpecOpt {
             controller: <Option<

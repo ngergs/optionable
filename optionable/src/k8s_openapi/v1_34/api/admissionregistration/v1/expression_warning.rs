@@ -4,7 +4,7 @@ pub struct ExpressionWarningOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1::expression_warning::ExpressionWarning {
+for ::k8s_openapi::api::admissionregistration::v1::ExpressionWarning {
     type Optioned = ExpressionWarningOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for ExpressionWarningOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1::expression_warning::ExpressionWarning {
+for ::k8s_openapi::api::admissionregistration::v1::ExpressionWarning {
     fn into_optioned(self) -> ExpressionWarningOpt {
         ExpressionWarningOpt {
             field_ref: Some(

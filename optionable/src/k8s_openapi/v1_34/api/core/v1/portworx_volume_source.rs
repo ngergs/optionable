@@ -4,8 +4,7 @@ pub struct PortworxVolumeSourceOpt {
     pub volume_id: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::portworx_volume_source::PortworxVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PortworxVolumeSource {
     type Optioned = PortworxVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for PortworxVolumeSourceOpt {
     type Optioned = PortworxVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::portworx_volume_source::PortworxVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PortworxVolumeSource {
     fn into_optioned(self) -> PortworxVolumeSourceOpt {
         PortworxVolumeSourceOpt {
             fs_type: <Option<

@@ -8,7 +8,7 @@ pub struct ValidationRuleOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::validation_rule::ValidationRule {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ValidationRule {
     type Optioned = ValidationRuleOpt;
 }
 #[automatically_derived]
@@ -17,7 +17,7 @@ impl crate::Optionable for ValidationRuleOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::validation_rule::ValidationRule {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ValidationRule {
     fn into_optioned(self) -> ValidationRuleOpt {
         ValidationRuleOpt {
             field_path: <Option<

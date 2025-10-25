@@ -8,7 +8,7 @@ pub struct CertificateSigningRequestStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::certificates::v1::certificate_signing_request_status::CertificateSigningRequestStatus {
+for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestStatus {
     type Optioned = CertificateSigningRequestStatusOpt;
 }
 #[automatically_derived]
@@ -17,7 +17,7 @@ impl crate::Optionable for CertificateSigningRequestStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::certificates::v1::certificate_signing_request_status::CertificateSigningRequestStatus {
+for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestStatus {
     fn into_optioned(self) -> CertificateSigningRequestStatusOpt {
         CertificateSigningRequestStatusOpt {
             certificate: <Option<

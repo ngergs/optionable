@@ -5,7 +5,7 @@ pub struct ContainerExtendedResourceRequestOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::core::v1::container_extended_resource_request::ContainerExtendedResourceRequest {
+for ::k8s_openapi::api::core::v1::ContainerExtendedResourceRequest {
     type Optioned = ContainerExtendedResourceRequestOpt;
 }
 #[automatically_derived]
@@ -14,7 +14,7 @@ impl crate::Optionable for ContainerExtendedResourceRequestOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::container_extended_resource_request::ContainerExtendedResourceRequest {
+for ::k8s_openapi::api::core::v1::ContainerExtendedResourceRequest {
     fn into_optioned(self) -> ContainerExtendedResourceRequestOpt {
         ContainerExtendedResourceRequestOpt {
             container_name: Some(

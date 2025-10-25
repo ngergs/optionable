@@ -10,7 +10,7 @@ pub struct DaemonSetOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::apps::v1::daemon_set::DaemonSet {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::DaemonSet {
     type Optioned = DaemonSetOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for DaemonSetOpt {
     type Optioned = DaemonSetOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::daemon_set::DaemonSet {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSet {
     fn into_optioned(self) -> DaemonSetOpt {
         DaemonSetOpt {
             metadata: Some(

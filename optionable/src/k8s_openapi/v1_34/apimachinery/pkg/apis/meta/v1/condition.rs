@@ -9,8 +9,7 @@ pub struct ConditionOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::condition::Condition {
+impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition {
     type Optioned = ConditionOpt;
 }
 #[automatically_derived]
@@ -19,7 +18,7 @@ impl crate::Optionable for ConditionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::condition::Condition {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition {
     fn into_optioned(self) -> ConditionOpt {
         ConditionOpt {
             last_transition_time: Some(

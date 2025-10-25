@@ -4,7 +4,7 @@ pub struct NamespaceSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::namespace_spec::NamespaceSpec {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NamespaceSpec {
     type Optioned = NamespaceSpecOpt;
 }
 #[automatically_derived]
@@ -12,8 +12,7 @@ impl crate::Optionable for NamespaceSpecOpt {
     type Optioned = NamespaceSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::namespace_spec::NamespaceSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceSpec {
     fn into_optioned(self) -> NamespaceSpecOpt {
         NamespaceSpecOpt {
             finalizers: <Option<

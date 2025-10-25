@@ -4,7 +4,7 @@ pub struct PersistentVolumeClaimVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::core::v1::persistent_volume_claim_volume_source::PersistentVolumeClaimVolumeSource {
+for ::k8s_openapi::api::core::v1::PersistentVolumeClaimVolumeSource {
     type Optioned = PersistentVolumeClaimVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for PersistentVolumeClaimVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::persistent_volume_claim_volume_source::PersistentVolumeClaimVolumeSource {
+for ::k8s_openapi::api::core::v1::PersistentVolumeClaimVolumeSource {
     fn into_optioned(self) -> PersistentVolumeClaimVolumeSourceOpt {
         PersistentVolumeClaimVolumeSourceOpt {
             claim_name: Some(

@@ -3,8 +3,7 @@ pub struct ConfigMapEnvSourceOpt {
     pub optional: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::config_map_env_source::ConfigMapEnvSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMapEnvSource {
     type Optioned = ConfigMapEnvSourceOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,7 @@ impl crate::Optionable for ConfigMapEnvSourceOpt {
     type Optioned = ConfigMapEnvSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::config_map_env_source::ConfigMapEnvSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapEnvSource {
     fn into_optioned(self) -> ConfigMapEnvSourceOpt {
         ConfigMapEnvSourceOpt {
             name: Some(

@@ -7,8 +7,7 @@ pub struct EndpointHintsOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::discovery::v1::endpoint_hints::EndpointHints {
+impl crate::Optionable for ::k8s_openapi::api::discovery::v1::EndpointHints {
     type Optioned = EndpointHintsOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for EndpointHintsOpt {
     type Optioned = EndpointHintsOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::discovery::v1::endpoint_hints::EndpointHints {
+impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointHints {
     fn into_optioned(self) -> EndpointHintsOpt {
         EndpointHintsOpt {
             for_nodes: <Option<

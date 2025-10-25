@@ -4,8 +4,7 @@ pub struct TypeCheckingOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1::type_checking::TypeChecking {
+impl crate::Optionable for ::k8s_openapi::api::admissionregistration::v1::TypeChecking {
     type Optioned = TypeCheckingOpt;
 }
 #[automatically_derived]
@@ -14,7 +13,7 @@ impl crate::Optionable for TypeCheckingOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1::type_checking::TypeChecking {
+for ::k8s_openapi::api::admissionregistration::v1::TypeChecking {
     fn into_optioned(self) -> TypeCheckingOpt {
         TypeCheckingOpt {
             expression_warnings: <Option<

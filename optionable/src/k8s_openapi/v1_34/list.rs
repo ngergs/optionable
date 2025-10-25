@@ -1,6 +1,6 @@
 pub struct ListOpt<T>
 where
-    T: crate::ListableResource + crate::Optionable,
+    T: k8s_openapi::ListableResource + crate::Optionable,
     <T as crate::Optionable>::Optioned: Sized,
 {
     pub items: Option<<std::vec::Vec<T> as crate::Optionable>::Optioned>,
@@ -9,9 +9,9 @@ where
     >,
 }
 #[automatically_derived]
-impl<T> crate::Optionable for ::k8s_openapi::list::List<T>
+impl<T> crate::Optionable for ::k8s_openapi::List<T>
 where
-    T: crate::ListableResource + crate::Optionable,
+    T: k8s_openapi::ListableResource + crate::Optionable,
     <T as crate::Optionable>::Optioned: Sized,
 {
     type Optioned = ListOpt<T>;
@@ -19,15 +19,15 @@ where
 #[automatically_derived]
 impl<T> crate::Optionable for ListOpt<T>
 where
-    T: crate::ListableResource + crate::Optionable,
+    T: k8s_openapi::ListableResource + crate::Optionable,
     <T as crate::Optionable>::Optioned: Sized,
 {
     type Optioned = ListOpt<T>;
 }
 #[automatically_derived]
-impl<T> crate::OptionableConvert for ::k8s_openapi::list::List<T>
+impl<T> crate::OptionableConvert for ::k8s_openapi::List<T>
 where
-    T: crate::ListableResource + crate::OptionableConvert,
+    T: k8s_openapi::ListableResource + crate::OptionableConvert,
     <T as crate::Optionable>::Optioned: Sized,
 {
     fn into_optioned(self) -> ListOpt<T> {

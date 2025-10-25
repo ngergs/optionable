@@ -12,7 +12,7 @@ pub struct CertificateSigningRequestConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::certificates::v1::certificate_signing_request_condition::CertificateSigningRequestCondition {
+for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestCondition {
     type Optioned = CertificateSigningRequestConditionOpt;
 }
 #[automatically_derived]
@@ -21,7 +21,7 @@ impl crate::Optionable for CertificateSigningRequestConditionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::certificates::v1::certificate_signing_request_condition::CertificateSigningRequestCondition {
+for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestCondition {
     fn into_optioned(self) -> CertificateSigningRequestConditionOpt {
         CertificateSigningRequestConditionOpt {
             last_transition_time: <Option<

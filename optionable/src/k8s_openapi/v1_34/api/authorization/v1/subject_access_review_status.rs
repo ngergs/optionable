@@ -6,7 +6,7 @@ pub struct SubjectAccessReviewStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::authorization::v1::subject_access_review_status::SubjectAccessReviewStatus {
+for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus {
     type Optioned = SubjectAccessReviewStatusOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for SubjectAccessReviewStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authorization::v1::subject_access_review_status::SubjectAccessReviewStatus {
+for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus {
     fn into_optioned(self) -> SubjectAccessReviewStatusOpt {
         SubjectAccessReviewStatusOpt {
             allowed: Some(self.allowed),

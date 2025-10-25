@@ -8,8 +8,7 @@ pub struct ReplicaSetConditionOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::replica_set_condition::ReplicaSetCondition {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::ReplicaSetCondition {
     type Optioned = ReplicaSetConditionOpt;
 }
 #[automatically_derived]
@@ -17,8 +16,7 @@ impl crate::Optionable for ReplicaSetConditionOpt {
     type Optioned = ReplicaSetConditionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::replica_set_condition::ReplicaSetCondition {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetCondition {
     fn into_optioned(self) -> ReplicaSetConditionOpt {
         ReplicaSetConditionOpt {
             last_transition_time: <Option<

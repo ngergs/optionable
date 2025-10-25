@@ -14,8 +14,7 @@ pub struct AllocatedDeviceStatusOpt {
     pub share_id: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta1::allocated_device_status::AllocatedDeviceStatus {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::AllocatedDeviceStatus {
     type Optioned = AllocatedDeviceStatusOpt;
 }
 #[automatically_derived]
@@ -24,7 +23,7 @@ impl crate::Optionable for AllocatedDeviceStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta1::allocated_device_status::AllocatedDeviceStatus {
+for ::k8s_openapi::api::resource::v1beta1::AllocatedDeviceStatus {
     fn into_optioned(self) -> AllocatedDeviceStatusOpt {
         AllocatedDeviceStatusOpt {
             conditions: <Option<

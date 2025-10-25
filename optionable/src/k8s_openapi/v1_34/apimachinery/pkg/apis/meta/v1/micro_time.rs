@@ -6,8 +6,7 @@ pub struct MicroTimeOpt(
     >,
 );
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::micro_time::MicroTime {
+impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime {
     type Optioned = MicroTimeOpt;
 }
 #[automatically_derived]
@@ -16,7 +15,7 @@ impl crate::Optionable for MicroTimeOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::micro_time::MicroTime {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime {
     fn into_optioned(self) -> MicroTimeOpt {
         MicroTimeOpt(
             Some(
