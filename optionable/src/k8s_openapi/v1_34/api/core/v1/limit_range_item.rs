@@ -1,0 +1,178 @@
+pub struct LimitRangeItemOpt {
+    pub default: <Option<
+        std::collections::BTreeMap<
+            std::string::String,
+            ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+        >,
+    > as crate::Optionable>::Optioned,
+    pub default_request: <Option<
+        std::collections::BTreeMap<
+            std::string::String,
+            ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+        >,
+    > as crate::Optionable>::Optioned,
+    pub max: <Option<
+        std::collections::BTreeMap<
+            std::string::String,
+            ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+        >,
+    > as crate::Optionable>::Optioned,
+    pub max_limit_request_ratio: <Option<
+        std::collections::BTreeMap<
+            std::string::String,
+            ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+        >,
+    > as crate::Optionable>::Optioned,
+    pub min: <Option<
+        std::collections::BTreeMap<
+            std::string::String,
+            ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+        >,
+    > as crate::Optionable>::Optioned,
+    pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+}
+#[automatically_derived]
+impl crate::Optionable
+for ::k8s_openapi::api::core::v1::limit_range_item::LimitRangeItem {
+    type Optioned = LimitRangeItemOpt;
+}
+#[automatically_derived]
+impl crate::Optionable for LimitRangeItemOpt {
+    type Optioned = LimitRangeItemOpt;
+}
+#[automatically_derived]
+impl crate::OptionableConvert
+for ::k8s_openapi::api::core::v1::limit_range_item::LimitRangeItem {
+    fn into_optioned(self) -> LimitRangeItemOpt {
+        LimitRangeItemOpt {
+            default: <Option<
+                std::collections::BTreeMap<
+                    std::string::String,
+                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+                >,
+            > as crate::OptionableConvert>::into_optioned(self.default),
+            default_request: <Option<
+                std::collections::BTreeMap<
+                    std::string::String,
+                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+                >,
+            > as crate::OptionableConvert>::into_optioned(self.default_request),
+            max: <Option<
+                std::collections::BTreeMap<
+                    std::string::String,
+                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+                >,
+            > as crate::OptionableConvert>::into_optioned(self.max),
+            max_limit_request_ratio: <Option<
+                std::collections::BTreeMap<
+                    std::string::String,
+                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+                >,
+            > as crate::OptionableConvert>::into_optioned(self.max_limit_request_ratio),
+            min: <Option<
+                std::collections::BTreeMap<
+                    std::string::String,
+                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+                >,
+            > as crate::OptionableConvert>::into_optioned(self.min),
+            type_: Some(
+                <std::string::String as crate::OptionableConvert>::into_optioned(
+                    self.type_,
+                ),
+            ),
+        }
+    }
+    fn try_from_optioned(
+        value: LimitRangeItemOpt,
+    ) -> Result<Self, crate::optionable::Error> {
+        Ok(Self {
+            default: <Option<
+                std::collections::BTreeMap<
+                    std::string::String,
+                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+                >,
+            > as crate::OptionableConvert>::try_from_optioned(value.default)?,
+            default_request: <Option<
+                std::collections::BTreeMap<
+                    std::string::String,
+                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+                >,
+            > as crate::OptionableConvert>::try_from_optioned(value.default_request)?,
+            max: <Option<
+                std::collections::BTreeMap<
+                    std::string::String,
+                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+                >,
+            > as crate::OptionableConvert>::try_from_optioned(value.max)?,
+            max_limit_request_ratio: <Option<
+                std::collections::BTreeMap<
+                    std::string::String,
+                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+                >,
+            > as crate::OptionableConvert>::try_from_optioned(
+                value.max_limit_request_ratio,
+            )?,
+            min: <Option<
+                std::collections::BTreeMap<
+                    std::string::String,
+                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+                >,
+            > as crate::OptionableConvert>::try_from_optioned(value.min)?,
+            type_: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+                value
+                    .type_
+                    .ok_or(crate::optionable::Error {
+                        missing_field: "type_",
+                    })?,
+            )?,
+        })
+    }
+    fn merge(
+        &mut self,
+        other: LimitRangeItemOpt,
+    ) -> Result<(), crate::optionable::Error> {
+        <Option<
+            std::collections::BTreeMap<
+                std::string::String,
+                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+            >,
+        > as crate::OptionableConvert>::merge(&mut self.default, other.default)?;
+        <Option<
+            std::collections::BTreeMap<
+                std::string::String,
+                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+            >,
+        > as crate::OptionableConvert>::merge(
+            &mut self.default_request,
+            other.default_request,
+        )?;
+        <Option<
+            std::collections::BTreeMap<
+                std::string::String,
+                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+            >,
+        > as crate::OptionableConvert>::merge(&mut self.max, other.max)?;
+        <Option<
+            std::collections::BTreeMap<
+                std::string::String,
+                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+            >,
+        > as crate::OptionableConvert>::merge(
+            &mut self.max_limit_request_ratio,
+            other.max_limit_request_ratio,
+        )?;
+        <Option<
+            std::collections::BTreeMap<
+                std::string::String,
+                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
+            >,
+        > as crate::OptionableConvert>::merge(&mut self.min, other.min)?;
+        if let Some(other_value) = other.type_ {
+            <std::string::String as crate::OptionableConvert>::merge(
+                &mut self.type_,
+                other_value,
+            )?;
+        }
+        Ok(())
+    }
+}

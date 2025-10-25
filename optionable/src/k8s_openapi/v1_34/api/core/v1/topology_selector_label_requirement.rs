@@ -1,0 +1,72 @@
+pub struct TopologySelectorLabelRequirementOpt {
+    pub key: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub values: Option<
+        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable
+for ::k8s_openapi::api::core::v1::topology_selector_label_requirement::TopologySelectorLabelRequirement {
+    type Optioned = TopologySelectorLabelRequirementOpt;
+}
+#[automatically_derived]
+impl crate::Optionable for TopologySelectorLabelRequirementOpt {
+    type Optioned = TopologySelectorLabelRequirementOpt;
+}
+#[automatically_derived]
+impl crate::OptionableConvert
+for ::k8s_openapi::api::core::v1::topology_selector_label_requirement::TopologySelectorLabelRequirement {
+    fn into_optioned(self) -> TopologySelectorLabelRequirementOpt {
+        TopologySelectorLabelRequirementOpt {
+            key: Some(
+                <std::string::String as crate::OptionableConvert>::into_optioned(
+                    self.key,
+                ),
+            ),
+            values: Some(
+                <std::vec::Vec<
+                    std::string::String,
+                > as crate::OptionableConvert>::into_optioned(self.values),
+            ),
+        }
+    }
+    fn try_from_optioned(
+        value: TopologySelectorLabelRequirementOpt,
+    ) -> Result<Self, crate::optionable::Error> {
+        Ok(Self {
+            key: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+                value
+                    .key
+                    .ok_or(crate::optionable::Error {
+                        missing_field: "key",
+                    })?,
+            )?,
+            values: <std::vec::Vec<
+                std::string::String,
+            > as crate::OptionableConvert>::try_from_optioned(
+                value
+                    .values
+                    .ok_or(crate::optionable::Error {
+                        missing_field: "values",
+                    })?,
+            )?,
+        })
+    }
+    fn merge(
+        &mut self,
+        other: TopologySelectorLabelRequirementOpt,
+    ) -> Result<(), crate::optionable::Error> {
+        if let Some(other_value) = other.key {
+            <std::string::String as crate::OptionableConvert>::merge(
+                &mut self.key,
+                other_value,
+            )?;
+        }
+        if let Some(other_value) = other.values {
+            <std::vec::Vec<
+                std::string::String,
+            > as crate::OptionableConvert>::merge(&mut self.values, other_value)?;
+        }
+        Ok(())
+    }
+}

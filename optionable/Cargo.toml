@@ -8,12 +8,13 @@ license = "MIT OR Apache-2.0"
 readme = "README.md"
 
 [features]
-default = ["derive", "std"]
+default = ["derive", "std", "k8s-openapi_v1_34"]
 alloc = []
 std = []
 derive = ["dep:optionable_derive"]
 chrono = ["dep:chrono"]
 serde_json = ["dep:serde_json"]
+k8s-openapi_v1_34 = ["dep:k8s-openapi", "k8s-openapi/v1_34", "serde_json", "chrono"]
 
 [lints.clippy]
 pedantic = "warn"
@@ -22,6 +23,7 @@ pedantic = "warn"
 optionable_derive = { version = "0.2.0", optional = true }
 chrono = { version = "0.4.42", default-features = false, optional = true }
 serde_json = { version = "1.0.145", default-features = false, optional = true }
+k8s-openapi = { version = "0.26.0", default-features = false, optional = true }
 
 [dev-dependencies]
 serde = { version = "1.0.225", default-features = false, features = ["derive"] }
