@@ -9,7 +9,7 @@ pub struct MutationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1alpha1::mutation::Mutation {
+for ::k8s_openapi::api::admissionregistration::v1alpha1::Mutation {
     type Optioned = MutationOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for MutationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1alpha1::mutation::Mutation {
+for ::k8s_openapi::api::admissionregistration::v1alpha1::Mutation {
     fn into_optioned(self) -> MutationOpt {
         MutationOpt {
             apply_configuration: <Option<

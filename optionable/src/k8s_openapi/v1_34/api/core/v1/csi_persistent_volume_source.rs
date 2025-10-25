@@ -23,8 +23,7 @@ pub struct CSIPersistentVolumeSourceOpt {
     pub volume_handle: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::csi_persistent_volume_source::CSIPersistentVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::CSIPersistentVolumeSource {
     type Optioned = CSIPersistentVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -33,7 +32,7 @@ impl crate::Optionable for CSIPersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::csi_persistent_volume_source::CSIPersistentVolumeSource {
+for ::k8s_openapi::api::core::v1::CSIPersistentVolumeSource {
     fn into_optioned(self) -> CSIPersistentVolumeSourceOpt {
         CSIPersistentVolumeSourceOpt {
             controller_expand_secret_ref: <Option<

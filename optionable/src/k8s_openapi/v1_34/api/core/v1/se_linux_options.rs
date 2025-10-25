@@ -5,8 +5,7 @@ pub struct SELinuxOptionsOpt {
     pub user: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::se_linux_options::SELinuxOptions {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::SELinuxOptions {
     type Optioned = SELinuxOptionsOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for SELinuxOptionsOpt {
     type Optioned = SELinuxOptionsOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::se_linux_options::SELinuxOptions {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SELinuxOptions {
     fn into_optioned(self) -> SELinuxOptionsOpt {
         SELinuxOptionsOpt {
             level: <Option<

@@ -6,8 +6,7 @@ pub struct DeviceConstraintOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1::device_constraint::DeviceConstraint {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1::DeviceConstraint {
     type Optioned = DeviceConstraintOpt;
 }
 #[automatically_derived]
@@ -15,8 +14,7 @@ impl crate::Optionable for DeviceConstraintOpt {
     type Optioned = DeviceConstraintOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1::device_constraint::DeviceConstraint {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceConstraint {
     fn into_optioned(self) -> DeviceConstraintOpt {
         DeviceConstraintOpt {
             distinct_attribute: <Option<

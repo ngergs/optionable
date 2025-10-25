@@ -3,8 +3,7 @@ pub struct NodeRuntimeHandlerFeaturesOpt {
     pub user_namespaces: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::node_runtime_handler_features::NodeRuntimeHandlerFeatures {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeRuntimeHandlerFeatures {
     type Optioned = NodeRuntimeHandlerFeaturesOpt;
 }
 #[automatically_derived]
@@ -13,7 +12,7 @@ impl crate::Optionable for NodeRuntimeHandlerFeaturesOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::node_runtime_handler_features::NodeRuntimeHandlerFeatures {
+for ::k8s_openapi::api::core::v1::NodeRuntimeHandlerFeatures {
     fn into_optioned(self) -> NodeRuntimeHandlerFeaturesOpt {
         NodeRuntimeHandlerFeaturesOpt {
             recursive_read_only_mounts: <Option<

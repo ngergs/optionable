@@ -7,7 +7,7 @@ pub struct EvictionOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::policy::v1::eviction::Eviction {
+impl crate::Optionable for ::k8s_openapi::api::policy::v1::Eviction {
     type Optioned = EvictionOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for EvictionOpt {
     type Optioned = EvictionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::eviction::Eviction {
+impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::Eviction {
     fn into_optioned(self) -> EvictionOpt {
         EvictionOpt {
             delete_options: <Option<

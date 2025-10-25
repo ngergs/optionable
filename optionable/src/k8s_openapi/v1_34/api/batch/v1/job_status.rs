@@ -20,7 +20,7 @@ pub struct JobStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::batch::v1::job_status::JobStatus {
+impl crate::Optionable for ::k8s_openapi::api::batch::v1::JobStatus {
     type Optioned = JobStatusOpt;
 }
 #[automatically_derived]
@@ -28,7 +28,7 @@ impl crate::Optionable for JobStatusOpt {
     type Optioned = JobStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::job_status::JobStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobStatus {
     fn into_optioned(self) -> JobStatusOpt {
         JobStatusOpt {
             active: <Option<

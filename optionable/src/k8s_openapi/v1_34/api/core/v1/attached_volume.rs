@@ -3,8 +3,7 @@ pub struct AttachedVolumeOpt {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::attached_volume::AttachedVolume {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::AttachedVolume {
     type Optioned = AttachedVolumeOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,7 @@ impl crate::Optionable for AttachedVolumeOpt {
     type Optioned = AttachedVolumeOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::attached_volume::AttachedVolume {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AttachedVolume {
     fn into_optioned(self) -> AttachedVolumeOpt {
         AttachedVolumeOpt {
             device_path: Some(

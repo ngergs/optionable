@@ -5,7 +5,7 @@ pub struct SelfSubjectReviewStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::authentication::v1::self_subject_review_status::SelfSubjectReviewStatus {
+for ::k8s_openapi::api::authentication::v1::SelfSubjectReviewStatus {
     type Optioned = SelfSubjectReviewStatusOpt;
 }
 #[automatically_derived]
@@ -14,7 +14,7 @@ impl crate::Optionable for SelfSubjectReviewStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authentication::v1::self_subject_review_status::SelfSubjectReviewStatus {
+for ::k8s_openapi::api::authentication::v1::SelfSubjectReviewStatus {
     fn into_optioned(self) -> SelfSubjectReviewStatusOpt {
         SelfSubjectReviewStatusOpt {
             user_info: <Option<

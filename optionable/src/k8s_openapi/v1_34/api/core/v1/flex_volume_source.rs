@@ -10,8 +10,7 @@ pub struct FlexVolumeSourceOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::flex_volume_source::FlexVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::FlexVolumeSource {
     type Optioned = FlexVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for FlexVolumeSourceOpt {
     type Optioned = FlexVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::flex_volume_source::FlexVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FlexVolumeSource {
     fn into_optioned(self) -> FlexVolumeSourceOpt {
         FlexVolumeSourceOpt {
             driver: Some(

@@ -7,8 +7,7 @@ pub struct PodsMetricStatusOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v2::pods_metric_status::PodsMetricStatus {
+impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::PodsMetricStatus {
     type Optioned = PodsMetricStatusOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for PodsMetricStatusOpt {
     type Optioned = PodsMetricStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v2::pods_metric_status::PodsMetricStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::PodsMetricStatus {
     fn into_optioned(self) -> PodsMetricStatusOpt {
         PodsMetricStatusOpt {
             current: Some(

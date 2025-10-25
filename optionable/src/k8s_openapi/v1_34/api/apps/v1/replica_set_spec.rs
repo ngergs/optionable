@@ -9,8 +9,7 @@ pub struct ReplicaSetSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::replica_set_spec::ReplicaSetSpec {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::ReplicaSetSpec {
     type Optioned = ReplicaSetSpecOpt;
 }
 #[automatically_derived]
@@ -18,8 +17,7 @@ impl crate::Optionable for ReplicaSetSpecOpt {
     type Optioned = ReplicaSetSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::replica_set_spec::ReplicaSetSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetSpec {
     fn into_optioned(self) -> ReplicaSetSpecOpt {
         ReplicaSetSpecOpt {
             min_ready_seconds: <Option<

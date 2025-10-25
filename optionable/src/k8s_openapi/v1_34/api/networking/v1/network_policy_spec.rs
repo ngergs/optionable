@@ -13,8 +13,7 @@ pub struct NetworkPolicySpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::networking::v1::network_policy_spec::NetworkPolicySpec {
+impl crate::Optionable for ::k8s_openapi::api::networking::v1::NetworkPolicySpec {
     type Optioned = NetworkPolicySpecOpt;
 }
 #[automatically_derived]
@@ -22,8 +21,7 @@ impl crate::Optionable for NetworkPolicySpecOpt {
     type Optioned = NetworkPolicySpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1::network_policy_spec::NetworkPolicySpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPolicySpec {
     fn into_optioned(self) -> NetworkPolicySpecOpt {
         NetworkPolicySpecOpt {
             egress: <Option<

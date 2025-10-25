@@ -9,7 +9,7 @@ pub struct CustomResourceSubresourceScaleOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_subresource_scale::CustomResourceSubresourceScale {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresourceScale {
     type Optioned = CustomResourceSubresourceScaleOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for CustomResourceSubresourceScaleOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_subresource_scale::CustomResourceSubresourceScale {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresourceScale {
     fn into_optioned(self) -> CustomResourceSubresourceScaleOpt {
         CustomResourceSubresourceScaleOpt {
             label_selector_path: <Option<

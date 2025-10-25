@@ -11,7 +11,7 @@ pub struct PodCertificateRequestOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::certificates::v1alpha1::pod_certificate_request::PodCertificateRequest {
+for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequest {
     type Optioned = PodCertificateRequestOpt;
 }
 #[automatically_derived]
@@ -20,7 +20,7 @@ impl crate::Optionable for PodCertificateRequestOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::certificates::v1alpha1::pod_certificate_request::PodCertificateRequest {
+for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequest {
     fn into_optioned(self) -> PodCertificateRequestOpt {
         PodCertificateRequestOpt {
             metadata: Some(

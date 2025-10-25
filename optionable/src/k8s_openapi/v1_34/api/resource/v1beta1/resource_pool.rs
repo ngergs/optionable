@@ -4,8 +4,7 @@ pub struct ResourcePoolOpt {
     pub resource_slice_count: Option<i64>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta1::resource_pool::ResourcePool {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::ResourcePool {
     type Optioned = ResourcePoolOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for ResourcePoolOpt {
     type Optioned = ResourcePoolOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta1::resource_pool::ResourcePool {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::ResourcePool {
     fn into_optioned(self) -> ResourcePoolOpt {
         ResourcePoolOpt {
             generation: Some(self.generation),

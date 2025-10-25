@@ -32,8 +32,7 @@ pub struct BasicDeviceOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta1::basic_device::BasicDevice {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::BasicDevice {
     type Optioned = BasicDeviceOpt;
 }
 #[automatically_derived]
@@ -41,8 +40,7 @@ impl crate::Optionable for BasicDeviceOpt {
     type Optioned = BasicDeviceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta1::basic_device::BasicDevice {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::BasicDevice {
     fn into_optioned(self) -> BasicDeviceOpt {
         BasicDeviceOpt {
             all_nodes: <Option<

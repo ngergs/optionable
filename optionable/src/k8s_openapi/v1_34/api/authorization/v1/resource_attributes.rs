@@ -14,8 +14,7 @@ pub struct ResourceAttributesOpt {
     pub version: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::authorization::v1::resource_attributes::ResourceAttributes {
+impl crate::Optionable for ::k8s_openapi::api::authorization::v1::ResourceAttributes {
     type Optioned = ResourceAttributesOpt;
 }
 #[automatically_derived]
@@ -24,7 +23,7 @@ impl crate::Optionable for ResourceAttributesOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authorization::v1::resource_attributes::ResourceAttributes {
+for ::k8s_openapi::api::authorization::v1::ResourceAttributes {
     fn into_optioned(self) -> ResourceAttributesOpt {
         ResourceAttributesOpt {
             field_selector: <Option<

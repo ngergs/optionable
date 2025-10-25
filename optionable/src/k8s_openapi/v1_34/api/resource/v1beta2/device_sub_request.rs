@@ -14,8 +14,7 @@ pub struct DeviceSubRequestOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta2::device_sub_request::DeviceSubRequest {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::DeviceSubRequest {
     type Optioned = DeviceSubRequestOpt;
 }
 #[automatically_derived]
@@ -24,7 +23,7 @@ impl crate::Optionable for DeviceSubRequestOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta2::device_sub_request::DeviceSubRequest {
+for ::k8s_openapi::api::resource::v1beta2::DeviceSubRequest {
     fn into_optioned(self) -> DeviceSubRequestOpt {
         DeviceSubRequestOpt {
             allocation_mode: <Option<

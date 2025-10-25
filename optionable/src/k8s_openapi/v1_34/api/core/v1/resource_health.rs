@@ -3,8 +3,7 @@ pub struct ResourceHealthOpt {
     pub resource_id: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::resource_health::ResourceHealth {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ResourceHealth {
     type Optioned = ResourceHealthOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,7 @@ impl crate::Optionable for ResourceHealthOpt {
     type Optioned = ResourceHealthOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::resource_health::ResourceHealth {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceHealth {
     fn into_optioned(self) -> ResourceHealthOpt {
         ResourceHealthOpt {
             health: <Option<

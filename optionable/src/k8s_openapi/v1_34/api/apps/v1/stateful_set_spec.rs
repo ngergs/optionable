@@ -26,8 +26,7 @@ pub struct StatefulSetSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::stateful_set_spec::StatefulSetSpec {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::StatefulSetSpec {
     type Optioned = StatefulSetSpecOpt;
 }
 #[automatically_derived]
@@ -35,8 +34,7 @@ impl crate::Optionable for StatefulSetSpecOpt {
     type Optioned = StatefulSetSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::stateful_set_spec::StatefulSetSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetSpec {
     fn into_optioned(self) -> StatefulSetSpecOpt {
         StatefulSetSpecOpt {
             min_ready_seconds: <Option<

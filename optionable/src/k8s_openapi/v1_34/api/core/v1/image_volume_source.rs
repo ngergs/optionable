@@ -3,8 +3,7 @@ pub struct ImageVolumeSourceOpt {
     pub reference: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::image_volume_source::ImageVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ImageVolumeSource {
     type Optioned = ImageVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -12,8 +11,7 @@ impl crate::Optionable for ImageVolumeSourceOpt {
     type Optioned = ImageVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::image_volume_source::ImageVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ImageVolumeSource {
     fn into_optioned(self) -> ImageVolumeSourceOpt {
         ImageVolumeSourceOpt {
             pull_policy: <Option<

@@ -7,8 +7,7 @@ pub struct NonResourcePolicyRuleOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::flowcontrol::v1::non_resource_policy_rule::NonResourcePolicyRule {
+impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::NonResourcePolicyRule {
     type Optioned = NonResourcePolicyRuleOpt;
 }
 #[automatically_derived]
@@ -17,7 +16,7 @@ impl crate::Optionable for NonResourcePolicyRuleOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::flowcontrol::v1::non_resource_policy_rule::NonResourcePolicyRule {
+for ::k8s_openapi::api::flowcontrol::v1::NonResourcePolicyRule {
     fn into_optioned(self) -> NonResourcePolicyRuleOpt {
         NonResourcePolicyRuleOpt {
             non_resource_urls: Some(

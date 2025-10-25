@@ -4,8 +4,7 @@ pub struct ServiceCIDRStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::networking::v1beta1::service_cidr_status::ServiceCIDRStatus {
+impl crate::Optionable for ::k8s_openapi::api::networking::v1beta1::ServiceCIDRStatus {
     type Optioned = ServiceCIDRStatusOpt;
 }
 #[automatically_derived]
@@ -14,7 +13,7 @@ impl crate::Optionable for ServiceCIDRStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1beta1::service_cidr_status::ServiceCIDRStatus {
+for ::k8s_openapi::api::networking::v1beta1::ServiceCIDRStatus {
     fn into_optioned(self) -> ServiceCIDRStatusOpt {
         ServiceCIDRStatusOpt {
             conditions: <Option<

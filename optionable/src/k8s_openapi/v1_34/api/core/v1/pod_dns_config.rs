@@ -10,7 +10,7 @@ pub struct PodDNSConfigOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::pod_dns_config::PodDNSConfig {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PodDNSConfig {
     type Optioned = PodDNSConfigOpt;
 }
 #[automatically_derived]
@@ -18,8 +18,7 @@ impl crate::Optionable for PodDNSConfigOpt {
     type Optioned = PodDNSConfigOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::pod_dns_config::PodDNSConfig {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodDNSConfig {
     fn into_optioned(self) -> PodDNSConfigOpt {
         PodDNSConfigOpt {
             nameservers: <Option<

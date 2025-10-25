@@ -12,8 +12,7 @@ pub enum PatchOpt {
     ),
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::patch::Patch {
+impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Patch {
     type Optioned = PatchOpt;
 }
 #[automatically_derived]
@@ -21,8 +20,8 @@ impl crate::Optionable for PatchOpt {
     type Optioned = PatchOpt;
 }
 #[automatically_derived]
-impl ::optionable::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::patch::Patch {
+impl crate::OptionableConvert
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Patch {
     fn into_optioned(self) -> PatchOpt {
         match self {
             Self::Json(self_0) => {

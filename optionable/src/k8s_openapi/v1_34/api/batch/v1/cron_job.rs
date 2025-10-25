@@ -10,7 +10,7 @@ pub struct CronJobOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::batch::v1::cron_job::CronJob {
+impl crate::Optionable for ::k8s_openapi::api::batch::v1::CronJob {
     type Optioned = CronJobOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for CronJobOpt {
     type Optioned = CronJobOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::cron_job::CronJob {
+impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJob {
     fn into_optioned(self) -> CronJobOpt {
         CronJobOpt {
             metadata: Some(

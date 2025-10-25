@@ -5,7 +5,7 @@ pub struct CustomResourceValidationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_validation::CustomResourceValidation {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceValidation {
     type Optioned = CustomResourceValidationOpt;
 }
 #[automatically_derived]
@@ -14,7 +14,7 @@ impl crate::Optionable for CustomResourceValidationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_validation::CustomResourceValidation {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceValidation {
     fn into_optioned(self) -> CustomResourceValidationOpt {
         CustomResourceValidationOpt {
             open_api_v3_schema: <Option<

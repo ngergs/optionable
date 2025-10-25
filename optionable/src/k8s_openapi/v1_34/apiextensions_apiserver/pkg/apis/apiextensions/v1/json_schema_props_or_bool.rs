@@ -10,7 +10,7 @@ pub enum JSONSchemaPropsOrBoolOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::json_schema_props_or_bool::JSONSchemaPropsOrBool {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrBool {
     type Optioned = JSONSchemaPropsOrBoolOpt;
 }
 #[automatically_derived]
@@ -18,8 +18,8 @@ impl crate::Optionable for JSONSchemaPropsOrBoolOpt {
     type Optioned = JSONSchemaPropsOrBoolOpt;
 }
 #[automatically_derived]
-impl ::optionable::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::json_schema_props_or_bool::JSONSchemaPropsOrBool {
+impl crate::OptionableConvert
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrBool {
     fn into_optioned(self) -> JSONSchemaPropsOrBoolOpt {
         match self {
             Self::Schema(self_0) => {

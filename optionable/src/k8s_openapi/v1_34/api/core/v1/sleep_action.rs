@@ -2,7 +2,7 @@ pub struct SleepActionOpt {
     pub seconds: Option<i64>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::sleep_action::SleepAction {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::SleepAction {
     type Optioned = SleepActionOpt;
 }
 #[automatically_derived]
@@ -10,8 +10,7 @@ impl crate::Optionable for SleepActionOpt {
     type Optioned = SleepActionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::sleep_action::SleepAction {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SleepAction {
     fn into_optioned(self) -> SleepActionOpt {
         SleepActionOpt {
             seconds: Some(self.seconds),

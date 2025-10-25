@@ -8,8 +8,7 @@ pub struct PriorityClassOpt {
     pub value: Option<i32>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::scheduling::v1::priority_class::PriorityClass {
+impl crate::Optionable for ::k8s_openapi::api::scheduling::v1::PriorityClass {
     type Optioned = PriorityClassOpt;
 }
 #[automatically_derived]
@@ -17,8 +16,7 @@ impl crate::Optionable for PriorityClassOpt {
     type Optioned = PriorityClassOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::scheduling::v1::priority_class::PriorityClass {
+impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityClass {
     fn into_optioned(self) -> PriorityClassOpt {
         PriorityClassOpt {
             description: <Option<

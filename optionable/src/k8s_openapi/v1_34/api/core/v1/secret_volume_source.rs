@@ -7,8 +7,7 @@ pub struct SecretVolumeSourceOpt {
     pub secret_name: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::secret_volume_source::SecretVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::SecretVolumeSource {
     type Optioned = SecretVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for SecretVolumeSourceOpt {
     type Optioned = SecretVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::secret_volume_source::SecretVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretVolumeSource {
     fn into_optioned(self) -> SecretVolumeSourceOpt {
         SecretVolumeSourceOpt {
             default_mode: <Option<

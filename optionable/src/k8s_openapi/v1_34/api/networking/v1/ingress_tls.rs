@@ -5,7 +5,7 @@ pub struct IngressTLSOpt {
     pub secret_name: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::networking::v1::ingress_tls::IngressTLS {
+impl crate::Optionable for ::k8s_openapi::api::networking::v1::IngressTLS {
     type Optioned = IngressTLSOpt;
 }
 #[automatically_derived]
@@ -13,8 +13,7 @@ impl crate::Optionable for IngressTLSOpt {
     type Optioned = IngressTLSOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1::ingress_tls::IngressTLS {
+impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressTLS {
     fn into_optioned(self) -> IngressTLSOpt {
         IngressTLSOpt {
             hosts: <Option<

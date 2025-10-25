@@ -18,7 +18,7 @@ pub struct NamedRuleWithOperationsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1beta1::named_rule_with_operations::NamedRuleWithOperations {
+for ::k8s_openapi::api::admissionregistration::v1beta1::NamedRuleWithOperations {
     type Optioned = NamedRuleWithOperationsOpt;
 }
 #[automatically_derived]
@@ -27,7 +27,7 @@ impl crate::Optionable for NamedRuleWithOperationsOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1beta1::named_rule_with_operations::NamedRuleWithOperations {
+for ::k8s_openapi::api::admissionregistration::v1beta1::NamedRuleWithOperations {
     fn into_optioned(self) -> NamedRuleWithOperationsOpt {
         NamedRuleWithOperationsOpt {
             api_groups: <Option<

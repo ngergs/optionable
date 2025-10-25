@@ -7,8 +7,7 @@ pub struct PodAntiAffinityOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::pod_anti_affinity::PodAntiAffinity {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PodAntiAffinity {
     type Optioned = PodAntiAffinityOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for PodAntiAffinityOpt {
     type Optioned = PodAntiAffinityOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::pod_anti_affinity::PodAntiAffinity {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAntiAffinity {
     fn into_optioned(self) -> PodAntiAffinityOpt {
         PodAntiAffinityOpt {
             preferred_during_scheduling_ignored_during_execution: <Option<

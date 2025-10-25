@@ -4,7 +4,7 @@ pub struct PodFailurePolicyOnPodConditionsPatternOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::batch::v1::pod_failure_policy_on_pod_conditions_pattern::PodFailurePolicyOnPodConditionsPattern {
+for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
     type Optioned = PodFailurePolicyOnPodConditionsPatternOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for PodFailurePolicyOnPodConditionsPatternOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::batch::v1::pod_failure_policy_on_pod_conditions_pattern::PodFailurePolicyOnPodConditionsPattern {
+for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
     fn into_optioned(self) -> PodFailurePolicyOnPodConditionsPatternOpt {
         PodFailurePolicyOnPodConditionsPatternOpt {
             status: Some(

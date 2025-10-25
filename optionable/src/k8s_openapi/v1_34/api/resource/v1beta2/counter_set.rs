@@ -8,8 +8,7 @@ pub struct CounterSetOpt {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta2::counter_set::CounterSet {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::CounterSet {
     type Optioned = CounterSetOpt;
 }
 #[automatically_derived]
@@ -17,8 +16,7 @@ impl crate::Optionable for CounterSetOpt {
     type Optioned = CounterSetOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta2::counter_set::CounterSet {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::CounterSet {
     fn into_optioned(self) -> CounterSetOpt {
         CounterSetOpt {
             counters: Some(

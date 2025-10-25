@@ -2,8 +2,7 @@ pub struct LocalObjectReferenceOpt {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::local_object_reference::LocalObjectReference {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::LocalObjectReference {
     type Optioned = LocalObjectReferenceOpt;
 }
 #[automatically_derived]
@@ -11,8 +10,7 @@ impl crate::Optionable for LocalObjectReferenceOpt {
     type Optioned = LocalObjectReferenceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::local_object_reference::LocalObjectReference {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LocalObjectReference {
     fn into_optioned(self) -> LocalObjectReferenceOpt {
         LocalObjectReferenceOpt {
             name: Some(

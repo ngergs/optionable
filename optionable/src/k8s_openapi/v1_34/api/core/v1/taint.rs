@@ -7,7 +7,7 @@ pub struct TaintOpt {
     pub value: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::taint::Taint {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::Taint {
     type Optioned = TaintOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for TaintOpt {
     type Optioned = TaintOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::taint::Taint {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Taint {
     fn into_optioned(self) -> TaintOpt {
         TaintOpt {
             effect: Some(

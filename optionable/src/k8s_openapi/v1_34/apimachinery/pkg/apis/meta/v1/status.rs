@@ -11,8 +11,7 @@ pub struct StatusOpt {
     pub status: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::status::Status {
+impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
     type Optioned = StatusOpt;
 }
 #[automatically_derived]
@@ -21,7 +20,7 @@ impl crate::Optionable for StatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::status::Status {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
     fn into_optioned(self) -> StatusOpt {
         StatusOpt {
             code: <Option<i32> as crate::OptionableConvert>::into_optioned(self.code),

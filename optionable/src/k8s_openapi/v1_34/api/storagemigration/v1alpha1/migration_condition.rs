@@ -9,7 +9,7 @@ pub struct MigrationConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::storagemigration::v1alpha1::migration_condition::MigrationCondition {
+for ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition {
     type Optioned = MigrationConditionOpt;
 }
 #[automatically_derived]
@@ -18,7 +18,7 @@ impl crate::Optionable for MigrationConditionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::storagemigration::v1alpha1::migration_condition::MigrationCondition {
+for ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition {
     fn into_optioned(self) -> MigrationConditionOpt {
         MigrationConditionOpt {
             last_update_time: <Option<

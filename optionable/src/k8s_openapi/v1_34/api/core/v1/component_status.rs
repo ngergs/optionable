@@ -7,8 +7,7 @@ pub struct ComponentStatusOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::component_status::ComponentStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ComponentStatus {
     type Optioned = ComponentStatusOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for ComponentStatusOpt {
     type Optioned = ComponentStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::component_status::ComponentStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentStatus {
     fn into_optioned(self) -> ComponentStatusOpt {
         ComponentStatusOpt {
             conditions: <Option<

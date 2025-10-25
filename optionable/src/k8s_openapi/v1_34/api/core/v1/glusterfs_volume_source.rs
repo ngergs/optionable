@@ -4,8 +4,7 @@ pub struct GlusterfsVolumeSourceOpt {
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::glusterfs_volume_source::GlusterfsVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::GlusterfsVolumeSource {
     type Optioned = GlusterfsVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for GlusterfsVolumeSourceOpt {
     type Optioned = GlusterfsVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::glusterfs_volume_source::GlusterfsVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::GlusterfsVolumeSource {
     fn into_optioned(self) -> GlusterfsVolumeSourceOpt {
         GlusterfsVolumeSourceOpt {
             endpoints: Some(

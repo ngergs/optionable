@@ -6,7 +6,7 @@ pub struct CustomResourceConversionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_conversion::CustomResourceConversion {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceConversion {
     type Optioned = CustomResourceConversionOpt;
 }
 #[automatically_derived]
@@ -15,7 +15,7 @@ impl crate::Optionable for CustomResourceConversionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_conversion::CustomResourceConversion {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceConversion {
     fn into_optioned(self) -> CustomResourceConversionOpt {
         CustomResourceConversionOpt {
             strategy: Some(

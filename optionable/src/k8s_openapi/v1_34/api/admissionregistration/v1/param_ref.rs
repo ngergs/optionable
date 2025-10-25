@@ -9,8 +9,7 @@ pub struct ParamRefOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::admissionregistration::v1::param_ref::ParamRef {
+impl crate::Optionable for ::k8s_openapi::api::admissionregistration::v1::ParamRef {
     type Optioned = ParamRefOpt;
 }
 #[automatically_derived]
@@ -19,7 +18,7 @@ impl crate::Optionable for ParamRefOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::admissionregistration::v1::param_ref::ParamRef {
+for ::k8s_openapi::api::admissionregistration::v1::ParamRef {
     fn into_optioned(self) -> ParamRefOpt {
         ParamRefOpt {
             name: <Option<

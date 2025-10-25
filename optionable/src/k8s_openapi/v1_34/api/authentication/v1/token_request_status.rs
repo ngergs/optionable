@@ -5,8 +5,7 @@ pub struct TokenRequestStatusOpt {
     pub token: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::authentication::v1::token_request_status::TokenRequestStatus {
+impl crate::Optionable for ::k8s_openapi::api::authentication::v1::TokenRequestStatus {
     type Optioned = TokenRequestStatusOpt;
 }
 #[automatically_derived]
@@ -15,7 +14,7 @@ impl crate::Optionable for TokenRequestStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::authentication::v1::token_request_status::TokenRequestStatus {
+for ::k8s_openapi::api::authentication::v1::TokenRequestStatus {
     fn into_optioned(self) -> TokenRequestStatusOpt {
         TokenRequestStatusOpt {
             expiration_timestamp: Some(

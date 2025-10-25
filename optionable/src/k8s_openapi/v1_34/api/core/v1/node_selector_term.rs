@@ -7,8 +7,7 @@ pub struct NodeSelectorTermOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::node_selector_term::NodeSelectorTerm {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeSelectorTerm {
     type Optioned = NodeSelectorTermOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for NodeSelectorTermOpt {
     type Optioned = NodeSelectorTermOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::node_selector_term::NodeSelectorTerm {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelectorTerm {
     fn into_optioned(self) -> NodeSelectorTermOpt {
         NodeSelectorTermOpt {
             match_expressions: <Option<

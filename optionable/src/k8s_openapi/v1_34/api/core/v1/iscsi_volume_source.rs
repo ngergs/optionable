@@ -16,8 +16,7 @@ pub struct ISCSIVolumeSourceOpt {
     pub target_portal: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::iscsi_volume_source::ISCSIVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ISCSIVolumeSource {
     type Optioned = ISCSIVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -25,8 +24,7 @@ impl crate::Optionable for ISCSIVolumeSourceOpt {
     type Optioned = ISCSIVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::iscsi_volume_source::ISCSIVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ISCSIVolumeSource {
     fn into_optioned(self) -> ISCSIVolumeSourceOpt {
         ISCSIVolumeSourceOpt {
             chap_auth_discovery: <Option<

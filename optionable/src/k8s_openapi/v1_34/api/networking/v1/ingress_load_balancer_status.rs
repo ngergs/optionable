@@ -5,7 +5,7 @@ pub struct IngressLoadBalancerStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::networking::v1::ingress_load_balancer_status::IngressLoadBalancerStatus {
+for ::k8s_openapi::api::networking::v1::IngressLoadBalancerStatus {
     type Optioned = IngressLoadBalancerStatusOpt;
 }
 #[automatically_derived]
@@ -14,7 +14,7 @@ impl crate::Optionable for IngressLoadBalancerStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::networking::v1::ingress_load_balancer_status::IngressLoadBalancerStatus {
+for ::k8s_openapi::api::networking::v1::IngressLoadBalancerStatus {
     fn into_optioned(self) -> IngressLoadBalancerStatusOpt {
         IngressLoadBalancerStatusOpt {
             ingress: <Option<

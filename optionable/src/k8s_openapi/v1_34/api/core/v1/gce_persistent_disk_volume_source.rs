@@ -5,8 +5,7 @@ pub struct GCEPersistentDiskVolumeSourceOpt {
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::gce_persistent_disk_volume_source::GCEPersistentDiskVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::GCEPersistentDiskVolumeSource {
     type Optioned = GCEPersistentDiskVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -15,7 +14,7 @@ impl crate::Optionable for GCEPersistentDiskVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::gce_persistent_disk_volume_source::GCEPersistentDiskVolumeSource {
+for ::k8s_openapi::api::core::v1::GCEPersistentDiskVolumeSource {
     fn into_optioned(self) -> GCEPersistentDiskVolumeSourceOpt {
         GCEPersistentDiskVolumeSourceOpt {
             fs_type: <Option<

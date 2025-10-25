@@ -11,7 +11,7 @@ pub struct CustomResourceDefinitionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_definition::CustomResourceDefinition {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinition {
     type Optioned = CustomResourceDefinitionOpt;
 }
 #[automatically_derived]
@@ -20,7 +20,7 @@ impl crate::Optionable for CustomResourceDefinitionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::custom_resource_definition::CustomResourceDefinition {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinition {
     fn into_optioned(self) -> CustomResourceDefinitionOpt {
         CustomResourceDefinitionOpt {
             metadata: Some(

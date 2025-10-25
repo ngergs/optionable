@@ -13,8 +13,7 @@ pub struct EndpointSliceOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::discovery::v1::endpoint_slice::EndpointSlice {
+impl crate::Optionable for ::k8s_openapi::api::discovery::v1::EndpointSlice {
     type Optioned = EndpointSliceOpt;
 }
 #[automatically_derived]
@@ -22,8 +21,7 @@ impl crate::Optionable for EndpointSliceOpt {
     type Optioned = EndpointSliceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::discovery::v1::endpoint_slice::EndpointSlice {
+impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSlice {
     fn into_optioned(self) -> EndpointSliceOpt {
         EndpointSliceOpt {
             address_type: Some(

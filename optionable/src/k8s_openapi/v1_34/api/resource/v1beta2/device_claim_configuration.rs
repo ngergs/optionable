@@ -8,7 +8,7 @@ pub struct DeviceClaimConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::resource::v1beta2::device_claim_configuration::DeviceClaimConfiguration {
+for ::k8s_openapi::api::resource::v1beta2::DeviceClaimConfiguration {
     type Optioned = DeviceClaimConfigurationOpt;
 }
 #[automatically_derived]
@@ -17,7 +17,7 @@ impl crate::Optionable for DeviceClaimConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1beta2::device_claim_configuration::DeviceClaimConfiguration {
+for ::k8s_openapi::api::resource::v1beta2::DeviceClaimConfiguration {
     fn into_optioned(self) -> DeviceClaimConfigurationOpt {
         DeviceClaimConfigurationOpt {
             opaque: <Option<

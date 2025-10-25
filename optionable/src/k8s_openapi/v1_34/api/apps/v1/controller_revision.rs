@@ -8,8 +8,7 @@ pub struct ControllerRevisionOpt {
     pub revision: Option<i64>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::controller_revision::ControllerRevision {
+impl crate::Optionable for ::k8s_openapi::api::apps::v1::ControllerRevision {
     type Optioned = ControllerRevisionOpt;
 }
 #[automatically_derived]
@@ -17,8 +16,7 @@ impl crate::Optionable for ControllerRevisionOpt {
     type Optioned = ControllerRevisionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::controller_revision::ControllerRevision {
+impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ControllerRevision {
     fn into_optioned(self) -> ControllerRevisionOpt {
         ControllerRevisionOpt {
             data: <Option<

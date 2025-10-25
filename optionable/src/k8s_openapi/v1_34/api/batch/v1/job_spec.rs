@@ -27,7 +27,7 @@ pub struct JobSpecOpt {
     pub ttl_seconds_after_finished: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::batch::v1::job_spec::JobSpec {
+impl crate::Optionable for ::k8s_openapi::api::batch::v1::JobSpec {
     type Optioned = JobSpecOpt;
 }
 #[automatically_derived]
@@ -35,7 +35,7 @@ impl crate::Optionable for JobSpecOpt {
     type Optioned = JobSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::job_spec::JobSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobSpec {
     fn into_optioned(self) -> JobSpecOpt {
         JobSpecOpt {
             active_deadline_seconds: <Option<

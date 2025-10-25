@@ -19,7 +19,7 @@ pub struct StorageClassOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::storage::v1::storage_class::StorageClass {
+impl crate::Optionable for ::k8s_openapi::api::storage::v1::StorageClass {
     type Optioned = StorageClassOpt;
 }
 #[automatically_derived]
@@ -27,8 +27,7 @@ impl crate::Optionable for StorageClassOpt {
     type Optioned = StorageClassOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::storage::v1::storage_class::StorageClass {
+impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass {
     fn into_optioned(self) -> StorageClassOpt {
         StorageClassOpt {
             allow_volume_expansion: <Option<

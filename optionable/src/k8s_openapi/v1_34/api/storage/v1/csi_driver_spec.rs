@@ -16,8 +16,7 @@ pub struct CSIDriverSpecOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::storage::v1::csi_driver_spec::CSIDriverSpec {
+impl crate::Optionable for ::k8s_openapi::api::storage::v1::CSIDriverSpec {
     type Optioned = CSIDriverSpecOpt;
 }
 #[automatically_derived]
@@ -25,8 +24,7 @@ impl crate::Optionable for CSIDriverSpecOpt {
     type Optioned = CSIDriverSpecOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::storage::v1::csi_driver_spec::CSIDriverSpec {
+impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIDriverSpec {
     fn into_optioned(self) -> CSIDriverSpecOpt {
         CSIDriverSpecOpt {
             attach_required: <Option<

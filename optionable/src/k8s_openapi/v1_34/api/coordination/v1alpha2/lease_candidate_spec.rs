@@ -12,7 +12,7 @@ pub struct LeaseCandidateSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::coordination::v1alpha2::lease_candidate_spec::LeaseCandidateSpec {
+for ::k8s_openapi::api::coordination::v1alpha2::LeaseCandidateSpec {
     type Optioned = LeaseCandidateSpecOpt;
 }
 #[automatically_derived]
@@ -21,7 +21,7 @@ impl crate::Optionable for LeaseCandidateSpecOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::coordination::v1alpha2::lease_candidate_spec::LeaseCandidateSpec {
+for ::k8s_openapi::api::coordination::v1alpha2::LeaseCandidateSpec {
     fn into_optioned(self) -> LeaseCandidateSpecOpt {
         LeaseCandidateSpecOpt {
             binary_version: Some(

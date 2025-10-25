@@ -4,7 +4,7 @@ pub struct ExternalDocumentationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::external_documentation::ExternalDocumentation {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ExternalDocumentation {
     type Optioned = ExternalDocumentationOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for ExternalDocumentationOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::external_documentation::ExternalDocumentation {
+for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ExternalDocumentation {
     fn into_optioned(self) -> ExternalDocumentationOpt {
         ExternalDocumentationOpt {
             description: <Option<

@@ -10,8 +10,7 @@ pub struct PodDisruptionBudgetOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::policy::v1::pod_disruption_budget::PodDisruptionBudget {
+impl crate::Optionable for ::k8s_openapi::api::policy::v1::PodDisruptionBudget {
     type Optioned = PodDisruptionBudgetOpt;
 }
 #[automatically_derived]
@@ -19,8 +18,7 @@ impl crate::Optionable for PodDisruptionBudgetOpt {
     type Optioned = PodDisruptionBudgetOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::policy::v1::pod_disruption_budget::PodDisruptionBudget {
+impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::PodDisruptionBudget {
     fn into_optioned(self) -> PodDisruptionBudgetOpt {
         PodDisruptionBudgetOpt {
             metadata: Some(

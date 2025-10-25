@@ -4,7 +4,7 @@ pub struct PortStatusOpt {
     pub protocol: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::port_status::PortStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PortStatus {
     type Optioned = PortStatusOpt;
 }
 #[automatically_derived]
@@ -12,7 +12,7 @@ impl crate::Optionable for PortStatusOpt {
     type Optioned = PortStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::port_status::PortStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PortStatus {
     fn into_optioned(self) -> PortStatusOpt {
         PortStatusOpt {
             error: <Option<

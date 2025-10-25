@@ -8,8 +8,7 @@ pub struct MetricValueStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v2::metric_value_status::MetricValueStatus {
+impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::MetricValueStatus {
     type Optioned = MetricValueStatusOpt;
 }
 #[automatically_derived]
@@ -18,7 +17,7 @@ impl crate::Optionable for MetricValueStatusOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v2::metric_value_status::MetricValueStatus {
+for ::k8s_openapi::api::autoscaling::v2::MetricValueStatus {
     fn into_optioned(self) -> MetricValueStatusOpt {
         MetricValueStatusOpt {
             average_utilization: <Option<

@@ -39,7 +39,7 @@ pub struct PodStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::pod_status::PodStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::PodStatus {
     type Optioned = PodStatusOpt;
 }
 #[automatically_derived]
@@ -47,7 +47,7 @@ impl crate::Optionable for PodStatusOpt {
     type Optioned = PodStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::pod_status::PodStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodStatus {
     fn into_optioned(self) -> PodStatusOpt {
         PodStatusOpt {
             conditions: <Option<

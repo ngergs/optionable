@@ -4,8 +4,7 @@ pub struct NFSVolumeSourceOpt {
     pub server: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::nfs_volume_source::NFSVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NFSVolumeSource {
     type Optioned = NFSVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -13,8 +12,7 @@ impl crate::Optionable for NFSVolumeSourceOpt {
     type Optioned = NFSVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::nfs_volume_source::NFSVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NFSVolumeSource {
     fn into_optioned(self) -> NFSVolumeSourceOpt {
         NFSVolumeSourceOpt {
             path: Some(

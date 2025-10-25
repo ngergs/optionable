@@ -9,8 +9,7 @@ pub struct MetricTargetOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::autoscaling::v2::metric_target::MetricTarget {
+impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::MetricTarget {
     type Optioned = MetricTargetOpt;
 }
 #[automatically_derived]
@@ -18,8 +17,7 @@ impl crate::Optionable for MetricTargetOpt {
     type Optioned = MetricTargetOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::autoscaling::v2::metric_target::MetricTarget {
+impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricTarget {
     fn into_optioned(self) -> MetricTargetOpt {
         MetricTargetOpt {
             average_utilization: <Option<

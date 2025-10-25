@@ -11,8 +11,7 @@ pub struct NodeConfigStatusOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::node_config_status::NodeConfigStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeConfigStatus {
     type Optioned = NodeConfigStatusOpt;
 }
 #[automatically_derived]
@@ -20,8 +19,7 @@ impl crate::Optionable for NodeConfigStatusOpt {
     type Optioned = NodeConfigStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::node_config_status::NodeConfigStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeConfigStatus {
     fn into_optioned(self) -> NodeConfigStatusOpt {
         NodeConfigStatusOpt {
             active: <Option<

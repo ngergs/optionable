@@ -4,7 +4,7 @@ pub struct ExecActionOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::exec_action::ExecAction {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ExecAction {
     type Optioned = ExecActionOpt;
 }
 #[automatically_derived]
@@ -12,7 +12,7 @@ impl crate::Optionable for ExecActionOpt {
     type Optioned = ExecActionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::exec_action::ExecAction {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ExecAction {
     fn into_optioned(self) -> ExecActionOpt {
         ExecActionOpt {
             command: <Option<

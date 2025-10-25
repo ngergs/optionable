@@ -12,7 +12,7 @@ pub struct SecretOpt {
     pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::secret::Secret {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::Secret {
     type Optioned = SecretOpt;
 }
 #[automatically_derived]
@@ -20,7 +20,7 @@ impl crate::Optionable for SecretOpt {
     type Optioned = SecretOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::secret::Secret {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Secret {
     fn into_optioned(self) -> SecretOpt {
         SecretOpt {
             data: <Option<

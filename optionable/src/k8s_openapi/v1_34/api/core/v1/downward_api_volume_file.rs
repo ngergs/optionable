@@ -9,8 +9,7 @@ pub struct DownwardAPIVolumeFileOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::downward_api_volume_file::DownwardAPIVolumeFile {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::DownwardAPIVolumeFile {
     type Optioned = DownwardAPIVolumeFileOpt;
 }
 #[automatically_derived]
@@ -18,8 +17,7 @@ impl crate::Optionable for DownwardAPIVolumeFileOpt {
     type Optioned = DownwardAPIVolumeFileOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::downward_api_volume_file::DownwardAPIVolumeFile {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DownwardAPIVolumeFile {
     fn into_optioned(self) -> DownwardAPIVolumeFileOpt {
         DownwardAPIVolumeFileOpt {
             field_ref: <Option<

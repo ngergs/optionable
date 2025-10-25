@@ -7,8 +7,7 @@ pub struct ResourceSliceOpt {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1::resource_slice::ResourceSlice {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1::ResourceSlice {
     type Optioned = ResourceSliceOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for ResourceSliceOpt {
     type Optioned = ResourceSliceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1::resource_slice::ResourceSlice {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ResourceSlice {
     fn into_optioned(self) -> ResourceSliceOpt {
         ResourceSliceOpt {
             metadata: Some(

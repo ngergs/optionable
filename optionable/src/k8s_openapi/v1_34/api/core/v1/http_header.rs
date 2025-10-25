@@ -3,7 +3,7 @@ pub struct HTTPHeaderOpt {
     pub value: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::core::v1::http_header::HTTPHeader {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::HTTPHeader {
     type Optioned = HTTPHeaderOpt;
 }
 #[automatically_derived]
@@ -11,7 +11,7 @@ impl crate::Optionable for HTTPHeaderOpt {
     type Optioned = HTTPHeaderOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::http_header::HTTPHeader {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HTTPHeader {
     fn into_optioned(self) -> HTTPHeaderOpt {
         HTTPHeaderOpt {
             name: Some(

@@ -7,8 +7,7 @@ pub struct ConfigMapVolumeSourceOpt {
     pub optional: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::config_map_volume_source::ConfigMapVolumeSource {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMapVolumeSource {
     type Optioned = ConfigMapVolumeSourceOpt;
 }
 #[automatically_derived]
@@ -16,8 +15,7 @@ impl crate::Optionable for ConfigMapVolumeSourceOpt {
     type Optioned = ConfigMapVolumeSourceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::config_map_volume_source::ConfigMapVolumeSource {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapVolumeSource {
     fn into_optioned(self) -> ConfigMapVolumeSourceOpt {
         ConfigMapVolumeSourceOpt {
             default_mode: <Option<

@@ -10,7 +10,7 @@ pub struct APIVersionsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::api_versions::APIVersions {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions {
     type Optioned = APIVersionsOpt;
 }
 #[automatically_derived]
@@ -19,7 +19,7 @@ impl crate::Optionable for APIVersionsOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::api_versions::APIVersions {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions {
     fn into_optioned(self) -> APIVersionsOpt {
         APIVersionsOpt {
             server_address_by_client_cidrs: Some(

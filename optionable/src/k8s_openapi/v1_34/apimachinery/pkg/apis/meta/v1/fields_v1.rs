@@ -2,8 +2,7 @@ pub struct FieldsV1Opt(
     pub Option<<::k8s_openapi::serde_json::Value as crate::Optionable>::Optioned>,
 );
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::fields_v1::FieldsV1 {
+impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::FieldsV1 {
     type Optioned = FieldsV1Opt;
 }
 #[automatically_derived]
@@ -12,7 +11,7 @@ impl crate::Optionable for FieldsV1Opt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::fields_v1::FieldsV1 {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::FieldsV1 {
     fn into_optioned(self) -> FieldsV1Opt {
         FieldsV1Opt(
             Some(

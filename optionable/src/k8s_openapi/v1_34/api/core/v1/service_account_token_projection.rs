@@ -4,8 +4,7 @@ pub struct ServiceAccountTokenProjectionOpt {
     pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::service_account_token_projection::ServiceAccountTokenProjection {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection {
     type Optioned = ServiceAccountTokenProjectionOpt;
 }
 #[automatically_derived]
@@ -14,7 +13,7 @@ impl crate::Optionable for ServiceAccountTokenProjectionOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::service_account_token_projection::ServiceAccountTokenProjection {
+for ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection {
     fn into_optioned(self) -> ServiceAccountTokenProjectionOpt {
         ServiceAccountTokenProjectionOpt {
             audience: <Option<

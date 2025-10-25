@@ -5,8 +5,7 @@ pub struct WeightedPodAffinityTermOpt {
     pub weight: Option<i32>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::weighted_pod_affinity_term::WeightedPodAffinityTerm {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::WeightedPodAffinityTerm {
     type Optioned = WeightedPodAffinityTermOpt;
 }
 #[automatically_derived]
@@ -14,8 +13,7 @@ impl crate::Optionable for WeightedPodAffinityTermOpt {
     type Optioned = WeightedPodAffinityTermOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::weighted_pod_affinity_term::WeightedPodAffinityTerm {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::WeightedPodAffinityTerm {
     fn into_optioned(self) -> WeightedPodAffinityTermOpt {
         WeightedPodAffinityTermOpt {
             pod_affinity_term: Some(

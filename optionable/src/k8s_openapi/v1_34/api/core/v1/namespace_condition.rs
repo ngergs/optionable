@@ -8,8 +8,7 @@ pub struct NamespaceConditionOpt {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::namespace_condition::NamespaceCondition {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NamespaceCondition {
     type Optioned = NamespaceConditionOpt;
 }
 #[automatically_derived]
@@ -17,8 +16,7 @@ impl crate::Optionable for NamespaceConditionOpt {
     type Optioned = NamespaceConditionOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::namespace_condition::NamespaceCondition {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceCondition {
     fn into_optioned(self) -> NamespaceConditionOpt {
         NamespaceConditionOpt {
             last_transition_time: <Option<

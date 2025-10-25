@@ -7,7 +7,7 @@ pub struct FieldSelectorRequirementOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::field_selector_requirement::FieldSelectorRequirement {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::FieldSelectorRequirement {
     type Optioned = FieldSelectorRequirementOpt;
 }
 #[automatically_derived]
@@ -16,7 +16,7 @@ impl crate::Optionable for FieldSelectorRequirementOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::field_selector_requirement::FieldSelectorRequirement {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::FieldSelectorRequirement {
     fn into_optioned(self) -> FieldSelectorRequirementOpt {
         FieldSelectorRequirementOpt {
             key: Some(

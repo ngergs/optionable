@@ -7,7 +7,7 @@ pub struct APIGroupListOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::api_group_list::APIGroupList {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroupList {
     type Optioned = APIGroupListOpt;
 }
 #[automatically_derived]
@@ -16,7 +16,7 @@ impl crate::Optionable for APIGroupListOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::api_group_list::APIGroupList {
+for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroupList {
     fn into_optioned(self) -> APIGroupListOpt {
         APIGroupListOpt {
             groups: Some(

@@ -8,8 +8,7 @@ pub struct DeviceTaintSelectorOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::resource::v1alpha3::device_taint_selector::DeviceTaintSelector {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintSelector {
     type Optioned = DeviceTaintSelectorOpt;
 }
 #[automatically_derived]
@@ -18,7 +17,7 @@ impl crate::Optionable for DeviceTaintSelectorOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::resource::v1alpha3::device_taint_selector::DeviceTaintSelector {
+for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintSelector {
     fn into_optioned(self) -> DeviceTaintSelectorOpt {
         DeviceTaintSelectorOpt {
             device: <Option<

@@ -33,7 +33,7 @@ pub struct DeviceOpt {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::device::Device {
+impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::Device {
     type Optioned = DeviceOpt;
 }
 #[automatically_derived]
@@ -41,7 +41,7 @@ impl crate::Optionable for DeviceOpt {
     type Optioned = DeviceOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::device::Device {
+impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Device {
     fn into_optioned(self) -> DeviceOpt {
         DeviceOpt {
             all_nodes: <Option<

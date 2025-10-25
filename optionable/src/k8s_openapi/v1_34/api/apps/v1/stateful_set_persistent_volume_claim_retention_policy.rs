@@ -4,7 +4,7 @@ pub struct StatefulSetPersistentVolumeClaimRetentionPolicyOpt {
 }
 #[automatically_derived]
 impl crate::Optionable
-for ::k8s_openapi::api::apps::v1::stateful_set_persistent_volume_claim_retention_policy::StatefulSetPersistentVolumeClaimRetentionPolicy {
+for ::k8s_openapi::api::apps::v1::StatefulSetPersistentVolumeClaimRetentionPolicy {
     type Optioned = StatefulSetPersistentVolumeClaimRetentionPolicyOpt;
 }
 #[automatically_derived]
@@ -13,7 +13,7 @@ impl crate::Optionable for StatefulSetPersistentVolumeClaimRetentionPolicyOpt {
 }
 #[automatically_derived]
 impl crate::OptionableConvert
-for ::k8s_openapi::api::apps::v1::stateful_set_persistent_volume_claim_retention_policy::StatefulSetPersistentVolumeClaimRetentionPolicy {
+for ::k8s_openapi::api::apps::v1::StatefulSetPersistentVolumeClaimRetentionPolicy {
     fn into_optioned(self) -> StatefulSetPersistentVolumeClaimRetentionPolicyOpt {
         StatefulSetPersistentVolumeClaimRetentionPolicyOpt {
             when_deleted: <Option<

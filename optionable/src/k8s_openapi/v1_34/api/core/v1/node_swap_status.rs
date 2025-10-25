@@ -2,8 +2,7 @@ pub struct NodeSwapStatusOpt {
     pub capacity: <Option<i64> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for ::k8s_openapi::api::core::v1::node_swap_status::NodeSwapStatus {
+impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeSwapStatus {
     type Optioned = NodeSwapStatusOpt;
 }
 #[automatically_derived]
@@ -11,8 +10,7 @@ impl crate::Optionable for NodeSwapStatusOpt {
     type Optioned = NodeSwapStatusOpt;
 }
 #[automatically_derived]
-impl crate::OptionableConvert
-for ::k8s_openapi::api::core::v1::node_swap_status::NodeSwapStatus {
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSwapStatus {
     fn into_optioned(self) -> NodeSwapStatusOpt {
         NodeSwapStatusOpt {
             capacity: <Option<
