@@ -76,7 +76,7 @@ pub(crate) fn where_clauses<'a>(
 }
 
 /// Internal generalized logic for the where clause
-fn where_clause_generalized<'a>(
+fn where_clause_generalized(
     crate_name: &Path,
     generic_params: &Vec<&Ident>,
     mut where_clause: WhereClause,
@@ -86,7 +86,7 @@ fn where_clause_generalized<'a>(
     where_clause_add_params(
         crate_name,
         &mut where_clause,
-        &generic_params,
+        generic_params,
         predicate,
         predicate_optioned,
     );
@@ -148,7 +148,7 @@ fn generic_params_need_optionable<'a>(
 /// Adjusts the where clause to add the provided predicate type bounds.
 /// Basically the original where clause with a type bound to the predicate added
 /// for every generic type parameter `params`.
-fn where_clause_add_params<'a>(
+fn where_clause_add_params(
     crate_name: &Path,
     where_clause: &mut WhereClause,
     params: &Vec<&Ident>,
@@ -197,11 +197,11 @@ fn where_clause_replace_input_crate_name(
         if let WherePredicate::Type(pred_ty) = pred {
             pred_ty.bounds.iter_mut().for_each(|bound| {
                 if let TypeParamBound::Trait(trait_bound) = bound
-                    && trait_bound.path.segments[0].ident.to_string() == "crate"
+                    && trait_bound.path.segments[0].ident == "crate"
                 {
                     trait_bound.path.segments[0].ident = replacement_crate_ident.clone();
                 }
-            })
+            });
         }
     });
 }
