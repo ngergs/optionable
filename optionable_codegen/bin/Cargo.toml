@@ -15,7 +15,7 @@ default = []
 pedantic = "warn"
 
 [dependencies]
-optionable_codegen = "0.4.3"
+optionable_codegen = "0.5.0"
 syn = { version = "2.0.106", default-features = false, features = ["proc-macro", "derive", "visit"] }
 proc-macro2 = "1.0.101"
 darling = { version = "0.21.3", default-features = false }
