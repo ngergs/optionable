@@ -174,12 +174,12 @@ Another crate is [struct-patch](https://crates.io/crates/struct-patch).
 It focuses on patching structs (not enums), especially from serde inputs. Nesting is supported with manual helper
 annotations.
 
-### License
+## License
 
 You can use this under the conditions of the [MIT license](LICENSE-MIT) or
 the [Apache License, Version 2.0](LICENSE-APACHE) at your option.
 
-#### Contributing
+### Contributing
 
 Any contributor has to agree to have their contribution also dual-licensed under the MIT as well as Apache-2.0 license
 as
