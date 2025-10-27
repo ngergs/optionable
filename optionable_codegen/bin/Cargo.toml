@@ -1,11 +1,12 @@
 [package]
-name = "optionable_codegen"
-version = "0.4.3"
+name = "optionable_codegen_cli"
+version = "0.1.0"
 edition = "2024"
-description = "proc_macro2 functions for the derive macro and codegen implementations in the `optionable_derive` crate to derive nested structs/enums with all subfields being optional (e.g. for patches or Kubernetes server side apply)."
+description = "Implementation of the codegen cli"
 repository = "https://github.com/ngergs/optionable"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
+publish = false
 
 [features]
 default = []
@@ -14,8 +15,13 @@ default = []
 pedantic = "warn"
 
 [dependencies]
-quote = "1.0.40"
+optionable_codegen = "0.4.3"
 syn = { version = "2.0.106", default-features = false, features = ["proc-macro", "derive", "visit"] }
 proc-macro2 = "1.0.101"
 darling = { version = "0.21.3", default-features = false }
-itertools = "0.14.0"
+clap = { version = "4.5.48", features = ["derive"] }
+prettyplease = "0.2.37"
+
+[dev-dependencies]
+assert_cmd = "2.0.17"
+tempfile = "3.23.0"
