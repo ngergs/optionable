@@ -1,6 +1,6 @@
 use crate::address::Address;
 
-mod address;
+pub mod address;
 
 struct Member {
     name: String,
