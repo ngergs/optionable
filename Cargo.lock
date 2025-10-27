@@ -361,6 +361,7 @@ dependencies = [
  "optionable_codegen",
  "prettyplease",
  "proc-macro2",
+ "quote",
  "syn",
  "tempfile",
 ]

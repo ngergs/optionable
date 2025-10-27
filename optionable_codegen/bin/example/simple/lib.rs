@@ -1,4 +1,4 @@
-mod address;
+pub mod address;
 struct MemberOpt {
     name: Option<String>,
     addresses: Option<<Vec<Address> as ::optionable::Optionable>::Optioned>,
