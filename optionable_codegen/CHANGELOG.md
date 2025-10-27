@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.4.3...optionable_codegen-v0.5.0) - 2025-10-27
+
+### Fixed
+
+- mv cli code to separate unpublished crate
+- clippy
+
 ## [0.4.3](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.4.2...optionable_codegen-v0.4.3) - 2025-10-25
 
 ### Fixed
