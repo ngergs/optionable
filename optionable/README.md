@@ -123,10 +123,10 @@ where
 ## Crate features
 
 - `derive`: Default-feature, re-exports the `Optionable` derive macro.
-- `std`: Default-feature. Adds `Optionable`-implementations for many stdlib types.
-- `alloc`: Adds `Optionable`-implementations for `alloc` types (only useful when not enabling the `std` feature).
-- `chrono`: Derive `Optionable` for types from [chrono](https://docs.rs/chrono/latest/chrono/)
-- `serde_json`: Derive `Optionable` for [serde_json](https://docs.rs/serde_json/latest/serde_json/)::Value
+- `std`: Default-feature. Adds `Optionable`-implementations for many [std](https://doc.rust-lang.org/std/)-lib types.
+- `alloc`: Adds `Optionable`-implementations for [alloc](https://doc.rust-lang.org/alloc/) types (only useful when not enabling the `std` feature).
+- `chrono`: Derive `Optionable` for types from [chrono](https://docs.rs/chrono/latest/chrono/).
+- `serde_json`: Derive `Optionable` for [serde_json](https://docs.rs/serde_json/latest/serde_json/)::Value.
 
 ## Limitations
 
