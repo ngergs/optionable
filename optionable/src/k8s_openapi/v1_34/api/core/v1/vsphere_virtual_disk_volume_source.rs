@@ -19,38 +19,28 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource {
     fn into_optioned(self) -> VsphereVirtualDiskVolumeSourceOpt {
         VsphereVirtualDiskVolumeSourceOpt {
-            fs_type: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.fs_type),
-            storage_policy_id: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.storage_policy_id),
-            storage_policy_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.storage_policy_name),
-            volume_path: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.volume_path,
-                ),
+            fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
+            storage_policy_id: crate::OptionableConvert::into_optioned(
+                self.storage_policy_id,
             ),
+            storage_policy_name: crate::OptionableConvert::into_optioned(
+                self.storage_policy_name,
+            ),
+            volume_path: Some(crate::OptionableConvert::into_optioned(self.volume_path)),
         }
     }
     fn try_from_optioned(
         value: VsphereVirtualDiskVolumeSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            fs_type: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.fs_type)?,
-            storage_policy_id: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.storage_policy_id)?,
-            storage_policy_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(
+            fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
+            storage_policy_id: crate::OptionableConvert::try_from_optioned(
+                value.storage_policy_id,
+            )?,
+            storage_policy_name: crate::OptionableConvert::try_from_optioned(
                 value.storage_policy_name,
             )?,
-            volume_path: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            volume_path: crate::OptionableConvert::try_from_optioned(
                 value
                     .volume_path
                     .ok_or(crate::optionable::Error {
@@ -63,26 +53,17 @@ for ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource {
         &mut self,
         other: VsphereVirtualDiskVolumeSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.fs_type, other.fs_type)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
+        crate::OptionableConvert::merge(
             &mut self.storage_policy_id,
             other.storage_policy_id,
         )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.storage_policy_name,
             other.storage_policy_name,
         )?;
         if let Some(other_value) = other.volume_path {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.volume_path,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.volume_path, other_value)?;
         }
         Ok(())
     }

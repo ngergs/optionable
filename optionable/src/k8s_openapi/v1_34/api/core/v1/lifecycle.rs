@@ -19,40 +19,22 @@ impl crate::Optionable for LifecycleOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Lifecycle {
     fn into_optioned(self) -> LifecycleOpt {
         LifecycleOpt {
-            post_start: <Option<
-                ::k8s_openapi::api::core::v1::LifecycleHandler,
-            > as crate::OptionableConvert>::into_optioned(self.post_start),
-            pre_stop: <Option<
-                ::k8s_openapi::api::core::v1::LifecycleHandler,
-            > as crate::OptionableConvert>::into_optioned(self.pre_stop),
-            stop_signal: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.stop_signal),
+            post_start: crate::OptionableConvert::into_optioned(self.post_start),
+            pre_stop: crate::OptionableConvert::into_optioned(self.pre_stop),
+            stop_signal: crate::OptionableConvert::into_optioned(self.stop_signal),
         }
     }
     fn try_from_optioned(value: LifecycleOpt) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            post_start: <Option<
-                ::k8s_openapi::api::core::v1::LifecycleHandler,
-            > as crate::OptionableConvert>::try_from_optioned(value.post_start)?,
-            pre_stop: <Option<
-                ::k8s_openapi::api::core::v1::LifecycleHandler,
-            > as crate::OptionableConvert>::try_from_optioned(value.pre_stop)?,
-            stop_signal: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.stop_signal)?,
+            post_start: crate::OptionableConvert::try_from_optioned(value.post_start)?,
+            pre_stop: crate::OptionableConvert::try_from_optioned(value.pre_stop)?,
+            stop_signal: crate::OptionableConvert::try_from_optioned(value.stop_signal)?,
         })
     }
     fn merge(&mut self, other: LifecycleOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::core::v1::LifecycleHandler,
-        > as crate::OptionableConvert>::merge(&mut self.post_start, other.post_start)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::LifecycleHandler,
-        > as crate::OptionableConvert>::merge(&mut self.pre_stop, other.pre_stop)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.stop_signal, other.stop_signal)?;
+        crate::OptionableConvert::merge(&mut self.post_start, other.post_start)?;
+        crate::OptionableConvert::merge(&mut self.pre_stop, other.pre_stop)?;
+        crate::OptionableConvert::merge(&mut self.stop_signal, other.stop_signal)?;
         Ok(())
     }
 }

@@ -15,41 +15,27 @@ impl crate::Optionable for EndpointConditionsOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointConditions {
     fn into_optioned(self) -> EndpointConditionsOpt {
         EndpointConditionsOpt {
-            ready: <Option<bool> as crate::OptionableConvert>::into_optioned(self.ready),
-            serving: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.serving),
-            terminating: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.terminating),
+            ready: crate::OptionableConvert::into_optioned(self.ready),
+            serving: crate::OptionableConvert::into_optioned(self.serving),
+            terminating: crate::OptionableConvert::into_optioned(self.terminating),
         }
     }
     fn try_from_optioned(
         value: EndpointConditionsOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            ready: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.ready)?,
-            serving: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.serving)?,
-            terminating: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.terminating)?,
+            ready: crate::OptionableConvert::try_from_optioned(value.ready)?,
+            serving: crate::OptionableConvert::try_from_optioned(value.serving)?,
+            terminating: crate::OptionableConvert::try_from_optioned(value.terminating)?,
         })
     }
     fn merge(
         &mut self,
         other: EndpointConditionsOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<bool> as crate::OptionableConvert>::merge(&mut self.ready, other.ready)?;
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(&mut self.serving, other.serving)?;
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(&mut self.terminating, other.terminating)?;
+        crate::OptionableConvert::merge(&mut self.ready, other.ready)?;
+        crate::OptionableConvert::merge(&mut self.serving, other.serving)?;
+        crate::OptionableConvert::merge(&mut self.terminating, other.terminating)?;
         Ok(())
     }
 }

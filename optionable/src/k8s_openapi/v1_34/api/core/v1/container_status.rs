@@ -44,98 +44,56 @@ impl crate::Optionable for ContainerStatusOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStatus {
     fn into_optioned(self) -> ContainerStatusOpt {
         ContainerStatusOpt {
-            allocated_resources: <Option<
-                std::collections::BTreeMap<
-                    std::string::String,
-                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-                >,
-            > as crate::OptionableConvert>::into_optioned(self.allocated_resources),
-            allocated_resources_status: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::ResourceStatus>,
-            > as crate::OptionableConvert>::into_optioned(
+            allocated_resources: crate::OptionableConvert::into_optioned(
+                self.allocated_resources,
+            ),
+            allocated_resources_status: crate::OptionableConvert::into_optioned(
                 self.allocated_resources_status,
             ),
-            container_id: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.container_id),
-            image: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.image,
-                ),
-            ),
-            image_id: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.image_id,
-                ),
-            ),
-            last_state: <Option<
-                ::k8s_openapi::api::core::v1::ContainerState,
-            > as crate::OptionableConvert>::into_optioned(self.last_state),
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
+            container_id: crate::OptionableConvert::into_optioned(self.container_id),
+            image: Some(crate::OptionableConvert::into_optioned(self.image)),
+            image_id: Some(crate::OptionableConvert::into_optioned(self.image_id)),
+            last_state: crate::OptionableConvert::into_optioned(self.last_state),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
             ready: Some(self.ready),
-            resources: <Option<
-                ::k8s_openapi::api::core::v1::ResourceRequirements,
-            > as crate::OptionableConvert>::into_optioned(self.resources),
+            resources: crate::OptionableConvert::into_optioned(self.resources),
             restart_count: Some(self.restart_count),
-            started: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.started),
-            state: <Option<
-                ::k8s_openapi::api::core::v1::ContainerState,
-            > as crate::OptionableConvert>::into_optioned(self.state),
-            stop_signal: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.stop_signal),
-            user: <Option<
-                ::k8s_openapi::api::core::v1::ContainerUser,
-            > as crate::OptionableConvert>::into_optioned(self.user),
-            volume_mounts: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::VolumeMountStatus>,
-            > as crate::OptionableConvert>::into_optioned(self.volume_mounts),
+            started: crate::OptionableConvert::into_optioned(self.started),
+            state: crate::OptionableConvert::into_optioned(self.state),
+            stop_signal: crate::OptionableConvert::into_optioned(self.stop_signal),
+            user: crate::OptionableConvert::into_optioned(self.user),
+            volume_mounts: crate::OptionableConvert::into_optioned(self.volume_mounts),
         }
     }
     fn try_from_optioned(
         value: ContainerStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            allocated_resources: <Option<
-                std::collections::BTreeMap<
-                    std::string::String,
-                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-                >,
-            > as crate::OptionableConvert>::try_from_optioned(
+            allocated_resources: crate::OptionableConvert::try_from_optioned(
                 value.allocated_resources,
             )?,
-            allocated_resources_status: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::ResourceStatus>,
-            > as crate::OptionableConvert>::try_from_optioned(
+            allocated_resources_status: crate::OptionableConvert::try_from_optioned(
                 value.allocated_resources_status,
             )?,
-            container_id: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.container_id)?,
-            image: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            container_id: crate::OptionableConvert::try_from_optioned(
+                value.container_id,
+            )?,
+            image: crate::OptionableConvert::try_from_optioned(
                 value
                     .image
                     .ok_or(crate::optionable::Error {
                         missing_field: "image",
                     })?,
             )?,
-            image_id: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            image_id: crate::OptionableConvert::try_from_optioned(
                 value
                     .image_id
                     .ok_or(crate::optionable::Error {
                         missing_field: "image_id",
                     })?,
             )?,
-            last_state: <Option<
-                ::k8s_openapi::api::core::v1::ContainerState,
-            > as crate::OptionableConvert>::try_from_optioned(value.last_state)?,
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            last_state: crate::OptionableConvert::try_from_optioned(value.last_state)?,
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
@@ -147,104 +105,56 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStatus 
                 .ok_or(crate::optionable::Error {
                     missing_field: "ready",
                 })?,
-            resources: <Option<
-                ::k8s_openapi::api::core::v1::ResourceRequirements,
-            > as crate::OptionableConvert>::try_from_optioned(value.resources)?,
+            resources: crate::OptionableConvert::try_from_optioned(value.resources)?,
             restart_count: value
                 .restart_count
                 .ok_or(crate::optionable::Error {
                     missing_field: "restart_count",
                 })?,
-            started: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.started)?,
-            state: <Option<
-                ::k8s_openapi::api::core::v1::ContainerState,
-            > as crate::OptionableConvert>::try_from_optioned(value.state)?,
-            stop_signal: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.stop_signal)?,
-            user: <Option<
-                ::k8s_openapi::api::core::v1::ContainerUser,
-            > as crate::OptionableConvert>::try_from_optioned(value.user)?,
-            volume_mounts: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::VolumeMountStatus>,
-            > as crate::OptionableConvert>::try_from_optioned(value.volume_mounts)?,
+            started: crate::OptionableConvert::try_from_optioned(value.started)?,
+            state: crate::OptionableConvert::try_from_optioned(value.state)?,
+            stop_signal: crate::OptionableConvert::try_from_optioned(value.stop_signal)?,
+            user: crate::OptionableConvert::try_from_optioned(value.user)?,
+            volume_mounts: crate::OptionableConvert::try_from_optioned(
+                value.volume_mounts,
+            )?,
         })
     }
     fn merge(
         &mut self,
         other: ContainerStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::collections::BTreeMap<
-                std::string::String,
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            >,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.allocated_resources,
             other.allocated_resources,
         )?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::ResourceStatus>,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.allocated_resources_status,
             other.allocated_resources_status,
         )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
-            &mut self.container_id,
-            other.container_id,
-        )?;
+        crate::OptionableConvert::merge(&mut self.container_id, other.container_id)?;
         if let Some(other_value) = other.image {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.image,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.image, other_value)?;
         }
         if let Some(other_value) = other.image_id {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.image_id,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.image_id, other_value)?;
         }
-        <Option<
-            ::k8s_openapi::api::core::v1::ContainerState,
-        > as crate::OptionableConvert>::merge(&mut self.last_state, other.last_state)?;
+        crate::OptionableConvert::merge(&mut self.last_state, other.last_state)?;
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
         if let Some(other_value) = other.ready {
             self.ready = other_value;
         }
-        <Option<
-            ::k8s_openapi::api::core::v1::ResourceRequirements,
-        > as crate::OptionableConvert>::merge(&mut self.resources, other.resources)?;
+        crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
         if let Some(other_value) = other.restart_count {
             self.restart_count = other_value;
         }
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(&mut self.started, other.started)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::ContainerState,
-        > as crate::OptionableConvert>::merge(&mut self.state, other.state)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.stop_signal, other.stop_signal)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::ContainerUser,
-        > as crate::OptionableConvert>::merge(&mut self.user, other.user)?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::VolumeMountStatus>,
-        > as crate::OptionableConvert>::merge(
-            &mut self.volume_mounts,
-            other.volume_mounts,
-        )?;
+        crate::OptionableConvert::merge(&mut self.started, other.started)?;
+        crate::OptionableConvert::merge(&mut self.state, other.state)?;
+        crate::OptionableConvert::merge(&mut self.stop_signal, other.stop_signal)?;
+        crate::OptionableConvert::merge(&mut self.user, other.user)?;
+        crate::OptionableConvert::merge(&mut self.volume_mounts, other.volume_mounts)?;
         Ok(())
     }
 }

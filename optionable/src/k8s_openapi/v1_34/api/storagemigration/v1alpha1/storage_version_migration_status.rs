@@ -18,42 +18,28 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationStatus {
     fn into_optioned(self) -> StorageVersionMigrationStatusOpt {
         StorageVersionMigrationStatusOpt {
-            conditions: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition,
-                >,
-            > as crate::OptionableConvert>::into_optioned(self.conditions),
-            resource_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.resource_version),
+            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            resource_version: crate::OptionableConvert::into_optioned(
+                self.resource_version,
+            ),
         }
     }
     fn try_from_optioned(
         value: StorageVersionMigrationStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            conditions: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition,
-                >,
-            > as crate::OptionableConvert>::try_from_optioned(value.conditions)?,
-            resource_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.resource_version)?,
+            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            resource_version: crate::OptionableConvert::try_from_optioned(
+                value.resource_version,
+            )?,
         })
     }
     fn merge(
         &mut self,
         other: StorageVersionMigrationStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<
-                ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition,
-            >,
-        > as crate::OptionableConvert>::merge(&mut self.conditions, other.conditions)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        crate::OptionableConvert::merge(
             &mut self.resource_version,
             other.resource_version,
         )?;

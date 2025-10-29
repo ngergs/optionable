@@ -17,54 +17,30 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::authentication::v1::BoundObjectReference {
     fn into_optioned(self) -> BoundObjectReferenceOpt {
         BoundObjectReferenceOpt {
-            api_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.api_version),
-            kind: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.kind),
-            name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.name),
-            uid: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.uid),
+            api_version: crate::OptionableConvert::into_optioned(self.api_version),
+            kind: crate::OptionableConvert::into_optioned(self.kind),
+            name: crate::OptionableConvert::into_optioned(self.name),
+            uid: crate::OptionableConvert::into_optioned(self.uid),
         }
     }
     fn try_from_optioned(
         value: BoundObjectReferenceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            api_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.api_version)?,
-            kind: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.kind)?,
-            name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.name)?,
-            uid: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.uid)?,
+            api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
+            kind: crate::OptionableConvert::try_from_optioned(value.kind)?,
+            name: crate::OptionableConvert::try_from_optioned(value.name)?,
+            uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
     fn merge(
         &mut self,
         other: BoundObjectReferenceOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.api_version, other.api_version)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.kind, other.kind)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.name, other.name)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.uid, other.uid)?;
+        crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
+        crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
+        crate::OptionableConvert::merge(&mut self.name, other.name)?;
+        crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
         Ok(())
     }
 }

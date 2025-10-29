@@ -22,40 +22,18 @@ impl crate::Optionable for ConfigMapOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMap {
     fn into_optioned(self) -> ConfigMapOpt {
         ConfigMapOpt {
-            binary_data: <Option<
-                std::collections::BTreeMap<
-                    std::string::String,
-                    ::k8s_openapi::ByteString,
-                >,
-            > as crate::OptionableConvert>::into_optioned(self.binary_data),
-            data: <Option<
-                std::collections::BTreeMap<std::string::String, std::string::String>,
-            > as crate::OptionableConvert>::into_optioned(self.data),
-            immutable: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.immutable),
-            metadata: Some(
-                <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::into_optioned(
-                    self.metadata,
-                ),
-            ),
+            binary_data: crate::OptionableConvert::into_optioned(self.binary_data),
+            data: crate::OptionableConvert::into_optioned(self.data),
+            immutable: crate::OptionableConvert::into_optioned(self.immutable),
+            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
         }
     }
     fn try_from_optioned(value: ConfigMapOpt) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            binary_data: <Option<
-                std::collections::BTreeMap<
-                    std::string::String,
-                    ::k8s_openapi::ByteString,
-                >,
-            > as crate::OptionableConvert>::try_from_optioned(value.binary_data)?,
-            data: <Option<
-                std::collections::BTreeMap<std::string::String, std::string::String>,
-            > as crate::OptionableConvert>::try_from_optioned(value.data)?,
-            immutable: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.immutable)?,
-            metadata: <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::try_from_optioned(
+            binary_data: crate::OptionableConvert::try_from_optioned(value.binary_data)?,
+            data: crate::OptionableConvert::try_from_optioned(value.data)?,
+            immutable: crate::OptionableConvert::try_from_optioned(value.immutable)?,
+            metadata: crate::OptionableConvert::try_from_optioned(
                 value
                     .metadata
                     .ok_or(crate::optionable::Error {
@@ -65,20 +43,11 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMap {
         })
     }
     fn merge(&mut self, other: ConfigMapOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::collections::BTreeMap<std::string::String, ::k8s_openapi::ByteString>,
-        > as crate::OptionableConvert>::merge(&mut self.binary_data, other.binary_data)?;
-        <Option<
-            std::collections::BTreeMap<std::string::String, std::string::String>,
-        > as crate::OptionableConvert>::merge(&mut self.data, other.data)?;
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(&mut self.immutable, other.immutable)?;
+        crate::OptionableConvert::merge(&mut self.binary_data, other.binary_data)?;
+        crate::OptionableConvert::merge(&mut self.data, other.data)?;
+        crate::OptionableConvert::merge(&mut self.immutable, other.immutable)?;
         if let Some(other_value) = other.metadata {
-            <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::merge(
-                &mut self.metadata,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
         }
         Ok(())
     }

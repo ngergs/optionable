@@ -21,48 +21,32 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition {
     fn into_optioned(self) -> MigrationConditionOpt {
         MigrationConditionOpt {
-            last_update_time: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
-            > as crate::OptionableConvert>::into_optioned(self.last_update_time),
-            message: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.message),
-            reason: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.reason),
-            status: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.status,
-                ),
+            last_update_time: crate::OptionableConvert::into_optioned(
+                self.last_update_time,
             ),
-            type_: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.type_,
-                ),
-            ),
+            message: crate::OptionableConvert::into_optioned(self.message),
+            reason: crate::OptionableConvert::into_optioned(self.reason),
+            status: Some(crate::OptionableConvert::into_optioned(self.status)),
+            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
         value: MigrationConditionOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            last_update_time: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
-            > as crate::OptionableConvert>::try_from_optioned(value.last_update_time)?,
-            message: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.message)?,
-            reason: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.reason)?,
-            status: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            last_update_time: crate::OptionableConvert::try_from_optioned(
+                value.last_update_time,
+            )?,
+            message: crate::OptionableConvert::try_from_optioned(value.message)?,
+            reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
+            status: crate::OptionableConvert::try_from_optioned(
                 value
                     .status
                     .ok_or(crate::optionable::Error {
                         missing_field: "status",
                     })?,
             )?,
-            type_: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
                     .ok_or(crate::optionable::Error {
@@ -75,29 +59,17 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition {
         &mut self,
         other: MigrationConditionOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.last_update_time,
             other.last_update_time,
         )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.message, other.message)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.reason, other.reason)?;
+        crate::OptionableConvert::merge(&mut self.message, other.message)?;
+        crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         if let Some(other_value) = other.status {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.status,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.status, other_value)?;
         }
         if let Some(other_value) = other.type_ {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.type_,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
         Ok(())
     }

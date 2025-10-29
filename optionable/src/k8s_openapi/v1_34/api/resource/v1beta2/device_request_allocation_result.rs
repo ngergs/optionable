@@ -35,169 +35,103 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta2::DeviceRequestAllocationResult {
     fn into_optioned(self) -> DeviceRequestAllocationResultOpt {
         DeviceRequestAllocationResultOpt {
-            admin_access: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.admin_access),
-            binding_conditions: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::into_optioned(self.binding_conditions),
-            binding_failure_conditions: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::into_optioned(
+            admin_access: crate::OptionableConvert::into_optioned(self.admin_access),
+            binding_conditions: crate::OptionableConvert::into_optioned(
+                self.binding_conditions,
+            ),
+            binding_failure_conditions: crate::OptionableConvert::into_optioned(
                 self.binding_failure_conditions,
             ),
-            consumed_capacity: <Option<
-                std::collections::BTreeMap<
-                    std::string::String,
-                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-                >,
-            > as crate::OptionableConvert>::into_optioned(self.consumed_capacity),
-            device: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.device,
-                ),
+            consumed_capacity: crate::OptionableConvert::into_optioned(
+                self.consumed_capacity,
             ),
-            driver: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.driver,
-                ),
-            ),
-            pool: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.pool,
-                ),
-            ),
-            request: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.request,
-                ),
-            ),
-            share_id: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.share_id),
-            tolerations: <Option<
-                std::vec::Vec<::k8s_openapi::api::resource::v1beta2::DeviceToleration>,
-            > as crate::OptionableConvert>::into_optioned(self.tolerations),
+            device: Some(crate::OptionableConvert::into_optioned(self.device)),
+            driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
+            pool: Some(crate::OptionableConvert::into_optioned(self.pool)),
+            request: Some(crate::OptionableConvert::into_optioned(self.request)),
+            share_id: crate::OptionableConvert::into_optioned(self.share_id),
+            tolerations: crate::OptionableConvert::into_optioned(self.tolerations),
         }
     }
     fn try_from_optioned(
         value: DeviceRequestAllocationResultOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            admin_access: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.admin_access)?,
-            binding_conditions: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::try_from_optioned(value.binding_conditions)?,
-            binding_failure_conditions: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::try_from_optioned(
+            admin_access: crate::OptionableConvert::try_from_optioned(
+                value.admin_access,
+            )?,
+            binding_conditions: crate::OptionableConvert::try_from_optioned(
+                value.binding_conditions,
+            )?,
+            binding_failure_conditions: crate::OptionableConvert::try_from_optioned(
                 value.binding_failure_conditions,
             )?,
-            consumed_capacity: <Option<
-                std::collections::BTreeMap<
-                    std::string::String,
-                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-                >,
-            > as crate::OptionableConvert>::try_from_optioned(value.consumed_capacity)?,
-            device: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            consumed_capacity: crate::OptionableConvert::try_from_optioned(
+                value.consumed_capacity,
+            )?,
+            device: crate::OptionableConvert::try_from_optioned(
                 value
                     .device
                     .ok_or(crate::optionable::Error {
                         missing_field: "device",
                     })?,
             )?,
-            driver: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            driver: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver
                     .ok_or(crate::optionable::Error {
                         missing_field: "driver",
                     })?,
             )?,
-            pool: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            pool: crate::OptionableConvert::try_from_optioned(
                 value
                     .pool
                     .ok_or(crate::optionable::Error {
                         missing_field: "pool",
                     })?,
             )?,
-            request: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            request: crate::OptionableConvert::try_from_optioned(
                 value
                     .request
                     .ok_or(crate::optionable::Error {
                         missing_field: "request",
                     })?,
             )?,
-            share_id: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.share_id)?,
-            tolerations: <Option<
-                std::vec::Vec<::k8s_openapi::api::resource::v1beta2::DeviceToleration>,
-            > as crate::OptionableConvert>::try_from_optioned(value.tolerations)?,
+            share_id: crate::OptionableConvert::try_from_optioned(value.share_id)?,
+            tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
         })
     }
     fn merge(
         &mut self,
         other: DeviceRequestAllocationResultOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(
-            &mut self.admin_access,
-            other.admin_access,
-        )?;
-        <Option<
-            std::vec::Vec<std::string::String>,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
+        crate::OptionableConvert::merge(
             &mut self.binding_conditions,
             other.binding_conditions,
         )?;
-        <Option<
-            std::vec::Vec<std::string::String>,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.binding_failure_conditions,
             other.binding_failure_conditions,
         )?;
-        <Option<
-            std::collections::BTreeMap<
-                std::string::String,
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            >,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.consumed_capacity,
             other.consumed_capacity,
         )?;
         if let Some(other_value) = other.device {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.device,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.device, other_value)?;
         }
         if let Some(other_value) = other.driver {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.driver,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.driver, other_value)?;
         }
         if let Some(other_value) = other.pool {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.pool,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.pool, other_value)?;
         }
         if let Some(other_value) = other.request {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.request,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.request, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.share_id, other.share_id)?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::resource::v1beta2::DeviceToleration>,
-        > as crate::OptionableConvert>::merge(&mut self.tolerations, other.tolerations)?;
+        crate::OptionableConvert::merge(&mut self.share_id, other.share_id)?;
+        crate::OptionableConvert::merge(&mut self.tolerations, other.tolerations)?;
         Ok(())
     }
 }

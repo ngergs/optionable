@@ -16,30 +16,22 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ContainerRestartRuleOnExitCodes {
     fn into_optioned(self) -> ContainerRestartRuleOnExitCodesOpt {
         ContainerRestartRuleOnExitCodesOpt {
-            operator: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.operator,
-                ),
-            ),
-            values: <Option<
-                std::vec::Vec<i32>,
-            > as crate::OptionableConvert>::into_optioned(self.values),
+            operator: Some(crate::OptionableConvert::into_optioned(self.operator)),
+            values: crate::OptionableConvert::into_optioned(self.values),
         }
     }
     fn try_from_optioned(
         value: ContainerRestartRuleOnExitCodesOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            operator: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            operator: crate::OptionableConvert::try_from_optioned(
                 value
                     .operator
                     .ok_or(crate::optionable::Error {
                         missing_field: "operator",
                     })?,
             )?,
-            values: <Option<
-                std::vec::Vec<i32>,
-            > as crate::OptionableConvert>::try_from_optioned(value.values)?,
+            values: crate::OptionableConvert::try_from_optioned(value.values)?,
         })
     }
     fn merge(
@@ -47,14 +39,9 @@ for ::k8s_openapi::api::core::v1::ContainerRestartRuleOnExitCodes {
         other: ContainerRestartRuleOnExitCodesOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.operator {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.operator,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.operator, other_value)?;
         }
-        <Option<
-            std::vec::Vec<i32>,
-        > as crate::OptionableConvert>::merge(&mut self.values, other.values)?;
+        crate::OptionableConvert::merge(&mut self.values, other.values)?;
         Ok(())
     }
 }

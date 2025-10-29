@@ -16,33 +16,21 @@ impl crate::Optionable for IngressRuleOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressRule {
     fn into_optioned(self) -> IngressRuleOpt {
         IngressRuleOpt {
-            host: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.host),
-            http: <Option<
-                ::k8s_openapi::api::networking::v1::HTTPIngressRuleValue,
-            > as crate::OptionableConvert>::into_optioned(self.http),
+            host: crate::OptionableConvert::into_optioned(self.host),
+            http: crate::OptionableConvert::into_optioned(self.http),
         }
     }
     fn try_from_optioned(
         value: IngressRuleOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            host: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.host)?,
-            http: <Option<
-                ::k8s_openapi::api::networking::v1::HTTPIngressRuleValue,
-            > as crate::OptionableConvert>::try_from_optioned(value.http)?,
+            host: crate::OptionableConvert::try_from_optioned(value.host)?,
+            http: crate::OptionableConvert::try_from_optioned(value.http)?,
         })
     }
     fn merge(&mut self, other: IngressRuleOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.host, other.host)?;
-        <Option<
-            ::k8s_openapi::api::networking::v1::HTTPIngressRuleValue,
-        > as crate::OptionableConvert>::merge(&mut self.http, other.http)?;
+        crate::OptionableConvert::merge(&mut self.host, other.host)?;
+        crate::OptionableConvert::merge(&mut self.http, other.http)?;
         Ok(())
     }
 }

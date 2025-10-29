@@ -14,30 +14,22 @@ impl crate::Optionable for ResourceClaimOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceClaim {
     fn into_optioned(self) -> ResourceClaimOpt {
         ResourceClaimOpt {
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
-            request: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.request),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            request: crate::OptionableConvert::into_optioned(self.request),
         }
     }
     fn try_from_optioned(
         value: ResourceClaimOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
                         missing_field: "name",
                     })?,
             )?,
-            request: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.request)?,
+            request: crate::OptionableConvert::try_from_optioned(value.request)?,
         })
     }
     fn merge(
@@ -45,14 +37,9 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceClaim {
         other: ResourceClaimOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.request, other.request)?;
+        crate::OptionableConvert::merge(&mut self.request, other.request)?;
         Ok(())
     }
 }

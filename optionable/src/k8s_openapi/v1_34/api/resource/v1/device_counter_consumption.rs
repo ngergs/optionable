@@ -20,34 +20,22 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1::DeviceCounterConsumption {
     fn into_optioned(self) -> DeviceCounterConsumptionOpt {
         DeviceCounterConsumptionOpt {
-            counter_set: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.counter_set,
-                ),
-            ),
-            counters: Some(
-                <std::collections::BTreeMap<
-                    std::string::String,
-                    ::k8s_openapi::api::resource::v1::Counter,
-                > as crate::OptionableConvert>::into_optioned(self.counters),
-            ),
+            counter_set: Some(crate::OptionableConvert::into_optioned(self.counter_set)),
+            counters: Some(crate::OptionableConvert::into_optioned(self.counters)),
         }
     }
     fn try_from_optioned(
         value: DeviceCounterConsumptionOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            counter_set: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            counter_set: crate::OptionableConvert::try_from_optioned(
                 value
                     .counter_set
                     .ok_or(crate::optionable::Error {
                         missing_field: "counter_set",
                     })?,
             )?,
-            counters: <std::collections::BTreeMap<
-                std::string::String,
-                ::k8s_openapi::api::resource::v1::Counter,
-            > as crate::OptionableConvert>::try_from_optioned(
+            counters: crate::OptionableConvert::try_from_optioned(
                 value
                     .counters
                     .ok_or(crate::optionable::Error {
@@ -61,16 +49,10 @@ for ::k8s_openapi::api::resource::v1::DeviceCounterConsumption {
         other: DeviceCounterConsumptionOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.counter_set {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.counter_set,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.counter_set, other_value)?;
         }
         if let Some(other_value) = other.counters {
-            <std::collections::BTreeMap<
-                std::string::String,
-                ::k8s_openapi::api::resource::v1::Counter,
-            > as crate::OptionableConvert>::merge(&mut self.counters, other_value)?;
+            crate::OptionableConvert::merge(&mut self.counters, other_value)?;
         }
         Ok(())
     }

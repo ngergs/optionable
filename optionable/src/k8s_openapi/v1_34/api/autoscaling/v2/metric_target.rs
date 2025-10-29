@@ -20,68 +20,44 @@ impl crate::Optionable for MetricTargetOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricTarget {
     fn into_optioned(self) -> MetricTargetOpt {
         MetricTargetOpt {
-            average_utilization: <Option<
-                i32,
-            > as crate::OptionableConvert>::into_optioned(self.average_utilization),
-            average_value: <Option<
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            > as crate::OptionableConvert>::into_optioned(self.average_value),
-            type_: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.type_,
-                ),
+            average_utilization: crate::OptionableConvert::into_optioned(
+                self.average_utilization,
             ),
-            value: <Option<
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            > as crate::OptionableConvert>::into_optioned(self.value),
+            average_value: crate::OptionableConvert::into_optioned(self.average_value),
+            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
+            value: crate::OptionableConvert::into_optioned(self.value),
         }
     }
     fn try_from_optioned(
         value: MetricTargetOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            average_utilization: <Option<
-                i32,
-            > as crate::OptionableConvert>::try_from_optioned(
+            average_utilization: crate::OptionableConvert::try_from_optioned(
                 value.average_utilization,
             )?,
-            average_value: <Option<
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            > as crate::OptionableConvert>::try_from_optioned(value.average_value)?,
-            type_: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            average_value: crate::OptionableConvert::try_from_optioned(
+                value.average_value,
+            )?,
+            type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
                     .ok_or(crate::optionable::Error {
                         missing_field: "type_",
                     })?,
             )?,
-            value: <Option<
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            > as crate::OptionableConvert>::try_from_optioned(value.value)?,
+            value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
     }
     fn merge(&mut self, other: MetricTargetOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            i32,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.average_utilization,
             other.average_utilization,
         )?;
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-        > as crate::OptionableConvert>::merge(
-            &mut self.average_value,
-            other.average_value,
-        )?;
+        crate::OptionableConvert::merge(&mut self.average_value, other.average_value)?;
         if let Some(other_value) = other.type_ {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.type_,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-        > as crate::OptionableConvert>::merge(&mut self.value, other.value)?;
+        crate::OptionableConvert::merge(&mut self.value, other.value)?;
         Ok(())
     }
 }

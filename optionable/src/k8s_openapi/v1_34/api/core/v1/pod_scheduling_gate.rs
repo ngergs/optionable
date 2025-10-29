@@ -13,18 +13,14 @@ impl crate::Optionable for PodSchedulingGateOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSchedulingGate {
     fn into_optioned(self) -> PodSchedulingGateOpt {
         PodSchedulingGateOpt {
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
     fn try_from_optioned(
         value: PodSchedulingGateOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
@@ -38,10 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSchedulingGat
         other: PodSchedulingGateOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
         Ok(())
     }

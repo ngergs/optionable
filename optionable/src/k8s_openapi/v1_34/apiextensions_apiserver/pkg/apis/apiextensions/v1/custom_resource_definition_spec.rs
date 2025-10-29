@@ -28,70 +28,46 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionSpec {
     fn into_optioned(self) -> CustomResourceDefinitionSpecOpt {
         CustomResourceDefinitionSpecOpt {
-            conversion: <Option<
-                ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceConversion,
-            > as crate::OptionableConvert>::into_optioned(self.conversion),
-            group: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.group,
-                ),
+            conversion: crate::OptionableConvert::into_optioned(self.conversion),
+            group: Some(crate::OptionableConvert::into_optioned(self.group)),
+            names: Some(crate::OptionableConvert::into_optioned(self.names)),
+            preserve_unknown_fields: crate::OptionableConvert::into_optioned(
+                self.preserve_unknown_fields,
             ),
-            names: Some(
-                <::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionNames as crate::OptionableConvert>::into_optioned(
-                    self.names,
-                ),
-            ),
-            preserve_unknown_fields: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.preserve_unknown_fields),
-            scope: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.scope,
-                ),
-            ),
-            versions: Some(
-                <std::vec::Vec<
-                    ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionVersion,
-                > as crate::OptionableConvert>::into_optioned(self.versions),
-            ),
+            scope: Some(crate::OptionableConvert::into_optioned(self.scope)),
+            versions: Some(crate::OptionableConvert::into_optioned(self.versions)),
         }
     }
     fn try_from_optioned(
         value: CustomResourceDefinitionSpecOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            conversion: <Option<
-                ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceConversion,
-            > as crate::OptionableConvert>::try_from_optioned(value.conversion)?,
-            group: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            conversion: crate::OptionableConvert::try_from_optioned(value.conversion)?,
+            group: crate::OptionableConvert::try_from_optioned(
                 value
                     .group
                     .ok_or(crate::optionable::Error {
                         missing_field: "group",
                     })?,
             )?,
-            names: <::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionNames as crate::OptionableConvert>::try_from_optioned(
+            names: crate::OptionableConvert::try_from_optioned(
                 value
                     .names
                     .ok_or(crate::optionable::Error {
                         missing_field: "names",
                     })?,
             )?,
-            preserve_unknown_fields: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(
+            preserve_unknown_fields: crate::OptionableConvert::try_from_optioned(
                 value.preserve_unknown_fields,
             )?,
-            scope: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            scope: crate::OptionableConvert::try_from_optioned(
                 value
                     .scope
                     .ok_or(crate::optionable::Error {
                         missing_field: "scope",
                     })?,
             )?,
-            versions: <std::vec::Vec<
-                ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionVersion,
-            > as crate::OptionableConvert>::try_from_optioned(
+            versions: crate::OptionableConvert::try_from_optioned(
                 value
                     .versions
                     .ok_or(crate::optionable::Error {
@@ -104,37 +80,22 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
         &mut self,
         other: CustomResourceDefinitionSpecOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceConversion,
-        > as crate::OptionableConvert>::merge(&mut self.conversion, other.conversion)?;
+        crate::OptionableConvert::merge(&mut self.conversion, other.conversion)?;
         if let Some(other_value) = other.group {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.group,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.group, other_value)?;
         }
         if let Some(other_value) = other.names {
-            <::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionNames as crate::OptionableConvert>::merge(
-                &mut self.names,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.names, other_value)?;
         }
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.preserve_unknown_fields,
             other.preserve_unknown_fields,
         )?;
         if let Some(other_value) = other.scope {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.scope,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.scope, other_value)?;
         }
         if let Some(other_value) = other.versions {
-            <std::vec::Vec<
-                ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionVersion,
-            > as crate::OptionableConvert>::merge(&mut self.versions, other_value)?;
+            crate::OptionableConvert::merge(&mut self.versions, other_value)?;
         }
         Ok(())
     }

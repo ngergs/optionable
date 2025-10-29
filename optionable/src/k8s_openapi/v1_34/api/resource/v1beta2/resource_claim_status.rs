@@ -24,58 +24,29 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta2::ResourceClaimStatus {
     fn into_optioned(self) -> ResourceClaimStatusOpt {
         ResourceClaimStatusOpt {
-            allocation: <Option<
-                ::k8s_openapi::api::resource::v1beta2::AllocationResult,
-            > as crate::OptionableConvert>::into_optioned(self.allocation),
-            devices: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::api::resource::v1beta2::AllocatedDeviceStatus,
-                >,
-            > as crate::OptionableConvert>::into_optioned(self.devices),
-            reserved_for: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::api::resource::v1beta2::ResourceClaimConsumerReference,
-                >,
-            > as crate::OptionableConvert>::into_optioned(self.reserved_for),
+            allocation: crate::OptionableConvert::into_optioned(self.allocation),
+            devices: crate::OptionableConvert::into_optioned(self.devices),
+            reserved_for: crate::OptionableConvert::into_optioned(self.reserved_for),
         }
     }
     fn try_from_optioned(
         value: ResourceClaimStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            allocation: <Option<
-                ::k8s_openapi::api::resource::v1beta2::AllocationResult,
-            > as crate::OptionableConvert>::try_from_optioned(value.allocation)?,
-            devices: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::api::resource::v1beta2::AllocatedDeviceStatus,
-                >,
-            > as crate::OptionableConvert>::try_from_optioned(value.devices)?,
-            reserved_for: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::api::resource::v1beta2::ResourceClaimConsumerReference,
-                >,
-            > as crate::OptionableConvert>::try_from_optioned(value.reserved_for)?,
+            allocation: crate::OptionableConvert::try_from_optioned(value.allocation)?,
+            devices: crate::OptionableConvert::try_from_optioned(value.devices)?,
+            reserved_for: crate::OptionableConvert::try_from_optioned(
+                value.reserved_for,
+            )?,
         })
     }
     fn merge(
         &mut self,
         other: ResourceClaimStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::resource::v1beta2::AllocationResult,
-        > as crate::OptionableConvert>::merge(&mut self.allocation, other.allocation)?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::resource::v1beta2::AllocatedDeviceStatus>,
-        > as crate::OptionableConvert>::merge(&mut self.devices, other.devices)?;
-        <Option<
-            std::vec::Vec<
-                ::k8s_openapi::api::resource::v1beta2::ResourceClaimConsumerReference,
-            >,
-        > as crate::OptionableConvert>::merge(
-            &mut self.reserved_for,
-            other.reserved_for,
-        )?;
+        crate::OptionableConvert::merge(&mut self.allocation, other.allocation)?;
+        crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
+        crate::OptionableConvert::merge(&mut self.reserved_for, other.reserved_for)?;
         Ok(())
     }
 }

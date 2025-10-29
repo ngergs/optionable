@@ -20,38 +20,32 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::authentication::v1::TokenRequestSpec {
     fn into_optioned(self) -> TokenRequestSpecOpt {
         TokenRequestSpecOpt {
-            audiences: Some(
-                <std::vec::Vec<
-                    std::string::String,
-                > as crate::OptionableConvert>::into_optioned(self.audiences),
+            audiences: Some(crate::OptionableConvert::into_optioned(self.audiences)),
+            bound_object_ref: crate::OptionableConvert::into_optioned(
+                self.bound_object_ref,
             ),
-            bound_object_ref: <Option<
-                ::k8s_openapi::api::authentication::v1::BoundObjectReference,
-            > as crate::OptionableConvert>::into_optioned(self.bound_object_ref),
-            expiration_seconds: <Option<
-                i64,
-            > as crate::OptionableConvert>::into_optioned(self.expiration_seconds),
+            expiration_seconds: crate::OptionableConvert::into_optioned(
+                self.expiration_seconds,
+            ),
         }
     }
     fn try_from_optioned(
         value: TokenRequestSpecOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            audiences: <std::vec::Vec<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(
+            audiences: crate::OptionableConvert::try_from_optioned(
                 value
                     .audiences
                     .ok_or(crate::optionable::Error {
                         missing_field: "audiences",
                     })?,
             )?,
-            bound_object_ref: <Option<
-                ::k8s_openapi::api::authentication::v1::BoundObjectReference,
-            > as crate::OptionableConvert>::try_from_optioned(value.bound_object_ref)?,
-            expiration_seconds: <Option<
-                i64,
-            > as crate::OptionableConvert>::try_from_optioned(value.expiration_seconds)?,
+            bound_object_ref: crate::OptionableConvert::try_from_optioned(
+                value.bound_object_ref,
+            )?,
+            expiration_seconds: crate::OptionableConvert::try_from_optioned(
+                value.expiration_seconds,
+            )?,
         })
     }
     fn merge(
@@ -59,19 +53,13 @@ for ::k8s_openapi::api::authentication::v1::TokenRequestSpec {
         other: TokenRequestSpecOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.audiences {
-            <std::vec::Vec<
-                std::string::String,
-            > as crate::OptionableConvert>::merge(&mut self.audiences, other_value)?;
+            crate::OptionableConvert::merge(&mut self.audiences, other_value)?;
         }
-        <Option<
-            ::k8s_openapi::api::authentication::v1::BoundObjectReference,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.bound_object_ref,
             other.bound_object_ref,
         )?;
-        <Option<
-            i64,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.expiration_seconds,
             other.expiration_seconds,
         )?;

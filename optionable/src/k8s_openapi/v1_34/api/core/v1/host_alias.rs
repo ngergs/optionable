@@ -16,20 +16,14 @@ impl crate::Optionable for HostAliasOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HostAlias {
     fn into_optioned(self) -> HostAliasOpt {
         HostAliasOpt {
-            hostnames: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::into_optioned(self.hostnames),
-            ip: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(self.ip),
-            ),
+            hostnames: crate::OptionableConvert::into_optioned(self.hostnames),
+            ip: Some(crate::OptionableConvert::into_optioned(self.ip)),
         }
     }
     fn try_from_optioned(value: HostAliasOpt) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            hostnames: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::try_from_optioned(value.hostnames)?,
-            ip: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            hostnames: crate::OptionableConvert::try_from_optioned(value.hostnames)?,
+            ip: crate::OptionableConvert::try_from_optioned(
                 value
                     .ip
                     .ok_or(crate::optionable::Error {
@@ -39,14 +33,9 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HostAlias {
         })
     }
     fn merge(&mut self, other: HostAliasOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<std::string::String>,
-        > as crate::OptionableConvert>::merge(&mut self.hostnames, other.hostnames)?;
+        crate::OptionableConvert::merge(&mut self.hostnames, other.hostnames)?;
         if let Some(other_value) = other.ip {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.ip,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.ip, other_value)?;
         }
         Ok(())
     }

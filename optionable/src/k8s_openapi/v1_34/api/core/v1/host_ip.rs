@@ -13,14 +13,12 @@ impl crate::Optionable for HostIPOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HostIP {
     fn into_optioned(self) -> HostIPOpt {
         HostIPOpt {
-            ip: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(self.ip),
-            ),
+            ip: Some(crate::OptionableConvert::into_optioned(self.ip)),
         }
     }
     fn try_from_optioned(value: HostIPOpt) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            ip: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            ip: crate::OptionableConvert::try_from_optioned(
                 value
                     .ip
                     .ok_or(crate::optionable::Error {
@@ -31,10 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HostIP {
     }
     fn merge(&mut self, other: HostIPOpt) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.ip {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.ip,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.ip, other_value)?;
         }
         Ok(())
     }

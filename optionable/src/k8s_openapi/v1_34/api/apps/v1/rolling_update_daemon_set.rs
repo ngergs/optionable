@@ -18,36 +18,28 @@ impl crate::Optionable for RollingUpdateDaemonSetOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::RollingUpdateDaemonSet {
     fn into_optioned(self) -> RollingUpdateDaemonSetOpt {
         RollingUpdateDaemonSetOpt {
-            max_surge: <Option<
-                ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            > as crate::OptionableConvert>::into_optioned(self.max_surge),
-            max_unavailable: <Option<
-                ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            > as crate::OptionableConvert>::into_optioned(self.max_unavailable),
+            max_surge: crate::OptionableConvert::into_optioned(self.max_surge),
+            max_unavailable: crate::OptionableConvert::into_optioned(
+                self.max_unavailable,
+            ),
         }
     }
     fn try_from_optioned(
         value: RollingUpdateDaemonSetOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            max_surge: <Option<
-                ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            > as crate::OptionableConvert>::try_from_optioned(value.max_surge)?,
-            max_unavailable: <Option<
-                ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            > as crate::OptionableConvert>::try_from_optioned(value.max_unavailable)?,
+            max_surge: crate::OptionableConvert::try_from_optioned(value.max_surge)?,
+            max_unavailable: crate::OptionableConvert::try_from_optioned(
+                value.max_unavailable,
+            )?,
         })
     }
     fn merge(
         &mut self,
         other: RollingUpdateDaemonSetOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-        > as crate::OptionableConvert>::merge(&mut self.max_surge, other.max_surge)?;
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.max_surge, other.max_surge)?;
+        crate::OptionableConvert::merge(
             &mut self.max_unavailable,
             other.max_unavailable,
         )?;

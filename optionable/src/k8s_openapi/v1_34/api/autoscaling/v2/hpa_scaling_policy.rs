@@ -16,11 +16,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalin
     fn into_optioned(self) -> HPAScalingPolicyOpt {
         HPAScalingPolicyOpt {
             period_seconds: Some(self.period_seconds),
-            type_: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.type_,
-                ),
-            ),
+            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
             value: Some(self.value),
         }
     }
@@ -33,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalin
                 .ok_or(crate::optionable::Error {
                     missing_field: "period_seconds",
                 })?,
-            type_: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
                     .ok_or(crate::optionable::Error {
@@ -55,10 +51,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalin
             self.period_seconds = other_value;
         }
         if let Some(other_value) = other.type_ {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.type_,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
         if let Some(other_value) = other.value {
             self.value = other_value;

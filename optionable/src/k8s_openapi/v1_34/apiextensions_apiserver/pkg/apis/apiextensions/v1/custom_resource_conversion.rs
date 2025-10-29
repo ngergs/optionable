@@ -18,30 +18,22 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceConversion {
     fn into_optioned(self) -> CustomResourceConversionOpt {
         CustomResourceConversionOpt {
-            strategy: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.strategy,
-                ),
-            ),
-            webhook: <Option<
-                ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion,
-            > as crate::OptionableConvert>::into_optioned(self.webhook),
+            strategy: Some(crate::OptionableConvert::into_optioned(self.strategy)),
+            webhook: crate::OptionableConvert::into_optioned(self.webhook),
         }
     }
     fn try_from_optioned(
         value: CustomResourceConversionOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            strategy: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            strategy: crate::OptionableConvert::try_from_optioned(
                 value
                     .strategy
                     .ok_or(crate::optionable::Error {
                         missing_field: "strategy",
                     })?,
             )?,
-            webhook: <Option<
-                ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion,
-            > as crate::OptionableConvert>::try_from_optioned(value.webhook)?,
+            webhook: crate::OptionableConvert::try_from_optioned(value.webhook)?,
         })
     }
     fn merge(
@@ -49,14 +41,9 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
         other: CustomResourceConversionOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.strategy {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.strategy,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.strategy, other_value)?;
         }
-        <Option<
-            ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion,
-        > as crate::OptionableConvert>::merge(&mut self.webhook, other.webhook)?;
+        crate::OptionableConvert::merge(&mut self.webhook, other.webhook)?;
         Ok(())
     }
 }

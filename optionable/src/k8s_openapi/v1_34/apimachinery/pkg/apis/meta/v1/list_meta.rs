@@ -17,57 +17,39 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta {
     fn into_optioned(self) -> ListMetaOpt {
         ListMetaOpt {
-            continue_: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.continue_),
-            remaining_item_count: <Option<
-                i64,
-            > as crate::OptionableConvert>::into_optioned(self.remaining_item_count),
-            resource_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.resource_version),
-            self_link: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.self_link),
+            continue_: crate::OptionableConvert::into_optioned(self.continue_),
+            remaining_item_count: crate::OptionableConvert::into_optioned(
+                self.remaining_item_count,
+            ),
+            resource_version: crate::OptionableConvert::into_optioned(
+                self.resource_version,
+            ),
+            self_link: crate::OptionableConvert::into_optioned(self.self_link),
         }
     }
     fn try_from_optioned(value: ListMetaOpt) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            continue_: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.continue_)?,
-            remaining_item_count: <Option<
-                i64,
-            > as crate::OptionableConvert>::try_from_optioned(
+            continue_: crate::OptionableConvert::try_from_optioned(value.continue_)?,
+            remaining_item_count: crate::OptionableConvert::try_from_optioned(
                 value.remaining_item_count,
             )?,
-            resource_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.resource_version)?,
-            self_link: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.self_link)?,
+            resource_version: crate::OptionableConvert::try_from_optioned(
+                value.resource_version,
+            )?,
+            self_link: crate::OptionableConvert::try_from_optioned(value.self_link)?,
         })
     }
     fn merge(&mut self, other: ListMetaOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.continue_, other.continue_)?;
-        <Option<
-            i64,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.continue_, other.continue_)?;
+        crate::OptionableConvert::merge(
             &mut self.remaining_item_count,
             other.remaining_item_count,
         )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.resource_version,
             other.resource_version,
         )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.self_link, other.self_link)?;
+        crate::OptionableConvert::merge(&mut self.self_link, other.self_link)?;
         Ok(())
     }
 }

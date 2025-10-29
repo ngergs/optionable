@@ -21,57 +21,32 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::authentication::v1::TokenReviewStatus {
     fn into_optioned(self) -> TokenReviewStatusOpt {
         TokenReviewStatusOpt {
-            audiences: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::into_optioned(self.audiences),
-            authenticated: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.authenticated),
-            error: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.error),
-            user: <Option<
-                ::k8s_openapi::api::authentication::v1::UserInfo,
-            > as crate::OptionableConvert>::into_optioned(self.user),
+            audiences: crate::OptionableConvert::into_optioned(self.audiences),
+            authenticated: crate::OptionableConvert::into_optioned(self.authenticated),
+            error: crate::OptionableConvert::into_optioned(self.error),
+            user: crate::OptionableConvert::into_optioned(self.user),
         }
     }
     fn try_from_optioned(
         value: TokenReviewStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            audiences: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::try_from_optioned(value.audiences)?,
-            authenticated: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.authenticated)?,
-            error: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.error)?,
-            user: <Option<
-                ::k8s_openapi::api::authentication::v1::UserInfo,
-            > as crate::OptionableConvert>::try_from_optioned(value.user)?,
+            audiences: crate::OptionableConvert::try_from_optioned(value.audiences)?,
+            authenticated: crate::OptionableConvert::try_from_optioned(
+                value.authenticated,
+            )?,
+            error: crate::OptionableConvert::try_from_optioned(value.error)?,
+            user: crate::OptionableConvert::try_from_optioned(value.user)?,
         })
     }
     fn merge(
         &mut self,
         other: TokenReviewStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<std::string::String>,
-        > as crate::OptionableConvert>::merge(&mut self.audiences, other.audiences)?;
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(
-            &mut self.authenticated,
-            other.authenticated,
-        )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.error, other.error)?;
-        <Option<
-            ::k8s_openapi::api::authentication::v1::UserInfo,
-        > as crate::OptionableConvert>::merge(&mut self.user, other.user)?;
+        crate::OptionableConvert::merge(&mut self.audiences, other.audiences)?;
+        crate::OptionableConvert::merge(&mut self.authenticated, other.authenticated)?;
+        crate::OptionableConvert::merge(&mut self.error, other.error)?;
+        crate::OptionableConvert::merge(&mut self.user, other.user)?;
         Ok(())
     }
 }

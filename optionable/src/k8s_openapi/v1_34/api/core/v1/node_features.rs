@@ -13,9 +13,7 @@ impl crate::Optionable for NodeFeaturesOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeFeatures {
     fn into_optioned(self) -> NodeFeaturesOpt {
         NodeFeaturesOpt {
-            supplemental_groups_policy: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(
+            supplemental_groups_policy: crate::OptionableConvert::into_optioned(
                 self.supplemental_groups_policy,
             ),
         }
@@ -24,17 +22,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeFeatures {
         value: NodeFeaturesOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            supplemental_groups_policy: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(
+            supplemental_groups_policy: crate::OptionableConvert::try_from_optioned(
                 value.supplemental_groups_policy,
             )?,
         })
     }
     fn merge(&mut self, other: NodeFeaturesOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.supplemental_groups_policy,
             other.supplemental_groups_policy,
         )?;

@@ -19,15 +19,11 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus {
     fn into_optioned(self) -> SubjectAccessReviewStatusOpt {
         SubjectAccessReviewStatusOpt {
             allowed: Some(self.allowed),
-            denied: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.denied),
-            evaluation_error: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.evaluation_error),
-            reason: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.reason),
+            denied: crate::OptionableConvert::into_optioned(self.denied),
+            evaluation_error: crate::OptionableConvert::into_optioned(
+                self.evaluation_error,
+            ),
+            reason: crate::OptionableConvert::into_optioned(self.reason),
         }
     }
     fn try_from_optioned(
@@ -39,15 +35,11 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus {
                 .ok_or(crate::optionable::Error {
                     missing_field: "allowed",
                 })?,
-            denied: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.denied)?,
-            evaluation_error: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.evaluation_error)?,
-            reason: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.reason)?,
+            denied: crate::OptionableConvert::try_from_optioned(value.denied)?,
+            evaluation_error: crate::OptionableConvert::try_from_optioned(
+                value.evaluation_error,
+            )?,
+            reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
         })
     }
     fn merge(
@@ -57,18 +49,12 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus {
         if let Some(other_value) = other.allowed {
             self.allowed = other_value;
         }
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(&mut self.denied, other.denied)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.denied, other.denied)?;
+        crate::OptionableConvert::merge(
             &mut self.evaluation_error,
             other.evaluation_error,
         )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.reason, other.reason)?;
+        crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         Ok(())
     }
 }

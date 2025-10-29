@@ -16,11 +16,7 @@ impl crate::Optionable for PreferredSchedulingTermOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PreferredSchedulingTerm {
     fn into_optioned(self) -> PreferredSchedulingTermOpt {
         PreferredSchedulingTermOpt {
-            preference: Some(
-                <::k8s_openapi::api::core::v1::NodeSelectorTerm as crate::OptionableConvert>::into_optioned(
-                    self.preference,
-                ),
-            ),
+            preference: Some(crate::OptionableConvert::into_optioned(self.preference)),
             weight: Some(self.weight),
         }
     }
@@ -28,7 +24,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PreferredSchedul
         value: PreferredSchedulingTermOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            preference: <::k8s_openapi::api::core::v1::NodeSelectorTerm as crate::OptionableConvert>::try_from_optioned(
+            preference: crate::OptionableConvert::try_from_optioned(
                 value
                     .preference
                     .ok_or(crate::optionable::Error {
@@ -47,10 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PreferredSchedul
         other: PreferredSchedulingTermOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.preference {
-            <::k8s_openapi::api::core::v1::NodeSelectorTerm as crate::OptionableConvert>::merge(
-                &mut self.preference,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.preference, other_value)?;
         }
         if let Some(other_value) = other.weight {
             self.weight = other_value;

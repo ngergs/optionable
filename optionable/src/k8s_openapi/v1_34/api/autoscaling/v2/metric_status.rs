@@ -28,48 +28,28 @@ impl crate::Optionable for MetricStatusOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricStatus {
     fn into_optioned(self) -> MetricStatusOpt {
         MetricStatusOpt {
-            container_resource: <Option<
-                ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricStatus,
-            > as crate::OptionableConvert>::into_optioned(self.container_resource),
-            external: <Option<
-                ::k8s_openapi::api::autoscaling::v2::ExternalMetricStatus,
-            > as crate::OptionableConvert>::into_optioned(self.external),
-            object: <Option<
-                ::k8s_openapi::api::autoscaling::v2::ObjectMetricStatus,
-            > as crate::OptionableConvert>::into_optioned(self.object),
-            pods: <Option<
-                ::k8s_openapi::api::autoscaling::v2::PodsMetricStatus,
-            > as crate::OptionableConvert>::into_optioned(self.pods),
-            resource: <Option<
-                ::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus,
-            > as crate::OptionableConvert>::into_optioned(self.resource),
-            type_: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.type_,
-                ),
+            container_resource: crate::OptionableConvert::into_optioned(
+                self.container_resource,
             ),
+            external: crate::OptionableConvert::into_optioned(self.external),
+            object: crate::OptionableConvert::into_optioned(self.object),
+            pods: crate::OptionableConvert::into_optioned(self.pods),
+            resource: crate::OptionableConvert::into_optioned(self.resource),
+            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
         value: MetricStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            container_resource: <Option<
-                ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricStatus,
-            > as crate::OptionableConvert>::try_from_optioned(value.container_resource)?,
-            external: <Option<
-                ::k8s_openapi::api::autoscaling::v2::ExternalMetricStatus,
-            > as crate::OptionableConvert>::try_from_optioned(value.external)?,
-            object: <Option<
-                ::k8s_openapi::api::autoscaling::v2::ObjectMetricStatus,
-            > as crate::OptionableConvert>::try_from_optioned(value.object)?,
-            pods: <Option<
-                ::k8s_openapi::api::autoscaling::v2::PodsMetricStatus,
-            > as crate::OptionableConvert>::try_from_optioned(value.pods)?,
-            resource: <Option<
-                ::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus,
-            > as crate::OptionableConvert>::try_from_optioned(value.resource)?,
-            type_: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            container_resource: crate::OptionableConvert::try_from_optioned(
+                value.container_resource,
+            )?,
+            external: crate::OptionableConvert::try_from_optioned(value.external)?,
+            object: crate::OptionableConvert::try_from_optioned(value.object)?,
+            pods: crate::OptionableConvert::try_from_optioned(value.pods)?,
+            resource: crate::OptionableConvert::try_from_optioned(value.resource)?,
+            type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
                     .ok_or(crate::optionable::Error {
@@ -79,29 +59,16 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricSta
         })
     }
     fn merge(&mut self, other: MetricStatusOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricStatus,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.container_resource,
             other.container_resource,
         )?;
-        <Option<
-            ::k8s_openapi::api::autoscaling::v2::ExternalMetricStatus,
-        > as crate::OptionableConvert>::merge(&mut self.external, other.external)?;
-        <Option<
-            ::k8s_openapi::api::autoscaling::v2::ObjectMetricStatus,
-        > as crate::OptionableConvert>::merge(&mut self.object, other.object)?;
-        <Option<
-            ::k8s_openapi::api::autoscaling::v2::PodsMetricStatus,
-        > as crate::OptionableConvert>::merge(&mut self.pods, other.pods)?;
-        <Option<
-            ::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus,
-        > as crate::OptionableConvert>::merge(&mut self.resource, other.resource)?;
+        crate::OptionableConvert::merge(&mut self.external, other.external)?;
+        crate::OptionableConvert::merge(&mut self.object, other.object)?;
+        crate::OptionableConvert::merge(&mut self.pods, other.pods)?;
+        crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
         if let Some(other_value) = other.type_ {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.type_,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
         Ok(())
     }

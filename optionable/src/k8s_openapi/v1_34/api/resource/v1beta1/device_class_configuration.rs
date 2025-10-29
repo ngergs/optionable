@@ -17,27 +17,21 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::DeviceClassConfiguration {
     fn into_optioned(self) -> DeviceClassConfigurationOpt {
         DeviceClassConfigurationOpt {
-            opaque: <Option<
-                ::k8s_openapi::api::resource::v1beta1::OpaqueDeviceConfiguration,
-            > as crate::OptionableConvert>::into_optioned(self.opaque),
+            opaque: crate::OptionableConvert::into_optioned(self.opaque),
         }
     }
     fn try_from_optioned(
         value: DeviceClassConfigurationOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            opaque: <Option<
-                ::k8s_openapi::api::resource::v1beta1::OpaqueDeviceConfiguration,
-            > as crate::OptionableConvert>::try_from_optioned(value.opaque)?,
+            opaque: crate::OptionableConvert::try_from_optioned(value.opaque)?,
         })
     }
     fn merge(
         &mut self,
         other: DeviceClassConfigurationOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::resource::v1beta1::OpaqueDeviceConfiguration,
-        > as crate::OptionableConvert>::merge(&mut self.opaque, other.opaque)?;
+        crate::OptionableConvert::merge(&mut self.opaque, other.opaque)?;
         Ok(())
     }
 }

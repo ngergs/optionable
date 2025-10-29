@@ -16,42 +16,26 @@ impl crate::Optionable for ComponentConditionOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentCondition {
     fn into_optioned(self) -> ComponentConditionOpt {
         ComponentConditionOpt {
-            error: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.error),
-            message: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.message),
-            status: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.status,
-                ),
-            ),
-            type_: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.type_,
-                ),
-            ),
+            error: crate::OptionableConvert::into_optioned(self.error),
+            message: crate::OptionableConvert::into_optioned(self.message),
+            status: Some(crate::OptionableConvert::into_optioned(self.status)),
+            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
         value: ComponentConditionOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            error: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.error)?,
-            message: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.message)?,
-            status: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            error: crate::OptionableConvert::try_from_optioned(value.error)?,
+            message: crate::OptionableConvert::try_from_optioned(value.message)?,
+            status: crate::OptionableConvert::try_from_optioned(
                 value
                     .status
                     .ok_or(crate::optionable::Error {
                         missing_field: "status",
                     })?,
             )?,
-            type_: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
                     .ok_or(crate::optionable::Error {
@@ -64,23 +48,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentConditi
         &mut self,
         other: ComponentConditionOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.error, other.error)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.message, other.message)?;
+        crate::OptionableConvert::merge(&mut self.error, other.error)?;
+        crate::OptionableConvert::merge(&mut self.message, other.message)?;
         if let Some(other_value) = other.status {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.status,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.status, other_value)?;
         }
         if let Some(other_value) = other.type_ {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.type_,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
         Ok(())
     }

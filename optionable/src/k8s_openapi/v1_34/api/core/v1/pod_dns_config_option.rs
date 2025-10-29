@@ -14,36 +14,24 @@ impl crate::Optionable for PodDNSConfigOptionOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodDNSConfigOption {
     fn into_optioned(self) -> PodDNSConfigOptionOpt {
         PodDNSConfigOptionOpt {
-            name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.name),
-            value: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.value),
+            name: crate::OptionableConvert::into_optioned(self.name),
+            value: crate::OptionableConvert::into_optioned(self.value),
         }
     }
     fn try_from_optioned(
         value: PodDNSConfigOptionOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.name)?,
-            value: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.value)?,
+            name: crate::OptionableConvert::try_from_optioned(value.name)?,
+            value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
     }
     fn merge(
         &mut self,
         other: PodDNSConfigOptionOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.name, other.name)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.value, other.value)?;
+        crate::OptionableConvert::merge(&mut self.name, other.name)?;
+        crate::OptionableConvert::merge(&mut self.value, other.value)?;
         Ok(())
     }
 }

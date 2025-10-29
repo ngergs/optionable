@@ -26,115 +26,65 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::AllocatedDeviceStatus {
     fn into_optioned(self) -> AllocatedDeviceStatusOpt {
         AllocatedDeviceStatusOpt {
-            conditions: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition,
-                >,
-            > as crate::OptionableConvert>::into_optioned(self.conditions),
-            data: <Option<
-                ::k8s_openapi::apimachinery::pkg::runtime::RawExtension,
-            > as crate::OptionableConvert>::into_optioned(self.data),
-            device: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.device,
-                ),
-            ),
-            driver: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.driver,
-                ),
-            ),
-            network_data: <Option<
-                ::k8s_openapi::api::resource::v1beta1::NetworkDeviceData,
-            > as crate::OptionableConvert>::into_optioned(self.network_data),
-            pool: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.pool,
-                ),
-            ),
-            share_id: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.share_id),
+            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            data: crate::OptionableConvert::into_optioned(self.data),
+            device: Some(crate::OptionableConvert::into_optioned(self.device)),
+            driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
+            network_data: crate::OptionableConvert::into_optioned(self.network_data),
+            pool: Some(crate::OptionableConvert::into_optioned(self.pool)),
+            share_id: crate::OptionableConvert::into_optioned(self.share_id),
         }
     }
     fn try_from_optioned(
         value: AllocatedDeviceStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            conditions: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition,
-                >,
-            > as crate::OptionableConvert>::try_from_optioned(value.conditions)?,
-            data: <Option<
-                ::k8s_openapi::apimachinery::pkg::runtime::RawExtension,
-            > as crate::OptionableConvert>::try_from_optioned(value.data)?,
-            device: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            data: crate::OptionableConvert::try_from_optioned(value.data)?,
+            device: crate::OptionableConvert::try_from_optioned(
                 value
                     .device
                     .ok_or(crate::optionable::Error {
                         missing_field: "device",
                     })?,
             )?,
-            driver: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            driver: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver
                     .ok_or(crate::optionable::Error {
                         missing_field: "driver",
                     })?,
             )?,
-            network_data: <Option<
-                ::k8s_openapi::api::resource::v1beta1::NetworkDeviceData,
-            > as crate::OptionableConvert>::try_from_optioned(value.network_data)?,
-            pool: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            network_data: crate::OptionableConvert::try_from_optioned(
+                value.network_data,
+            )?,
+            pool: crate::OptionableConvert::try_from_optioned(
                 value
                     .pool
                     .ok_or(crate::optionable::Error {
                         missing_field: "pool",
                     })?,
             )?,
-            share_id: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.share_id)?,
+            share_id: crate::OptionableConvert::try_from_optioned(value.share_id)?,
         })
     }
     fn merge(
         &mut self,
         other: AllocatedDeviceStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition>,
-        > as crate::OptionableConvert>::merge(&mut self.conditions, other.conditions)?;
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::runtime::RawExtension,
-        > as crate::OptionableConvert>::merge(&mut self.data, other.data)?;
+        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        crate::OptionableConvert::merge(&mut self.data, other.data)?;
         if let Some(other_value) = other.device {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.device,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.device, other_value)?;
         }
         if let Some(other_value) = other.driver {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.driver,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.driver, other_value)?;
         }
-        <Option<
-            ::k8s_openapi::api::resource::v1beta1::NetworkDeviceData,
-        > as crate::OptionableConvert>::merge(
-            &mut self.network_data,
-            other.network_data,
-        )?;
+        crate::OptionableConvert::merge(&mut self.network_data, other.network_data)?;
         if let Some(other_value) = other.pool {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.pool,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.pool, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.share_id, other.share_id)?;
+        crate::OptionableConvert::merge(&mut self.share_id, other.share_id)?;
         Ok(())
     }
 }

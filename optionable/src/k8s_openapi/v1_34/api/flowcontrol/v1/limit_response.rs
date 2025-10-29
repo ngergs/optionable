@@ -16,24 +16,16 @@ impl crate::Optionable for LimitResponseOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::LimitResponse {
     fn into_optioned(self) -> LimitResponseOpt {
         LimitResponseOpt {
-            queuing: <Option<
-                ::k8s_openapi::api::flowcontrol::v1::QueuingConfiguration,
-            > as crate::OptionableConvert>::into_optioned(self.queuing),
-            type_: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.type_,
-                ),
-            ),
+            queuing: crate::OptionableConvert::into_optioned(self.queuing),
+            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
         value: LimitResponseOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            queuing: <Option<
-                ::k8s_openapi::api::flowcontrol::v1::QueuingConfiguration,
-            > as crate::OptionableConvert>::try_from_optioned(value.queuing)?,
-            type_: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            queuing: crate::OptionableConvert::try_from_optioned(value.queuing)?,
+            type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
                     .ok_or(crate::optionable::Error {
@@ -46,14 +38,9 @@ impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::LimitResp
         &mut self,
         other: LimitResponseOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::flowcontrol::v1::QueuingConfiguration,
-        > as crate::OptionableConvert>::merge(&mut self.queuing, other.queuing)?;
+        crate::OptionableConvert::merge(&mut self.queuing, other.queuing)?;
         if let Some(other_value) = other.type_ {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.type_,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
         Ok(())
     }

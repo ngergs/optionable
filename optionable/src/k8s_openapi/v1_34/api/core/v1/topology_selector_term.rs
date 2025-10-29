@@ -15,22 +15,16 @@ impl crate::Optionable for TopologySelectorTermOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TopologySelectorTerm {
     fn into_optioned(self) -> TopologySelectorTermOpt {
         TopologySelectorTermOpt {
-            match_label_expressions: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::api::core::v1::TopologySelectorLabelRequirement,
-                >,
-            > as crate::OptionableConvert>::into_optioned(self.match_label_expressions),
+            match_label_expressions: crate::OptionableConvert::into_optioned(
+                self.match_label_expressions,
+            ),
         }
     }
     fn try_from_optioned(
         value: TopologySelectorTermOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            match_label_expressions: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::api::core::v1::TopologySelectorLabelRequirement,
-                >,
-            > as crate::OptionableConvert>::try_from_optioned(
+            match_label_expressions: crate::OptionableConvert::try_from_optioned(
                 value.match_label_expressions,
             )?,
         })
@@ -39,9 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TopologySelector
         &mut self,
         other: TopologySelectorTermOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::TopologySelectorLabelRequirement>,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.match_label_expressions,
             other.match_label_expressions,
         )?;

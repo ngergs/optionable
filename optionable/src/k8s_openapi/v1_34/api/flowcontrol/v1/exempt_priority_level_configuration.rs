@@ -16,12 +16,10 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration {
     fn into_optioned(self) -> ExemptPriorityLevelConfigurationOpt {
         ExemptPriorityLevelConfigurationOpt {
-            lendable_percent: <Option<
-                i32,
-            > as crate::OptionableConvert>::into_optioned(self.lendable_percent),
-            nominal_concurrency_shares: <Option<
-                i32,
-            > as crate::OptionableConvert>::into_optioned(
+            lendable_percent: crate::OptionableConvert::into_optioned(
+                self.lendable_percent,
+            ),
+            nominal_concurrency_shares: crate::OptionableConvert::into_optioned(
                 self.nominal_concurrency_shares,
             ),
         }
@@ -30,12 +28,10 @@ for ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration {
         value: ExemptPriorityLevelConfigurationOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            lendable_percent: <Option<
-                i32,
-            > as crate::OptionableConvert>::try_from_optioned(value.lendable_percent)?,
-            nominal_concurrency_shares: <Option<
-                i32,
-            > as crate::OptionableConvert>::try_from_optioned(
+            lendable_percent: crate::OptionableConvert::try_from_optioned(
+                value.lendable_percent,
+            )?,
+            nominal_concurrency_shares: crate::OptionableConvert::try_from_optioned(
                 value.nominal_concurrency_shares,
             )?,
         })
@@ -44,15 +40,11 @@ for ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration {
         &mut self,
         other: ExemptPriorityLevelConfigurationOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            i32,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.lendable_percent,
             other.lendable_percent,
         )?;
-        <Option<
-            i32,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.nominal_concurrency_shares,
             other.nominal_concurrency_shares,
         )?;

@@ -20,50 +20,36 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::GlusterfsPersistentVolumeSource {
     fn into_optioned(self) -> GlusterfsPersistentVolumeSourceOpt {
         GlusterfsPersistentVolumeSourceOpt {
-            endpoints: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.endpoints,
-                ),
+            endpoints: Some(crate::OptionableConvert::into_optioned(self.endpoints)),
+            endpoints_namespace: crate::OptionableConvert::into_optioned(
+                self.endpoints_namespace,
             ),
-            endpoints_namespace: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.endpoints_namespace),
-            path: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.path,
-                ),
-            ),
-            read_only: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.read_only),
+            path: Some(crate::OptionableConvert::into_optioned(self.path)),
+            read_only: crate::OptionableConvert::into_optioned(self.read_only),
         }
     }
     fn try_from_optioned(
         value: GlusterfsPersistentVolumeSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            endpoints: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            endpoints: crate::OptionableConvert::try_from_optioned(
                 value
                     .endpoints
                     .ok_or(crate::optionable::Error {
                         missing_field: "endpoints",
                     })?,
             )?,
-            endpoints_namespace: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(
+            endpoints_namespace: crate::OptionableConvert::try_from_optioned(
                 value.endpoints_namespace,
             )?,
-            path: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            path: crate::OptionableConvert::try_from_optioned(
                 value
                     .path
                     .ok_or(crate::optionable::Error {
                         missing_field: "path",
                     })?,
             )?,
-            read_only: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.read_only)?,
+            read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
         })
     }
     fn merge(
@@ -71,26 +57,16 @@ for ::k8s_openapi::api::core::v1::GlusterfsPersistentVolumeSource {
         other: GlusterfsPersistentVolumeSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.endpoints {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.endpoints,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.endpoints, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.endpoints_namespace,
             other.endpoints_namespace,
         )?;
         if let Some(other_value) = other.path {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.path,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.path, other_value)?;
         }
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(&mut self.read_only, other.read_only)?;
+        crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         Ok(())
     }
 }

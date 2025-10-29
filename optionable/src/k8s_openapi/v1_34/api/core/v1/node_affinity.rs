@@ -18,14 +18,10 @@ impl crate::Optionable for NodeAffinityOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAffinity {
     fn into_optioned(self) -> NodeAffinityOpt {
         NodeAffinityOpt {
-            preferred_during_scheduling_ignored_during_execution: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::PreferredSchedulingTerm>,
-            > as crate::OptionableConvert>::into_optioned(
+            preferred_during_scheduling_ignored_during_execution: crate::OptionableConvert::into_optioned(
                 self.preferred_during_scheduling_ignored_during_execution,
             ),
-            required_during_scheduling_ignored_during_execution: <Option<
-                ::k8s_openapi::api::core::v1::NodeSelector,
-            > as crate::OptionableConvert>::into_optioned(
+            required_during_scheduling_ignored_during_execution: crate::OptionableConvert::into_optioned(
                 self.required_during_scheduling_ignored_during_execution,
             ),
         }
@@ -34,28 +30,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAffinity {
         value: NodeAffinityOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            preferred_during_scheduling_ignored_during_execution: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::PreferredSchedulingTerm>,
-            > as crate::OptionableConvert>::try_from_optioned(
+            preferred_during_scheduling_ignored_during_execution: crate::OptionableConvert::try_from_optioned(
                 value.preferred_during_scheduling_ignored_during_execution,
             )?,
-            required_during_scheduling_ignored_during_execution: <Option<
-                ::k8s_openapi::api::core::v1::NodeSelector,
-            > as crate::OptionableConvert>::try_from_optioned(
+            required_during_scheduling_ignored_during_execution: crate::OptionableConvert::try_from_optioned(
                 value.required_during_scheduling_ignored_during_execution,
             )?,
         })
     }
     fn merge(&mut self, other: NodeAffinityOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::PreferredSchedulingTerm>,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.preferred_during_scheduling_ignored_during_execution,
             other.preferred_during_scheduling_ignored_during_execution,
         )?;
-        <Option<
-            ::k8s_openapi::api::core::v1::NodeSelector,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.required_during_scheduling_ignored_during_execution,
             other.required_during_scheduling_ignored_during_execution,
         )?;

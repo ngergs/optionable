@@ -19,42 +19,30 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricStatus {
     fn into_optioned(self) -> ContainerResourceMetricStatusOpt {
         ContainerResourceMetricStatusOpt {
-            container: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.container,
-                ),
-            ),
-            current: Some(
-                <::k8s_openapi::api::autoscaling::v2::MetricValueStatus as crate::OptionableConvert>::into_optioned(
-                    self.current,
-                ),
-            ),
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
+            container: Some(crate::OptionableConvert::into_optioned(self.container)),
+            current: Some(crate::OptionableConvert::into_optioned(self.current)),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
     fn try_from_optioned(
         value: ContainerResourceMetricStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            container: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            container: crate::OptionableConvert::try_from_optioned(
                 value
                     .container
                     .ok_or(crate::optionable::Error {
                         missing_field: "container",
                     })?,
             )?,
-            current: <::k8s_openapi::api::autoscaling::v2::MetricValueStatus as crate::OptionableConvert>::try_from_optioned(
+            current: crate::OptionableConvert::try_from_optioned(
                 value
                     .current
                     .ok_or(crate::optionable::Error {
                         missing_field: "current",
                     })?,
             )?,
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
@@ -68,22 +56,13 @@ for ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricStatus {
         other: ContainerResourceMetricStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.container {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.container,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.container, other_value)?;
         }
         if let Some(other_value) = other.current {
-            <::k8s_openapi::api::autoscaling::v2::MetricValueStatus as crate::OptionableConvert>::merge(
-                &mut self.current,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.current, other_value)?;
         }
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
         Ok(())
     }

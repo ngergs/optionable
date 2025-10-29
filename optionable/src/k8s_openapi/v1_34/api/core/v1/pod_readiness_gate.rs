@@ -14,9 +14,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodReadinessGate
     fn into_optioned(self) -> PodReadinessGateOpt {
         PodReadinessGateOpt {
             condition_type: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.condition_type,
-                ),
+                crate::OptionableConvert::into_optioned(self.condition_type),
             ),
         }
     }
@@ -24,7 +22,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodReadinessGate
         value: PodReadinessGateOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            condition_type: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            condition_type: crate::OptionableConvert::try_from_optioned(
                 value
                     .condition_type
                     .ok_or(crate::optionable::Error {
@@ -38,10 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodReadinessGate
         other: PodReadinessGateOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.condition_type {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.condition_type,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.condition_type, other_value)?;
         }
         Ok(())
     }

@@ -20,60 +20,36 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceColumnDefinition {
     fn into_optioned(self) -> CustomResourceColumnDefinitionOpt {
         CustomResourceColumnDefinitionOpt {
-            description: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.description),
-            format: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.format),
-            json_path: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.json_path,
-                ),
-            ),
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
-            priority: <Option<
-                i32,
-            > as crate::OptionableConvert>::into_optioned(self.priority),
-            type_: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.type_,
-                ),
-            ),
+            description: crate::OptionableConvert::into_optioned(self.description),
+            format: crate::OptionableConvert::into_optioned(self.format),
+            json_path: Some(crate::OptionableConvert::into_optioned(self.json_path)),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            priority: crate::OptionableConvert::into_optioned(self.priority),
+            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
         value: CustomResourceColumnDefinitionOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            description: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.description)?,
-            format: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.format)?,
-            json_path: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            description: crate::OptionableConvert::try_from_optioned(value.description)?,
+            format: crate::OptionableConvert::try_from_optioned(value.format)?,
+            json_path: crate::OptionableConvert::try_from_optioned(
                 value
                     .json_path
                     .ok_or(crate::optionable::Error {
                         missing_field: "json_path",
                     })?,
             )?,
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
                         missing_field: "name",
                     })?,
             )?,
-            priority: <Option<
-                i32,
-            > as crate::OptionableConvert>::try_from_optioned(value.priority)?,
-            type_: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            priority: crate::OptionableConvert::try_from_optioned(value.priority)?,
+            type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
                     .ok_or(crate::optionable::Error {
@@ -86,32 +62,17 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
         &mut self,
         other: CustomResourceColumnDefinitionOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.description, other.description)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.format, other.format)?;
+        crate::OptionableConvert::merge(&mut self.description, other.description)?;
+        crate::OptionableConvert::merge(&mut self.format, other.format)?;
         if let Some(other_value) = other.json_path {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.json_path,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.json_path, other_value)?;
         }
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
-        <Option<
-            i32,
-        > as crate::OptionableConvert>::merge(&mut self.priority, other.priority)?;
+        crate::OptionableConvert::merge(&mut self.priority, other.priority)?;
         if let Some(other_value) = other.type_ {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.type_,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
         Ok(())
     }

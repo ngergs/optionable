@@ -16,27 +16,21 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta2::ResourceClaimSpec {
     fn into_optioned(self) -> ResourceClaimSpecOpt {
         ResourceClaimSpecOpt {
-            devices: <Option<
-                ::k8s_openapi::api::resource::v1beta2::DeviceClaim,
-            > as crate::OptionableConvert>::into_optioned(self.devices),
+            devices: crate::OptionableConvert::into_optioned(self.devices),
         }
     }
     fn try_from_optioned(
         value: ResourceClaimSpecOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            devices: <Option<
-                ::k8s_openapi::api::resource::v1beta2::DeviceClaim,
-            > as crate::OptionableConvert>::try_from_optioned(value.devices)?,
+            devices: crate::OptionableConvert::try_from_optioned(value.devices)?,
         })
     }
     fn merge(
         &mut self,
         other: ResourceClaimSpecOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::resource::v1beta2::DeviceClaim,
-        > as crate::OptionableConvert>::merge(&mut self.devices, other.devices)?;
+        crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
         Ok(())
     }
 }

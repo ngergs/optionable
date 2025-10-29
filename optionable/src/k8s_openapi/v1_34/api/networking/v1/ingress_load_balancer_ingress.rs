@@ -19,45 +19,27 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1::IngressLoadBalancerIngress {
     fn into_optioned(self) -> IngressLoadBalancerIngressOpt {
         IngressLoadBalancerIngressOpt {
-            hostname: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.hostname),
-            ip: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.ip),
-            ports: <Option<
-                std::vec::Vec<::k8s_openapi::api::networking::v1::IngressPortStatus>,
-            > as crate::OptionableConvert>::into_optioned(self.ports),
+            hostname: crate::OptionableConvert::into_optioned(self.hostname),
+            ip: crate::OptionableConvert::into_optioned(self.ip),
+            ports: crate::OptionableConvert::into_optioned(self.ports),
         }
     }
     fn try_from_optioned(
         value: IngressLoadBalancerIngressOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            hostname: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.hostname)?,
-            ip: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.ip)?,
-            ports: <Option<
-                std::vec::Vec<::k8s_openapi::api::networking::v1::IngressPortStatus>,
-            > as crate::OptionableConvert>::try_from_optioned(value.ports)?,
+            hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
+            ip: crate::OptionableConvert::try_from_optioned(value.ip)?,
+            ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
         })
     }
     fn merge(
         &mut self,
         other: IngressLoadBalancerIngressOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.hostname, other.hostname)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.ip, other.ip)?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::networking::v1::IngressPortStatus>,
-        > as crate::OptionableConvert>::merge(&mut self.ports, other.ports)?;
+        crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
+        crate::OptionableConvert::merge(&mut self.ip, other.ip)?;
+        crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
         Ok(())
     }
 }

@@ -18,22 +18,16 @@ impl crate::Optionable for EvictionOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::Eviction {
     fn into_optioned(self) -> EvictionOpt {
         EvictionOpt {
-            delete_options: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions,
-            > as crate::OptionableConvert>::into_optioned(self.delete_options),
-            metadata: Some(
-                <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::into_optioned(
-                    self.metadata,
-                ),
-            ),
+            delete_options: crate::OptionableConvert::into_optioned(self.delete_options),
+            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
         }
     }
     fn try_from_optioned(value: EvictionOpt) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            delete_options: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions,
-            > as crate::OptionableConvert>::try_from_optioned(value.delete_options)?,
-            metadata: <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::try_from_optioned(
+            delete_options: crate::OptionableConvert::try_from_optioned(
+                value.delete_options,
+            )?,
+            metadata: crate::OptionableConvert::try_from_optioned(
                 value
                     .metadata
                     .ok_or(crate::optionable::Error {
@@ -43,17 +37,9 @@ impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::Eviction {
         })
     }
     fn merge(&mut self, other: EvictionOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions,
-        > as crate::OptionableConvert>::merge(
-            &mut self.delete_options,
-            other.delete_options,
-        )?;
+        crate::OptionableConvert::merge(&mut self.delete_options, other.delete_options)?;
         if let Some(other_value) = other.metadata {
-            <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::merge(
-                &mut self.metadata,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
         }
         Ok(())
     }

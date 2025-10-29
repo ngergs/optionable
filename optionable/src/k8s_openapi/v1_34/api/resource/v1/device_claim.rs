@@ -21,42 +21,24 @@ impl crate::Optionable for DeviceClaimOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceClaim {
     fn into_optioned(self) -> DeviceClaimOpt {
         DeviceClaimOpt {
-            config: <Option<
-                std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceClaimConfiguration>,
-            > as crate::OptionableConvert>::into_optioned(self.config),
-            constraints: <Option<
-                std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceConstraint>,
-            > as crate::OptionableConvert>::into_optioned(self.constraints),
-            requests: <Option<
-                std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceRequest>,
-            > as crate::OptionableConvert>::into_optioned(self.requests),
+            config: crate::OptionableConvert::into_optioned(self.config),
+            constraints: crate::OptionableConvert::into_optioned(self.constraints),
+            requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
     fn try_from_optioned(
         value: DeviceClaimOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            config: <Option<
-                std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceClaimConfiguration>,
-            > as crate::OptionableConvert>::try_from_optioned(value.config)?,
-            constraints: <Option<
-                std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceConstraint>,
-            > as crate::OptionableConvert>::try_from_optioned(value.constraints)?,
-            requests: <Option<
-                std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceRequest>,
-            > as crate::OptionableConvert>::try_from_optioned(value.requests)?,
+            config: crate::OptionableConvert::try_from_optioned(value.config)?,
+            constraints: crate::OptionableConvert::try_from_optioned(value.constraints)?,
+            requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
         })
     }
     fn merge(&mut self, other: DeviceClaimOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceClaimConfiguration>,
-        > as crate::OptionableConvert>::merge(&mut self.config, other.config)?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceConstraint>,
-        > as crate::OptionableConvert>::merge(&mut self.constraints, other.constraints)?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceRequest>,
-        > as crate::OptionableConvert>::merge(&mut self.requests, other.requests)?;
+        crate::OptionableConvert::merge(&mut self.config, other.config)?;
+        crate::OptionableConvert::merge(&mut self.constraints, other.constraints)?;
+        crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
         Ok(())
     }
 }

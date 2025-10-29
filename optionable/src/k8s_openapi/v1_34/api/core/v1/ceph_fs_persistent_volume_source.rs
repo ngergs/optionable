@@ -23,56 +23,30 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::CephFSPersistentVolumeSource {
     fn into_optioned(self) -> CephFSPersistentVolumeSourceOpt {
         CephFSPersistentVolumeSourceOpt {
-            monitors: Some(
-                <std::vec::Vec<
-                    std::string::String,
-                > as crate::OptionableConvert>::into_optioned(self.monitors),
-            ),
-            path: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.path),
-            read_only: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.read_only),
-            secret_file: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.secret_file),
-            secret_ref: <Option<
-                ::k8s_openapi::api::core::v1::SecretReference,
-            > as crate::OptionableConvert>::into_optioned(self.secret_ref),
-            user: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.user),
+            monitors: Some(crate::OptionableConvert::into_optioned(self.monitors)),
+            path: crate::OptionableConvert::into_optioned(self.path),
+            read_only: crate::OptionableConvert::into_optioned(self.read_only),
+            secret_file: crate::OptionableConvert::into_optioned(self.secret_file),
+            secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
+            user: crate::OptionableConvert::into_optioned(self.user),
         }
     }
     fn try_from_optioned(
         value: CephFSPersistentVolumeSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            monitors: <std::vec::Vec<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(
+            monitors: crate::OptionableConvert::try_from_optioned(
                 value
                     .monitors
                     .ok_or(crate::optionable::Error {
                         missing_field: "monitors",
                     })?,
             )?,
-            path: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.path)?,
-            read_only: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.read_only)?,
-            secret_file: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.secret_file)?,
-            secret_ref: <Option<
-                ::k8s_openapi::api::core::v1::SecretReference,
-            > as crate::OptionableConvert>::try_from_optioned(value.secret_ref)?,
-            user: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.user)?,
+            path: crate::OptionableConvert::try_from_optioned(value.path)?,
+            read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
+            secret_file: crate::OptionableConvert::try_from_optioned(value.secret_file)?,
+            secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
+            user: crate::OptionableConvert::try_from_optioned(value.user)?,
         })
     }
     fn merge(
@@ -80,25 +54,13 @@ for ::k8s_openapi::api::core::v1::CephFSPersistentVolumeSource {
         other: CephFSPersistentVolumeSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.monitors {
-            <std::vec::Vec<
-                std::string::String,
-            > as crate::OptionableConvert>::merge(&mut self.monitors, other_value)?;
+            crate::OptionableConvert::merge(&mut self.monitors, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.path, other.path)?;
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(&mut self.read_only, other.read_only)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.secret_file, other.secret_file)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::SecretReference,
-        > as crate::OptionableConvert>::merge(&mut self.secret_ref, other.secret_ref)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.user, other.user)?;
+        crate::OptionableConvert::merge(&mut self.path, other.path)?;
+        crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        crate::OptionableConvert::merge(&mut self.secret_file, other.secret_file)?;
+        crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
+        crate::OptionableConvert::merge(&mut self.user, other.user)?;
         Ok(())
     }
 }

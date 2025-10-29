@@ -17,20 +17,14 @@ impl crate::Optionable for CSINodeSpecOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSINodeSpec {
     fn into_optioned(self) -> CSINodeSpecOpt {
         CSINodeSpecOpt {
-            drivers: Some(
-                <std::vec::Vec<
-                    ::k8s_openapi::api::storage::v1::CSINodeDriver,
-                > as crate::OptionableConvert>::into_optioned(self.drivers),
-            ),
+            drivers: Some(crate::OptionableConvert::into_optioned(self.drivers)),
         }
     }
     fn try_from_optioned(
         value: CSINodeSpecOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            drivers: <std::vec::Vec<
-                ::k8s_openapi::api::storage::v1::CSINodeDriver,
-            > as crate::OptionableConvert>::try_from_optioned(
+            drivers: crate::OptionableConvert::try_from_optioned(
                 value
                     .drivers
                     .ok_or(crate::optionable::Error {
@@ -41,9 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSINodeSpec {
     }
     fn merge(&mut self, other: CSINodeSpecOpt) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.drivers {
-            <std::vec::Vec<
-                ::k8s_openapi::api::storage::v1::CSINodeDriver,
-            > as crate::OptionableConvert>::merge(&mut self.drivers, other_value)?;
+            crate::OptionableConvert::merge(&mut self.drivers, other_value)?;
         }
         Ok(())
     }

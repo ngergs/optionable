@@ -25,109 +25,58 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::RBDPersistentVolumeSource {
     fn into_optioned(self) -> RBDPersistentVolumeSourceOpt {
         RBDPersistentVolumeSourceOpt {
-            fs_type: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.fs_type),
-            image: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.image,
-                ),
-            ),
-            keyring: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.keyring),
-            monitors: Some(
-                <std::vec::Vec<
-                    std::string::String,
-                > as crate::OptionableConvert>::into_optioned(self.monitors),
-            ),
-            pool: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.pool),
-            read_only: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.read_only),
-            secret_ref: <Option<
-                ::k8s_openapi::api::core::v1::SecretReference,
-            > as crate::OptionableConvert>::into_optioned(self.secret_ref),
-            user: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.user),
+            fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
+            image: Some(crate::OptionableConvert::into_optioned(self.image)),
+            keyring: crate::OptionableConvert::into_optioned(self.keyring),
+            monitors: Some(crate::OptionableConvert::into_optioned(self.monitors)),
+            pool: crate::OptionableConvert::into_optioned(self.pool),
+            read_only: crate::OptionableConvert::into_optioned(self.read_only),
+            secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
+            user: crate::OptionableConvert::into_optioned(self.user),
         }
     }
     fn try_from_optioned(
         value: RBDPersistentVolumeSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            fs_type: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.fs_type)?,
-            image: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
+            image: crate::OptionableConvert::try_from_optioned(
                 value
                     .image
                     .ok_or(crate::optionable::Error {
                         missing_field: "image",
                     })?,
             )?,
-            keyring: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.keyring)?,
-            monitors: <std::vec::Vec<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(
+            keyring: crate::OptionableConvert::try_from_optioned(value.keyring)?,
+            monitors: crate::OptionableConvert::try_from_optioned(
                 value
                     .monitors
                     .ok_or(crate::optionable::Error {
                         missing_field: "monitors",
                     })?,
             )?,
-            pool: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.pool)?,
-            read_only: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.read_only)?,
-            secret_ref: <Option<
-                ::k8s_openapi::api::core::v1::SecretReference,
-            > as crate::OptionableConvert>::try_from_optioned(value.secret_ref)?,
-            user: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.user)?,
+            pool: crate::OptionableConvert::try_from_optioned(value.pool)?,
+            read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
+            secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
+            user: crate::OptionableConvert::try_from_optioned(value.user)?,
         })
     }
     fn merge(
         &mut self,
         other: RBDPersistentVolumeSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.fs_type, other.fs_type)?;
+        crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         if let Some(other_value) = other.image {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.image,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.image, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.keyring, other.keyring)?;
+        crate::OptionableConvert::merge(&mut self.keyring, other.keyring)?;
         if let Some(other_value) = other.monitors {
-            <std::vec::Vec<
-                std::string::String,
-            > as crate::OptionableConvert>::merge(&mut self.monitors, other_value)?;
+            crate::OptionableConvert::merge(&mut self.monitors, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.pool, other.pool)?;
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(&mut self.read_only, other.read_only)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::SecretReference,
-        > as crate::OptionableConvert>::merge(&mut self.secret_ref, other.secret_ref)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.user, other.user)?;
+        crate::OptionableConvert::merge(&mut self.pool, other.pool)?;
+        crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
+        crate::OptionableConvert::merge(&mut self.user, other.user)?;
         Ok(())
     }
 }

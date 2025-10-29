@@ -14,18 +14,14 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::FlowDistinguisherMethod {
     fn into_optioned(self) -> FlowDistinguisherMethodOpt {
         FlowDistinguisherMethodOpt {
-            type_: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.type_,
-                ),
-            ),
+            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
         value: FlowDistinguisherMethodOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            type_: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
                     .ok_or(crate::optionable::Error {
@@ -39,10 +35,7 @@ for ::k8s_openapi::api::flowcontrol::v1::FlowDistinguisherMethod {
         other: FlowDistinguisherMethodOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.type_ {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.type_,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
         Ok(())
     }

@@ -21,54 +21,39 @@ impl crate::Optionable for ClusterRoleOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRole {
     fn into_optioned(self) -> ClusterRoleOpt {
         ClusterRoleOpt {
-            aggregation_rule: <Option<
-                ::k8s_openapi::api::rbac::v1::AggregationRule,
-            > as crate::OptionableConvert>::into_optioned(self.aggregation_rule),
-            metadata: Some(
-                <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::into_optioned(
-                    self.metadata,
-                ),
+            aggregation_rule: crate::OptionableConvert::into_optioned(
+                self.aggregation_rule,
             ),
-            rules: <Option<
-                std::vec::Vec<::k8s_openapi::api::rbac::v1::PolicyRule>,
-            > as crate::OptionableConvert>::into_optioned(self.rules),
+            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            rules: crate::OptionableConvert::into_optioned(self.rules),
         }
     }
     fn try_from_optioned(
         value: ClusterRoleOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            aggregation_rule: <Option<
-                ::k8s_openapi::api::rbac::v1::AggregationRule,
-            > as crate::OptionableConvert>::try_from_optioned(value.aggregation_rule)?,
-            metadata: <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::try_from_optioned(
+            aggregation_rule: crate::OptionableConvert::try_from_optioned(
+                value.aggregation_rule,
+            )?,
+            metadata: crate::OptionableConvert::try_from_optioned(
                 value
                     .metadata
                     .ok_or(crate::optionable::Error {
                         missing_field: "metadata",
                     })?,
             )?,
-            rules: <Option<
-                std::vec::Vec<::k8s_openapi::api::rbac::v1::PolicyRule>,
-            > as crate::OptionableConvert>::try_from_optioned(value.rules)?,
+            rules: crate::OptionableConvert::try_from_optioned(value.rules)?,
         })
     }
     fn merge(&mut self, other: ClusterRoleOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::rbac::v1::AggregationRule,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.aggregation_rule,
             other.aggregation_rule,
         )?;
         if let Some(other_value) = other.metadata {
-            <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::merge(
-                &mut self.metadata,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
         }
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::rbac::v1::PolicyRule>,
-        > as crate::OptionableConvert>::merge(&mut self.rules, other.rules)?;
+        crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
         Ok(())
     }
 }

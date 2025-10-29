@@ -18,54 +18,30 @@ impl crate::Optionable for QuobyteVolumeSourceOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::QuobyteVolumeSource {
     fn into_optioned(self) -> QuobyteVolumeSourceOpt {
         QuobyteVolumeSourceOpt {
-            group: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.group),
-            read_only: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.read_only),
-            registry: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.registry,
-                ),
-            ),
-            tenant: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.tenant),
-            user: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.user),
-            volume: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.volume,
-                ),
-            ),
+            group: crate::OptionableConvert::into_optioned(self.group),
+            read_only: crate::OptionableConvert::into_optioned(self.read_only),
+            registry: Some(crate::OptionableConvert::into_optioned(self.registry)),
+            tenant: crate::OptionableConvert::into_optioned(self.tenant),
+            user: crate::OptionableConvert::into_optioned(self.user),
+            volume: Some(crate::OptionableConvert::into_optioned(self.volume)),
         }
     }
     fn try_from_optioned(
         value: QuobyteVolumeSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            group: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.group)?,
-            read_only: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.read_only)?,
-            registry: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            group: crate::OptionableConvert::try_from_optioned(value.group)?,
+            read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
+            registry: crate::OptionableConvert::try_from_optioned(
                 value
                     .registry
                     .ok_or(crate::optionable::Error {
                         missing_field: "registry",
                     })?,
             )?,
-            tenant: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.tenant)?,
-            user: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.user)?,
-            volume: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            tenant: crate::OptionableConvert::try_from_optioned(value.tenant)?,
+            user: crate::OptionableConvert::try_from_optioned(value.user)?,
+            volume: crate::OptionableConvert::try_from_optioned(
                 value
                     .volume
                     .ok_or(crate::optionable::Error {
@@ -78,29 +54,15 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::QuobyteVolumeSou
         &mut self,
         other: QuobyteVolumeSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.group, other.group)?;
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(&mut self.read_only, other.read_only)?;
+        crate::OptionableConvert::merge(&mut self.group, other.group)?;
+        crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         if let Some(other_value) = other.registry {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.registry,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.registry, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.tenant, other.tenant)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.user, other.user)?;
+        crate::OptionableConvert::merge(&mut self.tenant, other.tenant)?;
+        crate::OptionableConvert::merge(&mut self.user, other.user)?;
         if let Some(other_value) = other.volume {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.volume,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.volume, other_value)?;
         }
         Ok(())
     }

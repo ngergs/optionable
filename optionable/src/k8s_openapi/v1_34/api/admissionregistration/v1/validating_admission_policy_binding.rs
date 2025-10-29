@@ -20,30 +20,22 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBinding {
     fn into_optioned(self) -> ValidatingAdmissionPolicyBindingOpt {
         ValidatingAdmissionPolicyBindingOpt {
-            metadata: Some(
-                <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::into_optioned(
-                    self.metadata,
-                ),
-            ),
-            spec: <Option<
-                ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBindingSpec,
-            > as crate::OptionableConvert>::into_optioned(self.spec),
+            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            spec: crate::OptionableConvert::into_optioned(self.spec),
         }
     }
     fn try_from_optioned(
         value: ValidatingAdmissionPolicyBindingOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            metadata: <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::try_from_optioned(
+            metadata: crate::OptionableConvert::try_from_optioned(
                 value
                     .metadata
                     .ok_or(crate::optionable::Error {
                         missing_field: "metadata",
                     })?,
             )?,
-            spec: <Option<
-                ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBindingSpec,
-            > as crate::OptionableConvert>::try_from_optioned(value.spec)?,
+            spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
         })
     }
     fn merge(
@@ -51,14 +43,9 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBind
         other: ValidatingAdmissionPolicyBindingOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.metadata {
-            <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::merge(
-                &mut self.metadata,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
         }
-        <Option<
-            ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBindingSpec,
-        > as crate::OptionableConvert>::merge(&mut self.spec, other.spec)?;
+        crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         Ok(())
     }
 }

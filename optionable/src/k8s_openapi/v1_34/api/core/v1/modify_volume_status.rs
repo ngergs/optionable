@@ -16,14 +16,8 @@ impl crate::Optionable for ModifyVolumeStatusOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ModifyVolumeStatus {
     fn into_optioned(self) -> ModifyVolumeStatusOpt {
         ModifyVolumeStatusOpt {
-            status: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.status,
-                ),
-            ),
-            target_volume_attributes_class_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(
+            status: Some(crate::OptionableConvert::into_optioned(self.status)),
+            target_volume_attributes_class_name: crate::OptionableConvert::into_optioned(
                 self.target_volume_attributes_class_name,
             ),
         }
@@ -32,16 +26,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ModifyVolumeStat
         value: ModifyVolumeStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            status: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            status: crate::OptionableConvert::try_from_optioned(
                 value
                     .status
                     .ok_or(crate::optionable::Error {
                         missing_field: "status",
                     })?,
             )?,
-            target_volume_attributes_class_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(
+            target_volume_attributes_class_name: crate::OptionableConvert::try_from_optioned(
                 value.target_volume_attributes_class_name,
             )?,
         })
@@ -51,14 +43,9 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ModifyVolumeStat
         other: ModifyVolumeStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.status {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.status,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.status, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.target_volume_attributes_class_name,
             other.target_volume_attributes_class_name,
         )?;

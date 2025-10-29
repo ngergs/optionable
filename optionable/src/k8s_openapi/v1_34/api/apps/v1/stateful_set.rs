@@ -21,51 +21,32 @@ impl crate::Optionable for StatefulSetOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSet {
     fn into_optioned(self) -> StatefulSetOpt {
         StatefulSetOpt {
-            metadata: Some(
-                <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::into_optioned(
-                    self.metadata,
-                ),
-            ),
-            spec: <Option<
-                ::k8s_openapi::api::apps::v1::StatefulSetSpec,
-            > as crate::OptionableConvert>::into_optioned(self.spec),
-            status: <Option<
-                ::k8s_openapi::api::apps::v1::StatefulSetStatus,
-            > as crate::OptionableConvert>::into_optioned(self.status),
+            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            spec: crate::OptionableConvert::into_optioned(self.spec),
+            status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
         value: StatefulSetOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            metadata: <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::try_from_optioned(
+            metadata: crate::OptionableConvert::try_from_optioned(
                 value
                     .metadata
                     .ok_or(crate::optionable::Error {
                         missing_field: "metadata",
                     })?,
             )?,
-            spec: <Option<
-                ::k8s_openapi::api::apps::v1::StatefulSetSpec,
-            > as crate::OptionableConvert>::try_from_optioned(value.spec)?,
-            status: <Option<
-                ::k8s_openapi::api::apps::v1::StatefulSetStatus,
-            > as crate::OptionableConvert>::try_from_optioned(value.status)?,
+            spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
+            status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
     fn merge(&mut self, other: StatefulSetOpt) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.metadata {
-            <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::merge(
-                &mut self.metadata,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
         }
-        <Option<
-            ::k8s_openapi::api::apps::v1::StatefulSetSpec,
-        > as crate::OptionableConvert>::merge(&mut self.spec, other.spec)?;
-        <Option<
-            ::k8s_openapi::api::apps::v1::StatefulSetStatus,
-        > as crate::OptionableConvert>::merge(&mut self.status, other.status)?;
+        crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
+        crate::OptionableConvert::merge(&mut self.status, other.status)?;
         Ok(())
     }
 }

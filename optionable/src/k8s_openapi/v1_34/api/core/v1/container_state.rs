@@ -21,45 +21,27 @@ impl crate::Optionable for ContainerStateOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerState {
     fn into_optioned(self) -> ContainerStateOpt {
         ContainerStateOpt {
-            running: <Option<
-                ::k8s_openapi::api::core::v1::ContainerStateRunning,
-            > as crate::OptionableConvert>::into_optioned(self.running),
-            terminated: <Option<
-                ::k8s_openapi::api::core::v1::ContainerStateTerminated,
-            > as crate::OptionableConvert>::into_optioned(self.terminated),
-            waiting: <Option<
-                ::k8s_openapi::api::core::v1::ContainerStateWaiting,
-            > as crate::OptionableConvert>::into_optioned(self.waiting),
+            running: crate::OptionableConvert::into_optioned(self.running),
+            terminated: crate::OptionableConvert::into_optioned(self.terminated),
+            waiting: crate::OptionableConvert::into_optioned(self.waiting),
         }
     }
     fn try_from_optioned(
         value: ContainerStateOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            running: <Option<
-                ::k8s_openapi::api::core::v1::ContainerStateRunning,
-            > as crate::OptionableConvert>::try_from_optioned(value.running)?,
-            terminated: <Option<
-                ::k8s_openapi::api::core::v1::ContainerStateTerminated,
-            > as crate::OptionableConvert>::try_from_optioned(value.terminated)?,
-            waiting: <Option<
-                ::k8s_openapi::api::core::v1::ContainerStateWaiting,
-            > as crate::OptionableConvert>::try_from_optioned(value.waiting)?,
+            running: crate::OptionableConvert::try_from_optioned(value.running)?,
+            terminated: crate::OptionableConvert::try_from_optioned(value.terminated)?,
+            waiting: crate::OptionableConvert::try_from_optioned(value.waiting)?,
         })
     }
     fn merge(
         &mut self,
         other: ContainerStateOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::core::v1::ContainerStateRunning,
-        > as crate::OptionableConvert>::merge(&mut self.running, other.running)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::ContainerStateTerminated,
-        > as crate::OptionableConvert>::merge(&mut self.terminated, other.terminated)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::ContainerStateWaiting,
-        > as crate::OptionableConvert>::merge(&mut self.waiting, other.waiting)?;
+        crate::OptionableConvert::merge(&mut self.running, other.running)?;
+        crate::OptionableConvert::merge(&mut self.terminated, other.terminated)?;
+        crate::OptionableConvert::merge(&mut self.waiting, other.waiting)?;
         Ok(())
     }
 }

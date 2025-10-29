@@ -21,53 +21,36 @@ impl crate::Optionable for AllocationResultOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::AllocationResult {
     fn into_optioned(self) -> AllocationResultOpt {
         AllocationResultOpt {
-            allocation_timestamp: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
-            > as crate::OptionableConvert>::into_optioned(self.allocation_timestamp),
-            devices: <Option<
-                ::k8s_openapi::api::resource::v1::DeviceAllocationResult,
-            > as crate::OptionableConvert>::into_optioned(self.devices),
-            node_selector: <Option<
-                ::k8s_openapi::api::core::v1::NodeSelector,
-            > as crate::OptionableConvert>::into_optioned(self.node_selector),
+            allocation_timestamp: crate::OptionableConvert::into_optioned(
+                self.allocation_timestamp,
+            ),
+            devices: crate::OptionableConvert::into_optioned(self.devices),
+            node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
         }
     }
     fn try_from_optioned(
         value: AllocationResultOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            allocation_timestamp: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
-            > as crate::OptionableConvert>::try_from_optioned(
+            allocation_timestamp: crate::OptionableConvert::try_from_optioned(
                 value.allocation_timestamp,
             )?,
-            devices: <Option<
-                ::k8s_openapi::api::resource::v1::DeviceAllocationResult,
-            > as crate::OptionableConvert>::try_from_optioned(value.devices)?,
-            node_selector: <Option<
-                ::k8s_openapi::api::core::v1::NodeSelector,
-            > as crate::OptionableConvert>::try_from_optioned(value.node_selector)?,
+            devices: crate::OptionableConvert::try_from_optioned(value.devices)?,
+            node_selector: crate::OptionableConvert::try_from_optioned(
+                value.node_selector,
+            )?,
         })
     }
     fn merge(
         &mut self,
         other: AllocationResultOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.allocation_timestamp,
             other.allocation_timestamp,
         )?;
-        <Option<
-            ::k8s_openapi::api::resource::v1::DeviceAllocationResult,
-        > as crate::OptionableConvert>::merge(&mut self.devices, other.devices)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::NodeSelector,
-        > as crate::OptionableConvert>::merge(
-            &mut self.node_selector,
-            other.node_selector,
-        )?;
+        crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
+        crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
         Ok(())
     }
 }

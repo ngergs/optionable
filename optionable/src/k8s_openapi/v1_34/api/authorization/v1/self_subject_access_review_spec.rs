@@ -20,41 +20,35 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReviewSpec {
     fn into_optioned(self) -> SelfSubjectAccessReviewSpecOpt {
         SelfSubjectAccessReviewSpecOpt {
-            non_resource_attributes: <Option<
-                ::k8s_openapi::api::authorization::v1::NonResourceAttributes,
-            > as crate::OptionableConvert>::into_optioned(self.non_resource_attributes),
-            resource_attributes: <Option<
-                ::k8s_openapi::api::authorization::v1::ResourceAttributes,
-            > as crate::OptionableConvert>::into_optioned(self.resource_attributes),
+            non_resource_attributes: crate::OptionableConvert::into_optioned(
+                self.non_resource_attributes,
+            ),
+            resource_attributes: crate::OptionableConvert::into_optioned(
+                self.resource_attributes,
+            ),
         }
     }
     fn try_from_optioned(
         value: SelfSubjectAccessReviewSpecOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            non_resource_attributes: <Option<
-                ::k8s_openapi::api::authorization::v1::NonResourceAttributes,
-            > as crate::OptionableConvert>::try_from_optioned(
+            non_resource_attributes: crate::OptionableConvert::try_from_optioned(
                 value.non_resource_attributes,
             )?,
-            resource_attributes: <Option<
-                ::k8s_openapi::api::authorization::v1::ResourceAttributes,
-            > as crate::OptionableConvert>::try_from_optioned(value.resource_attributes)?,
+            resource_attributes: crate::OptionableConvert::try_from_optioned(
+                value.resource_attributes,
+            )?,
         })
     }
     fn merge(
         &mut self,
         other: SelfSubjectAccessReviewSpecOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::authorization::v1::NonResourceAttributes,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.non_resource_attributes,
             other.non_resource_attributes,
         )?;
-        <Option<
-            ::k8s_openapi::api::authorization::v1::ResourceAttributes,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.resource_attributes,
             other.resource_attributes,
         )?;

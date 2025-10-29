@@ -17,51 +17,41 @@ impl crate::Optionable for DeviceConstraintOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceConstraint {
     fn into_optioned(self) -> DeviceConstraintOpt {
         DeviceConstraintOpt {
-            distinct_attribute: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.distinct_attribute),
-            match_attribute: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.match_attribute),
-            requests: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::into_optioned(self.requests),
+            distinct_attribute: crate::OptionableConvert::into_optioned(
+                self.distinct_attribute,
+            ),
+            match_attribute: crate::OptionableConvert::into_optioned(
+                self.match_attribute,
+            ),
+            requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
     fn try_from_optioned(
         value: DeviceConstraintOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            distinct_attribute: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.distinct_attribute)?,
-            match_attribute: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.match_attribute)?,
-            requests: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::try_from_optioned(value.requests)?,
+            distinct_attribute: crate::OptionableConvert::try_from_optioned(
+                value.distinct_attribute,
+            )?,
+            match_attribute: crate::OptionableConvert::try_from_optioned(
+                value.match_attribute,
+            )?,
+            requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
         })
     }
     fn merge(
         &mut self,
         other: DeviceConstraintOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.distinct_attribute,
             other.distinct_attribute,
         )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.match_attribute,
             other.match_attribute,
         )?;
-        <Option<
-            std::vec::Vec<std::string::String>,
-        > as crate::OptionableConvert>::merge(&mut self.requests, other.requests)?;
+        crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
         Ok(())
     }
 }

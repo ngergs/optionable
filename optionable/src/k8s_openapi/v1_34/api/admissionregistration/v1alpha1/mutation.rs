@@ -21,30 +21,20 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1alpha1::Mutation {
     fn into_optioned(self) -> MutationOpt {
         MutationOpt {
-            apply_configuration: <Option<
-                ::k8s_openapi::api::admissionregistration::v1alpha1::ApplyConfiguration,
-            > as crate::OptionableConvert>::into_optioned(self.apply_configuration),
-            json_patch: <Option<
-                ::k8s_openapi::api::admissionregistration::v1alpha1::JSONPatch,
-            > as crate::OptionableConvert>::into_optioned(self.json_patch),
-            patch_type: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.patch_type,
-                ),
+            apply_configuration: crate::OptionableConvert::into_optioned(
+                self.apply_configuration,
             ),
+            json_patch: crate::OptionableConvert::into_optioned(self.json_patch),
+            patch_type: Some(crate::OptionableConvert::into_optioned(self.patch_type)),
         }
     }
     fn try_from_optioned(value: MutationOpt) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            apply_configuration: <Option<
-                ::k8s_openapi::api::admissionregistration::v1alpha1::ApplyConfiguration,
-            > as crate::OptionableConvert>::try_from_optioned(
+            apply_configuration: crate::OptionableConvert::try_from_optioned(
                 value.apply_configuration,
             )?,
-            json_patch: <Option<
-                ::k8s_openapi::api::admissionregistration::v1alpha1::JSONPatch,
-            > as crate::OptionableConvert>::try_from_optioned(value.json_patch)?,
-            patch_type: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            json_patch: crate::OptionableConvert::try_from_optioned(value.json_patch)?,
+            patch_type: crate::OptionableConvert::try_from_optioned(
                 value
                     .patch_type
                     .ok_or(crate::optionable::Error {
@@ -54,20 +44,13 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::Mutation {
         })
     }
     fn merge(&mut self, other: MutationOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::admissionregistration::v1alpha1::ApplyConfiguration,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.apply_configuration,
             other.apply_configuration,
         )?;
-        <Option<
-            ::k8s_openapi::api::admissionregistration::v1alpha1::JSONPatch,
-        > as crate::OptionableConvert>::merge(&mut self.json_patch, other.json_patch)?;
+        crate::OptionableConvert::merge(&mut self.json_patch, other.json_patch)?;
         if let Some(other_value) = other.patch_type {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.patch_type,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.patch_type, other_value)?;
         }
         Ok(())
     }

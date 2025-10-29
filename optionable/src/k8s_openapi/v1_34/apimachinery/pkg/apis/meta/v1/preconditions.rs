@@ -16,39 +16,31 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Preconditions {
     fn into_optioned(self) -> PreconditionsOpt {
         PreconditionsOpt {
-            resource_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.resource_version),
-            uid: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.uid),
+            resource_version: crate::OptionableConvert::into_optioned(
+                self.resource_version,
+            ),
+            uid: crate::OptionableConvert::into_optioned(self.uid),
         }
     }
     fn try_from_optioned(
         value: PreconditionsOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            resource_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.resource_version)?,
-            uid: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.uid)?,
+            resource_version: crate::OptionableConvert::try_from_optioned(
+                value.resource_version,
+            )?,
+            uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
     fn merge(
         &mut self,
         other: PreconditionsOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.resource_version,
             other.resource_version,
         )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.uid, other.uid)?;
+        crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
         Ok(())
     }
 }

@@ -18,24 +18,16 @@ impl crate::Optionable for ComponentStatusOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentStatus {
     fn into_optioned(self) -> ComponentStatusOpt {
         ComponentStatusOpt {
-            conditions: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::ComponentCondition>,
-            > as crate::OptionableConvert>::into_optioned(self.conditions),
-            metadata: Some(
-                <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::into_optioned(
-                    self.metadata,
-                ),
-            ),
+            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
         }
     }
     fn try_from_optioned(
         value: ComponentStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            conditions: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::ComponentCondition>,
-            > as crate::OptionableConvert>::try_from_optioned(value.conditions)?,
-            metadata: <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::try_from_optioned(
+            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            metadata: crate::OptionableConvert::try_from_optioned(
                 value
                     .metadata
                     .ok_or(crate::optionable::Error {
@@ -48,14 +40,9 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentStatus 
         &mut self,
         other: ComponentStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::ComponentCondition>,
-        > as crate::OptionableConvert>::merge(&mut self.conditions, other.conditions)?;
+        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         if let Some(other_value) = other.metadata {
-            <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::merge(
-                &mut self.metadata,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
         }
         Ok(())
     }

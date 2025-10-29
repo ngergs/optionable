@@ -21,30 +21,18 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationSpec {
     fn into_optioned(self) -> PriorityLevelConfigurationSpecOpt {
         PriorityLevelConfigurationSpecOpt {
-            exempt: <Option<
-                ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration,
-            > as crate::OptionableConvert>::into_optioned(self.exempt),
-            limited: <Option<
-                ::k8s_openapi::api::flowcontrol::v1::LimitedPriorityLevelConfiguration,
-            > as crate::OptionableConvert>::into_optioned(self.limited),
-            type_: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.type_,
-                ),
-            ),
+            exempt: crate::OptionableConvert::into_optioned(self.exempt),
+            limited: crate::OptionableConvert::into_optioned(self.limited),
+            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
         value: PriorityLevelConfigurationSpecOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            exempt: <Option<
-                ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration,
-            > as crate::OptionableConvert>::try_from_optioned(value.exempt)?,
-            limited: <Option<
-                ::k8s_openapi::api::flowcontrol::v1::LimitedPriorityLevelConfiguration,
-            > as crate::OptionableConvert>::try_from_optioned(value.limited)?,
-            type_: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            exempt: crate::OptionableConvert::try_from_optioned(value.exempt)?,
+            limited: crate::OptionableConvert::try_from_optioned(value.limited)?,
+            type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
                     .ok_or(crate::optionable::Error {
@@ -57,17 +45,10 @@ for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationSpec {
         &mut self,
         other: PriorityLevelConfigurationSpecOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration,
-        > as crate::OptionableConvert>::merge(&mut self.exempt, other.exempt)?;
-        <Option<
-            ::k8s_openapi::api::flowcontrol::v1::LimitedPriorityLevelConfiguration,
-        > as crate::OptionableConvert>::merge(&mut self.limited, other.limited)?;
+        crate::OptionableConvert::merge(&mut self.exempt, other.exempt)?;
+        crate::OptionableConvert::merge(&mut self.limited, other.limited)?;
         if let Some(other_value) = other.type_ {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.type_,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
         Ok(())
     }

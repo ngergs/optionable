@@ -16,30 +16,22 @@ impl crate::Optionable for ResourceStatusOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceStatus {
     fn into_optioned(self) -> ResourceStatusOpt {
         ResourceStatusOpt {
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
-            resources: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::ResourceHealth>,
-            > as crate::OptionableConvert>::into_optioned(self.resources),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            resources: crate::OptionableConvert::into_optioned(self.resources),
         }
     }
     fn try_from_optioned(
         value: ResourceStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
                         missing_field: "name",
                     })?,
             )?,
-            resources: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::ResourceHealth>,
-            > as crate::OptionableConvert>::try_from_optioned(value.resources)?,
+            resources: crate::OptionableConvert::try_from_optioned(value.resources)?,
         })
     }
     fn merge(
@@ -47,14 +39,9 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceStatus {
         other: ResourceStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::ResourceHealth>,
-        > as crate::OptionableConvert>::merge(&mut self.resources, other.resources)?;
+        crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
         Ok(())
     }
 }

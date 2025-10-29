@@ -18,40 +18,27 @@ impl crate::Optionable for EndpointsOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Endpoints {
     fn into_optioned(self) -> EndpointsOpt {
         EndpointsOpt {
-            metadata: Some(
-                <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::into_optioned(
-                    self.metadata,
-                ),
-            ),
-            subsets: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::EndpointSubset>,
-            > as crate::OptionableConvert>::into_optioned(self.subsets),
+            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            subsets: crate::OptionableConvert::into_optioned(self.subsets),
         }
     }
     fn try_from_optioned(value: EndpointsOpt) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            metadata: <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::try_from_optioned(
+            metadata: crate::OptionableConvert::try_from_optioned(
                 value
                     .metadata
                     .ok_or(crate::optionable::Error {
                         missing_field: "metadata",
                     })?,
             )?,
-            subsets: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::EndpointSubset>,
-            > as crate::OptionableConvert>::try_from_optioned(value.subsets)?,
+            subsets: crate::OptionableConvert::try_from_optioned(value.subsets)?,
         })
     }
     fn merge(&mut self, other: EndpointsOpt) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.metadata {
-            <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::merge(
-                &mut self.metadata,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
         }
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::EndpointSubset>,
-        > as crate::OptionableConvert>::merge(&mut self.subsets, other.subsets)?;
+        crate::OptionableConvert::merge(&mut self.subsets, other.subsets)?;
         Ok(())
     }
 }

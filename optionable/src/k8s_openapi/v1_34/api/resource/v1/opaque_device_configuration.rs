@@ -17,30 +17,22 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1::OpaqueDeviceConfiguration {
     fn into_optioned(self) -> OpaqueDeviceConfigurationOpt {
         OpaqueDeviceConfigurationOpt {
-            driver: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.driver,
-                ),
-            ),
-            parameters: Some(
-                <::k8s_openapi::apimachinery::pkg::runtime::RawExtension as crate::OptionableConvert>::into_optioned(
-                    self.parameters,
-                ),
-            ),
+            driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
+            parameters: Some(crate::OptionableConvert::into_optioned(self.parameters)),
         }
     }
     fn try_from_optioned(
         value: OpaqueDeviceConfigurationOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            driver: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            driver: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver
                     .ok_or(crate::optionable::Error {
                         missing_field: "driver",
                     })?,
             )?,
-            parameters: <::k8s_openapi::apimachinery::pkg::runtime::RawExtension as crate::OptionableConvert>::try_from_optioned(
+            parameters: crate::OptionableConvert::try_from_optioned(
                 value
                     .parameters
                     .ok_or(crate::optionable::Error {
@@ -54,16 +46,10 @@ for ::k8s_openapi::api::resource::v1::OpaqueDeviceConfiguration {
         other: OpaqueDeviceConfigurationOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.driver {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.driver,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.driver, other_value)?;
         }
         if let Some(other_value) = other.parameters {
-            <::k8s_openapi::apimachinery::pkg::runtime::RawExtension as crate::OptionableConvert>::merge(
-                &mut self.parameters,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.parameters, other_value)?;
         }
         Ok(())
     }
