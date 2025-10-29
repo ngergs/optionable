@@ -396,9 +396,9 @@ fn into_optioned(
         let crate_name= &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
             (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon #self_selector},
-            (FieldHandling::IsOption, false) => quote! {#ident #colon <#ty as #crate_name::OptionableConvert>::into_optioned(#self_selector)},
+            (FieldHandling::IsOption, false) => quote! {#ident #colon #crate_name::OptionableConvert::into_optioned(#self_selector)},
             (FieldHandling::Other, true) => quote! {#ident #colon Some(#self_selector)},
-            (FieldHandling::Other, false) => quote! {#ident #colon Some(<#ty as #crate_name::OptionableConvert>::into_optioned(#self_selector))}
+            (FieldHandling::Other, false) => quote! {#ident #colon Some(#crate_name::OptionableConvert::into_optioned(#self_selector))}
         }
     });
     struct_wrapper(fields_token, &struct_parsed.struct_type)
@@ -422,7 +422,7 @@ fn try_from_optioned(
         match (handling, is_self_resolving_optioned(ty)) {
             (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon value.#selector},
             (FieldHandling::IsOption, false) => quote! {
-                #ident #colon <#ty as #crate_name::OptionableConvert>::try_from_optioned(
+                #ident #colon #crate_name::OptionableConvert::try_from_optioned(
                     #value_selector
                 )?
             },
@@ -435,8 +435,7 @@ fn try_from_optioned(
             (FieldHandling::Other, false) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 quote! {
-                    #ident #colon <#ty as #crate_name::OptionableConvert>::try_from_optioned(
-                        #value_selector.ok_or(#crate_name::optionable::Error{ missing_field: #selector_quoted })?
+                    #ident #colon #crate_name::OptionableConvert::try_from_optioned(#value_selector.ok_or(#crate_name::optionable::Error{ missing_field: #selector_quoted })?
                     )?
                 }
             }
@@ -480,7 +479,7 @@ fn merge_fields(
             match (handling, is_self_resolving_optioned(ty)) {
                 (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#deref_modifier #self_selector = #other_selector;},
                 (FieldHandling::IsOption, false) => quote! {
-                    <#ty as #crate_name::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
+                    #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
                 },
                 (FieldHandling::Other, true) => quote! {
                     if let Some(other_value)=#other_selector{
@@ -489,7 +488,7 @@ fn merge_fields(
                 },
                 (FieldHandling::Other, false) => quote! {
                     if let Some(other_value)=#other_selector{
-                        <#ty as #crate_name::OptionableConvert>::merge(#self_merge_mut_modifier #self_selector, other_value)?;
+                        #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, other_value)?;
                     }
                 }
             }
@@ -742,7 +741,7 @@ mod tests {
                         fn into_optioned (self) -> DeriveExampleAc {
                             DeriveExampleAc  {
                                 name: Some(self.name),
-                                middle_name: <Option<String> as ::optionable::OptionableConvert>::into_optioned(self.middle_name),
+                                middle_name: ::optionable::OptionableConvert::into_optioned(self.middle_name),
                                 surname: Some(self.surname)
                             }
                         }
@@ -750,7 +749,7 @@ mod tests {
                         fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::optionable::Error> {
                             Ok(Self{
                                 name: value.name.ok_or(::optionable::optionable::Error { missing_field: "name"})?,
-                                middle_name: <Option<String> as ::optionable::OptionableConvert>::try_from_optioned(value.middle_name)?,
+                                middle_name: ::optionable::OptionableConvert::try_from_optioned(value.middle_name)?,
                                 surname: value.surname.ok_or(::optionable::optionable::Error { missing_field: "surname"})?
                             })
                         }
@@ -759,7 +758,7 @@ mod tests {
                             if let Some(other_value) = other.name {
                                 self.name =  other_value;
                             }
-                            <Option<String> as ::optionable::OptionableConvert>::merge(&mut self.middle_name, other.middle_name)?;
+                            ::optionable::OptionableConvert::merge(&mut self.middle_name, other.middle_name)?;
                             if let Some(other_value) = other.surname {
                                 self.surname =  other_value;
                             }
@@ -974,26 +973,26 @@ mod tests {
                     {
                         fn into_optioned (self) -> DeriveExampleOpt<T, T2, T3> {
                             DeriveExampleOpt::<T, T2, T3> {
-                                output: Some(<T as::optionable::OptionableConvert>::into_optioned(self.output)),
-                                input: Some(<T2 as::optionable::OptionableConvert>::into_optioned(self.input)),
+                                output: Some(::optionable::OptionableConvert::into_optioned(self.output)),
+                                input: Some(::optionable::OptionableConvert::into_optioned(self.input)),
                                 extra: self.extra
                             }
                         }
 
                          fn try_from_optioned(value: DeriveExampleOpt<T, T2, T3> ) -> Result <Self, ::optionable::optionable::Error> {
                              Ok(Self{
-                                output: <T as ::optionable::OptionableConvert>::try_from_optioned(value.output.ok_or(::optionable::optionable::Error { missing_field: "output" })?)?,
-                                input: <T2 as ::optionable::OptionableConvert>::try_from_optioned(value.input.ok_or(::optionable::optionable::Error { missing_field: "input" })?)?,
+                                output: ::optionable::OptionableConvert::try_from_optioned(value.output.ok_or(::optionable::optionable::Error { missing_field: "output" })?)?,
+                                input: ::optionable::OptionableConvert::try_from_optioned(value.input.ok_or(::optionable::optionable::Error { missing_field: "input" })?)?,
                                 extra: value.extra
                             })
                         }
 
                         fn merge(&mut self, other: DeriveExampleOpt<T, T2, T3> ) -> Result<(), ::optionable::optionable::Error> {
                             if let Some(other_value) = other.output {
-                                <T as ::optionable::OptionableConvert>::merge(&mut self.output, other_value)?;
+                                ::optionable::OptionableConvert::merge(&mut self.output, other_value)?;
                             }
                             if let Some(other_value) = other.input {
-                                <T2 as ::optionable::OptionableConvert>::merge(&mut self.input, other_value)?;
+                                ::optionable::OptionableConvert::merge(&mut self.input, other_value)?;
                             }
                             self.extra=other.extra;
                             Ok(())
@@ -1151,24 +1150,24 @@ mod tests {
                 impl crate::OptionableConvert for ::crate_prefix::DeriveExample {
                     fn into_optioned (self) -> DeriveExampleOpt {
                         DeriveExampleOpt  {
-                            name: Some(<::testcrate::Name as crate::OptionableConvert>::into_optioned(self.name)),
-                            surname: Some(<Box<::testcrate::SurName> as crate::OptionableConvert>::into_optioned(self.surname))
+                            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+                            surname: Some(crate::OptionableConvert::into_optioned(self.surname))
                         }
                     }
 
                     fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, crate::optionable::Error> {
                         Ok(Self{
-                            name: <::testcrate::Name as crate::OptionableConvert>::try_from_optioned(value.name.ok_or(crate::optionable::Error { missing_field: "name" })?)?,
-                            surname: <Box<::testcrate::SurName> as crate::OptionableConvert>::try_from_optioned(value.surname.ok_or(crate::optionable::Error { missing_field: "surname" })?)?
+                            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::optionable::Error { missing_field: "name" })?)?,
+                            surname: crate::OptionableConvert::try_from_optioned(value.surname.ok_or(crate::optionable::Error { missing_field: "surname" })?)?
                         })
                     }
 
                     fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), crate::optionable::Error> {
                         if let Some(other_value) = other.name {
-                             <::testcrate::Name as crate::OptionableConvert>::merge(&mut self.name, other_value)?;
+                             crate::OptionableConvert::merge(&mut self.name, other_value)?;
                         }
                         if let Some(other_value) = other.surname {
-                             <Box<::testcrate::SurName> as crate::OptionableConvert>::merge(&mut self.surname, other_value)?;
+                             crate::OptionableConvert::merge(&mut self.surname, other_value)?;
                         }
                         Ok(())
                     }

@@ -17,9 +17,7 @@ impl ::optionable::OptionableConvert for Member {
         MemberOpt {
             name: Some(self.name),
             addresses: Some(
-                <Vec<
-                    Address,
-                > as ::optionable::OptionableConvert>::into_optioned(self.addresses),
+                ::optionable::OptionableConvert::into_optioned(self.addresses),
             ),
         }
     }
@@ -32,9 +30,7 @@ impl ::optionable::OptionableConvert for Member {
                 .ok_or(::optionable::optionable::Error {
                     missing_field: "name",
                 })?,
-            addresses: <Vec<
-                Address,
-            > as ::optionable::OptionableConvert>::try_from_optioned(
+            addresses: ::optionable::OptionableConvert::try_from_optioned(
                 value
                     .addresses
                     .ok_or(::optionable::optionable::Error {
@@ -51,12 +47,7 @@ impl ::optionable::OptionableConvert for Member {
             self.name = other_value;
         }
         if let Some(other_value) = other.addresses {
-            <Vec<
-                Address,
-            > as ::optionable::OptionableConvert>::merge(
-                &mut self.addresses,
-                other_value,
-            )?;
+            ::optionable::OptionableConvert::merge(&mut self.addresses, other_value)?;
         }
         Ok(())
     }
@@ -81,9 +72,7 @@ mod test {
             MemberTestOpt {
                 name: Some(self.name),
                 addresses: Some(
-                    <Vec<
-                        Address,
-                    > as ::optionable::OptionableConvert>::into_optioned(self.addresses),
+                    ::optionable::OptionableConvert::into_optioned(self.addresses),
                 ),
             }
         }
@@ -96,9 +85,7 @@ mod test {
                     .ok_or(::optionable::optionable::Error {
                         missing_field: "name",
                     })?,
-                addresses: <Vec<
-                    Address,
-                > as ::optionable::OptionableConvert>::try_from_optioned(
+                addresses: ::optionable::OptionableConvert::try_from_optioned(
                     value
                         .addresses
                         .ok_or(::optionable::optionable::Error {
@@ -115,9 +102,7 @@ mod test {
                 self.name = other_value;
             }
             if let Some(other_value) = other.addresses {
-                <Vec<
-                    Address,
-                > as ::optionable::OptionableConvert>::merge(
+                ::optionable::OptionableConvert::merge(
                     &mut self.addresses,
                     other_value,
                 )?;

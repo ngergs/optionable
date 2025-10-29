@@ -143,7 +143,7 @@ Due to the use of associated types some IDE-hints do not fully resolve the assoc
 when using wrong types the associated types are resolved.
 
 For the derived `Optioned`-structs/enums a related issue is that other derive macros for those derived types won't see the resolved
-associated types. Therefore corresponding type bounds have to be added (done by the `Optionable`-derive) to the `Optioned`-structs/enums:
+associated types. Therefore, corresponding type bounds have to be added (done by the `Optionable`-derive) to the `Optioned`-structs/enums:
 ```rust
 #[derive(Optionable)]
 #[optionable(derive(Serialize))]
