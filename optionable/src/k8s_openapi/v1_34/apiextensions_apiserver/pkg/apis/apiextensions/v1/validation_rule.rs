@@ -20,48 +20,32 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ValidationRule {
     fn into_optioned(self) -> ValidationRuleOpt {
         ValidationRuleOpt {
-            field_path: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.field_path),
-            message: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.message),
-            message_expression: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.message_expression),
-            optional_old_self: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.optional_old_self),
-            reason: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.reason),
-            rule: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.rule,
-                ),
+            field_path: crate::OptionableConvert::into_optioned(self.field_path),
+            message: crate::OptionableConvert::into_optioned(self.message),
+            message_expression: crate::OptionableConvert::into_optioned(
+                self.message_expression,
             ),
+            optional_old_self: crate::OptionableConvert::into_optioned(
+                self.optional_old_self,
+            ),
+            reason: crate::OptionableConvert::into_optioned(self.reason),
+            rule: Some(crate::OptionableConvert::into_optioned(self.rule)),
         }
     }
     fn try_from_optioned(
         value: ValidationRuleOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            field_path: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.field_path)?,
-            message: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.message)?,
-            message_expression: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.message_expression)?,
-            optional_old_self: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.optional_old_self)?,
-            reason: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.reason)?,
-            rule: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            field_path: crate::OptionableConvert::try_from_optioned(value.field_path)?,
+            message: crate::OptionableConvert::try_from_optioned(value.message)?,
+            message_expression: crate::OptionableConvert::try_from_optioned(
+                value.message_expression,
+            )?,
+            optional_old_self: crate::OptionableConvert::try_from_optioned(
+                value.optional_old_self,
+            )?,
+            reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
+            rule: crate::OptionableConvert::try_from_optioned(
                 value
                     .rule
                     .ok_or(crate::optionable::Error {
@@ -74,32 +58,19 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Valida
         &mut self,
         other: ValidationRuleOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.field_path, other.field_path)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.message, other.message)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.field_path, other.field_path)?;
+        crate::OptionableConvert::merge(&mut self.message, other.message)?;
+        crate::OptionableConvert::merge(
             &mut self.message_expression,
             other.message_expression,
         )?;
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.optional_old_self,
             other.optional_old_self,
         )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.reason, other.reason)?;
+        crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         if let Some(other_value) = other.rule {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.rule,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.rule, other_value)?;
         }
         Ok(())
     }

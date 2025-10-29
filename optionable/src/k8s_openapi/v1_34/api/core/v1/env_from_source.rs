@@ -19,48 +19,29 @@ impl crate::Optionable for EnvFromSourceOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EnvFromSource {
     fn into_optioned(self) -> EnvFromSourceOpt {
         EnvFromSourceOpt {
-            config_map_ref: <Option<
-                ::k8s_openapi::api::core::v1::ConfigMapEnvSource,
-            > as crate::OptionableConvert>::into_optioned(self.config_map_ref),
-            prefix: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.prefix),
-            secret_ref: <Option<
-                ::k8s_openapi::api::core::v1::SecretEnvSource,
-            > as crate::OptionableConvert>::into_optioned(self.secret_ref),
+            config_map_ref: crate::OptionableConvert::into_optioned(self.config_map_ref),
+            prefix: crate::OptionableConvert::into_optioned(self.prefix),
+            secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
         }
     }
     fn try_from_optioned(
         value: EnvFromSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            config_map_ref: <Option<
-                ::k8s_openapi::api::core::v1::ConfigMapEnvSource,
-            > as crate::OptionableConvert>::try_from_optioned(value.config_map_ref)?,
-            prefix: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.prefix)?,
-            secret_ref: <Option<
-                ::k8s_openapi::api::core::v1::SecretEnvSource,
-            > as crate::OptionableConvert>::try_from_optioned(value.secret_ref)?,
+            config_map_ref: crate::OptionableConvert::try_from_optioned(
+                value.config_map_ref,
+            )?,
+            prefix: crate::OptionableConvert::try_from_optioned(value.prefix)?,
+            secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
         })
     }
     fn merge(
         &mut self,
         other: EnvFromSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::core::v1::ConfigMapEnvSource,
-        > as crate::OptionableConvert>::merge(
-            &mut self.config_map_ref,
-            other.config_map_ref,
-        )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.prefix, other.prefix)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::SecretEnvSource,
-        > as crate::OptionableConvert>::merge(&mut self.secret_ref, other.secret_ref)?;
+        crate::OptionableConvert::merge(&mut self.config_map_ref, other.config_map_ref)?;
+        crate::OptionableConvert::merge(&mut self.prefix, other.prefix)?;
+        crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
         Ok(())
     }
 }

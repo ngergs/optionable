@@ -15,27 +15,21 @@ impl crate::Optionable for ServiceCIDRSpecOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::ServiceCIDRSpec {
     fn into_optioned(self) -> ServiceCIDRSpecOpt {
         ServiceCIDRSpecOpt {
-            cidrs: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::into_optioned(self.cidrs),
+            cidrs: crate::OptionableConvert::into_optioned(self.cidrs),
         }
     }
     fn try_from_optioned(
         value: ServiceCIDRSpecOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            cidrs: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::try_from_optioned(value.cidrs)?,
+            cidrs: crate::OptionableConvert::try_from_optioned(value.cidrs)?,
         })
     }
     fn merge(
         &mut self,
         other: ServiceCIDRSpecOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<std::string::String>,
-        > as crate::OptionableConvert>::merge(&mut self.cidrs, other.cidrs)?;
+        crate::OptionableConvert::merge(&mut self.cidrs, other.cidrs)?;
         Ok(())
     }
 }

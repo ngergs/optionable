@@ -13,23 +13,21 @@ impl crate::Optionable for VolumeNodeResourcesOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeNodeResources {
     fn into_optioned(self) -> VolumeNodeResourcesOpt {
         VolumeNodeResourcesOpt {
-            count: <Option<i32> as crate::OptionableConvert>::into_optioned(self.count),
+            count: crate::OptionableConvert::into_optioned(self.count),
         }
     }
     fn try_from_optioned(
         value: VolumeNodeResourcesOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            count: <Option<
-                i32,
-            > as crate::OptionableConvert>::try_from_optioned(value.count)?,
+            count: crate::OptionableConvert::try_from_optioned(value.count)?,
         })
     }
     fn merge(
         &mut self,
         other: VolumeNodeResourcesOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<i32> as crate::OptionableConvert>::merge(&mut self.count, other.count)?;
+        crate::OptionableConvert::merge(&mut self.count, other.count)?;
         Ok(())
     }
 }

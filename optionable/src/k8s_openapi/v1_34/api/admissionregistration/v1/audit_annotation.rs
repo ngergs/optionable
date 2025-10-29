@@ -16,15 +16,9 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::AuditAnnotation {
     fn into_optioned(self) -> AuditAnnotationOpt {
         AuditAnnotationOpt {
-            key: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.key,
-                ),
-            ),
+            key: Some(crate::OptionableConvert::into_optioned(self.key)),
             value_expression: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.value_expression,
-                ),
+                crate::OptionableConvert::into_optioned(self.value_expression),
             ),
         }
     }
@@ -32,14 +26,14 @@ for ::k8s_openapi::api::admissionregistration::v1::AuditAnnotation {
         value: AuditAnnotationOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            key: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            key: crate::OptionableConvert::try_from_optioned(
                 value
                     .key
                     .ok_or(crate::optionable::Error {
                         missing_field: "key",
                     })?,
             )?,
-            value_expression: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            value_expression: crate::OptionableConvert::try_from_optioned(
                 value
                     .value_expression
                     .ok_or(crate::optionable::Error {
@@ -53,16 +47,10 @@ for ::k8s_openapi::api::admissionregistration::v1::AuditAnnotation {
         other: AuditAnnotationOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.key {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.key,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.key, other_value)?;
         }
         if let Some(other_value) = other.value_expression {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.value_expression,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.value_expression, other_value)?;
         }
         Ok(())
     }

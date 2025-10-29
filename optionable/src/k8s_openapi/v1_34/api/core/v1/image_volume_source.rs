@@ -14,36 +14,24 @@ impl crate::Optionable for ImageVolumeSourceOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ImageVolumeSource {
     fn into_optioned(self) -> ImageVolumeSourceOpt {
         ImageVolumeSourceOpt {
-            pull_policy: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.pull_policy),
-            reference: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.reference),
+            pull_policy: crate::OptionableConvert::into_optioned(self.pull_policy),
+            reference: crate::OptionableConvert::into_optioned(self.reference),
         }
     }
     fn try_from_optioned(
         value: ImageVolumeSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            pull_policy: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.pull_policy)?,
-            reference: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.reference)?,
+            pull_policy: crate::OptionableConvert::try_from_optioned(value.pull_policy)?,
+            reference: crate::OptionableConvert::try_from_optioned(value.reference)?,
         })
     }
     fn merge(
         &mut self,
         other: ImageVolumeSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.pull_policy, other.pull_policy)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.reference, other.reference)?;
+        crate::OptionableConvert::merge(&mut self.pull_policy, other.pull_policy)?;
+        crate::OptionableConvert::merge(&mut self.reference, other.reference)?;
         Ok(())
     }
 }

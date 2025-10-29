@@ -18,11 +18,7 @@ for ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString {
             Self::Int(self_0) => IntOrStringOpt::Int(Some(self_0)),
             Self::String(self_0) => {
                 IntOrStringOpt::String(
-                    Some(
-                        <std::string::String as crate::OptionableConvert>::into_optioned(
-                            self_0,
-                        ),
-                    ),
+                    Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
         }
@@ -42,7 +38,7 @@ for ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString {
                 }
                 IntOrStringOpt::String(other_0) => {
                     Self::String(
-                        <std::string::String as crate::OptionableConvert>::try_from_optioned(
+                        crate::OptionableConvert::try_from_optioned(
                             other_0
                                 .ok_or(crate::optionable::Error {
                                     missing_field: "0",
@@ -67,10 +63,7 @@ for ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString {
             IntOrStringOpt::String(other_0) => {
                 if let Self::String(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        <std::string::String as crate::OptionableConvert>::merge(
-                            self_0,
-                            other_value,
-                        )?;
+                        crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
                     *self = Self::try_from_optioned(IntOrStringOpt::String(other_0))?;

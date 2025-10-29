@@ -13,14 +13,12 @@ impl crate::Optionable for PodIPOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodIP {
     fn into_optioned(self) -> PodIPOpt {
         PodIPOpt {
-            ip: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(self.ip),
-            ),
+            ip: Some(crate::OptionableConvert::into_optioned(self.ip)),
         }
     }
     fn try_from_optioned(value: PodIPOpt) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            ip: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            ip: crate::OptionableConvert::try_from_optioned(
                 value
                     .ip
                     .ok_or(crate::optionable::Error {
@@ -31,10 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodIP {
     }
     fn merge(&mut self, other: PodIPOpt) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.ip {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.ip,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.ip, other_value)?;
         }
         Ok(())
     }

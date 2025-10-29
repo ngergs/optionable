@@ -18,9 +18,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelector {
     fn into_optioned(self) -> NodeSelectorOpt {
         NodeSelectorOpt {
             node_selector_terms: Some(
-                <std::vec::Vec<
-                    ::k8s_openapi::api::core::v1::NodeSelectorTerm,
-                > as crate::OptionableConvert>::into_optioned(self.node_selector_terms),
+                crate::OptionableConvert::into_optioned(self.node_selector_terms),
             ),
         }
     }
@@ -28,9 +26,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelector {
         value: NodeSelectorOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            node_selector_terms: <std::vec::Vec<
-                ::k8s_openapi::api::core::v1::NodeSelectorTerm,
-            > as crate::OptionableConvert>::try_from_optioned(
+            node_selector_terms: crate::OptionableConvert::try_from_optioned(
                 value
                     .node_selector_terms
                     .ok_or(crate::optionable::Error {
@@ -41,12 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelector {
     }
     fn merge(&mut self, other: NodeSelectorOpt) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.node_selector_terms {
-            <std::vec::Vec<
-                ::k8s_openapi::api::core::v1::NodeSelectorTerm,
-            > as crate::OptionableConvert>::merge(
-                &mut self.node_selector_terms,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.node_selector_terms, other_value)?;
         }
         Ok(())
     }

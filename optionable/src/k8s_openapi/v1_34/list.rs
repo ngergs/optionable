@@ -32,28 +32,20 @@ where
 {
     fn into_optioned(self) -> ListOpt<T> {
         ListOpt::<T> {
-            items: Some(
-                <std::vec::Vec<T> as crate::OptionableConvert>::into_optioned(self.items),
-            ),
-            metadata: Some(
-                <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta as crate::OptionableConvert>::into_optioned(
-                    self.metadata,
-                ),
-            ),
+            items: Some(crate::OptionableConvert::into_optioned(self.items)),
+            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
         }
     }
     fn try_from_optioned(value: ListOpt<T>) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            items: <std::vec::Vec<
-                T,
-            > as crate::OptionableConvert>::try_from_optioned(
+            items: crate::OptionableConvert::try_from_optioned(
                 value
                     .items
                     .ok_or(crate::optionable::Error {
                         missing_field: "items",
                     })?,
             )?,
-            metadata: <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta as crate::OptionableConvert>::try_from_optioned(
+            metadata: crate::OptionableConvert::try_from_optioned(
                 value
                     .metadata
                     .ok_or(crate::optionable::Error {
@@ -64,15 +56,10 @@ where
     }
     fn merge(&mut self, other: ListOpt<T>) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.items {
-            <std::vec::Vec<
-                T,
-            > as crate::OptionableConvert>::merge(&mut self.items, other_value)?;
+            crate::OptionableConvert::merge(&mut self.items, other_value)?;
         }
         if let Some(other_value) = other.metadata {
-            <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta as crate::OptionableConvert>::merge(
-                &mut self.metadata,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
         }
         Ok(())
     }

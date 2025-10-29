@@ -15,30 +15,22 @@ impl crate::Optionable for IngressPortStatusOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressPortStatus {
     fn into_optioned(self) -> IngressPortStatusOpt {
         IngressPortStatusOpt {
-            error: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.error),
+            error: crate::OptionableConvert::into_optioned(self.error),
             port: Some(self.port),
-            protocol: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.protocol,
-                ),
-            ),
+            protocol: Some(crate::OptionableConvert::into_optioned(self.protocol)),
         }
     }
     fn try_from_optioned(
         value: IngressPortStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            error: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.error)?,
+            error: crate::OptionableConvert::try_from_optioned(value.error)?,
             port: value
                 .port
                 .ok_or(crate::optionable::Error {
                     missing_field: "port",
                 })?,
-            protocol: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            protocol: crate::OptionableConvert::try_from_optioned(
                 value
                     .protocol
                     .ok_or(crate::optionable::Error {
@@ -51,17 +43,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressPor
         &mut self,
         other: IngressPortStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.error, other.error)?;
+        crate::OptionableConvert::merge(&mut self.error, other.error)?;
         if let Some(other_value) = other.port {
             self.port = other_value;
         }
         if let Some(other_value) = other.protocol {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.protocol,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.protocol, other_value)?;
         }
         Ok(())
     }

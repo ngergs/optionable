@@ -18,42 +18,33 @@ impl crate::Optionable for NodeSelectorTermOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelectorTerm {
     fn into_optioned(self) -> NodeSelectorTermOpt {
         NodeSelectorTermOpt {
-            match_expressions: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NodeSelectorRequirement>,
-            > as crate::OptionableConvert>::into_optioned(self.match_expressions),
-            match_fields: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NodeSelectorRequirement>,
-            > as crate::OptionableConvert>::into_optioned(self.match_fields),
+            match_expressions: crate::OptionableConvert::into_optioned(
+                self.match_expressions,
+            ),
+            match_fields: crate::OptionableConvert::into_optioned(self.match_fields),
         }
     }
     fn try_from_optioned(
         value: NodeSelectorTermOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            match_expressions: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NodeSelectorRequirement>,
-            > as crate::OptionableConvert>::try_from_optioned(value.match_expressions)?,
-            match_fields: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NodeSelectorRequirement>,
-            > as crate::OptionableConvert>::try_from_optioned(value.match_fields)?,
+            match_expressions: crate::OptionableConvert::try_from_optioned(
+                value.match_expressions,
+            )?,
+            match_fields: crate::OptionableConvert::try_from_optioned(
+                value.match_fields,
+            )?,
         })
     }
     fn merge(
         &mut self,
         other: NodeSelectorTermOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::NodeSelectorRequirement>,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.match_expressions,
             other.match_expressions,
         )?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::NodeSelectorRequirement>,
-        > as crate::OptionableConvert>::merge(
-            &mut self.match_fields,
-            other.match_fields,
-        )?;
+        crate::OptionableConvert::merge(&mut self.match_fields, other.match_fields)?;
         Ok(())
     }
 }

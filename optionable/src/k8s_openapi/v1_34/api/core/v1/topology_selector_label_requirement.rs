@@ -18,32 +18,22 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::TopologySelectorLabelRequirement {
     fn into_optioned(self) -> TopologySelectorLabelRequirementOpt {
         TopologySelectorLabelRequirementOpt {
-            key: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.key,
-                ),
-            ),
-            values: Some(
-                <std::vec::Vec<
-                    std::string::String,
-                > as crate::OptionableConvert>::into_optioned(self.values),
-            ),
+            key: Some(crate::OptionableConvert::into_optioned(self.key)),
+            values: Some(crate::OptionableConvert::into_optioned(self.values)),
         }
     }
     fn try_from_optioned(
         value: TopologySelectorLabelRequirementOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            key: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            key: crate::OptionableConvert::try_from_optioned(
                 value
                     .key
                     .ok_or(crate::optionable::Error {
                         missing_field: "key",
                     })?,
             )?,
-            values: <std::vec::Vec<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(
+            values: crate::OptionableConvert::try_from_optioned(
                 value
                     .values
                     .ok_or(crate::optionable::Error {
@@ -57,15 +47,10 @@ for ::k8s_openapi::api::core::v1::TopologySelectorLabelRequirement {
         other: TopologySelectorLabelRequirementOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.key {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.key,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.key, other_value)?;
         }
         if let Some(other_value) = other.values {
-            <std::vec::Vec<
-                std::string::String,
-            > as crate::OptionableConvert>::merge(&mut self.values, other_value)?;
+            crate::OptionableConvert::merge(&mut self.values, other_value)?;
         }
         Ok(())
     }

@@ -16,15 +16,9 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR {
     fn into_optioned(self) -> ServerAddressByClientCIDROpt {
         ServerAddressByClientCIDROpt {
-            client_cidr: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.client_cidr,
-                ),
-            ),
+            client_cidr: Some(crate::OptionableConvert::into_optioned(self.client_cidr)),
             server_address: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.server_address,
-                ),
+                crate::OptionableConvert::into_optioned(self.server_address),
             ),
         }
     }
@@ -32,14 +26,14 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR 
         value: ServerAddressByClientCIDROpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            client_cidr: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            client_cidr: crate::OptionableConvert::try_from_optioned(
                 value
                     .client_cidr
                     .ok_or(crate::optionable::Error {
                         missing_field: "client_cidr",
                     })?,
             )?,
-            server_address: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            server_address: crate::OptionableConvert::try_from_optioned(
                 value
                     .server_address
                     .ok_or(crate::optionable::Error {
@@ -53,16 +47,10 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR 
         other: ServerAddressByClientCIDROpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.client_cidr {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.client_cidr,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.client_cidr, other_value)?;
         }
         if let Some(other_value) = other.server_address {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.server_address,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.server_address, other_value)?;
         }
         Ok(())
     }

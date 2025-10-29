@@ -16,11 +16,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ResourcePool
     fn into_optioned(self) -> ResourcePoolOpt {
         ResourcePoolOpt {
             generation: Some(self.generation),
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
             resource_slice_count: Some(self.resource_slice_count),
         }
     }
@@ -33,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ResourcePool
                 .ok_or(crate::optionable::Error {
                     missing_field: "generation",
                 })?,
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
@@ -52,10 +48,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ResourcePool
             self.generation = other_value;
         }
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
         if let Some(other_value) = other.resource_slice_count {
             self.resource_slice_count = other_value;

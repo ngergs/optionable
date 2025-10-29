@@ -22,56 +22,34 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta2::DeviceClassSpec {
     fn into_optioned(self) -> DeviceClassSpecOpt {
         DeviceClassSpecOpt {
-            config: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::api::resource::v1beta2::DeviceClassConfiguration,
-                >,
-            > as crate::OptionableConvert>::into_optioned(self.config),
-            extended_resource_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.extended_resource_name),
-            selectors: <Option<
-                std::vec::Vec<::k8s_openapi::api::resource::v1beta2::DeviceSelector>,
-            > as crate::OptionableConvert>::into_optioned(self.selectors),
+            config: crate::OptionableConvert::into_optioned(self.config),
+            extended_resource_name: crate::OptionableConvert::into_optioned(
+                self.extended_resource_name,
+            ),
+            selectors: crate::OptionableConvert::into_optioned(self.selectors),
         }
     }
     fn try_from_optioned(
         value: DeviceClassSpecOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            config: <Option<
-                std::vec::Vec<
-                    ::k8s_openapi::api::resource::v1beta2::DeviceClassConfiguration,
-                >,
-            > as crate::OptionableConvert>::try_from_optioned(value.config)?,
-            extended_resource_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(
+            config: crate::OptionableConvert::try_from_optioned(value.config)?,
+            extended_resource_name: crate::OptionableConvert::try_from_optioned(
                 value.extended_resource_name,
             )?,
-            selectors: <Option<
-                std::vec::Vec<::k8s_openapi::api::resource::v1beta2::DeviceSelector>,
-            > as crate::OptionableConvert>::try_from_optioned(value.selectors)?,
+            selectors: crate::OptionableConvert::try_from_optioned(value.selectors)?,
         })
     }
     fn merge(
         &mut self,
         other: DeviceClassSpecOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<
-                ::k8s_openapi::api::resource::v1beta2::DeviceClassConfiguration,
-            >,
-        > as crate::OptionableConvert>::merge(&mut self.config, other.config)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.config, other.config)?;
+        crate::OptionableConvert::merge(
             &mut self.extended_resource_name,
             other.extended_resource_name,
         )?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::resource::v1beta2::DeviceSelector>,
-        > as crate::OptionableConvert>::merge(&mut self.selectors, other.selectors)?;
+        crate::OptionableConvert::merge(&mut self.selectors, other.selectors)?;
         Ok(())
     }
 }

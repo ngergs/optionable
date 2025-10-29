@@ -19,24 +19,16 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1::ResourceClaimTemplateSpec {
     fn into_optioned(self) -> ResourceClaimTemplateSpecOpt {
         ResourceClaimTemplateSpecOpt {
-            metadata: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-            > as crate::OptionableConvert>::into_optioned(self.metadata),
-            spec: Some(
-                <::k8s_openapi::api::resource::v1::ResourceClaimSpec as crate::OptionableConvert>::into_optioned(
-                    self.spec,
-                ),
-            ),
+            metadata: crate::OptionableConvert::into_optioned(self.metadata),
+            spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
         }
     }
     fn try_from_optioned(
         value: ResourceClaimTemplateSpecOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            metadata: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-            > as crate::OptionableConvert>::try_from_optioned(value.metadata)?,
-            spec: <::k8s_openapi::api::resource::v1::ResourceClaimSpec as crate::OptionableConvert>::try_from_optioned(
+            metadata: crate::OptionableConvert::try_from_optioned(value.metadata)?,
+            spec: crate::OptionableConvert::try_from_optioned(
                 value
                     .spec
                     .ok_or(crate::optionable::Error {
@@ -49,14 +41,9 @@ for ::k8s_openapi::api::resource::v1::ResourceClaimTemplateSpec {
         &mut self,
         other: ResourceClaimTemplateSpecOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-        > as crate::OptionableConvert>::merge(&mut self.metadata, other.metadata)?;
+        crate::OptionableConvert::merge(&mut self.metadata, other.metadata)?;
         if let Some(other_value) = other.spec {
-            <::k8s_openapi::api::resource::v1::ResourceClaimSpec as crate::OptionableConvert>::merge(
-                &mut self.spec,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.spec, other_value)?;
         }
         Ok(())
     }

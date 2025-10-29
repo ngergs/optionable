@@ -17,36 +17,24 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference {
     fn into_optioned(self) -> CrossVersionObjectReferenceOpt {
         CrossVersionObjectReferenceOpt {
-            api_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.api_version),
-            kind: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.kind,
-                ),
-            ),
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
+            api_version: crate::OptionableConvert::into_optioned(self.api_version),
+            kind: Some(crate::OptionableConvert::into_optioned(self.kind)),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
     fn try_from_optioned(
         value: CrossVersionObjectReferenceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            api_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.api_version)?,
-            kind: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
+            kind: crate::OptionableConvert::try_from_optioned(
                 value
                     .kind
                     .ok_or(crate::optionable::Error {
                         missing_field: "kind",
                     })?,
             )?,
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
@@ -59,20 +47,12 @@ for ::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference {
         &mut self,
         other: CrossVersionObjectReferenceOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.api_version, other.api_version)?;
+        crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         if let Some(other_value) = other.kind {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.kind,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
         }
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
         Ok(())
     }

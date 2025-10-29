@@ -18,39 +18,31 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy {
     fn into_optioned(self) -> RollingUpdateStatefulSetStrategyOpt {
         RollingUpdateStatefulSetStrategyOpt {
-            max_unavailable: <Option<
-                ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            > as crate::OptionableConvert>::into_optioned(self.max_unavailable),
-            partition: <Option<
-                i32,
-            > as crate::OptionableConvert>::into_optioned(self.partition),
+            max_unavailable: crate::OptionableConvert::into_optioned(
+                self.max_unavailable,
+            ),
+            partition: crate::OptionableConvert::into_optioned(self.partition),
         }
     }
     fn try_from_optioned(
         value: RollingUpdateStatefulSetStrategyOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            max_unavailable: <Option<
-                ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            > as crate::OptionableConvert>::try_from_optioned(value.max_unavailable)?,
-            partition: <Option<
-                i32,
-            > as crate::OptionableConvert>::try_from_optioned(value.partition)?,
+            max_unavailable: crate::OptionableConvert::try_from_optioned(
+                value.max_unavailable,
+            )?,
+            partition: crate::OptionableConvert::try_from_optioned(value.partition)?,
         })
     }
     fn merge(
         &mut self,
         other: RollingUpdateStatefulSetStrategyOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.max_unavailable,
             other.max_unavailable,
         )?;
-        <Option<
-            i32,
-        > as crate::OptionableConvert>::merge(&mut self.partition, other.partition)?;
+        crate::OptionableConvert::merge(&mut self.partition, other.partition)?;
         Ok(())
     }
 }

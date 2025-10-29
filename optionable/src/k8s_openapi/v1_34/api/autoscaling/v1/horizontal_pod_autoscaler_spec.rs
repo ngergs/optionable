@@ -21,17 +21,11 @@ for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerSpec {
     fn into_optioned(self) -> HorizontalPodAutoscalerSpecOpt {
         HorizontalPodAutoscalerSpecOpt {
             max_replicas: Some(self.max_replicas),
-            min_replicas: <Option<
-                i32,
-            > as crate::OptionableConvert>::into_optioned(self.min_replicas),
+            min_replicas: crate::OptionableConvert::into_optioned(self.min_replicas),
             scale_target_ref: Some(
-                <::k8s_openapi::api::autoscaling::v1::CrossVersionObjectReference as crate::OptionableConvert>::into_optioned(
-                    self.scale_target_ref,
-                ),
+                crate::OptionableConvert::into_optioned(self.scale_target_ref),
             ),
-            target_cpu_utilization_percentage: <Option<
-                i32,
-            > as crate::OptionableConvert>::into_optioned(
+            target_cpu_utilization_percentage: crate::OptionableConvert::into_optioned(
                 self.target_cpu_utilization_percentage,
             ),
         }
@@ -45,19 +39,17 @@ for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerSpec {
                 .ok_or(crate::optionable::Error {
                     missing_field: "max_replicas",
                 })?,
-            min_replicas: <Option<
-                i32,
-            > as crate::OptionableConvert>::try_from_optioned(value.min_replicas)?,
-            scale_target_ref: <::k8s_openapi::api::autoscaling::v1::CrossVersionObjectReference as crate::OptionableConvert>::try_from_optioned(
+            min_replicas: crate::OptionableConvert::try_from_optioned(
+                value.min_replicas,
+            )?,
+            scale_target_ref: crate::OptionableConvert::try_from_optioned(
                 value
                     .scale_target_ref
                     .ok_or(crate::optionable::Error {
                         missing_field: "scale_target_ref",
                     })?,
             )?,
-            target_cpu_utilization_percentage: <Option<
-                i32,
-            > as crate::OptionableConvert>::try_from_optioned(
+            target_cpu_utilization_percentage: crate::OptionableConvert::try_from_optioned(
                 value.target_cpu_utilization_percentage,
             )?,
         })
@@ -69,21 +61,11 @@ for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerSpec {
         if let Some(other_value) = other.max_replicas {
             self.max_replicas = other_value;
         }
-        <Option<
-            i32,
-        > as crate::OptionableConvert>::merge(
-            &mut self.min_replicas,
-            other.min_replicas,
-        )?;
+        crate::OptionableConvert::merge(&mut self.min_replicas, other.min_replicas)?;
         if let Some(other_value) = other.scale_target_ref {
-            <::k8s_openapi::api::autoscaling::v1::CrossVersionObjectReference as crate::OptionableConvert>::merge(
-                &mut self.scale_target_ref,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.scale_target_ref, other_value)?;
         }
-        <Option<
-            i32,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.target_cpu_utilization_percentage,
             other.target_cpu_utilization_percentage,
         )?;

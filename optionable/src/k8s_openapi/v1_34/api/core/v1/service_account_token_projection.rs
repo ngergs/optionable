@@ -16,30 +16,22 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection {
     fn into_optioned(self) -> ServiceAccountTokenProjectionOpt {
         ServiceAccountTokenProjectionOpt {
-            audience: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.audience),
-            expiration_seconds: <Option<
-                i64,
-            > as crate::OptionableConvert>::into_optioned(self.expiration_seconds),
-            path: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.path,
-                ),
+            audience: crate::OptionableConvert::into_optioned(self.audience),
+            expiration_seconds: crate::OptionableConvert::into_optioned(
+                self.expiration_seconds,
             ),
+            path: Some(crate::OptionableConvert::into_optioned(self.path)),
         }
     }
     fn try_from_optioned(
         value: ServiceAccountTokenProjectionOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            audience: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.audience)?,
-            expiration_seconds: <Option<
-                i64,
-            > as crate::OptionableConvert>::try_from_optioned(value.expiration_seconds)?,
-            path: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            audience: crate::OptionableConvert::try_from_optioned(value.audience)?,
+            expiration_seconds: crate::OptionableConvert::try_from_optioned(
+                value.expiration_seconds,
+            )?,
+            path: crate::OptionableConvert::try_from_optioned(
                 value
                     .path
                     .ok_or(crate::optionable::Error {
@@ -52,20 +44,13 @@ for ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection {
         &mut self,
         other: ServiceAccountTokenProjectionOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.audience, other.audience)?;
-        <Option<
-            i64,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.audience, other.audience)?;
+        crate::OptionableConvert::merge(
             &mut self.expiration_seconds,
             other.expiration_seconds,
         )?;
         if let Some(other_value) = other.path {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.path,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.path, other_value)?;
         }
         Ok(())
     }

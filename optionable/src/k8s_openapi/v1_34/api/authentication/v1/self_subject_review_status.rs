@@ -17,27 +17,21 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::authentication::v1::SelfSubjectReviewStatus {
     fn into_optioned(self) -> SelfSubjectReviewStatusOpt {
         SelfSubjectReviewStatusOpt {
-            user_info: <Option<
-                ::k8s_openapi::api::authentication::v1::UserInfo,
-            > as crate::OptionableConvert>::into_optioned(self.user_info),
+            user_info: crate::OptionableConvert::into_optioned(self.user_info),
         }
     }
     fn try_from_optioned(
         value: SelfSubjectReviewStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            user_info: <Option<
-                ::k8s_openapi::api::authentication::v1::UserInfo,
-            > as crate::OptionableConvert>::try_from_optioned(value.user_info)?,
+            user_info: crate::OptionableConvert::try_from_optioned(value.user_info)?,
         })
     }
     fn merge(
         &mut self,
         other: SelfSubjectReviewStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::authentication::v1::UserInfo,
-        > as crate::OptionableConvert>::merge(&mut self.user_info, other.user_info)?;
+        crate::OptionableConvert::merge(&mut self.user_info, other.user_info)?;
         Ok(())
     }
 }

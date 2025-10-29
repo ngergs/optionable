@@ -15,22 +15,16 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1beta1::JSONPatch {
     fn into_optioned(self) -> JSONPatchOpt {
         JSONPatchOpt {
-            expression: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.expression),
+            expression: crate::OptionableConvert::into_optioned(self.expression),
         }
     }
     fn try_from_optioned(value: JSONPatchOpt) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            expression: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.expression)?,
+            expression: crate::OptionableConvert::try_from_optioned(value.expression)?,
         })
     }
     fn merge(&mut self, other: JSONPatchOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.expression, other.expression)?;
+        crate::OptionableConvert::merge(&mut self.expression, other.expression)?;
         Ok(())
     }
 }

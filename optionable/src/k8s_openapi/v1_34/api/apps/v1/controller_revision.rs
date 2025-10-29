@@ -19,14 +19,8 @@ impl crate::Optionable for ControllerRevisionOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ControllerRevision {
     fn into_optioned(self) -> ControllerRevisionOpt {
         ControllerRevisionOpt {
-            data: <Option<
-                ::k8s_openapi::apimachinery::pkg::runtime::RawExtension,
-            > as crate::OptionableConvert>::into_optioned(self.data),
-            metadata: Some(
-                <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::into_optioned(
-                    self.metadata,
-                ),
-            ),
+            data: crate::OptionableConvert::into_optioned(self.data),
+            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
             revision: Some(self.revision),
         }
     }
@@ -34,10 +28,8 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ControllerRevisi
         value: ControllerRevisionOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            data: <Option<
-                ::k8s_openapi::apimachinery::pkg::runtime::RawExtension,
-            > as crate::OptionableConvert>::try_from_optioned(value.data)?,
-            metadata: <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::try_from_optioned(
+            data: crate::OptionableConvert::try_from_optioned(value.data)?,
+            metadata: crate::OptionableConvert::try_from_optioned(
                 value
                     .metadata
                     .ok_or(crate::optionable::Error {
@@ -55,14 +47,9 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ControllerRevisi
         &mut self,
         other: ControllerRevisionOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::runtime::RawExtension,
-        > as crate::OptionableConvert>::merge(&mut self.data, other.data)?;
+        crate::OptionableConvert::merge(&mut self.data, other.data)?;
         if let Some(other_value) = other.metadata {
-            <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::OptionableConvert>::merge(
-                &mut self.metadata,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
         }
         if let Some(other_value) = other.revision {
             self.revision = other_value;

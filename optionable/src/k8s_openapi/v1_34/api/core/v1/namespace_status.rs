@@ -16,36 +16,24 @@ impl crate::Optionable for NamespaceStatusOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceStatus {
     fn into_optioned(self) -> NamespaceStatusOpt {
         NamespaceStatusOpt {
-            conditions: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NamespaceCondition>,
-            > as crate::OptionableConvert>::into_optioned(self.conditions),
-            phase: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.phase),
+            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            phase: crate::OptionableConvert::into_optioned(self.phase),
         }
     }
     fn try_from_optioned(
         value: NamespaceStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            conditions: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NamespaceCondition>,
-            > as crate::OptionableConvert>::try_from_optioned(value.conditions)?,
-            phase: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.phase)?,
+            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            phase: crate::OptionableConvert::try_from_optioned(value.phase)?,
         })
     }
     fn merge(
         &mut self,
         other: NamespaceStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::NamespaceCondition>,
-        > as crate::OptionableConvert>::merge(&mut self.conditions, other.conditions)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.phase, other.phase)?;
+        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        crate::OptionableConvert::merge(&mut self.phase, other.phase)?;
         Ok(())
     }
 }

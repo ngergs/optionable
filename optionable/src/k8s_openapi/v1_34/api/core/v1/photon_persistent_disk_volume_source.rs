@@ -16,24 +16,16 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::PhotonPersistentDiskVolumeSource {
     fn into_optioned(self) -> PhotonPersistentDiskVolumeSourceOpt {
         PhotonPersistentDiskVolumeSourceOpt {
-            fs_type: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.fs_type),
-            pd_id: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.pd_id,
-                ),
-            ),
+            fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
+            pd_id: Some(crate::OptionableConvert::into_optioned(self.pd_id)),
         }
     }
     fn try_from_optioned(
         value: PhotonPersistentDiskVolumeSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            fs_type: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.fs_type)?,
-            pd_id: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
+            pd_id: crate::OptionableConvert::try_from_optioned(
                 value
                     .pd_id
                     .ok_or(crate::optionable::Error {
@@ -46,14 +38,9 @@ for ::k8s_openapi::api::core::v1::PhotonPersistentDiskVolumeSource {
         &mut self,
         other: PhotonPersistentDiskVolumeSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.fs_type, other.fs_type)?;
+        crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         if let Some(other_value) = other.pd_id {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.pd_id,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.pd_id, other_value)?;
         }
         Ok(())
     }

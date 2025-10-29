@@ -19,45 +19,27 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookClientConfig {
     fn into_optioned(self) -> WebhookClientConfigOpt {
         WebhookClientConfigOpt {
-            ca_bundle: <Option<
-                ::k8s_openapi::ByteString,
-            > as crate::OptionableConvert>::into_optioned(self.ca_bundle),
-            service: <Option<
-                ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference,
-            > as crate::OptionableConvert>::into_optioned(self.service),
-            url: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.url),
+            ca_bundle: crate::OptionableConvert::into_optioned(self.ca_bundle),
+            service: crate::OptionableConvert::into_optioned(self.service),
+            url: crate::OptionableConvert::into_optioned(self.url),
         }
     }
     fn try_from_optioned(
         value: WebhookClientConfigOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            ca_bundle: <Option<
-                ::k8s_openapi::ByteString,
-            > as crate::OptionableConvert>::try_from_optioned(value.ca_bundle)?,
-            service: <Option<
-                ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference,
-            > as crate::OptionableConvert>::try_from_optioned(value.service)?,
-            url: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.url)?,
+            ca_bundle: crate::OptionableConvert::try_from_optioned(value.ca_bundle)?,
+            service: crate::OptionableConvert::try_from_optioned(value.service)?,
+            url: crate::OptionableConvert::try_from_optioned(value.url)?,
         })
     }
     fn merge(
         &mut self,
         other: WebhookClientConfigOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::ByteString,
-        > as crate::OptionableConvert>::merge(&mut self.ca_bundle, other.ca_bundle)?;
-        <Option<
-            ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference,
-        > as crate::OptionableConvert>::merge(&mut self.service, other.service)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.url, other.url)?;
+        crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
+        crate::OptionableConvert::merge(&mut self.service, other.service)?;
+        crate::OptionableConvert::merge(&mut self.url, other.url)?;
         Ok(())
     }
 }

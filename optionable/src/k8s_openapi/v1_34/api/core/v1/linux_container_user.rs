@@ -16,9 +16,9 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LinuxContainerUs
     fn into_optioned(self) -> LinuxContainerUserOpt {
         LinuxContainerUserOpt {
             gid: Some(self.gid),
-            supplemental_groups: <Option<
-                std::vec::Vec<i64>,
-            > as crate::OptionableConvert>::into_optioned(self.supplemental_groups),
+            supplemental_groups: crate::OptionableConvert::into_optioned(
+                self.supplemental_groups,
+            ),
             uid: Some(self.uid),
         }
     }
@@ -31,9 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LinuxContainerUs
                 .ok_or(crate::optionable::Error {
                     missing_field: "gid",
                 })?,
-            supplemental_groups: <Option<
-                std::vec::Vec<i64>,
-            > as crate::OptionableConvert>::try_from_optioned(
+            supplemental_groups: crate::OptionableConvert::try_from_optioned(
                 value.supplemental_groups,
             )?,
             uid: value
@@ -50,9 +48,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LinuxContainerUs
         if let Some(other_value) = other.gid {
             self.gid = other_value;
         }
-        <Option<
-            std::vec::Vec<i64>,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.supplemental_groups,
             other.supplemental_groups,
         )?;

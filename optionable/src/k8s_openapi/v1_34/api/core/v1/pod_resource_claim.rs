@@ -19,17 +19,11 @@ impl crate::Optionable for PodResourceClaimOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodResourceClaim {
     fn into_optioned(self) -> PodResourceClaimOpt {
         PodResourceClaimOpt {
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            resource_claim_name: crate::OptionableConvert::into_optioned(
+                self.resource_claim_name,
             ),
-            resource_claim_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.resource_claim_name),
-            resource_claim_template_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(
+            resource_claim_template_name: crate::OptionableConvert::into_optioned(
                 self.resource_claim_template_name,
             ),
         }
@@ -38,21 +32,17 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodResourceClaim
         value: PodResourceClaimOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
                         missing_field: "name",
                     })?,
             )?,
-            resource_claim_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(
+            resource_claim_name: crate::OptionableConvert::try_from_optioned(
                 value.resource_claim_name,
             )?,
-            resource_claim_template_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(
+            resource_claim_template_name: crate::OptionableConvert::try_from_optioned(
                 value.resource_claim_template_name,
             )?,
         })
@@ -62,20 +52,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodResourceClaim
         other: PodResourceClaimOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.resource_claim_name,
             other.resource_claim_name,
         )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.resource_claim_template_name,
             other.resource_claim_template_name,
         )?;

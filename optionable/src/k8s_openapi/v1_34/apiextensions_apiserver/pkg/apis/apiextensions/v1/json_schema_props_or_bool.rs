@@ -24,11 +24,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
         match self {
             Self::Schema(self_0) => {
                 JSONSchemaPropsOrBoolOpt::Schema(
-                    Some(
-                        <std::boxed::Box<
-                            ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
-                        > as crate::OptionableConvert>::into_optioned(self_0),
-                    ),
+                    Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
             Self::Bool(self_0) => JSONSchemaPropsOrBoolOpt::Bool(Some(self_0)),
@@ -41,9 +37,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
             match other {
                 JSONSchemaPropsOrBoolOpt::Schema(other_0) => {
                     Self::Schema(
-                        <std::boxed::Box<
-                            ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
-                        > as crate::OptionableConvert>::try_from_optioned(
+                        crate::OptionableConvert::try_from_optioned(
                             other_0
                                 .ok_or(crate::optionable::Error {
                                     missing_field: "0",
@@ -70,9 +64,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
             JSONSchemaPropsOrBoolOpt::Schema(other_0) => {
                 if let Self::Schema(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        <std::boxed::Box<
-                            ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
-                        > as crate::OptionableConvert>::merge(self_0, other_value)?;
+                        crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
                     *self = Self::try_from_optioned(

@@ -25,81 +25,39 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
     fn into_optioned(self) -> ManagedFieldsEntryOpt {
         ManagedFieldsEntryOpt {
-            api_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.api_version),
-            fields_type: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.fields_type),
-            fields_v1: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::FieldsV1,
-            > as crate::OptionableConvert>::into_optioned(self.fields_v1),
-            manager: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.manager),
-            operation: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.operation),
-            subresource: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.subresource),
-            time: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
-            > as crate::OptionableConvert>::into_optioned(self.time),
+            api_version: crate::OptionableConvert::into_optioned(self.api_version),
+            fields_type: crate::OptionableConvert::into_optioned(self.fields_type),
+            fields_v1: crate::OptionableConvert::into_optioned(self.fields_v1),
+            manager: crate::OptionableConvert::into_optioned(self.manager),
+            operation: crate::OptionableConvert::into_optioned(self.operation),
+            subresource: crate::OptionableConvert::into_optioned(self.subresource),
+            time: crate::OptionableConvert::into_optioned(self.time),
         }
     }
     fn try_from_optioned(
         value: ManagedFieldsEntryOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            api_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.api_version)?,
-            fields_type: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.fields_type)?,
-            fields_v1: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::FieldsV1,
-            > as crate::OptionableConvert>::try_from_optioned(value.fields_v1)?,
-            manager: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.manager)?,
-            operation: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.operation)?,
-            subresource: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.subresource)?,
-            time: <Option<
-                ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
-            > as crate::OptionableConvert>::try_from_optioned(value.time)?,
+            api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
+            fields_type: crate::OptionableConvert::try_from_optioned(value.fields_type)?,
+            fields_v1: crate::OptionableConvert::try_from_optioned(value.fields_v1)?,
+            manager: crate::OptionableConvert::try_from_optioned(value.manager)?,
+            operation: crate::OptionableConvert::try_from_optioned(value.operation)?,
+            subresource: crate::OptionableConvert::try_from_optioned(value.subresource)?,
+            time: crate::OptionableConvert::try_from_optioned(value.time)?,
         })
     }
     fn merge(
         &mut self,
         other: ManagedFieldsEntryOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.api_version, other.api_version)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.fields_type, other.fields_type)?;
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::apis::meta::v1::FieldsV1,
-        > as crate::OptionableConvert>::merge(&mut self.fields_v1, other.fields_v1)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.manager, other.manager)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.operation, other.operation)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.subresource, other.subresource)?;
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
-        > as crate::OptionableConvert>::merge(&mut self.time, other.time)?;
+        crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
+        crate::OptionableConvert::merge(&mut self.fields_type, other.fields_type)?;
+        crate::OptionableConvert::merge(&mut self.fields_v1, other.fields_v1)?;
+        crate::OptionableConvert::merge(&mut self.manager, other.manager)?;
+        crate::OptionableConvert::merge(&mut self.operation, other.operation)?;
+        crate::OptionableConvert::merge(&mut self.subresource, other.subresource)?;
+        crate::OptionableConvert::merge(&mut self.time, other.time)?;
         Ok(())
     }
 }

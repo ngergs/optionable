@@ -20,15 +20,9 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion {
     fn into_optioned(self) -> WebhookConversionOpt {
         WebhookConversionOpt {
-            client_config: <Option<
-                ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookClientConfig,
-            > as crate::OptionableConvert>::into_optioned(self.client_config),
+            client_config: crate::OptionableConvert::into_optioned(self.client_config),
             conversion_review_versions: Some(
-                <std::vec::Vec<
-                    std::string::String,
-                > as crate::OptionableConvert>::into_optioned(
-                    self.conversion_review_versions,
-                ),
+                crate::OptionableConvert::into_optioned(self.conversion_review_versions),
             ),
         }
     }
@@ -36,12 +30,10 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Webhoo
         value: WebhookConversionOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            client_config: <Option<
-                ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookClientConfig,
-            > as crate::OptionableConvert>::try_from_optioned(value.client_config)?,
-            conversion_review_versions: <std::vec::Vec<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(
+            client_config: crate::OptionableConvert::try_from_optioned(
+                value.client_config,
+            )?,
+            conversion_review_versions: crate::OptionableConvert::try_from_optioned(
                 value
                     .conversion_review_versions
                     .ok_or(crate::optionable::Error {
@@ -54,16 +46,9 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Webhoo
         &mut self,
         other: WebhookConversionOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookClientConfig,
-        > as crate::OptionableConvert>::merge(
-            &mut self.client_config,
-            other.client_config,
-        )?;
+        crate::OptionableConvert::merge(&mut self.client_config, other.client_config)?;
         if let Some(other_value) = other.conversion_review_versions {
-            <std::vec::Vec<
-                std::string::String,
-            > as crate::OptionableConvert>::merge(
+            crate::OptionableConvert::merge(
                 &mut self.conversion_review_versions,
                 other_value,
             )?;

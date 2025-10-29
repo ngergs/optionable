@@ -13,18 +13,14 @@ impl crate::Optionable for CELDeviceSelectorOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::CELDeviceSelector {
     fn into_optioned(self) -> CELDeviceSelectorOpt {
         CELDeviceSelectorOpt {
-            expression: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.expression,
-                ),
-            ),
+            expression: Some(crate::OptionableConvert::into_optioned(self.expression)),
         }
     }
     fn try_from_optioned(
         value: CELDeviceSelectorOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            expression: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            expression: crate::OptionableConvert::try_from_optioned(
                 value
                     .expression
                     .ok_or(crate::optionable::Error {
@@ -38,10 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::CELDeviceSel
         other: CELDeviceSelectorOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.expression {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.expression,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.expression, other_value)?;
         }
         Ok(())
     }

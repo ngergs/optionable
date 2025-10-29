@@ -14,36 +14,24 @@ impl crate::Optionable for ContainerStateWaitingOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStateWaiting {
     fn into_optioned(self) -> ContainerStateWaitingOpt {
         ContainerStateWaitingOpt {
-            message: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.message),
-            reason: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.reason),
+            message: crate::OptionableConvert::into_optioned(self.message),
+            reason: crate::OptionableConvert::into_optioned(self.reason),
         }
     }
     fn try_from_optioned(
         value: ContainerStateWaitingOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            message: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.message)?,
-            reason: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.reason)?,
+            message: crate::OptionableConvert::try_from_optioned(value.message)?,
+            reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
         })
     }
     fn merge(
         &mut self,
         other: ContainerStateWaitingOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.message, other.message)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.reason, other.reason)?;
+        crate::OptionableConvert::merge(&mut self.message, other.message)?;
+        crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         Ok(())
     }
 }

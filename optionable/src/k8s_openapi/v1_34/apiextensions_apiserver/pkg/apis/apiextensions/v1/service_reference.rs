@@ -18,46 +18,32 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference {
     fn into_optioned(self) -> ServiceReferenceOpt {
         ServiceReferenceOpt {
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
-            namespace: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.namespace,
-                ),
-            ),
-            path: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.path),
-            port: <Option<i32> as crate::OptionableConvert>::into_optioned(self.port),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            namespace: Some(crate::OptionableConvert::into_optioned(self.namespace)),
+            path: crate::OptionableConvert::into_optioned(self.path),
+            port: crate::OptionableConvert::into_optioned(self.port),
         }
     }
     fn try_from_optioned(
         value: ServiceReferenceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
                         missing_field: "name",
                     })?,
             )?,
-            namespace: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            namespace: crate::OptionableConvert::try_from_optioned(
                 value
                     .namespace
                     .ok_or(crate::optionable::Error {
                         missing_field: "namespace",
                     })?,
             )?,
-            path: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.path)?,
-            port: <Option<
-                i32,
-            > as crate::OptionableConvert>::try_from_optioned(value.port)?,
+            path: crate::OptionableConvert::try_from_optioned(value.path)?,
+            port: crate::OptionableConvert::try_from_optioned(value.port)?,
         })
     }
     fn merge(
@@ -65,21 +51,13 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Servic
         other: ServiceReferenceOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
         if let Some(other_value) = other.namespace {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.namespace,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.path, other.path)?;
-        <Option<i32> as crate::OptionableConvert>::merge(&mut self.port, other.port)?;
+        crate::OptionableConvert::merge(&mut self.path, other.path)?;
+        crate::OptionableConvert::merge(&mut self.port, other.port)?;
         Ok(())
     }
 }

@@ -16,39 +16,26 @@ impl crate::Optionable for DownwardAPIVolumeSourceOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DownwardAPIVolumeSource {
     fn into_optioned(self) -> DownwardAPIVolumeSourceOpt {
         DownwardAPIVolumeSourceOpt {
-            default_mode: <Option<
-                i32,
-            > as crate::OptionableConvert>::into_optioned(self.default_mode),
-            items: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::DownwardAPIVolumeFile>,
-            > as crate::OptionableConvert>::into_optioned(self.items),
+            default_mode: crate::OptionableConvert::into_optioned(self.default_mode),
+            items: crate::OptionableConvert::into_optioned(self.items),
         }
     }
     fn try_from_optioned(
         value: DownwardAPIVolumeSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            default_mode: <Option<
-                i32,
-            > as crate::OptionableConvert>::try_from_optioned(value.default_mode)?,
-            items: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::DownwardAPIVolumeFile>,
-            > as crate::OptionableConvert>::try_from_optioned(value.items)?,
+            default_mode: crate::OptionableConvert::try_from_optioned(
+                value.default_mode,
+            )?,
+            items: crate::OptionableConvert::try_from_optioned(value.items)?,
         })
     }
     fn merge(
         &mut self,
         other: DownwardAPIVolumeSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            i32,
-        > as crate::OptionableConvert>::merge(
-            &mut self.default_mode,
-            other.default_mode,
-        )?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::DownwardAPIVolumeFile>,
-        > as crate::OptionableConvert>::merge(&mut self.items, other.items)?;
+        crate::OptionableConvert::merge(&mut self.default_mode, other.default_mode)?;
+        crate::OptionableConvert::merge(&mut self.items, other.items)?;
         Ok(())
     }
 }

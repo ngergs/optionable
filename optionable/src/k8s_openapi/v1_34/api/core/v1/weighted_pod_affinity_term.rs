@@ -17,9 +17,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::WeightedPodAffin
     fn into_optioned(self) -> WeightedPodAffinityTermOpt {
         WeightedPodAffinityTermOpt {
             pod_affinity_term: Some(
-                <::k8s_openapi::api::core::v1::PodAffinityTerm as crate::OptionableConvert>::into_optioned(
-                    self.pod_affinity_term,
-                ),
+                crate::OptionableConvert::into_optioned(self.pod_affinity_term),
             ),
             weight: Some(self.weight),
         }
@@ -28,7 +26,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::WeightedPodAffin
         value: WeightedPodAffinityTermOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            pod_affinity_term: <::k8s_openapi::api::core::v1::PodAffinityTerm as crate::OptionableConvert>::try_from_optioned(
+            pod_affinity_term: crate::OptionableConvert::try_from_optioned(
                 value
                     .pod_affinity_term
                     .ok_or(crate::optionable::Error {
@@ -47,10 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::WeightedPodAffin
         other: WeightedPodAffinityTermOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.pod_affinity_term {
-            <::k8s_openapi::api::core::v1::PodAffinityTerm as crate::OptionableConvert>::merge(
-                &mut self.pod_affinity_term,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.pod_affinity_term, other_value)?;
         }
         if let Some(other_value) = other.weight {
             self.weight = other_value;

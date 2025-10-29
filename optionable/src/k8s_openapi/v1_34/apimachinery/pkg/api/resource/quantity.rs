@@ -11,16 +11,12 @@ impl crate::Optionable for QuantityOpt {
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::api::resource::Quantity {
     fn into_optioned(self) -> QuantityOpt {
-        QuantityOpt(
-            Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(self.0),
-            ),
-        )
+        QuantityOpt(Some(crate::OptionableConvert::into_optioned(self.0)))
     }
     fn try_from_optioned(value: QuantityOpt) -> Result<Self, crate::optionable::Error> {
         Ok(
             Self(
-                <std::string::String as crate::OptionableConvert>::try_from_optioned(
+                crate::OptionableConvert::try_from_optioned(
                     value
                         .0
                         .ok_or(crate::optionable::Error {
@@ -32,10 +28,7 @@ for ::k8s_openapi::apimachinery::pkg::api::resource::Quantity {
     }
     fn merge(&mut self, other: QuantityOpt) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.0 {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.0,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.0, other_value)?;
         }
         Ok(())
     }

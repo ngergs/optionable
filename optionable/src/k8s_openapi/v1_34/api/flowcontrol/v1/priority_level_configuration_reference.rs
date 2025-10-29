@@ -15,18 +15,14 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationReference {
     fn into_optioned(self) -> PriorityLevelConfigurationReferenceOpt {
         PriorityLevelConfigurationReferenceOpt {
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
     fn try_from_optioned(
         value: PriorityLevelConfigurationReferenceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
@@ -40,10 +36,7 @@ for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationReference {
         other: PriorityLevelConfigurationReferenceOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
         Ok(())
     }

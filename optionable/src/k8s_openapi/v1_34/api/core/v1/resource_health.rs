@@ -14,24 +14,16 @@ impl crate::Optionable for ResourceHealthOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceHealth {
     fn into_optioned(self) -> ResourceHealthOpt {
         ResourceHealthOpt {
-            health: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.health),
-            resource_id: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.resource_id,
-                ),
-            ),
+            health: crate::OptionableConvert::into_optioned(self.health),
+            resource_id: Some(crate::OptionableConvert::into_optioned(self.resource_id)),
         }
     }
     fn try_from_optioned(
         value: ResourceHealthOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            health: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.health)?,
-            resource_id: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            health: crate::OptionableConvert::try_from_optioned(value.health)?,
+            resource_id: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource_id
                     .ok_or(crate::optionable::Error {
@@ -44,14 +36,9 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceHealth {
         &mut self,
         other: ResourceHealthOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.health, other.health)?;
+        crate::OptionableConvert::merge(&mut self.health, other.health)?;
         if let Some(other_value) = other.resource_id {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.resource_id,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.resource_id, other_value)?;
         }
         Ok(())
     }

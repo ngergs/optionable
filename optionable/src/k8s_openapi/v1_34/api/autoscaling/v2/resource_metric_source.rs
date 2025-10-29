@@ -17,30 +17,22 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::ResourceMetricSource {
     fn into_optioned(self) -> ResourceMetricSourceOpt {
         ResourceMetricSourceOpt {
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
-            target: Some(
-                <::k8s_openapi::api::autoscaling::v2::MetricTarget as crate::OptionableConvert>::into_optioned(
-                    self.target,
-                ),
-            ),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            target: Some(crate::OptionableConvert::into_optioned(self.target)),
         }
     }
     fn try_from_optioned(
         value: ResourceMetricSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
                         missing_field: "name",
                     })?,
             )?,
-            target: <::k8s_openapi::api::autoscaling::v2::MetricTarget as crate::OptionableConvert>::try_from_optioned(
+            target: crate::OptionableConvert::try_from_optioned(
                 value
                     .target
                     .ok_or(crate::optionable::Error {
@@ -54,16 +46,10 @@ for ::k8s_openapi::api::autoscaling::v2::ResourceMetricSource {
         other: ResourceMetricSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
         if let Some(other_value) = other.target {
-            <::k8s_openapi::api::autoscaling::v2::MetricTarget as crate::OptionableConvert>::merge(
-                &mut self.target,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.target, other_value)?;
         }
         Ok(())
     }

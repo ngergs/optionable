@@ -19,36 +19,24 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1::NetworkPolicyEgressRule {
     fn into_optioned(self) -> NetworkPolicyEgressRuleOpt {
         NetworkPolicyEgressRuleOpt {
-            ports: <Option<
-                std::vec::Vec<::k8s_openapi::api::networking::v1::NetworkPolicyPort>,
-            > as crate::OptionableConvert>::into_optioned(self.ports),
-            to: <Option<
-                std::vec::Vec<::k8s_openapi::api::networking::v1::NetworkPolicyPeer>,
-            > as crate::OptionableConvert>::into_optioned(self.to),
+            ports: crate::OptionableConvert::into_optioned(self.ports),
+            to: crate::OptionableConvert::into_optioned(self.to),
         }
     }
     fn try_from_optioned(
         value: NetworkPolicyEgressRuleOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            ports: <Option<
-                std::vec::Vec<::k8s_openapi::api::networking::v1::NetworkPolicyPort>,
-            > as crate::OptionableConvert>::try_from_optioned(value.ports)?,
-            to: <Option<
-                std::vec::Vec<::k8s_openapi::api::networking::v1::NetworkPolicyPeer>,
-            > as crate::OptionableConvert>::try_from_optioned(value.to)?,
+            ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
+            to: crate::OptionableConvert::try_from_optioned(value.to)?,
         })
     }
     fn merge(
         &mut self,
         other: NetworkPolicyEgressRuleOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::networking::v1::NetworkPolicyPort>,
-        > as crate::OptionableConvert>::merge(&mut self.ports, other.ports)?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::networking::v1::NetworkPolicyPeer>,
-        > as crate::OptionableConvert>::merge(&mut self.to, other.to)?;
+        crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
+        crate::OptionableConvert::merge(&mut self.to, other.to)?;
         Ok(())
     }
 }

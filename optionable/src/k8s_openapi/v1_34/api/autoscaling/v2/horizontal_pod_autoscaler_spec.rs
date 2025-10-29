@@ -25,20 +25,12 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerSpec {
     fn into_optioned(self) -> HorizontalPodAutoscalerSpecOpt {
         HorizontalPodAutoscalerSpecOpt {
-            behavior: <Option<
-                ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerBehavior,
-            > as crate::OptionableConvert>::into_optioned(self.behavior),
+            behavior: crate::OptionableConvert::into_optioned(self.behavior),
             max_replicas: Some(self.max_replicas),
-            metrics: <Option<
-                std::vec::Vec<::k8s_openapi::api::autoscaling::v2::MetricSpec>,
-            > as crate::OptionableConvert>::into_optioned(self.metrics),
-            min_replicas: <Option<
-                i32,
-            > as crate::OptionableConvert>::into_optioned(self.min_replicas),
+            metrics: crate::OptionableConvert::into_optioned(self.metrics),
+            min_replicas: crate::OptionableConvert::into_optioned(self.min_replicas),
             scale_target_ref: Some(
-                <::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference as crate::OptionableConvert>::into_optioned(
-                    self.scale_target_ref,
-                ),
+                crate::OptionableConvert::into_optioned(self.scale_target_ref),
             ),
         }
     }
@@ -46,21 +38,17 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerSpec {
         value: HorizontalPodAutoscalerSpecOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            behavior: <Option<
-                ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerBehavior,
-            > as crate::OptionableConvert>::try_from_optioned(value.behavior)?,
+            behavior: crate::OptionableConvert::try_from_optioned(value.behavior)?,
             max_replicas: value
                 .max_replicas
                 .ok_or(crate::optionable::Error {
                     missing_field: "max_replicas",
                 })?,
-            metrics: <Option<
-                std::vec::Vec<::k8s_openapi::api::autoscaling::v2::MetricSpec>,
-            > as crate::OptionableConvert>::try_from_optioned(value.metrics)?,
-            min_replicas: <Option<
-                i32,
-            > as crate::OptionableConvert>::try_from_optioned(value.min_replicas)?,
-            scale_target_ref: <::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference as crate::OptionableConvert>::try_from_optioned(
+            metrics: crate::OptionableConvert::try_from_optioned(value.metrics)?,
+            min_replicas: crate::OptionableConvert::try_from_optioned(
+                value.min_replicas,
+            )?,
+            scale_target_ref: crate::OptionableConvert::try_from_optioned(
                 value
                     .scale_target_ref
                     .ok_or(crate::optionable::Error {
@@ -73,26 +61,14 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerSpec {
         &mut self,
         other: HorizontalPodAutoscalerSpecOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerBehavior,
-        > as crate::OptionableConvert>::merge(&mut self.behavior, other.behavior)?;
+        crate::OptionableConvert::merge(&mut self.behavior, other.behavior)?;
         if let Some(other_value) = other.max_replicas {
             self.max_replicas = other_value;
         }
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::autoscaling::v2::MetricSpec>,
-        > as crate::OptionableConvert>::merge(&mut self.metrics, other.metrics)?;
-        <Option<
-            i32,
-        > as crate::OptionableConvert>::merge(
-            &mut self.min_replicas,
-            other.min_replicas,
-        )?;
+        crate::OptionableConvert::merge(&mut self.metrics, other.metrics)?;
+        crate::OptionableConvert::merge(&mut self.min_replicas, other.min_replicas)?;
         if let Some(other_value) = other.scale_target_ref {
-            <::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference as crate::OptionableConvert>::merge(
-                &mut self.scale_target_ref,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.scale_target_ref, other_value)?;
         }
         Ok(())
     }

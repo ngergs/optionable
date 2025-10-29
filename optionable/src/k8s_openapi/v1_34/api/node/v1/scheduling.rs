@@ -18,36 +18,23 @@ impl crate::Optionable for SchedulingOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::Scheduling {
     fn into_optioned(self) -> SchedulingOpt {
         SchedulingOpt {
-            node_selector: <Option<
-                std::collections::BTreeMap<std::string::String, std::string::String>,
-            > as crate::OptionableConvert>::into_optioned(self.node_selector),
-            tolerations: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::Toleration>,
-            > as crate::OptionableConvert>::into_optioned(self.tolerations),
+            node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
+            tolerations: crate::OptionableConvert::into_optioned(self.tolerations),
         }
     }
     fn try_from_optioned(
         value: SchedulingOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            node_selector: <Option<
-                std::collections::BTreeMap<std::string::String, std::string::String>,
-            > as crate::OptionableConvert>::try_from_optioned(value.node_selector)?,
-            tolerations: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::Toleration>,
-            > as crate::OptionableConvert>::try_from_optioned(value.tolerations)?,
+            node_selector: crate::OptionableConvert::try_from_optioned(
+                value.node_selector,
+            )?,
+            tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
         })
     }
     fn merge(&mut self, other: SchedulingOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::collections::BTreeMap<std::string::String, std::string::String>,
-        > as crate::OptionableConvert>::merge(
-            &mut self.node_selector,
-            other.node_selector,
-        )?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::Toleration>,
-        > as crate::OptionableConvert>::merge(&mut self.tolerations, other.tolerations)?;
+        crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
+        crate::OptionableConvert::merge(&mut self.tolerations, other.tolerations)?;
         Ok(())
     }
 }

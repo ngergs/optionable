@@ -17,30 +17,22 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1::IngressServiceBackend {
     fn into_optioned(self) -> IngressServiceBackendOpt {
         IngressServiceBackendOpt {
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
-            ),
-            port: <Option<
-                ::k8s_openapi::api::networking::v1::ServiceBackendPort,
-            > as crate::OptionableConvert>::into_optioned(self.port),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            port: crate::OptionableConvert::into_optioned(self.port),
         }
     }
     fn try_from_optioned(
         value: IngressServiceBackendOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
                         missing_field: "name",
                     })?,
             )?,
-            port: <Option<
-                ::k8s_openapi::api::networking::v1::ServiceBackendPort,
-            > as crate::OptionableConvert>::try_from_optioned(value.port)?,
+            port: crate::OptionableConvert::try_from_optioned(value.port)?,
         })
     }
     fn merge(
@@ -48,14 +40,9 @@ for ::k8s_openapi::api::networking::v1::IngressServiceBackend {
         other: IngressServiceBackendOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
-        <Option<
-            ::k8s_openapi::api::networking::v1::ServiceBackendPort,
-        > as crate::OptionableConvert>::merge(&mut self.port, other.port)?;
+        crate::OptionableConvert::merge(&mut self.port, other.port)?;
         Ok(())
     }
 }

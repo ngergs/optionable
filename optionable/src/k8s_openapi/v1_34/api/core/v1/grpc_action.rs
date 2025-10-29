@@ -15,9 +15,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::GRPCAction {
     fn into_optioned(self) -> GRPCActionOpt {
         GRPCActionOpt {
             port: Some(self.port),
-            service: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.service),
+            service: crate::OptionableConvert::into_optioned(self.service),
         }
     }
     fn try_from_optioned(
@@ -29,18 +27,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::GRPCAction {
                 .ok_or(crate::optionable::Error {
                     missing_field: "port",
                 })?,
-            service: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.service)?,
+            service: crate::OptionableConvert::try_from_optioned(value.service)?,
         })
     }
     fn merge(&mut self, other: GRPCActionOpt) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.port {
             self.port = other_value;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.service, other.service)?;
+        crate::OptionableConvert::merge(&mut self.service, other.service)?;
         Ok(())
     }
 }

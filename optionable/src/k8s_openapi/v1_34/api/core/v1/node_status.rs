@@ -55,162 +55,77 @@ impl crate::Optionable for NodeStatusOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeStatus {
     fn into_optioned(self) -> NodeStatusOpt {
         NodeStatusOpt {
-            addresses: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NodeAddress>,
-            > as crate::OptionableConvert>::into_optioned(self.addresses),
-            allocatable: <Option<
-                std::collections::BTreeMap<
-                    std::string::String,
-                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-                >,
-            > as crate::OptionableConvert>::into_optioned(self.allocatable),
-            capacity: <Option<
-                std::collections::BTreeMap<
-                    std::string::String,
-                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-                >,
-            > as crate::OptionableConvert>::into_optioned(self.capacity),
-            conditions: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NodeCondition>,
-            > as crate::OptionableConvert>::into_optioned(self.conditions),
-            config: <Option<
-                ::k8s_openapi::api::core::v1::NodeConfigStatus,
-            > as crate::OptionableConvert>::into_optioned(self.config),
-            daemon_endpoints: <Option<
-                ::k8s_openapi::api::core::v1::NodeDaemonEndpoints,
-            > as crate::OptionableConvert>::into_optioned(self.daemon_endpoints),
-            features: <Option<
-                ::k8s_openapi::api::core::v1::NodeFeatures,
-            > as crate::OptionableConvert>::into_optioned(self.features),
-            images: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::ContainerImage>,
-            > as crate::OptionableConvert>::into_optioned(self.images),
-            node_info: <Option<
-                ::k8s_openapi::api::core::v1::NodeSystemInfo,
-            > as crate::OptionableConvert>::into_optioned(self.node_info),
-            phase: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.phase),
-            runtime_handlers: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NodeRuntimeHandler>,
-            > as crate::OptionableConvert>::into_optioned(self.runtime_handlers),
-            volumes_attached: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::AttachedVolume>,
-            > as crate::OptionableConvert>::into_optioned(self.volumes_attached),
-            volumes_in_use: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::into_optioned(self.volumes_in_use),
+            addresses: crate::OptionableConvert::into_optioned(self.addresses),
+            allocatable: crate::OptionableConvert::into_optioned(self.allocatable),
+            capacity: crate::OptionableConvert::into_optioned(self.capacity),
+            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            config: crate::OptionableConvert::into_optioned(self.config),
+            daemon_endpoints: crate::OptionableConvert::into_optioned(
+                self.daemon_endpoints,
+            ),
+            features: crate::OptionableConvert::into_optioned(self.features),
+            images: crate::OptionableConvert::into_optioned(self.images),
+            node_info: crate::OptionableConvert::into_optioned(self.node_info),
+            phase: crate::OptionableConvert::into_optioned(self.phase),
+            runtime_handlers: crate::OptionableConvert::into_optioned(
+                self.runtime_handlers,
+            ),
+            volumes_attached: crate::OptionableConvert::into_optioned(
+                self.volumes_attached,
+            ),
+            volumes_in_use: crate::OptionableConvert::into_optioned(self.volumes_in_use),
         }
     }
     fn try_from_optioned(
         value: NodeStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            addresses: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NodeAddress>,
-            > as crate::OptionableConvert>::try_from_optioned(value.addresses)?,
-            allocatable: <Option<
-                std::collections::BTreeMap<
-                    std::string::String,
-                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-                >,
-            > as crate::OptionableConvert>::try_from_optioned(value.allocatable)?,
-            capacity: <Option<
-                std::collections::BTreeMap<
-                    std::string::String,
-                    ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-                >,
-            > as crate::OptionableConvert>::try_from_optioned(value.capacity)?,
-            conditions: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NodeCondition>,
-            > as crate::OptionableConvert>::try_from_optioned(value.conditions)?,
-            config: <Option<
-                ::k8s_openapi::api::core::v1::NodeConfigStatus,
-            > as crate::OptionableConvert>::try_from_optioned(value.config)?,
-            daemon_endpoints: <Option<
-                ::k8s_openapi::api::core::v1::NodeDaemonEndpoints,
-            > as crate::OptionableConvert>::try_from_optioned(value.daemon_endpoints)?,
-            features: <Option<
-                ::k8s_openapi::api::core::v1::NodeFeatures,
-            > as crate::OptionableConvert>::try_from_optioned(value.features)?,
-            images: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::ContainerImage>,
-            > as crate::OptionableConvert>::try_from_optioned(value.images)?,
-            node_info: <Option<
-                ::k8s_openapi::api::core::v1::NodeSystemInfo,
-            > as crate::OptionableConvert>::try_from_optioned(value.node_info)?,
-            phase: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.phase)?,
-            runtime_handlers: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::NodeRuntimeHandler>,
-            > as crate::OptionableConvert>::try_from_optioned(value.runtime_handlers)?,
-            volumes_attached: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::AttachedVolume>,
-            > as crate::OptionableConvert>::try_from_optioned(value.volumes_attached)?,
-            volumes_in_use: <Option<
-                std::vec::Vec<std::string::String>,
-            > as crate::OptionableConvert>::try_from_optioned(value.volumes_in_use)?,
+            addresses: crate::OptionableConvert::try_from_optioned(value.addresses)?,
+            allocatable: crate::OptionableConvert::try_from_optioned(value.allocatable)?,
+            capacity: crate::OptionableConvert::try_from_optioned(value.capacity)?,
+            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            config: crate::OptionableConvert::try_from_optioned(value.config)?,
+            daemon_endpoints: crate::OptionableConvert::try_from_optioned(
+                value.daemon_endpoints,
+            )?,
+            features: crate::OptionableConvert::try_from_optioned(value.features)?,
+            images: crate::OptionableConvert::try_from_optioned(value.images)?,
+            node_info: crate::OptionableConvert::try_from_optioned(value.node_info)?,
+            phase: crate::OptionableConvert::try_from_optioned(value.phase)?,
+            runtime_handlers: crate::OptionableConvert::try_from_optioned(
+                value.runtime_handlers,
+            )?,
+            volumes_attached: crate::OptionableConvert::try_from_optioned(
+                value.volumes_attached,
+            )?,
+            volumes_in_use: crate::OptionableConvert::try_from_optioned(
+                value.volumes_in_use,
+            )?,
         })
     }
     fn merge(&mut self, other: NodeStatusOpt) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::NodeAddress>,
-        > as crate::OptionableConvert>::merge(&mut self.addresses, other.addresses)?;
-        <Option<
-            std::collections::BTreeMap<
-                std::string::String,
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            >,
-        > as crate::OptionableConvert>::merge(&mut self.allocatable, other.allocatable)?;
-        <Option<
-            std::collections::BTreeMap<
-                std::string::String,
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            >,
-        > as crate::OptionableConvert>::merge(&mut self.capacity, other.capacity)?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::NodeCondition>,
-        > as crate::OptionableConvert>::merge(&mut self.conditions, other.conditions)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::NodeConfigStatus,
-        > as crate::OptionableConvert>::merge(&mut self.config, other.config)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::NodeDaemonEndpoints,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.addresses, other.addresses)?;
+        crate::OptionableConvert::merge(&mut self.allocatable, other.allocatable)?;
+        crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
+        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        crate::OptionableConvert::merge(&mut self.config, other.config)?;
+        crate::OptionableConvert::merge(
             &mut self.daemon_endpoints,
             other.daemon_endpoints,
         )?;
-        <Option<
-            ::k8s_openapi::api::core::v1::NodeFeatures,
-        > as crate::OptionableConvert>::merge(&mut self.features, other.features)?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::ContainerImage>,
-        > as crate::OptionableConvert>::merge(&mut self.images, other.images)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::NodeSystemInfo,
-        > as crate::OptionableConvert>::merge(&mut self.node_info, other.node_info)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.phase, other.phase)?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::NodeRuntimeHandler>,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.features, other.features)?;
+        crate::OptionableConvert::merge(&mut self.images, other.images)?;
+        crate::OptionableConvert::merge(&mut self.node_info, other.node_info)?;
+        crate::OptionableConvert::merge(&mut self.phase, other.phase)?;
+        crate::OptionableConvert::merge(
             &mut self.runtime_handlers,
             other.runtime_handlers,
         )?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::AttachedVolume>,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.volumes_attached,
             other.volumes_attached,
         )?;
-        <Option<
-            std::vec::Vec<std::string::String>,
-        > as crate::OptionableConvert>::merge(
-            &mut self.volumes_in_use,
-            other.volumes_in_use,
-        )?;
+        crate::OptionableConvert::merge(&mut self.volumes_in_use, other.volumes_in_use)?;
         Ok(())
     }
 }

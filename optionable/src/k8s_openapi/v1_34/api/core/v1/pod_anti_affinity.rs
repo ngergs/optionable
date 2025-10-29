@@ -18,14 +18,10 @@ impl crate::Optionable for PodAntiAffinityOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAntiAffinity {
     fn into_optioned(self) -> PodAntiAffinityOpt {
         PodAntiAffinityOpt {
-            preferred_during_scheduling_ignored_during_execution: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::WeightedPodAffinityTerm>,
-            > as crate::OptionableConvert>::into_optioned(
+            preferred_during_scheduling_ignored_during_execution: crate::OptionableConvert::into_optioned(
                 self.preferred_during_scheduling_ignored_during_execution,
             ),
-            required_during_scheduling_ignored_during_execution: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::PodAffinityTerm>,
-            > as crate::OptionableConvert>::into_optioned(
+            required_during_scheduling_ignored_during_execution: crate::OptionableConvert::into_optioned(
                 self.required_during_scheduling_ignored_during_execution,
             ),
         }
@@ -34,14 +30,10 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAntiAffinity 
         value: PodAntiAffinityOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            preferred_during_scheduling_ignored_during_execution: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::WeightedPodAffinityTerm>,
-            > as crate::OptionableConvert>::try_from_optioned(
+            preferred_during_scheduling_ignored_during_execution: crate::OptionableConvert::try_from_optioned(
                 value.preferred_during_scheduling_ignored_during_execution,
             )?,
-            required_during_scheduling_ignored_during_execution: <Option<
-                std::vec::Vec<::k8s_openapi::api::core::v1::PodAffinityTerm>,
-            > as crate::OptionableConvert>::try_from_optioned(
+            required_during_scheduling_ignored_during_execution: crate::OptionableConvert::try_from_optioned(
                 value.required_during_scheduling_ignored_during_execution,
             )?,
         })
@@ -50,15 +42,11 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAntiAffinity 
         &mut self,
         other: PodAntiAffinityOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::WeightedPodAffinityTerm>,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.preferred_during_scheduling_ignored_during_execution,
             other.preferred_during_scheduling_ignored_during_execution,
         )?;
-        <Option<
-            std::vec::Vec<::k8s_openapi::api::core::v1::PodAffinityTerm>,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.required_during_scheduling_ignored_during_execution,
             other.required_during_scheduling_ignored_during_execution,
         )?;

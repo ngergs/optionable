@@ -21,63 +21,37 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::StorageOSPersistentVolumeSource {
     fn into_optioned(self) -> StorageOSPersistentVolumeSourceOpt {
         StorageOSPersistentVolumeSourceOpt {
-            fs_type: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.fs_type),
-            read_only: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.read_only),
-            secret_ref: <Option<
-                ::k8s_openapi::api::core::v1::ObjectReference,
-            > as crate::OptionableConvert>::into_optioned(self.secret_ref),
-            volume_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.volume_name),
-            volume_namespace: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.volume_namespace),
+            fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
+            read_only: crate::OptionableConvert::into_optioned(self.read_only),
+            secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
+            volume_name: crate::OptionableConvert::into_optioned(self.volume_name),
+            volume_namespace: crate::OptionableConvert::into_optioned(
+                self.volume_namespace,
+            ),
         }
     }
     fn try_from_optioned(
         value: StorageOSPersistentVolumeSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            fs_type: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.fs_type)?,
-            read_only: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(value.read_only)?,
-            secret_ref: <Option<
-                ::k8s_openapi::api::core::v1::ObjectReference,
-            > as crate::OptionableConvert>::try_from_optioned(value.secret_ref)?,
-            volume_name: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.volume_name)?,
-            volume_namespace: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.volume_namespace)?,
+            fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
+            read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
+            secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
+            volume_name: crate::OptionableConvert::try_from_optioned(value.volume_name)?,
+            volume_namespace: crate::OptionableConvert::try_from_optioned(
+                value.volume_namespace,
+            )?,
         })
     }
     fn merge(
         &mut self,
         other: StorageOSPersistentVolumeSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.fs_type, other.fs_type)?;
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(&mut self.read_only, other.read_only)?;
-        <Option<
-            ::k8s_openapi::api::core::v1::ObjectReference,
-        > as crate::OptionableConvert>::merge(&mut self.secret_ref, other.secret_ref)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.volume_name, other.volume_name)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
+        crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
+        crate::OptionableConvert::merge(&mut self.volume_name, other.volume_name)?;
+        crate::OptionableConvert::merge(
             &mut self.volume_namespace,
             other.volume_namespace,
         )?;

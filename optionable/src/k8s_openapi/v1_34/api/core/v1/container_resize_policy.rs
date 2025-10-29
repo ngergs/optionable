@@ -15,14 +15,10 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerResizeP
     fn into_optioned(self) -> ContainerResizePolicyOpt {
         ContainerResizePolicyOpt {
             resource_name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.resource_name,
-                ),
+                crate::OptionableConvert::into_optioned(self.resource_name),
             ),
             restart_policy: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.restart_policy,
-                ),
+                crate::OptionableConvert::into_optioned(self.restart_policy),
             ),
         }
     }
@@ -30,14 +26,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerResizeP
         value: ContainerResizePolicyOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            resource_name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            resource_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource_name
                     .ok_or(crate::optionable::Error {
                         missing_field: "resource_name",
                     })?,
             )?,
-            restart_policy: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            restart_policy: crate::OptionableConvert::try_from_optioned(
                 value
                     .restart_policy
                     .ok_or(crate::optionable::Error {
@@ -51,16 +47,10 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerResizeP
         other: ContainerResizePolicyOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.resource_name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.resource_name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.resource_name, other_value)?;
         }
         if let Some(other_value) = other.restart_policy {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.restart_policy,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.restart_policy, other_value)?;
         }
         Ok(())
     }

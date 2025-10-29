@@ -23,22 +23,14 @@ impl crate::OptionableConvert
 for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec {
     fn into_optioned(self) -> APIServiceSpecOpt {
         APIServiceSpecOpt {
-            ca_bundle: <Option<
-                ::k8s_openapi::ByteString,
-            > as crate::OptionableConvert>::into_optioned(self.ca_bundle),
-            group: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.group),
+            ca_bundle: crate::OptionableConvert::into_optioned(self.ca_bundle),
+            group: crate::OptionableConvert::into_optioned(self.group),
             group_priority_minimum: Some(self.group_priority_minimum),
-            insecure_skip_tls_verify: <Option<
-                bool,
-            > as crate::OptionableConvert>::into_optioned(self.insecure_skip_tls_verify),
-            service: <Option<
-                ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference,
-            > as crate::OptionableConvert>::into_optioned(self.service),
-            version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.version),
+            insecure_skip_tls_verify: crate::OptionableConvert::into_optioned(
+                self.insecure_skip_tls_verify,
+            ),
+            service: crate::OptionableConvert::into_optioned(self.service),
+            version: crate::OptionableConvert::into_optioned(self.version),
             version_priority: Some(self.version_priority),
         }
     }
@@ -46,28 +38,18 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSp
         value: APIServiceSpecOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            ca_bundle: <Option<
-                ::k8s_openapi::ByteString,
-            > as crate::OptionableConvert>::try_from_optioned(value.ca_bundle)?,
-            group: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.group)?,
+            ca_bundle: crate::OptionableConvert::try_from_optioned(value.ca_bundle)?,
+            group: crate::OptionableConvert::try_from_optioned(value.group)?,
             group_priority_minimum: value
                 .group_priority_minimum
                 .ok_or(crate::optionable::Error {
                     missing_field: "group_priority_minimum",
                 })?,
-            insecure_skip_tls_verify: <Option<
-                bool,
-            > as crate::OptionableConvert>::try_from_optioned(
+            insecure_skip_tls_verify: crate::OptionableConvert::try_from_optioned(
                 value.insecure_skip_tls_verify,
             )?,
-            service: <Option<
-                ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference,
-            > as crate::OptionableConvert>::try_from_optioned(value.service)?,
-            version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.version)?,
+            service: crate::OptionableConvert::try_from_optioned(value.service)?,
+            version: crate::OptionableConvert::try_from_optioned(value.version)?,
             version_priority: value
                 .version_priority
                 .ok_or(crate::optionable::Error {
@@ -79,27 +61,17 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSp
         &mut self,
         other: APIServiceSpecOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::ByteString,
-        > as crate::OptionableConvert>::merge(&mut self.ca_bundle, other.ca_bundle)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.group, other.group)?;
+        crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
+        crate::OptionableConvert::merge(&mut self.group, other.group)?;
         if let Some(other_value) = other.group_priority_minimum {
             self.group_priority_minimum = other_value;
         }
-        <Option<
-            bool,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.insecure_skip_tls_verify,
             other.insecure_skip_tls_verify,
         )?;
-        <Option<
-            ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference,
-        > as crate::OptionableConvert>::merge(&mut self.service, other.service)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.version, other.version)?;
+        crate::OptionableConvert::merge(&mut self.service, other.service)?;
+        crate::OptionableConvert::merge(&mut self.version, other.version)?;
         if let Some(other_value) = other.version_priority {
             self.version_priority = other_value;
         }

@@ -17,45 +17,27 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource {
     fn into_optioned(self) -> GroupVersionResourceOpt {
         GroupVersionResourceOpt {
-            group: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.group),
-            resource: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.resource),
-            version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.version),
+            group: crate::OptionableConvert::into_optioned(self.group),
+            resource: crate::OptionableConvert::into_optioned(self.resource),
+            version: crate::OptionableConvert::into_optioned(self.version),
         }
     }
     fn try_from_optioned(
         value: GroupVersionResourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            group: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.group)?,
-            resource: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.resource)?,
-            version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.version)?,
+            group: crate::OptionableConvert::try_from_optioned(value.group)?,
+            resource: crate::OptionableConvert::try_from_optioned(value.resource)?,
+            version: crate::OptionableConvert::try_from_optioned(value.version)?,
         })
     }
     fn merge(
         &mut self,
         other: GroupVersionResourceOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.group, other.group)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.resource, other.resource)?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.version, other.version)?;
+        crate::OptionableConvert::merge(&mut self.group, other.group)?;
+        crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
+        crate::OptionableConvert::merge(&mut self.version, other.version)?;
         Ok(())
     }
 }

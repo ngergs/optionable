@@ -54,17 +54,17 @@ where
         match self {
             Self::Added(self_0) => {
                 WatchEventOpt::Added(
-                    Some(<T as crate::OptionableConvert>::into_optioned(self_0)),
+                    Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
             Self::Deleted(self_0) => {
                 WatchEventOpt::Deleted(
-                    Some(<T as crate::OptionableConvert>::into_optioned(self_0)),
+                    Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
             Self::Modified(self_0) => {
                 WatchEventOpt::Modified(
-                    Some(<T as crate::OptionableConvert>::into_optioned(self_0)),
+                    Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
             Self::Bookmark {
@@ -73,34 +73,21 @@ where
             } => {
                 WatchEventOpt::Bookmark {
                     annotations: Some(
-                        <std::collections::BTreeMap<
-                            std::string::String,
-                            std::string::String,
-                        > as crate::OptionableConvert>::into_optioned(self_annotations),
+                        crate::OptionableConvert::into_optioned(self_annotations),
                     ),
                     resource_version: Some(
-                        <std::string::String as crate::OptionableConvert>::into_optioned(
-                            self_resource_version,
-                        ),
+                        crate::OptionableConvert::into_optioned(self_resource_version),
                     ),
                 }
             }
             Self::ErrorStatus(self_0) => {
                 WatchEventOpt::ErrorStatus(
-                    Some(
-                        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as crate::OptionableConvert>::into_optioned(
-                            self_0,
-                        ),
-                    ),
+                    Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
             Self::ErrorOther(self_0) => {
                 WatchEventOpt::ErrorOther(
-                    Some(
-                        <::k8s_openapi::apimachinery::pkg::runtime::RawExtension as crate::OptionableConvert>::into_optioned(
-                            self_0,
-                        ),
-                    ),
+                    Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
         }
@@ -112,7 +99,7 @@ where
             match other {
                 WatchEventOpt::Added(other_0) => {
                     Self::Added(
-                        <T as crate::OptionableConvert>::try_from_optioned(
+                        crate::OptionableConvert::try_from_optioned(
                             other_0
                                 .ok_or(crate::optionable::Error {
                                     missing_field: "0",
@@ -122,7 +109,7 @@ where
                 }
                 WatchEventOpt::Deleted(other_0) => {
                     Self::Deleted(
-                        <T as crate::OptionableConvert>::try_from_optioned(
+                        crate::OptionableConvert::try_from_optioned(
                             other_0
                                 .ok_or(crate::optionable::Error {
                                     missing_field: "0",
@@ -132,7 +119,7 @@ where
                 }
                 WatchEventOpt::Modified(other_0) => {
                     Self::Modified(
-                        <T as crate::OptionableConvert>::try_from_optioned(
+                        crate::OptionableConvert::try_from_optioned(
                             other_0
                                 .ok_or(crate::optionable::Error {
                                     missing_field: "0",
@@ -145,16 +132,13 @@ where
                     resource_version: other_resource_version,
                 } => {
                     Self::Bookmark {
-                        annotations: <std::collections::BTreeMap<
-                            std::string::String,
-                            std::string::String,
-                        > as crate::OptionableConvert>::try_from_optioned(
+                        annotations: crate::OptionableConvert::try_from_optioned(
                             other_annotations
                                 .ok_or(crate::optionable::Error {
                                     missing_field: "annotations",
                                 })?,
                         )?,
-                        resource_version: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+                        resource_version: crate::OptionableConvert::try_from_optioned(
                             other_resource_version
                                 .ok_or(crate::optionable::Error {
                                     missing_field: "resource_version",
@@ -164,7 +148,7 @@ where
                 }
                 WatchEventOpt::ErrorStatus(other_0) => {
                     Self::ErrorStatus(
-                        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as crate::OptionableConvert>::try_from_optioned(
+                        crate::OptionableConvert::try_from_optioned(
                             other_0
                                 .ok_or(crate::optionable::Error {
                                     missing_field: "0",
@@ -174,7 +158,7 @@ where
                 }
                 WatchEventOpt::ErrorOther(other_0) => {
                     Self::ErrorOther(
-                        <::k8s_openapi::apimachinery::pkg::runtime::RawExtension as crate::OptionableConvert>::try_from_optioned(
+                        crate::OptionableConvert::try_from_optioned(
                             other_0
                                 .ok_or(crate::optionable::Error {
                                     missing_field: "0",
@@ -193,7 +177,7 @@ where
             WatchEventOpt::Added(other_0) => {
                 if let Self::Added(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        <T as crate::OptionableConvert>::merge(self_0, other_value)?;
+                        crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
                     *self = Self::try_from_optioned(WatchEventOpt::Added(other_0))?;
@@ -202,7 +186,7 @@ where
             WatchEventOpt::Deleted(other_0) => {
                 if let Self::Deleted(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        <T as crate::OptionableConvert>::merge(self_0, other_value)?;
+                        crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
                     *self = Self::try_from_optioned(WatchEventOpt::Deleted(other_0))?;
@@ -211,7 +195,7 @@ where
             WatchEventOpt::Modified(other_0) => {
                 if let Self::Modified(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        <T as crate::OptionableConvert>::merge(self_0, other_value)?;
+                        crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
                     *self = Self::try_from_optioned(WatchEventOpt::Modified(other_0))?;
@@ -226,16 +210,10 @@ where
                     resource_version: self_resource_version,
                 } = self {
                     if let Some(other_value) = other_annotations {
-                        <std::collections::BTreeMap<
-                            std::string::String,
-                            std::string::String,
-                        > as crate::OptionableConvert>::merge(
-                            self_annotations,
-                            other_value,
-                        )?;
+                        crate::OptionableConvert::merge(self_annotations, other_value)?;
                     }
                     if let Some(other_value) = other_resource_version {
-                        <std::string::String as crate::OptionableConvert>::merge(
+                        crate::OptionableConvert::merge(
                             self_resource_version,
                             other_value,
                         )?;
@@ -250,10 +228,7 @@ where
             WatchEventOpt::ErrorStatus(other_0) => {
                 if let Self::ErrorStatus(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as crate::OptionableConvert>::merge(
-                            self_0,
-                            other_value,
-                        )?;
+                        crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
                     *self = Self::try_from_optioned(
@@ -264,10 +239,7 @@ where
             WatchEventOpt::ErrorOther(other_0) => {
                 if let Self::ErrorOther(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        <::k8s_openapi::apimachinery::pkg::runtime::RawExtension as crate::OptionableConvert>::merge(
-                            self_0,
-                            other_value,
-                        )?;
+                        crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
                     *self = Self::try_from_optioned(WatchEventOpt::ErrorOther(other_0))?;

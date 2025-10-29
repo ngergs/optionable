@@ -19,59 +19,45 @@ for ::k8s_openapi::api::core::v1::ConfigMapNodeConfigSource {
     fn into_optioned(self) -> ConfigMapNodeConfigSourceOpt {
         ConfigMapNodeConfigSourceOpt {
             kubelet_config_key: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.kubelet_config_key,
-                ),
+                crate::OptionableConvert::into_optioned(self.kubelet_config_key),
             ),
-            name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.name,
-                ),
+            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            namespace: Some(crate::OptionableConvert::into_optioned(self.namespace)),
+            resource_version: crate::OptionableConvert::into_optioned(
+                self.resource_version,
             ),
-            namespace: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.namespace,
-                ),
-            ),
-            resource_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.resource_version),
-            uid: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.uid),
+            uid: crate::OptionableConvert::into_optioned(self.uid),
         }
     }
     fn try_from_optioned(
         value: ConfigMapNodeConfigSourceOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            kubelet_config_key: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            kubelet_config_key: crate::OptionableConvert::try_from_optioned(
                 value
                     .kubelet_config_key
                     .ok_or(crate::optionable::Error {
                         missing_field: "kubelet_config_key",
                     })?,
             )?,
-            name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
                     .ok_or(crate::optionable::Error {
                         missing_field: "name",
                     })?,
             )?,
-            namespace: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            namespace: crate::OptionableConvert::try_from_optioned(
                 value
                     .namespace
                     .ok_or(crate::optionable::Error {
                         missing_field: "namespace",
                     })?,
             )?,
-            resource_version: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.resource_version)?,
-            uid: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.uid)?,
+            resource_version: crate::OptionableConvert::try_from_optioned(
+                value.resource_version,
+            )?,
+            uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
     fn merge(
@@ -79,32 +65,19 @@ for ::k8s_openapi::api::core::v1::ConfigMapNodeConfigSource {
         other: ConfigMapNodeConfigSourceOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.kubelet_config_key {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.kubelet_config_key,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.kubelet_config_key, other_value)?;
         }
         if let Some(other_value) = other.name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
         if let Some(other_value) = other.namespace {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.namespace,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
         }
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.resource_version,
             other.resource_version,
         )?;
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(&mut self.uid, other.uid)?;
+        crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
         Ok(())
     }
 }

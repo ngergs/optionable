@@ -23,54 +23,35 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::CapacityRequestPolicyRange {
     fn into_optioned(self) -> CapacityRequestPolicyRangeOpt {
         CapacityRequestPolicyRangeOpt {
-            max: <Option<
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            > as crate::OptionableConvert>::into_optioned(self.max),
-            min: Some(
-                <::k8s_openapi::apimachinery::pkg::api::resource::Quantity as crate::OptionableConvert>::into_optioned(
-                    self.min,
-                ),
-            ),
-            step: <Option<
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            > as crate::OptionableConvert>::into_optioned(self.step),
+            max: crate::OptionableConvert::into_optioned(self.max),
+            min: Some(crate::OptionableConvert::into_optioned(self.min)),
+            step: crate::OptionableConvert::into_optioned(self.step),
         }
     }
     fn try_from_optioned(
         value: CapacityRequestPolicyRangeOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            max: <Option<
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            > as crate::OptionableConvert>::try_from_optioned(value.max)?,
-            min: <::k8s_openapi::apimachinery::pkg::api::resource::Quantity as crate::OptionableConvert>::try_from_optioned(
+            max: crate::OptionableConvert::try_from_optioned(value.max)?,
+            min: crate::OptionableConvert::try_from_optioned(
                 value
                     .min
                     .ok_or(crate::optionable::Error {
                         missing_field: "min",
                     })?,
             )?,
-            step: <Option<
-                ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-            > as crate::OptionableConvert>::try_from_optioned(value.step)?,
+            step: crate::OptionableConvert::try_from_optioned(value.step)?,
         })
     }
     fn merge(
         &mut self,
         other: CapacityRequestPolicyRangeOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-        > as crate::OptionableConvert>::merge(&mut self.max, other.max)?;
+        crate::OptionableConvert::merge(&mut self.max, other.max)?;
         if let Some(other_value) = other.min {
-            <::k8s_openapi::apimachinery::pkg::api::resource::Quantity as crate::OptionableConvert>::merge(
-                &mut self.min,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.min, other_value)?;
         }
-        <Option<
-            ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
-        > as crate::OptionableConvert>::merge(&mut self.step, other.step)?;
+        crate::OptionableConvert::merge(&mut self.step, other.step)?;
         Ok(())
     }
 }

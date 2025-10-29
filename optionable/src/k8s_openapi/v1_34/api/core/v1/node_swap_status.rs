@@ -13,27 +13,21 @@ impl crate::Optionable for NodeSwapStatusOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSwapStatus {
     fn into_optioned(self) -> NodeSwapStatusOpt {
         NodeSwapStatusOpt {
-            capacity: <Option<
-                i64,
-            > as crate::OptionableConvert>::into_optioned(self.capacity),
+            capacity: crate::OptionableConvert::into_optioned(self.capacity),
         }
     }
     fn try_from_optioned(
         value: NodeSwapStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            capacity: <Option<
-                i64,
-            > as crate::OptionableConvert>::try_from_optioned(value.capacity)?,
+            capacity: crate::OptionableConvert::try_from_optioned(value.capacity)?,
         })
     }
     fn merge(
         &mut self,
         other: NodeSwapStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            i64,
-        > as crate::OptionableConvert>::merge(&mut self.capacity, other.capacity)?;
+        crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
         Ok(())
     }
 }

@@ -22,14 +22,10 @@ for ::k8s_openapi::api::core::v1::PodExtendedResourceClaimStatus {
     fn into_optioned(self) -> PodExtendedResourceClaimStatusOpt {
         PodExtendedResourceClaimStatusOpt {
             request_mappings: Some(
-                <std::vec::Vec<
-                    ::k8s_openapi::api::core::v1::ContainerExtendedResourceRequest,
-                > as crate::OptionableConvert>::into_optioned(self.request_mappings),
+                crate::OptionableConvert::into_optioned(self.request_mappings),
             ),
             resource_claim_name: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.resource_claim_name,
-                ),
+                crate::OptionableConvert::into_optioned(self.resource_claim_name),
             ),
         }
     }
@@ -37,16 +33,14 @@ for ::k8s_openapi::api::core::v1::PodExtendedResourceClaimStatus {
         value: PodExtendedResourceClaimStatusOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            request_mappings: <std::vec::Vec<
-                ::k8s_openapi::api::core::v1::ContainerExtendedResourceRequest,
-            > as crate::OptionableConvert>::try_from_optioned(
+            request_mappings: crate::OptionableConvert::try_from_optioned(
                 value
                     .request_mappings
                     .ok_or(crate::optionable::Error {
                         missing_field: "request_mappings",
                     })?,
             )?,
-            resource_claim_name: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            resource_claim_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource_claim_name
                     .ok_or(crate::optionable::Error {
@@ -60,18 +54,10 @@ for ::k8s_openapi::api::core::v1::PodExtendedResourceClaimStatus {
         other: PodExtendedResourceClaimStatusOpt,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.request_mappings {
-            <std::vec::Vec<
-                ::k8s_openapi::api::core::v1::ContainerExtendedResourceRequest,
-            > as crate::OptionableConvert>::merge(
-                &mut self.request_mappings,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.request_mappings, other_value)?;
         }
         if let Some(other_value) = other.resource_claim_name {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.resource_claim_name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.resource_claim_name, other_value)?;
         }
         Ok(())
     }

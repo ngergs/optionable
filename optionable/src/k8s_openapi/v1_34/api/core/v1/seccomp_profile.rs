@@ -14,24 +14,20 @@ impl crate::Optionable for SeccompProfileOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SeccompProfile {
     fn into_optioned(self) -> SeccompProfileOpt {
         SeccompProfileOpt {
-            localhost_profile: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::into_optioned(self.localhost_profile),
-            type_: Some(
-                <std::string::String as crate::OptionableConvert>::into_optioned(
-                    self.type_,
-                ),
+            localhost_profile: crate::OptionableConvert::into_optioned(
+                self.localhost_profile,
             ),
+            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
         value: SeccompProfileOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            localhost_profile: <Option<
-                std::string::String,
-            > as crate::OptionableConvert>::try_from_optioned(value.localhost_profile)?,
-            type_: <std::string::String as crate::OptionableConvert>::try_from_optioned(
+            localhost_profile: crate::OptionableConvert::try_from_optioned(
+                value.localhost_profile,
+            )?,
+            type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
                     .ok_or(crate::optionable::Error {
@@ -44,17 +40,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SeccompProfile {
         &mut self,
         other: SeccompProfileOpt,
     ) -> Result<(), crate::optionable::Error> {
-        <Option<
-            std::string::String,
-        > as crate::OptionableConvert>::merge(
+        crate::OptionableConvert::merge(
             &mut self.localhost_profile,
             other.localhost_profile,
         )?;
         if let Some(other_value) = other.type_ {
-            <std::string::String as crate::OptionableConvert>::merge(
-                &mut self.type_,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
         Ok(())
     }
