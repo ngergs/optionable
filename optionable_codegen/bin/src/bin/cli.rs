@@ -40,7 +40,7 @@ pub(crate) fn main() -> Result<(), Box<dyn std::error::Error>> {
         &args.output_dir,
         &type_attrs,
         &codegen_settings,
-        &vec![],
+        &[],
         false,
     )
 }
