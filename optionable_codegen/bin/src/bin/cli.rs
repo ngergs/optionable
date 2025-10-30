@@ -30,7 +30,7 @@ struct Args {
     replace_crate_name: Option<String>,
 }
 
-pub(crate) fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
     let type_attrs = input_type_attrs(&args)?;
     let codegen_settings = input_codegen_settings(&args)?;
