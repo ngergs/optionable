@@ -41,10 +41,7 @@ fn test(input_file: &str, expected_output_path: &str, extra_args: &Vec<&str>) {
         .map(ToString::to_string)
         .collect::<Vec<_>>();
     args.append(&mut extra_args);
-    let cmd = Command::cargo_bin("optionable_codegen_cli")
-        .unwrap()
-        .args(args)
-        .unwrap();
+    let cmd = Command::cargo_bin("cli").unwrap().args(args).unwrap();
     cmd.assert().success();
     assert!(dirs_contained(&expected_output_path.into(), temp_dir.path()).unwrap());
 }
