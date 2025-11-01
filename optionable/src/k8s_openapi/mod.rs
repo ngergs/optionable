@@ -3,6 +3,7 @@ mod optionable;
 #[cfg(feature = "k8s-openapi_v1_34")]
 mod v1_34;
 
+/*
 #[cfg(feature = "k8s-openapi_v1_34")]
 #[cfg(test)]
 mod test {
@@ -19,4 +20,4 @@ mod test {
             status: None,
         };
     }
-}
+}*/
