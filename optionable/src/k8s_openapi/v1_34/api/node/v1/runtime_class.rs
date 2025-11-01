@@ -1,8 +1,6 @@
 pub struct RuntimeClassOpt {
     pub handler: Option<<std::string::String as crate::Optionable>::Optioned>,
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub overhead: <Option<
         ::k8s_openapi::api::node::v1::Overhead,
     > as crate::Optionable>::Optioned,
@@ -23,7 +21,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
     fn into_optioned(self) -> RuntimeClassOpt {
         RuntimeClassOpt {
             handler: Some(crate::OptionableConvert::into_optioned(self.handler)),
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             overhead: crate::OptionableConvert::into_optioned(self.overhead),
             scheduling: crate::OptionableConvert::into_optioned(self.scheduling),
         }
@@ -39,13 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
                         missing_field: "handler",
                     })?,
             )?,
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             overhead: crate::OptionableConvert::try_from_optioned(value.overhead)?,
             scheduling: crate::OptionableConvert::try_from_optioned(value.scheduling)?,
         })
@@ -54,9 +46,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
         if let Some(other_value) = other.handler {
             crate::OptionableConvert::merge(&mut self.handler, other_value)?;
         }
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.overhead, other.overhead)?;
         crate::OptionableConvert::merge(&mut self.scheduling, other.scheduling)?;
         Ok(())

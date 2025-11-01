@@ -1,7 +1,5 @@
 pub struct RoleBindingOpt {
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub role_ref: Option<
         <::k8s_openapi::api::rbac::v1::RoleRef as crate::Optionable>::Optioned,
     >,
@@ -21,7 +19,7 @@ impl crate::Optionable for RoleBindingOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleBinding {
     fn into_optioned(self) -> RoleBindingOpt {
         RoleBindingOpt {
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             role_ref: Some(crate::OptionableConvert::into_optioned(self.role_ref)),
             subjects: crate::OptionableConvert::into_optioned(self.subjects),
         }
@@ -30,13 +28,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleBinding {
         value: RoleBindingOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             role_ref: crate::OptionableConvert::try_from_optioned(
                 value
                     .role_ref
@@ -48,9 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleBinding {
         })
     }
     fn merge(&mut self, other: RoleBindingOpt) -> Result<(), crate::optionable::Error> {
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         if let Some(other_value) = other.role_ref {
             crate::OptionableConvert::merge(&mut self.role_ref, other_value)?;
         }

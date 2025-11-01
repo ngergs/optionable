@@ -1,7 +1,5 @@
 pub struct RoleOpt {
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub rules: <Option<
         std::vec::Vec<::k8s_openapi::api::rbac::v1::PolicyRule>,
     > as crate::Optionable>::Optioned,
@@ -18,26 +16,18 @@ impl crate::Optionable for RoleOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::Role {
     fn into_optioned(self) -> RoleOpt {
         RoleOpt {
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             rules: crate::OptionableConvert::into_optioned(self.rules),
         }
     }
     fn try_from_optioned(value: RoleOpt) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             rules: crate::OptionableConvert::try_from_optioned(value.rules)?,
         })
     }
     fn merge(&mut self, other: RoleOpt) -> Result<(), crate::optionable::Error> {
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
         Ok(())
     }

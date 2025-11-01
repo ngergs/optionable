@@ -5,9 +5,7 @@ pub struct CSIStorageCapacityOpt {
     pub maximum_volume_size: <Option<
         ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
     > as crate::Optionable>::Optioned,
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub node_topology: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,
@@ -29,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCap
             maximum_volume_size: crate::OptionableConvert::into_optioned(
                 self.maximum_volume_size,
             ),
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             node_topology: crate::OptionableConvert::into_optioned(self.node_topology),
             storage_class_name: Some(
                 crate::OptionableConvert::into_optioned(self.storage_class_name),
@@ -44,13 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCap
             maximum_volume_size: crate::OptionableConvert::try_from_optioned(
                 value.maximum_volume_size,
             )?,
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             node_topology: crate::OptionableConvert::try_from_optioned(
                 value.node_topology,
             )?,
@@ -72,9 +64,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCap
             &mut self.maximum_volume_size,
             other.maximum_volume_size,
         )?;
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.node_topology, other.node_topology)?;
         if let Some(other_value) = other.storage_class_name {
             crate::OptionableConvert::merge(&mut self.storage_class_name, other_value)?;

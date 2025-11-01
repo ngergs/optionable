@@ -1,7 +1,5 @@
 pub struct ValidatingWebhookConfigurationOpt {
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub webhooks: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::ValidatingWebhook>,
     > as crate::Optionable>::Optioned,
@@ -20,7 +18,7 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguration {
     fn into_optioned(self) -> ValidatingWebhookConfigurationOpt {
         ValidatingWebhookConfigurationOpt {
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             webhooks: crate::OptionableConvert::into_optioned(self.webhooks),
         }
     }
@@ -28,13 +26,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguratio
         value: ValidatingWebhookConfigurationOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             webhooks: crate::OptionableConvert::try_from_optioned(value.webhooks)?,
         })
     }
@@ -42,9 +34,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguratio
         &mut self,
         other: ValidatingWebhookConfigurationOpt,
     ) -> Result<(), crate::optionable::Error> {
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.webhooks, other.webhooks)?;
         Ok(())
     }

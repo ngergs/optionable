@@ -13,9 +13,7 @@ pub struct EventOpt {
     pub event_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime,
     > as crate::Optionable>::Optioned,
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub note: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub regarding: <Option<
@@ -59,7 +57,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::events::v1::Event {
                 self.deprecated_source,
             ),
             event_time: crate::OptionableConvert::into_optioned(self.event_time),
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             note: crate::OptionableConvert::into_optioned(self.note),
             reason: crate::OptionableConvert::into_optioned(self.reason),
             regarding: crate::OptionableConvert::into_optioned(self.regarding),
@@ -90,13 +88,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::events::v1::Event {
                 value.deprecated_source,
             )?,
             event_time: crate::OptionableConvert::try_from_optioned(value.event_time)?,
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             note: crate::OptionableConvert::try_from_optioned(value.note)?,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
             regarding: crate::OptionableConvert::try_from_optioned(value.regarding)?,
@@ -130,9 +122,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::events::v1::Event {
             other.deprecated_source,
         )?;
         crate::OptionableConvert::merge(&mut self.event_time, other.event_time)?;
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.note, other.note)?;
         crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         crate::OptionableConvert::merge(&mut self.regarding, other.regarding)?;

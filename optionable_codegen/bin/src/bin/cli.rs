@@ -36,7 +36,7 @@ struct Visitor {
 }
 
 impl CodegenVisitor for Visitor {
-    fn visit_attrs(&mut self, attrs: &mut Vec<Attribute>) {
+    fn visit_input_attrs(&mut self, attrs: &mut Vec<Attribute>) {
         attrs.append(&mut self.type_attrs.clone());
     }
 }

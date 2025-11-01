@@ -1,7 +1,5 @@
 pub struct PodDisruptionBudgetOpt {
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::policy::v1::PodDisruptionBudgetSpec,
     > as crate::Optionable>::Optioned,
@@ -21,7 +19,7 @@ impl crate::Optionable for PodDisruptionBudgetOpt {
 impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::PodDisruptionBudget {
     fn into_optioned(self) -> PodDisruptionBudgetOpt {
         PodDisruptionBudgetOpt {
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
@@ -30,13 +28,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::PodDisruptionB
         value: PodDisruptionBudgetOpt,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
@@ -45,9 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::PodDisruptionB
         &mut self,
         other: PodDisruptionBudgetOpt,
     ) -> Result<(), crate::optionable::Error> {
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;
         Ok(())

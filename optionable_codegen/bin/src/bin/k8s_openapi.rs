@@ -5,6 +5,7 @@ use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
 use proc_macro2::Span;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
+use syn::{parse_quote, Fields, ItemEnum, ItemStruct, Type};
 
 const K8S_OPENAPI: &str = "k8s_openapi";
 
@@ -22,7 +23,57 @@ struct Args {
 #[derive(Clone)]
 struct Visitor {}
 
-impl CodegenVisitor for Visitor {}
+impl Visitor {
+    /// Adds the `#[optionable(required)]` attribute to the field if and only if
+    /// it has type `ObjectMeta` and has the name `metadata`.
+    fn set_metadat_required(fields: &mut Fields) {
+        if let Fields::Named(fields) = fields {
+            fields.named.iter_mut().for_each(|field| {
+                if let Some(ident) = &field.ident
+                    && ident == "metadata"
+                    && Self::is_object_meta(&field.ty)
+                {
+                    field.attrs.push(parse_quote!(#[optionable(required)]));
+                }
+            });
+        }
+    }
+    //::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta
+
+    /// Returns true if ty is a `path` of `::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta`
+    /// or one of its shortened versions.
+    fn is_object_meta(ty: &Type) -> bool {
+        if let Type::Path(type_path) = ty
+            && (type_path.path
+                == syn::Path::from_string("crate::apimachinery::pkg::apis::meta::v1::ObjectMeta")
+                    .unwrap()
+                || type_path.path
+                    == syn::Path::from_string("apimachinery::pkg::apis::meta::v1::ObjectMeta")
+                        .unwrap()
+                || type_path.path
+                    == syn::Path::from_string("pkg::apis::meta::v1::ObjectMeta").unwrap()
+                || type_path.path == syn::Path::from_string("meta::v1::ObjectMeta").unwrap()
+                || type_path.path == syn::Path::from_string("v1::ObjectMeta").unwrap()
+                || type_path.path == syn::Path::from_string("ObjectMeta").unwrap())
+        {
+            true
+        } else {
+            false
+        }
+    }
+}
+
+impl CodegenVisitor for Visitor {
+    fn visit_input_struct(&mut self, item: &mut ItemStruct) {
+        Self::set_metadat_required(&mut item.fields);
+    }
+
+    fn visit_input_enum(&mut self, item: &mut ItemEnum) {
+        item.variants
+            .iter_mut()
+            .for_each(|variant| Self::set_metadat_required(&mut variant.fields));
+    }
+}
 
 /// Dedicated binary target for the purpose of codegen for `k8s-openapi`.
 pub(crate) fn main() -> Result<(), Box<dyn std::error::Error>> {

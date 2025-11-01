@@ -2,9 +2,7 @@ pub struct EvictionOpt {
     pub delete_options: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions,
     > as crate::Optionable>::Optioned,
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::policy::v1::Eviction {
@@ -19,7 +17,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::Eviction {
     fn into_optioned(self) -> EvictionOpt {
         EvictionOpt {
             delete_options: crate::OptionableConvert::into_optioned(self.delete_options),
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
         }
     }
     fn try_from_optioned(value: EvictionOpt) -> Result<Self, crate::optionable::Error> {
@@ -27,20 +25,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::Eviction {
             delete_options: crate::OptionableConvert::try_from_optioned(
                 value.delete_options,
             )?,
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
         })
     }
     fn merge(&mut self, other: EvictionOpt) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.delete_options, other.delete_options)?;
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         Ok(())
     }
 }

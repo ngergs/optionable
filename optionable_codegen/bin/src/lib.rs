@@ -19,10 +19,18 @@ use syn::{
 /// Implementors can use this to e.g. reset some internal tracking fields that
 /// should not cross modules.
 pub trait CodegenVisitor: Clone {
-    /// How to handle attributes.
+    /// How to handle struct/enum input attributes.
     /// # Errors
     /// - When one of the attributes could not be processed.
-    fn visit_attrs(&mut self, _: &mut Vec<Attribute>) {}
+    fn visit_input_attrs(&mut self, _: &mut Vec<Attribute>) {}
+    /// How to handle input structs.
+    /// # Errors
+    /// - When one of the attributes could not be processed.
+    fn visit_input_struct(&mut self, _: &mut ItemStruct) {}
+    /// How to handle inputs enums.
+    /// # Errors
+    /// - When one of the attributes could not be processed.
+    fn visit_input_enum(&mut self, _: &mut ItemEnum) {}
 }
 
 /// Represents the current codegen configuration
@@ -54,12 +62,18 @@ pub fn file_codegen<Vis: CodegenVisitor>(
 ) -> Result<(), Box<dyn std::error::Error>> {
     create_dir_all(output_path)?;
     let content_str = fs::read_to_string(input_file)?;
-    let content = syn::parse_file(&content_str)?;
+    let mut content = syn::parse_file(&content_str)?;
     let input_path = input_file
         .parent()
         .ok_or("current file {input_file} has no parent")?;
     conf.usage_aliases
         .append(&mut get_usage_aliases(&content.items)?);
+    // input visitor hooks
+    content.items.iter_mut().for_each(|item| match item {
+        Struct(item) => conf.visitor.visit_input_struct(item),
+        Enum(item) => conf.visitor.visit_input_enum(item),
+        _ => {}
+    });
     let result = content
         .items
         .into_iter()
@@ -157,11 +171,11 @@ fn item_codegen<V: CodegenVisitor>(
 ) -> Result<Vec<Item>, Box<dyn std::error::Error>> {
     match item {
         Struct(mut item) => {
-            conf.visitor.visit_attrs(&mut item.attrs);
+            conf.visitor.visit_input_attrs(&mut item.attrs);
             Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?)
         }
         Enum(mut item) => {
-            conf.visitor.visit_attrs(&mut item.attrs);
+            conf.visitor.visit_input_attrs(&mut item.attrs);
             Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?)
         }
         Mod(mut mod_entry) => {
