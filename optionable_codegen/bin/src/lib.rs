@@ -4,7 +4,6 @@ use darling::FromMeta;
 use optionable_codegen::CodegenSettings;
 use proc_macro2::{Ident, Span};
 use quote::ToTokens;
-use std::borrow::Cow;
 use std::fs::create_dir_all;
 use std::mem::take;
 use std::path::Path;
@@ -16,6 +15,9 @@ use syn::{
 };
 
 /// Used for callback actions when encountering specific elements.
+/// The `CodegenVisitor` will be cloned upon entering a new module.
+/// Implementors can use this to e.g. reset some internal tracking fields that
+/// should not cross modules.
 pub trait CodegenVisitor: Clone {
     /// How to handle attributes.
     /// # Errors
@@ -25,11 +27,11 @@ pub trait CodegenVisitor: Clone {
 
 /// Represents the current codegen configuration
 #[derive(Clone)]
-pub struct CodegenConfig<'a, V: CodegenVisitor> {
+pub struct CodegenConfig<V: CodegenVisitor> {
     /// Visitor for detailed field/type handling. See `CodegenVisitor` trait.
     pub visitor: V,
     /// Settings that can be configured via the library settings functionality
-    pub settings: Cow<'a, CodegenSettings>,
+    pub settings: CodegenSettings,
     /// Re-exported aliases for types resulting from `pub use <....>` statements.
     pub usage_aliases: Vec<syn::Path>,
     /// Whether the current module is private. Only considers those types for codegen that have
@@ -59,85 +61,77 @@ pub fn file_codegen<Vis: CodegenVisitor>(
     conf.usage_aliases
         .append(&mut get_usage_aliases(&content.items)?);
     let result = content
-            .items
-            .into_iter()
-            .filter_map(|item| {
-                match &item {
-                    Struct(ItemStruct { ident, .. }) | Enum(ItemEnum { ident, .. }) => {
-                        if conf.is_mod_private
-                            && !conf.usage_aliases
-                                .iter()
-                                .any(|p| p.segments.last().is_some_and(|last| last.ident == *ident))
-                        {
-                            return None;
-                        }
-                        let mut settings = conf.settings.clone().into_owned();
-                        if let Some(ty_prefix) = &mut settings.ty_prefix
-                            && !conf.usage_aliases.is_empty()
-                        {
-                            let ty_prefix_segments = ty_prefix.segments.clone();
-                            let ty_prefix_tail = ty_prefix_segments.iter().rev();
-                            'outer: for usage_alias in &conf.usage_aliases {
-                                let mut ty_prefix_tail = ty_prefix_tail.clone();
-                                let usage_alias_tail = usage_alias.segments.iter().rev().skip(1);
-                                for usage_alias_el in usage_alias_tail {
-                                    if ty_prefix_tail
-                                        .next()
-                                        .is_some_and(|ty_tail_el| ty_tail_el != usage_alias_el)
-                                    {
-                                        continue 'outer;
-                                    }
-                                }
-                                // we found a match, replace the ty_prefix with the reduced version
-                                ty_prefix.segments = ty_prefix_tail
-                                    .rev()
-                                    .map(std::borrow::ToOwned::to_owned)
-                                    .collect();
+        .items
+        .into_iter()
+        .map(|item| {
+            if let Use(item_use) = &item
+                && item_use.vis == Visibility::Public(Token![pub](Span::call_site()))
+                && let UseTree::Path(path) = &item_use.tree
+                && &path.ident == "self"
+            {
+                let mut item_use = item_use.clone();
+                let leaf = get_use_tree_leaf_mut(&mut item_use.tree)?;
+                if let UseTree::Name(name) = leaf {
+                    let mut name_string = name.ident.to_string();
+                    name_string.push_str("Opt");
+                    name.ident = Ident::from_string(&name_string)?;
+                } else {
+                    return Err(Error::new(Span::call_site(), format!("unsupported use tree leaf note, only supports plain `Name`, got {leaf:?}")).into());
+                }
+                item_use.attrs.push(parse_quote! {#[allow(unused_imports)]});
+                return Ok(Some(vec![Use(item_use)]));
+            }
+
+            let settings = if let Struct(ItemStruct { ident, .. }) | Enum(ItemEnum { ident, .. }) = &item {
+                if conf.is_mod_private
+                    && !conf.usage_aliases
+                    .iter()
+                    .any(|p| p.segments.last().is_some_and(|last| last.ident == *ident))
+                {
+                     return Ok(None)
+                }
+                let mut settings = conf.settings.clone();
+                if let Some(ty_prefix) = &mut settings.ty_prefix
+                    && !conf.usage_aliases.is_empty()
+                {
+                    let ty_prefix_segments = ty_prefix.segments.clone();
+                    let ty_prefix_tail = ty_prefix_segments.iter().rev();
+                    'outer: for usage_alias in &conf.usage_aliases {
+                        let mut ty_prefix_tail = ty_prefix_tail.clone();
+                        let usage_alias_tail = usage_alias.segments.iter().rev().skip(1);
+                        for usage_alias_el in usage_alias_tail {
+                            if ty_prefix_tail
+                                .next()
+                                .is_some_and(|ty_tail_el| ty_tail_el != usage_alias_el)
+                            {
+                                continue 'outer;
                             }
                         }
-                        Some(Cow::Owned(settings))
+                        // we found a match, replace the ty_prefix with the reduced version
+                        ty_prefix.segments = ty_prefix_tail
+                            .rev()
+                            .map(std::borrow::ToOwned::to_owned)
+                            .collect();
                     }
-                    Mod(_) | Use(_) => Some(conf.settings.clone()),
-                    _ => None,
                 }
-                .map(|settings| (settings, item))
-            })
-            .map(|(settings, item)| {
-                // copy over usage aliases
-                if let Use(item_use) = &item
-                    && item_use.vis == Visibility::Public(Token![pub](Span::call_site()))
-                    && let UseTree::Path(path) = &item_use.tree
-                    && &path.ident == "self"
-                {
-                    let mut item_use = item_use.clone();
-                    let leaf = get_use_tree_leaf_mut(&mut item_use.tree)?;
-                    if let UseTree::Name(name) = leaf {
-                        let mut name_string=name.ident.to_string();
-                        name_string.push_str("Opt");
-                        name.ident=Ident::from_string(&name_string)?;
-                    } else{
-                        return Err(Error::new(Span::call_site(),format!("unsupported use tree leaf note, only supports plain `Name`, got {leaf:?}")).into())
-                    }
-                    item_use.attrs.push(parse_quote! {#[allow(unused_imports)]});
-                    Ok(vec![Use(item_use)])
-                } else {
-                    let mut conf =CodegenConfig{
-                         settings,
-                        ..conf.clone()
-                    };
-
-                    item_codegen(
-                        item,
-                        input_path,
-                        output_path,
-                        &mut conf,
-                    )
-                }
-            })
-            .collect::<Result<Vec<_>, _>>()?
-            .into_iter()
-            .flatten()
-            .collect();
+                // first option is filtering, second is whether we want to alter the settings
+                Some(settings)
+            } else { None };
+            if let Some(settings) = settings {
+                conf.settings = settings;
+            }
+            item_codegen(
+                item,
+                input_path,
+                output_path,
+                &mut conf,
+            ).map(Some)
+        })
+        .collect::<Result<Vec<_>, _>>()?
+        .into_iter()
+        .flatten()
+        .flatten()
+        .collect();
     let result = syn::File {
         shebang: None,
         attrs: vec![],
@@ -189,7 +183,7 @@ fn item_codegen<V: CodegenVisitor>(
                 Ok(vec![Mod(mod_entry)])
             } else {
                 // include of a module from another file
-                let mut settings = conf.settings.clone().into_owned();
+                let mut settings = conf.settings.clone();
                 settings.ty_prefix = if let Some(mut ty_prefix) = settings.ty_prefix {
                     ty_prefix.segments.push(mod_entry.ident.clone().into());
                     Some(ty_prefix)
@@ -199,7 +193,7 @@ fn item_codegen<V: CodegenVisitor>(
                 let is_mod_private =
                     mod_entry.vis != Visibility::Public(Token![pub](Span::call_site()));
                 let conf = CodegenConfig {
-                    settings: Cow::Owned(settings),
+                    settings,
                     is_mod_private,
                     ..conf.clone()
                 };
