@@ -3,9 +3,7 @@ pub struct StorageClassOpt {
     pub allowed_topologies: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::TopologySelectorTerm>,
     > as crate::Optionable>::Optioned,
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub mount_options: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -36,7 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass 
             allowed_topologies: crate::OptionableConvert::into_optioned(
                 self.allowed_topologies,
             ),
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             mount_options: crate::OptionableConvert::into_optioned(self.mount_options),
             parameters: crate::OptionableConvert::into_optioned(self.parameters),
             provisioner: Some(crate::OptionableConvert::into_optioned(self.provisioner)),
@@ -56,13 +54,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass 
             allowed_topologies: crate::OptionableConvert::try_from_optioned(
                 value.allowed_topologies,
             )?,
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             mount_options: crate::OptionableConvert::try_from_optioned(
                 value.mount_options,
             )?,
@@ -91,9 +83,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass 
             &mut self.allowed_topologies,
             other.allowed_topologies,
         )?;
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.mount_options, other.mount_options)?;
         crate::OptionableConvert::merge(&mut self.parameters, other.parameters)?;
         if let Some(other_value) = other.provisioner {

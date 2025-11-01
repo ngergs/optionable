@@ -3,9 +3,7 @@ pub struct ServiceAccountOpt {
     pub image_pull_secrets: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::LocalObjectReference>,
     > as crate::Optionable>::Optioned,
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub secrets: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ObjectReference>,
     > as crate::Optionable>::Optioned,
@@ -28,7 +26,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
             image_pull_secrets: crate::OptionableConvert::into_optioned(
                 self.image_pull_secrets,
             ),
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             secrets: crate::OptionableConvert::into_optioned(self.secrets),
         }
     }
@@ -42,13 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
             image_pull_secrets: crate::OptionableConvert::try_from_optioned(
                 value.image_pull_secrets,
             )?,
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             secrets: crate::OptionableConvert::try_from_optioned(value.secrets)?,
         })
     }
@@ -64,9 +56,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
             &mut self.image_pull_secrets,
             other.image_pull_secrets,
         )?;
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.secrets, other.secrets)?;
         Ok(())
     }

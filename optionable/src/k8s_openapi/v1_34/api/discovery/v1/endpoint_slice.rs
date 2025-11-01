@@ -5,9 +5,7 @@ pub struct EndpointSliceOpt {
             ::k8s_openapi::api::discovery::v1::Endpoint,
         > as crate::Optionable>::Optioned,
     >,
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub ports: <Option<
         std::vec::Vec<::k8s_openapi::api::discovery::v1::EndpointPort>,
     > as crate::Optionable>::Optioned,
@@ -28,7 +26,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSli
                 crate::OptionableConvert::into_optioned(self.address_type),
             ),
             endpoints: Some(crate::OptionableConvert::into_optioned(self.endpoints)),
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             ports: crate::OptionableConvert::into_optioned(self.ports),
         }
     }
@@ -50,13 +48,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSli
                         missing_field: "endpoints",
                     })?,
             )?,
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
         })
     }
@@ -70,9 +62,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSli
         if let Some(other_value) = other.endpoints {
             crate::OptionableConvert::merge(&mut self.endpoints, other_value)?;
         }
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
         Ok(())
     }

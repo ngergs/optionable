@@ -6,9 +6,7 @@ pub struct ConfigMapOpt {
         std::collections::BTreeMap<std::string::String, std::string::String>,
     > as crate::Optionable>::Optioned,
     pub immutable: <Option<bool> as crate::Optionable>::Optioned,
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMap {
@@ -25,7 +23,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMap {
             binary_data: crate::OptionableConvert::into_optioned(self.binary_data),
             data: crate::OptionableConvert::into_optioned(self.data),
             immutable: crate::OptionableConvert::into_optioned(self.immutable),
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
         }
     }
     fn try_from_optioned(value: ConfigMapOpt) -> Result<Self, crate::optionable::Error> {
@@ -33,22 +31,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMap {
             binary_data: crate::OptionableConvert::try_from_optioned(value.binary_data)?,
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
             immutable: crate::OptionableConvert::try_from_optioned(value.immutable)?,
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
         })
     }
     fn merge(&mut self, other: ConfigMapOpt) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.binary_data, other.binary_data)?;
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
         crate::OptionableConvert::merge(&mut self.immutable, other.immutable)?;
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         Ok(())
     }
 }

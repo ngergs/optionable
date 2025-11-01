@@ -1,9 +1,7 @@
 pub struct PriorityClassOpt {
     pub description: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub global_default: <Option<bool> as crate::Optionable>::Optioned,
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub preemption_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub value: Option<i32>,
 }
@@ -21,7 +19,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityCl
         PriorityClassOpt {
             description: crate::OptionableConvert::into_optioned(self.description),
             global_default: crate::OptionableConvert::into_optioned(self.global_default),
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             preemption_policy: crate::OptionableConvert::into_optioned(
                 self.preemption_policy,
             ),
@@ -36,13 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityCl
             global_default: crate::OptionableConvert::try_from_optioned(
                 value.global_default,
             )?,
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             preemption_policy: crate::OptionableConvert::try_from_optioned(
                 value.preemption_policy,
             )?,
@@ -59,9 +51,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityCl
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.description, other.description)?;
         crate::OptionableConvert::merge(&mut self.global_default, other.global_default)?;
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(
             &mut self.preemption_policy,
             other.preemption_policy,

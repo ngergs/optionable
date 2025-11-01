@@ -14,9 +14,7 @@ pub struct EventOpt {
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
     pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub related: <Option<
         ::k8s_openapi::api::core::v1::ObjectReference,
@@ -56,7 +54,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Event {
             ),
             last_timestamp: crate::OptionableConvert::into_optioned(self.last_timestamp),
             message: crate::OptionableConvert::into_optioned(self.message),
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             reason: crate::OptionableConvert::into_optioned(self.reason),
             related: crate::OptionableConvert::into_optioned(self.related),
             reporting_component: crate::OptionableConvert::into_optioned(
@@ -89,13 +87,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Event {
                 value.last_timestamp,
             )?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
             related: crate::OptionableConvert::try_from_optioned(value.related)?,
             reporting_component: crate::OptionableConvert::try_from_optioned(
@@ -122,9 +114,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Event {
         }
         crate::OptionableConvert::merge(&mut self.last_timestamp, other.last_timestamp)?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         crate::OptionableConvert::merge(&mut self.related, other.related)?;
         crate::OptionableConvert::merge(
