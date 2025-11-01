@@ -3,7 +3,6 @@ use darling::FromMeta;
 use optionable_codegen::CodegenSettings;
 use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
 use proc_macro2::Span;
-use std::borrow::Cow;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
 
@@ -39,7 +38,7 @@ pub(crate) fn main() -> Result<(), Box<dyn std::error::Error>> {
         &args.output_dir,
         CodegenConfig {
             visitor: Visitor {},
-            settings: Cow::Owned(codegen_settings),
+            settings: codegen_settings,
             usage_aliases: vec![],
             is_mod_private: false,
         },
