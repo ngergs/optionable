@@ -26,7 +26,7 @@ struct Visitor {}
 impl Visitor {
     /// Adds the `#[optionable(required)]` attribute to the field if and only if
     /// it has type `ObjectMeta` and has the name `metadata`.
-    fn set_metadat_required(fields: &mut Fields) {
+    fn set_metadata_required(fields: &mut Fields) {
         if let Fields::Named(fields) = fields {
             fields.named.iter_mut().for_each(|field| {
                 if let Some(ident) = &field.ident
@@ -38,7 +38,6 @@ impl Visitor {
             });
         }
     }
-    //::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta
 
     /// Returns true if ty is a `path` of `::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta`
     /// or one of its shortened versions.
@@ -65,13 +64,13 @@ impl Visitor {
 
 impl CodegenVisitor for Visitor {
     fn visit_input_struct(&mut self, item: &mut ItemStruct) {
-        Self::set_metadat_required(&mut item.fields);
+        Self::set_metadata_required(&mut item.fields);
     }
 
     fn visit_input_enum(&mut self, item: &mut ItemEnum) {
         item.variants
             .iter_mut()
-            .for_each(|variant| Self::set_metadat_required(&mut variant.fields));
+            .for_each(|variant| Self::set_metadata_required(&mut variant.fields));
     }
 }
 
