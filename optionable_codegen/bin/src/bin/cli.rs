@@ -5,7 +5,7 @@ use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
 use proc_macro2::Span;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
-use syn::{Attribute, Error};
+use syn::{Attribute, Error, ItemEnum, ItemStruct};
 
 /// Generates `Optionable` and `OptionableConvert` implementation for structs/enums in
 /// the referenced `input_file` and all included internal modules recursively.
@@ -35,9 +35,21 @@ struct Visitor {
     type_attrs: Vec<Attribute>,
 }
 
-impl CodegenVisitor for Visitor {
-    fn visit_input_attrs(&mut self, attrs: &mut Vec<Attribute>) {
+impl Visitor {
+    /// Adds the `#[optionable(required)]` attribute to the field if and only if
+    /// it has type `ObjectMeta` and has the name `metadata`.
+    fn append_attrs(&mut self, attrs: &mut Vec<Attribute>) {
         attrs.append(&mut self.type_attrs.clone());
+    }
+}
+
+impl CodegenVisitor for Visitor {
+    fn visit_input_struct(&mut self, item: &mut ItemStruct) {
+        self.append_attrs(&mut item.attrs);
+    }
+
+    fn visit_input_enum(&mut self, item: &mut ItemEnum) {
+        self.append_attrs(&mut item.attrs);
     }
 }
 

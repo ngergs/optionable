@@ -10,8 +10,7 @@ use std::path::Path;
 use std::{fs, io};
 use syn::Item::{Enum, Mod, Struct, Use};
 use syn::{
-    parse_quote, Attribute, DeriveInput, Error, Item, ItemEnum, ItemStruct, Token, UseTree,
-    Visibility,
+    parse_quote, DeriveInput, Error, Item, ItemEnum, ItemStruct, Token, UseTree, Visibility,
 };
 
 /// Used for callback actions when encountering specific elements.
@@ -19,15 +18,11 @@ use syn::{
 /// Implementors can use this to e.g. reset some internal tracking fields that
 /// should not cross modules.
 pub trait CodegenVisitor: Clone {
-    /// How to handle struct/enum input attributes.
-    /// # Errors
-    /// - When one of the attributes could not be processed.
-    fn visit_input_attrs(&mut self, _: &mut Vec<Attribute>) {}
-    /// How to handle input structs.
+    /// Mutates input structs.
     /// # Errors
     /// - When one of the attributes could not be processed.
     fn visit_input_struct(&mut self, _: &mut ItemStruct) {}
-    /// How to handle inputs enums.
+    /// Mutates inputs enums.
     /// # Errors
     /// - When one of the attributes could not be processed.
     fn visit_input_enum(&mut self, _: &mut ItemEnum) {}
@@ -62,18 +57,12 @@ pub fn file_codegen<Vis: CodegenVisitor>(
 ) -> Result<(), Box<dyn std::error::Error>> {
     create_dir_all(output_path)?;
     let content_str = fs::read_to_string(input_file)?;
-    let mut content = syn::parse_file(&content_str)?;
+    let content = syn::parse_file(&content_str)?;
     let input_path = input_file
         .parent()
         .ok_or("current file {input_file} has no parent")?;
     conf.usage_aliases
         .append(&mut get_usage_aliases(&content.items)?);
-    // input visitor hooks
-    content.items.iter_mut().for_each(|item| match item {
-        Struct(item) => conf.visitor.visit_input_struct(item),
-        Enum(item) => conf.visitor.visit_input_enum(item),
-        _ => {}
-    });
     let result = content
         .items
         .into_iter()
@@ -164,20 +153,19 @@ pub fn file_codegen<Vis: CodegenVisitor>(
 
 /// Calls codegen for the respective item.
 fn item_codegen<V: CodegenVisitor>(
-    item: Item,
+    mut item: Item,
     input_path: &Path,
     output_path: &Path,
     conf: &mut CodegenConfig<V>,
 ) -> Result<Vec<Item>, Box<dyn std::error::Error>> {
+    match &mut item {
+        Struct(item) => conf.visitor.visit_input_struct(item),
+        Enum(item) => conf.visitor.visit_input_enum(item),
+        _ => {}
+    };
     match item {
-        Struct(mut item) => {
-            conf.visitor.visit_input_attrs(&mut item.attrs);
-            Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?)
-        }
-        Enum(mut item) => {
-            conf.visitor.visit_input_attrs(&mut item.attrs);
-            Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?)
-        }
+        Struct(item) => Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?),
+        Enum(item) => Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?),
         Mod(mut mod_entry) => {
             if let Some(content) = mod_entry.content.as_mut() {
                 let items = take(&mut content.1);
