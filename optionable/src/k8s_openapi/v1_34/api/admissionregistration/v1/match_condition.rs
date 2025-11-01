@@ -1,27 +1,27 @@
-pub struct MatchConditionOpt {
+pub struct MatchConditionAc {
     pub expression: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::MatchCondition {
-    type Optioned = MatchConditionOpt;
+    type Optioned = MatchConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for MatchConditionOpt {
-    type Optioned = MatchConditionOpt;
+impl crate::Optionable for MatchConditionAc {
+    type Optioned = MatchConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::MatchCondition {
-    fn into_optioned(self) -> MatchConditionOpt {
-        MatchConditionOpt {
+    fn into_optioned(self) -> MatchConditionAc {
+        MatchConditionAc {
             expression: Some(crate::OptionableConvert::into_optioned(self.expression)),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
     fn try_from_optioned(
-        value: MatchConditionOpt,
+        value: MatchConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             expression: crate::OptionableConvert::try_from_optioned(
@@ -42,7 +42,7 @@ for ::k8s_openapi::api::admissionregistration::v1::MatchCondition {
     }
     fn merge(
         &mut self,
-        other: MatchConditionOpt,
+        other: MatchConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.expression {
             crate::OptionableConvert::merge(&mut self.expression, other_value)?;

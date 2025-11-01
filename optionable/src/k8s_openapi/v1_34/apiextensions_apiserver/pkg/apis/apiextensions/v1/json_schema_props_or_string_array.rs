@@ -1,4 +1,4 @@
-pub enum JSONSchemaPropsOrStringArrayOpt {
+pub enum JSONSchemaPropsOrStringArrayAc {
     Schema(
         Option<
             <std::boxed::Box<
@@ -11,35 +11,35 @@ pub enum JSONSchemaPropsOrStringArrayOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrStringArray {
-    type Optioned = JSONSchemaPropsOrStringArrayOpt;
+    type Optioned = JSONSchemaPropsOrStringArrayAc;
 }
 #[automatically_derived]
-impl crate::Optionable for JSONSchemaPropsOrStringArrayOpt {
-    type Optioned = JSONSchemaPropsOrStringArrayOpt;
+impl crate::Optionable for JSONSchemaPropsOrStringArrayAc {
+    type Optioned = JSONSchemaPropsOrStringArrayAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrStringArray {
-    fn into_optioned(self) -> JSONSchemaPropsOrStringArrayOpt {
+    fn into_optioned(self) -> JSONSchemaPropsOrStringArrayAc {
         match self {
             Self::Schema(self_0) => {
-                JSONSchemaPropsOrStringArrayOpt::Schema(
+                JSONSchemaPropsOrStringArrayAc::Schema(
                     Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
             Self::Strings(self_0) => {
-                JSONSchemaPropsOrStringArrayOpt::Strings(
+                JSONSchemaPropsOrStringArrayAc::Strings(
                     Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
         }
     }
     fn try_from_optioned(
-        other: JSONSchemaPropsOrStringArrayOpt,
+        other: JSONSchemaPropsOrStringArrayAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(
             match other {
-                JSONSchemaPropsOrStringArrayOpt::Schema(other_0) => {
+                JSONSchemaPropsOrStringArrayAc::Schema(other_0) => {
                     Self::Schema(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -49,7 +49,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
                         )?,
                     )
                 }
-                JSONSchemaPropsOrStringArrayOpt::Strings(other_0) => {
+                JSONSchemaPropsOrStringArrayAc::Strings(other_0) => {
                     Self::Strings(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -64,28 +64,28 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
     }
     fn merge(
         &mut self,
-        other: JSONSchemaPropsOrStringArrayOpt,
+        other: JSONSchemaPropsOrStringArrayAc,
     ) -> Result<(), crate::optionable::Error> {
         match other {
-            JSONSchemaPropsOrStringArrayOpt::Schema(other_0) => {
+            JSONSchemaPropsOrStringArrayAc::Schema(other_0) => {
                 if let Self::Schema(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
                     *self = Self::try_from_optioned(
-                        JSONSchemaPropsOrStringArrayOpt::Schema(other_0),
+                        JSONSchemaPropsOrStringArrayAc::Schema(other_0),
                     )?;
                 }
             }
-            JSONSchemaPropsOrStringArrayOpt::Strings(other_0) => {
+            JSONSchemaPropsOrStringArrayAc::Strings(other_0) => {
                 if let Self::Strings(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
                     *self = Self::try_from_optioned(
-                        JSONSchemaPropsOrStringArrayOpt::Strings(other_0),
+                        JSONSchemaPropsOrStringArrayAc::Strings(other_0),
                     )?;
                 }
             }

@@ -1,4 +1,6 @@
-pub struct RoleBindingOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = RoleBinding)]
+pub struct RoleBindingAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub role_ref: Option<
         <::k8s_openapi::api::rbac::v1::RoleRef as crate::Optionable>::Optioned,
@@ -9,23 +11,23 @@ pub struct RoleBindingOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::rbac::v1::RoleBinding {
-    type Optioned = RoleBindingOpt;
+    type Optioned = RoleBindingAc;
 }
 #[automatically_derived]
-impl crate::Optionable for RoleBindingOpt {
-    type Optioned = RoleBindingOpt;
+impl crate::Optionable for RoleBindingAc {
+    type Optioned = RoleBindingAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleBinding {
-    fn into_optioned(self) -> RoleBindingOpt {
-        RoleBindingOpt {
+    fn into_optioned(self) -> RoleBindingAc {
+        RoleBindingAc {
             metadata: self.metadata,
             role_ref: Some(crate::OptionableConvert::into_optioned(self.role_ref)),
             subjects: crate::OptionableConvert::into_optioned(self.subjects),
         }
     }
     fn try_from_optioned(
-        value: RoleBindingOpt,
+        value: RoleBindingAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -39,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleBinding {
             subjects: crate::OptionableConvert::try_from_optioned(value.subjects)?,
         })
     }
-    fn merge(&mut self, other: RoleBindingOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: RoleBindingAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.role_ref {
             crate::OptionableConvert::merge(&mut self.role_ref, other_value)?;
@@ -48,3 +50,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleBinding {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::rbac::v1::RoleBinding;

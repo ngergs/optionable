@@ -1,4 +1,4 @@
-pub struct ServiceSpecOpt {
+pub struct ServiceSpecAc {
     pub allocate_load_balancer_node_ports: <Option<bool> as crate::Optionable>::Optioned,
     pub cluster_ip: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub cluster_ips: <Option<
@@ -44,16 +44,16 @@ pub struct ServiceSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ServiceSpec {
-    type Optioned = ServiceSpecOpt;
+    type Optioned = ServiceSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServiceSpecOpt {
-    type Optioned = ServiceSpecOpt;
+impl crate::Optionable for ServiceSpecAc {
+    type Optioned = ServiceSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceSpec {
-    fn into_optioned(self) -> ServiceSpecOpt {
-        ServiceSpecOpt {
+    fn into_optioned(self) -> ServiceSpecAc {
+        ServiceSpecAc {
             allocate_load_balancer_node_ports: crate::OptionableConvert::into_optioned(
                 self.allocate_load_balancer_node_ports,
             ),
@@ -101,7 +101,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceSpec {
         }
     }
     fn try_from_optioned(
-        value: ServiceSpecOpt,
+        value: ServiceSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             allocate_load_balancer_node_ports: crate::OptionableConvert::try_from_optioned(
@@ -154,7 +154,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceSpec {
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(&mut self, other: ServiceSpecOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServiceSpecAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.allocate_load_balancer_node_ports,
             other.allocate_load_balancer_node_ports,

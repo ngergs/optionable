@@ -1,4 +1,4 @@
-pub struct ResourceRequirementsOpt {
+pub struct ResourceRequirementsAc {
     pub claims: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ResourceClaim>,
     > as crate::Optionable>::Optioned,
@@ -17,23 +17,23 @@ pub struct ResourceRequirementsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ResourceRequirements {
-    type Optioned = ResourceRequirementsOpt;
+    type Optioned = ResourceRequirementsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceRequirementsOpt {
-    type Optioned = ResourceRequirementsOpt;
+impl crate::Optionable for ResourceRequirementsAc {
+    type Optioned = ResourceRequirementsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceRequirements {
-    fn into_optioned(self) -> ResourceRequirementsOpt {
-        ResourceRequirementsOpt {
+    fn into_optioned(self) -> ResourceRequirementsAc {
+        ResourceRequirementsAc {
             claims: crate::OptionableConvert::into_optioned(self.claims),
             limits: crate::OptionableConvert::into_optioned(self.limits),
             requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
     fn try_from_optioned(
-        value: ResourceRequirementsOpt,
+        value: ResourceRequirementsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             claims: crate::OptionableConvert::try_from_optioned(value.claims)?,
@@ -43,7 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceRequirem
     }
     fn merge(
         &mut self,
-        other: ResourceRequirementsOpt,
+        other: ResourceRequirementsAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.claims, other.claims)?;
         crate::OptionableConvert::merge(&mut self.limits, other.limits)?;

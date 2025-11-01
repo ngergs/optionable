@@ -1,4 +1,4 @@
-pub struct MatchResourcesOpt {
+pub struct MatchResourcesAc {
     pub exclude_resource_rules: <Option<
         std::vec::Vec<
             ::k8s_openapi::api::admissionregistration::v1alpha1::NamedRuleWithOperations,
@@ -20,17 +20,17 @@ pub struct MatchResourcesOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1alpha1::MatchResources {
-    type Optioned = MatchResourcesOpt;
+    type Optioned = MatchResourcesAc;
 }
 #[automatically_derived]
-impl crate::Optionable for MatchResourcesOpt {
-    type Optioned = MatchResourcesOpt;
+impl crate::Optionable for MatchResourcesAc {
+    type Optioned = MatchResourcesAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1alpha1::MatchResources {
-    fn into_optioned(self) -> MatchResourcesOpt {
-        MatchResourcesOpt {
+    fn into_optioned(self) -> MatchResourcesAc {
+        MatchResourcesAc {
             exclude_resource_rules: crate::OptionableConvert::into_optioned(
                 self.exclude_resource_rules,
             ),
@@ -45,7 +45,7 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::MatchResources {
         }
     }
     fn try_from_optioned(
-        value: MatchResourcesOpt,
+        value: MatchResourcesAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             exclude_resource_rules: crate::OptionableConvert::try_from_optioned(
@@ -67,7 +67,7 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::MatchResources {
     }
     fn merge(
         &mut self,
-        other: MatchResourcesOpt,
+        other: MatchResourcesAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.exclude_resource_rules,

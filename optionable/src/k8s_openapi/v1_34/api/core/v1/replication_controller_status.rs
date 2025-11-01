@@ -1,4 +1,4 @@
-pub struct ReplicationControllerStatusOpt {
+pub struct ReplicationControllerStatusAc {
     pub available_replicas: <Option<i32> as crate::Optionable>::Optioned,
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ReplicationControllerCondition>,
@@ -10,17 +10,17 @@ pub struct ReplicationControllerStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ReplicationControllerStatus {
-    type Optioned = ReplicationControllerStatusOpt;
+    type Optioned = ReplicationControllerStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ReplicationControllerStatusOpt {
-    type Optioned = ReplicationControllerStatusOpt;
+impl crate::Optionable for ReplicationControllerStatusAc {
+    type Optioned = ReplicationControllerStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ReplicationControllerStatus {
-    fn into_optioned(self) -> ReplicationControllerStatusOpt {
-        ReplicationControllerStatusOpt {
+    fn into_optioned(self) -> ReplicationControllerStatusAc {
+        ReplicationControllerStatusAc {
             available_replicas: crate::OptionableConvert::into_optioned(
                 self.available_replicas,
             ),
@@ -36,7 +36,7 @@ for ::k8s_openapi::api::core::v1::ReplicationControllerStatus {
         }
     }
     fn try_from_optioned(
-        value: ReplicationControllerStatusOpt,
+        value: ReplicationControllerStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             available_replicas: crate::OptionableConvert::try_from_optioned(
@@ -61,7 +61,7 @@ for ::k8s_openapi::api::core::v1::ReplicationControllerStatus {
     }
     fn merge(
         &mut self,
-        other: ReplicationControllerStatusOpt,
+        other: ReplicationControllerStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.available_replicas,

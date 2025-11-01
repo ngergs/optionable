@@ -1,4 +1,4 @@
-pub struct ValidatingAdmissionPolicyBindingSpecOpt {
+pub struct ValidatingAdmissionPolicyBindingSpecAc {
     pub match_resources: <Option<
         ::k8s_openapi::api::admissionregistration::v1::MatchResources,
     > as crate::Optionable>::Optioned,
@@ -13,17 +13,17 @@ pub struct ValidatingAdmissionPolicyBindingSpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBindingSpec {
-    type Optioned = ValidatingAdmissionPolicyBindingSpecOpt;
+    type Optioned = ValidatingAdmissionPolicyBindingSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ValidatingAdmissionPolicyBindingSpecOpt {
-    type Optioned = ValidatingAdmissionPolicyBindingSpecOpt;
+impl crate::Optionable for ValidatingAdmissionPolicyBindingSpecAc {
+    type Optioned = ValidatingAdmissionPolicyBindingSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBindingSpec {
-    fn into_optioned(self) -> ValidatingAdmissionPolicyBindingSpecOpt {
-        ValidatingAdmissionPolicyBindingSpecOpt {
+    fn into_optioned(self) -> ValidatingAdmissionPolicyBindingSpecAc {
+        ValidatingAdmissionPolicyBindingSpecAc {
             match_resources: crate::OptionableConvert::into_optioned(
                 self.match_resources,
             ),
@@ -35,7 +35,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBind
         }
     }
     fn try_from_optioned(
-        value: ValidatingAdmissionPolicyBindingSpecOpt,
+        value: ValidatingAdmissionPolicyBindingSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             match_resources: crate::OptionableConvert::try_from_optioned(
@@ -50,7 +50,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBind
     }
     fn merge(
         &mut self,
-        other: ValidatingAdmissionPolicyBindingSpecOpt,
+        other: ValidatingAdmissionPolicyBindingSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.match_resources,

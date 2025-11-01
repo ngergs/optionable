@@ -1,4 +1,4 @@
-pub struct NamespaceStatusOpt {
+pub struct NamespaceStatusAc {
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::NamespaceCondition>,
     > as crate::Optionable>::Optioned,
@@ -6,22 +6,22 @@ pub struct NamespaceStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NamespaceStatus {
-    type Optioned = NamespaceStatusOpt;
+    type Optioned = NamespaceStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NamespaceStatusOpt {
-    type Optioned = NamespaceStatusOpt;
+impl crate::Optionable for NamespaceStatusAc {
+    type Optioned = NamespaceStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceStatus {
-    fn into_optioned(self) -> NamespaceStatusOpt {
-        NamespaceStatusOpt {
+    fn into_optioned(self) -> NamespaceStatusAc {
+        NamespaceStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             phase: crate::OptionableConvert::into_optioned(self.phase),
         }
     }
     fn try_from_optioned(
-        value: NamespaceStatusOpt,
+        value: NamespaceStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
@@ -30,7 +30,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceStatus 
     }
     fn merge(
         &mut self,
-        other: NamespaceStatusOpt,
+        other: NamespaceStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(&mut self.phase, other.phase)?;

@@ -1,26 +1,26 @@
-pub struct IPAddressSpecOpt {
+pub struct IPAddressSpecAc {
     pub parent_ref: Option<
         <::k8s_openapi::api::networking::v1beta1::ParentReference as crate::Optionable>::Optioned,
     >,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1beta1::IPAddressSpec {
-    type Optioned = IPAddressSpecOpt;
+    type Optioned = IPAddressSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for IPAddressSpecOpt {
-    type Optioned = IPAddressSpecOpt;
+impl crate::Optionable for IPAddressSpecAc {
+    type Optioned = IPAddressSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1beta1::IPAddressSpec {
-    fn into_optioned(self) -> IPAddressSpecOpt {
-        IPAddressSpecOpt {
+    fn into_optioned(self) -> IPAddressSpecAc {
+        IPAddressSpecAc {
             parent_ref: Some(crate::OptionableConvert::into_optioned(self.parent_ref)),
         }
     }
     fn try_from_optioned(
-        value: IPAddressSpecOpt,
+        value: IPAddressSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             parent_ref: crate::OptionableConvert::try_from_optioned(
@@ -32,10 +32,7 @@ for ::k8s_openapi::api::networking::v1beta1::IPAddressSpec {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: IPAddressSpecOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: IPAddressSpecAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.parent_ref {
             crate::OptionableConvert::merge(&mut self.parent_ref, other_value)?;
         }

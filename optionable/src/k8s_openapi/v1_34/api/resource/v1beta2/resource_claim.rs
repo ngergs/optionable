@@ -1,4 +1,6 @@
-pub struct ResourceClaimOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ResourceClaim)]
+pub struct ResourceClaimAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::resource::v1beta2::ResourceClaimSpec as crate::Optionable>::Optioned,
@@ -9,23 +11,23 @@ pub struct ResourceClaimOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::ResourceClaim {
-    type Optioned = ResourceClaimOpt;
+    type Optioned = ResourceClaimAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceClaimOpt {
-    type Optioned = ResourceClaimOpt;
+impl crate::Optionable for ResourceClaimAc {
+    type Optioned = ResourceClaimAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::ResourceClaim {
-    fn into_optioned(self) -> ResourceClaimOpt {
-        ResourceClaimOpt {
+    fn into_optioned(self) -> ResourceClaimAc {
+        ResourceClaimAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: ResourceClaimOpt,
+        value: ResourceClaimAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -39,10 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Resourc
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceClaimOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceClaimAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
             crate::OptionableConvert::merge(&mut self.spec, other_value)?;
@@ -51,3 +50,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Resourc
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::resource::v1beta2::ResourceClaim;

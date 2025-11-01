@@ -1,26 +1,26 @@
-pub struct KeyToPathOpt {
+pub struct KeyToPathAc {
     pub key: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub mode: <Option<i32> as crate::Optionable>::Optioned,
     pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::KeyToPath {
-    type Optioned = KeyToPathOpt;
+    type Optioned = KeyToPathAc;
 }
 #[automatically_derived]
-impl crate::Optionable for KeyToPathOpt {
-    type Optioned = KeyToPathOpt;
+impl crate::Optionable for KeyToPathAc {
+    type Optioned = KeyToPathAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::KeyToPath {
-    fn into_optioned(self) -> KeyToPathOpt {
-        KeyToPathOpt {
+    fn into_optioned(self) -> KeyToPathAc {
+        KeyToPathAc {
             key: Some(crate::OptionableConvert::into_optioned(self.key)),
             mode: crate::OptionableConvert::into_optioned(self.mode),
             path: Some(crate::OptionableConvert::into_optioned(self.path)),
         }
     }
-    fn try_from_optioned(value: KeyToPathOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: KeyToPathAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             key: crate::OptionableConvert::try_from_optioned(
                 value
@@ -39,7 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::KeyToPath {
             )?,
         })
     }
-    fn merge(&mut self, other: KeyToPathOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: KeyToPathAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.key {
             crate::OptionableConvert::merge(&mut self.key, other_value)?;
         }

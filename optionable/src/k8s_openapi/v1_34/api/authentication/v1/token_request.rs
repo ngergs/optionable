@@ -1,4 +1,6 @@
-pub struct TokenRequestOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = TokenRequest)]
+pub struct TokenRequestAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::authentication::v1::TokenRequestSpec as crate::Optionable>::Optioned,
@@ -9,23 +11,23 @@ pub struct TokenRequestOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::authentication::v1::TokenRequest {
-    type Optioned = TokenRequestOpt;
+    type Optioned = TokenRequestAc;
 }
 #[automatically_derived]
-impl crate::Optionable for TokenRequestOpt {
-    type Optioned = TokenRequestOpt;
+impl crate::Optionable for TokenRequestAc {
+    type Optioned = TokenRequestAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::TokenRequest {
-    fn into_optioned(self) -> TokenRequestOpt {
-        TokenRequestOpt {
+    fn into_optioned(self) -> TokenRequestAc {
+        TokenRequestAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: TokenRequestOpt,
+        value: TokenRequestAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -39,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::TokenR
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(&mut self, other: TokenRequestOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TokenRequestAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
             crate::OptionableConvert::merge(&mut self.spec, other_value)?;
@@ -48,3 +50,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::TokenR
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::authentication::v1::TokenRequest;

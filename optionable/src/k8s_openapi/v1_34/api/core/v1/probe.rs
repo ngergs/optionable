@@ -1,4 +1,4 @@
-pub struct ProbeOpt {
+pub struct ProbeAc {
     pub exec: <Option<
         ::k8s_openapi::api::core::v1::ExecAction,
     > as crate::Optionable>::Optioned,
@@ -20,16 +20,16 @@ pub struct ProbeOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Probe {
-    type Optioned = ProbeOpt;
+    type Optioned = ProbeAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ProbeOpt {
-    type Optioned = ProbeOpt;
+impl crate::Optionable for ProbeAc {
+    type Optioned = ProbeAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Probe {
-    fn into_optioned(self) -> ProbeOpt {
-        ProbeOpt {
+    fn into_optioned(self) -> ProbeAc {
+        ProbeAc {
             exec: crate::OptionableConvert::into_optioned(self.exec),
             failure_threshold: crate::OptionableConvert::into_optioned(
                 self.failure_threshold,
@@ -52,7 +52,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Probe {
             ),
         }
     }
-    fn try_from_optioned(value: ProbeOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ProbeAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             exec: crate::OptionableConvert::try_from_optioned(value.exec)?,
             failure_threshold: crate::OptionableConvert::try_from_optioned(
@@ -78,7 +78,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Probe {
             )?,
         })
     }
-    fn merge(&mut self, other: ProbeOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ProbeAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.exec, other.exec)?;
         crate::OptionableConvert::merge(
             &mut self.failure_threshold,

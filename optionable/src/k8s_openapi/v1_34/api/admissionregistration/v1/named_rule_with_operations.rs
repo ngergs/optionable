@@ -1,4 +1,4 @@
-pub struct NamedRuleWithOperationsOpt {
+pub struct NamedRuleWithOperationsAc {
     pub api_groups: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -19,17 +19,17 @@ pub struct NamedRuleWithOperationsOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::NamedRuleWithOperations {
-    type Optioned = NamedRuleWithOperationsOpt;
+    type Optioned = NamedRuleWithOperationsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NamedRuleWithOperationsOpt {
-    type Optioned = NamedRuleWithOperationsOpt;
+impl crate::Optionable for NamedRuleWithOperationsAc {
+    type Optioned = NamedRuleWithOperationsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::NamedRuleWithOperations {
-    fn into_optioned(self) -> NamedRuleWithOperationsOpt {
-        NamedRuleWithOperationsOpt {
+    fn into_optioned(self) -> NamedRuleWithOperationsAc {
+        NamedRuleWithOperationsAc {
             api_groups: crate::OptionableConvert::into_optioned(self.api_groups),
             api_versions: crate::OptionableConvert::into_optioned(self.api_versions),
             operations: crate::OptionableConvert::into_optioned(self.operations),
@@ -39,7 +39,7 @@ for ::k8s_openapi::api::admissionregistration::v1::NamedRuleWithOperations {
         }
     }
     fn try_from_optioned(
-        value: NamedRuleWithOperationsOpt,
+        value: NamedRuleWithOperationsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_groups: crate::OptionableConvert::try_from_optioned(value.api_groups)?,
@@ -56,7 +56,7 @@ for ::k8s_openapi::api::admissionregistration::v1::NamedRuleWithOperations {
     }
     fn merge(
         &mut self,
-        other: NamedRuleWithOperationsOpt,
+        other: NamedRuleWithOperationsAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_groups, other.api_groups)?;
         crate::OptionableConvert::merge(&mut self.api_versions, other.api_versions)?;

@@ -1,4 +1,4 @@
-pub struct ProjectedVolumeSourceOpt {
+pub struct ProjectedVolumeSourceAc {
     pub default_mode: <Option<i32> as crate::Optionable>::Optioned,
     pub sources: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::VolumeProjection>,
@@ -6,22 +6,22 @@ pub struct ProjectedVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ProjectedVolumeSource {
-    type Optioned = ProjectedVolumeSourceOpt;
+    type Optioned = ProjectedVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ProjectedVolumeSourceOpt {
-    type Optioned = ProjectedVolumeSourceOpt;
+impl crate::Optionable for ProjectedVolumeSourceAc {
+    type Optioned = ProjectedVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ProjectedVolumeSource {
-    fn into_optioned(self) -> ProjectedVolumeSourceOpt {
-        ProjectedVolumeSourceOpt {
+    fn into_optioned(self) -> ProjectedVolumeSourceAc {
+        ProjectedVolumeSourceAc {
             default_mode: crate::OptionableConvert::into_optioned(self.default_mode),
             sources: crate::OptionableConvert::into_optioned(self.sources),
         }
     }
     fn try_from_optioned(
-        value: ProjectedVolumeSourceOpt,
+        value: ProjectedVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             default_mode: crate::OptionableConvert::try_from_optioned(
@@ -32,7 +32,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ProjectedVolumeS
     }
     fn merge(
         &mut self,
-        other: ProjectedVolumeSourceOpt,
+        other: ProjectedVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.default_mode, other.default_mode)?;
         crate::OptionableConvert::merge(&mut self.sources, other.sources)?;

@@ -1,26 +1,26 @@
-pub struct RoleRefOpt {
+pub struct RoleRefAc {
     pub api_group: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub kind: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::rbac::v1::RoleRef {
-    type Optioned = RoleRefOpt;
+    type Optioned = RoleRefAc;
 }
 #[automatically_derived]
-impl crate::Optionable for RoleRefOpt {
-    type Optioned = RoleRefOpt;
+impl crate::Optionable for RoleRefAc {
+    type Optioned = RoleRefAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleRef {
-    fn into_optioned(self) -> RoleRefOpt {
-        RoleRefOpt {
+    fn into_optioned(self) -> RoleRefAc {
+        RoleRefAc {
             api_group: Some(crate::OptionableConvert::into_optioned(self.api_group)),
             kind: Some(crate::OptionableConvert::into_optioned(self.kind)),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
-    fn try_from_optioned(value: RoleRefOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: RoleRefAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_group: crate::OptionableConvert::try_from_optioned(
                 value
@@ -45,7 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleRef {
             )?,
         })
     }
-    fn merge(&mut self, other: RoleRefOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: RoleRefAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.api_group {
             crate::OptionableConvert::merge(&mut self.api_group, other_value)?;
         }

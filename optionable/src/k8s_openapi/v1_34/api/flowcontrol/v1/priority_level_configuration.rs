@@ -1,4 +1,6 @@
-pub struct PriorityLevelConfigurationOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = PriorityLevelConfiguration)]
+pub struct PriorityLevelConfigurationAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationSpec,
@@ -10,24 +12,24 @@ pub struct PriorityLevelConfigurationOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfiguration {
-    type Optioned = PriorityLevelConfigurationOpt;
+    type Optioned = PriorityLevelConfigurationAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PriorityLevelConfigurationOpt {
-    type Optioned = PriorityLevelConfigurationOpt;
+impl crate::Optionable for PriorityLevelConfigurationAc {
+    type Optioned = PriorityLevelConfigurationAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfiguration {
-    fn into_optioned(self) -> PriorityLevelConfigurationOpt {
-        PriorityLevelConfigurationOpt {
+    fn into_optioned(self) -> PriorityLevelConfigurationAc {
+        PriorityLevelConfigurationAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: PriorityLevelConfigurationOpt,
+        value: PriorityLevelConfigurationAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -37,7 +39,7 @@ for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfiguration {
     }
     fn merge(
         &mut self,
-        other: PriorityLevelConfigurationOpt,
+        other: PriorityLevelConfigurationAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
@@ -45,3 +47,5 @@ for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfiguration {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfiguration;

@@ -1,4 +1,4 @@
-pub struct DeleteOptionsOpt {
+pub struct DeleteOptionsAc {
     pub api_version: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub dry_run: <Option<
         std::vec::Vec<std::string::String>,
@@ -17,17 +17,17 @@ pub struct DeleteOptionsOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions {
-    type Optioned = DeleteOptionsOpt;
+    type Optioned = DeleteOptionsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeleteOptionsOpt {
-    type Optioned = DeleteOptionsOpt;
+impl crate::Optionable for DeleteOptionsAc {
+    type Optioned = DeleteOptionsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions {
-    fn into_optioned(self) -> DeleteOptionsOpt {
-        DeleteOptionsOpt {
+    fn into_optioned(self) -> DeleteOptionsAc {
+        DeleteOptionsAc {
             api_version: crate::OptionableConvert::into_optioned(self.api_version),
             dry_run: crate::OptionableConvert::into_optioned(self.dry_run),
             grace_period_seconds: crate::OptionableConvert::into_optioned(
@@ -47,7 +47,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions {
         }
     }
     fn try_from_optioned(
-        value: DeleteOptionsOpt,
+        value: DeleteOptionsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
@@ -70,10 +70,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeleteOptionsOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeleteOptionsAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         crate::OptionableConvert::merge(&mut self.dry_run, other.dry_run)?;
         crate::OptionableConvert::merge(

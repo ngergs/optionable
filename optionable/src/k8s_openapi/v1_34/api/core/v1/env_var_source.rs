@@ -1,4 +1,4 @@
-pub struct EnvVarSourceOpt {
+pub struct EnvVarSourceAc {
     pub config_map_key_ref: <Option<
         ::k8s_openapi::api::core::v1::ConfigMapKeySelector,
     > as crate::Optionable>::Optioned,
@@ -17,16 +17,16 @@ pub struct EnvVarSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::EnvVarSource {
-    type Optioned = EnvVarSourceOpt;
+    type Optioned = EnvVarSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for EnvVarSourceOpt {
-    type Optioned = EnvVarSourceOpt;
+impl crate::Optionable for EnvVarSourceAc {
+    type Optioned = EnvVarSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EnvVarSource {
-    fn into_optioned(self) -> EnvVarSourceOpt {
-        EnvVarSourceOpt {
+    fn into_optioned(self) -> EnvVarSourceAc {
+        EnvVarSourceAc {
             config_map_key_ref: crate::OptionableConvert::into_optioned(
                 self.config_map_key_ref,
             ),
@@ -39,7 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EnvVarSource {
         }
     }
     fn try_from_optioned(
-        value: EnvVarSourceOpt,
+        value: EnvVarSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             config_map_key_ref: crate::OptionableConvert::try_from_optioned(
@@ -57,7 +57,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EnvVarSource {
             )?,
         })
     }
-    fn merge(&mut self, other: EnvVarSourceOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EnvVarSourceAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.config_map_key_ref,
             other.config_map_key_ref,

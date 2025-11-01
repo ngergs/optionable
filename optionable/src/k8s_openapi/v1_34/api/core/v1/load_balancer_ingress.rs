@@ -1,4 +1,4 @@
-pub struct LoadBalancerIngressOpt {
+pub struct LoadBalancerIngressAc {
     pub hostname: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub ip: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub ip_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -8,16 +8,16 @@ pub struct LoadBalancerIngressOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::LoadBalancerIngress {
-    type Optioned = LoadBalancerIngressOpt;
+    type Optioned = LoadBalancerIngressAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LoadBalancerIngressOpt {
-    type Optioned = LoadBalancerIngressOpt;
+impl crate::Optionable for LoadBalancerIngressAc {
+    type Optioned = LoadBalancerIngressAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LoadBalancerIngress {
-    fn into_optioned(self) -> LoadBalancerIngressOpt {
-        LoadBalancerIngressOpt {
+    fn into_optioned(self) -> LoadBalancerIngressAc {
+        LoadBalancerIngressAc {
             hostname: crate::OptionableConvert::into_optioned(self.hostname),
             ip: crate::OptionableConvert::into_optioned(self.ip),
             ip_mode: crate::OptionableConvert::into_optioned(self.ip_mode),
@@ -25,7 +25,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LoadBalancerIngr
         }
     }
     fn try_from_optioned(
-        value: LoadBalancerIngressOpt,
+        value: LoadBalancerIngressAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
@@ -36,7 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LoadBalancerIngr
     }
     fn merge(
         &mut self,
-        other: LoadBalancerIngressOpt,
+        other: LoadBalancerIngressAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
         crate::OptionableConvert::merge(&mut self.ip, other.ip)?;

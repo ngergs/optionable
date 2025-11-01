@@ -1,4 +1,6 @@
-pub struct EventOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = Event)]
+pub struct EventAc {
     pub action: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub count: <Option<i32> as crate::Optionable>::Optioned,
     pub event_time: <Option<
@@ -33,16 +35,16 @@ pub struct EventOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Event {
-    type Optioned = EventOpt;
+    type Optioned = EventAc;
 }
 #[automatically_derived]
-impl crate::Optionable for EventOpt {
-    type Optioned = EventOpt;
+impl crate::Optionable for EventAc {
+    type Optioned = EventAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Event {
-    fn into_optioned(self) -> EventOpt {
-        EventOpt {
+    fn into_optioned(self) -> EventAc {
+        EventAc {
             action: crate::OptionableConvert::into_optioned(self.action),
             count: crate::OptionableConvert::into_optioned(self.count),
             event_time: crate::OptionableConvert::into_optioned(self.event_time),
@@ -68,7 +70,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Event {
             type_: crate::OptionableConvert::into_optioned(self.type_),
         }
     }
-    fn try_from_optioned(value: EventOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EventAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             action: crate::OptionableConvert::try_from_optioned(value.action)?,
             count: crate::OptionableConvert::try_from_optioned(value.count)?,
@@ -101,7 +103,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Event {
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(&mut self, other: EventOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EventAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.action, other.action)?;
         crate::OptionableConvert::merge(&mut self.count, other.count)?;
         crate::OptionableConvert::merge(&mut self.event_time, other.event_time)?;
@@ -131,3 +133,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Event {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::core::v1::Event;

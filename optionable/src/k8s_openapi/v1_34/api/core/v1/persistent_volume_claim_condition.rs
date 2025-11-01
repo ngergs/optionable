@@ -1,4 +1,4 @@
-pub struct PersistentVolumeClaimConditionOpt {
+pub struct PersistentVolumeClaimConditionAc {
     pub last_probe_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -12,17 +12,17 @@ pub struct PersistentVolumeClaimConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PersistentVolumeClaimCondition {
-    type Optioned = PersistentVolumeClaimConditionOpt;
+    type Optioned = PersistentVolumeClaimConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PersistentVolumeClaimConditionOpt {
-    type Optioned = PersistentVolumeClaimConditionOpt;
+impl crate::Optionable for PersistentVolumeClaimConditionAc {
+    type Optioned = PersistentVolumeClaimConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::PersistentVolumeClaimCondition {
-    fn into_optioned(self) -> PersistentVolumeClaimConditionOpt {
-        PersistentVolumeClaimConditionOpt {
+    fn into_optioned(self) -> PersistentVolumeClaimConditionAc {
+        PersistentVolumeClaimConditionAc {
             last_probe_time: crate::OptionableConvert::into_optioned(
                 self.last_probe_time,
             ),
@@ -36,7 +36,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimCondition {
         }
     }
     fn try_from_optioned(
-        value: PersistentVolumeClaimConditionOpt,
+        value: PersistentVolumeClaimConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_probe_time: crate::OptionableConvert::try_from_optioned(
@@ -65,7 +65,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimCondition {
     }
     fn merge(
         &mut self,
-        other: PersistentVolumeClaimConditionOpt,
+        other: PersistentVolumeClaimConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_probe_time,

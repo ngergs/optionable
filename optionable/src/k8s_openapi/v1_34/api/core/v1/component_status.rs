@@ -1,4 +1,6 @@
-pub struct ComponentStatusOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ComponentStatus)]
+pub struct ComponentStatusAc {
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ComponentCondition>,
     > as crate::Optionable>::Optioned,
@@ -6,22 +8,22 @@ pub struct ComponentStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ComponentStatus {
-    type Optioned = ComponentStatusOpt;
+    type Optioned = ComponentStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ComponentStatusOpt {
-    type Optioned = ComponentStatusOpt;
+impl crate::Optionable for ComponentStatusAc {
+    type Optioned = ComponentStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentStatus {
-    fn into_optioned(self) -> ComponentStatusOpt {
-        ComponentStatusOpt {
+    fn into_optioned(self) -> ComponentStatusAc {
+        ComponentStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             metadata: self.metadata,
         }
     }
     fn try_from_optioned(
-        value: ComponentStatusOpt,
+        value: ComponentStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
@@ -30,10 +32,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentStatus 
     }
     fn merge(
         &mut self,
-        other: ComponentStatusOpt,
+        other: ComponentStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         self.metadata = other.metadata;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::core::v1::ComponentStatus;

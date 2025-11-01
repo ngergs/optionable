@@ -1,4 +1,4 @@
-pub struct CSIPersistentVolumeSourceOpt {
+pub struct CSIPersistentVolumeSourceAc {
     pub controller_expand_secret_ref: <Option<
         ::k8s_openapi::api::core::v1::SecretReference,
     > as crate::Optionable>::Optioned,
@@ -24,17 +24,17 @@ pub struct CSIPersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::CSIPersistentVolumeSource {
-    type Optioned = CSIPersistentVolumeSourceOpt;
+    type Optioned = CSIPersistentVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CSIPersistentVolumeSourceOpt {
-    type Optioned = CSIPersistentVolumeSourceOpt;
+impl crate::Optionable for CSIPersistentVolumeSourceAc {
+    type Optioned = CSIPersistentVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::CSIPersistentVolumeSource {
-    fn into_optioned(self) -> CSIPersistentVolumeSourceOpt {
-        CSIPersistentVolumeSourceOpt {
+    fn into_optioned(self) -> CSIPersistentVolumeSourceAc {
+        CSIPersistentVolumeSourceAc {
             controller_expand_secret_ref: crate::OptionableConvert::into_optioned(
                 self.controller_expand_secret_ref,
             ),
@@ -62,7 +62,7 @@ for ::k8s_openapi::api::core::v1::CSIPersistentVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: CSIPersistentVolumeSourceOpt,
+        value: CSIPersistentVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             controller_expand_secret_ref: crate::OptionableConvert::try_from_optioned(
@@ -103,7 +103,7 @@ for ::k8s_openapi::api::core::v1::CSIPersistentVolumeSource {
     }
     fn merge(
         &mut self,
-        other: CSIPersistentVolumeSourceOpt,
+        other: CSIPersistentVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.controller_expand_secret_ref,

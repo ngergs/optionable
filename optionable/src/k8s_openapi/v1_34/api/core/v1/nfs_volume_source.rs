@@ -1,27 +1,27 @@
-pub struct NFSVolumeSourceOpt {
+pub struct NFSVolumeSourceAc {
     pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
     pub server: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NFSVolumeSource {
-    type Optioned = NFSVolumeSourceOpt;
+    type Optioned = NFSVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NFSVolumeSourceOpt {
-    type Optioned = NFSVolumeSourceOpt;
+impl crate::Optionable for NFSVolumeSourceAc {
+    type Optioned = NFSVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NFSVolumeSource {
-    fn into_optioned(self) -> NFSVolumeSourceOpt {
-        NFSVolumeSourceOpt {
+    fn into_optioned(self) -> NFSVolumeSourceAc {
+        NFSVolumeSourceAc {
             path: Some(crate::OptionableConvert::into_optioned(self.path)),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
             server: Some(crate::OptionableConvert::into_optioned(self.server)),
         }
     }
     fn try_from_optioned(
-        value: NFSVolumeSourceOpt,
+        value: NFSVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             path: crate::OptionableConvert::try_from_optioned(
@@ -43,7 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NFSVolumeSource 
     }
     fn merge(
         &mut self,
-        other: NFSVolumeSourceOpt,
+        other: NFSVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.path {
             crate::OptionableConvert::merge(&mut self.path, other_value)?;

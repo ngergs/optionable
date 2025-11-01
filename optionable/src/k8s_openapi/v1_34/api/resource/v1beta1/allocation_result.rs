@@ -1,4 +1,4 @@
-pub struct AllocationResultOpt {
+pub struct AllocationResultAc {
     pub allocation_timestamp: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -11,17 +11,17 @@ pub struct AllocationResultOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::AllocationResult {
-    type Optioned = AllocationResultOpt;
+    type Optioned = AllocationResultAc;
 }
 #[automatically_derived]
-impl crate::Optionable for AllocationResultOpt {
-    type Optioned = AllocationResultOpt;
+impl crate::Optionable for AllocationResultAc {
+    type Optioned = AllocationResultAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::AllocationResult {
-    fn into_optioned(self) -> AllocationResultOpt {
-        AllocationResultOpt {
+    fn into_optioned(self) -> AllocationResultAc {
+        AllocationResultAc {
             allocation_timestamp: crate::OptionableConvert::into_optioned(
                 self.allocation_timestamp,
             ),
@@ -30,7 +30,7 @@ for ::k8s_openapi::api::resource::v1beta1::AllocationResult {
         }
     }
     fn try_from_optioned(
-        value: AllocationResultOpt,
+        value: AllocationResultAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             allocation_timestamp: crate::OptionableConvert::try_from_optioned(
@@ -44,7 +44,7 @@ for ::k8s_openapi::api::resource::v1beta1::AllocationResult {
     }
     fn merge(
         &mut self,
-        other: AllocationResultOpt,
+        other: AllocationResultAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.allocation_timestamp,

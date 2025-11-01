@@ -1,4 +1,4 @@
-pub struct StatefulSetSpecOpt {
+pub struct StatefulSetSpecAc {
     pub min_ready_seconds: <Option<i32> as crate::Optionable>::Optioned,
     pub ordinals: <Option<
         ::k8s_openapi::api::apps::v1::StatefulSetOrdinals,
@@ -27,16 +27,16 @@ pub struct StatefulSetSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::StatefulSetSpec {
-    type Optioned = StatefulSetSpecOpt;
+    type Optioned = StatefulSetSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StatefulSetSpecOpt {
-    type Optioned = StatefulSetSpecOpt;
+impl crate::Optionable for StatefulSetSpecAc {
+    type Optioned = StatefulSetSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetSpec {
-    fn into_optioned(self) -> StatefulSetSpecOpt {
-        StatefulSetSpecOpt {
+    fn into_optioned(self) -> StatefulSetSpecAc {
+        StatefulSetSpecAc {
             min_ready_seconds: crate::OptionableConvert::into_optioned(
                 self.min_ready_seconds,
             ),
@@ -63,7 +63,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetSpec 
         }
     }
     fn try_from_optioned(
-        value: StatefulSetSpecOpt,
+        value: StatefulSetSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             min_ready_seconds: crate::OptionableConvert::try_from_optioned(
@@ -107,7 +107,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetSpec 
     }
     fn merge(
         &mut self,
-        other: StatefulSetSpecOpt,
+        other: StatefulSetSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.min_ready_seconds,

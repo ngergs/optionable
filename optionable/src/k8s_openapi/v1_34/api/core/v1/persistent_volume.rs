@@ -1,4 +1,6 @@
-pub struct PersistentVolumeOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = PersistentVolume)]
+pub struct PersistentVolumeAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::core::v1::PersistentVolumeSpec,
@@ -9,23 +11,23 @@ pub struct PersistentVolumeOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PersistentVolume {
-    type Optioned = PersistentVolumeOpt;
+    type Optioned = PersistentVolumeAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PersistentVolumeOpt {
-    type Optioned = PersistentVolumeOpt;
+impl crate::Optionable for PersistentVolumeAc {
+    type Optioned = PersistentVolumeAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume {
-    fn into_optioned(self) -> PersistentVolumeOpt {
-        PersistentVolumeOpt {
+    fn into_optioned(self) -> PersistentVolumeAc {
+        PersistentVolumeAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: PersistentVolumeOpt,
+        value: PersistentVolumeAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -35,7 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
     }
     fn merge(
         &mut self,
-        other: PersistentVolumeOpt,
+        other: PersistentVolumeAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
@@ -43,3 +45,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::core::v1::PersistentVolume;

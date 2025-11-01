@@ -1,4 +1,4 @@
-pub struct HorizontalPodAutoscalerBehaviorOpt {
+pub struct HorizontalPodAutoscalerBehaviorAc {
     pub scale_down: <Option<
         ::k8s_openapi::api::autoscaling::v2::HPAScalingRules,
     > as crate::Optionable>::Optioned,
@@ -9,23 +9,23 @@ pub struct HorizontalPodAutoscalerBehaviorOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerBehavior {
-    type Optioned = HorizontalPodAutoscalerBehaviorOpt;
+    type Optioned = HorizontalPodAutoscalerBehaviorAc;
 }
 #[automatically_derived]
-impl crate::Optionable for HorizontalPodAutoscalerBehaviorOpt {
-    type Optioned = HorizontalPodAutoscalerBehaviorOpt;
+impl crate::Optionable for HorizontalPodAutoscalerBehaviorAc {
+    type Optioned = HorizontalPodAutoscalerBehaviorAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerBehavior {
-    fn into_optioned(self) -> HorizontalPodAutoscalerBehaviorOpt {
-        HorizontalPodAutoscalerBehaviorOpt {
+    fn into_optioned(self) -> HorizontalPodAutoscalerBehaviorAc {
+        HorizontalPodAutoscalerBehaviorAc {
             scale_down: crate::OptionableConvert::into_optioned(self.scale_down),
             scale_up: crate::OptionableConvert::into_optioned(self.scale_up),
         }
     }
     fn try_from_optioned(
-        value: HorizontalPodAutoscalerBehaviorOpt,
+        value: HorizontalPodAutoscalerBehaviorAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             scale_down: crate::OptionableConvert::try_from_optioned(value.scale_down)?,
@@ -34,7 +34,7 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerBehavior {
     }
     fn merge(
         &mut self,
-        other: HorizontalPodAutoscalerBehaviorOpt,
+        other: HorizontalPodAutoscalerBehaviorAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.scale_down, other.scale_down)?;
         crate::OptionableConvert::merge(&mut self.scale_up, other.scale_up)?;

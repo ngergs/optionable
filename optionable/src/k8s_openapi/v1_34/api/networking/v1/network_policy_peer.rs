@@ -1,4 +1,4 @@
-pub struct NetworkPolicyPeerOpt {
+pub struct NetworkPolicyPeerAc {
     pub ip_block: <Option<
         ::k8s_openapi::api::networking::v1::IPBlock,
     > as crate::Optionable>::Optioned,
@@ -11,16 +11,16 @@ pub struct NetworkPolicyPeerOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1::NetworkPolicyPeer {
-    type Optioned = NetworkPolicyPeerOpt;
+    type Optioned = NetworkPolicyPeerAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NetworkPolicyPeerOpt {
-    type Optioned = NetworkPolicyPeerOpt;
+impl crate::Optionable for NetworkPolicyPeerAc {
+    type Optioned = NetworkPolicyPeerAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPolicyPeer {
-    fn into_optioned(self) -> NetworkPolicyPeerOpt {
-        NetworkPolicyPeerOpt {
+    fn into_optioned(self) -> NetworkPolicyPeerAc {
+        NetworkPolicyPeerAc {
             ip_block: crate::OptionableConvert::into_optioned(self.ip_block),
             namespace_selector: crate::OptionableConvert::into_optioned(
                 self.namespace_selector,
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPol
         }
     }
     fn try_from_optioned(
-        value: NetworkPolicyPeerOpt,
+        value: NetworkPolicyPeerAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             ip_block: crate::OptionableConvert::try_from_optioned(value.ip_block)?,
@@ -43,7 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPol
     }
     fn merge(
         &mut self,
-        other: NetworkPolicyPeerOpt,
+        other: NetworkPolicyPeerAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.ip_block, other.ip_block)?;
         crate::OptionableConvert::merge(

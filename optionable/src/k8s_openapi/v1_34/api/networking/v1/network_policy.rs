@@ -1,4 +1,6 @@
-pub struct NetworkPolicyOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = NetworkPolicy)]
+pub struct NetworkPolicyAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::networking::v1::NetworkPolicySpec,
@@ -6,34 +8,33 @@ pub struct NetworkPolicyOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1::NetworkPolicy {
-    type Optioned = NetworkPolicyOpt;
+    type Optioned = NetworkPolicyAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NetworkPolicyOpt {
-    type Optioned = NetworkPolicyOpt;
+impl crate::Optionable for NetworkPolicyAc {
+    type Optioned = NetworkPolicyAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPolicy {
-    fn into_optioned(self) -> NetworkPolicyOpt {
-        NetworkPolicyOpt {
+    fn into_optioned(self) -> NetworkPolicyAc {
+        NetworkPolicyAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
         }
     }
     fn try_from_optioned(
-        value: NetworkPolicyOpt,
+        value: NetworkPolicyAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NetworkPolicyOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NetworkPolicyAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::networking::v1::NetworkPolicy;

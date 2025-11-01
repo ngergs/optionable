@@ -1,4 +1,4 @@
-pub struct MetricTargetOpt {
+pub struct MetricTargetAc {
     pub average_utilization: <Option<i32> as crate::Optionable>::Optioned,
     pub average_value: <Option<
         ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
@@ -10,16 +10,16 @@ pub struct MetricTargetOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::MetricTarget {
-    type Optioned = MetricTargetOpt;
+    type Optioned = MetricTargetAc;
 }
 #[automatically_derived]
-impl crate::Optionable for MetricTargetOpt {
-    type Optioned = MetricTargetOpt;
+impl crate::Optionable for MetricTargetAc {
+    type Optioned = MetricTargetAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricTarget {
-    fn into_optioned(self) -> MetricTargetOpt {
-        MetricTargetOpt {
+    fn into_optioned(self) -> MetricTargetAc {
+        MetricTargetAc {
             average_utilization: crate::OptionableConvert::into_optioned(
                 self.average_utilization,
             ),
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricTar
         }
     }
     fn try_from_optioned(
-        value: MetricTargetOpt,
+        value: MetricTargetAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             average_utilization: crate::OptionableConvert::try_from_optioned(
@@ -48,7 +48,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricTar
             value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
     }
-    fn merge(&mut self, other: MetricTargetOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: MetricTargetAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.average_utilization,
             other.average_utilization,

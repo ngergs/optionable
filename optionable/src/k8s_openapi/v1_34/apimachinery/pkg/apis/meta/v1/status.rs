@@ -1,4 +1,4 @@
-pub struct StatusOpt {
+pub struct StatusAc {
     pub code: <Option<i32> as crate::Optionable>::Optioned,
     pub details: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusDetails,
@@ -12,17 +12,17 @@ pub struct StatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
-    type Optioned = StatusOpt;
+    type Optioned = StatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StatusOpt {
-    type Optioned = StatusOpt;
+impl crate::Optionable for StatusAc {
+    type Optioned = StatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
-    fn into_optioned(self) -> StatusOpt {
-        StatusOpt {
+    fn into_optioned(self) -> StatusAc {
+        StatusAc {
             code: crate::OptionableConvert::into_optioned(self.code),
             details: crate::OptionableConvert::into_optioned(self.details),
             message: crate::OptionableConvert::into_optioned(self.message),
@@ -31,7 +31,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
-    fn try_from_optioned(value: StatusOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: StatusAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             code: crate::OptionableConvert::try_from_optioned(value.code)?,
             details: crate::OptionableConvert::try_from_optioned(value.details)?,
@@ -47,7 +47,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(&mut self, other: StatusOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StatusAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.code, other.code)?;
         crate::OptionableConvert::merge(&mut self.details, other.details)?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;

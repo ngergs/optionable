@@ -1,27 +1,27 @@
-pub struct EndpointConditionsOpt {
+pub struct EndpointConditionsAc {
     pub ready: <Option<bool> as crate::Optionable>::Optioned,
     pub serving: <Option<bool> as crate::Optionable>::Optioned,
     pub terminating: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::discovery::v1::EndpointConditions {
-    type Optioned = EndpointConditionsOpt;
+    type Optioned = EndpointConditionsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for EndpointConditionsOpt {
-    type Optioned = EndpointConditionsOpt;
+impl crate::Optionable for EndpointConditionsAc {
+    type Optioned = EndpointConditionsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointConditions {
-    fn into_optioned(self) -> EndpointConditionsOpt {
-        EndpointConditionsOpt {
+    fn into_optioned(self) -> EndpointConditionsAc {
+        EndpointConditionsAc {
             ready: crate::OptionableConvert::into_optioned(self.ready),
             serving: crate::OptionableConvert::into_optioned(self.serving),
             terminating: crate::OptionableConvert::into_optioned(self.terminating),
         }
     }
     fn try_from_optioned(
-        value: EndpointConditionsOpt,
+        value: EndpointConditionsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             ready: crate::OptionableConvert::try_from_optioned(value.ready)?,
@@ -31,7 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointCon
     }
     fn merge(
         &mut self,
-        other: EndpointConditionsOpt,
+        other: EndpointConditionsAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.ready, other.ready)?;
         crate::OptionableConvert::merge(&mut self.serving, other.serving)?;

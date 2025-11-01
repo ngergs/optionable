@@ -1,19 +1,19 @@
-pub struct SeccompProfileOpt {
+pub struct SeccompProfileAc {
     pub localhost_profile: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::SeccompProfile {
-    type Optioned = SeccompProfileOpt;
+    type Optioned = SeccompProfileAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SeccompProfileOpt {
-    type Optioned = SeccompProfileOpt;
+impl crate::Optionable for SeccompProfileAc {
+    type Optioned = SeccompProfileAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SeccompProfile {
-    fn into_optioned(self) -> SeccompProfileOpt {
-        SeccompProfileOpt {
+    fn into_optioned(self) -> SeccompProfileAc {
+        SeccompProfileAc {
             localhost_profile: crate::OptionableConvert::into_optioned(
                 self.localhost_profile,
             ),
@@ -21,7 +21,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SeccompProfile {
         }
     }
     fn try_from_optioned(
-        value: SeccompProfileOpt,
+        value: SeccompProfileAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             localhost_profile: crate::OptionableConvert::try_from_optioned(
@@ -38,7 +38,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SeccompProfile {
     }
     fn merge(
         &mut self,
-        other: SeccompProfileOpt,
+        other: SeccompProfileAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.localhost_profile,

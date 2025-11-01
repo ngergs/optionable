@@ -1,27 +1,27 @@
-pub struct AzureFileVolumeSourceOpt {
+pub struct AzureFileVolumeSourceAc {
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
     pub secret_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub share_name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::AzureFileVolumeSource {
-    type Optioned = AzureFileVolumeSourceOpt;
+    type Optioned = AzureFileVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for AzureFileVolumeSourceOpt {
-    type Optioned = AzureFileVolumeSourceOpt;
+impl crate::Optionable for AzureFileVolumeSourceAc {
+    type Optioned = AzureFileVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AzureFileVolumeSource {
-    fn into_optioned(self) -> AzureFileVolumeSourceOpt {
-        AzureFileVolumeSourceOpt {
+    fn into_optioned(self) -> AzureFileVolumeSourceAc {
+        AzureFileVolumeSourceAc {
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
             secret_name: Some(crate::OptionableConvert::into_optioned(self.secret_name)),
             share_name: Some(crate::OptionableConvert::into_optioned(self.share_name)),
         }
     }
     fn try_from_optioned(
-        value: AzureFileVolumeSourceOpt,
+        value: AzureFileVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
@@ -43,7 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AzureFileVolumeS
     }
     fn merge(
         &mut self,
-        other: AzureFileVolumeSourceOpt,
+        other: AzureFileVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         if let Some(other_value) = other.secret_name {

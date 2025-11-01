@@ -1,4 +1,6 @@
-pub struct ReplicationControllerOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ReplicationController)]
+pub struct ReplicationControllerAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::core::v1::ReplicationControllerSpec,
@@ -9,23 +11,23 @@ pub struct ReplicationControllerOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ReplicationController {
-    type Optioned = ReplicationControllerOpt;
+    type Optioned = ReplicationControllerAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ReplicationControllerOpt {
-    type Optioned = ReplicationControllerOpt;
+impl crate::Optionable for ReplicationControllerAc {
+    type Optioned = ReplicationControllerAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ReplicationController {
-    fn into_optioned(self) -> ReplicationControllerOpt {
-        ReplicationControllerOpt {
+    fn into_optioned(self) -> ReplicationControllerAc {
+        ReplicationControllerAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: ReplicationControllerOpt,
+        value: ReplicationControllerAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -35,7 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ReplicationContr
     }
     fn merge(
         &mut self,
-        other: ReplicationControllerOpt,
+        other: ReplicationControllerAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
@@ -43,3 +45,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ReplicationContr
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::core::v1::ReplicationController;

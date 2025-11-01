@@ -1,4 +1,4 @@
-pub struct NodeConditionOpt {
+pub struct NodeConditionAc {
     pub last_heartbeat_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -12,16 +12,16 @@ pub struct NodeConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeCondition {
-    type Optioned = NodeConditionOpt;
+    type Optioned = NodeConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NodeConditionOpt {
-    type Optioned = NodeConditionOpt;
+impl crate::Optionable for NodeConditionAc {
+    type Optioned = NodeConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeCondition {
-    fn into_optioned(self) -> NodeConditionOpt {
-        NodeConditionOpt {
+    fn into_optioned(self) -> NodeConditionAc {
+        NodeConditionAc {
             last_heartbeat_time: crate::OptionableConvert::into_optioned(
                 self.last_heartbeat_time,
             ),
@@ -35,7 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeCondition {
         }
     }
     fn try_from_optioned(
-        value: NodeConditionOpt,
+        value: NodeConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_heartbeat_time: crate::OptionableConvert::try_from_optioned(
@@ -62,10 +62,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeCondition {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NodeConditionOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeConditionAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_heartbeat_time,
             other.last_heartbeat_time,

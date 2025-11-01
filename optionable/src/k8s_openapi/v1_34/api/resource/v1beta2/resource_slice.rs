@@ -1,4 +1,6 @@
-pub struct ResourceSliceOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ResourceSlice)]
+pub struct ResourceSliceAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::resource::v1beta2::ResourceSliceSpec as crate::Optionable>::Optioned,
@@ -6,22 +8,22 @@ pub struct ResourceSliceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::ResourceSlice {
-    type Optioned = ResourceSliceOpt;
+    type Optioned = ResourceSliceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceSliceOpt {
-    type Optioned = ResourceSliceOpt;
+impl crate::Optionable for ResourceSliceAc {
+    type Optioned = ResourceSliceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::ResourceSlice {
-    fn into_optioned(self) -> ResourceSliceOpt {
-        ResourceSliceOpt {
+    fn into_optioned(self) -> ResourceSliceAc {
+        ResourceSliceAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
         }
     }
     fn try_from_optioned(
-        value: ResourceSliceOpt,
+        value: ResourceSliceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -34,10 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Resourc
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceSliceOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceSliceAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
             crate::OptionableConvert::merge(&mut self.spec, other_value)?;
@@ -45,3 +44,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Resourc
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::resource::v1beta2::ResourceSlice;

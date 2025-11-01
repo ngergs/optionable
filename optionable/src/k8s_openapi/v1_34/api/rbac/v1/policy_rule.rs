@@ -1,4 +1,4 @@
-pub struct PolicyRuleOpt {
+pub struct PolicyRuleAc {
     pub api_groups: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -17,16 +17,16 @@ pub struct PolicyRuleOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::rbac::v1::PolicyRule {
-    type Optioned = PolicyRuleOpt;
+    type Optioned = PolicyRuleAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PolicyRuleOpt {
-    type Optioned = PolicyRuleOpt;
+impl crate::Optionable for PolicyRuleAc {
+    type Optioned = PolicyRuleAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::PolicyRule {
-    fn into_optioned(self) -> PolicyRuleOpt {
-        PolicyRuleOpt {
+    fn into_optioned(self) -> PolicyRuleAc {
+        PolicyRuleAc {
             api_groups: crate::OptionableConvert::into_optioned(self.api_groups),
             non_resource_urls: crate::OptionableConvert::into_optioned(
                 self.non_resource_urls,
@@ -36,9 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::PolicyRule {
             verbs: Some(crate::OptionableConvert::into_optioned(self.verbs)),
         }
     }
-    fn try_from_optioned(
-        value: PolicyRuleOpt,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PolicyRuleAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_groups: crate::OptionableConvert::try_from_optioned(value.api_groups)?,
             non_resource_urls: crate::OptionableConvert::try_from_optioned(
@@ -57,7 +55,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::PolicyRule {
             )?,
         })
     }
-    fn merge(&mut self, other: PolicyRuleOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PolicyRuleAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_groups, other.api_groups)?;
         crate::OptionableConvert::merge(
             &mut self.non_resource_urls,

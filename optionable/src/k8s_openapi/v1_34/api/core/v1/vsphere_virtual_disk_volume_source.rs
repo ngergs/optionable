@@ -1,4 +1,4 @@
-pub struct VsphereVirtualDiskVolumeSourceOpt {
+pub struct VsphereVirtualDiskVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub storage_policy_id: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub storage_policy_name: <Option<
@@ -8,17 +8,17 @@ pub struct VsphereVirtualDiskVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource {
-    type Optioned = VsphereVirtualDiskVolumeSourceOpt;
+    type Optioned = VsphereVirtualDiskVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for VsphereVirtualDiskVolumeSourceOpt {
-    type Optioned = VsphereVirtualDiskVolumeSourceOpt;
+impl crate::Optionable for VsphereVirtualDiskVolumeSourceAc {
+    type Optioned = VsphereVirtualDiskVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource {
-    fn into_optioned(self) -> VsphereVirtualDiskVolumeSourceOpt {
-        VsphereVirtualDiskVolumeSourceOpt {
+    fn into_optioned(self) -> VsphereVirtualDiskVolumeSourceAc {
+        VsphereVirtualDiskVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             storage_policy_id: crate::OptionableConvert::into_optioned(
                 self.storage_policy_id,
@@ -30,7 +30,7 @@ for ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: VsphereVirtualDiskVolumeSourceOpt,
+        value: VsphereVirtualDiskVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
@@ -51,7 +51,7 @@ for ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource {
     }
     fn merge(
         &mut self,
-        other: VsphereVirtualDiskVolumeSourceOpt,
+        other: VsphereVirtualDiskVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(

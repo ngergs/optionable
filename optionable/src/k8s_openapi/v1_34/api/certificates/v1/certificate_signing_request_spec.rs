@@ -1,4 +1,4 @@
-pub struct CertificateSigningRequestSpecOpt {
+pub struct CertificateSigningRequestSpecAc {
     pub expiration_seconds: <Option<i32> as crate::Optionable>::Optioned,
     pub extra: <Option<
         std::collections::BTreeMap<
@@ -20,17 +20,17 @@ pub struct CertificateSigningRequestSpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestSpec {
-    type Optioned = CertificateSigningRequestSpecOpt;
+    type Optioned = CertificateSigningRequestSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CertificateSigningRequestSpecOpt {
-    type Optioned = CertificateSigningRequestSpecOpt;
+impl crate::Optionable for CertificateSigningRequestSpecAc {
+    type Optioned = CertificateSigningRequestSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestSpec {
-    fn into_optioned(self) -> CertificateSigningRequestSpecOpt {
-        CertificateSigningRequestSpecOpt {
+    fn into_optioned(self) -> CertificateSigningRequestSpecAc {
+        CertificateSigningRequestSpecAc {
             expiration_seconds: crate::OptionableConvert::into_optioned(
                 self.expiration_seconds,
             ),
@@ -44,7 +44,7 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestSpec {
         }
     }
     fn try_from_optioned(
-        value: CertificateSigningRequestSpecOpt,
+        value: CertificateSigningRequestSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             expiration_seconds: crate::OptionableConvert::try_from_optioned(
@@ -73,7 +73,7 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestSpec {
     }
     fn merge(
         &mut self,
-        other: CertificateSigningRequestSpecOpt,
+        other: CertificateSigningRequestSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.expiration_seconds,

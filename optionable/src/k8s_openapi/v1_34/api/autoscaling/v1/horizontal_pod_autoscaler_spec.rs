@@ -1,4 +1,4 @@
-pub struct HorizontalPodAutoscalerSpecOpt {
+pub struct HorizontalPodAutoscalerSpecAc {
     pub max_replicas: Option<i32>,
     pub min_replicas: <Option<i32> as crate::Optionable>::Optioned,
     pub scale_target_ref: Option<
@@ -9,17 +9,17 @@ pub struct HorizontalPodAutoscalerSpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerSpec {
-    type Optioned = HorizontalPodAutoscalerSpecOpt;
+    type Optioned = HorizontalPodAutoscalerSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for HorizontalPodAutoscalerSpecOpt {
-    type Optioned = HorizontalPodAutoscalerSpecOpt;
+impl crate::Optionable for HorizontalPodAutoscalerSpecAc {
+    type Optioned = HorizontalPodAutoscalerSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerSpec {
-    fn into_optioned(self) -> HorizontalPodAutoscalerSpecOpt {
-        HorizontalPodAutoscalerSpecOpt {
+    fn into_optioned(self) -> HorizontalPodAutoscalerSpecAc {
+        HorizontalPodAutoscalerSpecAc {
             max_replicas: Some(self.max_replicas),
             min_replicas: crate::OptionableConvert::into_optioned(self.min_replicas),
             scale_target_ref: Some(
@@ -31,7 +31,7 @@ for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerSpec {
         }
     }
     fn try_from_optioned(
-        value: HorizontalPodAutoscalerSpecOpt,
+        value: HorizontalPodAutoscalerSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             max_replicas: value
@@ -56,7 +56,7 @@ for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerSpec {
     }
     fn merge(
         &mut self,
-        other: HorizontalPodAutoscalerSpecOpt,
+        other: HorizontalPodAutoscalerSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.max_replicas {
             self.max_replicas = other_value;

@@ -1,4 +1,4 @@
-pub struct ContainerStateOpt {
+pub struct ContainerStateAc {
     pub running: <Option<
         ::k8s_openapi::api::core::v1::ContainerStateRunning,
     > as crate::Optionable>::Optioned,
@@ -11,23 +11,23 @@ pub struct ContainerStateOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerState {
-    type Optioned = ContainerStateOpt;
+    type Optioned = ContainerStateAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ContainerStateOpt {
-    type Optioned = ContainerStateOpt;
+impl crate::Optionable for ContainerStateAc {
+    type Optioned = ContainerStateAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerState {
-    fn into_optioned(self) -> ContainerStateOpt {
-        ContainerStateOpt {
+    fn into_optioned(self) -> ContainerStateAc {
+        ContainerStateAc {
             running: crate::OptionableConvert::into_optioned(self.running),
             terminated: crate::OptionableConvert::into_optioned(self.terminated),
             waiting: crate::OptionableConvert::into_optioned(self.waiting),
         }
     }
     fn try_from_optioned(
-        value: ContainerStateOpt,
+        value: ContainerStateAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             running: crate::OptionableConvert::try_from_optioned(value.running)?,
@@ -37,7 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerState {
     }
     fn merge(
         &mut self,
-        other: ContainerStateOpt,
+        other: ContainerStateAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.running, other.running)?;
         crate::OptionableConvert::merge(&mut self.terminated, other.terminated)?;

@@ -1,25 +1,25 @@
-pub struct SelectableFieldOpt {
+pub struct SelectableFieldAc {
     pub json_path: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField {
-    type Optioned = SelectableFieldOpt;
+    type Optioned = SelectableFieldAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SelectableFieldOpt {
-    type Optioned = SelectableFieldOpt;
+impl crate::Optionable for SelectableFieldAc {
+    type Optioned = SelectableFieldAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField {
-    fn into_optioned(self) -> SelectableFieldOpt {
-        SelectableFieldOpt {
+    fn into_optioned(self) -> SelectableFieldAc {
+        SelectableFieldAc {
             json_path: Some(crate::OptionableConvert::into_optioned(self.json_path)),
         }
     }
     fn try_from_optioned(
-        value: SelectableFieldOpt,
+        value: SelectableFieldAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             json_path: crate::OptionableConvert::try_from_optioned(
@@ -33,7 +33,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Select
     }
     fn merge(
         &mut self,
-        other: SelectableFieldOpt,
+        other: SelectableFieldAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.json_path {
             crate::OptionableConvert::merge(&mut self.json_path, other_value)?;

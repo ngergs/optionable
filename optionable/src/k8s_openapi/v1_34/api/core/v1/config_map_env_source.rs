@@ -1,25 +1,25 @@
-pub struct ConfigMapEnvSourceOpt {
+pub struct ConfigMapEnvSourceAc {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub optional: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMapEnvSource {
-    type Optioned = ConfigMapEnvSourceOpt;
+    type Optioned = ConfigMapEnvSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ConfigMapEnvSourceOpt {
-    type Optioned = ConfigMapEnvSourceOpt;
+impl crate::Optionable for ConfigMapEnvSourceAc {
+    type Optioned = ConfigMapEnvSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapEnvSource {
-    fn into_optioned(self) -> ConfigMapEnvSourceOpt {
-        ConfigMapEnvSourceOpt {
+    fn into_optioned(self) -> ConfigMapEnvSourceAc {
+        ConfigMapEnvSourceAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             optional: crate::OptionableConvert::into_optioned(self.optional),
         }
     }
     fn try_from_optioned(
-        value: ConfigMapEnvSourceOpt,
+        value: ConfigMapEnvSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
@@ -34,7 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapEnvSour
     }
     fn merge(
         &mut self,
-        other: ConfigMapEnvSourceOpt,
+        other: ConfigMapEnvSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;

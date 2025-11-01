@@ -1,4 +1,4 @@
-pub struct ValidatingAdmissionPolicyStatusOpt {
+pub struct ValidatingAdmissionPolicyStatusAc {
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition>,
     > as crate::Optionable>::Optioned,
@@ -10,17 +10,17 @@ pub struct ValidatingAdmissionPolicyStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyStatus {
-    type Optioned = ValidatingAdmissionPolicyStatusOpt;
+    type Optioned = ValidatingAdmissionPolicyStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ValidatingAdmissionPolicyStatusOpt {
-    type Optioned = ValidatingAdmissionPolicyStatusOpt;
+impl crate::Optionable for ValidatingAdmissionPolicyStatusAc {
+    type Optioned = ValidatingAdmissionPolicyStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyStatus {
-    fn into_optioned(self) -> ValidatingAdmissionPolicyStatusOpt {
-        ValidatingAdmissionPolicyStatusOpt {
+    fn into_optioned(self) -> ValidatingAdmissionPolicyStatusAc {
+        ValidatingAdmissionPolicyStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             observed_generation: crate::OptionableConvert::into_optioned(
                 self.observed_generation,
@@ -29,7 +29,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyStat
         }
     }
     fn try_from_optioned(
-        value: ValidatingAdmissionPolicyStatusOpt,
+        value: ValidatingAdmissionPolicyStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
@@ -43,7 +43,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyStat
     }
     fn merge(
         &mut self,
-        other: ValidatingAdmissionPolicyStatusOpt,
+        other: ValidatingAdmissionPolicyStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(

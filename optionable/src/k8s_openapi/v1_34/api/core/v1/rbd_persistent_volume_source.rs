@@ -1,4 +1,4 @@
-pub struct RBDPersistentVolumeSourceOpt {
+pub struct RBDPersistentVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub image: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub keyring: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -14,17 +14,17 @@ pub struct RBDPersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::RBDPersistentVolumeSource {
-    type Optioned = RBDPersistentVolumeSourceOpt;
+    type Optioned = RBDPersistentVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for RBDPersistentVolumeSourceOpt {
-    type Optioned = RBDPersistentVolumeSourceOpt;
+impl crate::Optionable for RBDPersistentVolumeSourceAc {
+    type Optioned = RBDPersistentVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::RBDPersistentVolumeSource {
-    fn into_optioned(self) -> RBDPersistentVolumeSourceOpt {
-        RBDPersistentVolumeSourceOpt {
+    fn into_optioned(self) -> RBDPersistentVolumeSourceAc {
+        RBDPersistentVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             image: Some(crate::OptionableConvert::into_optioned(self.image)),
             keyring: crate::OptionableConvert::into_optioned(self.keyring),
@@ -36,7 +36,7 @@ for ::k8s_openapi::api::core::v1::RBDPersistentVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: RBDPersistentVolumeSourceOpt,
+        value: RBDPersistentVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
@@ -63,7 +63,7 @@ for ::k8s_openapi::api::core::v1::RBDPersistentVolumeSource {
     }
     fn merge(
         &mut self,
-        other: RBDPersistentVolumeSourceOpt,
+        other: RBDPersistentVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         if let Some(other_value) = other.image {

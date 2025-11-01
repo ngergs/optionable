@@ -1,4 +1,4 @@
-pub struct IngressSpecOpt {
+pub struct IngressSpecAc {
     pub default_backend: <Option<
         ::k8s_openapi::api::networking::v1::IngressBackend,
     > as crate::Optionable>::Optioned,
@@ -12,16 +12,16 @@ pub struct IngressSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1::IngressSpec {
-    type Optioned = IngressSpecOpt;
+    type Optioned = IngressSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for IngressSpecOpt {
-    type Optioned = IngressSpecOpt;
+impl crate::Optionable for IngressSpecAc {
+    type Optioned = IngressSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressSpec {
-    fn into_optioned(self) -> IngressSpecOpt {
-        IngressSpecOpt {
+    fn into_optioned(self) -> IngressSpecAc {
+        IngressSpecAc {
             default_backend: crate::OptionableConvert::into_optioned(
                 self.default_backend,
             ),
@@ -33,7 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressSpe
         }
     }
     fn try_from_optioned(
-        value: IngressSpecOpt,
+        value: IngressSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             default_backend: crate::OptionableConvert::try_from_optioned(
@@ -46,7 +46,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressSpe
             tls: crate::OptionableConvert::try_from_optioned(value.tls)?,
         })
     }
-    fn merge(&mut self, other: IngressSpecOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: IngressSpecAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.default_backend,
             other.default_backend,

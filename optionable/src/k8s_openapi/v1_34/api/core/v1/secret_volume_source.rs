@@ -1,4 +1,4 @@
-pub struct SecretVolumeSourceOpt {
+pub struct SecretVolumeSourceAc {
     pub default_mode: <Option<i32> as crate::Optionable>::Optioned,
     pub items: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::KeyToPath>,
@@ -8,16 +8,16 @@ pub struct SecretVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::SecretVolumeSource {
-    type Optioned = SecretVolumeSourceOpt;
+    type Optioned = SecretVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SecretVolumeSourceOpt {
-    type Optioned = SecretVolumeSourceOpt;
+impl crate::Optionable for SecretVolumeSourceAc {
+    type Optioned = SecretVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretVolumeSource {
-    fn into_optioned(self) -> SecretVolumeSourceOpt {
-        SecretVolumeSourceOpt {
+    fn into_optioned(self) -> SecretVolumeSourceAc {
+        SecretVolumeSourceAc {
             default_mode: crate::OptionableConvert::into_optioned(self.default_mode),
             items: crate::OptionableConvert::into_optioned(self.items),
             optional: crate::OptionableConvert::into_optioned(self.optional),
@@ -25,7 +25,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretVolumeSour
         }
     }
     fn try_from_optioned(
-        value: SecretVolumeSourceOpt,
+        value: SecretVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             default_mode: crate::OptionableConvert::try_from_optioned(
@@ -38,7 +38,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretVolumeSour
     }
     fn merge(
         &mut self,
-        other: SecretVolumeSourceOpt,
+        other: SecretVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.default_mode, other.default_mode)?;
         crate::OptionableConvert::merge(&mut self.items, other.items)?;

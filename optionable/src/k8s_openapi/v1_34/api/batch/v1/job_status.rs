@@ -1,4 +1,4 @@
-pub struct JobStatusOpt {
+pub struct JobStatusAc {
     pub active: <Option<i32> as crate::Optionable>::Optioned,
     pub completed_indexes: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub completion_time: <Option<
@@ -21,16 +21,16 @@ pub struct JobStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::JobStatus {
-    type Optioned = JobStatusOpt;
+    type Optioned = JobStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for JobStatusOpt {
-    type Optioned = JobStatusOpt;
+impl crate::Optionable for JobStatusAc {
+    type Optioned = JobStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobStatus {
-    fn into_optioned(self) -> JobStatusOpt {
-        JobStatusOpt {
+    fn into_optioned(self) -> JobStatusAc {
+        JobStatusAc {
             active: crate::OptionableConvert::into_optioned(self.active),
             completed_indexes: crate::OptionableConvert::into_optioned(
                 self.completed_indexes,
@@ -50,7 +50,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobStatus {
             ),
         }
     }
-    fn try_from_optioned(value: JobStatusOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: JobStatusAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             active: crate::OptionableConvert::try_from_optioned(value.active)?,
             completed_indexes: crate::OptionableConvert::try_from_optioned(
@@ -73,7 +73,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobStatus {
             )?,
         })
     }
-    fn merge(&mut self, other: JobStatusOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: JobStatusAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.active, other.active)?;
         crate::OptionableConvert::merge(
             &mut self.completed_indexes,

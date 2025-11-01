@@ -1,4 +1,6 @@
-pub struct PodCertificateRequestOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = PodCertificateRequest)]
+pub struct PodCertificateRequestAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestSpec as crate::Optionable>::Optioned,
@@ -10,24 +12,24 @@ pub struct PodCertificateRequestOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequest {
-    type Optioned = PodCertificateRequestOpt;
+    type Optioned = PodCertificateRequestAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodCertificateRequestOpt {
-    type Optioned = PodCertificateRequestOpt;
+impl crate::Optionable for PodCertificateRequestAc {
+    type Optioned = PodCertificateRequestAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequest {
-    fn into_optioned(self) -> PodCertificateRequestOpt {
-        PodCertificateRequestOpt {
+    fn into_optioned(self) -> PodCertificateRequestAc {
+        PodCertificateRequestAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: PodCertificateRequestOpt,
+        value: PodCertificateRequestAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -43,7 +45,7 @@ for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequest {
     }
     fn merge(
         &mut self,
-        other: PodCertificateRequestOpt,
+        other: PodCertificateRequestAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
@@ -53,3 +55,5 @@ for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequest {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequest;

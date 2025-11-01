@@ -1,4 +1,4 @@
-pub struct CounterSetOpt {
+pub struct CounterSetAc {
     pub counters: Option<
         <std::collections::BTreeMap<
             std::string::String,
@@ -9,23 +9,21 @@ pub struct CounterSetOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::CounterSet {
-    type Optioned = CounterSetOpt;
+    type Optioned = CounterSetAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CounterSetOpt {
-    type Optioned = CounterSetOpt;
+impl crate::Optionable for CounterSetAc {
+    type Optioned = CounterSetAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::CounterSet {
-    fn into_optioned(self) -> CounterSetOpt {
-        CounterSetOpt {
+    fn into_optioned(self) -> CounterSetAc {
+        CounterSetAc {
             counters: Some(crate::OptionableConvert::into_optioned(self.counters)),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
-    fn try_from_optioned(
-        value: CounterSetOpt,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CounterSetAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             counters: crate::OptionableConvert::try_from_optioned(
                 value
@@ -43,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Counter
             )?,
         })
     }
-    fn merge(&mut self, other: CounterSetOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CounterSetAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.counters {
             crate::OptionableConvert::merge(&mut self.counters, other_value)?;
         }

@@ -1,27 +1,27 @@
-pub struct HPAScalingPolicyOpt {
+pub struct HPAScalingPolicyAc {
     pub period_seconds: Option<i32>,
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub value: Option<i32>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::HPAScalingPolicy {
-    type Optioned = HPAScalingPolicyOpt;
+    type Optioned = HPAScalingPolicyAc;
 }
 #[automatically_derived]
-impl crate::Optionable for HPAScalingPolicyOpt {
-    type Optioned = HPAScalingPolicyOpt;
+impl crate::Optionable for HPAScalingPolicyAc {
+    type Optioned = HPAScalingPolicyAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalingPolicy {
-    fn into_optioned(self) -> HPAScalingPolicyOpt {
-        HPAScalingPolicyOpt {
+    fn into_optioned(self) -> HPAScalingPolicyAc {
+        HPAScalingPolicyAc {
             period_seconds: Some(self.period_seconds),
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
             value: Some(self.value),
         }
     }
     fn try_from_optioned(
-        value: HPAScalingPolicyOpt,
+        value: HPAScalingPolicyAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             period_seconds: value
@@ -45,7 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalin
     }
     fn merge(
         &mut self,
-        other: HPAScalingPolicyOpt,
+        other: HPAScalingPolicyAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.period_seconds {
             self.period_seconds = other_value;

@@ -1,4 +1,4 @@
-pub struct ContainerResourceMetricSourceOpt {
+pub struct ContainerResourceMetricSourceAc {
     pub container: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub target: Option<
@@ -8,24 +8,24 @@ pub struct ContainerResourceMetricSourceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricSource {
-    type Optioned = ContainerResourceMetricSourceOpt;
+    type Optioned = ContainerResourceMetricSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ContainerResourceMetricSourceOpt {
-    type Optioned = ContainerResourceMetricSourceOpt;
+impl crate::Optionable for ContainerResourceMetricSourceAc {
+    type Optioned = ContainerResourceMetricSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricSource {
-    fn into_optioned(self) -> ContainerResourceMetricSourceOpt {
-        ContainerResourceMetricSourceOpt {
+    fn into_optioned(self) -> ContainerResourceMetricSourceAc {
+        ContainerResourceMetricSourceAc {
             container: Some(crate::OptionableConvert::into_optioned(self.container)),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             target: Some(crate::OptionableConvert::into_optioned(self.target)),
         }
     }
     fn try_from_optioned(
-        value: ContainerResourceMetricSourceOpt,
+        value: ContainerResourceMetricSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             container: crate::OptionableConvert::try_from_optioned(
@@ -53,7 +53,7 @@ for ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricSource {
     }
     fn merge(
         &mut self,
-        other: ContainerResourceMetricSourceOpt,
+        other: ContainerResourceMetricSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.container {
             crate::OptionableConvert::merge(&mut self.container, other_value)?;

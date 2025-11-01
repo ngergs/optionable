@@ -1,4 +1,4 @@
-pub struct PodFailurePolicyOnExitCodesRequirementOpt {
+pub struct PodFailurePolicyOnExitCodesRequirementAc {
     pub container_name: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub operator: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub values: Option<<std::vec::Vec<i32> as crate::Optionable>::Optioned>,
@@ -6,24 +6,24 @@ pub struct PodFailurePolicyOnExitCodesRequirementOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnExitCodesRequirement {
-    type Optioned = PodFailurePolicyOnExitCodesRequirementOpt;
+    type Optioned = PodFailurePolicyOnExitCodesRequirementAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodFailurePolicyOnExitCodesRequirementOpt {
-    type Optioned = PodFailurePolicyOnExitCodesRequirementOpt;
+impl crate::Optionable for PodFailurePolicyOnExitCodesRequirementAc {
+    type Optioned = PodFailurePolicyOnExitCodesRequirementAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnExitCodesRequirement {
-    fn into_optioned(self) -> PodFailurePolicyOnExitCodesRequirementOpt {
-        PodFailurePolicyOnExitCodesRequirementOpt {
+    fn into_optioned(self) -> PodFailurePolicyOnExitCodesRequirementAc {
+        PodFailurePolicyOnExitCodesRequirementAc {
             container_name: crate::OptionableConvert::into_optioned(self.container_name),
             operator: Some(crate::OptionableConvert::into_optioned(self.operator)),
             values: Some(crate::OptionableConvert::into_optioned(self.values)),
         }
     }
     fn try_from_optioned(
-        value: PodFailurePolicyOnExitCodesRequirementOpt,
+        value: PodFailurePolicyOnExitCodesRequirementAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             container_name: crate::OptionableConvert::try_from_optioned(
@@ -47,7 +47,7 @@ for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnExitCodesRequirement {
     }
     fn merge(
         &mut self,
-        other: PodFailurePolicyOnExitCodesRequirementOpt,
+        other: PodFailurePolicyOnExitCodesRequirementAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.container_name, other.container_name)?;
         if let Some(other_value) = other.operator {

@@ -1,23 +1,23 @@
-pub struct CELDeviceSelectorOpt {
+pub struct CELDeviceSelectorAc {
     pub expression: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1::CELDeviceSelector {
-    type Optioned = CELDeviceSelectorOpt;
+    type Optioned = CELDeviceSelectorAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CELDeviceSelectorOpt {
-    type Optioned = CELDeviceSelectorOpt;
+impl crate::Optionable for CELDeviceSelectorAc {
+    type Optioned = CELDeviceSelectorAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::CELDeviceSelector {
-    fn into_optioned(self) -> CELDeviceSelectorOpt {
-        CELDeviceSelectorOpt {
+    fn into_optioned(self) -> CELDeviceSelectorAc {
+        CELDeviceSelectorAc {
             expression: Some(crate::OptionableConvert::into_optioned(self.expression)),
         }
     }
     fn try_from_optioned(
-        value: CELDeviceSelectorOpt,
+        value: CELDeviceSelectorAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             expression: crate::OptionableConvert::try_from_optioned(
@@ -31,7 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::CELDeviceSel
     }
     fn merge(
         &mut self,
-        other: CELDeviceSelectorOpt,
+        other: CELDeviceSelectorAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.expression {
             crate::OptionableConvert::merge(&mut self.expression, other_value)?;

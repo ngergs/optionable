@@ -1,4 +1,4 @@
-pub struct ValidationRuleOpt {
+pub struct ValidationRuleAc {
     pub field_path: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub message_expression: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -9,17 +9,17 @@ pub struct ValidationRuleOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ValidationRule {
-    type Optioned = ValidationRuleOpt;
+    type Optioned = ValidationRuleAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ValidationRuleOpt {
-    type Optioned = ValidationRuleOpt;
+impl crate::Optionable for ValidationRuleAc {
+    type Optioned = ValidationRuleAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ValidationRule {
-    fn into_optioned(self) -> ValidationRuleOpt {
-        ValidationRuleOpt {
+    fn into_optioned(self) -> ValidationRuleAc {
+        ValidationRuleAc {
             field_path: crate::OptionableConvert::into_optioned(self.field_path),
             message: crate::OptionableConvert::into_optioned(self.message),
             message_expression: crate::OptionableConvert::into_optioned(
@@ -33,7 +33,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Valida
         }
     }
     fn try_from_optioned(
-        value: ValidationRuleOpt,
+        value: ValidationRuleAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             field_path: crate::OptionableConvert::try_from_optioned(value.field_path)?,
@@ -56,7 +56,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Valida
     }
     fn merge(
         &mut self,
-        other: ValidationRuleOpt,
+        other: ValidationRuleAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.field_path, other.field_path)?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;

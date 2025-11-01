@@ -1,4 +1,4 @@
-pub struct ContainerOpt {
+pub struct ContainerAc {
     pub args: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -61,16 +61,16 @@ pub struct ContainerOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Container {
-    type Optioned = ContainerOpt;
+    type Optioned = ContainerAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ContainerOpt {
-    type Optioned = ContainerOpt;
+impl crate::Optionable for ContainerAc {
+    type Optioned = ContainerAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Container {
-    fn into_optioned(self) -> ContainerOpt {
-        ContainerOpt {
+    fn into_optioned(self) -> ContainerAc {
+        ContainerAc {
             args: crate::OptionableConvert::into_optioned(self.args),
             command: crate::OptionableConvert::into_optioned(self.command),
             env: crate::OptionableConvert::into_optioned(self.env),
@@ -110,7 +110,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Container {
             working_dir: crate::OptionableConvert::into_optioned(self.working_dir),
         }
     }
-    fn try_from_optioned(value: ContainerOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ContainerAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             args: crate::OptionableConvert::try_from_optioned(value.args)?,
             command: crate::OptionableConvert::try_from_optioned(value.command)?,
@@ -169,7 +169,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Container {
             working_dir: crate::OptionableConvert::try_from_optioned(value.working_dir)?,
         })
     }
-    fn merge(&mut self, other: ContainerOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ContainerAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.args, other.args)?;
         crate::OptionableConvert::merge(&mut self.command, other.command)?;
         crate::OptionableConvert::merge(&mut self.env, other.env)?;

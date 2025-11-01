@@ -1,4 +1,4 @@
-pub struct MigrationConditionOpt {
+pub struct MigrationConditionAc {
     pub last_update_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -10,17 +10,17 @@ pub struct MigrationConditionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition {
-    type Optioned = MigrationConditionOpt;
+    type Optioned = MigrationConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for MigrationConditionOpt {
-    type Optioned = MigrationConditionOpt;
+impl crate::Optionable for MigrationConditionAc {
+    type Optioned = MigrationConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition {
-    fn into_optioned(self) -> MigrationConditionOpt {
-        MigrationConditionOpt {
+    fn into_optioned(self) -> MigrationConditionAc {
+        MigrationConditionAc {
             last_update_time: crate::OptionableConvert::into_optioned(
                 self.last_update_time,
             ),
@@ -31,7 +31,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition {
         }
     }
     fn try_from_optioned(
-        value: MigrationConditionOpt,
+        value: MigrationConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_update_time: crate::OptionableConvert::try_from_optioned(
@@ -57,7 +57,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition {
     }
     fn merge(
         &mut self,
-        other: MigrationConditionOpt,
+        other: MigrationConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_update_time,

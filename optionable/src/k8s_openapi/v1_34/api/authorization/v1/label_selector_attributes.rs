@@ -1,4 +1,4 @@
-pub struct LabelSelectorAttributesOpt {
+pub struct LabelSelectorAttributesAc {
     pub raw_selector: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub requirements: <Option<
         std::vec::Vec<
@@ -9,23 +9,23 @@ pub struct LabelSelectorAttributesOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::authorization::v1::LabelSelectorAttributes {
-    type Optioned = LabelSelectorAttributesOpt;
+    type Optioned = LabelSelectorAttributesAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LabelSelectorAttributesOpt {
-    type Optioned = LabelSelectorAttributesOpt;
+impl crate::Optionable for LabelSelectorAttributesAc {
+    type Optioned = LabelSelectorAttributesAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::LabelSelectorAttributes {
-    fn into_optioned(self) -> LabelSelectorAttributesOpt {
-        LabelSelectorAttributesOpt {
+    fn into_optioned(self) -> LabelSelectorAttributesAc {
+        LabelSelectorAttributesAc {
             raw_selector: crate::OptionableConvert::into_optioned(self.raw_selector),
             requirements: crate::OptionableConvert::into_optioned(self.requirements),
         }
     }
     fn try_from_optioned(
-        value: LabelSelectorAttributesOpt,
+        value: LabelSelectorAttributesAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             raw_selector: crate::OptionableConvert::try_from_optioned(
@@ -38,7 +38,7 @@ for ::k8s_openapi::api::authorization::v1::LabelSelectorAttributes {
     }
     fn merge(
         &mut self,
-        other: LabelSelectorAttributesOpt,
+        other: LabelSelectorAttributesAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.raw_selector, other.raw_selector)?;
         crate::OptionableConvert::merge(&mut self.requirements, other.requirements)?;

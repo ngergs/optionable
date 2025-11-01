@@ -1,4 +1,4 @@
-pub struct ValidatingAdmissionPolicySpecOpt {
+pub struct ValidatingAdmissionPolicySpecAc {
     pub audit_annotations: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::AuditAnnotation>,
     > as crate::Optionable>::Optioned,
@@ -22,17 +22,17 @@ pub struct ValidatingAdmissionPolicySpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicySpec {
-    type Optioned = ValidatingAdmissionPolicySpecOpt;
+    type Optioned = ValidatingAdmissionPolicySpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ValidatingAdmissionPolicySpecOpt {
-    type Optioned = ValidatingAdmissionPolicySpecOpt;
+impl crate::Optionable for ValidatingAdmissionPolicySpecAc {
+    type Optioned = ValidatingAdmissionPolicySpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicySpec {
-    fn into_optioned(self) -> ValidatingAdmissionPolicySpecOpt {
-        ValidatingAdmissionPolicySpecOpt {
+    fn into_optioned(self) -> ValidatingAdmissionPolicySpecAc {
+        ValidatingAdmissionPolicySpecAc {
             audit_annotations: crate::OptionableConvert::into_optioned(
                 self.audit_annotations,
             ),
@@ -49,7 +49,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicySpec
         }
     }
     fn try_from_optioned(
-        value: ValidatingAdmissionPolicySpecOpt,
+        value: ValidatingAdmissionPolicySpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             audit_annotations: crate::OptionableConvert::try_from_optioned(
@@ -71,7 +71,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicySpec
     }
     fn merge(
         &mut self,
-        other: ValidatingAdmissionPolicySpecOpt,
+        other: ValidatingAdmissionPolicySpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.audit_annotations,

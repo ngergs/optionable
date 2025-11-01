@@ -1,4 +1,4 @@
-pub struct ISCSIVolumeSourceOpt {
+pub struct ISCSIVolumeSourceAc {
     pub chap_auth_discovery: <Option<bool> as crate::Optionable>::Optioned,
     pub chap_auth_session: <Option<bool> as crate::Optionable>::Optioned,
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -17,16 +17,16 @@ pub struct ISCSIVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ISCSIVolumeSource {
-    type Optioned = ISCSIVolumeSourceOpt;
+    type Optioned = ISCSIVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ISCSIVolumeSourceOpt {
-    type Optioned = ISCSIVolumeSourceOpt;
+impl crate::Optionable for ISCSIVolumeSourceAc {
+    type Optioned = ISCSIVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ISCSIVolumeSource {
-    fn into_optioned(self) -> ISCSIVolumeSourceOpt {
-        ISCSIVolumeSourceOpt {
+    fn into_optioned(self) -> ISCSIVolumeSourceAc {
+        ISCSIVolumeSourceAc {
             chap_auth_discovery: crate::OptionableConvert::into_optioned(
                 self.chap_auth_discovery,
             ),
@@ -49,7 +49,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ISCSIVolumeSourc
         }
     }
     fn try_from_optioned(
-        value: ISCSIVolumeSourceOpt,
+        value: ISCSIVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             chap_auth_discovery: crate::OptionableConvert::try_from_optioned(
@@ -91,7 +91,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ISCSIVolumeSourc
     }
     fn merge(
         &mut self,
-        other: ISCSIVolumeSourceOpt,
+        other: ISCSIVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.chap_auth_discovery,

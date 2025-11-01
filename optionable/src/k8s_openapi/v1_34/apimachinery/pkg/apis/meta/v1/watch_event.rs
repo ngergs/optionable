@@ -1,4 +1,4 @@
-pub enum WatchEventOpt<T>
+pub enum WatchEventAc<T>
 where
     T: crate::Optionable,
     <T as crate::Optionable>::Optioned: Sized,
@@ -33,15 +33,15 @@ where
     T: crate::Optionable,
     <T as crate::Optionable>::Optioned: Sized,
 {
-    type Optioned = WatchEventOpt<T>;
+    type Optioned = WatchEventAc<T>;
 }
 #[automatically_derived]
-impl<T> crate::Optionable for WatchEventOpt<T>
+impl<T> crate::Optionable for WatchEventAc<T>
 where
     T: crate::Optionable,
     <T as crate::Optionable>::Optioned: Sized,
 {
-    type Optioned = WatchEventOpt<T>;
+    type Optioned = WatchEventAc<T>;
 }
 #[automatically_derived]
 impl<T> crate::OptionableConvert
@@ -50,20 +50,20 @@ where
     T: crate::OptionableConvert,
     <T as crate::Optionable>::Optioned: Sized,
 {
-    fn into_optioned(self) -> WatchEventOpt<T> {
+    fn into_optioned(self) -> WatchEventAc<T> {
         match self {
             Self::Added(self_0) => {
-                WatchEventOpt::Added(
+                WatchEventAc::Added(
                     Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
             Self::Deleted(self_0) => {
-                WatchEventOpt::Deleted(
+                WatchEventAc::Deleted(
                     Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
             Self::Modified(self_0) => {
-                WatchEventOpt::Modified(
+                WatchEventAc::Modified(
                     Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
@@ -71,7 +71,7 @@ where
                 annotations: self_annotations,
                 resource_version: self_resource_version,
             } => {
-                WatchEventOpt::Bookmark {
+                WatchEventAc::Bookmark {
                     annotations: Some(
                         crate::OptionableConvert::into_optioned(self_annotations),
                     ),
@@ -81,23 +81,23 @@ where
                 }
             }
             Self::ErrorStatus(self_0) => {
-                WatchEventOpt::ErrorStatus(
+                WatchEventAc::ErrorStatus(
                     Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
             Self::ErrorOther(self_0) => {
-                WatchEventOpt::ErrorOther(
+                WatchEventAc::ErrorOther(
                     Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
         }
     }
     fn try_from_optioned(
-        other: WatchEventOpt<T>,
+        other: WatchEventAc<T>,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(
             match other {
-                WatchEventOpt::Added(other_0) => {
+                WatchEventAc::Added(other_0) => {
                     Self::Added(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -107,7 +107,7 @@ where
                         )?,
                     )
                 }
-                WatchEventOpt::Deleted(other_0) => {
+                WatchEventAc::Deleted(other_0) => {
                     Self::Deleted(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -117,7 +117,7 @@ where
                         )?,
                     )
                 }
-                WatchEventOpt::Modified(other_0) => {
+                WatchEventAc::Modified(other_0) => {
                     Self::Modified(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -127,7 +127,7 @@ where
                         )?,
                     )
                 }
-                WatchEventOpt::Bookmark {
+                WatchEventAc::Bookmark {
                     annotations: other_annotations,
                     resource_version: other_resource_version,
                 } => {
@@ -146,7 +146,7 @@ where
                         )?,
                     }
                 }
-                WatchEventOpt::ErrorStatus(other_0) => {
+                WatchEventAc::ErrorStatus(other_0) => {
                     Self::ErrorStatus(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -156,7 +156,7 @@ where
                         )?,
                     )
                 }
-                WatchEventOpt::ErrorOther(other_0) => {
+                WatchEventAc::ErrorOther(other_0) => {
                     Self::ErrorOther(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -169,39 +169,36 @@ where
             },
         )
     }
-    fn merge(
-        &mut self,
-        other: WatchEventOpt<T>,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: WatchEventAc<T>) -> Result<(), crate::optionable::Error> {
         match other {
-            WatchEventOpt::Added(other_0) => {
+            WatchEventAc::Added(other_0) => {
                 if let Self::Added(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
-                    *self = Self::try_from_optioned(WatchEventOpt::Added(other_0))?;
+                    *self = Self::try_from_optioned(WatchEventAc::Added(other_0))?;
                 }
             }
-            WatchEventOpt::Deleted(other_0) => {
+            WatchEventAc::Deleted(other_0) => {
                 if let Self::Deleted(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
-                    *self = Self::try_from_optioned(WatchEventOpt::Deleted(other_0))?;
+                    *self = Self::try_from_optioned(WatchEventAc::Deleted(other_0))?;
                 }
             }
-            WatchEventOpt::Modified(other_0) => {
+            WatchEventAc::Modified(other_0) => {
                 if let Self::Modified(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
-                    *self = Self::try_from_optioned(WatchEventOpt::Modified(other_0))?;
+                    *self = Self::try_from_optioned(WatchEventAc::Modified(other_0))?;
                 }
             }
-            WatchEventOpt::Bookmark {
+            WatchEventAc::Bookmark {
                 annotations: other_annotations,
                 resource_version: other_resource_version,
             } => {
@@ -219,30 +216,28 @@ where
                         )?;
                     }
                 } else {
-                    *self = Self::try_from_optioned(WatchEventOpt::Bookmark {
+                    *self = Self::try_from_optioned(WatchEventAc::Bookmark {
                         annotations: other_annotations,
                         resource_version: other_resource_version,
                     })?;
                 }
             }
-            WatchEventOpt::ErrorStatus(other_0) => {
+            WatchEventAc::ErrorStatus(other_0) => {
                 if let Self::ErrorStatus(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
-                    *self = Self::try_from_optioned(
-                        WatchEventOpt::ErrorStatus(other_0),
-                    )?;
+                    *self = Self::try_from_optioned(WatchEventAc::ErrorStatus(other_0))?;
                 }
             }
-            WatchEventOpt::ErrorOther(other_0) => {
+            WatchEventAc::ErrorOther(other_0) => {
                 if let Self::ErrorOther(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
-                    *self = Self::try_from_optioned(WatchEventOpt::ErrorOther(other_0))?;
+                    *self = Self::try_from_optioned(WatchEventAc::ErrorOther(other_0))?;
                 }
             }
         }

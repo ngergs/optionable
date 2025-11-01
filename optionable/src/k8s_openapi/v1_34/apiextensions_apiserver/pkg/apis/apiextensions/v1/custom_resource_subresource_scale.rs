@@ -1,4 +1,4 @@
-pub struct CustomResourceSubresourceScaleOpt {
+pub struct CustomResourceSubresourceScaleAc {
     pub label_selector_path: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
@@ -10,17 +10,17 @@ pub struct CustomResourceSubresourceScaleOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresourceScale {
-    type Optioned = CustomResourceSubresourceScaleOpt;
+    type Optioned = CustomResourceSubresourceScaleAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CustomResourceSubresourceScaleOpt {
-    type Optioned = CustomResourceSubresourceScaleOpt;
+impl crate::Optionable for CustomResourceSubresourceScaleAc {
+    type Optioned = CustomResourceSubresourceScaleAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresourceScale {
-    fn into_optioned(self) -> CustomResourceSubresourceScaleOpt {
-        CustomResourceSubresourceScaleOpt {
+    fn into_optioned(self) -> CustomResourceSubresourceScaleAc {
+        CustomResourceSubresourceScaleAc {
             label_selector_path: crate::OptionableConvert::into_optioned(
                 self.label_selector_path,
             ),
@@ -33,7 +33,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
         }
     }
     fn try_from_optioned(
-        value: CustomResourceSubresourceScaleOpt,
+        value: CustomResourceSubresourceScaleAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             label_selector_path: crate::OptionableConvert::try_from_optioned(
@@ -57,7 +57,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn merge(
         &mut self,
-        other: CustomResourceSubresourceScaleOpt,
+        other: CustomResourceSubresourceScaleAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.label_selector_path,

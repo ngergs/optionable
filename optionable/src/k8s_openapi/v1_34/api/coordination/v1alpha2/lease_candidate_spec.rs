@@ -1,4 +1,4 @@
-pub struct LeaseCandidateSpecOpt {
+pub struct LeaseCandidateSpecAc {
     pub binary_version: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub emulation_version: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub lease_name: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -13,17 +13,17 @@ pub struct LeaseCandidateSpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::coordination::v1alpha2::LeaseCandidateSpec {
-    type Optioned = LeaseCandidateSpecOpt;
+    type Optioned = LeaseCandidateSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LeaseCandidateSpecOpt {
-    type Optioned = LeaseCandidateSpecOpt;
+impl crate::Optionable for LeaseCandidateSpecAc {
+    type Optioned = LeaseCandidateSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::coordination::v1alpha2::LeaseCandidateSpec {
-    fn into_optioned(self) -> LeaseCandidateSpecOpt {
-        LeaseCandidateSpecOpt {
+    fn into_optioned(self) -> LeaseCandidateSpecAc {
+        LeaseCandidateSpecAc {
             binary_version: Some(
                 crate::OptionableConvert::into_optioned(self.binary_version),
             ),
@@ -37,7 +37,7 @@ for ::k8s_openapi::api::coordination::v1alpha2::LeaseCandidateSpec {
         }
     }
     fn try_from_optioned(
-        value: LeaseCandidateSpecOpt,
+        value: LeaseCandidateSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             binary_version: crate::OptionableConvert::try_from_optioned(
@@ -70,7 +70,7 @@ for ::k8s_openapi::api::coordination::v1alpha2::LeaseCandidateSpec {
     }
     fn merge(
         &mut self,
-        other: LeaseCandidateSpecOpt,
+        other: LeaseCandidateSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.binary_version {
             crate::OptionableConvert::merge(&mut self.binary_version, other_value)?;

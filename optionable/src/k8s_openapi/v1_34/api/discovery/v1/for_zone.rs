@@ -1,22 +1,22 @@
-pub struct ForZoneOpt {
+pub struct ForZoneAc {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::discovery::v1::ForZone {
-    type Optioned = ForZoneOpt;
+    type Optioned = ForZoneAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ForZoneOpt {
-    type Optioned = ForZoneOpt;
+impl crate::Optionable for ForZoneAc {
+    type Optioned = ForZoneAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::ForZone {
-    fn into_optioned(self) -> ForZoneOpt {
-        ForZoneOpt {
+    fn into_optioned(self) -> ForZoneAc {
+        ForZoneAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
-    fn try_from_optioned(value: ForZoneOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ForZoneAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
                 value
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::ForZone {
             )?,
         })
     }
-    fn merge(&mut self, other: ForZoneOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ForZoneAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }

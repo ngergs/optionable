@@ -1,4 +1,4 @@
-pub struct HorizontalPodAutoscalerStatusOpt {
+pub struct HorizontalPodAutoscalerStatusAc {
     pub conditions: <Option<
         std::vec::Vec<
             ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerCondition,
@@ -17,17 +17,17 @@ pub struct HorizontalPodAutoscalerStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
-    type Optioned = HorizontalPodAutoscalerStatusOpt;
+    type Optioned = HorizontalPodAutoscalerStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for HorizontalPodAutoscalerStatusOpt {
-    type Optioned = HorizontalPodAutoscalerStatusOpt;
+impl crate::Optionable for HorizontalPodAutoscalerStatusAc {
+    type Optioned = HorizontalPodAutoscalerStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
-    fn into_optioned(self) -> HorizontalPodAutoscalerStatusOpt {
-        HorizontalPodAutoscalerStatusOpt {
+    fn into_optioned(self) -> HorizontalPodAutoscalerStatusAc {
+        HorizontalPodAutoscalerStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             current_metrics: crate::OptionableConvert::into_optioned(
                 self.current_metrics,
@@ -45,7 +45,7 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
         }
     }
     fn try_from_optioned(
-        value: HorizontalPodAutoscalerStatusOpt,
+        value: HorizontalPodAutoscalerStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
@@ -70,7 +70,7 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
     }
     fn merge(
         &mut self,
-        other: HorizontalPodAutoscalerStatusOpt,
+        other: HorizontalPodAutoscalerStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(

@@ -1,4 +1,4 @@
-pub struct CronJobSpecOpt {
+pub struct CronJobSpecAc {
     pub concurrency_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub failed_jobs_history_limit: <Option<i32> as crate::Optionable>::Optioned,
     pub job_template: Option<
@@ -12,16 +12,16 @@ pub struct CronJobSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::CronJobSpec {
-    type Optioned = CronJobSpecOpt;
+    type Optioned = CronJobSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CronJobSpecOpt {
-    type Optioned = CronJobSpecOpt;
+impl crate::Optionable for CronJobSpecAc {
+    type Optioned = CronJobSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJobSpec {
-    fn into_optioned(self) -> CronJobSpecOpt {
-        CronJobSpecOpt {
+    fn into_optioned(self) -> CronJobSpecAc {
+        CronJobSpecAc {
             concurrency_policy: crate::OptionableConvert::into_optioned(
                 self.concurrency_policy,
             ),
@@ -43,7 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJobSpec {
         }
     }
     fn try_from_optioned(
-        value: CronJobSpecOpt,
+        value: CronJobSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             concurrency_policy: crate::OptionableConvert::try_from_optioned(
@@ -76,7 +76,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJobSpec {
             time_zone: crate::OptionableConvert::try_from_optioned(value.time_zone)?,
         })
     }
-    fn merge(&mut self, other: CronJobSpecOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CronJobSpecAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.concurrency_policy,
             other.concurrency_policy,

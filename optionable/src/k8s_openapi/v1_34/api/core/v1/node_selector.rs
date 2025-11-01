@@ -1,4 +1,4 @@
-pub struct NodeSelectorOpt {
+pub struct NodeSelectorAc {
     pub node_selector_terms: Option<
         <std::vec::Vec<
             ::k8s_openapi::api::core::v1::NodeSelectorTerm,
@@ -7,23 +7,23 @@ pub struct NodeSelectorOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeSelector {
-    type Optioned = NodeSelectorOpt;
+    type Optioned = NodeSelectorAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NodeSelectorOpt {
-    type Optioned = NodeSelectorOpt;
+impl crate::Optionable for NodeSelectorAc {
+    type Optioned = NodeSelectorAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelector {
-    fn into_optioned(self) -> NodeSelectorOpt {
-        NodeSelectorOpt {
+    fn into_optioned(self) -> NodeSelectorAc {
+        NodeSelectorAc {
             node_selector_terms: Some(
                 crate::OptionableConvert::into_optioned(self.node_selector_terms),
             ),
         }
     }
     fn try_from_optioned(
-        value: NodeSelectorOpt,
+        value: NodeSelectorAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             node_selector_terms: crate::OptionableConvert::try_from_optioned(
@@ -35,7 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelector {
             )?,
         })
     }
-    fn merge(&mut self, other: NodeSelectorOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeSelectorAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.node_selector_terms {
             crate::OptionableConvert::merge(&mut self.node_selector_terms, other_value)?;
         }

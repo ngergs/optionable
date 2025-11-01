@@ -1,24 +1,24 @@
-pub struct CounterOpt {
+pub struct CounterAc {
     pub value: Option<
         <::k8s_openapi::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
     >,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::Counter {
-    type Optioned = CounterOpt;
+    type Optioned = CounterAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CounterOpt {
-    type Optioned = CounterOpt;
+impl crate::Optionable for CounterAc {
+    type Optioned = CounterAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Counter {
-    fn into_optioned(self) -> CounterOpt {
-        CounterOpt {
+    fn into_optioned(self) -> CounterAc {
+        CounterAc {
             value: Some(crate::OptionableConvert::into_optioned(self.value)),
         }
     }
-    fn try_from_optioned(value: CounterOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CounterAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             value: crate::OptionableConvert::try_from_optioned(
                 value
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Counter
             )?,
         })
     }
-    fn merge(&mut self, other: CounterOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CounterAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.value {
             crate::OptionableConvert::merge(&mut self.value, other_value)?;
         }

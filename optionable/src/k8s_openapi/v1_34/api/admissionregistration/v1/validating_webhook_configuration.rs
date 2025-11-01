@@ -1,4 +1,6 @@
-pub struct ValidatingWebhookConfigurationOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ValidatingWebhookConfiguration)]
+pub struct ValidatingWebhookConfigurationAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub webhooks: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::ValidatingWebhook>,
@@ -7,23 +9,23 @@ pub struct ValidatingWebhookConfigurationOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguration {
-    type Optioned = ValidatingWebhookConfigurationOpt;
+    type Optioned = ValidatingWebhookConfigurationAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ValidatingWebhookConfigurationOpt {
-    type Optioned = ValidatingWebhookConfigurationOpt;
+impl crate::Optionable for ValidatingWebhookConfigurationAc {
+    type Optioned = ValidatingWebhookConfigurationAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguration {
-    fn into_optioned(self) -> ValidatingWebhookConfigurationOpt {
-        ValidatingWebhookConfigurationOpt {
+    fn into_optioned(self) -> ValidatingWebhookConfigurationAc {
+        ValidatingWebhookConfigurationAc {
             metadata: self.metadata,
             webhooks: crate::OptionableConvert::into_optioned(self.webhooks),
         }
     }
     fn try_from_optioned(
-        value: ValidatingWebhookConfigurationOpt,
+        value: ValidatingWebhookConfigurationAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -32,10 +34,12 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguratio
     }
     fn merge(
         &mut self,
-        other: ValidatingWebhookConfigurationOpt,
+        other: ValidatingWebhookConfigurationAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.webhooks, other.webhooks)?;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguration;

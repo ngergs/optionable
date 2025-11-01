@@ -1,4 +1,6 @@
-pub struct StorageClassOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = StorageClass)]
+pub struct StorageClassAc {
     pub allow_volume_expansion: <Option<bool> as crate::Optionable>::Optioned,
     pub allowed_topologies: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::TopologySelectorTerm>,
@@ -18,16 +20,16 @@ pub struct StorageClassOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::StorageClass {
-    type Optioned = StorageClassOpt;
+    type Optioned = StorageClassAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StorageClassOpt {
-    type Optioned = StorageClassOpt;
+impl crate::Optionable for StorageClassAc {
+    type Optioned = StorageClassAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass {
-    fn into_optioned(self) -> StorageClassOpt {
-        StorageClassOpt {
+    fn into_optioned(self) -> StorageClassAc {
+        StorageClassAc {
             allow_volume_expansion: crate::OptionableConvert::into_optioned(
                 self.allow_volume_expansion,
             ),
@@ -45,7 +47,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass 
         }
     }
     fn try_from_optioned(
-        value: StorageClassOpt,
+        value: StorageClassAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             allow_volume_expansion: crate::OptionableConvert::try_from_optioned(
@@ -74,7 +76,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass 
             )?,
         })
     }
-    fn merge(&mut self, other: StorageClassOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StorageClassAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.allow_volume_expansion,
             other.allow_volume_expansion,
@@ -97,3 +99,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass 
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::storage::v1::StorageClass;

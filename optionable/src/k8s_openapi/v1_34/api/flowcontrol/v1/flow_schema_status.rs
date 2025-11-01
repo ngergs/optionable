@@ -1,25 +1,25 @@
-pub struct FlowSchemaStatusOpt {
+pub struct FlowSchemaStatusAc {
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::flowcontrol::v1::FlowSchemaCondition>,
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaStatus {
-    type Optioned = FlowSchemaStatusOpt;
+    type Optioned = FlowSchemaStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for FlowSchemaStatusOpt {
-    type Optioned = FlowSchemaStatusOpt;
+impl crate::Optionable for FlowSchemaStatusAc {
+    type Optioned = FlowSchemaStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaStatus {
-    fn into_optioned(self) -> FlowSchemaStatusOpt {
-        FlowSchemaStatusOpt {
+    fn into_optioned(self) -> FlowSchemaStatusAc {
+        FlowSchemaStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
         }
     }
     fn try_from_optioned(
-        value: FlowSchemaStatusOpt,
+        value: FlowSchemaStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::FlowSchem
     }
     fn merge(
         &mut self,
-        other: FlowSchemaStatusOpt,
+        other: FlowSchemaStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         Ok(())

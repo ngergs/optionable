@@ -1,4 +1,4 @@
-pub struct PriorityLevelConfigurationStatusOpt {
+pub struct PriorityLevelConfigurationStatusAc {
     pub conditions: <Option<
         std::vec::Vec<
             ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationCondition,
@@ -8,22 +8,22 @@ pub struct PriorityLevelConfigurationStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationStatus {
-    type Optioned = PriorityLevelConfigurationStatusOpt;
+    type Optioned = PriorityLevelConfigurationStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PriorityLevelConfigurationStatusOpt {
-    type Optioned = PriorityLevelConfigurationStatusOpt;
+impl crate::Optionable for PriorityLevelConfigurationStatusAc {
+    type Optioned = PriorityLevelConfigurationStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationStatus {
-    fn into_optioned(self) -> PriorityLevelConfigurationStatusOpt {
-        PriorityLevelConfigurationStatusOpt {
+    fn into_optioned(self) -> PriorityLevelConfigurationStatusAc {
+        PriorityLevelConfigurationStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
         }
     }
     fn try_from_optioned(
-        value: PriorityLevelConfigurationStatusOpt,
+        value: PriorityLevelConfigurationStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
@@ -31,7 +31,7 @@ for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationStatus {
     }
     fn merge(
         &mut self,
-        other: PriorityLevelConfigurationStatusOpt,
+        other: PriorityLevelConfigurationStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         Ok(())

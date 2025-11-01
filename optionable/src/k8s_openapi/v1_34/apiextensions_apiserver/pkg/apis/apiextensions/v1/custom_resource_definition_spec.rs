@@ -1,4 +1,4 @@
-pub struct CustomResourceDefinitionSpecOpt {
+pub struct CustomResourceDefinitionSpecAc {
     pub conversion: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceConversion,
     > as crate::Optionable>::Optioned,
@@ -17,17 +17,17 @@ pub struct CustomResourceDefinitionSpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionSpec {
-    type Optioned = CustomResourceDefinitionSpecOpt;
+    type Optioned = CustomResourceDefinitionSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CustomResourceDefinitionSpecOpt {
-    type Optioned = CustomResourceDefinitionSpecOpt;
+impl crate::Optionable for CustomResourceDefinitionSpecAc {
+    type Optioned = CustomResourceDefinitionSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionSpec {
-    fn into_optioned(self) -> CustomResourceDefinitionSpecOpt {
-        CustomResourceDefinitionSpecOpt {
+    fn into_optioned(self) -> CustomResourceDefinitionSpecAc {
+        CustomResourceDefinitionSpecAc {
             conversion: crate::OptionableConvert::into_optioned(self.conversion),
             group: Some(crate::OptionableConvert::into_optioned(self.group)),
             names: Some(crate::OptionableConvert::into_optioned(self.names)),
@@ -39,7 +39,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
         }
     }
     fn try_from_optioned(
-        value: CustomResourceDefinitionSpecOpt,
+        value: CustomResourceDefinitionSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             conversion: crate::OptionableConvert::try_from_optioned(value.conversion)?,
@@ -78,7 +78,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn merge(
         &mut self,
-        other: CustomResourceDefinitionSpecOpt,
+        other: CustomResourceDefinitionSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.conversion, other.conversion)?;
         if let Some(other_value) = other.group {

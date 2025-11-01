@@ -1,4 +1,4 @@
-pub struct NodeSelectorTermOpt {
+pub struct NodeSelectorTermAc {
     pub match_expressions: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::NodeSelectorRequirement>,
     > as crate::Optionable>::Optioned,
@@ -8,16 +8,16 @@ pub struct NodeSelectorTermOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeSelectorTerm {
-    type Optioned = NodeSelectorTermOpt;
+    type Optioned = NodeSelectorTermAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NodeSelectorTermOpt {
-    type Optioned = NodeSelectorTermOpt;
+impl crate::Optionable for NodeSelectorTermAc {
+    type Optioned = NodeSelectorTermAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelectorTerm {
-    fn into_optioned(self) -> NodeSelectorTermOpt {
-        NodeSelectorTermOpt {
+    fn into_optioned(self) -> NodeSelectorTermAc {
+        NodeSelectorTermAc {
             match_expressions: crate::OptionableConvert::into_optioned(
                 self.match_expressions,
             ),
@@ -25,7 +25,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelectorTerm
         }
     }
     fn try_from_optioned(
-        value: NodeSelectorTermOpt,
+        value: NodeSelectorTermAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             match_expressions: crate::OptionableConvert::try_from_optioned(
@@ -38,7 +38,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelectorTerm
     }
     fn merge(
         &mut self,
-        other: NodeSelectorTermOpt,
+        other: NodeSelectorTermAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.match_expressions,

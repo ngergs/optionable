@@ -1,27 +1,27 @@
-pub struct GitRepoVolumeSourceOpt {
+pub struct GitRepoVolumeSourceAc {
     pub directory: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub repository: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub revision: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::GitRepoVolumeSource {
-    type Optioned = GitRepoVolumeSourceOpt;
+    type Optioned = GitRepoVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for GitRepoVolumeSourceOpt {
-    type Optioned = GitRepoVolumeSourceOpt;
+impl crate::Optionable for GitRepoVolumeSourceAc {
+    type Optioned = GitRepoVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::GitRepoVolumeSource {
-    fn into_optioned(self) -> GitRepoVolumeSourceOpt {
-        GitRepoVolumeSourceOpt {
+    fn into_optioned(self) -> GitRepoVolumeSourceAc {
+        GitRepoVolumeSourceAc {
             directory: crate::OptionableConvert::into_optioned(self.directory),
             repository: Some(crate::OptionableConvert::into_optioned(self.repository)),
             revision: crate::OptionableConvert::into_optioned(self.revision),
         }
     }
     fn try_from_optioned(
-        value: GitRepoVolumeSourceOpt,
+        value: GitRepoVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             directory: crate::OptionableConvert::try_from_optioned(value.directory)?,
@@ -37,7 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::GitRepoVolumeSou
     }
     fn merge(
         &mut self,
-        other: GitRepoVolumeSourceOpt,
+        other: GitRepoVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.directory, other.directory)?;
         if let Some(other_value) = other.repository {

@@ -1,4 +1,4 @@
-pub struct MutatingAdmissionPolicySpecOpt {
+pub struct MutatingAdmissionPolicySpecAc {
     pub failure_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub match_conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1beta1::MatchCondition>,
@@ -22,17 +22,17 @@ pub struct MutatingAdmissionPolicySpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicySpec {
-    type Optioned = MutatingAdmissionPolicySpecOpt;
+    type Optioned = MutatingAdmissionPolicySpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for MutatingAdmissionPolicySpecOpt {
-    type Optioned = MutatingAdmissionPolicySpecOpt;
+impl crate::Optionable for MutatingAdmissionPolicySpecAc {
+    type Optioned = MutatingAdmissionPolicySpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicySpec {
-    fn into_optioned(self) -> MutatingAdmissionPolicySpecOpt {
-        MutatingAdmissionPolicySpecOpt {
+    fn into_optioned(self) -> MutatingAdmissionPolicySpecAc {
+        MutatingAdmissionPolicySpecAc {
             failure_policy: crate::OptionableConvert::into_optioned(self.failure_policy),
             match_conditions: crate::OptionableConvert::into_optioned(
                 self.match_conditions,
@@ -49,7 +49,7 @@ for ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicyS
         }
     }
     fn try_from_optioned(
-        value: MutatingAdmissionPolicySpecOpt,
+        value: MutatingAdmissionPolicySpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             failure_policy: crate::OptionableConvert::try_from_optioned(
@@ -71,7 +71,7 @@ for ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicyS
     }
     fn merge(
         &mut self,
-        other: MutatingAdmissionPolicySpecOpt,
+        other: MutatingAdmissionPolicySpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.failure_policy, other.failure_policy)?;
         crate::OptionableConvert::merge(

@@ -1,4 +1,4 @@
-pub struct StorageVersionStatusOpt {
+pub struct StorageVersionStatusAc {
     pub common_encoding_version: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
@@ -16,17 +16,17 @@ pub struct StorageVersionStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionStatus {
-    type Optioned = StorageVersionStatusOpt;
+    type Optioned = StorageVersionStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StorageVersionStatusOpt {
-    type Optioned = StorageVersionStatusOpt;
+impl crate::Optionable for StorageVersionStatusAc {
+    type Optioned = StorageVersionStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionStatus {
-    fn into_optioned(self) -> StorageVersionStatusOpt {
-        StorageVersionStatusOpt {
+    fn into_optioned(self) -> StorageVersionStatusAc {
+        StorageVersionStatusAc {
             common_encoding_version: crate::OptionableConvert::into_optioned(
                 self.common_encoding_version,
             ),
@@ -37,7 +37,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionStatus {
         }
     }
     fn try_from_optioned(
-        value: StorageVersionStatusOpt,
+        value: StorageVersionStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             common_encoding_version: crate::OptionableConvert::try_from_optioned(
@@ -51,7 +51,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionStatus {
     }
     fn merge(
         &mut self,
-        other: StorageVersionStatusOpt,
+        other: StorageVersionStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.common_encoding_version,

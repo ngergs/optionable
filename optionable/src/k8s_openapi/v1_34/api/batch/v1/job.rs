@@ -1,4 +1,6 @@
-pub struct JobOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = Job)]
+pub struct JobAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::batch::v1::JobSpec,
@@ -9,32 +11,34 @@ pub struct JobOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::Job {
-    type Optioned = JobOpt;
+    type Optioned = JobAc;
 }
 #[automatically_derived]
-impl crate::Optionable for JobOpt {
-    type Optioned = JobOpt;
+impl crate::Optionable for JobAc {
+    type Optioned = JobAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::Job {
-    fn into_optioned(self) -> JobOpt {
-        JobOpt {
+    fn into_optioned(self) -> JobAc {
+        JobAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
-    fn try_from_optioned(value: JobOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: JobAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(&mut self, other: JobOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: JobAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::batch::v1::Job;

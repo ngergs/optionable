@@ -1,25 +1,25 @@
-pub struct ScaleStatusOpt {
+pub struct ScaleStatusAc {
     pub replicas: Option<i32>,
     pub selector: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::autoscaling::v1::ScaleStatus {
-    type Optioned = ScaleStatusOpt;
+    type Optioned = ScaleStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ScaleStatusOpt {
-    type Optioned = ScaleStatusOpt;
+impl crate::Optionable for ScaleStatusAc {
+    type Optioned = ScaleStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v1::ScaleStatus {
-    fn into_optioned(self) -> ScaleStatusOpt {
-        ScaleStatusOpt {
+    fn into_optioned(self) -> ScaleStatusAc {
+        ScaleStatusAc {
             replicas: Some(self.replicas),
             selector: crate::OptionableConvert::into_optioned(self.selector),
         }
     }
     fn try_from_optioned(
-        value: ScaleStatusOpt,
+        value: ScaleStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             replicas: value
@@ -30,7 +30,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v1::ScaleStat
             selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
         })
     }
-    fn merge(&mut self, other: ScaleStatusOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ScaleStatusAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.replicas {
             self.replicas = other_value;
         }

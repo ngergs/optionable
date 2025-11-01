@@ -1,4 +1,4 @@
-pub struct PersistentVolumeClaimTemplateOpt {
+pub struct PersistentVolumeClaimTemplateAc {
     pub metadata: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     > as crate::Optionable>::Optioned,
@@ -8,23 +8,23 @@ pub struct PersistentVolumeClaimTemplateOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PersistentVolumeClaimTemplate {
-    type Optioned = PersistentVolumeClaimTemplateOpt;
+    type Optioned = PersistentVolumeClaimTemplateAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PersistentVolumeClaimTemplateOpt {
-    type Optioned = PersistentVolumeClaimTemplateOpt;
+impl crate::Optionable for PersistentVolumeClaimTemplateAc {
+    type Optioned = PersistentVolumeClaimTemplateAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::PersistentVolumeClaimTemplate {
-    fn into_optioned(self) -> PersistentVolumeClaimTemplateOpt {
-        PersistentVolumeClaimTemplateOpt {
+    fn into_optioned(self) -> PersistentVolumeClaimTemplateAc {
+        PersistentVolumeClaimTemplateAc {
             metadata: crate::OptionableConvert::into_optioned(self.metadata),
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
         }
     }
     fn try_from_optioned(
-        value: PersistentVolumeClaimTemplateOpt,
+        value: PersistentVolumeClaimTemplateAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: crate::OptionableConvert::try_from_optioned(value.metadata)?,
@@ -39,7 +39,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimTemplate {
     }
     fn merge(
         &mut self,
-        other: PersistentVolumeClaimTemplateOpt,
+        other: PersistentVolumeClaimTemplateAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.metadata, other.metadata)?;
         if let Some(other_value) = other.spec {

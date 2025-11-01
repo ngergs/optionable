@@ -1,4 +1,4 @@
-pub struct SubjectAccessReviewSpecOpt {
+pub struct SubjectAccessReviewSpecAc {
     pub extra: <Option<
         std::collections::BTreeMap<
             std::string::String,
@@ -20,17 +20,17 @@ pub struct SubjectAccessReviewSpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewSpec {
-    type Optioned = SubjectAccessReviewSpecOpt;
+    type Optioned = SubjectAccessReviewSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SubjectAccessReviewSpecOpt {
-    type Optioned = SubjectAccessReviewSpecOpt;
+impl crate::Optionable for SubjectAccessReviewSpecAc {
+    type Optioned = SubjectAccessReviewSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewSpec {
-    fn into_optioned(self) -> SubjectAccessReviewSpecOpt {
-        SubjectAccessReviewSpecOpt {
+    fn into_optioned(self) -> SubjectAccessReviewSpecAc {
+        SubjectAccessReviewSpecAc {
             extra: crate::OptionableConvert::into_optioned(self.extra),
             groups: crate::OptionableConvert::into_optioned(self.groups),
             non_resource_attributes: crate::OptionableConvert::into_optioned(
@@ -44,7 +44,7 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewSpec {
         }
     }
     fn try_from_optioned(
-        value: SubjectAccessReviewSpecOpt,
+        value: SubjectAccessReviewSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             extra: crate::OptionableConvert::try_from_optioned(value.extra)?,
@@ -61,7 +61,7 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewSpec {
     }
     fn merge(
         &mut self,
-        other: SubjectAccessReviewSpecOpt,
+        other: SubjectAccessReviewSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.extra, other.extra)?;
         crate::OptionableConvert::merge(&mut self.groups, other.groups)?;

@@ -1,4 +1,4 @@
-pub struct VolumeProjectionOpt {
+pub struct VolumeProjectionAc {
     pub cluster_trust_bundle: <Option<
         ::k8s_openapi::api::core::v1::ClusterTrustBundleProjection,
     > as crate::Optionable>::Optioned,
@@ -20,16 +20,16 @@ pub struct VolumeProjectionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::VolumeProjection {
-    type Optioned = VolumeProjectionOpt;
+    type Optioned = VolumeProjectionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for VolumeProjectionOpt {
-    type Optioned = VolumeProjectionOpt;
+impl crate::Optionable for VolumeProjectionAc {
+    type Optioned = VolumeProjectionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeProjection {
-    fn into_optioned(self) -> VolumeProjectionOpt {
-        VolumeProjectionOpt {
+    fn into_optioned(self) -> VolumeProjectionAc {
+        VolumeProjectionAc {
             cluster_trust_bundle: crate::OptionableConvert::into_optioned(
                 self.cluster_trust_bundle,
             ),
@@ -45,7 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeProjection
         }
     }
     fn try_from_optioned(
-        value: VolumeProjectionOpt,
+        value: VolumeProjectionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             cluster_trust_bundle: crate::OptionableConvert::try_from_optioned(
@@ -66,7 +66,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeProjection
     }
     fn merge(
         &mut self,
-        other: VolumeProjectionOpt,
+        other: VolumeProjectionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.cluster_trust_bundle,

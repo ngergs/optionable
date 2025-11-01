@@ -1,4 +1,4 @@
-pub struct ContainerStateTerminatedOpt {
+pub struct ContainerStateTerminatedAc {
     pub container_id: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub exit_code: Option<i32>,
     pub finished_at: <Option<
@@ -13,17 +13,17 @@ pub struct ContainerStateTerminatedOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerStateTerminated {
-    type Optioned = ContainerStateTerminatedOpt;
+    type Optioned = ContainerStateTerminatedAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ContainerStateTerminatedOpt {
-    type Optioned = ContainerStateTerminatedOpt;
+impl crate::Optionable for ContainerStateTerminatedAc {
+    type Optioned = ContainerStateTerminatedAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ContainerStateTerminated {
-    fn into_optioned(self) -> ContainerStateTerminatedOpt {
-        ContainerStateTerminatedOpt {
+    fn into_optioned(self) -> ContainerStateTerminatedAc {
+        ContainerStateTerminatedAc {
             container_id: crate::OptionableConvert::into_optioned(self.container_id),
             exit_code: Some(self.exit_code),
             finished_at: crate::OptionableConvert::into_optioned(self.finished_at),
@@ -34,7 +34,7 @@ for ::k8s_openapi::api::core::v1::ContainerStateTerminated {
         }
     }
     fn try_from_optioned(
-        value: ContainerStateTerminatedOpt,
+        value: ContainerStateTerminatedAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             container_id: crate::OptionableConvert::try_from_optioned(
@@ -54,7 +54,7 @@ for ::k8s_openapi::api::core::v1::ContainerStateTerminated {
     }
     fn merge(
         &mut self,
-        other: ContainerStateTerminatedOpt,
+        other: ContainerStateTerminatedAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.container_id, other.container_id)?;
         if let Some(other_value) = other.exit_code {

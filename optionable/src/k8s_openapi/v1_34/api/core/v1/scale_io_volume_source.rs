@@ -1,4 +1,4 @@
-pub struct ScaleIOVolumeSourceOpt {
+pub struct ScaleIOVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub gateway: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub protection_domain: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -14,16 +14,16 @@ pub struct ScaleIOVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ScaleIOVolumeSource {
-    type Optioned = ScaleIOVolumeSourceOpt;
+    type Optioned = ScaleIOVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ScaleIOVolumeSourceOpt {
-    type Optioned = ScaleIOVolumeSourceOpt;
+impl crate::Optionable for ScaleIOVolumeSourceAc {
+    type Optioned = ScaleIOVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScaleIOVolumeSource {
-    fn into_optioned(self) -> ScaleIOVolumeSourceOpt {
-        ScaleIOVolumeSourceOpt {
+    fn into_optioned(self) -> ScaleIOVolumeSourceAc {
+        ScaleIOVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             gateway: Some(crate::OptionableConvert::into_optioned(self.gateway)),
             protection_domain: crate::OptionableConvert::into_optioned(
@@ -39,7 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScaleIOVolumeSou
         }
     }
     fn try_from_optioned(
-        value: ScaleIOVolumeSourceOpt,
+        value: ScaleIOVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
@@ -80,7 +80,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScaleIOVolumeSou
     }
     fn merge(
         &mut self,
-        other: ScaleIOVolumeSourceOpt,
+        other: ScaleIOVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         if let Some(other_value) = other.gateway {

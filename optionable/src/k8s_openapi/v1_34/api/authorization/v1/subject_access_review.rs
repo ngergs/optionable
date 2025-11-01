@@ -1,4 +1,6 @@
-pub struct SubjectAccessReviewOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = SubjectAccessReview)]
+pub struct SubjectAccessReviewAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::authorization::v1::SubjectAccessReviewSpec as crate::Optionable>::Optioned,
@@ -9,24 +11,24 @@ pub struct SubjectAccessReviewOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::authorization::v1::SubjectAccessReview {
-    type Optioned = SubjectAccessReviewOpt;
+    type Optioned = SubjectAccessReviewAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SubjectAccessReviewOpt {
-    type Optioned = SubjectAccessReviewOpt;
+impl crate::Optionable for SubjectAccessReviewAc {
+    type Optioned = SubjectAccessReviewAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::SubjectAccessReview {
-    fn into_optioned(self) -> SubjectAccessReviewOpt {
-        SubjectAccessReviewOpt {
+    fn into_optioned(self) -> SubjectAccessReviewAc {
+        SubjectAccessReviewAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: SubjectAccessReviewOpt,
+        value: SubjectAccessReviewAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -42,7 +44,7 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReview {
     }
     fn merge(
         &mut self,
-        other: SubjectAccessReviewOpt,
+        other: SubjectAccessReviewAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
@@ -52,3 +54,5 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReview {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::authorization::v1::SubjectAccessReview;

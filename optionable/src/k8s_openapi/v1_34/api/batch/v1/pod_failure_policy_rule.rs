@@ -1,4 +1,4 @@
-pub struct PodFailurePolicyRuleOpt {
+pub struct PodFailurePolicyRuleAc {
     pub action: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub on_exit_codes: <Option<
         ::k8s_openapi::api::batch::v1::PodFailurePolicyOnExitCodesRequirement,
@@ -11,16 +11,16 @@ pub struct PodFailurePolicyRuleOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::PodFailurePolicyRule {
-    type Optioned = PodFailurePolicyRuleOpt;
+    type Optioned = PodFailurePolicyRuleAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodFailurePolicyRuleOpt {
-    type Optioned = PodFailurePolicyRuleOpt;
+impl crate::Optionable for PodFailurePolicyRuleAc {
+    type Optioned = PodFailurePolicyRuleAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::PodFailurePolicyRule {
-    fn into_optioned(self) -> PodFailurePolicyRuleOpt {
-        PodFailurePolicyRuleOpt {
+    fn into_optioned(self) -> PodFailurePolicyRuleAc {
+        PodFailurePolicyRuleAc {
             action: Some(crate::OptionableConvert::into_optioned(self.action)),
             on_exit_codes: crate::OptionableConvert::into_optioned(self.on_exit_codes),
             on_pod_conditions: crate::OptionableConvert::into_optioned(
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::PodFailurePolic
         }
     }
     fn try_from_optioned(
-        value: PodFailurePolicyRuleOpt,
+        value: PodFailurePolicyRuleAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             action: crate::OptionableConvert::try_from_optioned(
@@ -49,7 +49,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::PodFailurePolic
     }
     fn merge(
         &mut self,
-        other: PodFailurePolicyRuleOpt,
+        other: PodFailurePolicyRuleAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.action {
             crate::OptionableConvert::merge(&mut self.action, other_value)?;

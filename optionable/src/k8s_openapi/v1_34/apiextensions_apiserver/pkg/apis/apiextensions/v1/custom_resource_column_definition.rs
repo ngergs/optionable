@@ -1,4 +1,4 @@
-pub struct CustomResourceColumnDefinitionOpt {
+pub struct CustomResourceColumnDefinitionAc {
     pub description: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub format: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub json_path: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -9,17 +9,17 @@ pub struct CustomResourceColumnDefinitionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceColumnDefinition {
-    type Optioned = CustomResourceColumnDefinitionOpt;
+    type Optioned = CustomResourceColumnDefinitionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CustomResourceColumnDefinitionOpt {
-    type Optioned = CustomResourceColumnDefinitionOpt;
+impl crate::Optionable for CustomResourceColumnDefinitionAc {
+    type Optioned = CustomResourceColumnDefinitionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceColumnDefinition {
-    fn into_optioned(self) -> CustomResourceColumnDefinitionOpt {
-        CustomResourceColumnDefinitionOpt {
+    fn into_optioned(self) -> CustomResourceColumnDefinitionAc {
+        CustomResourceColumnDefinitionAc {
             description: crate::OptionableConvert::into_optioned(self.description),
             format: crate::OptionableConvert::into_optioned(self.format),
             json_path: Some(crate::OptionableConvert::into_optioned(self.json_path)),
@@ -29,7 +29,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
         }
     }
     fn try_from_optioned(
-        value: CustomResourceColumnDefinitionOpt,
+        value: CustomResourceColumnDefinitionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             description: crate::OptionableConvert::try_from_optioned(value.description)?,
@@ -60,7 +60,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn merge(
         &mut self,
-        other: CustomResourceColumnDefinitionOpt,
+        other: CustomResourceColumnDefinitionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.description, other.description)?;
         crate::OptionableConvert::merge(&mut self.format, other.format)?;

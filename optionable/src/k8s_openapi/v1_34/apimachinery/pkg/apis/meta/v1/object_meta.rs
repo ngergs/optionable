@@ -1,4 +1,4 @@
-pub struct ObjectMetaOpt {
+pub struct ObjectMetaAc {
     pub annotations: <Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -33,17 +33,17 @@ pub struct ObjectMetaOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta {
-    type Optioned = ObjectMetaOpt;
+    type Optioned = ObjectMetaAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ObjectMetaOpt {
-    type Optioned = ObjectMetaOpt;
+impl crate::Optionable for ObjectMetaAc {
+    type Optioned = ObjectMetaAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta {
-    fn into_optioned(self) -> ObjectMetaOpt {
-        ObjectMetaOpt {
+    fn into_optioned(self) -> ObjectMetaAc {
+        ObjectMetaAc {
             annotations: crate::OptionableConvert::into_optioned(self.annotations),
             creation_timestamp: crate::OptionableConvert::into_optioned(
                 self.creation_timestamp,
@@ -71,9 +71,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta {
             uid: crate::OptionableConvert::into_optioned(self.uid),
         }
     }
-    fn try_from_optioned(
-        value: ObjectMetaOpt,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ObjectMetaAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             annotations: crate::OptionableConvert::try_from_optioned(value.annotations)?,
             creation_timestamp: crate::OptionableConvert::try_from_optioned(
@@ -106,7 +104,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta {
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
-    fn merge(&mut self, other: ObjectMetaOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ObjectMetaAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.annotations, other.annotations)?;
         crate::OptionableConvert::merge(
             &mut self.creation_timestamp,

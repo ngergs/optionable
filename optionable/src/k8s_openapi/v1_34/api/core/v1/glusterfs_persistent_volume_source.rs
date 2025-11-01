@@ -1,4 +1,4 @@
-pub struct GlusterfsPersistentVolumeSourceOpt {
+pub struct GlusterfsPersistentVolumeSourceAc {
     pub endpoints: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub endpoints_namespace: <Option<
         std::string::String,
@@ -9,17 +9,17 @@ pub struct GlusterfsPersistentVolumeSourceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::core::v1::GlusterfsPersistentVolumeSource {
-    type Optioned = GlusterfsPersistentVolumeSourceOpt;
+    type Optioned = GlusterfsPersistentVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for GlusterfsPersistentVolumeSourceOpt {
-    type Optioned = GlusterfsPersistentVolumeSourceOpt;
+impl crate::Optionable for GlusterfsPersistentVolumeSourceAc {
+    type Optioned = GlusterfsPersistentVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::GlusterfsPersistentVolumeSource {
-    fn into_optioned(self) -> GlusterfsPersistentVolumeSourceOpt {
-        GlusterfsPersistentVolumeSourceOpt {
+    fn into_optioned(self) -> GlusterfsPersistentVolumeSourceAc {
+        GlusterfsPersistentVolumeSourceAc {
             endpoints: Some(crate::OptionableConvert::into_optioned(self.endpoints)),
             endpoints_namespace: crate::OptionableConvert::into_optioned(
                 self.endpoints_namespace,
@@ -29,7 +29,7 @@ for ::k8s_openapi::api::core::v1::GlusterfsPersistentVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: GlusterfsPersistentVolumeSourceOpt,
+        value: GlusterfsPersistentVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             endpoints: crate::OptionableConvert::try_from_optioned(
@@ -54,7 +54,7 @@ for ::k8s_openapi::api::core::v1::GlusterfsPersistentVolumeSource {
     }
     fn merge(
         &mut self,
-        other: GlusterfsPersistentVolumeSourceOpt,
+        other: GlusterfsPersistentVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.endpoints {
             crate::OptionableConvert::merge(&mut self.endpoints, other_value)?;

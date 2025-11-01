@@ -1,4 +1,4 @@
-pub struct SelfSubjectAccessReviewSpecOpt {
+pub struct SelfSubjectAccessReviewSpecAc {
     pub non_resource_attributes: <Option<
         ::k8s_openapi::api::authorization::v1::NonResourceAttributes,
     > as crate::Optionable>::Optioned,
@@ -9,17 +9,17 @@ pub struct SelfSubjectAccessReviewSpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReviewSpec {
-    type Optioned = SelfSubjectAccessReviewSpecOpt;
+    type Optioned = SelfSubjectAccessReviewSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SelfSubjectAccessReviewSpecOpt {
-    type Optioned = SelfSubjectAccessReviewSpecOpt;
+impl crate::Optionable for SelfSubjectAccessReviewSpecAc {
+    type Optioned = SelfSubjectAccessReviewSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReviewSpec {
-    fn into_optioned(self) -> SelfSubjectAccessReviewSpecOpt {
-        SelfSubjectAccessReviewSpecOpt {
+    fn into_optioned(self) -> SelfSubjectAccessReviewSpecAc {
+        SelfSubjectAccessReviewSpecAc {
             non_resource_attributes: crate::OptionableConvert::into_optioned(
                 self.non_resource_attributes,
             ),
@@ -29,7 +29,7 @@ for ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReviewSpec {
         }
     }
     fn try_from_optioned(
-        value: SelfSubjectAccessReviewSpecOpt,
+        value: SelfSubjectAccessReviewSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             non_resource_attributes: crate::OptionableConvert::try_from_optioned(
@@ -42,7 +42,7 @@ for ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReviewSpec {
     }
     fn merge(
         &mut self,
-        other: SelfSubjectAccessReviewSpecOpt,
+        other: SelfSubjectAccessReviewSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.non_resource_attributes,

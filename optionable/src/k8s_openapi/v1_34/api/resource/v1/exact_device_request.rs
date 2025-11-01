@@ -1,4 +1,4 @@
-pub struct ExactDeviceRequestOpt {
+pub struct ExactDeviceRequestAc {
     pub admin_access: <Option<bool> as crate::Optionable>::Optioned,
     pub allocation_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub capacity: <Option<
@@ -15,16 +15,16 @@ pub struct ExactDeviceRequestOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1::ExactDeviceRequest {
-    type Optioned = ExactDeviceRequestOpt;
+    type Optioned = ExactDeviceRequestAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ExactDeviceRequestOpt {
-    type Optioned = ExactDeviceRequestOpt;
+impl crate::Optionable for ExactDeviceRequestAc {
+    type Optioned = ExactDeviceRequestAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ExactDeviceRequest {
-    fn into_optioned(self) -> ExactDeviceRequestOpt {
-        ExactDeviceRequestOpt {
+    fn into_optioned(self) -> ExactDeviceRequestAc {
+        ExactDeviceRequestAc {
             admin_access: crate::OptionableConvert::into_optioned(self.admin_access),
             allocation_mode: crate::OptionableConvert::into_optioned(
                 self.allocation_mode,
@@ -39,7 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ExactDeviceR
         }
     }
     fn try_from_optioned(
-        value: ExactDeviceRequestOpt,
+        value: ExactDeviceRequestAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             admin_access: crate::OptionableConvert::try_from_optioned(
@@ -63,7 +63,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ExactDeviceR
     }
     fn merge(
         &mut self,
-        other: ExactDeviceRequestOpt,
+        other: ExactDeviceRequestAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
         crate::OptionableConvert::merge(

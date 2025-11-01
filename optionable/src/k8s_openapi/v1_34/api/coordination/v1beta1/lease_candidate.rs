@@ -1,4 +1,6 @@
-pub struct LeaseCandidateOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = LeaseCandidate)]
+pub struct LeaseCandidateAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::coordination::v1beta1::LeaseCandidateSpec,
@@ -6,23 +8,23 @@ pub struct LeaseCandidateOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::coordination::v1beta1::LeaseCandidate {
-    type Optioned = LeaseCandidateOpt;
+    type Optioned = LeaseCandidateAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LeaseCandidateOpt {
-    type Optioned = LeaseCandidateOpt;
+impl crate::Optionable for LeaseCandidateAc {
+    type Optioned = LeaseCandidateAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::coordination::v1beta1::LeaseCandidate {
-    fn into_optioned(self) -> LeaseCandidateOpt {
-        LeaseCandidateOpt {
+    fn into_optioned(self) -> LeaseCandidateAc {
+        LeaseCandidateAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
         }
     }
     fn try_from_optioned(
-        value: LeaseCandidateOpt,
+        value: LeaseCandidateAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -31,10 +33,12 @@ for ::k8s_openapi::api::coordination::v1beta1::LeaseCandidate {
     }
     fn merge(
         &mut self,
-        other: LeaseCandidateOpt,
+        other: LeaseCandidateAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::coordination::v1beta1::LeaseCandidate;

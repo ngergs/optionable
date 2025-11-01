@@ -1,4 +1,4 @@
-pub struct CapacityRequestPolicyRangeOpt {
+pub struct CapacityRequestPolicyRangeAc {
     pub max: <Option<
         ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
     > as crate::Optionable>::Optioned,
@@ -12,24 +12,24 @@ pub struct CapacityRequestPolicyRangeOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::resource::v1beta1::CapacityRequestPolicyRange {
-    type Optioned = CapacityRequestPolicyRangeOpt;
+    type Optioned = CapacityRequestPolicyRangeAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CapacityRequestPolicyRangeOpt {
-    type Optioned = CapacityRequestPolicyRangeOpt;
+impl crate::Optionable for CapacityRequestPolicyRangeAc {
+    type Optioned = CapacityRequestPolicyRangeAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::CapacityRequestPolicyRange {
-    fn into_optioned(self) -> CapacityRequestPolicyRangeOpt {
-        CapacityRequestPolicyRangeOpt {
+    fn into_optioned(self) -> CapacityRequestPolicyRangeAc {
+        CapacityRequestPolicyRangeAc {
             max: crate::OptionableConvert::into_optioned(self.max),
             min: Some(crate::OptionableConvert::into_optioned(self.min)),
             step: crate::OptionableConvert::into_optioned(self.step),
         }
     }
     fn try_from_optioned(
-        value: CapacityRequestPolicyRangeOpt,
+        value: CapacityRequestPolicyRangeAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             max: crate::OptionableConvert::try_from_optioned(value.max)?,
@@ -45,7 +45,7 @@ for ::k8s_openapi::api::resource::v1beta1::CapacityRequestPolicyRange {
     }
     fn merge(
         &mut self,
-        other: CapacityRequestPolicyRangeOpt,
+        other: CapacityRequestPolicyRangeAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.max, other.max)?;
         if let Some(other_value) = other.min {

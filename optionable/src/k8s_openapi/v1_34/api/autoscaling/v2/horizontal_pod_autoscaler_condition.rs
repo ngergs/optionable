@@ -1,4 +1,4 @@
-pub struct HorizontalPodAutoscalerConditionOpt {
+pub struct HorizontalPodAutoscalerConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -10,17 +10,17 @@ pub struct HorizontalPodAutoscalerConditionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
-    type Optioned = HorizontalPodAutoscalerConditionOpt;
+    type Optioned = HorizontalPodAutoscalerConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for HorizontalPodAutoscalerConditionOpt {
-    type Optioned = HorizontalPodAutoscalerConditionOpt;
+impl crate::Optionable for HorizontalPodAutoscalerConditionAc {
+    type Optioned = HorizontalPodAutoscalerConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
-    fn into_optioned(self) -> HorizontalPodAutoscalerConditionOpt {
-        HorizontalPodAutoscalerConditionOpt {
+    fn into_optioned(self) -> HorizontalPodAutoscalerConditionAc {
+        HorizontalPodAutoscalerConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -31,7 +31,7 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
         }
     }
     fn try_from_optioned(
-        value: HorizontalPodAutoscalerConditionOpt,
+        value: HorizontalPodAutoscalerConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -57,7 +57,7 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
     }
     fn merge(
         &mut self,
-        other: HorizontalPodAutoscalerConditionOpt,
+        other: HorizontalPodAutoscalerConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

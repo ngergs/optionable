@@ -1,4 +1,6 @@
-pub struct PodDisruptionBudgetOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = PodDisruptionBudget)]
+pub struct PodDisruptionBudgetAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::policy::v1::PodDisruptionBudgetSpec,
@@ -9,23 +11,23 @@ pub struct PodDisruptionBudgetOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::policy::v1::PodDisruptionBudget {
-    type Optioned = PodDisruptionBudgetOpt;
+    type Optioned = PodDisruptionBudgetAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodDisruptionBudgetOpt {
-    type Optioned = PodDisruptionBudgetOpt;
+impl crate::Optionable for PodDisruptionBudgetAc {
+    type Optioned = PodDisruptionBudgetAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::PodDisruptionBudget {
-    fn into_optioned(self) -> PodDisruptionBudgetOpt {
-        PodDisruptionBudgetOpt {
+    fn into_optioned(self) -> PodDisruptionBudgetAc {
+        PodDisruptionBudgetAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: PodDisruptionBudgetOpt,
+        value: PodDisruptionBudgetAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -35,7 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::PodDisruptionB
     }
     fn merge(
         &mut self,
-        other: PodDisruptionBudgetOpt,
+        other: PodDisruptionBudgetAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
@@ -43,3 +45,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::PodDisruptionB
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::policy::v1::PodDisruptionBudget;

@@ -1,4 +1,4 @@
-pub struct VolumeOpt {
+pub struct VolumeAc {
     pub aws_elastic_block_store: <Option<
         ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource,
     > as crate::Optionable>::Optioned,
@@ -93,16 +93,16 @@ pub struct VolumeOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Volume {
-    type Optioned = VolumeOpt;
+    type Optioned = VolumeAc;
 }
 #[automatically_derived]
-impl crate::Optionable for VolumeOpt {
-    type Optioned = VolumeOpt;
+impl crate::Optionable for VolumeAc {
+    type Optioned = VolumeAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Volume {
-    fn into_optioned(self) -> VolumeOpt {
-        VolumeOpt {
+    fn into_optioned(self) -> VolumeAc {
+        VolumeAc {
             aws_elastic_block_store: crate::OptionableConvert::into_optioned(
                 self.aws_elastic_block_store,
             ),
@@ -146,7 +146,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Volume {
             vsphere_volume: crate::OptionableConvert::into_optioned(self.vsphere_volume),
         }
     }
-    fn try_from_optioned(value: VolumeOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: VolumeAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             aws_elastic_block_store: crate::OptionableConvert::try_from_optioned(
                 value.aws_elastic_block_store,
@@ -201,7 +201,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Volume {
             )?,
         })
     }
-    fn merge(&mut self, other: VolumeOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.aws_elastic_block_store,
             other.aws_elastic_block_store,

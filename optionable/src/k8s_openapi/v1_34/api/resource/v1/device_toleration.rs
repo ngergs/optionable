@@ -1,4 +1,4 @@
-pub struct DeviceTolerationOpt {
+pub struct DeviceTolerationAc {
     pub effect: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub key: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub operator: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -7,16 +7,16 @@ pub struct DeviceTolerationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1::DeviceToleration {
-    type Optioned = DeviceTolerationOpt;
+    type Optioned = DeviceTolerationAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceTolerationOpt {
-    type Optioned = DeviceTolerationOpt;
+impl crate::Optionable for DeviceTolerationAc {
+    type Optioned = DeviceTolerationAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceToleration {
-    fn into_optioned(self) -> DeviceTolerationOpt {
-        DeviceTolerationOpt {
+    fn into_optioned(self) -> DeviceTolerationAc {
+        DeviceTolerationAc {
             effect: crate::OptionableConvert::into_optioned(self.effect),
             key: crate::OptionableConvert::into_optioned(self.key),
             operator: crate::OptionableConvert::into_optioned(self.operator),
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceTolera
         }
     }
     fn try_from_optioned(
-        value: DeviceTolerationOpt,
+        value: DeviceTolerationAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             effect: crate::OptionableConvert::try_from_optioned(value.effect)?,
@@ -41,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceTolera
     }
     fn merge(
         &mut self,
-        other: DeviceTolerationOpt,
+        other: DeviceTolerationAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.effect, other.effect)?;
         crate::OptionableConvert::merge(&mut self.key, other.key)?;

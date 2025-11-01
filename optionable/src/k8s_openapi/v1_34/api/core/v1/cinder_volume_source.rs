@@ -1,4 +1,4 @@
-pub struct CinderVolumeSourceOpt {
+pub struct CinderVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
     pub secret_ref: <Option<
@@ -8,16 +8,16 @@ pub struct CinderVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::CinderVolumeSource {
-    type Optioned = CinderVolumeSourceOpt;
+    type Optioned = CinderVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CinderVolumeSourceOpt {
-    type Optioned = CinderVolumeSourceOpt;
+impl crate::Optionable for CinderVolumeSourceAc {
+    type Optioned = CinderVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CinderVolumeSource {
-    fn into_optioned(self) -> CinderVolumeSourceOpt {
-        CinderVolumeSourceOpt {
+    fn into_optioned(self) -> CinderVolumeSourceAc {
+        CinderVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
             secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
@@ -25,7 +25,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CinderVolumeSour
         }
     }
     fn try_from_optioned(
-        value: CinderVolumeSourceOpt,
+        value: CinderVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
@@ -42,7 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CinderVolumeSour
     }
     fn merge(
         &mut self,
-        other: CinderVolumeSourceOpt,
+        other: CinderVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;

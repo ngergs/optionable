@@ -1,4 +1,4 @@
-pub struct PodSecurityContextOpt {
+pub struct PodSecurityContextAc {
     pub app_armor_profile: <Option<
         ::k8s_openapi::api::core::v1::AppArmorProfile,
     > as crate::Optionable>::Optioned,
@@ -31,16 +31,16 @@ pub struct PodSecurityContextOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PodSecurityContext {
-    type Optioned = PodSecurityContextOpt;
+    type Optioned = PodSecurityContextAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodSecurityContextOpt {
-    type Optioned = PodSecurityContextOpt;
+impl crate::Optionable for PodSecurityContextAc {
+    type Optioned = PodSecurityContextAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSecurityContext {
-    fn into_optioned(self) -> PodSecurityContextOpt {
-        PodSecurityContextOpt {
+    fn into_optioned(self) -> PodSecurityContextAc {
+        PodSecurityContextAc {
             app_armor_profile: crate::OptionableConvert::into_optioned(
                 self.app_armor_profile,
             ),
@@ -75,7 +75,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSecurityConte
         }
     }
     fn try_from_optioned(
-        value: PodSecurityContextOpt,
+        value: PodSecurityContextAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             app_armor_profile: crate::OptionableConvert::try_from_optioned(
@@ -115,7 +115,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSecurityConte
     }
     fn merge(
         &mut self,
-        other: PodSecurityContextOpt,
+        other: PodSecurityContextAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.app_armor_profile,

@@ -14,18 +14,21 @@ use syn::{
 };
 
 /// Used for callback actions when encountering specific elements.
-/// The `CodegenVisitor` will be cloned upon entering a new module.
-/// Implementors can use this to e.g. reset some internal tracking fields that
-/// should not cross modules.
+/// The `CodegenVisitor` will be cloned value upon entering a new module.
+/// Implementors can use this to reset some internal state that should not carry over to the new module.
+/// Every function prefixed with `visit_pre` will visit all items of the current file
+/// under consideration before the other visits (or the codegen) are called.
+/// For every codegen item under consideration the `visit_input` fields will be called, then codegen
+/// and subsequently `visit_output`. Visitor implementation can store state for a given item internally
+/// and use it for the output, no other codegen input item will be called in between.
 pub trait CodegenVisitor: Clone {
-    /// Mutates input structs.
-    /// # Errors
-    /// - When one of the attributes could not be processed.
-    fn visit_input_struct(&mut self, _: &mut ItemStruct) {}
-    /// Mutates inputs enums.
-    /// # Errors
-    /// - When one of the attributes could not be processed.
-    fn visit_input_enum(&mut self, _: &mut ItemEnum) {}
+    /// Reads the existing input items, executed for all items prior to any other mutations.
+    /// Useful to e.g. collect a list of `use ...` entries.
+    fn visit_pre_input(&mut self, _: &Item) {}
+    /// Mutates the input.
+    fn visit_input(&mut self, _: &mut Item) {}
+    /// Mutates the generated code.
+    fn visit_output(&self, _: &mut Vec<Item>, _: &CodegenSettings) {}
 }
 
 /// Represents the current codegen configuration
@@ -33,6 +36,8 @@ pub trait CodegenVisitor: Clone {
 pub struct CodegenConfig<V: CodegenVisitor> {
     /// Visitor for detailed field/type handling. See `CodegenVisitor` trait.
     pub visitor: V,
+    /// Suffix that will be used for the optioned types. Will be used for `pub use ...` re-exports.
+    pub optioned_suffix: &'static str,
     /// Settings that can be configured via the library settings functionality
     pub settings: CodegenSettings,
     /// Re-exported aliases for types resulting from `pub use <....>` statements.
@@ -58,6 +63,9 @@ pub fn file_codegen<Vis: CodegenVisitor>(
     create_dir_all(output_path)?;
     let content_str = fs::read_to_string(input_file)?;
     let content = syn::parse_file(&content_str)?;
+    content.items.iter().for_each(|item| {
+        conf.visitor.visit_pre_input(item);
+    });
     let input_path = input_file
         .parent()
         .ok_or("current file {input_file} has no parent")?;
@@ -76,7 +84,7 @@ pub fn file_codegen<Vis: CodegenVisitor>(
                 let leaf = get_use_tree_leaf_mut(&mut item_use.tree)?;
                 if let UseTree::Name(name) = leaf {
                     let mut name_string = name.ident.to_string();
-                    name_string.push_str("Opt");
+                    name_string.push_str(conf.optioned_suffix);
                     name.ident = Ident::from_string(&name_string)?;
                 } else {
                     return Err(Error::new(Span::call_site(), format!("unsupported use tree leaf note, only supports plain `Name`, got {leaf:?}")).into());
@@ -158,12 +166,8 @@ fn item_codegen<V: CodegenVisitor>(
     output_path: &Path,
     conf: &mut CodegenConfig<V>,
 ) -> Result<Vec<Item>, Box<dyn std::error::Error>> {
-    match &mut item {
-        Struct(item) => conf.visitor.visit_input_struct(item),
-        Enum(item) => conf.visitor.visit_input_enum(item),
-        _ => {}
-    };
-    match item {
+    conf.visitor.visit_input(&mut item);
+    let mut result = match item {
         Struct(item) => Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?),
         Enum(item) => Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?),
         Mod(mut mod_entry) => {
@@ -215,7 +219,9 @@ fn item_codegen<V: CodegenVisitor>(
             }
         }
         _ => Ok(vec![]),
-    }
+    }?;
+    conf.visitor.visit_output(&mut result, &conf.settings);
+    Ok(result)
 }
 
 /// Filter the items and returns usages of the form `use self::<...>` if they are `UseTree`s themselves.

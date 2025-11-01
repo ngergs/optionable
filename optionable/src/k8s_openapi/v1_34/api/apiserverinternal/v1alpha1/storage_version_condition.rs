@@ -1,4 +1,4 @@
-pub struct StorageVersionConditionOpt {
+pub struct StorageVersionConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -11,17 +11,17 @@ pub struct StorageVersionConditionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionCondition {
-    type Optioned = StorageVersionConditionOpt;
+    type Optioned = StorageVersionConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StorageVersionConditionOpt {
-    type Optioned = StorageVersionConditionOpt;
+impl crate::Optionable for StorageVersionConditionAc {
+    type Optioned = StorageVersionConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionCondition {
-    fn into_optioned(self) -> StorageVersionConditionOpt {
-        StorageVersionConditionOpt {
+    fn into_optioned(self) -> StorageVersionConditionAc {
+        StorageVersionConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -35,7 +35,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionCondition {
         }
     }
     fn try_from_optioned(
-        value: StorageVersionConditionOpt,
+        value: StorageVersionConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -76,7 +76,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionCondition {
     }
     fn merge(
         &mut self,
-        other: StorageVersionConditionOpt,
+        other: StorageVersionConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

@@ -1,25 +1,25 @@
-pub struct FlockerVolumeSourceOpt {
+pub struct FlockerVolumeSourceAc {
     pub dataset_name: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub dataset_uuid: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::FlockerVolumeSource {
-    type Optioned = FlockerVolumeSourceOpt;
+    type Optioned = FlockerVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for FlockerVolumeSourceOpt {
-    type Optioned = FlockerVolumeSourceOpt;
+impl crate::Optionable for FlockerVolumeSourceAc {
+    type Optioned = FlockerVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FlockerVolumeSource {
-    fn into_optioned(self) -> FlockerVolumeSourceOpt {
-        FlockerVolumeSourceOpt {
+    fn into_optioned(self) -> FlockerVolumeSourceAc {
+        FlockerVolumeSourceAc {
             dataset_name: crate::OptionableConvert::into_optioned(self.dataset_name),
             dataset_uuid: crate::OptionableConvert::into_optioned(self.dataset_uuid),
         }
     }
     fn try_from_optioned(
-        value: FlockerVolumeSourceOpt,
+        value: FlockerVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             dataset_name: crate::OptionableConvert::try_from_optioned(
@@ -32,7 +32,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FlockerVolumeSou
     }
     fn merge(
         &mut self,
-        other: FlockerVolumeSourceOpt,
+        other: FlockerVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.dataset_name, other.dataset_name)?;
         crate::OptionableConvert::merge(&mut self.dataset_uuid, other.dataset_uuid)?;

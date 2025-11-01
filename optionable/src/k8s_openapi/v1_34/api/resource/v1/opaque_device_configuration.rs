@@ -1,4 +1,4 @@
-pub struct OpaqueDeviceConfigurationOpt {
+pub struct OpaqueDeviceConfigurationAc {
     pub driver: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub parameters: Option<
         <::k8s_openapi::apimachinery::pkg::runtime::RawExtension as crate::Optionable>::Optioned,
@@ -6,23 +6,23 @@ pub struct OpaqueDeviceConfigurationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1::OpaqueDeviceConfiguration {
-    type Optioned = OpaqueDeviceConfigurationOpt;
+    type Optioned = OpaqueDeviceConfigurationAc;
 }
 #[automatically_derived]
-impl crate::Optionable for OpaqueDeviceConfigurationOpt {
-    type Optioned = OpaqueDeviceConfigurationOpt;
+impl crate::Optionable for OpaqueDeviceConfigurationAc {
+    type Optioned = OpaqueDeviceConfigurationAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1::OpaqueDeviceConfiguration {
-    fn into_optioned(self) -> OpaqueDeviceConfigurationOpt {
-        OpaqueDeviceConfigurationOpt {
+    fn into_optioned(self) -> OpaqueDeviceConfigurationAc {
+        OpaqueDeviceConfigurationAc {
             driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
             parameters: Some(crate::OptionableConvert::into_optioned(self.parameters)),
         }
     }
     fn try_from_optioned(
-        value: OpaqueDeviceConfigurationOpt,
+        value: OpaqueDeviceConfigurationAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             driver: crate::OptionableConvert::try_from_optioned(
@@ -43,7 +43,7 @@ for ::k8s_openapi::api::resource::v1::OpaqueDeviceConfiguration {
     }
     fn merge(
         &mut self,
-        other: OpaqueDeviceConfigurationOpt,
+        other: OpaqueDeviceConfigurationAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.driver {
             crate::OptionableConvert::merge(&mut self.driver, other_value)?;

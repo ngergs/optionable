@@ -1,4 +1,4 @@
-pub struct ResourceRuleOpt {
+pub struct ResourceRuleAc {
     pub api_groups: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -14,16 +14,16 @@ pub struct ResourceRuleOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::authorization::v1::ResourceRule {
-    type Optioned = ResourceRuleOpt;
+    type Optioned = ResourceRuleAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceRuleOpt {
-    type Optioned = ResourceRuleOpt;
+impl crate::Optionable for ResourceRuleAc {
+    type Optioned = ResourceRuleAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::authorization::v1::ResourceRule {
-    fn into_optioned(self) -> ResourceRuleOpt {
-        ResourceRuleOpt {
+    fn into_optioned(self) -> ResourceRuleAc {
+        ResourceRuleAc {
             api_groups: crate::OptionableConvert::into_optioned(self.api_groups),
             resource_names: crate::OptionableConvert::into_optioned(self.resource_names),
             resources: crate::OptionableConvert::into_optioned(self.resources),
@@ -31,7 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::authorization::v1::Resourc
         }
     }
     fn try_from_optioned(
-        value: ResourceRuleOpt,
+        value: ResourceRuleAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_groups: crate::OptionableConvert::try_from_optioned(value.api_groups)?,
@@ -48,7 +48,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::authorization::v1::Resourc
             )?,
         })
     }
-    fn merge(&mut self, other: ResourceRuleOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceRuleAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_groups, other.api_groups)?;
         crate::OptionableConvert::merge(&mut self.resource_names, other.resource_names)?;
         crate::OptionableConvert::merge(&mut self.resources, other.resources)?;

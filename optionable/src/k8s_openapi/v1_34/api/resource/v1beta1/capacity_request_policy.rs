@@ -1,4 +1,4 @@
-pub struct CapacityRequestPolicyOpt {
+pub struct CapacityRequestPolicyAc {
     pub default: <Option<
         ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
     > as crate::Optionable>::Optioned,
@@ -11,24 +11,24 @@ pub struct CapacityRequestPolicyOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::CapacityRequestPolicy {
-    type Optioned = CapacityRequestPolicyOpt;
+    type Optioned = CapacityRequestPolicyAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CapacityRequestPolicyOpt {
-    type Optioned = CapacityRequestPolicyOpt;
+impl crate::Optionable for CapacityRequestPolicyAc {
+    type Optioned = CapacityRequestPolicyAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::CapacityRequestPolicy {
-    fn into_optioned(self) -> CapacityRequestPolicyOpt {
-        CapacityRequestPolicyOpt {
+    fn into_optioned(self) -> CapacityRequestPolicyAc {
+        CapacityRequestPolicyAc {
             default: crate::OptionableConvert::into_optioned(self.default),
             valid_range: crate::OptionableConvert::into_optioned(self.valid_range),
             valid_values: crate::OptionableConvert::into_optioned(self.valid_values),
         }
     }
     fn try_from_optioned(
-        value: CapacityRequestPolicyOpt,
+        value: CapacityRequestPolicyAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             default: crate::OptionableConvert::try_from_optioned(value.default)?,
@@ -40,7 +40,7 @@ for ::k8s_openapi::api::resource::v1beta1::CapacityRequestPolicy {
     }
     fn merge(
         &mut self,
-        other: CapacityRequestPolicyOpt,
+        other: CapacityRequestPolicyAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.default, other.default)?;
         crate::OptionableConvert::merge(&mut self.valid_range, other.valid_range)?;

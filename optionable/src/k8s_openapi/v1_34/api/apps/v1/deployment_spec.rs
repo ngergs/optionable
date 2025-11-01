@@ -1,4 +1,4 @@
-pub struct DeploymentSpecOpt {
+pub struct DeploymentSpecAc {
     pub min_ready_seconds: <Option<i32> as crate::Optionable>::Optioned,
     pub paused: <Option<bool> as crate::Optionable>::Optioned,
     pub progress_deadline_seconds: <Option<i32> as crate::Optionable>::Optioned,
@@ -16,16 +16,16 @@ pub struct DeploymentSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::DeploymentSpec {
-    type Optioned = DeploymentSpecOpt;
+    type Optioned = DeploymentSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeploymentSpecOpt {
-    type Optioned = DeploymentSpecOpt;
+impl crate::Optionable for DeploymentSpecAc {
+    type Optioned = DeploymentSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentSpec {
-    fn into_optioned(self) -> DeploymentSpecOpt {
-        DeploymentSpecOpt {
+    fn into_optioned(self) -> DeploymentSpecAc {
+        DeploymentSpecAc {
             min_ready_seconds: crate::OptionableConvert::into_optioned(
                 self.min_ready_seconds,
             ),
@@ -43,7 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentSpec {
         }
     }
     fn try_from_optioned(
-        value: DeploymentSpecOpt,
+        value: DeploymentSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             min_ready_seconds: crate::OptionableConvert::try_from_optioned(
@@ -76,7 +76,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentSpec {
     }
     fn merge(
         &mut self,
-        other: DeploymentSpecOpt,
+        other: DeploymentSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.min_ready_seconds,

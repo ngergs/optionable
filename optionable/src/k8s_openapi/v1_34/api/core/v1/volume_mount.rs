@@ -1,4 +1,4 @@
-pub struct VolumeMountOpt {
+pub struct VolumeMountAc {
     pub mount_path: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub mount_propagation: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -11,16 +11,16 @@ pub struct VolumeMountOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::VolumeMount {
-    type Optioned = VolumeMountOpt;
+    type Optioned = VolumeMountAc;
 }
 #[automatically_derived]
-impl crate::Optionable for VolumeMountOpt {
-    type Optioned = VolumeMountOpt;
+impl crate::Optionable for VolumeMountAc {
+    type Optioned = VolumeMountAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeMount {
-    fn into_optioned(self) -> VolumeMountOpt {
-        VolumeMountOpt {
+    fn into_optioned(self) -> VolumeMountAc {
+        VolumeMountAc {
             mount_path: Some(crate::OptionableConvert::into_optioned(self.mount_path)),
             mount_propagation: crate::OptionableConvert::into_optioned(
                 self.mount_propagation,
@@ -35,7 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeMount {
         }
     }
     fn try_from_optioned(
-        value: VolumeMountOpt,
+        value: VolumeMountAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             mount_path: crate::OptionableConvert::try_from_optioned(
@@ -65,7 +65,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeMount {
             )?,
         })
     }
-    fn merge(&mut self, other: VolumeMountOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeMountAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.mount_path {
             crate::OptionableConvert::merge(&mut self.mount_path, other_value)?;
         }

@@ -1,4 +1,4 @@
-pub struct PodAffinityOpt {
+pub struct PodAffinityAc {
     pub preferred_during_scheduling_ignored_during_execution: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::WeightedPodAffinityTerm>,
     > as crate::Optionable>::Optioned,
@@ -8,16 +8,16 @@ pub struct PodAffinityOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PodAffinity {
-    type Optioned = PodAffinityOpt;
+    type Optioned = PodAffinityAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodAffinityOpt {
-    type Optioned = PodAffinityOpt;
+impl crate::Optionable for PodAffinityAc {
+    type Optioned = PodAffinityAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAffinity {
-    fn into_optioned(self) -> PodAffinityOpt {
-        PodAffinityOpt {
+    fn into_optioned(self) -> PodAffinityAc {
+        PodAffinityAc {
             preferred_during_scheduling_ignored_during_execution: crate::OptionableConvert::into_optioned(
                 self.preferred_during_scheduling_ignored_during_execution,
             ),
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAffinity {
         }
     }
     fn try_from_optioned(
-        value: PodAffinityOpt,
+        value: PodAffinityAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             preferred_during_scheduling_ignored_during_execution: crate::OptionableConvert::try_from_optioned(
@@ -38,7 +38,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAffinity {
             )?,
         })
     }
-    fn merge(&mut self, other: PodAffinityOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodAffinityAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.preferred_during_scheduling_ignored_during_execution,
             other.preferred_during_scheduling_ignored_during_execution,

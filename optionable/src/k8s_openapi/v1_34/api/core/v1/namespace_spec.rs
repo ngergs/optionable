@@ -1,34 +1,31 @@
-pub struct NamespaceSpecOpt {
+pub struct NamespaceSpecAc {
     pub finalizers: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NamespaceSpec {
-    type Optioned = NamespaceSpecOpt;
+    type Optioned = NamespaceSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NamespaceSpecOpt {
-    type Optioned = NamespaceSpecOpt;
+impl crate::Optionable for NamespaceSpecAc {
+    type Optioned = NamespaceSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceSpec {
-    fn into_optioned(self) -> NamespaceSpecOpt {
-        NamespaceSpecOpt {
+    fn into_optioned(self) -> NamespaceSpecAc {
+        NamespaceSpecAc {
             finalizers: crate::OptionableConvert::into_optioned(self.finalizers),
         }
     }
     fn try_from_optioned(
-        value: NamespaceSpecOpt,
+        value: NamespaceSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             finalizers: crate::OptionableConvert::try_from_optioned(value.finalizers)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NamespaceSpecOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NamespaceSpecAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.finalizers, other.finalizers)?;
         Ok(())
     }

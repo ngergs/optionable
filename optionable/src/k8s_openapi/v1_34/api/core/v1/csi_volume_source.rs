@@ -1,4 +1,4 @@
-pub struct CSIVolumeSourceOpt {
+pub struct CSIVolumeSourceAc {
     pub driver: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub node_publish_secret_ref: <Option<
@@ -11,16 +11,16 @@ pub struct CSIVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::CSIVolumeSource {
-    type Optioned = CSIVolumeSourceOpt;
+    type Optioned = CSIVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CSIVolumeSourceOpt {
-    type Optioned = CSIVolumeSourceOpt;
+impl crate::Optionable for CSIVolumeSourceAc {
+    type Optioned = CSIVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CSIVolumeSource {
-    fn into_optioned(self) -> CSIVolumeSourceOpt {
-        CSIVolumeSourceOpt {
+    fn into_optioned(self) -> CSIVolumeSourceAc {
+        CSIVolumeSourceAc {
             driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             node_publish_secret_ref: crate::OptionableConvert::into_optioned(
@@ -33,7 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CSIVolumeSource 
         }
     }
     fn try_from_optioned(
-        value: CSIVolumeSourceOpt,
+        value: CSIVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             driver: crate::OptionableConvert::try_from_optioned(
@@ -55,7 +55,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CSIVolumeSource 
     }
     fn merge(
         &mut self,
-        other: CSIVolumeSourceOpt,
+        other: CSIVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.driver {
             crate::OptionableConvert::merge(&mut self.driver, other_value)?;

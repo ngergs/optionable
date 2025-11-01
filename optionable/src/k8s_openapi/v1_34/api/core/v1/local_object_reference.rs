@@ -1,23 +1,23 @@
-pub struct LocalObjectReferenceOpt {
+pub struct LocalObjectReferenceAc {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::LocalObjectReference {
-    type Optioned = LocalObjectReferenceOpt;
+    type Optioned = LocalObjectReferenceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LocalObjectReferenceOpt {
-    type Optioned = LocalObjectReferenceOpt;
+impl crate::Optionable for LocalObjectReferenceAc {
+    type Optioned = LocalObjectReferenceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LocalObjectReference {
-    fn into_optioned(self) -> LocalObjectReferenceOpt {
-        LocalObjectReferenceOpt {
+    fn into_optioned(self) -> LocalObjectReferenceAc {
+        LocalObjectReferenceAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
     fn try_from_optioned(
-        value: LocalObjectReferenceOpt,
+        value: LocalObjectReferenceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
@@ -31,7 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LocalObjectRefer
     }
     fn merge(
         &mut self,
-        other: LocalObjectReferenceOpt,
+        other: LocalObjectReferenceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;

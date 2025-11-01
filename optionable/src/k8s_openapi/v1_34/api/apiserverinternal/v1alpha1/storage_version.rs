@@ -1,4 +1,6 @@
-pub struct StorageVersionOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = StorageVersion)]
+pub struct StorageVersionAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionSpec as crate::Optionable>::Optioned,
@@ -10,24 +12,24 @@ pub struct StorageVersionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion {
-    type Optioned = StorageVersionOpt;
+    type Optioned = StorageVersionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StorageVersionOpt {
-    type Optioned = StorageVersionOpt;
+impl crate::Optionable for StorageVersionAc {
+    type Optioned = StorageVersionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion {
-    fn into_optioned(self) -> StorageVersionOpt {
-        StorageVersionOpt {
+    fn into_optioned(self) -> StorageVersionAc {
+        StorageVersionAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: Some(crate::OptionableConvert::into_optioned(self.status)),
         }
     }
     fn try_from_optioned(
-        value: StorageVersionOpt,
+        value: StorageVersionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -49,7 +51,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion {
     }
     fn merge(
         &mut self,
-        other: StorageVersionOpt,
+        other: StorageVersionAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
@@ -61,3 +63,5 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion;

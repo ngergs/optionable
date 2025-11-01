@@ -1,4 +1,4 @@
-pub struct UncountedTerminatedPodsOpt {
+pub struct UncountedTerminatedPodsAc {
     pub failed: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -8,23 +8,23 @@ pub struct UncountedTerminatedPodsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::UncountedTerminatedPods {
-    type Optioned = UncountedTerminatedPodsOpt;
+    type Optioned = UncountedTerminatedPodsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for UncountedTerminatedPodsOpt {
-    type Optioned = UncountedTerminatedPodsOpt;
+impl crate::Optionable for UncountedTerminatedPodsAc {
+    type Optioned = UncountedTerminatedPodsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::batch::v1::UncountedTerminatedPods {
-    fn into_optioned(self) -> UncountedTerminatedPodsOpt {
-        UncountedTerminatedPodsOpt {
+    fn into_optioned(self) -> UncountedTerminatedPodsAc {
+        UncountedTerminatedPodsAc {
             failed: crate::OptionableConvert::into_optioned(self.failed),
             succeeded: crate::OptionableConvert::into_optioned(self.succeeded),
         }
     }
     fn try_from_optioned(
-        value: UncountedTerminatedPodsOpt,
+        value: UncountedTerminatedPodsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             failed: crate::OptionableConvert::try_from_optioned(value.failed)?,
@@ -33,7 +33,7 @@ for ::k8s_openapi::api::batch::v1::UncountedTerminatedPods {
     }
     fn merge(
         &mut self,
-        other: UncountedTerminatedPodsOpt,
+        other: UncountedTerminatedPodsAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.failed, other.failed)?;
         crate::OptionableConvert::merge(&mut self.succeeded, other.succeeded)?;

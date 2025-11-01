@@ -1,4 +1,4 @@
-pub struct PriorityLevelConfigurationConditionOpt {
+pub struct PriorityLevelConfigurationConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -10,17 +10,17 @@ pub struct PriorityLevelConfigurationConditionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationCondition {
-    type Optioned = PriorityLevelConfigurationConditionOpt;
+    type Optioned = PriorityLevelConfigurationConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PriorityLevelConfigurationConditionOpt {
-    type Optioned = PriorityLevelConfigurationConditionOpt;
+impl crate::Optionable for PriorityLevelConfigurationConditionAc {
+    type Optioned = PriorityLevelConfigurationConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationCondition {
-    fn into_optioned(self) -> PriorityLevelConfigurationConditionOpt {
-        PriorityLevelConfigurationConditionOpt {
+    fn into_optioned(self) -> PriorityLevelConfigurationConditionAc {
+        PriorityLevelConfigurationConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -31,7 +31,7 @@ for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationCondition {
         }
     }
     fn try_from_optioned(
-        value: PriorityLevelConfigurationConditionOpt,
+        value: PriorityLevelConfigurationConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -45,7 +45,7 @@ for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationCondition {
     }
     fn merge(
         &mut self,
-        other: PriorityLevelConfigurationConditionOpt,
+        other: PriorityLevelConfigurationConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

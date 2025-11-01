@@ -1,4 +1,4 @@
-pub struct DeviceRequestAllocationResultOpt {
+pub struct DeviceRequestAllocationResultAc {
     pub admin_access: <Option<bool> as crate::Optionable>::Optioned,
     pub binding_conditions: <Option<
         std::vec::Vec<std::string::String>,
@@ -24,17 +24,17 @@ pub struct DeviceRequestAllocationResultOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::resource::v1beta2::DeviceRequestAllocationResult {
-    type Optioned = DeviceRequestAllocationResultOpt;
+    type Optioned = DeviceRequestAllocationResultAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceRequestAllocationResultOpt {
-    type Optioned = DeviceRequestAllocationResultOpt;
+impl crate::Optionable for DeviceRequestAllocationResultAc {
+    type Optioned = DeviceRequestAllocationResultAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta2::DeviceRequestAllocationResult {
-    fn into_optioned(self) -> DeviceRequestAllocationResultOpt {
-        DeviceRequestAllocationResultOpt {
+    fn into_optioned(self) -> DeviceRequestAllocationResultAc {
+        DeviceRequestAllocationResultAc {
             admin_access: crate::OptionableConvert::into_optioned(self.admin_access),
             binding_conditions: crate::OptionableConvert::into_optioned(
                 self.binding_conditions,
@@ -54,7 +54,7 @@ for ::k8s_openapi::api::resource::v1beta2::DeviceRequestAllocationResult {
         }
     }
     fn try_from_optioned(
-        value: DeviceRequestAllocationResultOpt,
+        value: DeviceRequestAllocationResultAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             admin_access: crate::OptionableConvert::try_from_optioned(
@@ -103,7 +103,7 @@ for ::k8s_openapi::api::resource::v1beta2::DeviceRequestAllocationResult {
     }
     fn merge(
         &mut self,
-        other: DeviceRequestAllocationResultOpt,
+        other: DeviceRequestAllocationResultAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
         crate::OptionableConvert::merge(

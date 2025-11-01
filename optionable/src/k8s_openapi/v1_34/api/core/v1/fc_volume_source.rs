@@ -1,4 +1,4 @@
-pub struct FCVolumeSourceOpt {
+pub struct FCVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub lun: <Option<i32> as crate::Optionable>::Optioned,
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
@@ -11,16 +11,16 @@ pub struct FCVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::FCVolumeSource {
-    type Optioned = FCVolumeSourceOpt;
+    type Optioned = FCVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for FCVolumeSourceOpt {
-    type Optioned = FCVolumeSourceOpt;
+impl crate::Optionable for FCVolumeSourceAc {
+    type Optioned = FCVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FCVolumeSource {
-    fn into_optioned(self) -> FCVolumeSourceOpt {
-        FCVolumeSourceOpt {
+    fn into_optioned(self) -> FCVolumeSourceAc {
+        FCVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             lun: crate::OptionableConvert::into_optioned(self.lun),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FCVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: FCVolumeSourceOpt,
+        value: FCVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
@@ -41,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FCVolumeSource {
     }
     fn merge(
         &mut self,
-        other: FCVolumeSourceOpt,
+        other: FCVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.lun, other.lun)?;

@@ -1,25 +1,25 @@
-pub struct ResourceHealthOpt {
+pub struct ResourceHealthAc {
     pub health: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub resource_id: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ResourceHealth {
-    type Optioned = ResourceHealthOpt;
+    type Optioned = ResourceHealthAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceHealthOpt {
-    type Optioned = ResourceHealthOpt;
+impl crate::Optionable for ResourceHealthAc {
+    type Optioned = ResourceHealthAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceHealth {
-    fn into_optioned(self) -> ResourceHealthOpt {
-        ResourceHealthOpt {
+    fn into_optioned(self) -> ResourceHealthAc {
+        ResourceHealthAc {
             health: crate::OptionableConvert::into_optioned(self.health),
             resource_id: Some(crate::OptionableConvert::into_optioned(self.resource_id)),
         }
     }
     fn try_from_optioned(
-        value: ResourceHealthOpt,
+        value: ResourceHealthAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             health: crate::OptionableConvert::try_from_optioned(value.health)?,
@@ -34,7 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceHealth {
     }
     fn merge(
         &mut self,
-        other: ResourceHealthOpt,
+        other: ResourceHealthAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.health, other.health)?;
         if let Some(other_value) = other.resource_id {

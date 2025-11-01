@@ -1,4 +1,4 @@
-pub struct EndpointOpt {
+pub struct EndpointAc {
     pub addresses: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,
@@ -20,16 +20,16 @@ pub struct EndpointOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::discovery::v1::Endpoint {
-    type Optioned = EndpointOpt;
+    type Optioned = EndpointAc;
 }
 #[automatically_derived]
-impl crate::Optionable for EndpointOpt {
-    type Optioned = EndpointOpt;
+impl crate::Optionable for EndpointAc {
+    type Optioned = EndpointAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::Endpoint {
-    fn into_optioned(self) -> EndpointOpt {
-        EndpointOpt {
+    fn into_optioned(self) -> EndpointAc {
+        EndpointAc {
             addresses: Some(crate::OptionableConvert::into_optioned(self.addresses)),
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             deprecated_topology: crate::OptionableConvert::into_optioned(
@@ -42,7 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::Endpoint {
             zone: crate::OptionableConvert::into_optioned(self.zone),
         }
     }
-    fn try_from_optioned(value: EndpointOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EndpointAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             addresses: crate::OptionableConvert::try_from_optioned(
                 value
@@ -62,7 +62,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::Endpoint {
             zone: crate::OptionableConvert::try_from_optioned(value.zone)?,
         })
     }
-    fn merge(&mut self, other: EndpointOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EndpointAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.addresses {
             crate::OptionableConvert::merge(&mut self.addresses, other_value)?;
         }

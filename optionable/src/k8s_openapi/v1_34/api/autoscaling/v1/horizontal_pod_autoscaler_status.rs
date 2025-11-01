@@ -1,4 +1,4 @@
-pub struct HorizontalPodAutoscalerStatusOpt {
+pub struct HorizontalPodAutoscalerStatusAc {
     pub current_cpu_utilization_percentage: <Option<i32> as crate::Optionable>::Optioned,
     pub current_replicas: Option<i32>,
     pub desired_replicas: Option<i32>,
@@ -10,17 +10,17 @@ pub struct HorizontalPodAutoscalerStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
-    type Optioned = HorizontalPodAutoscalerStatusOpt;
+    type Optioned = HorizontalPodAutoscalerStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for HorizontalPodAutoscalerStatusOpt {
-    type Optioned = HorizontalPodAutoscalerStatusOpt;
+impl crate::Optionable for HorizontalPodAutoscalerStatusAc {
+    type Optioned = HorizontalPodAutoscalerStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
-    fn into_optioned(self) -> HorizontalPodAutoscalerStatusOpt {
-        HorizontalPodAutoscalerStatusOpt {
+    fn into_optioned(self) -> HorizontalPodAutoscalerStatusAc {
+        HorizontalPodAutoscalerStatusAc {
             current_cpu_utilization_percentage: crate::OptionableConvert::into_optioned(
                 self.current_cpu_utilization_percentage,
             ),
@@ -35,7 +35,7 @@ for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
         }
     }
     fn try_from_optioned(
-        value: HorizontalPodAutoscalerStatusOpt,
+        value: HorizontalPodAutoscalerStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             current_cpu_utilization_percentage: crate::OptionableConvert::try_from_optioned(
@@ -61,7 +61,7 @@ for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
     }
     fn merge(
         &mut self,
-        other: HorizontalPodAutoscalerStatusOpt,
+        other: HorizontalPodAutoscalerStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.current_cpu_utilization_percentage,

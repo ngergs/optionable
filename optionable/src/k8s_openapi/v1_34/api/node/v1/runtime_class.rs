@@ -1,4 +1,6 @@
-pub struct RuntimeClassOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = RuntimeClass)]
+pub struct RuntimeClassAc {
     pub handler: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub overhead: <Option<
@@ -10,16 +12,16 @@ pub struct RuntimeClassOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::node::v1::RuntimeClass {
-    type Optioned = RuntimeClassOpt;
+    type Optioned = RuntimeClassAc;
 }
 #[automatically_derived]
-impl crate::Optionable for RuntimeClassOpt {
-    type Optioned = RuntimeClassOpt;
+impl crate::Optionable for RuntimeClassAc {
+    type Optioned = RuntimeClassAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
-    fn into_optioned(self) -> RuntimeClassOpt {
-        RuntimeClassOpt {
+    fn into_optioned(self) -> RuntimeClassAc {
+        RuntimeClassAc {
             handler: Some(crate::OptionableConvert::into_optioned(self.handler)),
             metadata: self.metadata,
             overhead: crate::OptionableConvert::into_optioned(self.overhead),
@@ -27,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
         }
     }
     fn try_from_optioned(
-        value: RuntimeClassOpt,
+        value: RuntimeClassAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             handler: crate::OptionableConvert::try_from_optioned(
@@ -42,7 +44,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
             scheduling: crate::OptionableConvert::try_from_optioned(value.scheduling)?,
         })
     }
-    fn merge(&mut self, other: RuntimeClassOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: RuntimeClassAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.handler {
             crate::OptionableConvert::merge(&mut self.handler, other_value)?;
         }
@@ -52,3 +54,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::node::v1::RuntimeClass;

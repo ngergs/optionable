@@ -1,4 +1,4 @@
-pub struct ComponentConditionOpt {
+pub struct ComponentConditionAc {
     pub error: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub status: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -6,16 +6,16 @@ pub struct ComponentConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ComponentCondition {
-    type Optioned = ComponentConditionOpt;
+    type Optioned = ComponentConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ComponentConditionOpt {
-    type Optioned = ComponentConditionOpt;
+impl crate::Optionable for ComponentConditionAc {
+    type Optioned = ComponentConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentCondition {
-    fn into_optioned(self) -> ComponentConditionOpt {
-        ComponentConditionOpt {
+    fn into_optioned(self) -> ComponentConditionAc {
+        ComponentConditionAc {
             error: crate::OptionableConvert::into_optioned(self.error),
             message: crate::OptionableConvert::into_optioned(self.message),
             status: Some(crate::OptionableConvert::into_optioned(self.status)),
@@ -23,7 +23,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentConditi
         }
     }
     fn try_from_optioned(
-        value: ComponentConditionOpt,
+        value: ComponentConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             error: crate::OptionableConvert::try_from_optioned(value.error)?,
@@ -46,7 +46,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentConditi
     }
     fn merge(
         &mut self,
-        other: ComponentConditionOpt,
+        other: ComponentConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.error, other.error)?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;

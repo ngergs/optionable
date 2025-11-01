@@ -1,4 +1,4 @@
-pub struct ReplicationControllerSpecOpt {
+pub struct ReplicationControllerSpecAc {
     pub min_ready_seconds: <Option<i32> as crate::Optionable>::Optioned,
     pub replicas: <Option<i32> as crate::Optionable>::Optioned,
     pub selector: <Option<
@@ -10,17 +10,17 @@ pub struct ReplicationControllerSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ReplicationControllerSpec {
-    type Optioned = ReplicationControllerSpecOpt;
+    type Optioned = ReplicationControllerSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ReplicationControllerSpecOpt {
-    type Optioned = ReplicationControllerSpecOpt;
+impl crate::Optionable for ReplicationControllerSpecAc {
+    type Optioned = ReplicationControllerSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ReplicationControllerSpec {
-    fn into_optioned(self) -> ReplicationControllerSpecOpt {
-        ReplicationControllerSpecOpt {
+    fn into_optioned(self) -> ReplicationControllerSpecAc {
+        ReplicationControllerSpecAc {
             min_ready_seconds: crate::OptionableConvert::into_optioned(
                 self.min_ready_seconds,
             ),
@@ -30,7 +30,7 @@ for ::k8s_openapi::api::core::v1::ReplicationControllerSpec {
         }
     }
     fn try_from_optioned(
-        value: ReplicationControllerSpecOpt,
+        value: ReplicationControllerSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             min_ready_seconds: crate::OptionableConvert::try_from_optioned(
@@ -43,7 +43,7 @@ for ::k8s_openapi::api::core::v1::ReplicationControllerSpec {
     }
     fn merge(
         &mut self,
-        other: ReplicationControllerSpecOpt,
+        other: ReplicationControllerSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.min_ready_seconds,

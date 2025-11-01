@@ -1,25 +1,25 @@
-pub struct ServiceCIDRStatusOpt {
+pub struct ServiceCIDRStatusAc {
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition>,
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1::ServiceCIDRStatus {
-    type Optioned = ServiceCIDRStatusOpt;
+    type Optioned = ServiceCIDRStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServiceCIDRStatusOpt {
-    type Optioned = ServiceCIDRStatusOpt;
+impl crate::Optionable for ServiceCIDRStatusAc {
+    type Optioned = ServiceCIDRStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::ServiceCIDRStatus {
-    fn into_optioned(self) -> ServiceCIDRStatusOpt {
-        ServiceCIDRStatusOpt {
+    fn into_optioned(self) -> ServiceCIDRStatusAc {
+        ServiceCIDRStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
         }
     }
     fn try_from_optioned(
-        value: ServiceCIDRStatusOpt,
+        value: ServiceCIDRStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::ServiceCID
     }
     fn merge(
         &mut self,
-        other: ServiceCIDRStatusOpt,
+        other: ServiceCIDRStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         Ok(())

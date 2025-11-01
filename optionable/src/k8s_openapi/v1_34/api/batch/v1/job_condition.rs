@@ -1,4 +1,4 @@
-pub struct JobConditionOpt {
+pub struct JobConditionAc {
     pub last_probe_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -12,16 +12,16 @@ pub struct JobConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::JobCondition {
-    type Optioned = JobConditionOpt;
+    type Optioned = JobConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for JobConditionOpt {
-    type Optioned = JobConditionOpt;
+impl crate::Optionable for JobConditionAc {
+    type Optioned = JobConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobCondition {
-    fn into_optioned(self) -> JobConditionOpt {
-        JobConditionOpt {
+    fn into_optioned(self) -> JobConditionAc {
+        JobConditionAc {
             last_probe_time: crate::OptionableConvert::into_optioned(
                 self.last_probe_time,
             ),
@@ -35,7 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobCondition {
         }
     }
     fn try_from_optioned(
-        value: JobConditionOpt,
+        value: JobConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_probe_time: crate::OptionableConvert::try_from_optioned(
@@ -62,7 +62,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobCondition {
             )?,
         })
     }
-    fn merge(&mut self, other: JobConditionOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: JobConditionAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_probe_time,
             other.last_probe_time,

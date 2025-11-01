@@ -1,4 +1,4 @@
-pub struct IngressClassParametersReferenceOpt {
+pub struct IngressClassParametersReferenceAc {
     pub api_group: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub kind: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -8,17 +8,17 @@ pub struct IngressClassParametersReferenceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::networking::v1::IngressClassParametersReference {
-    type Optioned = IngressClassParametersReferenceOpt;
+    type Optioned = IngressClassParametersReferenceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for IngressClassParametersReferenceOpt {
-    type Optioned = IngressClassParametersReferenceOpt;
+impl crate::Optionable for IngressClassParametersReferenceAc {
+    type Optioned = IngressClassParametersReferenceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1::IngressClassParametersReference {
-    fn into_optioned(self) -> IngressClassParametersReferenceOpt {
-        IngressClassParametersReferenceOpt {
+    fn into_optioned(self) -> IngressClassParametersReferenceAc {
+        IngressClassParametersReferenceAc {
             api_group: crate::OptionableConvert::into_optioned(self.api_group),
             kind: Some(crate::OptionableConvert::into_optioned(self.kind)),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
@@ -27,7 +27,7 @@ for ::k8s_openapi::api::networking::v1::IngressClassParametersReference {
         }
     }
     fn try_from_optioned(
-        value: IngressClassParametersReferenceOpt,
+        value: IngressClassParametersReferenceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_group: crate::OptionableConvert::try_from_optioned(value.api_group)?,
@@ -51,7 +51,7 @@ for ::k8s_openapi::api::networking::v1::IngressClassParametersReference {
     }
     fn merge(
         &mut self,
-        other: IngressClassParametersReferenceOpt,
+        other: IngressClassParametersReferenceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
         if let Some(other_value) = other.kind {

@@ -1,4 +1,4 @@
-pub struct DeviceRequestOpt {
+pub struct DeviceRequestAc {
     pub admin_access: <Option<bool> as crate::Optionable>::Optioned,
     pub allocation_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub capacity: <Option<
@@ -19,16 +19,16 @@ pub struct DeviceRequestOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::DeviceRequest {
-    type Optioned = DeviceRequestOpt;
+    type Optioned = DeviceRequestAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceRequestOpt {
-    type Optioned = DeviceRequestOpt;
+impl crate::Optionable for DeviceRequestAc {
+    type Optioned = DeviceRequestAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::DeviceRequest {
-    fn into_optioned(self) -> DeviceRequestOpt {
-        DeviceRequestOpt {
+    fn into_optioned(self) -> DeviceRequestAc {
+        DeviceRequestAc {
             admin_access: crate::OptionableConvert::into_optioned(self.admin_access),
             allocation_mode: crate::OptionableConvert::into_optioned(
                 self.allocation_mode,
@@ -47,7 +47,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::DeviceR
         }
     }
     fn try_from_optioned(
-        value: DeviceRequestOpt,
+        value: DeviceRequestAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             admin_access: crate::OptionableConvert::try_from_optioned(
@@ -75,10 +75,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::DeviceR
             tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceRequestOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
         crate::OptionableConvert::merge(
             &mut self.allocation_mode,

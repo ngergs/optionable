@@ -1,4 +1,6 @@
-pub struct BindingOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = Binding)]
+pub struct BindingAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub target: Option<
         <::k8s_openapi::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
@@ -6,21 +8,21 @@ pub struct BindingOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Binding {
-    type Optioned = BindingOpt;
+    type Optioned = BindingAc;
 }
 #[automatically_derived]
-impl crate::Optionable for BindingOpt {
-    type Optioned = BindingOpt;
+impl crate::Optionable for BindingAc {
+    type Optioned = BindingAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Binding {
-    fn into_optioned(self) -> BindingOpt {
-        BindingOpt {
+    fn into_optioned(self) -> BindingAc {
+        BindingAc {
             metadata: self.metadata,
             target: Some(crate::OptionableConvert::into_optioned(self.target)),
         }
     }
-    fn try_from_optioned(value: BindingOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: BindingAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
             target: crate::OptionableConvert::try_from_optioned(
@@ -32,7 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Binding {
             )?,
         })
     }
-    fn merge(&mut self, other: BindingOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: BindingAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.target {
             crate::OptionableConvert::merge(&mut self.target, other_value)?;
@@ -40,3 +42,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Binding {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::core::v1::Binding;

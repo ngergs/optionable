@@ -1,27 +1,27 @@
-pub struct ScopeSelectorOpt {
+pub struct ScopeSelectorAc {
     pub match_expressions: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ScopedResourceSelectorRequirement>,
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ScopeSelector {
-    type Optioned = ScopeSelectorOpt;
+    type Optioned = ScopeSelectorAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ScopeSelectorOpt {
-    type Optioned = ScopeSelectorOpt;
+impl crate::Optionable for ScopeSelectorAc {
+    type Optioned = ScopeSelectorAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScopeSelector {
-    fn into_optioned(self) -> ScopeSelectorOpt {
-        ScopeSelectorOpt {
+    fn into_optioned(self) -> ScopeSelectorAc {
+        ScopeSelectorAc {
             match_expressions: crate::OptionableConvert::into_optioned(
                 self.match_expressions,
             ),
         }
     }
     fn try_from_optioned(
-        value: ScopeSelectorOpt,
+        value: ScopeSelectorAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             match_expressions: crate::OptionableConvert::try_from_optioned(
@@ -29,10 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScopeSelector {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ScopeSelectorOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ScopeSelectorAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.match_expressions,
             other.match_expressions,

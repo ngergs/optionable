@@ -1,4 +1,6 @@
-pub struct ServiceAccountOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ServiceAccount)]
+pub struct ServiceAccountAc {
     pub automount_service_account_token: <Option<bool> as crate::Optionable>::Optioned,
     pub image_pull_secrets: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::LocalObjectReference>,
@@ -10,16 +12,16 @@ pub struct ServiceAccountOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ServiceAccount {
-    type Optioned = ServiceAccountOpt;
+    type Optioned = ServiceAccountAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServiceAccountOpt {
-    type Optioned = ServiceAccountOpt;
+impl crate::Optionable for ServiceAccountAc {
+    type Optioned = ServiceAccountAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
-    fn into_optioned(self) -> ServiceAccountOpt {
-        ServiceAccountOpt {
+    fn into_optioned(self) -> ServiceAccountAc {
+        ServiceAccountAc {
             automount_service_account_token: crate::OptionableConvert::into_optioned(
                 self.automount_service_account_token,
             ),
@@ -31,7 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
         }
     }
     fn try_from_optioned(
-        value: ServiceAccountOpt,
+        value: ServiceAccountAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             automount_service_account_token: crate::OptionableConvert::try_from_optioned(
@@ -46,7 +48,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
     }
     fn merge(
         &mut self,
-        other: ServiceAccountOpt,
+        other: ServiceAccountAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.automount_service_account_token,
@@ -61,3 +63,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::core::v1::ServiceAccount;

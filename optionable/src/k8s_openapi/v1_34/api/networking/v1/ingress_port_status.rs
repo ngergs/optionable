@@ -1,27 +1,27 @@
-pub struct IngressPortStatusOpt {
+pub struct IngressPortStatusAc {
     pub error: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub port: Option<i32>,
     pub protocol: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1::IngressPortStatus {
-    type Optioned = IngressPortStatusOpt;
+    type Optioned = IngressPortStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for IngressPortStatusOpt {
-    type Optioned = IngressPortStatusOpt;
+impl crate::Optionable for IngressPortStatusAc {
+    type Optioned = IngressPortStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressPortStatus {
-    fn into_optioned(self) -> IngressPortStatusOpt {
-        IngressPortStatusOpt {
+    fn into_optioned(self) -> IngressPortStatusAc {
+        IngressPortStatusAc {
             error: crate::OptionableConvert::into_optioned(self.error),
             port: Some(self.port),
             protocol: Some(crate::OptionableConvert::into_optioned(self.protocol)),
         }
     }
     fn try_from_optioned(
-        value: IngressPortStatusOpt,
+        value: IngressPortStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             error: crate::OptionableConvert::try_from_optioned(value.error)?,
@@ -41,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressPor
     }
     fn merge(
         &mut self,
-        other: IngressPortStatusOpt,
+        other: IngressPortStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.error, other.error)?;
         if let Some(other_value) = other.port {

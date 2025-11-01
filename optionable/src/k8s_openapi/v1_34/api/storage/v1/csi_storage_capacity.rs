@@ -1,4 +1,6 @@
-pub struct CSIStorageCapacityOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = CSIStorageCapacity)]
+pub struct CSIStorageCapacityAc {
     pub capacity: <Option<
         ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
     > as crate::Optionable>::Optioned,
@@ -13,16 +15,16 @@ pub struct CSIStorageCapacityOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::CSIStorageCapacity {
-    type Optioned = CSIStorageCapacityOpt;
+    type Optioned = CSIStorageCapacityAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CSIStorageCapacityOpt {
-    type Optioned = CSIStorageCapacityOpt;
+impl crate::Optionable for CSIStorageCapacityAc {
+    type Optioned = CSIStorageCapacityAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCapacity {
-    fn into_optioned(self) -> CSIStorageCapacityOpt {
-        CSIStorageCapacityOpt {
+    fn into_optioned(self) -> CSIStorageCapacityAc {
+        CSIStorageCapacityAc {
             capacity: crate::OptionableConvert::into_optioned(self.capacity),
             maximum_volume_size: crate::OptionableConvert::into_optioned(
                 self.maximum_volume_size,
@@ -35,7 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCap
         }
     }
     fn try_from_optioned(
-        value: CSIStorageCapacityOpt,
+        value: CSIStorageCapacityAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             capacity: crate::OptionableConvert::try_from_optioned(value.capacity)?,
@@ -57,7 +59,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCap
     }
     fn merge(
         &mut self,
-        other: CSIStorageCapacityOpt,
+        other: CSIStorageCapacityAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
         crate::OptionableConvert::merge(
@@ -72,3 +74,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCap
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::storage::v1::CSIStorageCapacity;

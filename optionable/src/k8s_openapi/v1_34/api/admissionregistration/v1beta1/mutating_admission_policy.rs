@@ -1,4 +1,6 @@
-pub struct MutatingAdmissionPolicyOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = MutatingAdmissionPolicy)]
+pub struct MutatingAdmissionPolicyAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicySpec,
@@ -7,23 +9,23 @@ pub struct MutatingAdmissionPolicyOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicy {
-    type Optioned = MutatingAdmissionPolicyOpt;
+    type Optioned = MutatingAdmissionPolicyAc;
 }
 #[automatically_derived]
-impl crate::Optionable for MutatingAdmissionPolicyOpt {
-    type Optioned = MutatingAdmissionPolicyOpt;
+impl crate::Optionable for MutatingAdmissionPolicyAc {
+    type Optioned = MutatingAdmissionPolicyAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicy {
-    fn into_optioned(self) -> MutatingAdmissionPolicyOpt {
-        MutatingAdmissionPolicyOpt {
+    fn into_optioned(self) -> MutatingAdmissionPolicyAc {
+        MutatingAdmissionPolicyAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
         }
     }
     fn try_from_optioned(
-        value: MutatingAdmissionPolicyOpt,
+        value: MutatingAdmissionPolicyAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -32,10 +34,12 @@ for ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicy 
     }
     fn merge(
         &mut self,
-        other: MutatingAdmissionPolicyOpt,
+        other: MutatingAdmissionPolicyAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicy;

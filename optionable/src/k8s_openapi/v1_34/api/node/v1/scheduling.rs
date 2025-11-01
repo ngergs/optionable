@@ -1,4 +1,4 @@
-pub struct SchedulingOpt {
+pub struct SchedulingAc {
     pub node_selector: <Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -8,23 +8,21 @@ pub struct SchedulingOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::node::v1::Scheduling {
-    type Optioned = SchedulingOpt;
+    type Optioned = SchedulingAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SchedulingOpt {
-    type Optioned = SchedulingOpt;
+impl crate::Optionable for SchedulingAc {
+    type Optioned = SchedulingAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::Scheduling {
-    fn into_optioned(self) -> SchedulingOpt {
-        SchedulingOpt {
+    fn into_optioned(self) -> SchedulingAc {
+        SchedulingAc {
             node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
             tolerations: crate::OptionableConvert::into_optioned(self.tolerations),
         }
     }
-    fn try_from_optioned(
-        value: SchedulingOpt,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SchedulingAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             node_selector: crate::OptionableConvert::try_from_optioned(
                 value.node_selector,
@@ -32,7 +30,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::Scheduling {
             tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
         })
     }
-    fn merge(&mut self, other: SchedulingOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SchedulingAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
         crate::OptionableConvert::merge(&mut self.tolerations, other.tolerations)?;
         Ok(())

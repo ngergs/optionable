@@ -1,4 +1,4 @@
-pub struct CephFSPersistentVolumeSourceOpt {
+pub struct CephFSPersistentVolumeSourceAc {
     pub monitors: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,
@@ -12,17 +12,17 @@ pub struct CephFSPersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::CephFSPersistentVolumeSource {
-    type Optioned = CephFSPersistentVolumeSourceOpt;
+    type Optioned = CephFSPersistentVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CephFSPersistentVolumeSourceOpt {
-    type Optioned = CephFSPersistentVolumeSourceOpt;
+impl crate::Optionable for CephFSPersistentVolumeSourceAc {
+    type Optioned = CephFSPersistentVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::CephFSPersistentVolumeSource {
-    fn into_optioned(self) -> CephFSPersistentVolumeSourceOpt {
-        CephFSPersistentVolumeSourceOpt {
+    fn into_optioned(self) -> CephFSPersistentVolumeSourceAc {
+        CephFSPersistentVolumeSourceAc {
             monitors: Some(crate::OptionableConvert::into_optioned(self.monitors)),
             path: crate::OptionableConvert::into_optioned(self.path),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
@@ -32,7 +32,7 @@ for ::k8s_openapi::api::core::v1::CephFSPersistentVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: CephFSPersistentVolumeSourceOpt,
+        value: CephFSPersistentVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             monitors: crate::OptionableConvert::try_from_optioned(
@@ -51,7 +51,7 @@ for ::k8s_openapi::api::core::v1::CephFSPersistentVolumeSource {
     }
     fn merge(
         &mut self,
-        other: CephFSPersistentVolumeSourceOpt,
+        other: CephFSPersistentVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.monitors {
             crate::OptionableConvert::merge(&mut self.monitors, other_value)?;

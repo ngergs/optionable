@@ -1,4 +1,4 @@
-pub struct DeviceClaimOpt {
+pub struct DeviceClaimAc {
     pub config: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1beta2::DeviceClaimConfiguration>,
     > as crate::Optionable>::Optioned,
@@ -11,23 +11,23 @@ pub struct DeviceClaimOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::DeviceClaim {
-    type Optioned = DeviceClaimOpt;
+    type Optioned = DeviceClaimAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceClaimOpt {
-    type Optioned = DeviceClaimOpt;
+impl crate::Optionable for DeviceClaimAc {
+    type Optioned = DeviceClaimAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::DeviceClaim {
-    fn into_optioned(self) -> DeviceClaimOpt {
-        DeviceClaimOpt {
+    fn into_optioned(self) -> DeviceClaimAc {
+        DeviceClaimAc {
             config: crate::OptionableConvert::into_optioned(self.config),
             constraints: crate::OptionableConvert::into_optioned(self.constraints),
             requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
     fn try_from_optioned(
-        value: DeviceClaimOpt,
+        value: DeviceClaimAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             config: crate::OptionableConvert::try_from_optioned(value.config)?,
@@ -35,7 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::DeviceC
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
         })
     }
-    fn merge(&mut self, other: DeviceClaimOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceClaimAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.config, other.config)?;
         crate::OptionableConvert::merge(&mut self.constraints, other.constraints)?;
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;

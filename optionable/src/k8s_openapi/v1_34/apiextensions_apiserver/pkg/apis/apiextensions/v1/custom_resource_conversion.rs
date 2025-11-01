@@ -1,4 +1,4 @@
-pub struct CustomResourceConversionOpt {
+pub struct CustomResourceConversionAc {
     pub strategy: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub webhook: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion,
@@ -7,23 +7,23 @@ pub struct CustomResourceConversionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceConversion {
-    type Optioned = CustomResourceConversionOpt;
+    type Optioned = CustomResourceConversionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CustomResourceConversionOpt {
-    type Optioned = CustomResourceConversionOpt;
+impl crate::Optionable for CustomResourceConversionAc {
+    type Optioned = CustomResourceConversionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceConversion {
-    fn into_optioned(self) -> CustomResourceConversionOpt {
-        CustomResourceConversionOpt {
+    fn into_optioned(self) -> CustomResourceConversionAc {
+        CustomResourceConversionAc {
             strategy: Some(crate::OptionableConvert::into_optioned(self.strategy)),
             webhook: crate::OptionableConvert::into_optioned(self.webhook),
         }
     }
     fn try_from_optioned(
-        value: CustomResourceConversionOpt,
+        value: CustomResourceConversionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             strategy: crate::OptionableConvert::try_from_optioned(
@@ -38,7 +38,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn merge(
         &mut self,
-        other: CustomResourceConversionOpt,
+        other: CustomResourceConversionAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.strategy {
             crate::OptionableConvert::merge(&mut self.strategy, other_value)?;

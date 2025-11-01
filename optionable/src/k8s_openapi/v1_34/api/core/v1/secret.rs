@@ -1,4 +1,6 @@
-pub struct SecretOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = Secret)]
+pub struct SecretAc {
     pub data: <Option<
         std::collections::BTreeMap<std::string::String, ::k8s_openapi::ByteString>,
     > as crate::Optionable>::Optioned,
@@ -11,16 +13,16 @@ pub struct SecretOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Secret {
-    type Optioned = SecretOpt;
+    type Optioned = SecretAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SecretOpt {
-    type Optioned = SecretOpt;
+impl crate::Optionable for SecretAc {
+    type Optioned = SecretAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Secret {
-    fn into_optioned(self) -> SecretOpt {
-        SecretOpt {
+    fn into_optioned(self) -> SecretAc {
+        SecretAc {
             data: crate::OptionableConvert::into_optioned(self.data),
             immutable: crate::OptionableConvert::into_optioned(self.immutable),
             metadata: self.metadata,
@@ -28,7 +30,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Secret {
             type_: crate::OptionableConvert::into_optioned(self.type_),
         }
     }
-    fn try_from_optioned(value: SecretOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SecretAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
             immutable: crate::OptionableConvert::try_from_optioned(value.immutable)?,
@@ -37,7 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Secret {
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(&mut self, other: SecretOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SecretAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
         crate::OptionableConvert::merge(&mut self.immutable, other.immutable)?;
         self.metadata = other.metadata;
@@ -46,3 +48,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Secret {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::core::v1::Secret;

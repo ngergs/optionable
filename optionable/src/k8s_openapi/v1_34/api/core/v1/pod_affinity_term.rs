@@ -1,4 +1,4 @@
-pub struct PodAffinityTermOpt {
+pub struct PodAffinityTermAc {
     pub label_selector: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,
@@ -18,16 +18,16 @@ pub struct PodAffinityTermOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PodAffinityTerm {
-    type Optioned = PodAffinityTermOpt;
+    type Optioned = PodAffinityTermAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodAffinityTermOpt {
-    type Optioned = PodAffinityTermOpt;
+impl crate::Optionable for PodAffinityTermAc {
+    type Optioned = PodAffinityTermAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAffinityTerm {
-    fn into_optioned(self) -> PodAffinityTermOpt {
-        PodAffinityTermOpt {
+    fn into_optioned(self) -> PodAffinityTermAc {
+        PodAffinityTermAc {
             label_selector: crate::OptionableConvert::into_optioned(self.label_selector),
             match_label_keys: crate::OptionableConvert::into_optioned(
                 self.match_label_keys,
@@ -45,7 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAffinityTerm 
         }
     }
     fn try_from_optioned(
-        value: PodAffinityTermOpt,
+        value: PodAffinityTermAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             label_selector: crate::OptionableConvert::try_from_optioned(
@@ -72,7 +72,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAffinityTerm 
     }
     fn merge(
         &mut self,
-        other: PodAffinityTermOpt,
+        other: PodAffinityTermAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
         crate::OptionableConvert::merge(

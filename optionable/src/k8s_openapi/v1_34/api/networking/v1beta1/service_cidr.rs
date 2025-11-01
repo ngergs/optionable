@@ -1,4 +1,6 @@
-pub struct ServiceCIDROpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ServiceCIDR)]
+pub struct ServiceCIDRAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::networking::v1beta1::ServiceCIDRSpec,
@@ -9,23 +11,23 @@ pub struct ServiceCIDROpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1beta1::ServiceCIDR {
-    type Optioned = ServiceCIDROpt;
+    type Optioned = ServiceCIDRAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServiceCIDROpt {
-    type Optioned = ServiceCIDROpt;
+impl crate::Optionable for ServiceCIDRAc {
+    type Optioned = ServiceCIDRAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1beta1::ServiceCIDR {
-    fn into_optioned(self) -> ServiceCIDROpt {
-        ServiceCIDROpt {
+    fn into_optioned(self) -> ServiceCIDRAc {
+        ServiceCIDRAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: ServiceCIDROpt,
+        value: ServiceCIDRAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -33,10 +35,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1beta1::Servi
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(&mut self, other: ServiceCIDROpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServiceCIDRAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::networking::v1beta1::ServiceCIDR;

@@ -1,4 +1,4 @@
-pub struct ResourceSliceSpecOpt {
+pub struct ResourceSliceSpecAc {
     pub all_nodes: <Option<bool> as crate::Optionable>::Optioned,
     pub devices: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1beta2::Device>,
@@ -18,17 +18,17 @@ pub struct ResourceSliceSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::ResourceSliceSpec {
-    type Optioned = ResourceSliceSpecOpt;
+    type Optioned = ResourceSliceSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceSliceSpecOpt {
-    type Optioned = ResourceSliceSpecOpt;
+impl crate::Optionable for ResourceSliceSpecAc {
+    type Optioned = ResourceSliceSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta2::ResourceSliceSpec {
-    fn into_optioned(self) -> ResourceSliceSpecOpt {
-        ResourceSliceSpecOpt {
+    fn into_optioned(self) -> ResourceSliceSpecAc {
+        ResourceSliceSpecAc {
             all_nodes: crate::OptionableConvert::into_optioned(self.all_nodes),
             devices: crate::OptionableConvert::into_optioned(self.devices),
             driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
@@ -44,7 +44,7 @@ for ::k8s_openapi::api::resource::v1beta2::ResourceSliceSpec {
         }
     }
     fn try_from_optioned(
-        value: ResourceSliceSpecOpt,
+        value: ResourceSliceSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             all_nodes: crate::OptionableConvert::try_from_optioned(value.all_nodes)?,
@@ -77,7 +77,7 @@ for ::k8s_openapi::api::resource::v1beta2::ResourceSliceSpec {
     }
     fn merge(
         &mut self,
-        other: ResourceSliceSpecOpt,
+        other: ResourceSliceSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.all_nodes, other.all_nodes)?;
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;

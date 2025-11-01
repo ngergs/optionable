@@ -1,21 +1,21 @@
-pub struct ServiceAccountTokenProjectionOpt {
+pub struct ServiceAccountTokenProjectionAc {
     pub audience: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub expiration_seconds: <Option<i64> as crate::Optionable>::Optioned,
     pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection {
-    type Optioned = ServiceAccountTokenProjectionOpt;
+    type Optioned = ServiceAccountTokenProjectionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServiceAccountTokenProjectionOpt {
-    type Optioned = ServiceAccountTokenProjectionOpt;
+impl crate::Optionable for ServiceAccountTokenProjectionAc {
+    type Optioned = ServiceAccountTokenProjectionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection {
-    fn into_optioned(self) -> ServiceAccountTokenProjectionOpt {
-        ServiceAccountTokenProjectionOpt {
+    fn into_optioned(self) -> ServiceAccountTokenProjectionAc {
+        ServiceAccountTokenProjectionAc {
             audience: crate::OptionableConvert::into_optioned(self.audience),
             expiration_seconds: crate::OptionableConvert::into_optioned(
                 self.expiration_seconds,
@@ -24,7 +24,7 @@ for ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection {
         }
     }
     fn try_from_optioned(
-        value: ServiceAccountTokenProjectionOpt,
+        value: ServiceAccountTokenProjectionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             audience: crate::OptionableConvert::try_from_optioned(value.audience)?,
@@ -42,7 +42,7 @@ for ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection {
     }
     fn merge(
         &mut self,
-        other: ServiceAccountTokenProjectionOpt,
+        other: ServiceAccountTokenProjectionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.audience, other.audience)?;
         crate::OptionableConvert::merge(

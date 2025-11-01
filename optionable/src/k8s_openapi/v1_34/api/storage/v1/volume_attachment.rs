@@ -1,4 +1,6 @@
-pub struct VolumeAttachmentOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = VolumeAttachment)]
+pub struct VolumeAttachmentAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::storage::v1::VolumeAttachmentSpec as crate::Optionable>::Optioned,
@@ -9,23 +11,23 @@ pub struct VolumeAttachmentOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::VolumeAttachment {
-    type Optioned = VolumeAttachmentOpt;
+    type Optioned = VolumeAttachmentAc;
 }
 #[automatically_derived]
-impl crate::Optionable for VolumeAttachmentOpt {
-    type Optioned = VolumeAttachmentOpt;
+impl crate::Optionable for VolumeAttachmentAc {
+    type Optioned = VolumeAttachmentAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeAttachment {
-    fn into_optioned(self) -> VolumeAttachmentOpt {
-        VolumeAttachmentOpt {
+    fn into_optioned(self) -> VolumeAttachmentAc {
+        VolumeAttachmentAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: VolumeAttachmentOpt,
+        value: VolumeAttachmentAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -41,7 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeAttachm
     }
     fn merge(
         &mut self,
-        other: VolumeAttachmentOpt,
+        other: VolumeAttachmentAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
@@ -51,3 +53,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeAttachm
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::storage::v1::VolumeAttachment;

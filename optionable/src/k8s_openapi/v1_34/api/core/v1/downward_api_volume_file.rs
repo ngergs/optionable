@@ -1,4 +1,4 @@
-pub struct DownwardAPIVolumeFileOpt {
+pub struct DownwardAPIVolumeFileAc {
     pub field_ref: <Option<
         ::k8s_openapi::api::core::v1::ObjectFieldSelector,
     > as crate::Optionable>::Optioned,
@@ -10,16 +10,16 @@ pub struct DownwardAPIVolumeFileOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::DownwardAPIVolumeFile {
-    type Optioned = DownwardAPIVolumeFileOpt;
+    type Optioned = DownwardAPIVolumeFileAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DownwardAPIVolumeFileOpt {
-    type Optioned = DownwardAPIVolumeFileOpt;
+impl crate::Optionable for DownwardAPIVolumeFileAc {
+    type Optioned = DownwardAPIVolumeFileAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DownwardAPIVolumeFile {
-    fn into_optioned(self) -> DownwardAPIVolumeFileOpt {
-        DownwardAPIVolumeFileOpt {
+    fn into_optioned(self) -> DownwardAPIVolumeFileAc {
+        DownwardAPIVolumeFileAc {
             field_ref: crate::OptionableConvert::into_optioned(self.field_ref),
             mode: crate::OptionableConvert::into_optioned(self.mode),
             path: Some(crate::OptionableConvert::into_optioned(self.path)),
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DownwardAPIVolum
         }
     }
     fn try_from_optioned(
-        value: DownwardAPIVolumeFileOpt,
+        value: DownwardAPIVolumeFileAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             field_ref: crate::OptionableConvert::try_from_optioned(value.field_ref)?,
@@ -48,7 +48,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DownwardAPIVolum
     }
     fn merge(
         &mut self,
-        other: DownwardAPIVolumeFileOpt,
+        other: DownwardAPIVolumeFileAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.field_ref, other.field_ref)?;
         crate::OptionableConvert::merge(&mut self.mode, other.mode)?;

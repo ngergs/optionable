@@ -1,4 +1,6 @@
-pub struct ServiceOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = Service)]
+pub struct ServiceAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::core::v1::ServiceSpec,
@@ -9,32 +11,34 @@ pub struct ServiceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Service {
-    type Optioned = ServiceOpt;
+    type Optioned = ServiceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServiceOpt {
-    type Optioned = ServiceOpt;
+impl crate::Optionable for ServiceAc {
+    type Optioned = ServiceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Service {
-    fn into_optioned(self) -> ServiceOpt {
-        ServiceOpt {
+    fn into_optioned(self) -> ServiceAc {
+        ServiceAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
-    fn try_from_optioned(value: ServiceOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ServiceAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(&mut self, other: ServiceOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServiceAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::core::v1::Service;

@@ -1,4 +1,4 @@
-pub struct NodeSpecOpt {
+pub struct NodeSpecAc {
     pub config_source: <Option<
         ::k8s_openapi::api::core::v1::NodeConfigSource,
     > as crate::Optionable>::Optioned,
@@ -15,16 +15,16 @@ pub struct NodeSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeSpec {
-    type Optioned = NodeSpecOpt;
+    type Optioned = NodeSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NodeSpecOpt {
-    type Optioned = NodeSpecOpt;
+impl crate::Optionable for NodeSpecAc {
+    type Optioned = NodeSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSpec {
-    fn into_optioned(self) -> NodeSpecOpt {
-        NodeSpecOpt {
+    fn into_optioned(self) -> NodeSpecAc {
+        NodeSpecAc {
             config_source: crate::OptionableConvert::into_optioned(self.config_source),
             external_id: crate::OptionableConvert::into_optioned(self.external_id),
             pod_cidr: crate::OptionableConvert::into_optioned(self.pod_cidr),
@@ -34,7 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSpec {
             unschedulable: crate::OptionableConvert::into_optioned(self.unschedulable),
         }
     }
-    fn try_from_optioned(value: NodeSpecOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeSpecAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             config_source: crate::OptionableConvert::try_from_optioned(
                 value.config_source,
@@ -49,7 +49,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSpec {
             )?,
         })
     }
-    fn merge(&mut self, other: NodeSpecOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeSpecAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.config_source, other.config_source)?;
         crate::OptionableConvert::merge(&mut self.external_id, other.external_id)?;
         crate::OptionableConvert::merge(&mut self.pod_cidr, other.pod_cidr)?;

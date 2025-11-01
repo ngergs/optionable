@@ -1,4 +1,4 @@
-pub struct StatusDetailsOpt {
+pub struct StatusDetailsAc {
     pub causes: <Option<
         std::vec::Vec<::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusCause>,
     > as crate::Optionable>::Optioned,
@@ -11,17 +11,17 @@ pub struct StatusDetailsOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusDetails {
-    type Optioned = StatusDetailsOpt;
+    type Optioned = StatusDetailsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StatusDetailsOpt {
-    type Optioned = StatusDetailsOpt;
+impl crate::Optionable for StatusDetailsAc {
+    type Optioned = StatusDetailsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusDetails {
-    fn into_optioned(self) -> StatusDetailsOpt {
-        StatusDetailsOpt {
+    fn into_optioned(self) -> StatusDetailsAc {
+        StatusDetailsAc {
             causes: crate::OptionableConvert::into_optioned(self.causes),
             group: crate::OptionableConvert::into_optioned(self.group),
             kind: crate::OptionableConvert::into_optioned(self.kind),
@@ -33,7 +33,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusDetails {
         }
     }
     fn try_from_optioned(
-        value: StatusDetailsOpt,
+        value: StatusDetailsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             causes: crate::OptionableConvert::try_from_optioned(value.causes)?,
@@ -46,10 +46,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusDetails {
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: StatusDetailsOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StatusDetailsAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.causes, other.causes)?;
         crate::OptionableConvert::merge(&mut self.group, other.group)?;
         crate::OptionableConvert::merge(&mut self.kind, other.kind)?;

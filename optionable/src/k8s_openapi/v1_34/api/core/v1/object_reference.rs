@@ -1,4 +1,4 @@
-pub struct ObjectReferenceOpt {
+pub struct ObjectReferenceAc {
     pub api_version: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub field_path: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub kind: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -9,16 +9,16 @@ pub struct ObjectReferenceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ObjectReference {
-    type Optioned = ObjectReferenceOpt;
+    type Optioned = ObjectReferenceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ObjectReferenceOpt {
-    type Optioned = ObjectReferenceOpt;
+impl crate::Optionable for ObjectReferenceAc {
+    type Optioned = ObjectReferenceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ObjectReference {
-    fn into_optioned(self) -> ObjectReferenceOpt {
-        ObjectReferenceOpt {
+    fn into_optioned(self) -> ObjectReferenceAc {
+        ObjectReferenceAc {
             api_version: crate::OptionableConvert::into_optioned(self.api_version),
             field_path: crate::OptionableConvert::into_optioned(self.field_path),
             kind: crate::OptionableConvert::into_optioned(self.kind),
@@ -31,7 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ObjectReference 
         }
     }
     fn try_from_optioned(
-        value: ObjectReferenceOpt,
+        value: ObjectReferenceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
@@ -47,7 +47,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ObjectReference 
     }
     fn merge(
         &mut self,
-        other: ObjectReferenceOpt,
+        other: ObjectReferenceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         crate::OptionableConvert::merge(&mut self.field_path, other.field_path)?;

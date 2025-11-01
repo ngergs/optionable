@@ -1,4 +1,4 @@
-pub struct StorageVersionMigrationSpecOpt {
+pub struct StorageVersionMigrationSpecAc {
     pub continue_token: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub resource: Option<
         <::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource as crate::Optionable>::Optioned,
@@ -7,23 +7,23 @@ pub struct StorageVersionMigrationSpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec {
-    type Optioned = StorageVersionMigrationSpecOpt;
+    type Optioned = StorageVersionMigrationSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StorageVersionMigrationSpecOpt {
-    type Optioned = StorageVersionMigrationSpecOpt;
+impl crate::Optionable for StorageVersionMigrationSpecAc {
+    type Optioned = StorageVersionMigrationSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec {
-    fn into_optioned(self) -> StorageVersionMigrationSpecOpt {
-        StorageVersionMigrationSpecOpt {
+    fn into_optioned(self) -> StorageVersionMigrationSpecAc {
+        StorageVersionMigrationSpecAc {
             continue_token: crate::OptionableConvert::into_optioned(self.continue_token),
             resource: Some(crate::OptionableConvert::into_optioned(self.resource)),
         }
     }
     fn try_from_optioned(
-        value: StorageVersionMigrationSpecOpt,
+        value: StorageVersionMigrationSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             continue_token: crate::OptionableConvert::try_from_optioned(
@@ -40,7 +40,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec 
     }
     fn merge(
         &mut self,
-        other: StorageVersionMigrationSpecOpt,
+        other: StorageVersionMigrationSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.continue_token, other.continue_token)?;
         if let Some(other_value) = other.resource {

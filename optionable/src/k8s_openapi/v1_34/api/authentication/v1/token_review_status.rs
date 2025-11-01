@@ -1,4 +1,4 @@
-pub struct TokenReviewStatusOpt {
+pub struct TokenReviewStatusAc {
     pub audiences: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -10,17 +10,17 @@ pub struct TokenReviewStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::authentication::v1::TokenReviewStatus {
-    type Optioned = TokenReviewStatusOpt;
+    type Optioned = TokenReviewStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for TokenReviewStatusOpt {
-    type Optioned = TokenReviewStatusOpt;
+impl crate::Optionable for TokenReviewStatusAc {
+    type Optioned = TokenReviewStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authentication::v1::TokenReviewStatus {
-    fn into_optioned(self) -> TokenReviewStatusOpt {
-        TokenReviewStatusOpt {
+    fn into_optioned(self) -> TokenReviewStatusAc {
+        TokenReviewStatusAc {
             audiences: crate::OptionableConvert::into_optioned(self.audiences),
             authenticated: crate::OptionableConvert::into_optioned(self.authenticated),
             error: crate::OptionableConvert::into_optioned(self.error),
@@ -28,7 +28,7 @@ for ::k8s_openapi::api::authentication::v1::TokenReviewStatus {
         }
     }
     fn try_from_optioned(
-        value: TokenReviewStatusOpt,
+        value: TokenReviewStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             audiences: crate::OptionableConvert::try_from_optioned(value.audiences)?,
@@ -41,7 +41,7 @@ for ::k8s_openapi::api::authentication::v1::TokenReviewStatus {
     }
     fn merge(
         &mut self,
-        other: TokenReviewStatusOpt,
+        other: TokenReviewStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.audiences, other.audiences)?;
         crate::OptionableConvert::merge(&mut self.authenticated, other.authenticated)?;

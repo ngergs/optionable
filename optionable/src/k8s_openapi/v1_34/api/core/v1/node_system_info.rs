@@ -1,4 +1,4 @@
-pub struct NodeSystemInfoOpt {
+pub struct NodeSystemInfoAc {
     pub architecture: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub boot_id: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub container_runtime_version: Option<
@@ -17,16 +17,16 @@ pub struct NodeSystemInfoOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeSystemInfo {
-    type Optioned = NodeSystemInfoOpt;
+    type Optioned = NodeSystemInfoAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NodeSystemInfoOpt {
-    type Optioned = NodeSystemInfoOpt;
+impl crate::Optionable for NodeSystemInfoAc {
+    type Optioned = NodeSystemInfoAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSystemInfo {
-    fn into_optioned(self) -> NodeSystemInfoOpt {
-        NodeSystemInfoOpt {
+    fn into_optioned(self) -> NodeSystemInfoAc {
+        NodeSystemInfoAc {
             architecture: Some(
                 crate::OptionableConvert::into_optioned(self.architecture),
             ),
@@ -53,7 +53,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSystemInfo {
         }
     }
     fn try_from_optioned(
-        value: NodeSystemInfoOpt,
+        value: NodeSystemInfoAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             architecture: crate::OptionableConvert::try_from_optioned(
@@ -131,7 +131,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSystemInfo {
     }
     fn merge(
         &mut self,
-        other: NodeSystemInfoOpt,
+        other: NodeSystemInfoAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.architecture {
             crate::OptionableConvert::merge(&mut self.architecture, other_value)?;

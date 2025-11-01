@@ -1,4 +1,4 @@
-pub struct FieldSelectorAttributesOpt {
+pub struct FieldSelectorAttributesAc {
     pub raw_selector: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub requirements: <Option<
         std::vec::Vec<
@@ -9,23 +9,23 @@ pub struct FieldSelectorAttributesOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::authorization::v1::FieldSelectorAttributes {
-    type Optioned = FieldSelectorAttributesOpt;
+    type Optioned = FieldSelectorAttributesAc;
 }
 #[automatically_derived]
-impl crate::Optionable for FieldSelectorAttributesOpt {
-    type Optioned = FieldSelectorAttributesOpt;
+impl crate::Optionable for FieldSelectorAttributesAc {
+    type Optioned = FieldSelectorAttributesAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::FieldSelectorAttributes {
-    fn into_optioned(self) -> FieldSelectorAttributesOpt {
-        FieldSelectorAttributesOpt {
+    fn into_optioned(self) -> FieldSelectorAttributesAc {
+        FieldSelectorAttributesAc {
             raw_selector: crate::OptionableConvert::into_optioned(self.raw_selector),
             requirements: crate::OptionableConvert::into_optioned(self.requirements),
         }
     }
     fn try_from_optioned(
-        value: FieldSelectorAttributesOpt,
+        value: FieldSelectorAttributesAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             raw_selector: crate::OptionableConvert::try_from_optioned(
@@ -38,7 +38,7 @@ for ::k8s_openapi::api::authorization::v1::FieldSelectorAttributes {
     }
     fn merge(
         &mut self,
-        other: FieldSelectorAttributesOpt,
+        other: FieldSelectorAttributesAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.raw_selector, other.raw_selector)?;
         crate::OptionableConvert::merge(&mut self.requirements, other.requirements)?;

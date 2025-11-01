@@ -1,19 +1,19 @@
-pub struct SuccessPolicyRuleOpt {
+pub struct SuccessPolicyRuleAc {
     pub succeeded_count: <Option<i32> as crate::Optionable>::Optioned,
     pub succeeded_indexes: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::SuccessPolicyRule {
-    type Optioned = SuccessPolicyRuleOpt;
+    type Optioned = SuccessPolicyRuleAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SuccessPolicyRuleOpt {
-    type Optioned = SuccessPolicyRuleOpt;
+impl crate::Optionable for SuccessPolicyRuleAc {
+    type Optioned = SuccessPolicyRuleAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::SuccessPolicyRule {
-    fn into_optioned(self) -> SuccessPolicyRuleOpt {
-        SuccessPolicyRuleOpt {
+    fn into_optioned(self) -> SuccessPolicyRuleAc {
+        SuccessPolicyRuleAc {
             succeeded_count: crate::OptionableConvert::into_optioned(
                 self.succeeded_count,
             ),
@@ -23,7 +23,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::SuccessPolicyRu
         }
     }
     fn try_from_optioned(
-        value: SuccessPolicyRuleOpt,
+        value: SuccessPolicyRuleAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             succeeded_count: crate::OptionableConvert::try_from_optioned(
@@ -36,7 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::SuccessPolicyRu
     }
     fn merge(
         &mut self,
-        other: SuccessPolicyRuleOpt,
+        other: SuccessPolicyRuleAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.succeeded_count,

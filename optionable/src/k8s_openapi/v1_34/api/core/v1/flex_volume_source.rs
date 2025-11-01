@@ -1,4 +1,4 @@
-pub struct FlexVolumeSourceOpt {
+pub struct FlexVolumeSourceAc {
     pub driver: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub options: <Option<
@@ -11,16 +11,16 @@ pub struct FlexVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::FlexVolumeSource {
-    type Optioned = FlexVolumeSourceOpt;
+    type Optioned = FlexVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for FlexVolumeSourceOpt {
-    type Optioned = FlexVolumeSourceOpt;
+impl crate::Optionable for FlexVolumeSourceAc {
+    type Optioned = FlexVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FlexVolumeSource {
-    fn into_optioned(self) -> FlexVolumeSourceOpt {
-        FlexVolumeSourceOpt {
+    fn into_optioned(self) -> FlexVolumeSourceAc {
+        FlexVolumeSourceAc {
             driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             options: crate::OptionableConvert::into_optioned(self.options),
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FlexVolumeSource
         }
     }
     fn try_from_optioned(
-        value: FlexVolumeSourceOpt,
+        value: FlexVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             driver: crate::OptionableConvert::try_from_optioned(
@@ -47,7 +47,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FlexVolumeSource
     }
     fn merge(
         &mut self,
-        other: FlexVolumeSourceOpt,
+        other: FlexVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.driver {
             crate::OptionableConvert::merge(&mut self.driver, other_value)?;

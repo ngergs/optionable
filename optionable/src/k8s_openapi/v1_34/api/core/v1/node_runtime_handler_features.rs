@@ -1,20 +1,20 @@
-pub struct NodeRuntimeHandlerFeaturesOpt {
+pub struct NodeRuntimeHandlerFeaturesAc {
     pub recursive_read_only_mounts: <Option<bool> as crate::Optionable>::Optioned,
     pub user_namespaces: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeRuntimeHandlerFeatures {
-    type Optioned = NodeRuntimeHandlerFeaturesOpt;
+    type Optioned = NodeRuntimeHandlerFeaturesAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NodeRuntimeHandlerFeaturesOpt {
-    type Optioned = NodeRuntimeHandlerFeaturesOpt;
+impl crate::Optionable for NodeRuntimeHandlerFeaturesAc {
+    type Optioned = NodeRuntimeHandlerFeaturesAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::NodeRuntimeHandlerFeatures {
-    fn into_optioned(self) -> NodeRuntimeHandlerFeaturesOpt {
-        NodeRuntimeHandlerFeaturesOpt {
+    fn into_optioned(self) -> NodeRuntimeHandlerFeaturesAc {
+        NodeRuntimeHandlerFeaturesAc {
             recursive_read_only_mounts: crate::OptionableConvert::into_optioned(
                 self.recursive_read_only_mounts,
             ),
@@ -24,7 +24,7 @@ for ::k8s_openapi::api::core::v1::NodeRuntimeHandlerFeatures {
         }
     }
     fn try_from_optioned(
-        value: NodeRuntimeHandlerFeaturesOpt,
+        value: NodeRuntimeHandlerFeaturesAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             recursive_read_only_mounts: crate::OptionableConvert::try_from_optioned(
@@ -37,7 +37,7 @@ for ::k8s_openapi::api::core::v1::NodeRuntimeHandlerFeatures {
     }
     fn merge(
         &mut self,
-        other: NodeRuntimeHandlerFeaturesOpt,
+        other: NodeRuntimeHandlerFeaturesAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.recursive_read_only_mounts,

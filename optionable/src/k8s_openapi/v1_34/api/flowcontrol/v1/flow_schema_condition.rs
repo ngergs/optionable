@@ -1,4 +1,4 @@
-pub struct FlowSchemaConditionOpt {
+pub struct FlowSchemaConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -9,17 +9,17 @@ pub struct FlowSchemaConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaCondition {
-    type Optioned = FlowSchemaConditionOpt;
+    type Optioned = FlowSchemaConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for FlowSchemaConditionOpt {
-    type Optioned = FlowSchemaConditionOpt;
+impl crate::Optionable for FlowSchemaConditionAc {
+    type Optioned = FlowSchemaConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaCondition {
-    fn into_optioned(self) -> FlowSchemaConditionOpt {
-        FlowSchemaConditionOpt {
+    fn into_optioned(self) -> FlowSchemaConditionAc {
+        FlowSchemaConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -30,7 +30,7 @@ for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaCondition {
         }
     }
     fn try_from_optioned(
-        value: FlowSchemaConditionOpt,
+        value: FlowSchemaConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -44,7 +44,7 @@ for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaCondition {
     }
     fn merge(
         &mut self,
-        other: FlowSchemaConditionOpt,
+        other: FlowSchemaConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

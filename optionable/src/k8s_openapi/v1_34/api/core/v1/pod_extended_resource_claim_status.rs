@@ -1,4 +1,4 @@
-pub struct PodExtendedResourceClaimStatusOpt {
+pub struct PodExtendedResourceClaimStatusAc {
     pub request_mappings: Option<
         <std::vec::Vec<
             ::k8s_openapi::api::core::v1::ContainerExtendedResourceRequest,
@@ -10,17 +10,17 @@ pub struct PodExtendedResourceClaimStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PodExtendedResourceClaimStatus {
-    type Optioned = PodExtendedResourceClaimStatusOpt;
+    type Optioned = PodExtendedResourceClaimStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodExtendedResourceClaimStatusOpt {
-    type Optioned = PodExtendedResourceClaimStatusOpt;
+impl crate::Optionable for PodExtendedResourceClaimStatusAc {
+    type Optioned = PodExtendedResourceClaimStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::PodExtendedResourceClaimStatus {
-    fn into_optioned(self) -> PodExtendedResourceClaimStatusOpt {
-        PodExtendedResourceClaimStatusOpt {
+    fn into_optioned(self) -> PodExtendedResourceClaimStatusAc {
+        PodExtendedResourceClaimStatusAc {
             request_mappings: Some(
                 crate::OptionableConvert::into_optioned(self.request_mappings),
             ),
@@ -30,7 +30,7 @@ for ::k8s_openapi::api::core::v1::PodExtendedResourceClaimStatus {
         }
     }
     fn try_from_optioned(
-        value: PodExtendedResourceClaimStatusOpt,
+        value: PodExtendedResourceClaimStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             request_mappings: crate::OptionableConvert::try_from_optioned(
@@ -51,7 +51,7 @@ for ::k8s_openapi::api::core::v1::PodExtendedResourceClaimStatus {
     }
     fn merge(
         &mut self,
-        other: PodExtendedResourceClaimStatusOpt,
+        other: PodExtendedResourceClaimStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.request_mappings {
             crate::OptionableConvert::merge(&mut self.request_mappings, other_value)?;

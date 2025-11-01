@@ -1,4 +1,6 @@
-pub struct ValidatingAdmissionPolicyOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ValidatingAdmissionPolicy)]
+pub struct ValidatingAdmissionPolicyAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicySpec,
@@ -10,24 +12,24 @@ pub struct ValidatingAdmissionPolicyOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicy {
-    type Optioned = ValidatingAdmissionPolicyOpt;
+    type Optioned = ValidatingAdmissionPolicyAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ValidatingAdmissionPolicyOpt {
-    type Optioned = ValidatingAdmissionPolicyOpt;
+impl crate::Optionable for ValidatingAdmissionPolicyAc {
+    type Optioned = ValidatingAdmissionPolicyAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicy {
-    fn into_optioned(self) -> ValidatingAdmissionPolicyOpt {
-        ValidatingAdmissionPolicyOpt {
+    fn into_optioned(self) -> ValidatingAdmissionPolicyAc {
+        ValidatingAdmissionPolicyAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: ValidatingAdmissionPolicyOpt,
+        value: ValidatingAdmissionPolicyAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -37,7 +39,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicy {
     }
     fn merge(
         &mut self,
-        other: ValidatingAdmissionPolicyOpt,
+        other: ValidatingAdmissionPolicyAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
@@ -45,3 +47,5 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicy {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicy;

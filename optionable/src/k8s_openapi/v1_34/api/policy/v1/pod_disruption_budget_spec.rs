@@ -1,4 +1,4 @@
-pub struct PodDisruptionBudgetSpecOpt {
+pub struct PodDisruptionBudgetSpecAc {
     pub max_unavailable: <Option<
         ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
     > as crate::Optionable>::Optioned,
@@ -14,17 +14,17 @@ pub struct PodDisruptionBudgetSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetSpec {
-    type Optioned = PodDisruptionBudgetSpecOpt;
+    type Optioned = PodDisruptionBudgetSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodDisruptionBudgetSpecOpt {
-    type Optioned = PodDisruptionBudgetSpecOpt;
+impl crate::Optionable for PodDisruptionBudgetSpecAc {
+    type Optioned = PodDisruptionBudgetSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetSpec {
-    fn into_optioned(self) -> PodDisruptionBudgetSpecOpt {
-        PodDisruptionBudgetSpecOpt {
+    fn into_optioned(self) -> PodDisruptionBudgetSpecAc {
+        PodDisruptionBudgetSpecAc {
             max_unavailable: crate::OptionableConvert::into_optioned(
                 self.max_unavailable,
             ),
@@ -36,7 +36,7 @@ for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetSpec {
         }
     }
     fn try_from_optioned(
-        value: PodDisruptionBudgetSpecOpt,
+        value: PodDisruptionBudgetSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             max_unavailable: crate::OptionableConvert::try_from_optioned(
@@ -53,7 +53,7 @@ for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetSpec {
     }
     fn merge(
         &mut self,
-        other: PodDisruptionBudgetSpecOpt,
+        other: PodDisruptionBudgetSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.max_unavailable,

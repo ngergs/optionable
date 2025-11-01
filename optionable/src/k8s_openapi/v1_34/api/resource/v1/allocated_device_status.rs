@@ -1,4 +1,4 @@
-pub struct AllocatedDeviceStatusOpt {
+pub struct AllocatedDeviceStatusAc {
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition>,
     > as crate::Optionable>::Optioned,
@@ -15,17 +15,17 @@ pub struct AllocatedDeviceStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1::AllocatedDeviceStatus {
-    type Optioned = AllocatedDeviceStatusOpt;
+    type Optioned = AllocatedDeviceStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for AllocatedDeviceStatusOpt {
-    type Optioned = AllocatedDeviceStatusOpt;
+impl crate::Optionable for AllocatedDeviceStatusAc {
+    type Optioned = AllocatedDeviceStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1::AllocatedDeviceStatus {
-    fn into_optioned(self) -> AllocatedDeviceStatusOpt {
-        AllocatedDeviceStatusOpt {
+    fn into_optioned(self) -> AllocatedDeviceStatusAc {
+        AllocatedDeviceStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             data: crate::OptionableConvert::into_optioned(self.data),
             device: Some(crate::OptionableConvert::into_optioned(self.device)),
@@ -36,7 +36,7 @@ for ::k8s_openapi::api::resource::v1::AllocatedDeviceStatus {
         }
     }
     fn try_from_optioned(
-        value: AllocatedDeviceStatusOpt,
+        value: AllocatedDeviceStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
@@ -70,7 +70,7 @@ for ::k8s_openapi::api::resource::v1::AllocatedDeviceStatus {
     }
     fn merge(
         &mut self,
-        other: AllocatedDeviceStatusOpt,
+        other: AllocatedDeviceStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(&mut self.data, other.data)?;

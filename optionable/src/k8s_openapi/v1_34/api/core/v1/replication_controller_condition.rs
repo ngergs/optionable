@@ -1,4 +1,4 @@
-pub struct ReplicationControllerConditionOpt {
+pub struct ReplicationControllerConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -9,17 +9,17 @@ pub struct ReplicationControllerConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ReplicationControllerCondition {
-    type Optioned = ReplicationControllerConditionOpt;
+    type Optioned = ReplicationControllerConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ReplicationControllerConditionOpt {
-    type Optioned = ReplicationControllerConditionOpt;
+impl crate::Optionable for ReplicationControllerConditionAc {
+    type Optioned = ReplicationControllerConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ReplicationControllerCondition {
-    fn into_optioned(self) -> ReplicationControllerConditionOpt {
-        ReplicationControllerConditionOpt {
+    fn into_optioned(self) -> ReplicationControllerConditionAc {
+        ReplicationControllerConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -30,7 +30,7 @@ for ::k8s_openapi::api::core::v1::ReplicationControllerCondition {
         }
     }
     fn try_from_optioned(
-        value: ReplicationControllerConditionOpt,
+        value: ReplicationControllerConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -56,7 +56,7 @@ for ::k8s_openapi::api::core::v1::ReplicationControllerCondition {
     }
     fn merge(
         &mut self,
-        other: ReplicationControllerConditionOpt,
+        other: ReplicationControllerConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

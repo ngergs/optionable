@@ -1,4 +1,4 @@
-pub struct ContainerStatusOpt {
+pub struct ContainerStatusAc {
     pub allocated_resources: <Option<
         std::collections::BTreeMap<
             std::string::String,
@@ -34,16 +34,16 @@ pub struct ContainerStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerStatus {
-    type Optioned = ContainerStatusOpt;
+    type Optioned = ContainerStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ContainerStatusOpt {
-    type Optioned = ContainerStatusOpt;
+impl crate::Optionable for ContainerStatusAc {
+    type Optioned = ContainerStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStatus {
-    fn into_optioned(self) -> ContainerStatusOpt {
-        ContainerStatusOpt {
+    fn into_optioned(self) -> ContainerStatusAc {
+        ContainerStatusAc {
             allocated_resources: crate::OptionableConvert::into_optioned(
                 self.allocated_resources,
             ),
@@ -66,7 +66,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStatus 
         }
     }
     fn try_from_optioned(
-        value: ContainerStatusOpt,
+        value: ContainerStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             allocated_resources: crate::OptionableConvert::try_from_optioned(
@@ -122,7 +122,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStatus 
     }
     fn merge(
         &mut self,
-        other: ContainerStatusOpt,
+        other: ContainerStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.allocated_resources,

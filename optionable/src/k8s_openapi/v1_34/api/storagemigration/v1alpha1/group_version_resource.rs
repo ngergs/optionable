@@ -1,4 +1,4 @@
-pub struct GroupVersionResourceOpt {
+pub struct GroupVersionResourceAc {
     pub group: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub resource: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub version: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -6,24 +6,24 @@ pub struct GroupVersionResourceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource {
-    type Optioned = GroupVersionResourceOpt;
+    type Optioned = GroupVersionResourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for GroupVersionResourceOpt {
-    type Optioned = GroupVersionResourceOpt;
+impl crate::Optionable for GroupVersionResourceAc {
+    type Optioned = GroupVersionResourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource {
-    fn into_optioned(self) -> GroupVersionResourceOpt {
-        GroupVersionResourceOpt {
+    fn into_optioned(self) -> GroupVersionResourceAc {
+        GroupVersionResourceAc {
             group: crate::OptionableConvert::into_optioned(self.group),
             resource: crate::OptionableConvert::into_optioned(self.resource),
             version: crate::OptionableConvert::into_optioned(self.version),
         }
     }
     fn try_from_optioned(
-        value: GroupVersionResourceOpt,
+        value: GroupVersionResourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
@@ -33,7 +33,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource {
     }
     fn merge(
         &mut self,
-        other: GroupVersionResourceOpt,
+        other: GroupVersionResourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.group, other.group)?;
         crate::OptionableConvert::merge(&mut self.resource, other.resource)?;

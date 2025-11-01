@@ -1,4 +1,4 @@
-pub struct LimitRangeItemOpt {
+pub struct LimitRangeItemAc {
     pub default: <Option<
         std::collections::BTreeMap<
             std::string::String,
@@ -33,16 +33,16 @@ pub struct LimitRangeItemOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::LimitRangeItem {
-    type Optioned = LimitRangeItemOpt;
+    type Optioned = LimitRangeItemAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LimitRangeItemOpt {
-    type Optioned = LimitRangeItemOpt;
+impl crate::Optionable for LimitRangeItemAc {
+    type Optioned = LimitRangeItemAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LimitRangeItem {
-    fn into_optioned(self) -> LimitRangeItemOpt {
-        LimitRangeItemOpt {
+    fn into_optioned(self) -> LimitRangeItemAc {
+        LimitRangeItemAc {
             default: crate::OptionableConvert::into_optioned(self.default),
             default_request: crate::OptionableConvert::into_optioned(
                 self.default_request,
@@ -56,7 +56,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LimitRangeItem {
         }
     }
     fn try_from_optioned(
-        value: LimitRangeItemOpt,
+        value: LimitRangeItemAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             default: crate::OptionableConvert::try_from_optioned(value.default)?,
@@ -79,7 +79,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LimitRangeItem {
     }
     fn merge(
         &mut self,
-        other: LimitRangeItemOpt,
+        other: LimitRangeItemAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.default, other.default)?;
         crate::OptionableConvert::merge(

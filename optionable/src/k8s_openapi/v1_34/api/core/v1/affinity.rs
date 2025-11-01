@@ -1,4 +1,4 @@
-pub struct AffinityOpt {
+pub struct AffinityAc {
     pub node_affinity: <Option<
         ::k8s_openapi::api::core::v1::NodeAffinity,
     > as crate::Optionable>::Optioned,
@@ -11,16 +11,16 @@ pub struct AffinityOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Affinity {
-    type Optioned = AffinityOpt;
+    type Optioned = AffinityAc;
 }
 #[automatically_derived]
-impl crate::Optionable for AffinityOpt {
-    type Optioned = AffinityOpt;
+impl crate::Optionable for AffinityAc {
+    type Optioned = AffinityAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Affinity {
-    fn into_optioned(self) -> AffinityOpt {
-        AffinityOpt {
+    fn into_optioned(self) -> AffinityAc {
+        AffinityAc {
             node_affinity: crate::OptionableConvert::into_optioned(self.node_affinity),
             pod_affinity: crate::OptionableConvert::into_optioned(self.pod_affinity),
             pod_anti_affinity: crate::OptionableConvert::into_optioned(
@@ -28,7 +28,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Affinity {
             ),
         }
     }
-    fn try_from_optioned(value: AffinityOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: AffinityAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             node_affinity: crate::OptionableConvert::try_from_optioned(
                 value.node_affinity,
@@ -41,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Affinity {
             )?,
         })
     }
-    fn merge(&mut self, other: AffinityOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: AffinityAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.node_affinity, other.node_affinity)?;
         crate::OptionableConvert::merge(&mut self.pod_affinity, other.pod_affinity)?;
         crate::OptionableConvert::merge(

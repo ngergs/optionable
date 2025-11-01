@@ -1,4 +1,4 @@
-pub struct NodeAffinityOpt {
+pub struct NodeAffinityAc {
     pub preferred_during_scheduling_ignored_during_execution: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::PreferredSchedulingTerm>,
     > as crate::Optionable>::Optioned,
@@ -8,16 +8,16 @@ pub struct NodeAffinityOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeAffinity {
-    type Optioned = NodeAffinityOpt;
+    type Optioned = NodeAffinityAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NodeAffinityOpt {
-    type Optioned = NodeAffinityOpt;
+impl crate::Optionable for NodeAffinityAc {
+    type Optioned = NodeAffinityAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAffinity {
-    fn into_optioned(self) -> NodeAffinityOpt {
-        NodeAffinityOpt {
+    fn into_optioned(self) -> NodeAffinityAc {
+        NodeAffinityAc {
             preferred_during_scheduling_ignored_during_execution: crate::OptionableConvert::into_optioned(
                 self.preferred_during_scheduling_ignored_during_execution,
             ),
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAffinity {
         }
     }
     fn try_from_optioned(
-        value: NodeAffinityOpt,
+        value: NodeAffinityAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             preferred_during_scheduling_ignored_during_execution: crate::OptionableConvert::try_from_optioned(
@@ -38,7 +38,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAffinity {
             )?,
         })
     }
-    fn merge(&mut self, other: NodeAffinityOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeAffinityAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.preferred_during_scheduling_ignored_during_execution,
             other.preferred_during_scheduling_ignored_during_execution,

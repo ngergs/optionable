@@ -1,4 +1,4 @@
-pub struct DeviceOpt {
+pub struct DeviceAc {
     pub basic: <Option<
         ::k8s_openapi::api::resource::v1beta1::BasicDevice,
     > as crate::Optionable>::Optioned,
@@ -6,21 +6,21 @@ pub struct DeviceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::Device {
-    type Optioned = DeviceOpt;
+    type Optioned = DeviceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceOpt {
-    type Optioned = DeviceOpt;
+impl crate::Optionable for DeviceAc {
+    type Optioned = DeviceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::Device {
-    fn into_optioned(self) -> DeviceOpt {
-        DeviceOpt {
+    fn into_optioned(self) -> DeviceAc {
+        DeviceAc {
             basic: crate::OptionableConvert::into_optioned(self.basic),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
-    fn try_from_optioned(value: DeviceOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             basic: crate::OptionableConvert::try_from_optioned(value.basic)?,
             name: crate::OptionableConvert::try_from_optioned(
@@ -32,7 +32,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::Device 
             )?,
         })
     }
-    fn merge(&mut self, other: DeviceOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.basic, other.basic)?;
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;

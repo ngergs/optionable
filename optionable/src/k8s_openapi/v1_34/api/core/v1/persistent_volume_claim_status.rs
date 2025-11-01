@@ -1,4 +1,4 @@
-pub struct PersistentVolumeClaimStatusOpt {
+pub struct PersistentVolumeClaimStatusAc {
     pub access_modes: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -30,17 +30,17 @@ pub struct PersistentVolumeClaimStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PersistentVolumeClaimStatus {
-    type Optioned = PersistentVolumeClaimStatusOpt;
+    type Optioned = PersistentVolumeClaimStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PersistentVolumeClaimStatusOpt {
-    type Optioned = PersistentVolumeClaimStatusOpt;
+impl crate::Optionable for PersistentVolumeClaimStatusAc {
+    type Optioned = PersistentVolumeClaimStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::PersistentVolumeClaimStatus {
-    fn into_optioned(self) -> PersistentVolumeClaimStatusOpt {
-        PersistentVolumeClaimStatusOpt {
+    fn into_optioned(self) -> PersistentVolumeClaimStatusAc {
+        PersistentVolumeClaimStatusAc {
             access_modes: crate::OptionableConvert::into_optioned(self.access_modes),
             allocated_resource_statuses: crate::OptionableConvert::into_optioned(
                 self.allocated_resource_statuses,
@@ -60,7 +60,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimStatus {
         }
     }
     fn try_from_optioned(
-        value: PersistentVolumeClaimStatusOpt,
+        value: PersistentVolumeClaimStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             access_modes: crate::OptionableConvert::try_from_optioned(
@@ -85,7 +85,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimStatus {
     }
     fn merge(
         &mut self,
-        other: PersistentVolumeClaimStatusOpt,
+        other: PersistentVolumeClaimStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.access_modes, other.access_modes)?;
         crate::OptionableConvert::merge(

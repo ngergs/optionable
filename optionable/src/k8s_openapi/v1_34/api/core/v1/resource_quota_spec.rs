@@ -1,4 +1,4 @@
-pub struct ResourceQuotaSpecOpt {
+pub struct ResourceQuotaSpecAc {
     pub hard: <Option<
         std::collections::BTreeMap<
             std::string::String,
@@ -14,23 +14,23 @@ pub struct ResourceQuotaSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ResourceQuotaSpec {
-    type Optioned = ResourceQuotaSpecOpt;
+    type Optioned = ResourceQuotaSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceQuotaSpecOpt {
-    type Optioned = ResourceQuotaSpecOpt;
+impl crate::Optionable for ResourceQuotaSpecAc {
+    type Optioned = ResourceQuotaSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceQuotaSpec {
-    fn into_optioned(self) -> ResourceQuotaSpecOpt {
-        ResourceQuotaSpecOpt {
+    fn into_optioned(self) -> ResourceQuotaSpecAc {
+        ResourceQuotaSpecAc {
             hard: crate::OptionableConvert::into_optioned(self.hard),
             scope_selector: crate::OptionableConvert::into_optioned(self.scope_selector),
             scopes: crate::OptionableConvert::into_optioned(self.scopes),
         }
     }
     fn try_from_optioned(
-        value: ResourceQuotaSpecOpt,
+        value: ResourceQuotaSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             hard: crate::OptionableConvert::try_from_optioned(value.hard)?,
@@ -42,7 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceQuotaSpe
     }
     fn merge(
         &mut self,
-        other: ResourceQuotaSpecOpt,
+        other: ResourceQuotaSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.hard, other.hard)?;
         crate::OptionableConvert::merge(&mut self.scope_selector, other.scope_selector)?;

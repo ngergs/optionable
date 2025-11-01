@@ -1,3 +1,3 @@
 mod quantity;
 #[allow(unused_imports)]
-pub use self::quantity::QuantityOpt;
+pub use self::quantity::QuantityAc;

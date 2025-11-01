@@ -1,21 +1,21 @@
-pub struct GroupVersionForDiscoveryOpt {
+pub struct GroupVersionForDiscoveryAc {
     pub group_version: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub version: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery {
-    type Optioned = GroupVersionForDiscoveryOpt;
+    type Optioned = GroupVersionForDiscoveryAc;
 }
 #[automatically_derived]
-impl crate::Optionable for GroupVersionForDiscoveryOpt {
-    type Optioned = GroupVersionForDiscoveryOpt;
+impl crate::Optionable for GroupVersionForDiscoveryAc {
+    type Optioned = GroupVersionForDiscoveryAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery {
-    fn into_optioned(self) -> GroupVersionForDiscoveryOpt {
-        GroupVersionForDiscoveryOpt {
+    fn into_optioned(self) -> GroupVersionForDiscoveryAc {
+        GroupVersionForDiscoveryAc {
             group_version: Some(
                 crate::OptionableConvert::into_optioned(self.group_version),
             ),
@@ -23,7 +23,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery {
         }
     }
     fn try_from_optioned(
-        value: GroupVersionForDiscoveryOpt,
+        value: GroupVersionForDiscoveryAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             group_version: crate::OptionableConvert::try_from_optioned(
@@ -44,7 +44,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery {
     }
     fn merge(
         &mut self,
-        other: GroupVersionForDiscoveryOpt,
+        other: GroupVersionForDiscoveryAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.group_version {
             crate::OptionableConvert::merge(&mut self.group_version, other_value)?;

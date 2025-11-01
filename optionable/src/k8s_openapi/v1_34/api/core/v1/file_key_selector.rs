@@ -1,4 +1,4 @@
-pub struct FileKeySelectorOpt {
+pub struct FileKeySelectorAc {
     pub key: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub optional: <Option<bool> as crate::Optionable>::Optioned,
     pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -6,16 +6,16 @@ pub struct FileKeySelectorOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::FileKeySelector {
-    type Optioned = FileKeySelectorOpt;
+    type Optioned = FileKeySelectorAc;
 }
 #[automatically_derived]
-impl crate::Optionable for FileKeySelectorOpt {
-    type Optioned = FileKeySelectorOpt;
+impl crate::Optionable for FileKeySelectorAc {
+    type Optioned = FileKeySelectorAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FileKeySelector {
-    fn into_optioned(self) -> FileKeySelectorOpt {
-        FileKeySelectorOpt {
+    fn into_optioned(self) -> FileKeySelectorAc {
+        FileKeySelectorAc {
             key: Some(crate::OptionableConvert::into_optioned(self.key)),
             optional: crate::OptionableConvert::into_optioned(self.optional),
             path: Some(crate::OptionableConvert::into_optioned(self.path)),
@@ -23,7 +23,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FileKeySelector 
         }
     }
     fn try_from_optioned(
-        value: FileKeySelectorOpt,
+        value: FileKeySelectorAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             key: crate::OptionableConvert::try_from_optioned(
@@ -52,7 +52,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FileKeySelector 
     }
     fn merge(
         &mut self,
-        other: FileKeySelectorOpt,
+        other: FileKeySelectorAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.key {
             crate::OptionableConvert::merge(&mut self.key, other_value)?;

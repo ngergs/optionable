@@ -1,4 +1,4 @@
-pub struct TypedObjectReferenceOpt {
+pub struct TypedObjectReferenceAc {
     pub api_group: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub kind: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -6,16 +6,16 @@ pub struct TypedObjectReferenceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::TypedObjectReference {
-    type Optioned = TypedObjectReferenceOpt;
+    type Optioned = TypedObjectReferenceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for TypedObjectReferenceOpt {
-    type Optioned = TypedObjectReferenceOpt;
+impl crate::Optionable for TypedObjectReferenceAc {
+    type Optioned = TypedObjectReferenceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TypedObjectReference {
-    fn into_optioned(self) -> TypedObjectReferenceOpt {
-        TypedObjectReferenceOpt {
+    fn into_optioned(self) -> TypedObjectReferenceAc {
+        TypedObjectReferenceAc {
             api_group: crate::OptionableConvert::into_optioned(self.api_group),
             kind: Some(crate::OptionableConvert::into_optioned(self.kind)),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
@@ -23,7 +23,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TypedObjectRefer
         }
     }
     fn try_from_optioned(
-        value: TypedObjectReferenceOpt,
+        value: TypedObjectReferenceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_group: crate::OptionableConvert::try_from_optioned(value.api_group)?,
@@ -46,7 +46,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TypedObjectRefer
     }
     fn merge(
         &mut self,
-        other: TypedObjectReferenceOpt,
+        other: TypedObjectReferenceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
         if let Some(other_value) = other.kind {

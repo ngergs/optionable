@@ -1,4 +1,6 @@
-pub struct PriorityClassOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = PriorityClass)]
+pub struct PriorityClassAc {
     pub description: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub global_default: <Option<bool> as crate::Optionable>::Optioned,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -7,16 +9,16 @@ pub struct PriorityClassOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::scheduling::v1::PriorityClass {
-    type Optioned = PriorityClassOpt;
+    type Optioned = PriorityClassAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PriorityClassOpt {
-    type Optioned = PriorityClassOpt;
+impl crate::Optionable for PriorityClassAc {
+    type Optioned = PriorityClassAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityClass {
-    fn into_optioned(self) -> PriorityClassOpt {
-        PriorityClassOpt {
+    fn into_optioned(self) -> PriorityClassAc {
+        PriorityClassAc {
             description: crate::OptionableConvert::into_optioned(self.description),
             global_default: crate::OptionableConvert::into_optioned(self.global_default),
             metadata: self.metadata,
@@ -27,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityCl
         }
     }
     fn try_from_optioned(
-        value: PriorityClassOpt,
+        value: PriorityClassAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             description: crate::OptionableConvert::try_from_optioned(value.description)?,
@@ -45,10 +47,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityCl
                 })?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PriorityClassOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PriorityClassAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.description, other.description)?;
         crate::OptionableConvert::merge(&mut self.global_default, other.global_default)?;
         self.metadata = other.metadata;
@@ -62,3 +61,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityCl
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::scheduling::v1::PriorityClass;

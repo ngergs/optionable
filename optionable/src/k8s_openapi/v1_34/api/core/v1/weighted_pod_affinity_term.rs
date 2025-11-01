@@ -1,4 +1,4 @@
-pub struct WeightedPodAffinityTermOpt {
+pub struct WeightedPodAffinityTermAc {
     pub pod_affinity_term: Option<
         <::k8s_openapi::api::core::v1::PodAffinityTerm as crate::Optionable>::Optioned,
     >,
@@ -6,16 +6,16 @@ pub struct WeightedPodAffinityTermOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::WeightedPodAffinityTerm {
-    type Optioned = WeightedPodAffinityTermOpt;
+    type Optioned = WeightedPodAffinityTermAc;
 }
 #[automatically_derived]
-impl crate::Optionable for WeightedPodAffinityTermOpt {
-    type Optioned = WeightedPodAffinityTermOpt;
+impl crate::Optionable for WeightedPodAffinityTermAc {
+    type Optioned = WeightedPodAffinityTermAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::WeightedPodAffinityTerm {
-    fn into_optioned(self) -> WeightedPodAffinityTermOpt {
-        WeightedPodAffinityTermOpt {
+    fn into_optioned(self) -> WeightedPodAffinityTermAc {
+        WeightedPodAffinityTermAc {
             pod_affinity_term: Some(
                 crate::OptionableConvert::into_optioned(self.pod_affinity_term),
             ),
@@ -23,7 +23,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::WeightedPodAffin
         }
     }
     fn try_from_optioned(
-        value: WeightedPodAffinityTermOpt,
+        value: WeightedPodAffinityTermAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             pod_affinity_term: crate::OptionableConvert::try_from_optioned(
@@ -42,7 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::WeightedPodAffin
     }
     fn merge(
         &mut self,
-        other: WeightedPodAffinityTermOpt,
+        other: WeightedPodAffinityTermAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.pod_affinity_term {
             crate::OptionableConvert::merge(&mut self.pod_affinity_term, other_value)?;

@@ -1,4 +1,4 @@
-pub enum JSONSchemaPropsOrBoolOpt {
+pub enum JSONSchemaPropsOrBoolAc {
     Schema(
         Option<
             <std::boxed::Box<
@@ -11,31 +11,31 @@ pub enum JSONSchemaPropsOrBoolOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrBool {
-    type Optioned = JSONSchemaPropsOrBoolOpt;
+    type Optioned = JSONSchemaPropsOrBoolAc;
 }
 #[automatically_derived]
-impl crate::Optionable for JSONSchemaPropsOrBoolOpt {
-    type Optioned = JSONSchemaPropsOrBoolOpt;
+impl crate::Optionable for JSONSchemaPropsOrBoolAc {
+    type Optioned = JSONSchemaPropsOrBoolAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrBool {
-    fn into_optioned(self) -> JSONSchemaPropsOrBoolOpt {
+    fn into_optioned(self) -> JSONSchemaPropsOrBoolAc {
         match self {
             Self::Schema(self_0) => {
-                JSONSchemaPropsOrBoolOpt::Schema(
+                JSONSchemaPropsOrBoolAc::Schema(
                     Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
-            Self::Bool(self_0) => JSONSchemaPropsOrBoolOpt::Bool(Some(self_0)),
+            Self::Bool(self_0) => JSONSchemaPropsOrBoolAc::Bool(Some(self_0)),
         }
     }
     fn try_from_optioned(
-        other: JSONSchemaPropsOrBoolOpt,
+        other: JSONSchemaPropsOrBoolAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(
             match other {
-                JSONSchemaPropsOrBoolOpt::Schema(other_0) => {
+                JSONSchemaPropsOrBoolAc::Schema(other_0) => {
                     Self::Schema(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -45,7 +45,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
                         )?,
                     )
                 }
-                JSONSchemaPropsOrBoolOpt::Bool(other_0) => {
+                JSONSchemaPropsOrBoolAc::Bool(other_0) => {
                     Self::Bool(
                         other_0
                             .ok_or(crate::optionable::Error {
@@ -58,28 +58,28 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
     }
     fn merge(
         &mut self,
-        other: JSONSchemaPropsOrBoolOpt,
+        other: JSONSchemaPropsOrBoolAc,
     ) -> Result<(), crate::optionable::Error> {
         match other {
-            JSONSchemaPropsOrBoolOpt::Schema(other_0) => {
+            JSONSchemaPropsOrBoolAc::Schema(other_0) => {
                 if let Self::Schema(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
                     *self = Self::try_from_optioned(
-                        JSONSchemaPropsOrBoolOpt::Schema(other_0),
+                        JSONSchemaPropsOrBoolAc::Schema(other_0),
                     )?;
                 }
             }
-            JSONSchemaPropsOrBoolOpt::Bool(other_0) => {
+            JSONSchemaPropsOrBoolAc::Bool(other_0) => {
                 if let Self::Bool(self_0) = self {
                     if let Some(other_value) = other_0 {
                         *self_0 = other_value;
                     }
                 } else {
                     *self = Self::try_from_optioned(
-                        JSONSchemaPropsOrBoolOpt::Bool(other_0),
+                        JSONSchemaPropsOrBoolAc::Bool(other_0),
                     )?;
                 }
             }

@@ -1,4 +1,4 @@
-pub struct APIVersionsOpt {
+pub struct APIVersionsAc {
     pub server_address_by_client_cidrs: Option<
         <std::vec::Vec<
             ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR,
@@ -11,17 +11,17 @@ pub struct APIVersionsOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions {
-    type Optioned = APIVersionsOpt;
+    type Optioned = APIVersionsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for APIVersionsOpt {
-    type Optioned = APIVersionsOpt;
+impl crate::Optionable for APIVersionsAc {
+    type Optioned = APIVersionsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions {
-    fn into_optioned(self) -> APIVersionsOpt {
-        APIVersionsOpt {
+    fn into_optioned(self) -> APIVersionsAc {
+        APIVersionsAc {
             server_address_by_client_cidrs: Some(
                 crate::OptionableConvert::into_optioned(
                     self.server_address_by_client_cidrs,
@@ -31,7 +31,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions {
         }
     }
     fn try_from_optioned(
-        value: APIVersionsOpt,
+        value: APIVersionsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             server_address_by_client_cidrs: crate::OptionableConvert::try_from_optioned(
@@ -50,7 +50,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions {
             )?,
         })
     }
-    fn merge(&mut self, other: APIVersionsOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: APIVersionsAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.server_address_by_client_cidrs {
             crate::OptionableConvert::merge(
                 &mut self.server_address_by_client_cidrs,

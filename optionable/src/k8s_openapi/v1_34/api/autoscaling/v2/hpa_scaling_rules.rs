@@ -1,4 +1,4 @@
-pub struct HPAScalingRulesOpt {
+pub struct HPAScalingRulesAc {
     pub policies: <Option<
         std::vec::Vec<::k8s_openapi::api::autoscaling::v2::HPAScalingPolicy>,
     > as crate::Optionable>::Optioned,
@@ -10,16 +10,16 @@ pub struct HPAScalingRulesOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::HPAScalingRules {
-    type Optioned = HPAScalingRulesOpt;
+    type Optioned = HPAScalingRulesAc;
 }
 #[automatically_derived]
-impl crate::Optionable for HPAScalingRulesOpt {
-    type Optioned = HPAScalingRulesOpt;
+impl crate::Optionable for HPAScalingRulesAc {
+    type Optioned = HPAScalingRulesAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalingRules {
-    fn into_optioned(self) -> HPAScalingRulesOpt {
-        HPAScalingRulesOpt {
+    fn into_optioned(self) -> HPAScalingRulesAc {
+        HPAScalingRulesAc {
             policies: crate::OptionableConvert::into_optioned(self.policies),
             select_policy: crate::OptionableConvert::into_optioned(self.select_policy),
             stabilization_window_seconds: crate::OptionableConvert::into_optioned(
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalin
         }
     }
     fn try_from_optioned(
-        value: HPAScalingRulesOpt,
+        value: HPAScalingRulesAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             policies: crate::OptionableConvert::try_from_optioned(value.policies)?,
@@ -44,7 +44,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalin
     }
     fn merge(
         &mut self,
-        other: HPAScalingRulesOpt,
+        other: HPAScalingRulesAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.policies, other.policies)?;
         crate::OptionableConvert::merge(&mut self.select_policy, other.select_policy)?;

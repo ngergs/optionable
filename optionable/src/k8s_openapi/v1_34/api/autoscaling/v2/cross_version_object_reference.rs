@@ -1,4 +1,4 @@
-pub struct CrossVersionObjectReferenceOpt {
+pub struct CrossVersionObjectReferenceAc {
     pub api_version: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub kind: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -6,24 +6,24 @@ pub struct CrossVersionObjectReferenceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference {
-    type Optioned = CrossVersionObjectReferenceOpt;
+    type Optioned = CrossVersionObjectReferenceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CrossVersionObjectReferenceOpt {
-    type Optioned = CrossVersionObjectReferenceOpt;
+impl crate::Optionable for CrossVersionObjectReferenceAc {
+    type Optioned = CrossVersionObjectReferenceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference {
-    fn into_optioned(self) -> CrossVersionObjectReferenceOpt {
-        CrossVersionObjectReferenceOpt {
+    fn into_optioned(self) -> CrossVersionObjectReferenceAc {
+        CrossVersionObjectReferenceAc {
             api_version: crate::OptionableConvert::into_optioned(self.api_version),
             kind: Some(crate::OptionableConvert::into_optioned(self.kind)),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
     fn try_from_optioned(
-        value: CrossVersionObjectReferenceOpt,
+        value: CrossVersionObjectReferenceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
@@ -45,7 +45,7 @@ for ::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference {
     }
     fn merge(
         &mut self,
-        other: CrossVersionObjectReferenceOpt,
+        other: CrossVersionObjectReferenceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         if let Some(other_value) = other.kind {
