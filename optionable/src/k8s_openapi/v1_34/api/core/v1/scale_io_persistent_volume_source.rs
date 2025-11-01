@@ -1,4 +1,4 @@
-pub struct ScaleIOPersistentVolumeSourceOpt {
+pub struct ScaleIOPersistentVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub gateway: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub protection_domain: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -14,17 +14,17 @@ pub struct ScaleIOPersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource {
-    type Optioned = ScaleIOPersistentVolumeSourceOpt;
+    type Optioned = ScaleIOPersistentVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ScaleIOPersistentVolumeSourceOpt {
-    type Optioned = ScaleIOPersistentVolumeSourceOpt;
+impl crate::Optionable for ScaleIOPersistentVolumeSourceAc {
+    type Optioned = ScaleIOPersistentVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource {
-    fn into_optioned(self) -> ScaleIOPersistentVolumeSourceOpt {
-        ScaleIOPersistentVolumeSourceOpt {
+    fn into_optioned(self) -> ScaleIOPersistentVolumeSourceAc {
+        ScaleIOPersistentVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             gateway: Some(crate::OptionableConvert::into_optioned(self.gateway)),
             protection_domain: crate::OptionableConvert::into_optioned(
@@ -40,7 +40,7 @@ for ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: ScaleIOPersistentVolumeSourceOpt,
+        value: ScaleIOPersistentVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
@@ -81,7 +81,7 @@ for ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource {
     }
     fn merge(
         &mut self,
-        other: ScaleIOPersistentVolumeSourceOpt,
+        other: ScaleIOPersistentVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         if let Some(other_value) = other.gateway {

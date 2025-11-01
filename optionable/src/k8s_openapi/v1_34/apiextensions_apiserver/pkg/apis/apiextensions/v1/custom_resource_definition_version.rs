@@ -1,4 +1,4 @@
-pub struct CustomResourceDefinitionVersionOpt {
+pub struct CustomResourceDefinitionVersionAc {
     pub additional_printer_columns: <Option<
         std::vec::Vec<
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceColumnDefinition,
@@ -26,17 +26,17 @@ pub struct CustomResourceDefinitionVersionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionVersion {
-    type Optioned = CustomResourceDefinitionVersionOpt;
+    type Optioned = CustomResourceDefinitionVersionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CustomResourceDefinitionVersionOpt {
-    type Optioned = CustomResourceDefinitionVersionOpt;
+impl crate::Optionable for CustomResourceDefinitionVersionAc {
+    type Optioned = CustomResourceDefinitionVersionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionVersion {
-    fn into_optioned(self) -> CustomResourceDefinitionVersionOpt {
-        CustomResourceDefinitionVersionOpt {
+    fn into_optioned(self) -> CustomResourceDefinitionVersionAc {
+        CustomResourceDefinitionVersionAc {
             additional_printer_columns: crate::OptionableConvert::into_optioned(
                 self.additional_printer_columns,
             ),
@@ -55,7 +55,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
         }
     }
     fn try_from_optioned(
-        value: CustomResourceDefinitionVersionOpt,
+        value: CustomResourceDefinitionVersionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             additional_printer_columns: crate::OptionableConvert::try_from_optioned(
@@ -93,7 +93,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn merge(
         &mut self,
-        other: CustomResourceDefinitionVersionOpt,
+        other: CustomResourceDefinitionVersionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.additional_printer_columns,

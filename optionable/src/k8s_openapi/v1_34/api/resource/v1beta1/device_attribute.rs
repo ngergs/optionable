@@ -1,4 +1,4 @@
-pub struct DeviceAttributeOpt {
+pub struct DeviceAttributeAc {
     pub bool: <Option<bool> as crate::Optionable>::Optioned,
     pub int: <Option<i64> as crate::Optionable>::Optioned,
     pub string: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -6,17 +6,17 @@ pub struct DeviceAttributeOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::DeviceAttribute {
-    type Optioned = DeviceAttributeOpt;
+    type Optioned = DeviceAttributeAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceAttributeOpt {
-    type Optioned = DeviceAttributeOpt;
+impl crate::Optionable for DeviceAttributeAc {
+    type Optioned = DeviceAttributeAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::DeviceAttribute {
-    fn into_optioned(self) -> DeviceAttributeOpt {
-        DeviceAttributeOpt {
+    fn into_optioned(self) -> DeviceAttributeAc {
+        DeviceAttributeAc {
             bool: crate::OptionableConvert::into_optioned(self.bool),
             int: crate::OptionableConvert::into_optioned(self.int),
             string: crate::OptionableConvert::into_optioned(self.string),
@@ -24,7 +24,7 @@ for ::k8s_openapi::api::resource::v1beta1::DeviceAttribute {
         }
     }
     fn try_from_optioned(
-        value: DeviceAttributeOpt,
+        value: DeviceAttributeAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             bool: crate::OptionableConvert::try_from_optioned(value.bool)?,
@@ -35,7 +35,7 @@ for ::k8s_openapi::api::resource::v1beta1::DeviceAttribute {
     }
     fn merge(
         &mut self,
-        other: DeviceAttributeOpt,
+        other: DeviceAttributeAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.bool, other.bool)?;
         crate::OptionableConvert::merge(&mut self.int, other.int)?;

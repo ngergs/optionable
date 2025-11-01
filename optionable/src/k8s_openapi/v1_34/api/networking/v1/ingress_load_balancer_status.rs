@@ -1,4 +1,4 @@
-pub struct IngressLoadBalancerStatusOpt {
+pub struct IngressLoadBalancerStatusAc {
     pub ingress: <Option<
         std::vec::Vec<::k8s_openapi::api::networking::v1::IngressLoadBalancerIngress>,
     > as crate::Optionable>::Optioned,
@@ -6,22 +6,22 @@ pub struct IngressLoadBalancerStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::networking::v1::IngressLoadBalancerStatus {
-    type Optioned = IngressLoadBalancerStatusOpt;
+    type Optioned = IngressLoadBalancerStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for IngressLoadBalancerStatusOpt {
-    type Optioned = IngressLoadBalancerStatusOpt;
+impl crate::Optionable for IngressLoadBalancerStatusAc {
+    type Optioned = IngressLoadBalancerStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1::IngressLoadBalancerStatus {
-    fn into_optioned(self) -> IngressLoadBalancerStatusOpt {
-        IngressLoadBalancerStatusOpt {
+    fn into_optioned(self) -> IngressLoadBalancerStatusAc {
+        IngressLoadBalancerStatusAc {
             ingress: crate::OptionableConvert::into_optioned(self.ingress),
         }
     }
     fn try_from_optioned(
-        value: IngressLoadBalancerStatusOpt,
+        value: IngressLoadBalancerStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             ingress: crate::OptionableConvert::try_from_optioned(value.ingress)?,
@@ -29,7 +29,7 @@ for ::k8s_openapi::api::networking::v1::IngressLoadBalancerStatus {
     }
     fn merge(
         &mut self,
-        other: IngressLoadBalancerStatusOpt,
+        other: IngressLoadBalancerStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.ingress, other.ingress)?;
         Ok(())

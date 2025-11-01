@@ -1,4 +1,4 @@
-pub struct PodsMetricSourceOpt {
+pub struct PodsMetricSourceAc {
     pub metric: Option<
         <::k8s_openapi::api::autoscaling::v2::MetricIdentifier as crate::Optionable>::Optioned,
     >,
@@ -8,22 +8,22 @@ pub struct PodsMetricSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::PodsMetricSource {
-    type Optioned = PodsMetricSourceOpt;
+    type Optioned = PodsMetricSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodsMetricSourceOpt {
-    type Optioned = PodsMetricSourceOpt;
+impl crate::Optionable for PodsMetricSourceAc {
+    type Optioned = PodsMetricSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::PodsMetricSource {
-    fn into_optioned(self) -> PodsMetricSourceOpt {
-        PodsMetricSourceOpt {
+    fn into_optioned(self) -> PodsMetricSourceAc {
+        PodsMetricSourceAc {
             metric: Some(crate::OptionableConvert::into_optioned(self.metric)),
             target: Some(crate::OptionableConvert::into_optioned(self.target)),
         }
     }
     fn try_from_optioned(
-        value: PodsMetricSourceOpt,
+        value: PodsMetricSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metric: crate::OptionableConvert::try_from_optioned(
@@ -44,7 +44,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::PodsMetri
     }
     fn merge(
         &mut self,
-        other: PodsMetricSourceOpt,
+        other: PodsMetricSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.metric {
             crate::OptionableConvert::merge(&mut self.metric, other_value)?;

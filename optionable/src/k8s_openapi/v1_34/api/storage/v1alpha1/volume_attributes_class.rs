@@ -1,4 +1,6 @@
-pub struct VolumeAttributesClassOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = VolumeAttributesClass)]
+pub struct VolumeAttributesClassAc {
     pub driver_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub parameters: <Option<
@@ -7,24 +9,24 @@ pub struct VolumeAttributesClassOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass {
-    type Optioned = VolumeAttributesClassOpt;
+    type Optioned = VolumeAttributesClassAc;
 }
 #[automatically_derived]
-impl crate::Optionable for VolumeAttributesClassOpt {
-    type Optioned = VolumeAttributesClassOpt;
+impl crate::Optionable for VolumeAttributesClassAc {
+    type Optioned = VolumeAttributesClassAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass {
-    fn into_optioned(self) -> VolumeAttributesClassOpt {
-        VolumeAttributesClassOpt {
+    fn into_optioned(self) -> VolumeAttributesClassAc {
+        VolumeAttributesClassAc {
             driver_name: Some(crate::OptionableConvert::into_optioned(self.driver_name)),
             metadata: self.metadata,
             parameters: crate::OptionableConvert::into_optioned(self.parameters),
         }
     }
     fn try_from_optioned(
-        value: VolumeAttributesClassOpt,
+        value: VolumeAttributesClassAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             driver_name: crate::OptionableConvert::try_from_optioned(
@@ -40,7 +42,7 @@ for ::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass {
     }
     fn merge(
         &mut self,
-        other: VolumeAttributesClassOpt,
+        other: VolumeAttributesClassAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.driver_name {
             crate::OptionableConvert::merge(&mut self.driver_name, other_value)?;
@@ -50,3 +52,5 @@ for ::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass;

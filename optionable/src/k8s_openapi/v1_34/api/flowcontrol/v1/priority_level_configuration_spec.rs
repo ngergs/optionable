@@ -1,4 +1,4 @@
-pub struct PriorityLevelConfigurationSpecOpt {
+pub struct PriorityLevelConfigurationSpecAc {
     pub exempt: <Option<
         ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration,
     > as crate::Optionable>::Optioned,
@@ -10,24 +10,24 @@ pub struct PriorityLevelConfigurationSpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationSpec {
-    type Optioned = PriorityLevelConfigurationSpecOpt;
+    type Optioned = PriorityLevelConfigurationSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PriorityLevelConfigurationSpecOpt {
-    type Optioned = PriorityLevelConfigurationSpecOpt;
+impl crate::Optionable for PriorityLevelConfigurationSpecAc {
+    type Optioned = PriorityLevelConfigurationSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationSpec {
-    fn into_optioned(self) -> PriorityLevelConfigurationSpecOpt {
-        PriorityLevelConfigurationSpecOpt {
+    fn into_optioned(self) -> PriorityLevelConfigurationSpecAc {
+        PriorityLevelConfigurationSpecAc {
             exempt: crate::OptionableConvert::into_optioned(self.exempt),
             limited: crate::OptionableConvert::into_optioned(self.limited),
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
-        value: PriorityLevelConfigurationSpecOpt,
+        value: PriorityLevelConfigurationSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             exempt: crate::OptionableConvert::try_from_optioned(value.exempt)?,
@@ -43,7 +43,7 @@ for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationSpec {
     }
     fn merge(
         &mut self,
-        other: PriorityLevelConfigurationSpecOpt,
+        other: PriorityLevelConfigurationSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.exempt, other.exempt)?;
         crate::OptionableConvert::merge(&mut self.limited, other.limited)?;

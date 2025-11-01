@@ -1,4 +1,4 @@
-pub struct GCEPersistentDiskVolumeSourceOpt {
+pub struct GCEPersistentDiskVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub partition: <Option<i32> as crate::Optionable>::Optioned,
     pub pd_name: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -6,17 +6,17 @@ pub struct GCEPersistentDiskVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::GCEPersistentDiskVolumeSource {
-    type Optioned = GCEPersistentDiskVolumeSourceOpt;
+    type Optioned = GCEPersistentDiskVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for GCEPersistentDiskVolumeSourceOpt {
-    type Optioned = GCEPersistentDiskVolumeSourceOpt;
+impl crate::Optionable for GCEPersistentDiskVolumeSourceAc {
+    type Optioned = GCEPersistentDiskVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::GCEPersistentDiskVolumeSource {
-    fn into_optioned(self) -> GCEPersistentDiskVolumeSourceOpt {
-        GCEPersistentDiskVolumeSourceOpt {
+    fn into_optioned(self) -> GCEPersistentDiskVolumeSourceAc {
+        GCEPersistentDiskVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             partition: crate::OptionableConvert::into_optioned(self.partition),
             pd_name: Some(crate::OptionableConvert::into_optioned(self.pd_name)),
@@ -24,7 +24,7 @@ for ::k8s_openapi::api::core::v1::GCEPersistentDiskVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: GCEPersistentDiskVolumeSourceOpt,
+        value: GCEPersistentDiskVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
@@ -41,7 +41,7 @@ for ::k8s_openapi::api::core::v1::GCEPersistentDiskVolumeSource {
     }
     fn merge(
         &mut self,
-        other: GCEPersistentDiskVolumeSourceOpt,
+        other: GCEPersistentDiskVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.partition, other.partition)?;

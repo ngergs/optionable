@@ -1,19 +1,19 @@
-pub struct QuantityOpt(pub Option<<std::string::String as crate::Optionable>::Optioned>);
+pub struct QuantityAc(pub Option<<std::string::String as crate::Optionable>::Optioned>);
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::api::resource::Quantity {
-    type Optioned = QuantityOpt;
+    type Optioned = QuantityAc;
 }
 #[automatically_derived]
-impl crate::Optionable for QuantityOpt {
-    type Optioned = QuantityOpt;
+impl crate::Optionable for QuantityAc {
+    type Optioned = QuantityAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::api::resource::Quantity {
-    fn into_optioned(self) -> QuantityOpt {
-        QuantityOpt(Some(crate::OptionableConvert::into_optioned(self.0)))
+    fn into_optioned(self) -> QuantityAc {
+        QuantityAc(Some(crate::OptionableConvert::into_optioned(self.0)))
     }
-    fn try_from_optioned(value: QuantityOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: QuantityAc) -> Result<Self, crate::optionable::Error> {
         Ok(
             Self(
                 crate::OptionableConvert::try_from_optioned(
@@ -26,7 +26,7 @@ for ::k8s_openapi::apimachinery::pkg::api::resource::Quantity {
             ),
         )
     }
-    fn merge(&mut self, other: QuantityOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: QuantityAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.0 {
             crate::OptionableConvert::merge(&mut self.0, other_value)?;
         }

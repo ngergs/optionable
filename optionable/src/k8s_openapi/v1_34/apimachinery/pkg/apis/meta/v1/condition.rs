@@ -1,4 +1,4 @@
-pub struct ConditionOpt {
+pub struct ConditionAc {
     pub last_transition_time: Option<
         <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
@@ -10,17 +10,17 @@ pub struct ConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition {
-    type Optioned = ConditionOpt;
+    type Optioned = ConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ConditionOpt {
-    type Optioned = ConditionOpt;
+impl crate::Optionable for ConditionAc {
+    type Optioned = ConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition {
-    fn into_optioned(self) -> ConditionOpt {
-        ConditionOpt {
+    fn into_optioned(self) -> ConditionAc {
+        ConditionAc {
             last_transition_time: Some(
                 crate::OptionableConvert::into_optioned(self.last_transition_time),
             ),
@@ -33,7 +33,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition {
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(value: ConditionOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ConditionAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value
@@ -75,7 +75,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition {
             )?,
         })
     }
-    fn merge(&mut self, other: ConditionOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ConditionAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.last_transition_time {
             crate::OptionableConvert::merge(
                 &mut self.last_transition_time,

@@ -1,4 +1,4 @@
-pub struct VolumeAttachmentStatusOpt {
+pub struct VolumeAttachmentStatusAc {
     pub attach_error: <Option<
         ::k8s_openapi::api::storage::v1::VolumeError,
     > as crate::Optionable>::Optioned,
@@ -12,17 +12,17 @@ pub struct VolumeAttachmentStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::VolumeAttachmentStatus {
-    type Optioned = VolumeAttachmentStatusOpt;
+    type Optioned = VolumeAttachmentStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for VolumeAttachmentStatusOpt {
-    type Optioned = VolumeAttachmentStatusOpt;
+impl crate::Optionable for VolumeAttachmentStatusAc {
+    type Optioned = VolumeAttachmentStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::storage::v1::VolumeAttachmentStatus {
-    fn into_optioned(self) -> VolumeAttachmentStatusOpt {
-        VolumeAttachmentStatusOpt {
+    fn into_optioned(self) -> VolumeAttachmentStatusAc {
+        VolumeAttachmentStatusAc {
             attach_error: crate::OptionableConvert::into_optioned(self.attach_error),
             attached: Some(self.attached),
             attachment_metadata: crate::OptionableConvert::into_optioned(
@@ -32,7 +32,7 @@ for ::k8s_openapi::api::storage::v1::VolumeAttachmentStatus {
         }
     }
     fn try_from_optioned(
-        value: VolumeAttachmentStatusOpt,
+        value: VolumeAttachmentStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             attach_error: crate::OptionableConvert::try_from_optioned(
@@ -53,7 +53,7 @@ for ::k8s_openapi::api::storage::v1::VolumeAttachmentStatus {
     }
     fn merge(
         &mut self,
-        other: VolumeAttachmentStatusOpt,
+        other: VolumeAttachmentStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.attach_error, other.attach_error)?;
         if let Some(other_value) = other.attached {

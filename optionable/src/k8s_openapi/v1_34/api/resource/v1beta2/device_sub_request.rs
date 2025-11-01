@@ -1,4 +1,4 @@
-pub struct DeviceSubRequestOpt {
+pub struct DeviceSubRequestAc {
     pub allocation_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub capacity: <Option<
         ::k8s_openapi::api::resource::v1beta2::CapacityRequirements,
@@ -15,17 +15,17 @@ pub struct DeviceSubRequestOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::DeviceSubRequest {
-    type Optioned = DeviceSubRequestOpt;
+    type Optioned = DeviceSubRequestAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceSubRequestOpt {
-    type Optioned = DeviceSubRequestOpt;
+impl crate::Optionable for DeviceSubRequestAc {
+    type Optioned = DeviceSubRequestAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta2::DeviceSubRequest {
-    fn into_optioned(self) -> DeviceSubRequestOpt {
-        DeviceSubRequestOpt {
+    fn into_optioned(self) -> DeviceSubRequestAc {
+        DeviceSubRequestAc {
             allocation_mode: crate::OptionableConvert::into_optioned(
                 self.allocation_mode,
             ),
@@ -40,7 +40,7 @@ for ::k8s_openapi::api::resource::v1beta2::DeviceSubRequest {
         }
     }
     fn try_from_optioned(
-        value: DeviceSubRequestOpt,
+        value: DeviceSubRequestAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             allocation_mode: crate::OptionableConvert::try_from_optioned(
@@ -68,7 +68,7 @@ for ::k8s_openapi::api::resource::v1beta2::DeviceSubRequest {
     }
     fn merge(
         &mut self,
-        other: DeviceSubRequestOpt,
+        other: DeviceSubRequestAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.allocation_mode,

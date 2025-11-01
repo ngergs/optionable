@@ -1,4 +1,4 @@
-pub struct NonResourcePolicyRuleOpt {
+pub struct NonResourcePolicyRuleAc {
     pub non_resource_urls: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,
@@ -8,17 +8,17 @@ pub struct NonResourcePolicyRuleOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::NonResourcePolicyRule {
-    type Optioned = NonResourcePolicyRuleOpt;
+    type Optioned = NonResourcePolicyRuleAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NonResourcePolicyRuleOpt {
-    type Optioned = NonResourcePolicyRuleOpt;
+impl crate::Optionable for NonResourcePolicyRuleAc {
+    type Optioned = NonResourcePolicyRuleAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::NonResourcePolicyRule {
-    fn into_optioned(self) -> NonResourcePolicyRuleOpt {
-        NonResourcePolicyRuleOpt {
+    fn into_optioned(self) -> NonResourcePolicyRuleAc {
+        NonResourcePolicyRuleAc {
             non_resource_urls: Some(
                 crate::OptionableConvert::into_optioned(self.non_resource_urls),
             ),
@@ -26,7 +26,7 @@ for ::k8s_openapi::api::flowcontrol::v1::NonResourcePolicyRule {
         }
     }
     fn try_from_optioned(
-        value: NonResourcePolicyRuleOpt,
+        value: NonResourcePolicyRuleAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             non_resource_urls: crate::OptionableConvert::try_from_optioned(
@@ -47,7 +47,7 @@ for ::k8s_openapi::api::flowcontrol::v1::NonResourcePolicyRule {
     }
     fn merge(
         &mut self,
-        other: NonResourcePolicyRuleOpt,
+        other: NonResourcePolicyRuleAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.non_resource_urls {
             crate::OptionableConvert::merge(&mut self.non_resource_urls, other_value)?;

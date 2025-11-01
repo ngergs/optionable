@@ -1,4 +1,4 @@
-pub struct SubjectRulesReviewStatusOpt {
+pub struct SubjectRulesReviewStatusAc {
     pub evaluation_error: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub incomplete: Option<bool>,
     pub non_resource_rules: Option<
@@ -15,17 +15,17 @@ pub struct SubjectRulesReviewStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::authorization::v1::SubjectRulesReviewStatus {
-    type Optioned = SubjectRulesReviewStatusOpt;
+    type Optioned = SubjectRulesReviewStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SubjectRulesReviewStatusOpt {
-    type Optioned = SubjectRulesReviewStatusOpt;
+impl crate::Optionable for SubjectRulesReviewStatusAc {
+    type Optioned = SubjectRulesReviewStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::SubjectRulesReviewStatus {
-    fn into_optioned(self) -> SubjectRulesReviewStatusOpt {
-        SubjectRulesReviewStatusOpt {
+    fn into_optioned(self) -> SubjectRulesReviewStatusAc {
+        SubjectRulesReviewStatusAc {
             evaluation_error: crate::OptionableConvert::into_optioned(
                 self.evaluation_error,
             ),
@@ -39,7 +39,7 @@ for ::k8s_openapi::api::authorization::v1::SubjectRulesReviewStatus {
         }
     }
     fn try_from_optioned(
-        value: SubjectRulesReviewStatusOpt,
+        value: SubjectRulesReviewStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             evaluation_error: crate::OptionableConvert::try_from_optioned(
@@ -68,7 +68,7 @@ for ::k8s_openapi::api::authorization::v1::SubjectRulesReviewStatus {
     }
     fn merge(
         &mut self,
-        other: SubjectRulesReviewStatusOpt,
+        other: SubjectRulesReviewStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.evaluation_error,

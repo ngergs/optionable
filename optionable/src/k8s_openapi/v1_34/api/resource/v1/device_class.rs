@@ -1,4 +1,6 @@
-pub struct DeviceClassOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = DeviceClass)]
+pub struct DeviceClassAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::resource::v1::DeviceClassSpec as crate::Optionable>::Optioned,
@@ -6,22 +8,22 @@ pub struct DeviceClassOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1::DeviceClass {
-    type Optioned = DeviceClassOpt;
+    type Optioned = DeviceClassAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceClassOpt {
-    type Optioned = DeviceClassOpt;
+impl crate::Optionable for DeviceClassAc {
+    type Optioned = DeviceClassAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceClass {
-    fn into_optioned(self) -> DeviceClassOpt {
-        DeviceClassOpt {
+    fn into_optioned(self) -> DeviceClassAc {
+        DeviceClassAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
         }
     }
     fn try_from_optioned(
-        value: DeviceClassOpt,
+        value: DeviceClassAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -34,7 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceClass 
             )?,
         })
     }
-    fn merge(&mut self, other: DeviceClassOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceClassAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
             crate::OptionableConvert::merge(&mut self.spec, other_value)?;
@@ -42,3 +44,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceClass 
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::resource::v1::DeviceClass;

@@ -1,4 +1,6 @@
-pub struct SelfSubjectAccessReviewOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = SelfSubjectAccessReview)]
+pub struct SelfSubjectAccessReviewAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::authorization::v1::SelfSubjectAccessReviewSpec as crate::Optionable>::Optioned,
@@ -10,24 +12,24 @@ pub struct SelfSubjectAccessReviewOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReview {
-    type Optioned = SelfSubjectAccessReviewOpt;
+    type Optioned = SelfSubjectAccessReviewAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SelfSubjectAccessReviewOpt {
-    type Optioned = SelfSubjectAccessReviewOpt;
+impl crate::Optionable for SelfSubjectAccessReviewAc {
+    type Optioned = SelfSubjectAccessReviewAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReview {
-    fn into_optioned(self) -> SelfSubjectAccessReviewOpt {
-        SelfSubjectAccessReviewOpt {
+    fn into_optioned(self) -> SelfSubjectAccessReviewAc {
+        SelfSubjectAccessReviewAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: SelfSubjectAccessReviewOpt,
+        value: SelfSubjectAccessReviewAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -43,7 +45,7 @@ for ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReview {
     }
     fn merge(
         &mut self,
-        other: SelfSubjectAccessReviewOpt,
+        other: SelfSubjectAccessReviewAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
@@ -53,3 +55,5 @@ for ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReview {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReview;

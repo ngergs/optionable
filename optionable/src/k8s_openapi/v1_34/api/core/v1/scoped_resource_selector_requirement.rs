@@ -1,4 +1,4 @@
-pub struct ScopedResourceSelectorRequirementOpt {
+pub struct ScopedResourceSelectorRequirementAc {
     pub operator: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub scope_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub values: <Option<
@@ -8,24 +8,24 @@ pub struct ScopedResourceSelectorRequirementOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::core::v1::ScopedResourceSelectorRequirement {
-    type Optioned = ScopedResourceSelectorRequirementOpt;
+    type Optioned = ScopedResourceSelectorRequirementAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ScopedResourceSelectorRequirementOpt {
-    type Optioned = ScopedResourceSelectorRequirementOpt;
+impl crate::Optionable for ScopedResourceSelectorRequirementAc {
+    type Optioned = ScopedResourceSelectorRequirementAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ScopedResourceSelectorRequirement {
-    fn into_optioned(self) -> ScopedResourceSelectorRequirementOpt {
-        ScopedResourceSelectorRequirementOpt {
+    fn into_optioned(self) -> ScopedResourceSelectorRequirementAc {
+        ScopedResourceSelectorRequirementAc {
             operator: Some(crate::OptionableConvert::into_optioned(self.operator)),
             scope_name: Some(crate::OptionableConvert::into_optioned(self.scope_name)),
             values: crate::OptionableConvert::into_optioned(self.values),
         }
     }
     fn try_from_optioned(
-        value: ScopedResourceSelectorRequirementOpt,
+        value: ScopedResourceSelectorRequirementAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             operator: crate::OptionableConvert::try_from_optioned(
@@ -47,7 +47,7 @@ for ::k8s_openapi::api::core::v1::ScopedResourceSelectorRequirement {
     }
     fn merge(
         &mut self,
-        other: ScopedResourceSelectorRequirementOpt,
+        other: ScopedResourceSelectorRequirementAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.operator {
             crate::OptionableConvert::merge(&mut self.operator, other_value)?;

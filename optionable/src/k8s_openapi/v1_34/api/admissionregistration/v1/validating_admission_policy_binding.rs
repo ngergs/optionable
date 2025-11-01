@@ -1,4 +1,6 @@
-pub struct ValidatingAdmissionPolicyBindingOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ValidatingAdmissionPolicyBinding)]
+pub struct ValidatingAdmissionPolicyBindingAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBindingSpec,
@@ -7,23 +9,23 @@ pub struct ValidatingAdmissionPolicyBindingOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBinding {
-    type Optioned = ValidatingAdmissionPolicyBindingOpt;
+    type Optioned = ValidatingAdmissionPolicyBindingAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ValidatingAdmissionPolicyBindingOpt {
-    type Optioned = ValidatingAdmissionPolicyBindingOpt;
+impl crate::Optionable for ValidatingAdmissionPolicyBindingAc {
+    type Optioned = ValidatingAdmissionPolicyBindingAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBinding {
-    fn into_optioned(self) -> ValidatingAdmissionPolicyBindingOpt {
-        ValidatingAdmissionPolicyBindingOpt {
+    fn into_optioned(self) -> ValidatingAdmissionPolicyBindingAc {
+        ValidatingAdmissionPolicyBindingAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
         }
     }
     fn try_from_optioned(
-        value: ValidatingAdmissionPolicyBindingOpt,
+        value: ValidatingAdmissionPolicyBindingAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -32,10 +34,12 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBind
     }
     fn merge(
         &mut self,
-        other: ValidatingAdmissionPolicyBindingOpt,
+        other: ValidatingAdmissionPolicyBindingAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyBinding;

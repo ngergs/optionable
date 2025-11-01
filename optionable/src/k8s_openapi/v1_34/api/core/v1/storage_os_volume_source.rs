@@ -1,4 +1,4 @@
-pub struct StorageOSVolumeSourceOpt {
+pub struct StorageOSVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
     pub secret_ref: <Option<
@@ -9,16 +9,16 @@ pub struct StorageOSVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::StorageOSVolumeSource {
-    type Optioned = StorageOSVolumeSourceOpt;
+    type Optioned = StorageOSVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StorageOSVolumeSourceOpt {
-    type Optioned = StorageOSVolumeSourceOpt;
+impl crate::Optionable for StorageOSVolumeSourceAc {
+    type Optioned = StorageOSVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::StorageOSVolumeSource {
-    fn into_optioned(self) -> StorageOSVolumeSourceOpt {
-        StorageOSVolumeSourceOpt {
+    fn into_optioned(self) -> StorageOSVolumeSourceAc {
+        StorageOSVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
             secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::StorageOSVolumeS
         }
     }
     fn try_from_optioned(
-        value: StorageOSVolumeSourceOpt,
+        value: StorageOSVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
@@ -43,7 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::StorageOSVolumeS
     }
     fn merge(
         &mut self,
-        other: StorageOSVolumeSourceOpt,
+        other: StorageOSVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;

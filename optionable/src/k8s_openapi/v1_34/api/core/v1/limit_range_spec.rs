@@ -1,4 +1,4 @@
-pub struct LimitRangeSpecOpt {
+pub struct LimitRangeSpecAc {
     pub limits: Option<
         <std::vec::Vec<
             ::k8s_openapi::api::core::v1::LimitRangeItem,
@@ -7,21 +7,21 @@ pub struct LimitRangeSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::LimitRangeSpec {
-    type Optioned = LimitRangeSpecOpt;
+    type Optioned = LimitRangeSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LimitRangeSpecOpt {
-    type Optioned = LimitRangeSpecOpt;
+impl crate::Optionable for LimitRangeSpecAc {
+    type Optioned = LimitRangeSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LimitRangeSpec {
-    fn into_optioned(self) -> LimitRangeSpecOpt {
-        LimitRangeSpecOpt {
+    fn into_optioned(self) -> LimitRangeSpecAc {
+        LimitRangeSpecAc {
             limits: Some(crate::OptionableConvert::into_optioned(self.limits)),
         }
     }
     fn try_from_optioned(
-        value: LimitRangeSpecOpt,
+        value: LimitRangeSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             limits: crate::OptionableConvert::try_from_optioned(
@@ -35,7 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LimitRangeSpec {
     }
     fn merge(
         &mut self,
-        other: LimitRangeSpecOpt,
+        other: LimitRangeSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.limits {
             crate::OptionableConvert::merge(&mut self.limits, other_value)?;

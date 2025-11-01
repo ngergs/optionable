@@ -1,4 +1,4 @@
-pub struct ResourceClaimStatusOpt {
+pub struct ResourceClaimStatusAc {
     pub allocation: <Option<
         ::k8s_openapi::api::resource::v1::AllocationResult,
     > as crate::Optionable>::Optioned,
@@ -11,23 +11,23 @@ pub struct ResourceClaimStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1::ResourceClaimStatus {
-    type Optioned = ResourceClaimStatusOpt;
+    type Optioned = ResourceClaimStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceClaimStatusOpt {
-    type Optioned = ResourceClaimStatusOpt;
+impl crate::Optionable for ResourceClaimStatusAc {
+    type Optioned = ResourceClaimStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ResourceClaimStatus {
-    fn into_optioned(self) -> ResourceClaimStatusOpt {
-        ResourceClaimStatusOpt {
+    fn into_optioned(self) -> ResourceClaimStatusAc {
+        ResourceClaimStatusAc {
             allocation: crate::OptionableConvert::into_optioned(self.allocation),
             devices: crate::OptionableConvert::into_optioned(self.devices),
             reserved_for: crate::OptionableConvert::into_optioned(self.reserved_for),
         }
     }
     fn try_from_optioned(
-        value: ResourceClaimStatusOpt,
+        value: ResourceClaimStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             allocation: crate::OptionableConvert::try_from_optioned(value.allocation)?,
@@ -39,7 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ResourceClai
     }
     fn merge(
         &mut self,
-        other: ResourceClaimStatusOpt,
+        other: ResourceClaimStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.allocation, other.allocation)?;
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;

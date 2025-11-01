@@ -1,4 +1,4 @@
-pub struct APIResourceListOpt {
+pub struct APIResourceListAc {
     pub group_version: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub resources: Option<
         <std::vec::Vec<
@@ -9,17 +9,17 @@ pub struct APIResourceListOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList {
-    type Optioned = APIResourceListOpt;
+    type Optioned = APIResourceListAc;
 }
 #[automatically_derived]
-impl crate::Optionable for APIResourceListOpt {
-    type Optioned = APIResourceListOpt;
+impl crate::Optionable for APIResourceListAc {
+    type Optioned = APIResourceListAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList {
-    fn into_optioned(self) -> APIResourceListOpt {
-        APIResourceListOpt {
+    fn into_optioned(self) -> APIResourceListAc {
+        APIResourceListAc {
             group_version: Some(
                 crate::OptionableConvert::into_optioned(self.group_version),
             ),
@@ -27,7 +27,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList {
         }
     }
     fn try_from_optioned(
-        value: APIResourceListOpt,
+        value: APIResourceListAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             group_version: crate::OptionableConvert::try_from_optioned(
@@ -48,7 +48,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList {
     }
     fn merge(
         &mut self,
-        other: APIResourceListOpt,
+        other: APIResourceListAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.group_version {
             crate::OptionableConvert::merge(&mut self.group_version, other_value)?;

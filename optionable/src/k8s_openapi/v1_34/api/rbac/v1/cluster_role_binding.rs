@@ -1,4 +1,6 @@
-pub struct ClusterRoleBindingOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ClusterRoleBinding)]
+pub struct ClusterRoleBindingAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub role_ref: Option<
         <::k8s_openapi::api::rbac::v1::RoleRef as crate::Optionable>::Optioned,
@@ -9,23 +11,23 @@ pub struct ClusterRoleBindingOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::rbac::v1::ClusterRoleBinding {
-    type Optioned = ClusterRoleBindingOpt;
+    type Optioned = ClusterRoleBindingAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ClusterRoleBindingOpt {
-    type Optioned = ClusterRoleBindingOpt;
+impl crate::Optionable for ClusterRoleBindingAc {
+    type Optioned = ClusterRoleBindingAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRoleBinding {
-    fn into_optioned(self) -> ClusterRoleBindingOpt {
-        ClusterRoleBindingOpt {
+    fn into_optioned(self) -> ClusterRoleBindingAc {
+        ClusterRoleBindingAc {
             metadata: self.metadata,
             role_ref: Some(crate::OptionableConvert::into_optioned(self.role_ref)),
             subjects: crate::OptionableConvert::into_optioned(self.subjects),
         }
     }
     fn try_from_optioned(
-        value: ClusterRoleBindingOpt,
+        value: ClusterRoleBindingAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -41,7 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRoleBindi
     }
     fn merge(
         &mut self,
-        other: ClusterRoleBindingOpt,
+        other: ClusterRoleBindingAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.role_ref {
@@ -51,3 +53,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRoleBindi
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::rbac::v1::ClusterRoleBinding;

@@ -1,4 +1,4 @@
-pub struct ServiceReferenceOpt {
+pub struct ServiceReferenceAc {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub namespace: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub path: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -7,17 +7,17 @@ pub struct ServiceReferenceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference {
-    type Optioned = ServiceReferenceOpt;
+    type Optioned = ServiceReferenceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServiceReferenceOpt {
-    type Optioned = ServiceReferenceOpt;
+impl crate::Optionable for ServiceReferenceAc {
+    type Optioned = ServiceReferenceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference {
-    fn into_optioned(self) -> ServiceReferenceOpt {
-        ServiceReferenceOpt {
+    fn into_optioned(self) -> ServiceReferenceAc {
+        ServiceReferenceAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             namespace: Some(crate::OptionableConvert::into_optioned(self.namespace)),
             path: crate::OptionableConvert::into_optioned(self.path),
@@ -25,7 +25,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Servic
         }
     }
     fn try_from_optioned(
-        value: ServiceReferenceOpt,
+        value: ServiceReferenceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
@@ -48,7 +48,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Servic
     }
     fn merge(
         &mut self,
-        other: ServiceReferenceOpt,
+        other: ServiceReferenceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;

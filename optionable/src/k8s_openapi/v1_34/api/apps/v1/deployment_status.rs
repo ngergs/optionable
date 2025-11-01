@@ -1,4 +1,4 @@
-pub struct DeploymentStatusOpt {
+pub struct DeploymentStatusAc {
     pub available_replicas: <Option<i32> as crate::Optionable>::Optioned,
     pub collision_count: <Option<i32> as crate::Optionable>::Optioned,
     pub conditions: <Option<
@@ -13,16 +13,16 @@ pub struct DeploymentStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::DeploymentStatus {
-    type Optioned = DeploymentStatusOpt;
+    type Optioned = DeploymentStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeploymentStatusOpt {
-    type Optioned = DeploymentStatusOpt;
+impl crate::Optionable for DeploymentStatusAc {
+    type Optioned = DeploymentStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentStatus {
-    fn into_optioned(self) -> DeploymentStatusOpt {
-        DeploymentStatusOpt {
+    fn into_optioned(self) -> DeploymentStatusAc {
+        DeploymentStatusAc {
             available_replicas: crate::OptionableConvert::into_optioned(
                 self.available_replicas,
             ),
@@ -47,7 +47,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentStatus
         }
     }
     fn try_from_optioned(
-        value: DeploymentStatusOpt,
+        value: DeploymentStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             available_replicas: crate::OptionableConvert::try_from_optioned(
@@ -77,7 +77,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentStatus
     }
     fn merge(
         &mut self,
-        other: DeploymentStatusOpt,
+        other: DeploymentStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.available_replicas,

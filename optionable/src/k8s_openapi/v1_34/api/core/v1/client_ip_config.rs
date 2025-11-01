@@ -1,25 +1,25 @@
-pub struct ClientIPConfigOpt {
+pub struct ClientIPConfigAc {
     pub timeout_seconds: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ClientIPConfig {
-    type Optioned = ClientIPConfigOpt;
+    type Optioned = ClientIPConfigAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ClientIPConfigOpt {
-    type Optioned = ClientIPConfigOpt;
+impl crate::Optionable for ClientIPConfigAc {
+    type Optioned = ClientIPConfigAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ClientIPConfig {
-    fn into_optioned(self) -> ClientIPConfigOpt {
-        ClientIPConfigOpt {
+    fn into_optioned(self) -> ClientIPConfigAc {
+        ClientIPConfigAc {
             timeout_seconds: crate::OptionableConvert::into_optioned(
                 self.timeout_seconds,
             ),
         }
     }
     fn try_from_optioned(
-        value: ClientIPConfigOpt,
+        value: ClientIPConfigAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             timeout_seconds: crate::OptionableConvert::try_from_optioned(
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ClientIPConfig {
     }
     fn merge(
         &mut self,
-        other: ClientIPConfigOpt,
+        other: ClientIPConfigAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.timeout_seconds,

@@ -1,4 +1,6 @@
-pub struct MutatingWebhookConfigurationOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = MutatingWebhookConfiguration)]
+pub struct MutatingWebhookConfigurationAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub webhooks: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::MutatingWebhook>,
@@ -7,23 +9,23 @@ pub struct MutatingWebhookConfigurationOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::MutatingWebhookConfiguration {
-    type Optioned = MutatingWebhookConfigurationOpt;
+    type Optioned = MutatingWebhookConfigurationAc;
 }
 #[automatically_derived]
-impl crate::Optionable for MutatingWebhookConfigurationOpt {
-    type Optioned = MutatingWebhookConfigurationOpt;
+impl crate::Optionable for MutatingWebhookConfigurationAc {
+    type Optioned = MutatingWebhookConfigurationAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::MutatingWebhookConfiguration {
-    fn into_optioned(self) -> MutatingWebhookConfigurationOpt {
-        MutatingWebhookConfigurationOpt {
+    fn into_optioned(self) -> MutatingWebhookConfigurationAc {
+        MutatingWebhookConfigurationAc {
             metadata: self.metadata,
             webhooks: crate::OptionableConvert::into_optioned(self.webhooks),
         }
     }
     fn try_from_optioned(
-        value: MutatingWebhookConfigurationOpt,
+        value: MutatingWebhookConfigurationAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -32,10 +34,12 @@ for ::k8s_openapi::api::admissionregistration::v1::MutatingWebhookConfiguration 
     }
     fn merge(
         &mut self,
-        other: MutatingWebhookConfigurationOpt,
+        other: MutatingWebhookConfigurationAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.webhooks, other.webhooks)?;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::admissionregistration::v1::MutatingWebhookConfiguration;

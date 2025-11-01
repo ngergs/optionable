@@ -1,23 +1,23 @@
-pub struct SleepActionOpt {
+pub struct SleepActionAc {
     pub seconds: Option<i64>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::SleepAction {
-    type Optioned = SleepActionOpt;
+    type Optioned = SleepActionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SleepActionOpt {
-    type Optioned = SleepActionOpt;
+impl crate::Optionable for SleepActionAc {
+    type Optioned = SleepActionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SleepAction {
-    fn into_optioned(self) -> SleepActionOpt {
-        SleepActionOpt {
+    fn into_optioned(self) -> SleepActionAc {
+        SleepActionAc {
             seconds: Some(self.seconds),
         }
     }
     fn try_from_optioned(
-        value: SleepActionOpt,
+        value: SleepActionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             seconds: value
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SleepAction {
                 })?,
         })
     }
-    fn merge(&mut self, other: SleepActionOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SleepActionAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.seconds {
             self.seconds = other_value;
         }

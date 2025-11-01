@@ -1,27 +1,27 @@
-pub struct SecretKeySelectorOpt {
+pub struct SecretKeySelectorAc {
     pub key: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub optional: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::SecretKeySelector {
-    type Optioned = SecretKeySelectorOpt;
+    type Optioned = SecretKeySelectorAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SecretKeySelectorOpt {
-    type Optioned = SecretKeySelectorOpt;
+impl crate::Optionable for SecretKeySelectorAc {
+    type Optioned = SecretKeySelectorAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretKeySelector {
-    fn into_optioned(self) -> SecretKeySelectorOpt {
-        SecretKeySelectorOpt {
+    fn into_optioned(self) -> SecretKeySelectorAc {
+        SecretKeySelectorAc {
             key: Some(crate::OptionableConvert::into_optioned(self.key)),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             optional: crate::OptionableConvert::into_optioned(self.optional),
         }
     }
     fn try_from_optioned(
-        value: SecretKeySelectorOpt,
+        value: SecretKeySelectorAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             key: crate::OptionableConvert::try_from_optioned(
@@ -43,7 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretKeySelecto
     }
     fn merge(
         &mut self,
-        other: SecretKeySelectorOpt,
+        other: SecretKeySelectorAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.key {
             crate::OptionableConvert::merge(&mut self.key, other_value)?;

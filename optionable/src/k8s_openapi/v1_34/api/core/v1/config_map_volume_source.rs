@@ -1,4 +1,4 @@
-pub struct ConfigMapVolumeSourceOpt {
+pub struct ConfigMapVolumeSourceAc {
     pub default_mode: <Option<i32> as crate::Optionable>::Optioned,
     pub items: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::KeyToPath>,
@@ -8,16 +8,16 @@ pub struct ConfigMapVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMapVolumeSource {
-    type Optioned = ConfigMapVolumeSourceOpt;
+    type Optioned = ConfigMapVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ConfigMapVolumeSourceOpt {
-    type Optioned = ConfigMapVolumeSourceOpt;
+impl crate::Optionable for ConfigMapVolumeSourceAc {
+    type Optioned = ConfigMapVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapVolumeSource {
-    fn into_optioned(self) -> ConfigMapVolumeSourceOpt {
-        ConfigMapVolumeSourceOpt {
+    fn into_optioned(self) -> ConfigMapVolumeSourceAc {
+        ConfigMapVolumeSourceAc {
             default_mode: crate::OptionableConvert::into_optioned(self.default_mode),
             items: crate::OptionableConvert::into_optioned(self.items),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
@@ -25,7 +25,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapVolumeS
         }
     }
     fn try_from_optioned(
-        value: ConfigMapVolumeSourceOpt,
+        value: ConfigMapVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             default_mode: crate::OptionableConvert::try_from_optioned(
@@ -44,7 +44,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapVolumeS
     }
     fn merge(
         &mut self,
-        other: ConfigMapVolumeSourceOpt,
+        other: ConfigMapVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.default_mode, other.default_mode)?;
         crate::OptionableConvert::merge(&mut self.items, other.items)?;

@@ -1,4 +1,4 @@
-pub struct PreferredSchedulingTermOpt {
+pub struct PreferredSchedulingTermAc {
     pub preference: Option<
         <::k8s_openapi::api::core::v1::NodeSelectorTerm as crate::Optionable>::Optioned,
     >,
@@ -6,22 +6,22 @@ pub struct PreferredSchedulingTermOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PreferredSchedulingTerm {
-    type Optioned = PreferredSchedulingTermOpt;
+    type Optioned = PreferredSchedulingTermAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PreferredSchedulingTermOpt {
-    type Optioned = PreferredSchedulingTermOpt;
+impl crate::Optionable for PreferredSchedulingTermAc {
+    type Optioned = PreferredSchedulingTermAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PreferredSchedulingTerm {
-    fn into_optioned(self) -> PreferredSchedulingTermOpt {
-        PreferredSchedulingTermOpt {
+    fn into_optioned(self) -> PreferredSchedulingTermAc {
+        PreferredSchedulingTermAc {
             preference: Some(crate::OptionableConvert::into_optioned(self.preference)),
             weight: Some(self.weight),
         }
     }
     fn try_from_optioned(
-        value: PreferredSchedulingTermOpt,
+        value: PreferredSchedulingTermAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             preference: crate::OptionableConvert::try_from_optioned(
@@ -40,7 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PreferredSchedul
     }
     fn merge(
         &mut self,
-        other: PreferredSchedulingTermOpt,
+        other: PreferredSchedulingTermAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.preference {
             crate::OptionableConvert::merge(&mut self.preference, other_value)?;

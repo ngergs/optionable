@@ -1,4 +1,4 @@
-pub struct DaemonSetStatusOpt {
+pub struct DaemonSetStatusAc {
     pub collision_count: <Option<i32> as crate::Optionable>::Optioned,
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::apps::v1::DaemonSetCondition>,
@@ -14,16 +14,16 @@ pub struct DaemonSetStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::DaemonSetStatus {
-    type Optioned = DaemonSetStatusOpt;
+    type Optioned = DaemonSetStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DaemonSetStatusOpt {
-    type Optioned = DaemonSetStatusOpt;
+impl crate::Optionable for DaemonSetStatusAc {
+    type Optioned = DaemonSetStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetStatus {
-    fn into_optioned(self) -> DaemonSetStatusOpt {
-        DaemonSetStatusOpt {
+    fn into_optioned(self) -> DaemonSetStatusAc {
+        DaemonSetStatusAc {
             collision_count: crate::OptionableConvert::into_optioned(
                 self.collision_count,
             ),
@@ -47,7 +47,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetStatus 
         }
     }
     fn try_from_optioned(
-        value: DaemonSetStatusOpt,
+        value: DaemonSetStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             collision_count: crate::OptionableConvert::try_from_optioned(
@@ -90,7 +90,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetStatus 
     }
     fn merge(
         &mut self,
-        other: DaemonSetStatusOpt,
+        other: DaemonSetStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.collision_count,

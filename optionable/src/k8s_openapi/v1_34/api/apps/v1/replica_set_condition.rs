@@ -1,4 +1,4 @@
-pub struct ReplicaSetConditionOpt {
+pub struct ReplicaSetConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -9,16 +9,16 @@ pub struct ReplicaSetConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::ReplicaSetCondition {
-    type Optioned = ReplicaSetConditionOpt;
+    type Optioned = ReplicaSetConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ReplicaSetConditionOpt {
-    type Optioned = ReplicaSetConditionOpt;
+impl crate::Optionable for ReplicaSetConditionAc {
+    type Optioned = ReplicaSetConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetCondition {
-    fn into_optioned(self) -> ReplicaSetConditionOpt {
-        ReplicaSetConditionOpt {
+    fn into_optioned(self) -> ReplicaSetConditionAc {
+        ReplicaSetConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetCondit
         }
     }
     fn try_from_optioned(
-        value: ReplicaSetConditionOpt,
+        value: ReplicaSetConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -55,7 +55,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetCondit
     }
     fn merge(
         &mut self,
-        other: ReplicaSetConditionOpt,
+        other: ReplicaSetConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

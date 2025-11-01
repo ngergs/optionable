@@ -1,4 +1,4 @@
-pub struct NetworkPolicyEgressRuleOpt {
+pub struct NetworkPolicyEgressRuleAc {
     pub ports: <Option<
         std::vec::Vec<::k8s_openapi::api::networking::v1::NetworkPolicyPort>,
     > as crate::Optionable>::Optioned,
@@ -8,23 +8,23 @@ pub struct NetworkPolicyEgressRuleOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1::NetworkPolicyEgressRule {
-    type Optioned = NetworkPolicyEgressRuleOpt;
+    type Optioned = NetworkPolicyEgressRuleAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NetworkPolicyEgressRuleOpt {
-    type Optioned = NetworkPolicyEgressRuleOpt;
+impl crate::Optionable for NetworkPolicyEgressRuleAc {
+    type Optioned = NetworkPolicyEgressRuleAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1::NetworkPolicyEgressRule {
-    fn into_optioned(self) -> NetworkPolicyEgressRuleOpt {
-        NetworkPolicyEgressRuleOpt {
+    fn into_optioned(self) -> NetworkPolicyEgressRuleAc {
+        NetworkPolicyEgressRuleAc {
             ports: crate::OptionableConvert::into_optioned(self.ports),
             to: crate::OptionableConvert::into_optioned(self.to),
         }
     }
     fn try_from_optioned(
-        value: NetworkPolicyEgressRuleOpt,
+        value: NetworkPolicyEgressRuleAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
@@ -33,7 +33,7 @@ for ::k8s_openapi::api::networking::v1::NetworkPolicyEgressRule {
     }
     fn merge(
         &mut self,
-        other: NetworkPolicyEgressRuleOpt,
+        other: NetworkPolicyEgressRuleAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
         crate::OptionableConvert::merge(&mut self.to, other.to)?;

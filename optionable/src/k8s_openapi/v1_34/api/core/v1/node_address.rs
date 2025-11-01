@@ -1,25 +1,25 @@
-pub struct NodeAddressOpt {
+pub struct NodeAddressAc {
     pub address: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeAddress {
-    type Optioned = NodeAddressOpt;
+    type Optioned = NodeAddressAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NodeAddressOpt {
-    type Optioned = NodeAddressOpt;
+impl crate::Optionable for NodeAddressAc {
+    type Optioned = NodeAddressAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAddress {
-    fn into_optioned(self) -> NodeAddressOpt {
-        NodeAddressOpt {
+    fn into_optioned(self) -> NodeAddressAc {
+        NodeAddressAc {
             address: Some(crate::OptionableConvert::into_optioned(self.address)),
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
-        value: NodeAddressOpt,
+        value: NodeAddressAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             address: crate::OptionableConvert::try_from_optioned(
@@ -38,7 +38,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAddress {
             )?,
         })
     }
-    fn merge(&mut self, other: NodeAddressOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeAddressAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.address {
             crate::OptionableConvert::merge(&mut self.address, other_value)?;
         }

@@ -1,4 +1,4 @@
-pub struct DownwardAPIVolumeSourceOpt {
+pub struct DownwardAPIVolumeSourceAc {
     pub default_mode: <Option<i32> as crate::Optionable>::Optioned,
     pub items: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::DownwardAPIVolumeFile>,
@@ -6,22 +6,22 @@ pub struct DownwardAPIVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::DownwardAPIVolumeSource {
-    type Optioned = DownwardAPIVolumeSourceOpt;
+    type Optioned = DownwardAPIVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DownwardAPIVolumeSourceOpt {
-    type Optioned = DownwardAPIVolumeSourceOpt;
+impl crate::Optionable for DownwardAPIVolumeSourceAc {
+    type Optioned = DownwardAPIVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DownwardAPIVolumeSource {
-    fn into_optioned(self) -> DownwardAPIVolumeSourceOpt {
-        DownwardAPIVolumeSourceOpt {
+    fn into_optioned(self) -> DownwardAPIVolumeSourceAc {
+        DownwardAPIVolumeSourceAc {
             default_mode: crate::OptionableConvert::into_optioned(self.default_mode),
             items: crate::OptionableConvert::into_optioned(self.items),
         }
     }
     fn try_from_optioned(
-        value: DownwardAPIVolumeSourceOpt,
+        value: DownwardAPIVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             default_mode: crate::OptionableConvert::try_from_optioned(
@@ -32,7 +32,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DownwardAPIVolum
     }
     fn merge(
         &mut self,
-        other: DownwardAPIVolumeSourceOpt,
+        other: DownwardAPIVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.default_mode, other.default_mode)?;
         crate::OptionableConvert::merge(&mut self.items, other.items)?;

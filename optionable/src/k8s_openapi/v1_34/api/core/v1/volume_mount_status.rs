@@ -1,4 +1,4 @@
-pub struct VolumeMountStatusOpt {
+pub struct VolumeMountStatusAc {
     pub mount_path: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
@@ -8,16 +8,16 @@ pub struct VolumeMountStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::VolumeMountStatus {
-    type Optioned = VolumeMountStatusOpt;
+    type Optioned = VolumeMountStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for VolumeMountStatusOpt {
-    type Optioned = VolumeMountStatusOpt;
+impl crate::Optionable for VolumeMountStatusAc {
+    type Optioned = VolumeMountStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeMountStatus {
-    fn into_optioned(self) -> VolumeMountStatusOpt {
-        VolumeMountStatusOpt {
+    fn into_optioned(self) -> VolumeMountStatusAc {
+        VolumeMountStatusAc {
             mount_path: Some(crate::OptionableConvert::into_optioned(self.mount_path)),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeMountStatu
         }
     }
     fn try_from_optioned(
-        value: VolumeMountStatusOpt,
+        value: VolumeMountStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             mount_path: crate::OptionableConvert::try_from_optioned(
@@ -52,7 +52,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeMountStatu
     }
     fn merge(
         &mut self,
-        other: VolumeMountStatusOpt,
+        other: VolumeMountStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.mount_path {
             crate::OptionableConvert::merge(&mut self.mount_path, other_value)?;

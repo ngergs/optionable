@@ -1,4 +1,4 @@
-pub struct CSINodeDriverOpt {
+pub struct CSINodeDriverAc {
     pub allocatable: <Option<
         ::k8s_openapi::api::storage::v1::VolumeNodeResources,
     > as crate::Optionable>::Optioned,
@@ -10,16 +10,16 @@ pub struct CSINodeDriverOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::CSINodeDriver {
-    type Optioned = CSINodeDriverOpt;
+    type Optioned = CSINodeDriverAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CSINodeDriverOpt {
-    type Optioned = CSINodeDriverOpt;
+impl crate::Optionable for CSINodeDriverAc {
+    type Optioned = CSINodeDriverAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSINodeDriver {
-    fn into_optioned(self) -> CSINodeDriverOpt {
-        CSINodeDriverOpt {
+    fn into_optioned(self) -> CSINodeDriverAc {
+        CSINodeDriverAc {
             allocatable: crate::OptionableConvert::into_optioned(self.allocatable),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             node_id: Some(crate::OptionableConvert::into_optioned(self.node_id)),
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSINodeDriver
         }
     }
     fn try_from_optioned(
-        value: CSINodeDriverOpt,
+        value: CSINodeDriverAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             allocatable: crate::OptionableConvert::try_from_optioned(value.allocatable)?,
@@ -50,10 +50,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSINodeDriver
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CSINodeDriverOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CSINodeDriverAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.allocatable, other.allocatable)?;
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;

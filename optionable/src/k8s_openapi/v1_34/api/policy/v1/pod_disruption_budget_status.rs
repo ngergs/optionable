@@ -1,4 +1,4 @@
-pub struct PodDisruptionBudgetStatusOpt {
+pub struct PodDisruptionBudgetStatusAc {
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition>,
     > as crate::Optionable>::Optioned,
@@ -16,17 +16,17 @@ pub struct PodDisruptionBudgetStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetStatus {
-    type Optioned = PodDisruptionBudgetStatusOpt;
+    type Optioned = PodDisruptionBudgetStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodDisruptionBudgetStatusOpt {
-    type Optioned = PodDisruptionBudgetStatusOpt;
+impl crate::Optionable for PodDisruptionBudgetStatusAc {
+    type Optioned = PodDisruptionBudgetStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetStatus {
-    fn into_optioned(self) -> PodDisruptionBudgetStatusOpt {
-        PodDisruptionBudgetStatusOpt {
+    fn into_optioned(self) -> PodDisruptionBudgetStatusAc {
+        PodDisruptionBudgetStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             current_healthy: Some(self.current_healthy),
             desired_healthy: Some(self.desired_healthy),
@@ -39,7 +39,7 @@ for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetStatus {
         }
     }
     fn try_from_optioned(
-        value: PodDisruptionBudgetStatusOpt,
+        value: PodDisruptionBudgetStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
@@ -73,7 +73,7 @@ for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetStatus {
     }
     fn merge(
         &mut self,
-        other: PodDisruptionBudgetStatusOpt,
+        other: PodDisruptionBudgetStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         if let Some(other_value) = other.current_healthy {

@@ -5,11 +5,12 @@ use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
 use proc_macro2::Span;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
-use syn::{Attribute, Error, ItemEnum, ItemStruct};
+use syn::Item::{Enum, Struct};
+use syn::{Attribute, Error, Item, ItemEnum, ItemStruct};
 
 /// Generates `Optionable` and `OptionableConvert` implementation for structs/enums in
 /// the referenced `input_file` and all included internal modules recursively.
-#[derive(Parser, Debug)]
+#[derive(Parser, Clone)]
 #[command(version, about, long_about = None)]
 struct Args {
     /// Input file.
@@ -44,12 +45,13 @@ impl Visitor {
 }
 
 impl CodegenVisitor for Visitor {
-    fn visit_input_struct(&mut self, item: &mut ItemStruct) {
-        self.append_attrs(&mut item.attrs);
-    }
-
-    fn visit_input_enum(&mut self, item: &mut ItemEnum) {
-        self.append_attrs(&mut item.attrs);
+    fn visit_input(&mut self, item: &mut Item) {
+        match item {
+            Struct(ItemStruct { attrs, .. }) | Enum(ItemEnum { attrs, .. }) => {
+                self.append_attrs(attrs);
+            }
+            _ => {}
+        }
     }
 }
 
@@ -63,6 +65,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         &args.output_dir,
         CodegenConfig {
             visitor: Visitor { type_attrs },
+            optioned_suffix: "Opt",
             settings: codegen_settings,
             usage_aliases: vec![],
             is_mod_private: false,

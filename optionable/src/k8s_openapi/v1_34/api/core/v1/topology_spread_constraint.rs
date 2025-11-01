@@ -1,4 +1,4 @@
-pub struct TopologySpreadConstraintOpt {
+pub struct TopologySpreadConstraintAc {
     pub label_selector: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,
@@ -16,17 +16,17 @@ pub struct TopologySpreadConstraintOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::TopologySpreadConstraint {
-    type Optioned = TopologySpreadConstraintOpt;
+    type Optioned = TopologySpreadConstraintAc;
 }
 #[automatically_derived]
-impl crate::Optionable for TopologySpreadConstraintOpt {
-    type Optioned = TopologySpreadConstraintOpt;
+impl crate::Optionable for TopologySpreadConstraintAc {
+    type Optioned = TopologySpreadConstraintAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::TopologySpreadConstraint {
-    fn into_optioned(self) -> TopologySpreadConstraintOpt {
-        TopologySpreadConstraintOpt {
+    fn into_optioned(self) -> TopologySpreadConstraintAc {
+        TopologySpreadConstraintAc {
             label_selector: crate::OptionableConvert::into_optioned(self.label_selector),
             match_label_keys: crate::OptionableConvert::into_optioned(
                 self.match_label_keys,
@@ -48,7 +48,7 @@ for ::k8s_openapi::api::core::v1::TopologySpreadConstraint {
         }
     }
     fn try_from_optioned(
-        value: TopologySpreadConstraintOpt,
+        value: TopologySpreadConstraintAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             label_selector: crate::OptionableConvert::try_from_optioned(
@@ -87,7 +87,7 @@ for ::k8s_openapi::api::core::v1::TopologySpreadConstraint {
     }
     fn merge(
         &mut self,
-        other: TopologySpreadConstraintOpt,
+        other: TopologySpreadConstraintAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
         crate::OptionableConvert::merge(

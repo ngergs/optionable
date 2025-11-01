@@ -1,4 +1,4 @@
-pub struct DeviceTaintSelectorOpt {
+pub struct DeviceTaintSelectorAc {
     pub device: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub device_class_name: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub driver: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -9,17 +9,17 @@ pub struct DeviceTaintSelectorOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintSelector {
-    type Optioned = DeviceTaintSelectorOpt;
+    type Optioned = DeviceTaintSelectorAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceTaintSelectorOpt {
-    type Optioned = DeviceTaintSelectorOpt;
+impl crate::Optionable for DeviceTaintSelectorAc {
+    type Optioned = DeviceTaintSelectorAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintSelector {
-    fn into_optioned(self) -> DeviceTaintSelectorOpt {
-        DeviceTaintSelectorOpt {
+    fn into_optioned(self) -> DeviceTaintSelectorAc {
+        DeviceTaintSelectorAc {
             device: crate::OptionableConvert::into_optioned(self.device),
             device_class_name: crate::OptionableConvert::into_optioned(
                 self.device_class_name,
@@ -30,7 +30,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintSelector {
         }
     }
     fn try_from_optioned(
-        value: DeviceTaintSelectorOpt,
+        value: DeviceTaintSelectorAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             device: crate::OptionableConvert::try_from_optioned(value.device)?,
@@ -44,7 +44,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintSelector {
     }
     fn merge(
         &mut self,
-        other: DeviceTaintSelectorOpt,
+        other: DeviceTaintSelectorAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.device, other.device)?;
         crate::OptionableConvert::merge(

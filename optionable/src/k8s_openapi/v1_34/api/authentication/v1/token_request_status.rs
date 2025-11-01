@@ -1,4 +1,4 @@
-pub struct TokenRequestStatusOpt {
+pub struct TokenRequestStatusAc {
     pub expiration_timestamp: Option<
         <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
@@ -6,17 +6,17 @@ pub struct TokenRequestStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::authentication::v1::TokenRequestStatus {
-    type Optioned = TokenRequestStatusOpt;
+    type Optioned = TokenRequestStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for TokenRequestStatusOpt {
-    type Optioned = TokenRequestStatusOpt;
+impl crate::Optionable for TokenRequestStatusAc {
+    type Optioned = TokenRequestStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authentication::v1::TokenRequestStatus {
-    fn into_optioned(self) -> TokenRequestStatusOpt {
-        TokenRequestStatusOpt {
+    fn into_optioned(self) -> TokenRequestStatusAc {
+        TokenRequestStatusAc {
             expiration_timestamp: Some(
                 crate::OptionableConvert::into_optioned(self.expiration_timestamp),
             ),
@@ -24,7 +24,7 @@ for ::k8s_openapi::api::authentication::v1::TokenRequestStatus {
         }
     }
     fn try_from_optioned(
-        value: TokenRequestStatusOpt,
+        value: TokenRequestStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             expiration_timestamp: crate::OptionableConvert::try_from_optioned(
@@ -45,7 +45,7 @@ for ::k8s_openapi::api::authentication::v1::TokenRequestStatus {
     }
     fn merge(
         &mut self,
-        other: TokenRequestStatusOpt,
+        other: TokenRequestStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.expiration_timestamp {
             crate::OptionableConvert::merge(

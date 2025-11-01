@@ -1,4 +1,4 @@
-pub struct CSIDriverSpecOpt {
+pub struct CSIDriverSpecAc {
     pub attach_required: <Option<bool> as crate::Optionable>::Optioned,
     pub fs_group_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub node_allocatable_update_period_seconds: <Option<
@@ -17,16 +17,16 @@ pub struct CSIDriverSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::CSIDriverSpec {
-    type Optioned = CSIDriverSpecOpt;
+    type Optioned = CSIDriverSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CSIDriverSpecOpt {
-    type Optioned = CSIDriverSpecOpt;
+impl crate::Optionable for CSIDriverSpecAc {
+    type Optioned = CSIDriverSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIDriverSpec {
-    fn into_optioned(self) -> CSIDriverSpecOpt {
-        CSIDriverSpecOpt {
+    fn into_optioned(self) -> CSIDriverSpecAc {
+        CSIDriverSpecAc {
             attach_required: crate::OptionableConvert::into_optioned(
                 self.attach_required,
             ),
@@ -53,7 +53,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIDriverSpec
         }
     }
     fn try_from_optioned(
-        value: CSIDriverSpecOpt,
+        value: CSIDriverSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             attach_required: crate::OptionableConvert::try_from_optioned(
@@ -85,10 +85,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIDriverSpec
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CSIDriverSpecOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CSIDriverSpecAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.attach_required,
             other.attach_required,

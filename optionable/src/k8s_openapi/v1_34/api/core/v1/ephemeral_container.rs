@@ -1,4 +1,4 @@
-pub struct EphemeralContainerOpt {
+pub struct EphemeralContainerAc {
     pub args: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -64,16 +64,16 @@ pub struct EphemeralContainerOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::EphemeralContainer {
-    type Optioned = EphemeralContainerOpt;
+    type Optioned = EphemeralContainerAc;
 }
 #[automatically_derived]
-impl crate::Optionable for EphemeralContainerOpt {
-    type Optioned = EphemeralContainerOpt;
+impl crate::Optionable for EphemeralContainerAc {
+    type Optioned = EphemeralContainerAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EphemeralContainer {
-    fn into_optioned(self) -> EphemeralContainerOpt {
-        EphemeralContainerOpt {
+    fn into_optioned(self) -> EphemeralContainerAc {
+        EphemeralContainerAc {
             args: crate::OptionableConvert::into_optioned(self.args),
             command: crate::OptionableConvert::into_optioned(self.command),
             env: crate::OptionableConvert::into_optioned(self.env),
@@ -117,7 +117,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EphemeralContain
         }
     }
     fn try_from_optioned(
-        value: EphemeralContainerOpt,
+        value: EphemeralContainerAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             args: crate::OptionableConvert::try_from_optioned(value.args)?,
@@ -182,7 +182,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EphemeralContain
     }
     fn merge(
         &mut self,
-        other: EphemeralContainerOpt,
+        other: EphemeralContainerAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.args, other.args)?;
         crate::OptionableConvert::merge(&mut self.command, other.command)?;

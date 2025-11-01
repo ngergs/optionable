@@ -1,4 +1,4 @@
-pub struct StorageVersionMigrationStatusOpt {
+pub struct StorageVersionMigrationStatusAc {
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition>,
     > as crate::Optionable>::Optioned,
@@ -7,17 +7,17 @@ pub struct StorageVersionMigrationStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationStatus {
-    type Optioned = StorageVersionMigrationStatusOpt;
+    type Optioned = StorageVersionMigrationStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StorageVersionMigrationStatusOpt {
-    type Optioned = StorageVersionMigrationStatusOpt;
+impl crate::Optionable for StorageVersionMigrationStatusAc {
+    type Optioned = StorageVersionMigrationStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationStatus {
-    fn into_optioned(self) -> StorageVersionMigrationStatusOpt {
-        StorageVersionMigrationStatusOpt {
+    fn into_optioned(self) -> StorageVersionMigrationStatusAc {
+        StorageVersionMigrationStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             resource_version: crate::OptionableConvert::into_optioned(
                 self.resource_version,
@@ -25,7 +25,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationStatu
         }
     }
     fn try_from_optioned(
-        value: StorageVersionMigrationStatusOpt,
+        value: StorageVersionMigrationStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
@@ -36,7 +36,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationStatu
     }
     fn merge(
         &mut self,
-        other: StorageVersionMigrationStatusOpt,
+        other: StorageVersionMigrationStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(

@@ -1,4 +1,4 @@
-pub struct JSONSchemaPropsOpt {
+pub struct JSONSchemaPropsAc {
     pub ref_path: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub schema: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub additional_items: <Option<
@@ -113,17 +113,17 @@ pub struct JSONSchemaPropsOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps {
-    type Optioned = JSONSchemaPropsOpt;
+    type Optioned = JSONSchemaPropsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for JSONSchemaPropsOpt {
-    type Optioned = JSONSchemaPropsOpt;
+impl crate::Optionable for JSONSchemaPropsAc {
+    type Optioned = JSONSchemaPropsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps {
-    fn into_optioned(self) -> JSONSchemaPropsOpt {
-        JSONSchemaPropsOpt {
+    fn into_optioned(self) -> JSONSchemaPropsAc {
+        JSONSchemaPropsAc {
             ref_path: crate::OptionableConvert::into_optioned(self.ref_path),
             schema: crate::OptionableConvert::into_optioned(self.schema),
             additional_items: crate::OptionableConvert::into_optioned(
@@ -195,7 +195,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
         }
     }
     fn try_from_optioned(
-        value: JSONSchemaPropsOpt,
+        value: JSONSchemaPropsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             ref_path: crate::OptionableConvert::try_from_optioned(value.ref_path)?,
@@ -280,7 +280,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
     }
     fn merge(
         &mut self,
-        other: JSONSchemaPropsOpt,
+        other: JSONSchemaPropsAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.ref_path, other.ref_path)?;
         crate::OptionableConvert::merge(&mut self.schema, other.schema)?;

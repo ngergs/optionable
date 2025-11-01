@@ -1,4 +1,4 @@
-pub struct NodeConfigStatusOpt {
+pub struct NodeConfigStatusAc {
     pub active: <Option<
         ::k8s_openapi::api::core::v1::NodeConfigSource,
     > as crate::Optionable>::Optioned,
@@ -12,16 +12,16 @@ pub struct NodeConfigStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeConfigStatus {
-    type Optioned = NodeConfigStatusOpt;
+    type Optioned = NodeConfigStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NodeConfigStatusOpt {
-    type Optioned = NodeConfigStatusOpt;
+impl crate::Optionable for NodeConfigStatusAc {
+    type Optioned = NodeConfigStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeConfigStatus {
-    fn into_optioned(self) -> NodeConfigStatusOpt {
-        NodeConfigStatusOpt {
+    fn into_optioned(self) -> NodeConfigStatusAc {
+        NodeConfigStatusAc {
             active: crate::OptionableConvert::into_optioned(self.active),
             assigned: crate::OptionableConvert::into_optioned(self.assigned),
             error: crate::OptionableConvert::into_optioned(self.error),
@@ -31,7 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeConfigStatus
         }
     }
     fn try_from_optioned(
-        value: NodeConfigStatusOpt,
+        value: NodeConfigStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             active: crate::OptionableConvert::try_from_optioned(value.active)?,
@@ -44,7 +44,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeConfigStatus
     }
     fn merge(
         &mut self,
-        other: NodeConfigStatusOpt,
+        other: NodeConfigStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.active, other.active)?;
         crate::OptionableConvert::merge(&mut self.assigned, other.assigned)?;

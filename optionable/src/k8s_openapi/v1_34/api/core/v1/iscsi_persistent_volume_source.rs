@@ -1,4 +1,4 @@
-pub struct ISCSIPersistentVolumeSourceOpt {
+pub struct ISCSIPersistentVolumeSourceAc {
     pub chap_auth_discovery: <Option<bool> as crate::Optionable>::Optioned,
     pub chap_auth_session: <Option<bool> as crate::Optionable>::Optioned,
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -17,17 +17,17 @@ pub struct ISCSIPersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource {
-    type Optioned = ISCSIPersistentVolumeSourceOpt;
+    type Optioned = ISCSIPersistentVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ISCSIPersistentVolumeSourceOpt {
-    type Optioned = ISCSIPersistentVolumeSourceOpt;
+impl crate::Optionable for ISCSIPersistentVolumeSourceAc {
+    type Optioned = ISCSIPersistentVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource {
-    fn into_optioned(self) -> ISCSIPersistentVolumeSourceOpt {
-        ISCSIPersistentVolumeSourceOpt {
+    fn into_optioned(self) -> ISCSIPersistentVolumeSourceAc {
+        ISCSIPersistentVolumeSourceAc {
             chap_auth_discovery: crate::OptionableConvert::into_optioned(
                 self.chap_auth_discovery,
             ),
@@ -50,7 +50,7 @@ for ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: ISCSIPersistentVolumeSourceOpt,
+        value: ISCSIPersistentVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             chap_auth_discovery: crate::OptionableConvert::try_from_optioned(
@@ -92,7 +92,7 @@ for ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource {
     }
     fn merge(
         &mut self,
-        other: ISCSIPersistentVolumeSourceOpt,
+        other: ISCSIPersistentVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.chap_auth_discovery,

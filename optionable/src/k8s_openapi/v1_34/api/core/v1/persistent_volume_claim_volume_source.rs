@@ -1,27 +1,27 @@
-pub struct PersistentVolumeClaimVolumeSourceOpt {
+pub struct PersistentVolumeClaimVolumeSourceAc {
     pub claim_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::core::v1::PersistentVolumeClaimVolumeSource {
-    type Optioned = PersistentVolumeClaimVolumeSourceOpt;
+    type Optioned = PersistentVolumeClaimVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PersistentVolumeClaimVolumeSourceOpt {
-    type Optioned = PersistentVolumeClaimVolumeSourceOpt;
+impl crate::Optionable for PersistentVolumeClaimVolumeSourceAc {
+    type Optioned = PersistentVolumeClaimVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::PersistentVolumeClaimVolumeSource {
-    fn into_optioned(self) -> PersistentVolumeClaimVolumeSourceOpt {
-        PersistentVolumeClaimVolumeSourceOpt {
+    fn into_optioned(self) -> PersistentVolumeClaimVolumeSourceAc {
+        PersistentVolumeClaimVolumeSourceAc {
             claim_name: Some(crate::OptionableConvert::into_optioned(self.claim_name)),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
         }
     }
     fn try_from_optioned(
-        value: PersistentVolumeClaimVolumeSourceOpt,
+        value: PersistentVolumeClaimVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             claim_name: crate::OptionableConvert::try_from_optioned(
@@ -36,7 +36,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimVolumeSource {
     }
     fn merge(
         &mut self,
-        other: PersistentVolumeClaimVolumeSourceOpt,
+        other: PersistentVolumeClaimVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.claim_name {
             crate::OptionableConvert::merge(&mut self.claim_name, other_value)?;

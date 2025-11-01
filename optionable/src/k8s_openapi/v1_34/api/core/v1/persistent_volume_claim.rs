@@ -1,4 +1,6 @@
-pub struct PersistentVolumeClaimOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = PersistentVolumeClaim)]
+pub struct PersistentVolumeClaimAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::core::v1::PersistentVolumeClaimSpec,
@@ -9,23 +11,23 @@ pub struct PersistentVolumeClaimOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PersistentVolumeClaim {
-    type Optioned = PersistentVolumeClaimOpt;
+    type Optioned = PersistentVolumeClaimAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PersistentVolumeClaimOpt {
-    type Optioned = PersistentVolumeClaimOpt;
+impl crate::Optionable for PersistentVolumeClaimAc {
+    type Optioned = PersistentVolumeClaimAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolumeClaim {
-    fn into_optioned(self) -> PersistentVolumeClaimOpt {
-        PersistentVolumeClaimOpt {
+    fn into_optioned(self) -> PersistentVolumeClaimAc {
+        PersistentVolumeClaimAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: PersistentVolumeClaimOpt,
+        value: PersistentVolumeClaimAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -35,7 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
     }
     fn merge(
         &mut self,
-        other: PersistentVolumeClaimOpt,
+        other: PersistentVolumeClaimAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
@@ -43,3 +45,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::core::v1::PersistentVolumeClaim;

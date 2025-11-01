@@ -1,4 +1,4 @@
-pub struct ValidationOpt {
+pub struct ValidationAc {
     pub expression: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub message_expression: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -6,17 +6,17 @@ pub struct ValidationOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::admissionregistration::v1::Validation {
-    type Optioned = ValidationOpt;
+    type Optioned = ValidationAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ValidationOpt {
-    type Optioned = ValidationOpt;
+impl crate::Optionable for ValidationAc {
+    type Optioned = ValidationAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::Validation {
-    fn into_optioned(self) -> ValidationOpt {
-        ValidationOpt {
+    fn into_optioned(self) -> ValidationAc {
+        ValidationAc {
             expression: Some(crate::OptionableConvert::into_optioned(self.expression)),
             message: crate::OptionableConvert::into_optioned(self.message),
             message_expression: crate::OptionableConvert::into_optioned(
@@ -25,9 +25,7 @@ for ::k8s_openapi::api::admissionregistration::v1::Validation {
             reason: crate::OptionableConvert::into_optioned(self.reason),
         }
     }
-    fn try_from_optioned(
-        value: ValidationOpt,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ValidationAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             expression: crate::OptionableConvert::try_from_optioned(
                 value
@@ -43,7 +41,7 @@ for ::k8s_openapi::api::admissionregistration::v1::Validation {
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
         })
     }
-    fn merge(&mut self, other: ValidationOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ValidationAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.expression {
             crate::OptionableConvert::merge(&mut self.expression, other_value)?;
         }

@@ -1,4 +1,4 @@
-pub struct WebhookConversionOpt {
+pub struct WebhookConversionAc {
     pub client_config: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookClientConfig,
     > as crate::Optionable>::Optioned,
@@ -9,17 +9,17 @@ pub struct WebhookConversionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion {
-    type Optioned = WebhookConversionOpt;
+    type Optioned = WebhookConversionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for WebhookConversionOpt {
-    type Optioned = WebhookConversionOpt;
+impl crate::Optionable for WebhookConversionAc {
+    type Optioned = WebhookConversionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion {
-    fn into_optioned(self) -> WebhookConversionOpt {
-        WebhookConversionOpt {
+    fn into_optioned(self) -> WebhookConversionAc {
+        WebhookConversionAc {
             client_config: crate::OptionableConvert::into_optioned(self.client_config),
             conversion_review_versions: Some(
                 crate::OptionableConvert::into_optioned(self.conversion_review_versions),
@@ -27,7 +27,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Webhoo
         }
     }
     fn try_from_optioned(
-        value: WebhookConversionOpt,
+        value: WebhookConversionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             client_config: crate::OptionableConvert::try_from_optioned(
@@ -44,7 +44,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Webhoo
     }
     fn merge(
         &mut self,
-        other: WebhookConversionOpt,
+        other: WebhookConversionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.client_config, other.client_config)?;
         if let Some(other_value) = other.conversion_review_versions {

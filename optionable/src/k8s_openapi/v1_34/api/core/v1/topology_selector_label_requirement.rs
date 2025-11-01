@@ -1,4 +1,4 @@
-pub struct TopologySelectorLabelRequirementOpt {
+pub struct TopologySelectorLabelRequirementAc {
     pub key: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub values: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
@@ -7,23 +7,23 @@ pub struct TopologySelectorLabelRequirementOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::core::v1::TopologySelectorLabelRequirement {
-    type Optioned = TopologySelectorLabelRequirementOpt;
+    type Optioned = TopologySelectorLabelRequirementAc;
 }
 #[automatically_derived]
-impl crate::Optionable for TopologySelectorLabelRequirementOpt {
-    type Optioned = TopologySelectorLabelRequirementOpt;
+impl crate::Optionable for TopologySelectorLabelRequirementAc {
+    type Optioned = TopologySelectorLabelRequirementAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::TopologySelectorLabelRequirement {
-    fn into_optioned(self) -> TopologySelectorLabelRequirementOpt {
-        TopologySelectorLabelRequirementOpt {
+    fn into_optioned(self) -> TopologySelectorLabelRequirementAc {
+        TopologySelectorLabelRequirementAc {
             key: Some(crate::OptionableConvert::into_optioned(self.key)),
             values: Some(crate::OptionableConvert::into_optioned(self.values)),
         }
     }
     fn try_from_optioned(
-        value: TopologySelectorLabelRequirementOpt,
+        value: TopologySelectorLabelRequirementAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             key: crate::OptionableConvert::try_from_optioned(
@@ -44,7 +44,7 @@ for ::k8s_openapi::api::core::v1::TopologySelectorLabelRequirement {
     }
     fn merge(
         &mut self,
-        other: TopologySelectorLabelRequirementOpt,
+        other: TopologySelectorLabelRequirementAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.key {
             crate::OptionableConvert::merge(&mut self.key, other_value)?;

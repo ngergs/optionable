@@ -1,4 +1,4 @@
-pub struct CustomResourceDefinitionNamesOpt {
+pub struct CustomResourceDefinitionNamesAc {
     pub categories: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -13,17 +13,17 @@ pub struct CustomResourceDefinitionNamesOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionNames {
-    type Optioned = CustomResourceDefinitionNamesOpt;
+    type Optioned = CustomResourceDefinitionNamesAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CustomResourceDefinitionNamesOpt {
-    type Optioned = CustomResourceDefinitionNamesOpt;
+impl crate::Optionable for CustomResourceDefinitionNamesAc {
+    type Optioned = CustomResourceDefinitionNamesAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionNames {
-    fn into_optioned(self) -> CustomResourceDefinitionNamesOpt {
-        CustomResourceDefinitionNamesOpt {
+    fn into_optioned(self) -> CustomResourceDefinitionNamesAc {
+        CustomResourceDefinitionNamesAc {
             categories: crate::OptionableConvert::into_optioned(self.categories),
             kind: Some(crate::OptionableConvert::into_optioned(self.kind)),
             list_kind: crate::OptionableConvert::into_optioned(self.list_kind),
@@ -33,7 +33,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
         }
     }
     fn try_from_optioned(
-        value: CustomResourceDefinitionNamesOpt,
+        value: CustomResourceDefinitionNamesAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             categories: crate::OptionableConvert::try_from_optioned(value.categories)?,
@@ -58,7 +58,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn merge(
         &mut self,
-        other: CustomResourceDefinitionNamesOpt,
+        other: CustomResourceDefinitionNamesAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.categories, other.categories)?;
         if let Some(other_value) = other.kind {

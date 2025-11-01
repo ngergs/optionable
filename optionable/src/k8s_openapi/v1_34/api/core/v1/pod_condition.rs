@@ -1,4 +1,4 @@
-pub struct PodConditionOpt {
+pub struct PodConditionAc {
     pub last_probe_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -13,16 +13,16 @@ pub struct PodConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PodCondition {
-    type Optioned = PodConditionOpt;
+    type Optioned = PodConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodConditionOpt {
-    type Optioned = PodConditionOpt;
+impl crate::Optionable for PodConditionAc {
+    type Optioned = PodConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodCondition {
-    fn into_optioned(self) -> PodConditionOpt {
-        PodConditionOpt {
+    fn into_optioned(self) -> PodConditionAc {
+        PodConditionAc {
             last_probe_time: crate::OptionableConvert::into_optioned(
                 self.last_probe_time,
             ),
@@ -39,7 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodCondition {
         }
     }
     fn try_from_optioned(
-        value: PodConditionOpt,
+        value: PodConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_probe_time: crate::OptionableConvert::try_from_optioned(
@@ -69,7 +69,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodCondition {
             )?,
         })
     }
-    fn merge(&mut self, other: PodConditionOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodConditionAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_probe_time,
             other.last_probe_time,

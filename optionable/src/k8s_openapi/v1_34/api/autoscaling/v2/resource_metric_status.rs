@@ -1,4 +1,4 @@
-pub struct ResourceMetricStatusOpt {
+pub struct ResourceMetricStatusAc {
     pub current: Option<
         <::k8s_openapi::api::autoscaling::v2::MetricValueStatus as crate::Optionable>::Optioned,
     >,
@@ -6,23 +6,23 @@ pub struct ResourceMetricStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus {
-    type Optioned = ResourceMetricStatusOpt;
+    type Optioned = ResourceMetricStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceMetricStatusOpt {
-    type Optioned = ResourceMetricStatusOpt;
+impl crate::Optionable for ResourceMetricStatusAc {
+    type Optioned = ResourceMetricStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus {
-    fn into_optioned(self) -> ResourceMetricStatusOpt {
-        ResourceMetricStatusOpt {
+    fn into_optioned(self) -> ResourceMetricStatusAc {
+        ResourceMetricStatusAc {
             current: Some(crate::OptionableConvert::into_optioned(self.current)),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
     fn try_from_optioned(
-        value: ResourceMetricStatusOpt,
+        value: ResourceMetricStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             current: crate::OptionableConvert::try_from_optioned(
@@ -43,7 +43,7 @@ for ::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus {
     }
     fn merge(
         &mut self,
-        other: ResourceMetricStatusOpt,
+        other: ResourceMetricStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.current {
             crate::OptionableConvert::merge(&mut self.current, other_value)?;

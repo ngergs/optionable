@@ -1,4 +1,4 @@
-pub struct DeviceOpt {
+pub struct DeviceAc {
     pub all_nodes: <Option<bool> as crate::Optionable>::Optioned,
     pub allow_multiple_allocations: <Option<bool> as crate::Optionable>::Optioned,
     pub attributes: <Option<
@@ -34,16 +34,16 @@ pub struct DeviceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::Device {
-    type Optioned = DeviceOpt;
+    type Optioned = DeviceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceOpt {
-    type Optioned = DeviceOpt;
+impl crate::Optionable for DeviceAc {
+    type Optioned = DeviceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Device {
-    fn into_optioned(self) -> DeviceOpt {
-        DeviceOpt {
+    fn into_optioned(self) -> DeviceAc {
+        DeviceAc {
             all_nodes: crate::OptionableConvert::into_optioned(self.all_nodes),
             allow_multiple_allocations: crate::OptionableConvert::into_optioned(
                 self.allow_multiple_allocations,
@@ -66,7 +66,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Device 
             taints: crate::OptionableConvert::into_optioned(self.taints),
         }
     }
-    fn try_from_optioned(value: DeviceOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             all_nodes: crate::OptionableConvert::try_from_optioned(value.all_nodes)?,
             allow_multiple_allocations: crate::OptionableConvert::try_from_optioned(
@@ -100,7 +100,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Device 
             taints: crate::OptionableConvert::try_from_optioned(value.taints)?,
         })
     }
-    fn merge(&mut self, other: DeviceOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.all_nodes, other.all_nodes)?;
         crate::OptionableConvert::merge(
             &mut self.allow_multiple_allocations,

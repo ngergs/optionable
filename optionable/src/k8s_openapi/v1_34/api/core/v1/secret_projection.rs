@@ -1,4 +1,4 @@
-pub struct SecretProjectionOpt {
+pub struct SecretProjectionAc {
     pub items: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::KeyToPath>,
     > as crate::Optionable>::Optioned,
@@ -7,23 +7,23 @@ pub struct SecretProjectionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::SecretProjection {
-    type Optioned = SecretProjectionOpt;
+    type Optioned = SecretProjectionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SecretProjectionOpt {
-    type Optioned = SecretProjectionOpt;
+impl crate::Optionable for SecretProjectionAc {
+    type Optioned = SecretProjectionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretProjection {
-    fn into_optioned(self) -> SecretProjectionOpt {
-        SecretProjectionOpt {
+    fn into_optioned(self) -> SecretProjectionAc {
+        SecretProjectionAc {
             items: crate::OptionableConvert::into_optioned(self.items),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             optional: crate::OptionableConvert::into_optioned(self.optional),
         }
     }
     fn try_from_optioned(
-        value: SecretProjectionOpt,
+        value: SecretProjectionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             items: crate::OptionableConvert::try_from_optioned(value.items)?,
@@ -39,7 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretProjection
     }
     fn merge(
         &mut self,
-        other: SecretProjectionOpt,
+        other: SecretProjectionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.items, other.items)?;
         if let Some(other_value) = other.name {

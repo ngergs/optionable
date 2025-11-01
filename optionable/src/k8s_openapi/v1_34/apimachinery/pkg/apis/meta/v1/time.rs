@@ -1,4 +1,4 @@
-pub struct TimeOpt(
+pub struct TimeAc(
     pub Option<
         <::k8s_openapi::chrono::DateTime<
             ::k8s_openapi::chrono::Utc,
@@ -7,19 +7,19 @@ pub struct TimeOpt(
 );
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time {
-    type Optioned = TimeOpt;
+    type Optioned = TimeAc;
 }
 #[automatically_derived]
-impl crate::Optionable for TimeOpt {
-    type Optioned = TimeOpt;
+impl crate::Optionable for TimeAc {
+    type Optioned = TimeAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time {
-    fn into_optioned(self) -> TimeOpt {
-        TimeOpt(Some(crate::OptionableConvert::into_optioned(self.0)))
+    fn into_optioned(self) -> TimeAc {
+        TimeAc(Some(crate::OptionableConvert::into_optioned(self.0)))
     }
-    fn try_from_optioned(value: TimeOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TimeAc) -> Result<Self, crate::optionable::Error> {
         Ok(
             Self(
                 crate::OptionableConvert::try_from_optioned(
@@ -32,7 +32,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time {
             ),
         )
     }
-    fn merge(&mut self, other: TimeOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TimeAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.0 {
             crate::OptionableConvert::merge(&mut self.0, other_value)?;
         }

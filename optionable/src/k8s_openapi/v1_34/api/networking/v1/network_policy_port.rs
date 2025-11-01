@@ -1,4 +1,4 @@
-pub struct NetworkPolicyPortOpt {
+pub struct NetworkPolicyPortAc {
     pub end_port: <Option<i32> as crate::Optionable>::Optioned,
     pub port: <Option<
         ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
@@ -7,23 +7,23 @@ pub struct NetworkPolicyPortOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1::NetworkPolicyPort {
-    type Optioned = NetworkPolicyPortOpt;
+    type Optioned = NetworkPolicyPortAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NetworkPolicyPortOpt {
-    type Optioned = NetworkPolicyPortOpt;
+impl crate::Optionable for NetworkPolicyPortAc {
+    type Optioned = NetworkPolicyPortAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPolicyPort {
-    fn into_optioned(self) -> NetworkPolicyPortOpt {
-        NetworkPolicyPortOpt {
+    fn into_optioned(self) -> NetworkPolicyPortAc {
+        NetworkPolicyPortAc {
             end_port: crate::OptionableConvert::into_optioned(self.end_port),
             port: crate::OptionableConvert::into_optioned(self.port),
             protocol: crate::OptionableConvert::into_optioned(self.protocol),
         }
     }
     fn try_from_optioned(
-        value: NetworkPolicyPortOpt,
+        value: NetworkPolicyPortAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             end_port: crate::OptionableConvert::try_from_optioned(value.end_port)?,
@@ -33,7 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPol
     }
     fn merge(
         &mut self,
-        other: NetworkPolicyPortOpt,
+        other: NetworkPolicyPortAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.end_port, other.end_port)?;
         crate::OptionableConvert::merge(&mut self.port, other.port)?;

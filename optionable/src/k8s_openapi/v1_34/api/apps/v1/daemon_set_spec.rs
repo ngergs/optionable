@@ -1,4 +1,4 @@
-pub struct DaemonSetSpecOpt {
+pub struct DaemonSetSpecAc {
     pub min_ready_seconds: <Option<i32> as crate::Optionable>::Optioned,
     pub revision_history_limit: <Option<i32> as crate::Optionable>::Optioned,
     pub selector: Option<
@@ -13,16 +13,16 @@ pub struct DaemonSetSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::DaemonSetSpec {
-    type Optioned = DaemonSetSpecOpt;
+    type Optioned = DaemonSetSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DaemonSetSpecOpt {
-    type Optioned = DaemonSetSpecOpt;
+impl crate::Optionable for DaemonSetSpecAc {
+    type Optioned = DaemonSetSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetSpec {
-    fn into_optioned(self) -> DaemonSetSpecOpt {
-        DaemonSetSpecOpt {
+    fn into_optioned(self) -> DaemonSetSpecAc {
+        DaemonSetSpecAc {
             min_ready_seconds: crate::OptionableConvert::into_optioned(
                 self.min_ready_seconds,
             ),
@@ -37,7 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetSpec {
         }
     }
     fn try_from_optioned(
-        value: DaemonSetSpecOpt,
+        value: DaemonSetSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             min_ready_seconds: crate::OptionableConvert::try_from_optioned(
@@ -65,10 +65,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetSpec {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DaemonSetSpecOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DaemonSetSpecAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.min_ready_seconds,
             other.min_ready_seconds,

@@ -1,4 +1,4 @@
-pub struct CertificateSigningRequestConditionOpt {
+pub struct CertificateSigningRequestConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -13,17 +13,17 @@ pub struct CertificateSigningRequestConditionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestCondition {
-    type Optioned = CertificateSigningRequestConditionOpt;
+    type Optioned = CertificateSigningRequestConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CertificateSigningRequestConditionOpt {
-    type Optioned = CertificateSigningRequestConditionOpt;
+impl crate::Optionable for CertificateSigningRequestConditionAc {
+    type Optioned = CertificateSigningRequestConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestCondition {
-    fn into_optioned(self) -> CertificateSigningRequestConditionOpt {
-        CertificateSigningRequestConditionOpt {
+    fn into_optioned(self) -> CertificateSigningRequestConditionAc {
+        CertificateSigningRequestConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -37,7 +37,7 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestCondition {
         }
     }
     fn try_from_optioned(
-        value: CertificateSigningRequestConditionOpt,
+        value: CertificateSigningRequestConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -66,7 +66,7 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestCondition {
     }
     fn merge(
         &mut self,
-        other: CertificateSigningRequestConditionOpt,
+        other: CertificateSigningRequestConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

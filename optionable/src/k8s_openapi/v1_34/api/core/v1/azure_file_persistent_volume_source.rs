@@ -1,4 +1,4 @@
-pub struct AzureFilePersistentVolumeSourceOpt {
+pub struct AzureFilePersistentVolumeSourceAc {
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
     pub secret_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub secret_namespace: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -7,17 +7,17 @@ pub struct AzureFilePersistentVolumeSourceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::core::v1::AzureFilePersistentVolumeSource {
-    type Optioned = AzureFilePersistentVolumeSourceOpt;
+    type Optioned = AzureFilePersistentVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for AzureFilePersistentVolumeSourceOpt {
-    type Optioned = AzureFilePersistentVolumeSourceOpt;
+impl crate::Optionable for AzureFilePersistentVolumeSourceAc {
+    type Optioned = AzureFilePersistentVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::AzureFilePersistentVolumeSource {
-    fn into_optioned(self) -> AzureFilePersistentVolumeSourceOpt {
-        AzureFilePersistentVolumeSourceOpt {
+    fn into_optioned(self) -> AzureFilePersistentVolumeSourceAc {
+        AzureFilePersistentVolumeSourceAc {
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
             secret_name: Some(crate::OptionableConvert::into_optioned(self.secret_name)),
             secret_namespace: crate::OptionableConvert::into_optioned(
@@ -27,7 +27,7 @@ for ::k8s_openapi::api::core::v1::AzureFilePersistentVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: AzureFilePersistentVolumeSourceOpt,
+        value: AzureFilePersistentVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
@@ -52,7 +52,7 @@ for ::k8s_openapi::api::core::v1::AzureFilePersistentVolumeSource {
     }
     fn merge(
         &mut self,
-        other: AzureFilePersistentVolumeSourceOpt,
+        other: AzureFilePersistentVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         if let Some(other_value) = other.secret_name {

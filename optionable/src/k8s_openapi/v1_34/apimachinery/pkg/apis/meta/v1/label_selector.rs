@@ -1,4 +1,4 @@
-pub struct LabelSelectorOpt {
+pub struct LabelSelectorAc {
     pub match_expressions: <Option<
         std::vec::Vec<
             ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelectorRequirement,
@@ -11,17 +11,17 @@ pub struct LabelSelectorOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector {
-    type Optioned = LabelSelectorOpt;
+    type Optioned = LabelSelectorAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LabelSelectorOpt {
-    type Optioned = LabelSelectorOpt;
+impl crate::Optionable for LabelSelectorAc {
+    type Optioned = LabelSelectorAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector {
-    fn into_optioned(self) -> LabelSelectorOpt {
-        LabelSelectorOpt {
+    fn into_optioned(self) -> LabelSelectorAc {
+        LabelSelectorAc {
             match_expressions: crate::OptionableConvert::into_optioned(
                 self.match_expressions,
             ),
@@ -29,7 +29,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector {
         }
     }
     fn try_from_optioned(
-        value: LabelSelectorOpt,
+        value: LabelSelectorAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             match_expressions: crate::OptionableConvert::try_from_optioned(
@@ -40,10 +40,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: LabelSelectorOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LabelSelectorAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.match_expressions,
             other.match_expressions,

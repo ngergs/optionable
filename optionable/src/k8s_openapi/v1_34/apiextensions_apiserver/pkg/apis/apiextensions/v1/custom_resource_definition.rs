@@ -1,4 +1,6 @@
-pub struct CustomResourceDefinitionOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = CustomResourceDefinition)]
+pub struct CustomResourceDefinitionAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionSpec as crate::Optionable>::Optioned,
@@ -10,24 +12,24 @@ pub struct CustomResourceDefinitionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinition {
-    type Optioned = CustomResourceDefinitionOpt;
+    type Optioned = CustomResourceDefinitionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CustomResourceDefinitionOpt {
-    type Optioned = CustomResourceDefinitionOpt;
+impl crate::Optionable for CustomResourceDefinitionAc {
+    type Optioned = CustomResourceDefinitionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinition {
-    fn into_optioned(self) -> CustomResourceDefinitionOpt {
-        CustomResourceDefinitionOpt {
+    fn into_optioned(self) -> CustomResourceDefinitionAc {
+        CustomResourceDefinitionAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: CustomResourceDefinitionOpt,
+        value: CustomResourceDefinitionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -43,7 +45,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn merge(
         &mut self,
-        other: CustomResourceDefinitionOpt,
+        other: CustomResourceDefinitionAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
@@ -53,3 +55,5 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinition;

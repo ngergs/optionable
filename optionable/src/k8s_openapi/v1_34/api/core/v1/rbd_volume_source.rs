@@ -1,4 +1,4 @@
-pub struct RBDVolumeSourceOpt {
+pub struct RBDVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub image: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub keyring: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -14,16 +14,16 @@ pub struct RBDVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::RBDVolumeSource {
-    type Optioned = RBDVolumeSourceOpt;
+    type Optioned = RBDVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for RBDVolumeSourceOpt {
-    type Optioned = RBDVolumeSourceOpt;
+impl crate::Optionable for RBDVolumeSourceAc {
+    type Optioned = RBDVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::RBDVolumeSource {
-    fn into_optioned(self) -> RBDVolumeSourceOpt {
-        RBDVolumeSourceOpt {
+    fn into_optioned(self) -> RBDVolumeSourceAc {
+        RBDVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             image: Some(crate::OptionableConvert::into_optioned(self.image)),
             keyring: crate::OptionableConvert::into_optioned(self.keyring),
@@ -35,7 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::RBDVolumeSource 
         }
     }
     fn try_from_optioned(
-        value: RBDVolumeSourceOpt,
+        value: RBDVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
@@ -62,7 +62,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::RBDVolumeSource 
     }
     fn merge(
         &mut self,
-        other: RBDVolumeSourceOpt,
+        other: RBDVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         if let Some(other_value) = other.image {

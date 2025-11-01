@@ -1,26 +1,24 @@
-pub struct HTTPHeaderOpt {
+pub struct HTTPHeaderAc {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub value: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::HTTPHeader {
-    type Optioned = HTTPHeaderOpt;
+    type Optioned = HTTPHeaderAc;
 }
 #[automatically_derived]
-impl crate::Optionable for HTTPHeaderOpt {
-    type Optioned = HTTPHeaderOpt;
+impl crate::Optionable for HTTPHeaderAc {
+    type Optioned = HTTPHeaderAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HTTPHeader {
-    fn into_optioned(self) -> HTTPHeaderOpt {
-        HTTPHeaderOpt {
+    fn into_optioned(self) -> HTTPHeaderAc {
+        HTTPHeaderAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             value: Some(crate::OptionableConvert::into_optioned(self.value)),
         }
     }
-    fn try_from_optioned(
-        value: HTTPHeaderOpt,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: HTTPHeaderAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
                 value
@@ -38,7 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HTTPHeader {
             )?,
         })
     }
-    fn merge(&mut self, other: HTTPHeaderOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: HTTPHeaderAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }

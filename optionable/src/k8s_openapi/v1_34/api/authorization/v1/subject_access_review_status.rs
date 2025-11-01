@@ -1,4 +1,4 @@
-pub struct SubjectAccessReviewStatusOpt {
+pub struct SubjectAccessReviewStatusAc {
     pub allowed: Option<bool>,
     pub denied: <Option<bool> as crate::Optionable>::Optioned,
     pub evaluation_error: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -7,17 +7,17 @@ pub struct SubjectAccessReviewStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus {
-    type Optioned = SubjectAccessReviewStatusOpt;
+    type Optioned = SubjectAccessReviewStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SubjectAccessReviewStatusOpt {
-    type Optioned = SubjectAccessReviewStatusOpt;
+impl crate::Optionable for SubjectAccessReviewStatusAc {
+    type Optioned = SubjectAccessReviewStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus {
-    fn into_optioned(self) -> SubjectAccessReviewStatusOpt {
-        SubjectAccessReviewStatusOpt {
+    fn into_optioned(self) -> SubjectAccessReviewStatusAc {
+        SubjectAccessReviewStatusAc {
             allowed: Some(self.allowed),
             denied: crate::OptionableConvert::into_optioned(self.denied),
             evaluation_error: crate::OptionableConvert::into_optioned(
@@ -27,7 +27,7 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus {
         }
     }
     fn try_from_optioned(
-        value: SubjectAccessReviewStatusOpt,
+        value: SubjectAccessReviewStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             allowed: value
@@ -44,7 +44,7 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus {
     }
     fn merge(
         &mut self,
-        other: SubjectAccessReviewStatusOpt,
+        other: SubjectAccessReviewStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.allowed {
             self.allowed = other_value;

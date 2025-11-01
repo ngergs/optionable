@@ -1,4 +1,4 @@
-pub struct CustomResourceSubresourcesOpt {
+pub struct CustomResourceSubresourcesAc {
     pub scale: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresourceScale,
     > as crate::Optionable>::Optioned,
@@ -9,23 +9,23 @@ pub struct CustomResourceSubresourcesOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresources {
-    type Optioned = CustomResourceSubresourcesOpt;
+    type Optioned = CustomResourceSubresourcesAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CustomResourceSubresourcesOpt {
-    type Optioned = CustomResourceSubresourcesOpt;
+impl crate::Optionable for CustomResourceSubresourcesAc {
+    type Optioned = CustomResourceSubresourcesAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresources {
-    fn into_optioned(self) -> CustomResourceSubresourcesOpt {
-        CustomResourceSubresourcesOpt {
+    fn into_optioned(self) -> CustomResourceSubresourcesAc {
+        CustomResourceSubresourcesAc {
             scale: crate::OptionableConvert::into_optioned(self.scale),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: CustomResourceSubresourcesOpt,
+        value: CustomResourceSubresourcesAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             scale: crate::OptionableConvert::try_from_optioned(value.scale)?,
@@ -34,7 +34,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn merge(
         &mut self,
-        other: CustomResourceSubresourcesOpt,
+        other: CustomResourceSubresourcesAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.scale, other.scale)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;

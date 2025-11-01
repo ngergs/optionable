@@ -1,4 +1,4 @@
-pub struct DeviceRequestOpt {
+pub struct DeviceRequestAc {
     pub exactly: <Option<
         ::k8s_openapi::api::resource::v1::ExactDeviceRequest,
     > as crate::Optionable>::Optioned,
@@ -9,16 +9,16 @@ pub struct DeviceRequestOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1::DeviceRequest {
-    type Optioned = DeviceRequestOpt;
+    type Optioned = DeviceRequestAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceRequestOpt {
-    type Optioned = DeviceRequestOpt;
+impl crate::Optionable for DeviceRequestAc {
+    type Optioned = DeviceRequestAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceRequest {
-    fn into_optioned(self) -> DeviceRequestOpt {
-        DeviceRequestOpt {
+    fn into_optioned(self) -> DeviceRequestAc {
+        DeviceRequestAc {
             exactly: crate::OptionableConvert::into_optioned(self.exactly),
             first_available: crate::OptionableConvert::into_optioned(
                 self.first_available,
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceReques
         }
     }
     fn try_from_optioned(
-        value: DeviceRequestOpt,
+        value: DeviceRequestAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             exactly: crate::OptionableConvert::try_from_optioned(value.exactly)?,
@@ -43,10 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceReques
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceRequestOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.exactly, other.exactly)?;
         crate::OptionableConvert::merge(
             &mut self.first_available,

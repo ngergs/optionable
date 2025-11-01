@@ -1,4 +1,4 @@
-pub struct ModifyVolumeStatusOpt {
+pub struct ModifyVolumeStatusAc {
     pub status: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub target_volume_attributes_class_name: <Option<
         std::string::String,
@@ -6,16 +6,16 @@ pub struct ModifyVolumeStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ModifyVolumeStatus {
-    type Optioned = ModifyVolumeStatusOpt;
+    type Optioned = ModifyVolumeStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ModifyVolumeStatusOpt {
-    type Optioned = ModifyVolumeStatusOpt;
+impl crate::Optionable for ModifyVolumeStatusAc {
+    type Optioned = ModifyVolumeStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ModifyVolumeStatus {
-    fn into_optioned(self) -> ModifyVolumeStatusOpt {
-        ModifyVolumeStatusOpt {
+    fn into_optioned(self) -> ModifyVolumeStatusAc {
+        ModifyVolumeStatusAc {
             status: Some(crate::OptionableConvert::into_optioned(self.status)),
             target_volume_attributes_class_name: crate::OptionableConvert::into_optioned(
                 self.target_volume_attributes_class_name,
@@ -23,7 +23,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ModifyVolumeStat
         }
     }
     fn try_from_optioned(
-        value: ModifyVolumeStatusOpt,
+        value: ModifyVolumeStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             status: crate::OptionableConvert::try_from_optioned(
@@ -40,7 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ModifyVolumeStat
     }
     fn merge(
         &mut self,
-        other: ModifyVolumeStatusOpt,
+        other: ModifyVolumeStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.status {
             crate::OptionableConvert::merge(&mut self.status, other_value)?;

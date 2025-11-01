@@ -1,4 +1,4 @@
-pub struct PodCertificateRequestSpecOpt {
+pub struct PodCertificateRequestSpecAc {
     pub max_expiration_seconds: <Option<i32> as crate::Optionable>::Optioned,
     pub node_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub node_uid: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -21,17 +21,17 @@ pub struct PodCertificateRequestSpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestSpec {
-    type Optioned = PodCertificateRequestSpecOpt;
+    type Optioned = PodCertificateRequestSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodCertificateRequestSpecOpt {
-    type Optioned = PodCertificateRequestSpecOpt;
+impl crate::Optionable for PodCertificateRequestSpecAc {
+    type Optioned = PodCertificateRequestSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestSpec {
-    fn into_optioned(self) -> PodCertificateRequestSpecOpt {
-        PodCertificateRequestSpecOpt {
+    fn into_optioned(self) -> PodCertificateRequestSpecAc {
+        PodCertificateRequestSpecAc {
             max_expiration_seconds: crate::OptionableConvert::into_optioned(
                 self.max_expiration_seconds,
             ),
@@ -55,7 +55,7 @@ for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestSpec {
         }
     }
     fn try_from_optioned(
-        value: PodCertificateRequestSpecOpt,
+        value: PodCertificateRequestSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             max_expiration_seconds: crate::OptionableConvert::try_from_optioned(
@@ -128,7 +128,7 @@ for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestSpec {
     }
     fn merge(
         &mut self,
-        other: PodCertificateRequestSpecOpt,
+        other: PodCertificateRequestSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.max_expiration_seconds,

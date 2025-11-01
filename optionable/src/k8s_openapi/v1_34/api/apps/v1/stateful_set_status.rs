@@ -1,4 +1,4 @@
-pub struct StatefulSetStatusOpt {
+pub struct StatefulSetStatusAc {
     pub available_replicas: <Option<i32> as crate::Optionable>::Optioned,
     pub collision_count: <Option<i32> as crate::Optionable>::Optioned,
     pub conditions: <Option<
@@ -14,16 +14,16 @@ pub struct StatefulSetStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::StatefulSetStatus {
-    type Optioned = StatefulSetStatusOpt;
+    type Optioned = StatefulSetStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StatefulSetStatusOpt {
-    type Optioned = StatefulSetStatusOpt;
+impl crate::Optionable for StatefulSetStatusAc {
+    type Optioned = StatefulSetStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetStatus {
-    fn into_optioned(self) -> StatefulSetStatusOpt {
-        StatefulSetStatusOpt {
+    fn into_optioned(self) -> StatefulSetStatusAc {
+        StatefulSetStatusAc {
             available_replicas: crate::OptionableConvert::into_optioned(
                 self.available_replicas,
             ),
@@ -51,7 +51,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetStatu
         }
     }
     fn try_from_optioned(
-        value: StatefulSetStatusOpt,
+        value: StatefulSetStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             available_replicas: crate::OptionableConvert::try_from_optioned(
@@ -88,7 +88,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetStatu
     }
     fn merge(
         &mut self,
-        other: StatefulSetStatusOpt,
+        other: StatefulSetStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.available_replicas,

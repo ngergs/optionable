@@ -1,4 +1,4 @@
-pub struct CustomResourceDefinitionConditionOpt {
+pub struct CustomResourceDefinitionConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -10,17 +10,17 @@ pub struct CustomResourceDefinitionConditionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionCondition {
-    type Optioned = CustomResourceDefinitionConditionOpt;
+    type Optioned = CustomResourceDefinitionConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CustomResourceDefinitionConditionOpt {
-    type Optioned = CustomResourceDefinitionConditionOpt;
+impl crate::Optionable for CustomResourceDefinitionConditionAc {
+    type Optioned = CustomResourceDefinitionConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionCondition {
-    fn into_optioned(self) -> CustomResourceDefinitionConditionOpt {
-        CustomResourceDefinitionConditionOpt {
+    fn into_optioned(self) -> CustomResourceDefinitionConditionAc {
+        CustomResourceDefinitionConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -31,7 +31,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
         }
     }
     fn try_from_optioned(
-        value: CustomResourceDefinitionConditionOpt,
+        value: CustomResourceDefinitionConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -57,7 +57,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn merge(
         &mut self,
-        other: CustomResourceDefinitionConditionOpt,
+        other: CustomResourceDefinitionConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

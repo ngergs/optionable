@@ -1,4 +1,4 @@
-pub struct ResourceClaimConsumerReferenceOpt {
+pub struct ResourceClaimConsumerReferenceAc {
     pub api_group: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub resource: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -7,17 +7,17 @@ pub struct ResourceClaimConsumerReferenceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::resource::v1::ResourceClaimConsumerReference {
-    type Optioned = ResourceClaimConsumerReferenceOpt;
+    type Optioned = ResourceClaimConsumerReferenceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceClaimConsumerReferenceOpt {
-    type Optioned = ResourceClaimConsumerReferenceOpt;
+impl crate::Optionable for ResourceClaimConsumerReferenceAc {
+    type Optioned = ResourceClaimConsumerReferenceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1::ResourceClaimConsumerReference {
-    fn into_optioned(self) -> ResourceClaimConsumerReferenceOpt {
-        ResourceClaimConsumerReferenceOpt {
+    fn into_optioned(self) -> ResourceClaimConsumerReferenceAc {
+        ResourceClaimConsumerReferenceAc {
             api_group: crate::OptionableConvert::into_optioned(self.api_group),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             resource: Some(crate::OptionableConvert::into_optioned(self.resource)),
@@ -25,7 +25,7 @@ for ::k8s_openapi::api::resource::v1::ResourceClaimConsumerReference {
         }
     }
     fn try_from_optioned(
-        value: ResourceClaimConsumerReferenceOpt,
+        value: ResourceClaimConsumerReferenceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_group: crate::OptionableConvert::try_from_optioned(value.api_group)?,
@@ -54,7 +54,7 @@ for ::k8s_openapi::api::resource::v1::ResourceClaimConsumerReference {
     }
     fn merge(
         &mut self,
-        other: ResourceClaimConsumerReferenceOpt,
+        other: ResourceClaimConsumerReferenceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
         if let Some(other_value) = other.name {

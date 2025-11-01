@@ -1,4 +1,4 @@
-pub struct PersistentVolumeClaimSpecOpt {
+pub struct PersistentVolumeClaimSpecAc {
     pub access_modes: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -23,17 +23,17 @@ pub struct PersistentVolumeClaimSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PersistentVolumeClaimSpec {
-    type Optioned = PersistentVolumeClaimSpecOpt;
+    type Optioned = PersistentVolumeClaimSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PersistentVolumeClaimSpecOpt {
-    type Optioned = PersistentVolumeClaimSpecOpt;
+impl crate::Optionable for PersistentVolumeClaimSpecAc {
+    type Optioned = PersistentVolumeClaimSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::PersistentVolumeClaimSpec {
-    fn into_optioned(self) -> PersistentVolumeClaimSpecOpt {
-        PersistentVolumeClaimSpecOpt {
+    fn into_optioned(self) -> PersistentVolumeClaimSpecAc {
+        PersistentVolumeClaimSpecAc {
             access_modes: crate::OptionableConvert::into_optioned(self.access_modes),
             data_source: crate::OptionableConvert::into_optioned(self.data_source),
             data_source_ref: crate::OptionableConvert::into_optioned(
@@ -52,7 +52,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimSpec {
         }
     }
     fn try_from_optioned(
-        value: PersistentVolumeClaimSpecOpt,
+        value: PersistentVolumeClaimSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             access_modes: crate::OptionableConvert::try_from_optioned(
@@ -76,7 +76,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimSpec {
     }
     fn merge(
         &mut self,
-        other: PersistentVolumeClaimSpecOpt,
+        other: PersistentVolumeClaimSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.access_modes, other.access_modes)?;
         crate::OptionableConvert::merge(&mut self.data_source, other.data_source)?;

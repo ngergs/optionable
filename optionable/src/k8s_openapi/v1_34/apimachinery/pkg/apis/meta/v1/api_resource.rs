@@ -1,4 +1,4 @@
-pub struct APIResourceOpt {
+pub struct APIResourceAc {
     pub categories: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -21,17 +21,17 @@ pub struct APIResourceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResource {
-    type Optioned = APIResourceOpt;
+    type Optioned = APIResourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for APIResourceOpt {
-    type Optioned = APIResourceOpt;
+impl crate::Optionable for APIResourceAc {
+    type Optioned = APIResourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResource {
-    fn into_optioned(self) -> APIResourceOpt {
-        APIResourceOpt {
+    fn into_optioned(self) -> APIResourceAc {
+        APIResourceAc {
             categories: crate::OptionableConvert::into_optioned(self.categories),
             group: crate::OptionableConvert::into_optioned(self.group),
             kind: Some(crate::OptionableConvert::into_optioned(self.kind)),
@@ -49,7 +49,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResource {
         }
     }
     fn try_from_optioned(
-        value: APIResourceOpt,
+        value: APIResourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             categories: crate::OptionableConvert::try_from_optioned(value.categories)?,
@@ -94,7 +94,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResource {
             version: crate::OptionableConvert::try_from_optioned(value.version)?,
         })
     }
-    fn merge(&mut self, other: APIResourceOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: APIResourceAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.categories, other.categories)?;
         crate::OptionableConvert::merge(&mut self.group, other.group)?;
         if let Some(other_value) = other.kind {

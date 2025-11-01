@@ -1,4 +1,4 @@
-pub struct BasicDeviceOpt {
+pub struct BasicDeviceAc {
     pub all_nodes: <Option<bool> as crate::Optionable>::Optioned,
     pub allow_multiple_allocations: <Option<bool> as crate::Optionable>::Optioned,
     pub attributes: <Option<
@@ -33,16 +33,16 @@ pub struct BasicDeviceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::BasicDevice {
-    type Optioned = BasicDeviceOpt;
+    type Optioned = BasicDeviceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for BasicDeviceOpt {
-    type Optioned = BasicDeviceOpt;
+impl crate::Optionable for BasicDeviceAc {
+    type Optioned = BasicDeviceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::BasicDevice {
-    fn into_optioned(self) -> BasicDeviceOpt {
-        BasicDeviceOpt {
+    fn into_optioned(self) -> BasicDeviceAc {
+        BasicDeviceAc {
             all_nodes: crate::OptionableConvert::into_optioned(self.all_nodes),
             allow_multiple_allocations: crate::OptionableConvert::into_optioned(
                 self.allow_multiple_allocations,
@@ -65,7 +65,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::BasicDe
         }
     }
     fn try_from_optioned(
-        value: BasicDeviceOpt,
+        value: BasicDeviceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             all_nodes: crate::OptionableConvert::try_from_optioned(value.all_nodes)?,
@@ -93,7 +93,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::BasicDe
             taints: crate::OptionableConvert::try_from_optioned(value.taints)?,
         })
     }
-    fn merge(&mut self, other: BasicDeviceOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: BasicDeviceAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.all_nodes, other.all_nodes)?;
         crate::OptionableConvert::merge(
             &mut self.allow_multiple_allocations,

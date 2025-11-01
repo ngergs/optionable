@@ -1,4 +1,4 @@
-pub struct PodResourceClaimOpt {
+pub struct PodResourceClaimAc {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub resource_claim_name: <Option<
         std::string::String,
@@ -9,16 +9,16 @@ pub struct PodResourceClaimOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PodResourceClaim {
-    type Optioned = PodResourceClaimOpt;
+    type Optioned = PodResourceClaimAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodResourceClaimOpt {
-    type Optioned = PodResourceClaimOpt;
+impl crate::Optionable for PodResourceClaimAc {
+    type Optioned = PodResourceClaimAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodResourceClaim {
-    fn into_optioned(self) -> PodResourceClaimOpt {
-        PodResourceClaimOpt {
+    fn into_optioned(self) -> PodResourceClaimAc {
+        PodResourceClaimAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             resource_claim_name: crate::OptionableConvert::into_optioned(
                 self.resource_claim_name,
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodResourceClaim
         }
     }
     fn try_from_optioned(
-        value: PodResourceClaimOpt,
+        value: PodResourceClaimAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
@@ -49,7 +49,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodResourceClaim
     }
     fn merge(
         &mut self,
-        other: PodResourceClaimOpt,
+        other: PodResourceClaimAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;

@@ -1,4 +1,6 @@
-pub struct HorizontalPodAutoscalerOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = HorizontalPodAutoscaler)]
+pub struct HorizontalPodAutoscalerAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerSpec,
@@ -9,24 +11,24 @@ pub struct HorizontalPodAutoscalerOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscaler {
-    type Optioned = HorizontalPodAutoscalerOpt;
+    type Optioned = HorizontalPodAutoscalerAc;
 }
 #[automatically_derived]
-impl crate::Optionable for HorizontalPodAutoscalerOpt {
-    type Optioned = HorizontalPodAutoscalerOpt;
+impl crate::Optionable for HorizontalPodAutoscalerAc {
+    type Optioned = HorizontalPodAutoscalerAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscaler {
-    fn into_optioned(self) -> HorizontalPodAutoscalerOpt {
-        HorizontalPodAutoscalerOpt {
+    fn into_optioned(self) -> HorizontalPodAutoscalerAc {
+        HorizontalPodAutoscalerAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: HorizontalPodAutoscalerOpt,
+        value: HorizontalPodAutoscalerAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -36,7 +38,7 @@ for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscaler {
     }
     fn merge(
         &mut self,
-        other: HorizontalPodAutoscalerOpt,
+        other: HorizontalPodAutoscalerAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
@@ -44,3 +46,5 @@ for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscaler {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscaler;

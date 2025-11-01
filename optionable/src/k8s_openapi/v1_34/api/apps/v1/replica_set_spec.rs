@@ -1,4 +1,4 @@
-pub struct ReplicaSetSpecOpt {
+pub struct ReplicaSetSpecAc {
     pub min_ready_seconds: <Option<i32> as crate::Optionable>::Optioned,
     pub replicas: <Option<i32> as crate::Optionable>::Optioned,
     pub selector: Option<
@@ -10,16 +10,16 @@ pub struct ReplicaSetSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::ReplicaSetSpec {
-    type Optioned = ReplicaSetSpecOpt;
+    type Optioned = ReplicaSetSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ReplicaSetSpecOpt {
-    type Optioned = ReplicaSetSpecOpt;
+impl crate::Optionable for ReplicaSetSpecAc {
+    type Optioned = ReplicaSetSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetSpec {
-    fn into_optioned(self) -> ReplicaSetSpecOpt {
-        ReplicaSetSpecOpt {
+    fn into_optioned(self) -> ReplicaSetSpecAc {
+        ReplicaSetSpecAc {
             min_ready_seconds: crate::OptionableConvert::into_optioned(
                 self.min_ready_seconds,
             ),
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetSpec {
         }
     }
     fn try_from_optioned(
-        value: ReplicaSetSpecOpt,
+        value: ReplicaSetSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             min_ready_seconds: crate::OptionableConvert::try_from_optioned(
@@ -48,7 +48,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetSpec {
     }
     fn merge(
         &mut self,
-        other: ReplicaSetSpecOpt,
+        other: ReplicaSetSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.min_ready_seconds,

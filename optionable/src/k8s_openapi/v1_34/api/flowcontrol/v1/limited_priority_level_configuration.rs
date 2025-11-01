@@ -1,4 +1,4 @@
-pub struct LimitedPriorityLevelConfigurationOpt {
+pub struct LimitedPriorityLevelConfigurationAc {
     pub borrowing_limit_percent: <Option<i32> as crate::Optionable>::Optioned,
     pub lendable_percent: <Option<i32> as crate::Optionable>::Optioned,
     pub limit_response: <Option<
@@ -9,17 +9,17 @@ pub struct LimitedPriorityLevelConfigurationOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::flowcontrol::v1::LimitedPriorityLevelConfiguration {
-    type Optioned = LimitedPriorityLevelConfigurationOpt;
+    type Optioned = LimitedPriorityLevelConfigurationAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LimitedPriorityLevelConfigurationOpt {
-    type Optioned = LimitedPriorityLevelConfigurationOpt;
+impl crate::Optionable for LimitedPriorityLevelConfigurationAc {
+    type Optioned = LimitedPriorityLevelConfigurationAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::LimitedPriorityLevelConfiguration {
-    fn into_optioned(self) -> LimitedPriorityLevelConfigurationOpt {
-        LimitedPriorityLevelConfigurationOpt {
+    fn into_optioned(self) -> LimitedPriorityLevelConfigurationAc {
+        LimitedPriorityLevelConfigurationAc {
             borrowing_limit_percent: crate::OptionableConvert::into_optioned(
                 self.borrowing_limit_percent,
             ),
@@ -33,7 +33,7 @@ for ::k8s_openapi::api::flowcontrol::v1::LimitedPriorityLevelConfiguration {
         }
     }
     fn try_from_optioned(
-        value: LimitedPriorityLevelConfigurationOpt,
+        value: LimitedPriorityLevelConfigurationAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             borrowing_limit_percent: crate::OptionableConvert::try_from_optioned(
@@ -52,7 +52,7 @@ for ::k8s_openapi::api::flowcontrol::v1::LimitedPriorityLevelConfiguration {
     }
     fn merge(
         &mut self,
-        other: LimitedPriorityLevelConfigurationOpt,
+        other: LimitedPriorityLevelConfigurationAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.borrowing_limit_percent,

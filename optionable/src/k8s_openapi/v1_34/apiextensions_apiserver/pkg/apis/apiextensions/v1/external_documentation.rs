@@ -1,27 +1,27 @@
-pub struct ExternalDocumentationOpt {
+pub struct ExternalDocumentationAc {
     pub description: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub url: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ExternalDocumentation {
-    type Optioned = ExternalDocumentationOpt;
+    type Optioned = ExternalDocumentationAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ExternalDocumentationOpt {
-    type Optioned = ExternalDocumentationOpt;
+impl crate::Optionable for ExternalDocumentationAc {
+    type Optioned = ExternalDocumentationAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ExternalDocumentation {
-    fn into_optioned(self) -> ExternalDocumentationOpt {
-        ExternalDocumentationOpt {
+    fn into_optioned(self) -> ExternalDocumentationAc {
+        ExternalDocumentationAc {
             description: crate::OptionableConvert::into_optioned(self.description),
             url: crate::OptionableConvert::into_optioned(self.url),
         }
     }
     fn try_from_optioned(
-        value: ExternalDocumentationOpt,
+        value: ExternalDocumentationAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             description: crate::OptionableConvert::try_from_optioned(value.description)?,
@@ -30,7 +30,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Extern
     }
     fn merge(
         &mut self,
-        other: ExternalDocumentationOpt,
+        other: ExternalDocumentationAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.description, other.description)?;
         crate::OptionableConvert::merge(&mut self.url, other.url)?;

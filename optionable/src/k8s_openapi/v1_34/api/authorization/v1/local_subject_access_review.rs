@@ -1,4 +1,6 @@
-pub struct LocalSubjectAccessReviewOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = LocalSubjectAccessReview)]
+pub struct LocalSubjectAccessReviewAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::authorization::v1::SubjectAccessReviewSpec as crate::Optionable>::Optioned,
@@ -10,24 +12,24 @@ pub struct LocalSubjectAccessReviewOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::authorization::v1::LocalSubjectAccessReview {
-    type Optioned = LocalSubjectAccessReviewOpt;
+    type Optioned = LocalSubjectAccessReviewAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LocalSubjectAccessReviewOpt {
-    type Optioned = LocalSubjectAccessReviewOpt;
+impl crate::Optionable for LocalSubjectAccessReviewAc {
+    type Optioned = LocalSubjectAccessReviewAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::LocalSubjectAccessReview {
-    fn into_optioned(self) -> LocalSubjectAccessReviewOpt {
-        LocalSubjectAccessReviewOpt {
+    fn into_optioned(self) -> LocalSubjectAccessReviewAc {
+        LocalSubjectAccessReviewAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: LocalSubjectAccessReviewOpt,
+        value: LocalSubjectAccessReviewAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -43,7 +45,7 @@ for ::k8s_openapi::api::authorization::v1::LocalSubjectAccessReview {
     }
     fn merge(
         &mut self,
-        other: LocalSubjectAccessReviewOpt,
+        other: LocalSubjectAccessReviewAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
@@ -53,3 +55,5 @@ for ::k8s_openapi::api::authorization::v1::LocalSubjectAccessReview {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::authorization::v1::LocalSubjectAccessReview;

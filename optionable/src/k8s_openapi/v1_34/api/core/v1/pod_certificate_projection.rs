@@ -1,4 +1,4 @@
-pub struct PodCertificateProjectionOpt {
+pub struct PodCertificateProjectionAc {
     pub certificate_chain_path: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
@@ -12,17 +12,17 @@ pub struct PodCertificateProjectionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PodCertificateProjection {
-    type Optioned = PodCertificateProjectionOpt;
+    type Optioned = PodCertificateProjectionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodCertificateProjectionOpt {
-    type Optioned = PodCertificateProjectionOpt;
+impl crate::Optionable for PodCertificateProjectionAc {
+    type Optioned = PodCertificateProjectionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::PodCertificateProjection {
-    fn into_optioned(self) -> PodCertificateProjectionOpt {
-        PodCertificateProjectionOpt {
+    fn into_optioned(self) -> PodCertificateProjectionAc {
+        PodCertificateProjectionAc {
             certificate_chain_path: crate::OptionableConvert::into_optioned(
                 self.certificate_chain_path,
             ),
@@ -38,7 +38,7 @@ for ::k8s_openapi::api::core::v1::PodCertificateProjection {
         }
     }
     fn try_from_optioned(
-        value: PodCertificateProjectionOpt,
+        value: PodCertificateProjectionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             certificate_chain_path: crate::OptionableConvert::try_from_optioned(
@@ -69,7 +69,7 @@ for ::k8s_openapi::api::core::v1::PodCertificateProjection {
     }
     fn merge(
         &mut self,
-        other: PodCertificateProjectionOpt,
+        other: PodCertificateProjectionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.certificate_chain_path,

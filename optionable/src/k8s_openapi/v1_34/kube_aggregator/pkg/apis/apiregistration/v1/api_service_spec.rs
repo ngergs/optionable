@@ -1,4 +1,4 @@
-pub struct APIServiceSpecOpt {
+pub struct APIServiceSpecAc {
     pub ca_bundle: <Option<::k8s_openapi::ByteString> as crate::Optionable>::Optioned,
     pub group: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub group_priority_minimum: Option<i32>,
@@ -12,17 +12,17 @@ pub struct APIServiceSpecOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec {
-    type Optioned = APIServiceSpecOpt;
+    type Optioned = APIServiceSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for APIServiceSpecOpt {
-    type Optioned = APIServiceSpecOpt;
+impl crate::Optionable for APIServiceSpecAc {
+    type Optioned = APIServiceSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec {
-    fn into_optioned(self) -> APIServiceSpecOpt {
-        APIServiceSpecOpt {
+    fn into_optioned(self) -> APIServiceSpecAc {
+        APIServiceSpecAc {
             ca_bundle: crate::OptionableConvert::into_optioned(self.ca_bundle),
             group: crate::OptionableConvert::into_optioned(self.group),
             group_priority_minimum: Some(self.group_priority_minimum),
@@ -35,7 +35,7 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSp
         }
     }
     fn try_from_optioned(
-        value: APIServiceSpecOpt,
+        value: APIServiceSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             ca_bundle: crate::OptionableConvert::try_from_optioned(value.ca_bundle)?,
@@ -59,7 +59,7 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSp
     }
     fn merge(
         &mut self,
-        other: APIServiceSpecOpt,
+        other: APIServiceSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
         crate::OptionableConvert::merge(&mut self.group, other.group)?;

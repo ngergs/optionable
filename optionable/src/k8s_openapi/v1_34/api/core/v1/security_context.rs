@@ -1,4 +1,4 @@
-pub struct SecurityContextOpt {
+pub struct SecurityContextAc {
     pub allow_privilege_escalation: <Option<bool> as crate::Optionable>::Optioned,
     pub app_armor_profile: <Option<
         ::k8s_openapi::api::core::v1::AppArmorProfile,
@@ -24,16 +24,16 @@ pub struct SecurityContextOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::SecurityContext {
-    type Optioned = SecurityContextOpt;
+    type Optioned = SecurityContextAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SecurityContextOpt {
-    type Optioned = SecurityContextOpt;
+impl crate::Optionable for SecurityContextAc {
+    type Optioned = SecurityContextAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecurityContext {
-    fn into_optioned(self) -> SecurityContextOpt {
-        SecurityContextOpt {
+    fn into_optioned(self) -> SecurityContextAc {
+        SecurityContextAc {
             allow_privilege_escalation: crate::OptionableConvert::into_optioned(
                 self.allow_privilege_escalation,
             ),
@@ -63,7 +63,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecurityContext 
         }
     }
     fn try_from_optioned(
-        value: SecurityContextOpt,
+        value: SecurityContextAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             allow_privilege_escalation: crate::OptionableConvert::try_from_optioned(
@@ -100,7 +100,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecurityContext 
     }
     fn merge(
         &mut self,
-        other: SecurityContextOpt,
+        other: SecurityContextAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.allow_privilege_escalation,

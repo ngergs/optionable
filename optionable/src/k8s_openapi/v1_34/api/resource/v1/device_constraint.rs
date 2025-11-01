@@ -1,4 +1,4 @@
-pub struct DeviceConstraintOpt {
+pub struct DeviceConstraintAc {
     pub distinct_attribute: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub match_attribute: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub requests: <Option<
@@ -7,16 +7,16 @@ pub struct DeviceConstraintOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1::DeviceConstraint {
-    type Optioned = DeviceConstraintOpt;
+    type Optioned = DeviceConstraintAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceConstraintOpt {
-    type Optioned = DeviceConstraintOpt;
+impl crate::Optionable for DeviceConstraintAc {
+    type Optioned = DeviceConstraintAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceConstraint {
-    fn into_optioned(self) -> DeviceConstraintOpt {
-        DeviceConstraintOpt {
+    fn into_optioned(self) -> DeviceConstraintAc {
+        DeviceConstraintAc {
             distinct_attribute: crate::OptionableConvert::into_optioned(
                 self.distinct_attribute,
             ),
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceConstr
         }
     }
     fn try_from_optioned(
-        value: DeviceConstraintOpt,
+        value: DeviceConstraintAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             distinct_attribute: crate::OptionableConvert::try_from_optioned(
@@ -41,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceConstr
     }
     fn merge(
         &mut self,
-        other: DeviceConstraintOpt,
+        other: DeviceConstraintAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.distinct_attribute,

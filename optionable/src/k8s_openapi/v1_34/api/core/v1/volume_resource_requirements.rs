@@ -1,4 +1,4 @@
-pub struct VolumeResourceRequirementsOpt {
+pub struct VolumeResourceRequirementsAc {
     pub limits: <Option<
         std::collections::BTreeMap<
             std::string::String,
@@ -14,23 +14,23 @@ pub struct VolumeResourceRequirementsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::VolumeResourceRequirements {
-    type Optioned = VolumeResourceRequirementsOpt;
+    type Optioned = VolumeResourceRequirementsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for VolumeResourceRequirementsOpt {
-    type Optioned = VolumeResourceRequirementsOpt;
+impl crate::Optionable for VolumeResourceRequirementsAc {
+    type Optioned = VolumeResourceRequirementsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::VolumeResourceRequirements {
-    fn into_optioned(self) -> VolumeResourceRequirementsOpt {
-        VolumeResourceRequirementsOpt {
+    fn into_optioned(self) -> VolumeResourceRequirementsAc {
+        VolumeResourceRequirementsAc {
             limits: crate::OptionableConvert::into_optioned(self.limits),
             requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
     fn try_from_optioned(
-        value: VolumeResourceRequirementsOpt,
+        value: VolumeResourceRequirementsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             limits: crate::OptionableConvert::try_from_optioned(value.limits)?,
@@ -39,7 +39,7 @@ for ::k8s_openapi::api::core::v1::VolumeResourceRequirements {
     }
     fn merge(
         &mut self,
-        other: VolumeResourceRequirementsOpt,
+        other: VolumeResourceRequirementsAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.limits, other.limits)?;
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;

@@ -1,4 +1,4 @@
-pub struct WindowsSecurityContextOptionsOpt {
+pub struct WindowsSecurityContextOptionsAc {
     pub gmsa_credential_spec: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
@@ -10,17 +10,17 @@ pub struct WindowsSecurityContextOptionsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::WindowsSecurityContextOptions {
-    type Optioned = WindowsSecurityContextOptionsOpt;
+    type Optioned = WindowsSecurityContextOptionsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for WindowsSecurityContextOptionsOpt {
-    type Optioned = WindowsSecurityContextOptionsOpt;
+impl crate::Optionable for WindowsSecurityContextOptionsAc {
+    type Optioned = WindowsSecurityContextOptionsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::WindowsSecurityContextOptions {
-    fn into_optioned(self) -> WindowsSecurityContextOptionsOpt {
-        WindowsSecurityContextOptionsOpt {
+    fn into_optioned(self) -> WindowsSecurityContextOptionsAc {
+        WindowsSecurityContextOptionsAc {
             gmsa_credential_spec: crate::OptionableConvert::into_optioned(
                 self.gmsa_credential_spec,
             ),
@@ -34,7 +34,7 @@ for ::k8s_openapi::api::core::v1::WindowsSecurityContextOptions {
         }
     }
     fn try_from_optioned(
-        value: WindowsSecurityContextOptionsOpt,
+        value: WindowsSecurityContextOptionsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             gmsa_credential_spec: crate::OptionableConvert::try_from_optioned(
@@ -53,7 +53,7 @@ for ::k8s_openapi::api::core::v1::WindowsSecurityContextOptions {
     }
     fn merge(
         &mut self,
-        other: WindowsSecurityContextOptionsOpt,
+        other: WindowsSecurityContextOptionsAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.gmsa_credential_spec,

@@ -1,4 +1,4 @@
-pub struct EndpointAddressOpt {
+pub struct EndpointAddressAc {
     pub hostname: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub ip: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub node_name: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -8,16 +8,16 @@ pub struct EndpointAddressOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::EndpointAddress {
-    type Optioned = EndpointAddressOpt;
+    type Optioned = EndpointAddressAc;
 }
 #[automatically_derived]
-impl crate::Optionable for EndpointAddressOpt {
-    type Optioned = EndpointAddressOpt;
+impl crate::Optionable for EndpointAddressAc {
+    type Optioned = EndpointAddressAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointAddress {
-    fn into_optioned(self) -> EndpointAddressOpt {
-        EndpointAddressOpt {
+    fn into_optioned(self) -> EndpointAddressAc {
+        EndpointAddressAc {
             hostname: crate::OptionableConvert::into_optioned(self.hostname),
             ip: Some(crate::OptionableConvert::into_optioned(self.ip)),
             node_name: crate::OptionableConvert::into_optioned(self.node_name),
@@ -25,7 +25,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointAddress 
         }
     }
     fn try_from_optioned(
-        value: EndpointAddressOpt,
+        value: EndpointAddressAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
@@ -42,7 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointAddress 
     }
     fn merge(
         &mut self,
-        other: EndpointAddressOpt,
+        other: EndpointAddressAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
         if let Some(other_value) = other.ip {

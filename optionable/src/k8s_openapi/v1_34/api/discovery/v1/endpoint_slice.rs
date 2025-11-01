@@ -1,4 +1,6 @@
-pub struct EndpointSliceOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = EndpointSlice)]
+pub struct EndpointSliceAc {
     pub address_type: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub endpoints: Option<
         <std::vec::Vec<
@@ -12,16 +14,16 @@ pub struct EndpointSliceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::discovery::v1::EndpointSlice {
-    type Optioned = EndpointSliceOpt;
+    type Optioned = EndpointSliceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for EndpointSliceOpt {
-    type Optioned = EndpointSliceOpt;
+impl crate::Optionable for EndpointSliceAc {
+    type Optioned = EndpointSliceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSlice {
-    fn into_optioned(self) -> EndpointSliceOpt {
-        EndpointSliceOpt {
+    fn into_optioned(self) -> EndpointSliceAc {
+        EndpointSliceAc {
             address_type: Some(
                 crate::OptionableConvert::into_optioned(self.address_type),
             ),
@@ -31,7 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSli
         }
     }
     fn try_from_optioned(
-        value: EndpointSliceOpt,
+        value: EndpointSliceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             address_type: crate::OptionableConvert::try_from_optioned(
@@ -52,10 +54,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSli
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: EndpointSliceOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EndpointSliceAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.address_type {
             crate::OptionableConvert::merge(&mut self.address_type, other_value)?;
         }
@@ -67,3 +66,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSli
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::discovery::v1::EndpointSlice;

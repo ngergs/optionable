@@ -1,4 +1,4 @@
-pub struct ConfigMapNodeConfigSourceOpt {
+pub struct ConfigMapNodeConfigSourceAc {
     pub kubelet_config_key: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub namespace: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -7,17 +7,17 @@ pub struct ConfigMapNodeConfigSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMapNodeConfigSource {
-    type Optioned = ConfigMapNodeConfigSourceOpt;
+    type Optioned = ConfigMapNodeConfigSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ConfigMapNodeConfigSourceOpt {
-    type Optioned = ConfigMapNodeConfigSourceOpt;
+impl crate::Optionable for ConfigMapNodeConfigSourceAc {
+    type Optioned = ConfigMapNodeConfigSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ConfigMapNodeConfigSource {
-    fn into_optioned(self) -> ConfigMapNodeConfigSourceOpt {
-        ConfigMapNodeConfigSourceOpt {
+    fn into_optioned(self) -> ConfigMapNodeConfigSourceAc {
+        ConfigMapNodeConfigSourceAc {
             kubelet_config_key: Some(
                 crate::OptionableConvert::into_optioned(self.kubelet_config_key),
             ),
@@ -30,7 +30,7 @@ for ::k8s_openapi::api::core::v1::ConfigMapNodeConfigSource {
         }
     }
     fn try_from_optioned(
-        value: ConfigMapNodeConfigSourceOpt,
+        value: ConfigMapNodeConfigSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             kubelet_config_key: crate::OptionableConvert::try_from_optioned(
@@ -62,7 +62,7 @@ for ::k8s_openapi::api::core::v1::ConfigMapNodeConfigSource {
     }
     fn merge(
         &mut self,
-        other: ConfigMapNodeConfigSourceOpt,
+        other: ConfigMapNodeConfigSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.kubelet_config_key {
             crate::OptionableConvert::merge(&mut self.kubelet_config_key, other_value)?;

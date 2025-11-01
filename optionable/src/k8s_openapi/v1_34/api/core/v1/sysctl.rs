@@ -1,24 +1,24 @@
-pub struct SysctlOpt {
+pub struct SysctlAc {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub value: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Sysctl {
-    type Optioned = SysctlOpt;
+    type Optioned = SysctlAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SysctlOpt {
-    type Optioned = SysctlOpt;
+impl crate::Optionable for SysctlAc {
+    type Optioned = SysctlAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Sysctl {
-    fn into_optioned(self) -> SysctlOpt {
-        SysctlOpt {
+    fn into_optioned(self) -> SysctlAc {
+        SysctlAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             value: Some(crate::OptionableConvert::into_optioned(self.value)),
         }
     }
-    fn try_from_optioned(value: SysctlOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SysctlAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
                 value
@@ -36,7 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Sysctl {
             )?,
         })
     }
-    fn merge(&mut self, other: SysctlOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SysctlAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }

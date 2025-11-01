@@ -1,25 +1,25 @@
-pub struct NodeFeaturesOpt {
+pub struct NodeFeaturesAc {
     pub supplemental_groups_policy: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeFeatures {
-    type Optioned = NodeFeaturesOpt;
+    type Optioned = NodeFeaturesAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NodeFeaturesOpt {
-    type Optioned = NodeFeaturesOpt;
+impl crate::Optionable for NodeFeaturesAc {
+    type Optioned = NodeFeaturesAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeFeatures {
-    fn into_optioned(self) -> NodeFeaturesOpt {
-        NodeFeaturesOpt {
+    fn into_optioned(self) -> NodeFeaturesAc {
+        NodeFeaturesAc {
             supplemental_groups_policy: crate::OptionableConvert::into_optioned(
                 self.supplemental_groups_policy,
             ),
         }
     }
     fn try_from_optioned(
-        value: NodeFeaturesOpt,
+        value: NodeFeaturesAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             supplemental_groups_policy: crate::OptionableConvert::try_from_optioned(
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeFeatures {
             )?,
         })
     }
-    fn merge(&mut self, other: NodeFeaturesOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeFeaturesAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.supplemental_groups_policy,
             other.supplemental_groups_policy,

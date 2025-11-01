@@ -1,4 +1,4 @@
-pub struct LifecycleHandlerOpt {
+pub struct LifecycleHandlerAc {
     pub exec: <Option<
         ::k8s_openapi::api::core::v1::ExecAction,
     > as crate::Optionable>::Optioned,
@@ -14,16 +14,16 @@ pub struct LifecycleHandlerOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::LifecycleHandler {
-    type Optioned = LifecycleHandlerOpt;
+    type Optioned = LifecycleHandlerAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LifecycleHandlerOpt {
-    type Optioned = LifecycleHandlerOpt;
+impl crate::Optionable for LifecycleHandlerAc {
+    type Optioned = LifecycleHandlerAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LifecycleHandler {
-    fn into_optioned(self) -> LifecycleHandlerOpt {
-        LifecycleHandlerOpt {
+    fn into_optioned(self) -> LifecycleHandlerAc {
+        LifecycleHandlerAc {
             exec: crate::OptionableConvert::into_optioned(self.exec),
             http_get: crate::OptionableConvert::into_optioned(self.http_get),
             sleep: crate::OptionableConvert::into_optioned(self.sleep),
@@ -31,7 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LifecycleHandler
         }
     }
     fn try_from_optioned(
-        value: LifecycleHandlerOpt,
+        value: LifecycleHandlerAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             exec: crate::OptionableConvert::try_from_optioned(value.exec)?,
@@ -42,7 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LifecycleHandler
     }
     fn merge(
         &mut self,
-        other: LifecycleHandlerOpt,
+        other: LifecycleHandlerAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.exec, other.exec)?;
         crate::OptionableConvert::merge(&mut self.http_get, other.http_get)?;

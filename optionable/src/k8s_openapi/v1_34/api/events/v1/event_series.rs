@@ -1,4 +1,4 @@
-pub struct EventSeriesOpt {
+pub struct EventSeriesAc {
     pub count: Option<i32>,
     pub last_observed_time: Option<
         <::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime as crate::Optionable>::Optioned,
@@ -6,16 +6,16 @@ pub struct EventSeriesOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::events::v1::EventSeries {
-    type Optioned = EventSeriesOpt;
+    type Optioned = EventSeriesAc;
 }
 #[automatically_derived]
-impl crate::Optionable for EventSeriesOpt {
-    type Optioned = EventSeriesOpt;
+impl crate::Optionable for EventSeriesAc {
+    type Optioned = EventSeriesAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::events::v1::EventSeries {
-    fn into_optioned(self) -> EventSeriesOpt {
-        EventSeriesOpt {
+    fn into_optioned(self) -> EventSeriesAc {
+        EventSeriesAc {
             count: Some(self.count),
             last_observed_time: Some(
                 crate::OptionableConvert::into_optioned(self.last_observed_time),
@@ -23,7 +23,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::events::v1::EventSeries {
         }
     }
     fn try_from_optioned(
-        value: EventSeriesOpt,
+        value: EventSeriesAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             count: value
@@ -40,7 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::events::v1::EventSeries {
             )?,
         })
     }
-    fn merge(&mut self, other: EventSeriesOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EventSeriesAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.count {
             self.count = other_value;
         }

@@ -1,4 +1,4 @@
-pub struct APIServiceConditionOpt {
+pub struct APIServiceConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -10,17 +10,17 @@ pub struct APIServiceConditionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCondition {
-    type Optioned = APIServiceConditionOpt;
+    type Optioned = APIServiceConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for APIServiceConditionOpt {
-    type Optioned = APIServiceConditionOpt;
+impl crate::Optionable for APIServiceConditionAc {
+    type Optioned = APIServiceConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCondition {
-    fn into_optioned(self) -> APIServiceConditionOpt {
-        APIServiceConditionOpt {
+    fn into_optioned(self) -> APIServiceConditionAc {
+        APIServiceConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -31,7 +31,7 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCo
         }
     }
     fn try_from_optioned(
-        value: APIServiceConditionOpt,
+        value: APIServiceConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -57,7 +57,7 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCo
     }
     fn merge(
         &mut self,
-        other: APIServiceConditionOpt,
+        other: APIServiceConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

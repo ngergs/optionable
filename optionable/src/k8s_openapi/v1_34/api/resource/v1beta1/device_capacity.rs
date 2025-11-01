@@ -1,4 +1,4 @@
-pub struct DeviceCapacityOpt {
+pub struct DeviceCapacityAc {
     pub request_policy: <Option<
         ::k8s_openapi::api::resource::v1beta1::CapacityRequestPolicy,
     > as crate::Optionable>::Optioned,
@@ -8,22 +8,22 @@ pub struct DeviceCapacityOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::DeviceCapacity {
-    type Optioned = DeviceCapacityOpt;
+    type Optioned = DeviceCapacityAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceCapacityOpt {
-    type Optioned = DeviceCapacityOpt;
+impl crate::Optionable for DeviceCapacityAc {
+    type Optioned = DeviceCapacityAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::DeviceCapacity {
-    fn into_optioned(self) -> DeviceCapacityOpt {
-        DeviceCapacityOpt {
+    fn into_optioned(self) -> DeviceCapacityAc {
+        DeviceCapacityAc {
             request_policy: crate::OptionableConvert::into_optioned(self.request_policy),
             value: Some(crate::OptionableConvert::into_optioned(self.value)),
         }
     }
     fn try_from_optioned(
-        value: DeviceCapacityOpt,
+        value: DeviceCapacityAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             request_policy: crate::OptionableConvert::try_from_optioned(
@@ -40,7 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::DeviceC
     }
     fn merge(
         &mut self,
-        other: DeviceCapacityOpt,
+        other: DeviceCapacityAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.request_policy, other.request_policy)?;
         if let Some(other_value) = other.value {

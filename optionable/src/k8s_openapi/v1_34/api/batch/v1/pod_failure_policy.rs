@@ -1,4 +1,4 @@
-pub struct PodFailurePolicyOpt {
+pub struct PodFailurePolicyAc {
     pub rules: Option<
         <std::vec::Vec<
             ::k8s_openapi::api::batch::v1::PodFailurePolicyRule,
@@ -7,21 +7,21 @@ pub struct PodFailurePolicyOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::PodFailurePolicy {
-    type Optioned = PodFailurePolicyOpt;
+    type Optioned = PodFailurePolicyAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodFailurePolicyOpt {
-    type Optioned = PodFailurePolicyOpt;
+impl crate::Optionable for PodFailurePolicyAc {
+    type Optioned = PodFailurePolicyAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::PodFailurePolicy {
-    fn into_optioned(self) -> PodFailurePolicyOpt {
-        PodFailurePolicyOpt {
+    fn into_optioned(self) -> PodFailurePolicyAc {
+        PodFailurePolicyAc {
             rules: Some(crate::OptionableConvert::into_optioned(self.rules)),
         }
     }
     fn try_from_optioned(
-        value: PodFailurePolicyOpt,
+        value: PodFailurePolicyAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             rules: crate::OptionableConvert::try_from_optioned(
@@ -35,7 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::PodFailurePolic
     }
     fn merge(
         &mut self,
-        other: PodFailurePolicyOpt,
+        other: PodFailurePolicyAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.rules {
             crate::OptionableConvert::merge(&mut self.rules, other_value)?;

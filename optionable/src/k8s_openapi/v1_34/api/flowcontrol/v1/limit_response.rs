@@ -1,4 +1,4 @@
-pub struct LimitResponseOpt {
+pub struct LimitResponseAc {
     pub queuing: <Option<
         ::k8s_openapi::api::flowcontrol::v1::QueuingConfiguration,
     > as crate::Optionable>::Optioned,
@@ -6,22 +6,22 @@ pub struct LimitResponseOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::LimitResponse {
-    type Optioned = LimitResponseOpt;
+    type Optioned = LimitResponseAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LimitResponseOpt {
-    type Optioned = LimitResponseOpt;
+impl crate::Optionable for LimitResponseAc {
+    type Optioned = LimitResponseAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::LimitResponse {
-    fn into_optioned(self) -> LimitResponseOpt {
-        LimitResponseOpt {
+    fn into_optioned(self) -> LimitResponseAc {
+        LimitResponseAc {
             queuing: crate::OptionableConvert::into_optioned(self.queuing),
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
-        value: LimitResponseOpt,
+        value: LimitResponseAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             queuing: crate::OptionableConvert::try_from_optioned(value.queuing)?,
@@ -34,10 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::LimitResp
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: LimitResponseOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LimitResponseAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.queuing, other.queuing)?;
         if let Some(other_value) = other.type_ {
             crate::OptionableConvert::merge(&mut self.type_, other_value)?;

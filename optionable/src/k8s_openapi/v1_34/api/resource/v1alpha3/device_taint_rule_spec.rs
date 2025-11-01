@@ -1,4 +1,4 @@
-pub struct DeviceTaintRuleSpecOpt {
+pub struct DeviceTaintRuleSpecAc {
     pub device_selector: <Option<
         ::k8s_openapi::api::resource::v1alpha3::DeviceTaintSelector,
     > as crate::Optionable>::Optioned,
@@ -8,17 +8,17 @@ pub struct DeviceTaintRuleSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRuleSpec {
-    type Optioned = DeviceTaintRuleSpecOpt;
+    type Optioned = DeviceTaintRuleSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceTaintRuleSpecOpt {
-    type Optioned = DeviceTaintRuleSpecOpt;
+impl crate::Optionable for DeviceTaintRuleSpecAc {
+    type Optioned = DeviceTaintRuleSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRuleSpec {
-    fn into_optioned(self) -> DeviceTaintRuleSpecOpt {
-        DeviceTaintRuleSpecOpt {
+    fn into_optioned(self) -> DeviceTaintRuleSpecAc {
+        DeviceTaintRuleSpecAc {
             device_selector: crate::OptionableConvert::into_optioned(
                 self.device_selector,
             ),
@@ -26,7 +26,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRuleSpec {
         }
     }
     fn try_from_optioned(
-        value: DeviceTaintRuleSpecOpt,
+        value: DeviceTaintRuleSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             device_selector: crate::OptionableConvert::try_from_optioned(
@@ -43,7 +43,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRuleSpec {
     }
     fn merge(
         &mut self,
-        other: DeviceTaintRuleSpecOpt,
+        other: DeviceTaintRuleSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.device_selector,

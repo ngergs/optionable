@@ -1,4 +1,6 @@
-pub struct CertificateSigningRequestOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = CertificateSigningRequest)]
+pub struct CertificateSigningRequestAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::certificates::v1::CertificateSigningRequestSpec as crate::Optionable>::Optioned,
@@ -10,24 +12,24 @@ pub struct CertificateSigningRequestOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::certificates::v1::CertificateSigningRequest {
-    type Optioned = CertificateSigningRequestOpt;
+    type Optioned = CertificateSigningRequestAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CertificateSigningRequestOpt {
-    type Optioned = CertificateSigningRequestOpt;
+impl crate::Optionable for CertificateSigningRequestAc {
+    type Optioned = CertificateSigningRequestAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::certificates::v1::CertificateSigningRequest {
-    fn into_optioned(self) -> CertificateSigningRequestOpt {
-        CertificateSigningRequestOpt {
+    fn into_optioned(self) -> CertificateSigningRequestAc {
+        CertificateSigningRequestAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
     fn try_from_optioned(
-        value: CertificateSigningRequestOpt,
+        value: CertificateSigningRequestAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -43,7 +45,7 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequest {
     }
     fn merge(
         &mut self,
-        other: CertificateSigningRequestOpt,
+        other: CertificateSigningRequestAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
@@ -53,3 +55,5 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequest {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::certificates::v1::CertificateSigningRequest;

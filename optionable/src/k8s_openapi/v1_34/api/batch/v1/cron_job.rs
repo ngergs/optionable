@@ -1,4 +1,6 @@
-pub struct CronJobOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = CronJob)]
+pub struct CronJobAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: <Option<
         ::k8s_openapi::api::batch::v1::CronJobSpec,
@@ -9,32 +11,34 @@ pub struct CronJobOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::CronJob {
-    type Optioned = CronJobOpt;
+    type Optioned = CronJobAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CronJobOpt {
-    type Optioned = CronJobOpt;
+impl crate::Optionable for CronJobAc {
+    type Optioned = CronJobAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJob {
-    fn into_optioned(self) -> CronJobOpt {
-        CronJobOpt {
+    fn into_optioned(self) -> CronJobAc {
+        CronJobAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
-    fn try_from_optioned(value: CronJobOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CronJobAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(&mut self, other: CronJobOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CronJobAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::batch::v1::CronJob;

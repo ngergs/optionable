@@ -1,4 +1,4 @@
-pub struct ResourceStatusOpt {
+pub struct ResourceStatusAc {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub resources: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ResourceHealth>,
@@ -6,22 +6,22 @@ pub struct ResourceStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ResourceStatus {
-    type Optioned = ResourceStatusOpt;
+    type Optioned = ResourceStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceStatusOpt {
-    type Optioned = ResourceStatusOpt;
+impl crate::Optionable for ResourceStatusAc {
+    type Optioned = ResourceStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceStatus {
-    fn into_optioned(self) -> ResourceStatusOpt {
-        ResourceStatusOpt {
+    fn into_optioned(self) -> ResourceStatusAc {
+        ResourceStatusAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             resources: crate::OptionableConvert::into_optioned(self.resources),
         }
     }
     fn try_from_optioned(
-        value: ResourceStatusOpt,
+        value: ResourceStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
@@ -36,7 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceStatus {
     }
     fn merge(
         &mut self,
-        other: ResourceStatusOpt,
+        other: ResourceStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;

@@ -1,4 +1,6 @@
-pub struct ResourceClaimTemplateOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ResourceClaimTemplate)]
+pub struct ResourceClaimTemplateAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::resource::v1::ResourceClaimTemplateSpec as crate::Optionable>::Optioned,
@@ -6,23 +8,23 @@ pub struct ResourceClaimTemplateOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1::ResourceClaimTemplate {
-    type Optioned = ResourceClaimTemplateOpt;
+    type Optioned = ResourceClaimTemplateAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceClaimTemplateOpt {
-    type Optioned = ResourceClaimTemplateOpt;
+impl crate::Optionable for ResourceClaimTemplateAc {
+    type Optioned = ResourceClaimTemplateAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1::ResourceClaimTemplate {
-    fn into_optioned(self) -> ResourceClaimTemplateOpt {
-        ResourceClaimTemplateOpt {
+    fn into_optioned(self) -> ResourceClaimTemplateAc {
+        ResourceClaimTemplateAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
         }
     }
     fn try_from_optioned(
-        value: ResourceClaimTemplateOpt,
+        value: ResourceClaimTemplateAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -37,7 +39,7 @@ for ::k8s_openapi::api::resource::v1::ResourceClaimTemplate {
     }
     fn merge(
         &mut self,
-        other: ResourceClaimTemplateOpt,
+        other: ResourceClaimTemplateAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
@@ -46,3 +48,5 @@ for ::k8s_openapi::api::resource::v1::ResourceClaimTemplate {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::resource::v1::ResourceClaimTemplate;

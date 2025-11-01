@@ -1,4 +1,4 @@
-pub struct ResourceFieldSelectorOpt {
+pub struct ResourceFieldSelectorAc {
     pub container_name: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub divisor: <Option<
         ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
@@ -7,23 +7,23 @@ pub struct ResourceFieldSelectorOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ResourceFieldSelector {
-    type Optioned = ResourceFieldSelectorOpt;
+    type Optioned = ResourceFieldSelectorAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceFieldSelectorOpt {
-    type Optioned = ResourceFieldSelectorOpt;
+impl crate::Optionable for ResourceFieldSelectorAc {
+    type Optioned = ResourceFieldSelectorAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceFieldSelector {
-    fn into_optioned(self) -> ResourceFieldSelectorOpt {
-        ResourceFieldSelectorOpt {
+    fn into_optioned(self) -> ResourceFieldSelectorAc {
+        ResourceFieldSelectorAc {
             container_name: crate::OptionableConvert::into_optioned(self.container_name),
             divisor: crate::OptionableConvert::into_optioned(self.divisor),
             resource: Some(crate::OptionableConvert::into_optioned(self.resource)),
         }
     }
     fn try_from_optioned(
-        value: ResourceFieldSelectorOpt,
+        value: ResourceFieldSelectorAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             container_name: crate::OptionableConvert::try_from_optioned(
@@ -41,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceFieldSel
     }
     fn merge(
         &mut self,
-        other: ResourceFieldSelectorOpt,
+        other: ResourceFieldSelectorAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.container_name, other.container_name)?;
         crate::OptionableConvert::merge(&mut self.divisor, other.divisor)?;

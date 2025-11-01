@@ -1,27 +1,27 @@
-pub struct PodFailurePolicyOnPodConditionsPatternOpt {
+pub struct PodFailurePolicyOnPodConditionsPatternAc {
     pub status: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
-    type Optioned = PodFailurePolicyOnPodConditionsPatternOpt;
+    type Optioned = PodFailurePolicyOnPodConditionsPatternAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodFailurePolicyOnPodConditionsPatternOpt {
-    type Optioned = PodFailurePolicyOnPodConditionsPatternOpt;
+impl crate::Optionable for PodFailurePolicyOnPodConditionsPatternAc {
+    type Optioned = PodFailurePolicyOnPodConditionsPatternAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
-    fn into_optioned(self) -> PodFailurePolicyOnPodConditionsPatternOpt {
-        PodFailurePolicyOnPodConditionsPatternOpt {
+    fn into_optioned(self) -> PodFailurePolicyOnPodConditionsPatternAc {
+        PodFailurePolicyOnPodConditionsPatternAc {
             status: Some(crate::OptionableConvert::into_optioned(self.status)),
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
     fn try_from_optioned(
-        value: PodFailurePolicyOnPodConditionsPatternOpt,
+        value: PodFailurePolicyOnPodConditionsPatternAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             status: crate::OptionableConvert::try_from_optioned(
@@ -42,7 +42,7 @@ for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
     }
     fn merge(
         &mut self,
-        other: PodFailurePolicyOnPodConditionsPatternOpt,
+        other: PodFailurePolicyOnPodConditionsPatternAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.status {
             crate::OptionableConvert::merge(&mut self.status, other_value)?;

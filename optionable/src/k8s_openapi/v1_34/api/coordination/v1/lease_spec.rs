@@ -1,4 +1,4 @@
-pub struct LeaseSpecOpt {
+pub struct LeaseSpecAc {
     pub acquire_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime,
     > as crate::Optionable>::Optioned,
@@ -13,16 +13,16 @@ pub struct LeaseSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::coordination::v1::LeaseSpec {
-    type Optioned = LeaseSpecOpt;
+    type Optioned = LeaseSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for LeaseSpecOpt {
-    type Optioned = LeaseSpecOpt;
+impl crate::Optionable for LeaseSpecAc {
+    type Optioned = LeaseSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::coordination::v1::LeaseSpec {
-    fn into_optioned(self) -> LeaseSpecOpt {
-        LeaseSpecOpt {
+    fn into_optioned(self) -> LeaseSpecAc {
+        LeaseSpecAc {
             acquire_time: crate::OptionableConvert::into_optioned(self.acquire_time),
             holder_identity: crate::OptionableConvert::into_optioned(
                 self.holder_identity,
@@ -40,7 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::coordination::v1::LeaseSpe
             strategy: crate::OptionableConvert::into_optioned(self.strategy),
         }
     }
-    fn try_from_optioned(value: LeaseSpecOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LeaseSpecAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             acquire_time: crate::OptionableConvert::try_from_optioned(
                 value.acquire_time,
@@ -61,7 +61,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::coordination::v1::LeaseSpe
             strategy: crate::OptionableConvert::try_from_optioned(value.strategy)?,
         })
     }
-    fn merge(&mut self, other: LeaseSpecOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LeaseSpecAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.acquire_time, other.acquire_time)?;
         crate::OptionableConvert::merge(
             &mut self.holder_identity,

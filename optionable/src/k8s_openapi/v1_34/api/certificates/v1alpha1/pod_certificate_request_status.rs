@@ -1,4 +1,4 @@
-pub struct PodCertificateRequestStatusOpt {
+pub struct PodCertificateRequestStatusAc {
     pub begin_refresh_at: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -16,17 +16,17 @@ pub struct PodCertificateRequestStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus {
-    type Optioned = PodCertificateRequestStatusOpt;
+    type Optioned = PodCertificateRequestStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodCertificateRequestStatusOpt {
-    type Optioned = PodCertificateRequestStatusOpt;
+impl crate::Optionable for PodCertificateRequestStatusAc {
+    type Optioned = PodCertificateRequestStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus {
-    fn into_optioned(self) -> PodCertificateRequestStatusOpt {
-        PodCertificateRequestStatusOpt {
+    fn into_optioned(self) -> PodCertificateRequestStatusAc {
+        PodCertificateRequestStatusAc {
             begin_refresh_at: crate::OptionableConvert::into_optioned(
                 self.begin_refresh_at,
             ),
@@ -39,7 +39,7 @@ for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus {
         }
     }
     fn try_from_optioned(
-        value: PodCertificateRequestStatusOpt,
+        value: PodCertificateRequestStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             begin_refresh_at: crate::OptionableConvert::try_from_optioned(
@@ -55,7 +55,7 @@ for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus {
     }
     fn merge(
         &mut self,
-        other: PodCertificateRequestStatusOpt,
+        other: PodCertificateRequestStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.begin_refresh_at,

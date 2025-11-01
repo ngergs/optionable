@@ -1,21 +1,21 @@
-pub struct ServerAddressByClientCIDROpt {
+pub struct ServerAddressByClientCIDRAc {
     pub client_cidr: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub server_address: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR {
-    type Optioned = ServerAddressByClientCIDROpt;
+    type Optioned = ServerAddressByClientCIDRAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServerAddressByClientCIDROpt {
-    type Optioned = ServerAddressByClientCIDROpt;
+impl crate::Optionable for ServerAddressByClientCIDRAc {
+    type Optioned = ServerAddressByClientCIDRAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR {
-    fn into_optioned(self) -> ServerAddressByClientCIDROpt {
-        ServerAddressByClientCIDROpt {
+    fn into_optioned(self) -> ServerAddressByClientCIDRAc {
+        ServerAddressByClientCIDRAc {
             client_cidr: Some(crate::OptionableConvert::into_optioned(self.client_cidr)),
             server_address: Some(
                 crate::OptionableConvert::into_optioned(self.server_address),
@@ -23,7 +23,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR 
         }
     }
     fn try_from_optioned(
-        value: ServerAddressByClientCIDROpt,
+        value: ServerAddressByClientCIDRAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             client_cidr: crate::OptionableConvert::try_from_optioned(
@@ -44,7 +44,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR 
     }
     fn merge(
         &mut self,
-        other: ServerAddressByClientCIDROpt,
+        other: ServerAddressByClientCIDRAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.client_cidr {
             crate::OptionableConvert::merge(&mut self.client_cidr, other_value)?;

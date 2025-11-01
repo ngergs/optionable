@@ -1,4 +1,4 @@
-pub struct VolumeAttachmentSourceOpt {
+pub struct VolumeAttachmentSourceAc {
     pub inline_volume_spec: <Option<
         ::k8s_openapi::api::core::v1::PersistentVolumeSpec,
     > as crate::Optionable>::Optioned,
@@ -8,17 +8,17 @@ pub struct VolumeAttachmentSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::VolumeAttachmentSource {
-    type Optioned = VolumeAttachmentSourceOpt;
+    type Optioned = VolumeAttachmentSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for VolumeAttachmentSourceOpt {
-    type Optioned = VolumeAttachmentSourceOpt;
+impl crate::Optionable for VolumeAttachmentSourceAc {
+    type Optioned = VolumeAttachmentSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::storage::v1::VolumeAttachmentSource {
-    fn into_optioned(self) -> VolumeAttachmentSourceOpt {
-        VolumeAttachmentSourceOpt {
+    fn into_optioned(self) -> VolumeAttachmentSourceAc {
+        VolumeAttachmentSourceAc {
             inline_volume_spec: crate::OptionableConvert::into_optioned(
                 self.inline_volume_spec,
             ),
@@ -28,7 +28,7 @@ for ::k8s_openapi::api::storage::v1::VolumeAttachmentSource {
         }
     }
     fn try_from_optioned(
-        value: VolumeAttachmentSourceOpt,
+        value: VolumeAttachmentSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             inline_volume_spec: crate::OptionableConvert::try_from_optioned(
@@ -41,7 +41,7 @@ for ::k8s_openapi::api::storage::v1::VolumeAttachmentSource {
     }
     fn merge(
         &mut self,
-        other: VolumeAttachmentSourceOpt,
+        other: VolumeAttachmentSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.inline_volume_spec,

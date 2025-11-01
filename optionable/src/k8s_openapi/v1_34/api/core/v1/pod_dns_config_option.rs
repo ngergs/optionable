@@ -1,25 +1,25 @@
-pub struct PodDNSConfigOptionOpt {
+pub struct PodDNSConfigOptionAc {
     pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub value: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PodDNSConfigOption {
-    type Optioned = PodDNSConfigOptionOpt;
+    type Optioned = PodDNSConfigOptionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodDNSConfigOptionOpt {
-    type Optioned = PodDNSConfigOptionOpt;
+impl crate::Optionable for PodDNSConfigOptionAc {
+    type Optioned = PodDNSConfigOptionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodDNSConfigOption {
-    fn into_optioned(self) -> PodDNSConfigOptionOpt {
-        PodDNSConfigOptionOpt {
+    fn into_optioned(self) -> PodDNSConfigOptionAc {
+        PodDNSConfigOptionAc {
             name: crate::OptionableConvert::into_optioned(self.name),
             value: crate::OptionableConvert::into_optioned(self.value),
         }
     }
     fn try_from_optioned(
-        value: PodDNSConfigOptionOpt,
+        value: PodDNSConfigOptionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
@@ -28,7 +28,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodDNSConfigOpti
     }
     fn merge(
         &mut self,
-        other: PodDNSConfigOptionOpt,
+        other: PodDNSConfigOptionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(&mut self.value, other.value)?;

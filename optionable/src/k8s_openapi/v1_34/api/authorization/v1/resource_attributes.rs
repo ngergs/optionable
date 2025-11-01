@@ -1,4 +1,4 @@
-pub struct ResourceAttributesOpt {
+pub struct ResourceAttributesAc {
     pub field_selector: <Option<
         ::k8s_openapi::api::authorization::v1::FieldSelectorAttributes,
     > as crate::Optionable>::Optioned,
@@ -15,17 +15,17 @@ pub struct ResourceAttributesOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::authorization::v1::ResourceAttributes {
-    type Optioned = ResourceAttributesOpt;
+    type Optioned = ResourceAttributesAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourceAttributesOpt {
-    type Optioned = ResourceAttributesOpt;
+impl crate::Optionable for ResourceAttributesAc {
+    type Optioned = ResourceAttributesAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::ResourceAttributes {
-    fn into_optioned(self) -> ResourceAttributesOpt {
-        ResourceAttributesOpt {
+    fn into_optioned(self) -> ResourceAttributesAc {
+        ResourceAttributesAc {
             field_selector: crate::OptionableConvert::into_optioned(self.field_selector),
             group: crate::OptionableConvert::into_optioned(self.group),
             label_selector: crate::OptionableConvert::into_optioned(self.label_selector),
@@ -38,7 +38,7 @@ for ::k8s_openapi::api::authorization::v1::ResourceAttributes {
         }
     }
     fn try_from_optioned(
-        value: ResourceAttributesOpt,
+        value: ResourceAttributesAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             field_selector: crate::OptionableConvert::try_from_optioned(
@@ -58,7 +58,7 @@ for ::k8s_openapi::api::authorization::v1::ResourceAttributes {
     }
     fn merge(
         &mut self,
-        other: ResourceAttributesOpt,
+        other: ResourceAttributesAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.field_selector, other.field_selector)?;
         crate::OptionableConvert::merge(&mut self.group, other.group)?;

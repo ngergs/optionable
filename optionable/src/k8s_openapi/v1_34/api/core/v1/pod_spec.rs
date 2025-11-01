@@ -1,4 +1,4 @@
-pub struct PodSpecOpt {
+pub struct PodSpecAc {
     pub active_deadline_seconds: <Option<i64> as crate::Optionable>::Optioned,
     pub affinity: <Option<
         ::k8s_openapi::api::core::v1::Affinity,
@@ -86,16 +86,16 @@ pub struct PodSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PodSpec {
-    type Optioned = PodSpecOpt;
+    type Optioned = PodSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodSpecOpt {
-    type Optioned = PodSpecOpt;
+impl crate::Optionable for PodSpecAc {
+    type Optioned = PodSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSpec {
-    fn into_optioned(self) -> PodSpecOpt {
-        PodSpecOpt {
+    fn into_optioned(self) -> PodSpecAc {
+        PodSpecAc {
             active_deadline_seconds: crate::OptionableConvert::into_optioned(
                 self.active_deadline_seconds,
             ),
@@ -179,7 +179,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSpec {
             volumes: crate::OptionableConvert::into_optioned(self.volumes),
         }
     }
-    fn try_from_optioned(value: PodSpecOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PodSpecAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             active_deadline_seconds: crate::OptionableConvert::try_from_optioned(
                 value.active_deadline_seconds,
@@ -280,7 +280,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSpec {
             volumes: crate::OptionableConvert::try_from_optioned(value.volumes)?,
         })
     }
-    fn merge(&mut self, other: PodSpecOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodSpecAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.active_deadline_seconds,
             other.active_deadline_seconds,

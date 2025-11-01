@@ -1,4 +1,4 @@
-pub struct EndpointSubsetOpt {
+pub struct EndpointSubsetAc {
     pub addresses: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::EndpointAddress>,
     > as crate::Optionable>::Optioned,
@@ -11,16 +11,16 @@ pub struct EndpointSubsetOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::EndpointSubset {
-    type Optioned = EndpointSubsetOpt;
+    type Optioned = EndpointSubsetAc;
 }
 #[automatically_derived]
-impl crate::Optionable for EndpointSubsetOpt {
-    type Optioned = EndpointSubsetOpt;
+impl crate::Optionable for EndpointSubsetAc {
+    type Optioned = EndpointSubsetAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointSubset {
-    fn into_optioned(self) -> EndpointSubsetOpt {
-        EndpointSubsetOpt {
+    fn into_optioned(self) -> EndpointSubsetAc {
+        EndpointSubsetAc {
             addresses: crate::OptionableConvert::into_optioned(self.addresses),
             not_ready_addresses: crate::OptionableConvert::into_optioned(
                 self.not_ready_addresses,
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointSubset {
         }
     }
     fn try_from_optioned(
-        value: EndpointSubsetOpt,
+        value: EndpointSubsetAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             addresses: crate::OptionableConvert::try_from_optioned(value.addresses)?,
@@ -41,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointSubset {
     }
     fn merge(
         &mut self,
-        other: EndpointSubsetOpt,
+        other: EndpointSubsetAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.addresses, other.addresses)?;
         crate::OptionableConvert::merge(

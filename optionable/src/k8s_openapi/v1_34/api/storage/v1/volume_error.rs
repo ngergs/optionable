@@ -1,4 +1,4 @@
-pub struct VolumeErrorOpt {
+pub struct VolumeErrorAc {
     pub error_code: <Option<i32> as crate::Optionable>::Optioned,
     pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub time: <Option<
@@ -7,23 +7,23 @@ pub struct VolumeErrorOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::VolumeError {
-    type Optioned = VolumeErrorOpt;
+    type Optioned = VolumeErrorAc;
 }
 #[automatically_derived]
-impl crate::Optionable for VolumeErrorOpt {
-    type Optioned = VolumeErrorOpt;
+impl crate::Optionable for VolumeErrorAc {
+    type Optioned = VolumeErrorAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeError {
-    fn into_optioned(self) -> VolumeErrorOpt {
-        VolumeErrorOpt {
+    fn into_optioned(self) -> VolumeErrorAc {
+        VolumeErrorAc {
             error_code: crate::OptionableConvert::into_optioned(self.error_code),
             message: crate::OptionableConvert::into_optioned(self.message),
             time: crate::OptionableConvert::into_optioned(self.time),
         }
     }
     fn try_from_optioned(
-        value: VolumeErrorOpt,
+        value: VolumeErrorAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             error_code: crate::OptionableConvert::try_from_optioned(value.error_code)?,
@@ -31,7 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeError {
             time: crate::OptionableConvert::try_from_optioned(value.time)?,
         })
     }
-    fn merge(&mut self, other: VolumeErrorOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeErrorAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.error_code, other.error_code)?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;
         crate::OptionableConvert::merge(&mut self.time, other.time)?;

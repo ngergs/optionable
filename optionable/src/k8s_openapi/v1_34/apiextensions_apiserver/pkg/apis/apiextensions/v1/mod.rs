@@ -1,69 +1,69 @@
 mod custom_resource_column_definition;
 #[allow(unused_imports)]
-pub use self::custom_resource_column_definition::CustomResourceColumnDefinitionOpt;
+pub use self::custom_resource_column_definition::CustomResourceColumnDefinitionAc;
 mod custom_resource_conversion;
 #[allow(unused_imports)]
-pub use self::custom_resource_conversion::CustomResourceConversionOpt;
+pub use self::custom_resource_conversion::CustomResourceConversionAc;
 mod custom_resource_definition;
 #[allow(unused_imports)]
-pub use self::custom_resource_definition::CustomResourceDefinitionOpt;
+pub use self::custom_resource_definition::CustomResourceDefinitionAc;
 mod custom_resource_definition_condition;
 #[allow(unused_imports)]
-pub use self::custom_resource_definition_condition::CustomResourceDefinitionConditionOpt;
+pub use self::custom_resource_definition_condition::CustomResourceDefinitionConditionAc;
 mod custom_resource_definition_names;
 #[allow(unused_imports)]
-pub use self::custom_resource_definition_names::CustomResourceDefinitionNamesOpt;
+pub use self::custom_resource_definition_names::CustomResourceDefinitionNamesAc;
 mod custom_resource_definition_spec;
 #[allow(unused_imports)]
-pub use self::custom_resource_definition_spec::CustomResourceDefinitionSpecOpt;
+pub use self::custom_resource_definition_spec::CustomResourceDefinitionSpecAc;
 mod custom_resource_definition_status;
 #[allow(unused_imports)]
-pub use self::custom_resource_definition_status::CustomResourceDefinitionStatusOpt;
+pub use self::custom_resource_definition_status::CustomResourceDefinitionStatusAc;
 mod custom_resource_definition_version;
 #[allow(unused_imports)]
-pub use self::custom_resource_definition_version::CustomResourceDefinitionVersionOpt;
+pub use self::custom_resource_definition_version::CustomResourceDefinitionVersionAc;
 mod custom_resource_subresource_scale;
 #[allow(unused_imports)]
-pub use self::custom_resource_subresource_scale::CustomResourceSubresourceScaleOpt;
+pub use self::custom_resource_subresource_scale::CustomResourceSubresourceScaleAc;
 mod custom_resource_subresource_status;
 #[allow(unused_imports)]
-pub use self::custom_resource_subresource_status::CustomResourceSubresourceStatusOpt;
+pub use self::custom_resource_subresource_status::CustomResourceSubresourceStatusAc;
 mod custom_resource_subresources;
 #[allow(unused_imports)]
-pub use self::custom_resource_subresources::CustomResourceSubresourcesOpt;
+pub use self::custom_resource_subresources::CustomResourceSubresourcesAc;
 mod custom_resource_validation;
 #[allow(unused_imports)]
-pub use self::custom_resource_validation::CustomResourceValidationOpt;
+pub use self::custom_resource_validation::CustomResourceValidationAc;
 mod external_documentation;
 #[allow(unused_imports)]
-pub use self::external_documentation::ExternalDocumentationOpt;
+pub use self::external_documentation::ExternalDocumentationAc;
 mod json;
 #[allow(unused_imports)]
-pub use self::json::JSONOpt;
+pub use self::json::JSONAc;
 mod json_schema_props;
 #[allow(unused_imports)]
-pub use self::json_schema_props::JSONSchemaPropsOpt;
+pub use self::json_schema_props::JSONSchemaPropsAc;
 mod json_schema_props_or_array;
 #[allow(unused_imports)]
-pub use self::json_schema_props_or_array::JSONSchemaPropsOrArrayOpt;
+pub use self::json_schema_props_or_array::JSONSchemaPropsOrArrayAc;
 mod json_schema_props_or_bool;
 #[allow(unused_imports)]
-pub use self::json_schema_props_or_bool::JSONSchemaPropsOrBoolOpt;
+pub use self::json_schema_props_or_bool::JSONSchemaPropsOrBoolAc;
 mod json_schema_props_or_string_array;
 #[allow(unused_imports)]
-pub use self::json_schema_props_or_string_array::JSONSchemaPropsOrStringArrayOpt;
+pub use self::json_schema_props_or_string_array::JSONSchemaPropsOrStringArrayAc;
 mod selectable_field;
 #[allow(unused_imports)]
-pub use self::selectable_field::SelectableFieldOpt;
+pub use self::selectable_field::SelectableFieldAc;
 mod service_reference;
 #[allow(unused_imports)]
-pub use self::service_reference::ServiceReferenceOpt;
+pub use self::service_reference::ServiceReferenceAc;
 mod validation_rule;
 #[allow(unused_imports)]
-pub use self::validation_rule::ValidationRuleOpt;
+pub use self::validation_rule::ValidationRuleAc;
 mod webhook_client_config;
 #[allow(unused_imports)]
-pub use self::webhook_client_config::WebhookClientConfigOpt;
+pub use self::webhook_client_config::WebhookClientConfigAc;
 mod webhook_conversion;
 #[allow(unused_imports)]
-pub use self::webhook_conversion::WebhookConversionOpt;
+pub use self::webhook_conversion::WebhookConversionAc;

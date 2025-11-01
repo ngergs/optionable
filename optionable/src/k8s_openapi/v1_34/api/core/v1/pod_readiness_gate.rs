@@ -1,25 +1,25 @@
-pub struct PodReadinessGateOpt {
+pub struct PodReadinessGateAc {
     pub condition_type: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PodReadinessGate {
-    type Optioned = PodReadinessGateOpt;
+    type Optioned = PodReadinessGateAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodReadinessGateOpt {
-    type Optioned = PodReadinessGateOpt;
+impl crate::Optionable for PodReadinessGateAc {
+    type Optioned = PodReadinessGateAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodReadinessGate {
-    fn into_optioned(self) -> PodReadinessGateOpt {
-        PodReadinessGateOpt {
+    fn into_optioned(self) -> PodReadinessGateAc {
+        PodReadinessGateAc {
             condition_type: Some(
                 crate::OptionableConvert::into_optioned(self.condition_type),
             ),
         }
     }
     fn try_from_optioned(
-        value: PodReadinessGateOpt,
+        value: PodReadinessGateAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             condition_type: crate::OptionableConvert::try_from_optioned(
@@ -33,7 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodReadinessGate
     }
     fn merge(
         &mut self,
-        other: PodReadinessGateOpt,
+        other: PodReadinessGateAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.condition_type {
             crate::OptionableConvert::merge(&mut self.condition_type, other_value)?;

@@ -1,4 +1,4 @@
-pub struct EmptyDirVolumeSourceOpt {
+pub struct EmptyDirVolumeSourceAc {
     pub medium: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub size_limit: <Option<
         ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
@@ -6,22 +6,22 @@ pub struct EmptyDirVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::EmptyDirVolumeSource {
-    type Optioned = EmptyDirVolumeSourceOpt;
+    type Optioned = EmptyDirVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for EmptyDirVolumeSourceOpt {
-    type Optioned = EmptyDirVolumeSourceOpt;
+impl crate::Optionable for EmptyDirVolumeSourceAc {
+    type Optioned = EmptyDirVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EmptyDirVolumeSource {
-    fn into_optioned(self) -> EmptyDirVolumeSourceOpt {
-        EmptyDirVolumeSourceOpt {
+    fn into_optioned(self) -> EmptyDirVolumeSourceAc {
+        EmptyDirVolumeSourceAc {
             medium: crate::OptionableConvert::into_optioned(self.medium),
             size_limit: crate::OptionableConvert::into_optioned(self.size_limit),
         }
     }
     fn try_from_optioned(
-        value: EmptyDirVolumeSourceOpt,
+        value: EmptyDirVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             medium: crate::OptionableConvert::try_from_optioned(value.medium)?,
@@ -30,7 +30,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EmptyDirVolumeSo
     }
     fn merge(
         &mut self,
-        other: EmptyDirVolumeSourceOpt,
+        other: EmptyDirVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.medium, other.medium)?;
         crate::OptionableConvert::merge(&mut self.size_limit, other.size_limit)?;

@@ -1,4 +1,4 @@
-pub struct FieldSelectorRequirementOpt {
+pub struct FieldSelectorRequirementAc {
     pub key: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub operator: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub values: <Option<
@@ -8,24 +8,24 @@ pub struct FieldSelectorRequirementOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::FieldSelectorRequirement {
-    type Optioned = FieldSelectorRequirementOpt;
+    type Optioned = FieldSelectorRequirementAc;
 }
 #[automatically_derived]
-impl crate::Optionable for FieldSelectorRequirementOpt {
-    type Optioned = FieldSelectorRequirementOpt;
+impl crate::Optionable for FieldSelectorRequirementAc {
+    type Optioned = FieldSelectorRequirementAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::FieldSelectorRequirement {
-    fn into_optioned(self) -> FieldSelectorRequirementOpt {
-        FieldSelectorRequirementOpt {
+    fn into_optioned(self) -> FieldSelectorRequirementAc {
+        FieldSelectorRequirementAc {
             key: Some(crate::OptionableConvert::into_optioned(self.key)),
             operator: Some(crate::OptionableConvert::into_optioned(self.operator)),
             values: crate::OptionableConvert::into_optioned(self.values),
         }
     }
     fn try_from_optioned(
-        value: FieldSelectorRequirementOpt,
+        value: FieldSelectorRequirementAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             key: crate::OptionableConvert::try_from_optioned(
@@ -47,7 +47,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::FieldSelectorRequirement {
     }
     fn merge(
         &mut self,
-        other: FieldSelectorRequirementOpt,
+        other: FieldSelectorRequirementAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.key {
             crate::OptionableConvert::merge(&mut self.key, other_value)?;

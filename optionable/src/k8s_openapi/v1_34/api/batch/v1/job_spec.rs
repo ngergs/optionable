@@ -1,4 +1,4 @@
-pub struct JobSpecOpt {
+pub struct JobSpecAc {
     pub active_deadline_seconds: <Option<i64> as crate::Optionable>::Optioned,
     pub backoff_limit: <Option<i32> as crate::Optionable>::Optioned,
     pub backoff_limit_per_index: <Option<i32> as crate::Optionable>::Optioned,
@@ -28,16 +28,16 @@ pub struct JobSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::JobSpec {
-    type Optioned = JobSpecOpt;
+    type Optioned = JobSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for JobSpecOpt {
-    type Optioned = JobSpecOpt;
+impl crate::Optionable for JobSpecAc {
+    type Optioned = JobSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobSpec {
-    fn into_optioned(self) -> JobSpecOpt {
-        JobSpecOpt {
+    fn into_optioned(self) -> JobSpecAc {
+        JobSpecAc {
             active_deadline_seconds: crate::OptionableConvert::into_optioned(
                 self.active_deadline_seconds,
             ),
@@ -72,7 +72,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobSpec {
             ),
         }
     }
-    fn try_from_optioned(value: JobSpecOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: JobSpecAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             active_deadline_seconds: crate::OptionableConvert::try_from_optioned(
                 value.active_deadline_seconds,
@@ -118,7 +118,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobSpec {
             )?,
         })
     }
-    fn merge(&mut self, other: JobSpecOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: JobSpecAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.active_deadline_seconds,
             other.active_deadline_seconds,

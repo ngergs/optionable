@@ -1,4 +1,4 @@
-pub struct DeviceAllocationResultOpt {
+pub struct DeviceAllocationResultAc {
     pub config: <Option<
         std::vec::Vec<
             ::k8s_openapi::api::resource::v1beta2::DeviceAllocationConfiguration,
@@ -13,23 +13,23 @@ pub struct DeviceAllocationResultOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::resource::v1beta2::DeviceAllocationResult {
-    type Optioned = DeviceAllocationResultOpt;
+    type Optioned = DeviceAllocationResultAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceAllocationResultOpt {
-    type Optioned = DeviceAllocationResultOpt;
+impl crate::Optionable for DeviceAllocationResultAc {
+    type Optioned = DeviceAllocationResultAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta2::DeviceAllocationResult {
-    fn into_optioned(self) -> DeviceAllocationResultOpt {
-        DeviceAllocationResultOpt {
+    fn into_optioned(self) -> DeviceAllocationResultAc {
+        DeviceAllocationResultAc {
             config: crate::OptionableConvert::into_optioned(self.config),
             results: crate::OptionableConvert::into_optioned(self.results),
         }
     }
     fn try_from_optioned(
-        value: DeviceAllocationResultOpt,
+        value: DeviceAllocationResultAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             config: crate::OptionableConvert::try_from_optioned(value.config)?,
@@ -38,7 +38,7 @@ for ::k8s_openapi::api::resource::v1beta2::DeviceAllocationResult {
     }
     fn merge(
         &mut self,
-        other: DeviceAllocationResultOpt,
+        other: DeviceAllocationResultAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.config, other.config)?;
         crate::OptionableConvert::merge(&mut self.results, other.results)?;

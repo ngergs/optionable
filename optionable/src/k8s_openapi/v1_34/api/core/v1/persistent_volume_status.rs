@@ -1,4 +1,4 @@
-pub struct PersistentVolumeStatusOpt {
+pub struct PersistentVolumeStatusAc {
     pub last_phase_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -8,16 +8,16 @@ pub struct PersistentVolumeStatusOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PersistentVolumeStatus {
-    type Optioned = PersistentVolumeStatusOpt;
+    type Optioned = PersistentVolumeStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PersistentVolumeStatusOpt {
-    type Optioned = PersistentVolumeStatusOpt;
+impl crate::Optionable for PersistentVolumeStatusAc {
+    type Optioned = PersistentVolumeStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolumeStatus {
-    fn into_optioned(self) -> PersistentVolumeStatusOpt {
-        PersistentVolumeStatusOpt {
+    fn into_optioned(self) -> PersistentVolumeStatusAc {
+        PersistentVolumeStatusAc {
             last_phase_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_phase_transition_time,
             ),
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
         }
     }
     fn try_from_optioned(
-        value: PersistentVolumeStatusOpt,
+        value: PersistentVolumeStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_phase_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -40,7 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
     }
     fn merge(
         &mut self,
-        other: PersistentVolumeStatusOpt,
+        other: PersistentVolumeStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_phase_transition_time,

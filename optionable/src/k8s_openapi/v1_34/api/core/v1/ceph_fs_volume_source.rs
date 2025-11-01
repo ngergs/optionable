@@ -1,4 +1,4 @@
-pub struct CephFSVolumeSourceOpt {
+pub struct CephFSVolumeSourceAc {
     pub monitors: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,
@@ -12,16 +12,16 @@ pub struct CephFSVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::CephFSVolumeSource {
-    type Optioned = CephFSVolumeSourceOpt;
+    type Optioned = CephFSVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CephFSVolumeSourceOpt {
-    type Optioned = CephFSVolumeSourceOpt;
+impl crate::Optionable for CephFSVolumeSourceAc {
+    type Optioned = CephFSVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CephFSVolumeSource {
-    fn into_optioned(self) -> CephFSVolumeSourceOpt {
-        CephFSVolumeSourceOpt {
+    fn into_optioned(self) -> CephFSVolumeSourceAc {
+        CephFSVolumeSourceAc {
             monitors: Some(crate::OptionableConvert::into_optioned(self.monitors)),
             path: crate::OptionableConvert::into_optioned(self.path),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
@@ -31,7 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CephFSVolumeSour
         }
     }
     fn try_from_optioned(
-        value: CephFSVolumeSourceOpt,
+        value: CephFSVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             monitors: crate::OptionableConvert::try_from_optioned(
@@ -50,7 +50,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CephFSVolumeSour
     }
     fn merge(
         &mut self,
-        other: CephFSVolumeSourceOpt,
+        other: CephFSVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.monitors {
             crate::OptionableConvert::merge(&mut self.monitors, other_value)?;

@@ -1,4 +1,4 @@
-pub struct HTTPIngressRuleValueOpt {
+pub struct HTTPIngressRuleValueAc {
     pub paths: Option<
         <std::vec::Vec<
             ::k8s_openapi::api::networking::v1::HTTPIngressPath,
@@ -7,22 +7,22 @@ pub struct HTTPIngressRuleValueOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1::HTTPIngressRuleValue {
-    type Optioned = HTTPIngressRuleValueOpt;
+    type Optioned = HTTPIngressRuleValueAc;
 }
 #[automatically_derived]
-impl crate::Optionable for HTTPIngressRuleValueOpt {
-    type Optioned = HTTPIngressRuleValueOpt;
+impl crate::Optionable for HTTPIngressRuleValueAc {
+    type Optioned = HTTPIngressRuleValueAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1::HTTPIngressRuleValue {
-    fn into_optioned(self) -> HTTPIngressRuleValueOpt {
-        HTTPIngressRuleValueOpt {
+    fn into_optioned(self) -> HTTPIngressRuleValueAc {
+        HTTPIngressRuleValueAc {
             paths: Some(crate::OptionableConvert::into_optioned(self.paths)),
         }
     }
     fn try_from_optioned(
-        value: HTTPIngressRuleValueOpt,
+        value: HTTPIngressRuleValueAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             paths: crate::OptionableConvert::try_from_optioned(
@@ -36,7 +36,7 @@ for ::k8s_openapi::api::networking::v1::HTTPIngressRuleValue {
     }
     fn merge(
         &mut self,
-        other: HTTPIngressRuleValueOpt,
+        other: HTTPIngressRuleValueAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.paths {
             crate::OptionableConvert::merge(&mut self.paths, other_value)?;

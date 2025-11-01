@@ -1,19 +1,19 @@
-pub struct TokenRequestOpt {
+pub struct TokenRequestAc {
     pub audience: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub expiration_seconds: <Option<i64> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::TokenRequest {
-    type Optioned = TokenRequestOpt;
+    type Optioned = TokenRequestAc;
 }
 #[automatically_derived]
-impl crate::Optionable for TokenRequestOpt {
-    type Optioned = TokenRequestOpt;
+impl crate::Optionable for TokenRequestAc {
+    type Optioned = TokenRequestAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::TokenRequest {
-    fn into_optioned(self) -> TokenRequestOpt {
-        TokenRequestOpt {
+    fn into_optioned(self) -> TokenRequestAc {
+        TokenRequestAc {
             audience: Some(crate::OptionableConvert::into_optioned(self.audience)),
             expiration_seconds: crate::OptionableConvert::into_optioned(
                 self.expiration_seconds,
@@ -21,7 +21,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::TokenRequest 
         }
     }
     fn try_from_optioned(
-        value: TokenRequestOpt,
+        value: TokenRequestAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             audience: crate::OptionableConvert::try_from_optioned(
@@ -36,7 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::TokenRequest 
             )?,
         })
     }
-    fn merge(&mut self, other: TokenRequestOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TokenRequestAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.audience {
             crate::OptionableConvert::merge(&mut self.audience, other_value)?;
         }

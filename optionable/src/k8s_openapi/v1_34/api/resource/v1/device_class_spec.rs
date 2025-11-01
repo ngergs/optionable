@@ -1,4 +1,4 @@
-pub struct DeviceClassSpecOpt {
+pub struct DeviceClassSpecAc {
     pub config: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceClassConfiguration>,
     > as crate::Optionable>::Optioned,
@@ -11,16 +11,16 @@ pub struct DeviceClassSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1::DeviceClassSpec {
-    type Optioned = DeviceClassSpecOpt;
+    type Optioned = DeviceClassSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceClassSpecOpt {
-    type Optioned = DeviceClassSpecOpt;
+impl crate::Optionable for DeviceClassSpecAc {
+    type Optioned = DeviceClassSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceClassSpec {
-    fn into_optioned(self) -> DeviceClassSpecOpt {
-        DeviceClassSpecOpt {
+    fn into_optioned(self) -> DeviceClassSpecAc {
+        DeviceClassSpecAc {
             config: crate::OptionableConvert::into_optioned(self.config),
             extended_resource_name: crate::OptionableConvert::into_optioned(
                 self.extended_resource_name,
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceClassS
         }
     }
     fn try_from_optioned(
-        value: DeviceClassSpecOpt,
+        value: DeviceClassSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             config: crate::OptionableConvert::try_from_optioned(value.config)?,
@@ -41,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceClassS
     }
     fn merge(
         &mut self,
-        other: DeviceClassSpecOpt,
+        other: DeviceClassSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.config, other.config)?;
         crate::OptionableConvert::merge(

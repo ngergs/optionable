@@ -1,4 +1,4 @@
-pub struct ManagedFieldsEntryOpt {
+pub struct ManagedFieldsEntryAc {
     pub api_version: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub fields_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub fields_v1: <Option<
@@ -14,17 +14,17 @@ pub struct ManagedFieldsEntryOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
-    type Optioned = ManagedFieldsEntryOpt;
+    type Optioned = ManagedFieldsEntryAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ManagedFieldsEntryOpt {
-    type Optioned = ManagedFieldsEntryOpt;
+impl crate::Optionable for ManagedFieldsEntryAc {
+    type Optioned = ManagedFieldsEntryAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
-    fn into_optioned(self) -> ManagedFieldsEntryOpt {
-        ManagedFieldsEntryOpt {
+    fn into_optioned(self) -> ManagedFieldsEntryAc {
+        ManagedFieldsEntryAc {
             api_version: crate::OptionableConvert::into_optioned(self.api_version),
             fields_type: crate::OptionableConvert::into_optioned(self.fields_type),
             fields_v1: crate::OptionableConvert::into_optioned(self.fields_v1),
@@ -35,7 +35,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
         }
     }
     fn try_from_optioned(
-        value: ManagedFieldsEntryOpt,
+        value: ManagedFieldsEntryAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
@@ -49,7 +49,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
     }
     fn merge(
         &mut self,
-        other: ManagedFieldsEntryOpt,
+        other: ManagedFieldsEntryAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         crate::OptionableConvert::merge(&mut self.fields_type, other.fields_type)?;

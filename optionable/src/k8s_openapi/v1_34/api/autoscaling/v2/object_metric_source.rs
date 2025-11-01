@@ -1,4 +1,4 @@
-pub struct ObjectMetricSourceOpt {
+pub struct ObjectMetricSourceAc {
     pub described_object: Option<
         <::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference as crate::Optionable>::Optioned,
     >,
@@ -11,17 +11,17 @@ pub struct ObjectMetricSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::autoscaling::v2::ObjectMetricSource {
-    type Optioned = ObjectMetricSourceOpt;
+    type Optioned = ObjectMetricSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ObjectMetricSourceOpt {
-    type Optioned = ObjectMetricSourceOpt;
+impl crate::Optionable for ObjectMetricSourceAc {
+    type Optioned = ObjectMetricSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::ObjectMetricSource {
-    fn into_optioned(self) -> ObjectMetricSourceOpt {
-        ObjectMetricSourceOpt {
+    fn into_optioned(self) -> ObjectMetricSourceAc {
+        ObjectMetricSourceAc {
             described_object: Some(
                 crate::OptionableConvert::into_optioned(self.described_object),
             ),
@@ -30,7 +30,7 @@ for ::k8s_openapi::api::autoscaling::v2::ObjectMetricSource {
         }
     }
     fn try_from_optioned(
-        value: ObjectMetricSourceOpt,
+        value: ObjectMetricSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             described_object: crate::OptionableConvert::try_from_optioned(
@@ -58,7 +58,7 @@ for ::k8s_openapi::api::autoscaling::v2::ObjectMetricSource {
     }
     fn merge(
         &mut self,
-        other: ObjectMetricSourceOpt,
+        other: ObjectMetricSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.described_object {
             crate::OptionableConvert::merge(&mut self.described_object, other_value)?;

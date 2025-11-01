@@ -1,4 +1,4 @@
-pub struct DeviceTaintOpt {
+pub struct DeviceTaintAc {
     pub effect: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub key: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub time_added: <Option<
@@ -8,16 +8,16 @@ pub struct DeviceTaintOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1alpha3::DeviceTaint {
-    type Optioned = DeviceTaintOpt;
+    type Optioned = DeviceTaintAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceTaintOpt {
-    type Optioned = DeviceTaintOpt;
+impl crate::Optionable for DeviceTaintAc {
+    type Optioned = DeviceTaintAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1alpha3::DeviceTaint {
-    fn into_optioned(self) -> DeviceTaintOpt {
-        DeviceTaintOpt {
+    fn into_optioned(self) -> DeviceTaintAc {
+        DeviceTaintAc {
             effect: Some(crate::OptionableConvert::into_optioned(self.effect)),
             key: Some(crate::OptionableConvert::into_optioned(self.key)),
             time_added: crate::OptionableConvert::into_optioned(self.time_added),
@@ -25,7 +25,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1alpha3::Device
         }
     }
     fn try_from_optioned(
-        value: DeviceTaintOpt,
+        value: DeviceTaintAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             effect: crate::OptionableConvert::try_from_optioned(
@@ -46,7 +46,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1alpha3::Device
             value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
     }
-    fn merge(&mut self, other: DeviceTaintOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceTaintAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.effect {
             crate::OptionableConvert::merge(&mut self.effect, other_value)?;
         }

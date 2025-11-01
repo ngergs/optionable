@@ -1,4 +1,4 @@
-pub struct ServicePortOpt {
+pub struct ServicePortAc {
     pub app_protocol: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub node_port: <Option<i32> as crate::Optionable>::Optioned,
@@ -10,16 +10,16 @@ pub struct ServicePortOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ServicePort {
-    type Optioned = ServicePortOpt;
+    type Optioned = ServicePortAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServicePortOpt {
-    type Optioned = ServicePortOpt;
+impl crate::Optionable for ServicePortAc {
+    type Optioned = ServicePortAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServicePort {
-    fn into_optioned(self) -> ServicePortOpt {
-        ServicePortOpt {
+    fn into_optioned(self) -> ServicePortAc {
+        ServicePortAc {
             app_protocol: crate::OptionableConvert::into_optioned(self.app_protocol),
             name: crate::OptionableConvert::into_optioned(self.name),
             node_port: crate::OptionableConvert::into_optioned(self.node_port),
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServicePort {
         }
     }
     fn try_from_optioned(
-        value: ServicePortOpt,
+        value: ServicePortAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             app_protocol: crate::OptionableConvert::try_from_optioned(
@@ -46,7 +46,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServicePort {
             target_port: crate::OptionableConvert::try_from_optioned(value.target_port)?,
         })
     }
-    fn merge(&mut self, other: ServicePortOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServicePortAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.app_protocol, other.app_protocol)?;
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(&mut self.node_port, other.node_port)?;

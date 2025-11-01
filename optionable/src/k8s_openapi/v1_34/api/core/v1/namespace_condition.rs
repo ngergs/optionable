@@ -1,4 +1,4 @@
-pub struct NamespaceConditionOpt {
+pub struct NamespaceConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -9,16 +9,16 @@ pub struct NamespaceConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NamespaceCondition {
-    type Optioned = NamespaceConditionOpt;
+    type Optioned = NamespaceConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NamespaceConditionOpt {
-    type Optioned = NamespaceConditionOpt;
+impl crate::Optionable for NamespaceConditionAc {
+    type Optioned = NamespaceConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceCondition {
-    fn into_optioned(self) -> NamespaceConditionOpt {
-        NamespaceConditionOpt {
+    fn into_optioned(self) -> NamespaceConditionAc {
+        NamespaceConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceConditi
         }
     }
     fn try_from_optioned(
-        value: NamespaceConditionOpt,
+        value: NamespaceConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -55,7 +55,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceConditi
     }
     fn merge(
         &mut self,
-        other: NamespaceConditionOpt,
+        other: NamespaceConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

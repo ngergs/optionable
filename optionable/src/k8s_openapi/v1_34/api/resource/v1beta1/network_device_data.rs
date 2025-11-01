@@ -1,21 +1,21 @@
-pub struct NetworkDeviceDataOpt {
+pub struct NetworkDeviceDataAc {
     pub hardware_address: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub interface_name: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub ips: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::NetworkDeviceData {
-    type Optioned = NetworkDeviceDataOpt;
+    type Optioned = NetworkDeviceDataAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NetworkDeviceDataOpt {
-    type Optioned = NetworkDeviceDataOpt;
+impl crate::Optionable for NetworkDeviceDataAc {
+    type Optioned = NetworkDeviceDataAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::NetworkDeviceData {
-    fn into_optioned(self) -> NetworkDeviceDataOpt {
-        NetworkDeviceDataOpt {
+    fn into_optioned(self) -> NetworkDeviceDataAc {
+        NetworkDeviceDataAc {
             hardware_address: crate::OptionableConvert::into_optioned(
                 self.hardware_address,
             ),
@@ -24,7 +24,7 @@ for ::k8s_openapi::api::resource::v1beta1::NetworkDeviceData {
         }
     }
     fn try_from_optioned(
-        value: NetworkDeviceDataOpt,
+        value: NetworkDeviceDataAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             hardware_address: crate::OptionableConvert::try_from_optioned(
@@ -38,7 +38,7 @@ for ::k8s_openapi::api::resource::v1beta1::NetworkDeviceData {
     }
     fn merge(
         &mut self,
-        other: NetworkDeviceDataOpt,
+        other: NetworkDeviceDataAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.hardware_address,

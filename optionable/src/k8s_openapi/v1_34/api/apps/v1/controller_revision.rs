@@ -1,4 +1,6 @@
-pub struct ControllerRevisionOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = ControllerRevision)]
+pub struct ControllerRevisionAc {
     pub data: <Option<
         ::k8s_openapi::apimachinery::pkg::runtime::RawExtension,
     > as crate::Optionable>::Optioned,
@@ -7,23 +9,23 @@ pub struct ControllerRevisionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::ControllerRevision {
-    type Optioned = ControllerRevisionOpt;
+    type Optioned = ControllerRevisionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ControllerRevisionOpt {
-    type Optioned = ControllerRevisionOpt;
+impl crate::Optionable for ControllerRevisionAc {
+    type Optioned = ControllerRevisionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ControllerRevision {
-    fn into_optioned(self) -> ControllerRevisionOpt {
-        ControllerRevisionOpt {
+    fn into_optioned(self) -> ControllerRevisionAc {
+        ControllerRevisionAc {
             data: crate::OptionableConvert::into_optioned(self.data),
             metadata: self.metadata,
             revision: Some(self.revision),
         }
     }
     fn try_from_optioned(
-        value: ControllerRevisionOpt,
+        value: ControllerRevisionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
@@ -37,7 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ControllerRevisi
     }
     fn merge(
         &mut self,
-        other: ControllerRevisionOpt,
+        other: ControllerRevisionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
         self.metadata = other.metadata;
@@ -47,3 +49,5 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ControllerRevisi
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::apps::v1::ControllerRevision;

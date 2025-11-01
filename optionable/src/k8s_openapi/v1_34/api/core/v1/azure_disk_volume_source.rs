@@ -1,4 +1,4 @@
-pub struct AzureDiskVolumeSourceOpt {
+pub struct AzureDiskVolumeSourceAc {
     pub caching_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub disk_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub disk_uri: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -8,16 +8,16 @@ pub struct AzureDiskVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::AzureDiskVolumeSource {
-    type Optioned = AzureDiskVolumeSourceOpt;
+    type Optioned = AzureDiskVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for AzureDiskVolumeSourceOpt {
-    type Optioned = AzureDiskVolumeSourceOpt;
+impl crate::Optionable for AzureDiskVolumeSourceAc {
+    type Optioned = AzureDiskVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AzureDiskVolumeSource {
-    fn into_optioned(self) -> AzureDiskVolumeSourceOpt {
-        AzureDiskVolumeSourceOpt {
+    fn into_optioned(self) -> AzureDiskVolumeSourceAc {
+        AzureDiskVolumeSourceAc {
             caching_mode: crate::OptionableConvert::into_optioned(self.caching_mode),
             disk_name: Some(crate::OptionableConvert::into_optioned(self.disk_name)),
             disk_uri: Some(crate::OptionableConvert::into_optioned(self.disk_uri)),
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AzureDiskVolumeS
         }
     }
     fn try_from_optioned(
-        value: AzureDiskVolumeSourceOpt,
+        value: AzureDiskVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             caching_mode: crate::OptionableConvert::try_from_optioned(
@@ -54,7 +54,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AzureDiskVolumeS
     }
     fn merge(
         &mut self,
-        other: AzureDiskVolumeSourceOpt,
+        other: AzureDiskVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.caching_mode, other.caching_mode)?;
         if let Some(other_value) = other.disk_name {

@@ -1,23 +1,23 @@
-pub struct DaemonEndpointOpt {
+pub struct DaemonEndpointAc {
     pub port: Option<i32>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::DaemonEndpoint {
-    type Optioned = DaemonEndpointOpt;
+    type Optioned = DaemonEndpointAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DaemonEndpointOpt {
-    type Optioned = DaemonEndpointOpt;
+impl crate::Optionable for DaemonEndpointAc {
+    type Optioned = DaemonEndpointAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DaemonEndpoint {
-    fn into_optioned(self) -> DaemonEndpointOpt {
-        DaemonEndpointOpt {
+    fn into_optioned(self) -> DaemonEndpointAc {
+        DaemonEndpointAc {
             port: Some(self.port),
         }
     }
     fn try_from_optioned(
-        value: DaemonEndpointOpt,
+        value: DaemonEndpointAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             port: value
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DaemonEndpoint {
     }
     fn merge(
         &mut self,
-        other: DaemonEndpointOpt,
+        other: DaemonEndpointAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.port {
             self.port = other_value;

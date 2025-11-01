@@ -1,4 +1,4 @@
-pub struct ContainerRestartRuleOpt {
+pub struct ContainerRestartRuleAc {
     pub action: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub exit_codes: <Option<
         ::k8s_openapi::api::core::v1::ContainerRestartRuleOnExitCodes,
@@ -6,22 +6,22 @@ pub struct ContainerRestartRuleOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerRestartRule {
-    type Optioned = ContainerRestartRuleOpt;
+    type Optioned = ContainerRestartRuleAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ContainerRestartRuleOpt {
-    type Optioned = ContainerRestartRuleOpt;
+impl crate::Optionable for ContainerRestartRuleAc {
+    type Optioned = ContainerRestartRuleAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerRestartRule {
-    fn into_optioned(self) -> ContainerRestartRuleOpt {
-        ContainerRestartRuleOpt {
+    fn into_optioned(self) -> ContainerRestartRuleAc {
+        ContainerRestartRuleAc {
             action: Some(crate::OptionableConvert::into_optioned(self.action)),
             exit_codes: crate::OptionableConvert::into_optioned(self.exit_codes),
         }
     }
     fn try_from_optioned(
-        value: ContainerRestartRuleOpt,
+        value: ContainerRestartRuleAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             action: crate::OptionableConvert::try_from_optioned(
@@ -36,7 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerRestart
     }
     fn merge(
         &mut self,
-        other: ContainerRestartRuleOpt,
+        other: ContainerRestartRuleAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.action {
             crate::OptionableConvert::merge(&mut self.action, other_value)?;

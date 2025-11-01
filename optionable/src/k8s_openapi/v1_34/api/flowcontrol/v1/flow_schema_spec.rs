@@ -1,4 +1,4 @@
-pub struct FlowSchemaSpecOpt {
+pub struct FlowSchemaSpecAc {
     pub distinguisher_method: <Option<
         ::k8s_openapi::api::flowcontrol::v1::FlowDistinguisherMethod,
     > as crate::Optionable>::Optioned,
@@ -12,16 +12,16 @@ pub struct FlowSchemaSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaSpec {
-    type Optioned = FlowSchemaSpecOpt;
+    type Optioned = FlowSchemaSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for FlowSchemaSpecOpt {
-    type Optioned = FlowSchemaSpecOpt;
+impl crate::Optionable for FlowSchemaSpecAc {
+    type Optioned = FlowSchemaSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaSpec {
-    fn into_optioned(self) -> FlowSchemaSpecOpt {
-        FlowSchemaSpecOpt {
+    fn into_optioned(self) -> FlowSchemaSpecAc {
+        FlowSchemaSpecAc {
             distinguisher_method: crate::OptionableConvert::into_optioned(
                 self.distinguisher_method,
             ),
@@ -37,7 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::FlowSchem
         }
     }
     fn try_from_optioned(
-        value: FlowSchemaSpecOpt,
+        value: FlowSchemaSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             distinguisher_method: crate::OptionableConvert::try_from_optioned(
@@ -58,7 +58,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::FlowSchem
     }
     fn merge(
         &mut self,
-        other: FlowSchemaSpecOpt,
+        other: FlowSchemaSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.distinguisher_method,

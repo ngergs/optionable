@@ -1,4 +1,4 @@
-pub struct TaintOpt {
+pub struct TaintAc {
     pub effect: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub key: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub time_added: <Option<
@@ -8,23 +8,23 @@ pub struct TaintOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Taint {
-    type Optioned = TaintOpt;
+    type Optioned = TaintAc;
 }
 #[automatically_derived]
-impl crate::Optionable for TaintOpt {
-    type Optioned = TaintOpt;
+impl crate::Optionable for TaintAc {
+    type Optioned = TaintAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Taint {
-    fn into_optioned(self) -> TaintOpt {
-        TaintOpt {
+    fn into_optioned(self) -> TaintAc {
+        TaintAc {
             effect: Some(crate::OptionableConvert::into_optioned(self.effect)),
             key: Some(crate::OptionableConvert::into_optioned(self.key)),
             time_added: crate::OptionableConvert::into_optioned(self.time_added),
             value: crate::OptionableConvert::into_optioned(self.value),
         }
     }
-    fn try_from_optioned(value: TaintOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TaintAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             effect: crate::OptionableConvert::try_from_optioned(
                 value
@@ -44,7 +44,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Taint {
             value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
     }
-    fn merge(&mut self, other: TaintOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TaintAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.effect {
             crate::OptionableConvert::merge(&mut self.effect, other_value)?;
         }

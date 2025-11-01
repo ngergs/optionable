@@ -1,4 +1,4 @@
-pub struct ResourcePolicyRuleOpt {
+pub struct ResourcePolicyRuleAc {
     pub api_groups: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,
@@ -15,17 +15,17 @@ pub struct ResourcePolicyRuleOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::ResourcePolicyRule {
-    type Optioned = ResourcePolicyRuleOpt;
+    type Optioned = ResourcePolicyRuleAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourcePolicyRuleOpt {
-    type Optioned = ResourcePolicyRuleOpt;
+impl crate::Optionable for ResourcePolicyRuleAc {
+    type Optioned = ResourcePolicyRuleAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::ResourcePolicyRule {
-    fn into_optioned(self) -> ResourcePolicyRuleOpt {
-        ResourcePolicyRuleOpt {
+    fn into_optioned(self) -> ResourcePolicyRuleAc {
+        ResourcePolicyRuleAc {
             api_groups: Some(crate::OptionableConvert::into_optioned(self.api_groups)),
             cluster_scope: crate::OptionableConvert::into_optioned(self.cluster_scope),
             namespaces: crate::OptionableConvert::into_optioned(self.namespaces),
@@ -34,7 +34,7 @@ for ::k8s_openapi::api::flowcontrol::v1::ResourcePolicyRule {
         }
     }
     fn try_from_optioned(
-        value: ResourcePolicyRuleOpt,
+        value: ResourcePolicyRuleAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_groups: crate::OptionableConvert::try_from_optioned(
@@ -66,7 +66,7 @@ for ::k8s_openapi::api::flowcontrol::v1::ResourcePolicyRule {
     }
     fn merge(
         &mut self,
-        other: ResourcePolicyRuleOpt,
+        other: ResourcePolicyRuleAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.api_groups {
             crate::OptionableConvert::merge(&mut self.api_groups, other_value)?;

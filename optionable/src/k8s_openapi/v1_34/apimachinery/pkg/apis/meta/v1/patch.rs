@@ -1,4 +1,4 @@
-pub enum PatchOpt {
+pub enum PatchAc {
     Json(
         Option<
             <std::vec::Vec<
@@ -13,34 +13,34 @@ pub enum PatchOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Patch {
-    type Optioned = PatchOpt;
+    type Optioned = PatchAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PatchOpt {
-    type Optioned = PatchOpt;
+impl crate::Optionable for PatchAc {
+    type Optioned = PatchAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Patch {
-    fn into_optioned(self) -> PatchOpt {
+    fn into_optioned(self) -> PatchAc {
         match self {
             Self::Json(self_0) => {
-                PatchOpt::Json(Some(crate::OptionableConvert::into_optioned(self_0)))
+                PatchAc::Json(Some(crate::OptionableConvert::into_optioned(self_0)))
             }
             Self::Merge(self_0) => {
-                PatchOpt::Merge(Some(crate::OptionableConvert::into_optioned(self_0)))
+                PatchAc::Merge(Some(crate::OptionableConvert::into_optioned(self_0)))
             }
             Self::StrategicMerge(self_0) => {
-                PatchOpt::StrategicMerge(
+                PatchAc::StrategicMerge(
                     Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
         }
     }
-    fn try_from_optioned(other: PatchOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(other: PatchAc) -> Result<Self, crate::optionable::Error> {
         Ok(
             match other {
-                PatchOpt::Json(other_0) => {
+                PatchAc::Json(other_0) => {
                     Self::Json(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -50,7 +50,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Patch {
                         )?,
                     )
                 }
-                PatchOpt::Merge(other_0) => {
+                PatchAc::Merge(other_0) => {
                     Self::Merge(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -60,7 +60,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Patch {
                         )?,
                     )
                 }
-                PatchOpt::StrategicMerge(other_0) => {
+                PatchAc::StrategicMerge(other_0) => {
                     Self::StrategicMerge(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -73,33 +73,33 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Patch {
             },
         )
     }
-    fn merge(&mut self, other: PatchOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PatchAc) -> Result<(), crate::optionable::Error> {
         match other {
-            PatchOpt::Json(other_0) => {
+            PatchAc::Json(other_0) => {
                 if let Self::Json(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
-                    *self = Self::try_from_optioned(PatchOpt::Json(other_0))?;
+                    *self = Self::try_from_optioned(PatchAc::Json(other_0))?;
                 }
             }
-            PatchOpt::Merge(other_0) => {
+            PatchAc::Merge(other_0) => {
                 if let Self::Merge(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
-                    *self = Self::try_from_optioned(PatchOpt::Merge(other_0))?;
+                    *self = Self::try_from_optioned(PatchAc::Merge(other_0))?;
                 }
             }
-            PatchOpt::StrategicMerge(other_0) => {
+            PatchAc::StrategicMerge(other_0) => {
                 if let Self::StrategicMerge(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
-                    *self = Self::try_from_optioned(PatchOpt::StrategicMerge(other_0))?;
+                    *self = Self::try_from_optioned(PatchAc::StrategicMerge(other_0))?;
                 }
             }
         }

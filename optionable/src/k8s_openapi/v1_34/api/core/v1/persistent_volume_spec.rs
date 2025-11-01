@@ -1,4 +1,4 @@
-pub struct PersistentVolumeSpecOpt {
+pub struct PersistentVolumeSpecAc {
     pub access_modes: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -94,16 +94,16 @@ pub struct PersistentVolumeSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PersistentVolumeSpec {
-    type Optioned = PersistentVolumeSpecOpt;
+    type Optioned = PersistentVolumeSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PersistentVolumeSpecOpt {
-    type Optioned = PersistentVolumeSpecOpt;
+impl crate::Optionable for PersistentVolumeSpecAc {
+    type Optioned = PersistentVolumeSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolumeSpec {
-    fn into_optioned(self) -> PersistentVolumeSpecOpt {
-        PersistentVolumeSpecOpt {
+    fn into_optioned(self) -> PersistentVolumeSpecAc {
+        PersistentVolumeSpecAc {
             access_modes: crate::OptionableConvert::into_optioned(self.access_modes),
             aws_elastic_block_store: crate::OptionableConvert::into_optioned(
                 self.aws_elastic_block_store,
@@ -152,7 +152,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
         }
     }
     fn try_from_optioned(
-        value: PersistentVolumeSpecOpt,
+        value: PersistentVolumeSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             access_modes: crate::OptionableConvert::try_from_optioned(
@@ -212,7 +212,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
     }
     fn merge(
         &mut self,
-        other: PersistentVolumeSpecOpt,
+        other: PersistentVolumeSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.access_modes, other.access_modes)?;
         crate::OptionableConvert::merge(

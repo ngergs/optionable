@@ -1,4 +1,4 @@
-pub struct FlexPersistentVolumeSourceOpt {
+pub struct FlexPersistentVolumeSourceAc {
     pub driver: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub options: <Option<
@@ -11,17 +11,17 @@ pub struct FlexPersistentVolumeSourceOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::FlexPersistentVolumeSource {
-    type Optioned = FlexPersistentVolumeSourceOpt;
+    type Optioned = FlexPersistentVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for FlexPersistentVolumeSourceOpt {
-    type Optioned = FlexPersistentVolumeSourceOpt;
+impl crate::Optionable for FlexPersistentVolumeSourceAc {
+    type Optioned = FlexPersistentVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::FlexPersistentVolumeSource {
-    fn into_optioned(self) -> FlexPersistentVolumeSourceOpt {
-        FlexPersistentVolumeSourceOpt {
+    fn into_optioned(self) -> FlexPersistentVolumeSourceAc {
+        FlexPersistentVolumeSourceAc {
             driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             options: crate::OptionableConvert::into_optioned(self.options),
@@ -30,7 +30,7 @@ for ::k8s_openapi::api::core::v1::FlexPersistentVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: FlexPersistentVolumeSourceOpt,
+        value: FlexPersistentVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             driver: crate::OptionableConvert::try_from_optioned(
@@ -48,7 +48,7 @@ for ::k8s_openapi::api::core::v1::FlexPersistentVolumeSource {
     }
     fn merge(
         &mut self,
-        other: FlexPersistentVolumeSourceOpt,
+        other: FlexPersistentVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.driver {
             crate::OptionableConvert::merge(&mut self.driver, other_value)?;

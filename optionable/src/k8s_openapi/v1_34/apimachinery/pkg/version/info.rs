@@ -1,4 +1,4 @@
-pub struct InfoOpt {
+pub struct InfoAc {
     pub build_date: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub compiler: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub emulation_major: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -19,16 +19,16 @@ pub struct InfoOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::version::Info {
-    type Optioned = InfoOpt;
+    type Optioned = InfoAc;
 }
 #[automatically_derived]
-impl crate::Optionable for InfoOpt {
-    type Optioned = InfoOpt;
+impl crate::Optionable for InfoAc {
+    type Optioned = InfoAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::apimachinery::pkg::version::Info {
-    fn into_optioned(self) -> InfoOpt {
-        InfoOpt {
+    fn into_optioned(self) -> InfoAc {
+        InfoAc {
             build_date: Some(crate::OptionableConvert::into_optioned(self.build_date)),
             compiler: Some(crate::OptionableConvert::into_optioned(self.compiler)),
             emulation_major: crate::OptionableConvert::into_optioned(
@@ -54,7 +54,7 @@ impl crate::OptionableConvert for ::k8s_openapi::apimachinery::pkg::version::Inf
             platform: Some(crate::OptionableConvert::into_optioned(self.platform)),
         }
     }
-    fn try_from_optioned(value: InfoOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: InfoAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             build_date: crate::OptionableConvert::try_from_optioned(
                 value
@@ -133,7 +133,7 @@ impl crate::OptionableConvert for ::k8s_openapi::apimachinery::pkg::version::Inf
             )?,
         })
     }
-    fn merge(&mut self, other: InfoOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: InfoAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.build_date {
             crate::OptionableConvert::merge(&mut self.build_date, other_value)?;
         }

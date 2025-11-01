@@ -1,4 +1,4 @@
-pub struct CapacityRequirementsOpt {
+pub struct CapacityRequirementsAc {
     pub requests: <Option<
         std::collections::BTreeMap<
             std::string::String,
@@ -8,22 +8,22 @@ pub struct CapacityRequirementsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::CapacityRequirements {
-    type Optioned = CapacityRequirementsOpt;
+    type Optioned = CapacityRequirementsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CapacityRequirementsOpt {
-    type Optioned = CapacityRequirementsOpt;
+impl crate::Optionable for CapacityRequirementsAc {
+    type Optioned = CapacityRequirementsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta2::CapacityRequirements {
-    fn into_optioned(self) -> CapacityRequirementsOpt {
-        CapacityRequirementsOpt {
+    fn into_optioned(self) -> CapacityRequirementsAc {
+        CapacityRequirementsAc {
             requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
     fn try_from_optioned(
-        value: CapacityRequirementsOpt,
+        value: CapacityRequirementsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
@@ -31,7 +31,7 @@ for ::k8s_openapi::api::resource::v1beta2::CapacityRequirements {
     }
     fn merge(
         &mut self,
-        other: CapacityRequirementsOpt,
+        other: CapacityRequirementsAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
         Ok(())

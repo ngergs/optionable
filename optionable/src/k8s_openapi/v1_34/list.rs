@@ -1,4 +1,4 @@
-pub struct ListOpt<T>
+pub struct ListAc<T>
 where
     T: k8s_openapi::ListableResource + crate::Optionable,
     <T as crate::Optionable>::Optioned: Sized,
@@ -14,15 +14,15 @@ where
     T: k8s_openapi::ListableResource + crate::Optionable,
     <T as crate::Optionable>::Optioned: Sized,
 {
-    type Optioned = ListOpt<T>;
+    type Optioned = ListAc<T>;
 }
 #[automatically_derived]
-impl<T> crate::Optionable for ListOpt<T>
+impl<T> crate::Optionable for ListAc<T>
 where
     T: k8s_openapi::ListableResource + crate::Optionable,
     <T as crate::Optionable>::Optioned: Sized,
 {
-    type Optioned = ListOpt<T>;
+    type Optioned = ListAc<T>;
 }
 #[automatically_derived]
 impl<T> crate::OptionableConvert for ::k8s_openapi::List<T>
@@ -30,13 +30,13 @@ where
     T: k8s_openapi::ListableResource + crate::OptionableConvert,
     <T as crate::Optionable>::Optioned: Sized,
 {
-    fn into_optioned(self) -> ListOpt<T> {
-        ListOpt::<T> {
+    fn into_optioned(self) -> ListAc<T> {
+        ListAc::<T> {
             items: Some(crate::OptionableConvert::into_optioned(self.items)),
             metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
         }
     }
-    fn try_from_optioned(value: ListOpt<T>) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ListAc<T>) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             items: crate::OptionableConvert::try_from_optioned(
                 value
@@ -54,7 +54,7 @@ where
             )?,
         })
     }
-    fn merge(&mut self, other: ListOpt<T>) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ListAc<T>) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.items {
             crate::OptionableConvert::merge(&mut self.items, other_value)?;
         }

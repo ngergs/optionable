@@ -1,27 +1,27 @@
-pub struct ResourcePoolOpt {
+pub struct ResourcePoolAc {
     pub generation: Option<i64>,
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub resource_slice_count: Option<i64>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta2::ResourcePool {
-    type Optioned = ResourcePoolOpt;
+    type Optioned = ResourcePoolAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ResourcePoolOpt {
-    type Optioned = ResourcePoolOpt;
+impl crate::Optionable for ResourcePoolAc {
+    type Optioned = ResourcePoolAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::ResourcePool {
-    fn into_optioned(self) -> ResourcePoolOpt {
-        ResourcePoolOpt {
+    fn into_optioned(self) -> ResourcePoolAc {
+        ResourcePoolAc {
             generation: Some(self.generation),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             resource_slice_count: Some(self.resource_slice_count),
         }
     }
     fn try_from_optioned(
-        value: ResourcePoolOpt,
+        value: ResourcePoolAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             generation: value
@@ -43,7 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Resourc
                 })?,
         })
     }
-    fn merge(&mut self, other: ResourcePoolOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourcePoolAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.generation {
             self.generation = other_value;
         }

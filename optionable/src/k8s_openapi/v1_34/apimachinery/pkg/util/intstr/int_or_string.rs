@@ -1,34 +1,34 @@
-pub enum IntOrStringOpt {
+pub enum IntOrStringAc {
     Int(Option<i32>),
     String(Option<<std::string::String as crate::Optionable>::Optioned>),
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString {
-    type Optioned = IntOrStringOpt;
+    type Optioned = IntOrStringAc;
 }
 #[automatically_derived]
-impl crate::Optionable for IntOrStringOpt {
-    type Optioned = IntOrStringOpt;
+impl crate::Optionable for IntOrStringAc {
+    type Optioned = IntOrStringAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString {
-    fn into_optioned(self) -> IntOrStringOpt {
+    fn into_optioned(self) -> IntOrStringAc {
         match self {
-            Self::Int(self_0) => IntOrStringOpt::Int(Some(self_0)),
+            Self::Int(self_0) => IntOrStringAc::Int(Some(self_0)),
             Self::String(self_0) => {
-                IntOrStringOpt::String(
+                IntOrStringAc::String(
                     Some(crate::OptionableConvert::into_optioned(self_0)),
                 )
             }
         }
     }
     fn try_from_optioned(
-        other: IntOrStringOpt,
+        other: IntOrStringAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(
             match other {
-                IntOrStringOpt::Int(other_0) => {
+                IntOrStringAc::Int(other_0) => {
                     Self::Int(
                         other_0
                             .ok_or(crate::optionable::Error {
@@ -36,7 +36,7 @@ for ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString {
                             })?,
                     )
                 }
-                IntOrStringOpt::String(other_0) => {
+                IntOrStringAc::String(other_0) => {
                     Self::String(
                         crate::OptionableConvert::try_from_optioned(
                             other_0
@@ -49,24 +49,24 @@ for ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString {
             },
         )
     }
-    fn merge(&mut self, other: IntOrStringOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: IntOrStringAc) -> Result<(), crate::optionable::Error> {
         match other {
-            IntOrStringOpt::Int(other_0) => {
+            IntOrStringAc::Int(other_0) => {
                 if let Self::Int(self_0) = self {
                     if let Some(other_value) = other_0 {
                         *self_0 = other_value;
                     }
                 } else {
-                    *self = Self::try_from_optioned(IntOrStringOpt::Int(other_0))?;
+                    *self = Self::try_from_optioned(IntOrStringAc::Int(other_0))?;
                 }
             }
-            IntOrStringOpt::String(other_0) => {
+            IntOrStringAc::String(other_0) => {
                 if let Self::String(self_0) = self {
                     if let Some(other_value) = other_0 {
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
-                    *self = Self::try_from_optioned(IntOrStringOpt::String(other_0))?;
+                    *self = Self::try_from_optioned(IntOrStringAc::String(other_0))?;
                 }
             }
         }

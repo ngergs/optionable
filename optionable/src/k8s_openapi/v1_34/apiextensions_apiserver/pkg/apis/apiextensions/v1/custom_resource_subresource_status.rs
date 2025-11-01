@@ -1,25 +1,25 @@
-pub struct CustomResourceSubresourceStatusOpt(
+pub struct CustomResourceSubresourceStatusAc(
     pub Option<<::k8s_openapi::serde_json::Value as crate::Optionable>::Optioned>,
 );
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresourceStatus {
-    type Optioned = CustomResourceSubresourceStatusOpt;
+    type Optioned = CustomResourceSubresourceStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CustomResourceSubresourceStatusOpt {
-    type Optioned = CustomResourceSubresourceStatusOpt;
+impl crate::Optionable for CustomResourceSubresourceStatusAc {
+    type Optioned = CustomResourceSubresourceStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresourceStatus {
-    fn into_optioned(self) -> CustomResourceSubresourceStatusOpt {
-        CustomResourceSubresourceStatusOpt(
+    fn into_optioned(self) -> CustomResourceSubresourceStatusAc {
+        CustomResourceSubresourceStatusAc(
             Some(crate::OptionableConvert::into_optioned(self.0)),
         )
     }
     fn try_from_optioned(
-        value: CustomResourceSubresourceStatusOpt,
+        value: CustomResourceSubresourceStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(
             Self(
@@ -35,7 +35,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn merge(
         &mut self,
-        other: CustomResourceSubresourceStatusOpt,
+        other: CustomResourceSubresourceStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.0 {
             crate::OptionableConvert::merge(&mut self.0, other_value)?;

@@ -1,4 +1,4 @@
-pub struct ServiceReferenceOpt {
+pub struct ServiceReferenceAc {
     pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub namespace: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub port: <Option<i32> as crate::Optionable>::Optioned,
@@ -6,24 +6,24 @@ pub struct ServiceReferenceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference {
-    type Optioned = ServiceReferenceOpt;
+    type Optioned = ServiceReferenceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServiceReferenceOpt {
-    type Optioned = ServiceReferenceOpt;
+impl crate::Optionable for ServiceReferenceAc {
+    type Optioned = ServiceReferenceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference {
-    fn into_optioned(self) -> ServiceReferenceOpt {
-        ServiceReferenceOpt {
+    fn into_optioned(self) -> ServiceReferenceAc {
+        ServiceReferenceAc {
             name: crate::OptionableConvert::into_optioned(self.name),
             namespace: crate::OptionableConvert::into_optioned(self.namespace),
             port: crate::OptionableConvert::into_optioned(self.port),
         }
     }
     fn try_from_optioned(
-        value: ServiceReferenceOpt,
+        value: ServiceReferenceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
@@ -33,7 +33,7 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::ServiceRefer
     }
     fn merge(
         &mut self,
-        other: ServiceReferenceOpt,
+        other: ServiceReferenceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;

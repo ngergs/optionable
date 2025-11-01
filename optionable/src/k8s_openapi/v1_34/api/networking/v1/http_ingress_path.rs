@@ -1,4 +1,4 @@
-pub struct HTTPIngressPathOpt {
+pub struct HTTPIngressPathAc {
     pub backend: Option<
         <::k8s_openapi::api::networking::v1::IngressBackend as crate::Optionable>::Optioned,
     >,
@@ -7,23 +7,23 @@ pub struct HTTPIngressPathOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1::HTTPIngressPath {
-    type Optioned = HTTPIngressPathOpt;
+    type Optioned = HTTPIngressPathAc;
 }
 #[automatically_derived]
-impl crate::Optionable for HTTPIngressPathOpt {
-    type Optioned = HTTPIngressPathOpt;
+impl crate::Optionable for HTTPIngressPathAc {
+    type Optioned = HTTPIngressPathAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::HTTPIngressPath {
-    fn into_optioned(self) -> HTTPIngressPathOpt {
-        HTTPIngressPathOpt {
+    fn into_optioned(self) -> HTTPIngressPathAc {
+        HTTPIngressPathAc {
             backend: Some(crate::OptionableConvert::into_optioned(self.backend)),
             path: crate::OptionableConvert::into_optioned(self.path),
             path_type: Some(crate::OptionableConvert::into_optioned(self.path_type)),
         }
     }
     fn try_from_optioned(
-        value: HTTPIngressPathOpt,
+        value: HTTPIngressPathAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             backend: crate::OptionableConvert::try_from_optioned(
@@ -45,7 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::HTTPIngres
     }
     fn merge(
         &mut self,
-        other: HTTPIngressPathOpt,
+        other: HTTPIngressPathAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.backend {
             crate::OptionableConvert::merge(&mut self.backend, other_value)?;

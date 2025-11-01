@@ -1,4 +1,4 @@
-pub struct AWSElasticBlockStoreVolumeSourceOpt {
+pub struct AWSElasticBlockStoreVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub partition: <Option<i32> as crate::Optionable>::Optioned,
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
@@ -7,17 +7,17 @@ pub struct AWSElasticBlockStoreVolumeSourceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource {
-    type Optioned = AWSElasticBlockStoreVolumeSourceOpt;
+    type Optioned = AWSElasticBlockStoreVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for AWSElasticBlockStoreVolumeSourceOpt {
-    type Optioned = AWSElasticBlockStoreVolumeSourceOpt;
+impl crate::Optionable for AWSElasticBlockStoreVolumeSourceAc {
+    type Optioned = AWSElasticBlockStoreVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource {
-    fn into_optioned(self) -> AWSElasticBlockStoreVolumeSourceOpt {
-        AWSElasticBlockStoreVolumeSourceOpt {
+    fn into_optioned(self) -> AWSElasticBlockStoreVolumeSourceAc {
+        AWSElasticBlockStoreVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             partition: crate::OptionableConvert::into_optioned(self.partition),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
@@ -25,7 +25,7 @@ for ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: AWSElasticBlockStoreVolumeSourceOpt,
+        value: AWSElasticBlockStoreVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
@@ -42,7 +42,7 @@ for ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource {
     }
     fn merge(
         &mut self,
-        other: AWSElasticBlockStoreVolumeSourceOpt,
+        other: AWSElasticBlockStoreVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.partition, other.partition)?;

@@ -1,27 +1,27 @@
-pub struct ExpressionWarningOpt {
+pub struct ExpressionWarningAc {
     pub field_ref: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub warning: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::ExpressionWarning {
-    type Optioned = ExpressionWarningOpt;
+    type Optioned = ExpressionWarningAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ExpressionWarningOpt {
-    type Optioned = ExpressionWarningOpt;
+impl crate::Optionable for ExpressionWarningAc {
+    type Optioned = ExpressionWarningAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::ExpressionWarning {
-    fn into_optioned(self) -> ExpressionWarningOpt {
-        ExpressionWarningOpt {
+    fn into_optioned(self) -> ExpressionWarningAc {
+        ExpressionWarningAc {
             field_ref: Some(crate::OptionableConvert::into_optioned(self.field_ref)),
             warning: Some(crate::OptionableConvert::into_optioned(self.warning)),
         }
     }
     fn try_from_optioned(
-        value: ExpressionWarningOpt,
+        value: ExpressionWarningAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             field_ref: crate::OptionableConvert::try_from_optioned(
@@ -42,7 +42,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ExpressionWarning {
     }
     fn merge(
         &mut self,
-        other: ExpressionWarningOpt,
+        other: ExpressionWarningAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.field_ref {
             crate::OptionableConvert::merge(&mut self.field_ref, other_value)?;

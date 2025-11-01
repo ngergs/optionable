@@ -1,26 +1,26 @@
-pub struct ServiceAccountSubjectOpt {
+pub struct ServiceAccountSubjectAc {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub namespace: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::flowcontrol::v1::ServiceAccountSubject {
-    type Optioned = ServiceAccountSubjectOpt;
+    type Optioned = ServiceAccountSubjectAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServiceAccountSubjectOpt {
-    type Optioned = ServiceAccountSubjectOpt;
+impl crate::Optionable for ServiceAccountSubjectAc {
+    type Optioned = ServiceAccountSubjectAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::ServiceAccountSubject {
-    fn into_optioned(self) -> ServiceAccountSubjectOpt {
-        ServiceAccountSubjectOpt {
+    fn into_optioned(self) -> ServiceAccountSubjectAc {
+        ServiceAccountSubjectAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             namespace: Some(crate::OptionableConvert::into_optioned(self.namespace)),
         }
     }
     fn try_from_optioned(
-        value: ServiceAccountSubjectOpt,
+        value: ServiceAccountSubjectAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
@@ -41,7 +41,7 @@ for ::k8s_openapi::api::flowcontrol::v1::ServiceAccountSubject {
     }
     fn merge(
         &mut self,
-        other: ServiceAccountSubjectOpt,
+        other: ServiceAccountSubjectAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;

@@ -1,4 +1,4 @@
-pub struct RollingUpdateStatefulSetStrategyOpt {
+pub struct RollingUpdateStatefulSetStrategyAc {
     pub max_unavailable: <Option<
         ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
     > as crate::Optionable>::Optioned,
@@ -7,17 +7,17 @@ pub struct RollingUpdateStatefulSetStrategyOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy {
-    type Optioned = RollingUpdateStatefulSetStrategyOpt;
+    type Optioned = RollingUpdateStatefulSetStrategyAc;
 }
 #[automatically_derived]
-impl crate::Optionable for RollingUpdateStatefulSetStrategyOpt {
-    type Optioned = RollingUpdateStatefulSetStrategyOpt;
+impl crate::Optionable for RollingUpdateStatefulSetStrategyAc {
+    type Optioned = RollingUpdateStatefulSetStrategyAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy {
-    fn into_optioned(self) -> RollingUpdateStatefulSetStrategyOpt {
-        RollingUpdateStatefulSetStrategyOpt {
+    fn into_optioned(self) -> RollingUpdateStatefulSetStrategyAc {
+        RollingUpdateStatefulSetStrategyAc {
             max_unavailable: crate::OptionableConvert::into_optioned(
                 self.max_unavailable,
             ),
@@ -25,7 +25,7 @@ for ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy {
         }
     }
     fn try_from_optioned(
-        value: RollingUpdateStatefulSetStrategyOpt,
+        value: RollingUpdateStatefulSetStrategyAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             max_unavailable: crate::OptionableConvert::try_from_optioned(
@@ -36,7 +36,7 @@ for ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy {
     }
     fn merge(
         &mut self,
-        other: RollingUpdateStatefulSetStrategyOpt,
+        other: RollingUpdateStatefulSetStrategyAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.max_unavailable,

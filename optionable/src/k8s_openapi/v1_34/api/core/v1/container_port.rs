@@ -1,4 +1,4 @@
-pub struct ContainerPortOpt {
+pub struct ContainerPortAc {
     pub container_port: Option<i32>,
     pub host_ip: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub host_port: <Option<i32> as crate::Optionable>::Optioned,
@@ -7,16 +7,16 @@ pub struct ContainerPortOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerPort {
-    type Optioned = ContainerPortOpt;
+    type Optioned = ContainerPortAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ContainerPortOpt {
-    type Optioned = ContainerPortOpt;
+impl crate::Optionable for ContainerPortAc {
+    type Optioned = ContainerPortAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerPort {
-    fn into_optioned(self) -> ContainerPortOpt {
-        ContainerPortOpt {
+    fn into_optioned(self) -> ContainerPortAc {
+        ContainerPortAc {
             container_port: Some(self.container_port),
             host_ip: crate::OptionableConvert::into_optioned(self.host_ip),
             host_port: crate::OptionableConvert::into_optioned(self.host_port),
@@ -25,7 +25,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerPort {
         }
     }
     fn try_from_optioned(
-        value: ContainerPortOpt,
+        value: ContainerPortAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             container_port: value
@@ -39,10 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerPort {
             protocol: crate::OptionableConvert::try_from_optioned(value.protocol)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ContainerPortOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ContainerPortAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.container_port {
             self.container_port = other_value;
         }

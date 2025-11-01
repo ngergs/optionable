@@ -1,19 +1,19 @@
-pub struct ContainerResizePolicyOpt {
+pub struct ContainerResizePolicyAc {
     pub resource_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub restart_policy: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ContainerResizePolicy {
-    type Optioned = ContainerResizePolicyOpt;
+    type Optioned = ContainerResizePolicyAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ContainerResizePolicyOpt {
-    type Optioned = ContainerResizePolicyOpt;
+impl crate::Optionable for ContainerResizePolicyAc {
+    type Optioned = ContainerResizePolicyAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerResizePolicy {
-    fn into_optioned(self) -> ContainerResizePolicyOpt {
-        ContainerResizePolicyOpt {
+    fn into_optioned(self) -> ContainerResizePolicyAc {
+        ContainerResizePolicyAc {
             resource_name: Some(
                 crate::OptionableConvert::into_optioned(self.resource_name),
             ),
@@ -23,7 +23,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerResizeP
         }
     }
     fn try_from_optioned(
-        value: ContainerResizePolicyOpt,
+        value: ContainerResizePolicyAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             resource_name: crate::OptionableConvert::try_from_optioned(
@@ -44,7 +44,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerResizeP
     }
     fn merge(
         &mut self,
-        other: ContainerResizePolicyOpt,
+        other: ContainerResizePolicyAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.resource_name {
             crate::OptionableConvert::merge(&mut self.resource_name, other_value)?;

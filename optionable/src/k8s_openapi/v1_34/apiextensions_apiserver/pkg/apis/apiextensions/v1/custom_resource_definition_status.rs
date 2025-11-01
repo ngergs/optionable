@@ -1,4 +1,4 @@
-pub struct CustomResourceDefinitionStatusOpt {
+pub struct CustomResourceDefinitionStatusAc {
     pub accepted_names: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionNames,
     > as crate::Optionable>::Optioned,
@@ -14,17 +14,17 @@ pub struct CustomResourceDefinitionStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionStatus {
-    type Optioned = CustomResourceDefinitionStatusOpt;
+    type Optioned = CustomResourceDefinitionStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CustomResourceDefinitionStatusOpt {
-    type Optioned = CustomResourceDefinitionStatusOpt;
+impl crate::Optionable for CustomResourceDefinitionStatusAc {
+    type Optioned = CustomResourceDefinitionStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionStatus {
-    fn into_optioned(self) -> CustomResourceDefinitionStatusOpt {
-        CustomResourceDefinitionStatusOpt {
+    fn into_optioned(self) -> CustomResourceDefinitionStatusAc {
+        CustomResourceDefinitionStatusAc {
             accepted_names: crate::OptionableConvert::into_optioned(self.accepted_names),
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             stored_versions: crate::OptionableConvert::into_optioned(
@@ -33,7 +33,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
         }
     }
     fn try_from_optioned(
-        value: CustomResourceDefinitionStatusOpt,
+        value: CustomResourceDefinitionStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             accepted_names: crate::OptionableConvert::try_from_optioned(
@@ -47,7 +47,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn merge(
         &mut self,
-        other: CustomResourceDefinitionStatusOpt,
+        other: CustomResourceDefinitionStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.accepted_names, other.accepted_names)?;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;

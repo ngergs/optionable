@@ -1,4 +1,4 @@
-pub struct ServerStorageVersionOpt {
+pub struct ServerStorageVersionAc {
     pub api_server_id: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub decodable_versions: <Option<
         std::vec::Vec<std::string::String>,
@@ -11,17 +11,17 @@ pub struct ServerStorageVersionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion {
-    type Optioned = ServerStorageVersionOpt;
+    type Optioned = ServerStorageVersionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for ServerStorageVersionOpt {
-    type Optioned = ServerStorageVersionOpt;
+impl crate::Optionable for ServerStorageVersionAc {
+    type Optioned = ServerStorageVersionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion {
-    fn into_optioned(self) -> ServerStorageVersionOpt {
-        ServerStorageVersionOpt {
+    fn into_optioned(self) -> ServerStorageVersionAc {
+        ServerStorageVersionAc {
             api_server_id: crate::OptionableConvert::into_optioned(self.api_server_id),
             decodable_versions: crate::OptionableConvert::into_optioned(
                 self.decodable_versions,
@@ -35,7 +35,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion {
         }
     }
     fn try_from_optioned(
-        value: ServerStorageVersionOpt,
+        value: ServerStorageVersionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_server_id: crate::OptionableConvert::try_from_optioned(
@@ -54,7 +54,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion {
     }
     fn merge(
         &mut self,
-        other: ServerStorageVersionOpt,
+        other: ServerStorageVersionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_server_id, other.api_server_id)?;
         crate::OptionableConvert::merge(

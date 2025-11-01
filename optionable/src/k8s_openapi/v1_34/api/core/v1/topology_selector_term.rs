@@ -1,27 +1,27 @@
-pub struct TopologySelectorTermOpt {
+pub struct TopologySelectorTermAc {
     pub match_label_expressions: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::TopologySelectorLabelRequirement>,
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::TopologySelectorTerm {
-    type Optioned = TopologySelectorTermOpt;
+    type Optioned = TopologySelectorTermAc;
 }
 #[automatically_derived]
-impl crate::Optionable for TopologySelectorTermOpt {
-    type Optioned = TopologySelectorTermOpt;
+impl crate::Optionable for TopologySelectorTermAc {
+    type Optioned = TopologySelectorTermAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TopologySelectorTerm {
-    fn into_optioned(self) -> TopologySelectorTermOpt {
-        TopologySelectorTermOpt {
+    fn into_optioned(self) -> TopologySelectorTermAc {
+        TopologySelectorTermAc {
             match_label_expressions: crate::OptionableConvert::into_optioned(
                 self.match_label_expressions,
             ),
         }
     }
     fn try_from_optioned(
-        value: TopologySelectorTermOpt,
+        value: TopologySelectorTermAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             match_label_expressions: crate::OptionableConvert::try_from_optioned(
@@ -31,7 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TopologySelector
     }
     fn merge(
         &mut self,
-        other: TopologySelectorTermOpt,
+        other: TopologySelectorTermAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.match_label_expressions,

@@ -1,4 +1,4 @@
-pub struct DeploymentConditionOpt {
+pub struct DeploymentConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -12,16 +12,16 @@ pub struct DeploymentConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::DeploymentCondition {
-    type Optioned = DeploymentConditionOpt;
+    type Optioned = DeploymentConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeploymentConditionOpt {
-    type Optioned = DeploymentConditionOpt;
+impl crate::Optionable for DeploymentConditionAc {
+    type Optioned = DeploymentConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentCondition {
-    fn into_optioned(self) -> DeploymentConditionOpt {
-        DeploymentConditionOpt {
+    fn into_optioned(self) -> DeploymentConditionAc {
+        DeploymentConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -35,7 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentCondit
         }
     }
     fn try_from_optioned(
-        value: DeploymentConditionOpt,
+        value: DeploymentConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -64,7 +64,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentCondit
     }
     fn merge(
         &mut self,
-        other: DeploymentConditionOpt,
+        other: DeploymentConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

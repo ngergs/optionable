@@ -1,4 +1,4 @@
-pub struct SELinuxOptionsOpt {
+pub struct SELinuxOptionsAc {
     pub level: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub role: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -6,16 +6,16 @@ pub struct SELinuxOptionsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::SELinuxOptions {
-    type Optioned = SELinuxOptionsOpt;
+    type Optioned = SELinuxOptionsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SELinuxOptionsOpt {
-    type Optioned = SELinuxOptionsOpt;
+impl crate::Optionable for SELinuxOptionsAc {
+    type Optioned = SELinuxOptionsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SELinuxOptions {
-    fn into_optioned(self) -> SELinuxOptionsOpt {
-        SELinuxOptionsOpt {
+    fn into_optioned(self) -> SELinuxOptionsAc {
+        SELinuxOptionsAc {
             level: crate::OptionableConvert::into_optioned(self.level),
             role: crate::OptionableConvert::into_optioned(self.role),
             type_: crate::OptionableConvert::into_optioned(self.type_),
@@ -23,7 +23,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SELinuxOptions {
         }
     }
     fn try_from_optioned(
-        value: SELinuxOptionsOpt,
+        value: SELinuxOptionsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             level: crate::OptionableConvert::try_from_optioned(value.level)?,
@@ -34,7 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SELinuxOptions {
     }
     fn merge(
         &mut self,
-        other: SELinuxOptionsOpt,
+        other: SELinuxOptionsAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.level, other.level)?;
         crate::OptionableConvert::merge(&mut self.role, other.role)?;

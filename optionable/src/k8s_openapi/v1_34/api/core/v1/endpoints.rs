@@ -1,4 +1,6 @@
-pub struct EndpointsOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = Endpoints)]
+pub struct EndpointsAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub subsets: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::EndpointSubset>,
@@ -6,29 +8,31 @@ pub struct EndpointsOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Endpoints {
-    type Optioned = EndpointsOpt;
+    type Optioned = EndpointsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for EndpointsOpt {
-    type Optioned = EndpointsOpt;
+impl crate::Optionable for EndpointsAc {
+    type Optioned = EndpointsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Endpoints {
-    fn into_optioned(self) -> EndpointsOpt {
-        EndpointsOpt {
+    fn into_optioned(self) -> EndpointsAc {
+        EndpointsAc {
             metadata: self.metadata,
             subsets: crate::OptionableConvert::into_optioned(self.subsets),
         }
     }
-    fn try_from_optioned(value: EndpointsOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EndpointsAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
             subsets: crate::OptionableConvert::try_from_optioned(value.subsets)?,
         })
     }
-    fn merge(&mut self, other: EndpointsOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EndpointsAc) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.subsets, other.subsets)?;
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::core::v1::Endpoints;

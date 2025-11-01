@@ -1,4 +1,4 @@
-pub struct MutatingWebhookOpt {
+pub struct MutatingWebhookAc {
     pub admission_review_versions: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,
@@ -29,17 +29,17 @@ pub struct MutatingWebhookOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::MutatingWebhook {
-    type Optioned = MutatingWebhookOpt;
+    type Optioned = MutatingWebhookAc;
 }
 #[automatically_derived]
-impl crate::Optionable for MutatingWebhookOpt {
-    type Optioned = MutatingWebhookOpt;
+impl crate::Optionable for MutatingWebhookAc {
+    type Optioned = MutatingWebhookAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::MutatingWebhook {
-    fn into_optioned(self) -> MutatingWebhookOpt {
-        MutatingWebhookOpt {
+    fn into_optioned(self) -> MutatingWebhookAc {
+        MutatingWebhookAc {
             admission_review_versions: Some(
                 crate::OptionableConvert::into_optioned(self.admission_review_versions),
             ),
@@ -71,7 +71,7 @@ for ::k8s_openapi::api::admissionregistration::v1::MutatingWebhook {
         }
     }
     fn try_from_optioned(
-        value: MutatingWebhookOpt,
+        value: MutatingWebhookAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             admission_review_versions: crate::OptionableConvert::try_from_optioned(
@@ -128,7 +128,7 @@ for ::k8s_openapi::api::admissionregistration::v1::MutatingWebhook {
     }
     fn merge(
         &mut self,
-        other: MutatingWebhookOpt,
+        other: MutatingWebhookAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.admission_review_versions {
             crate::OptionableConvert::merge(

@@ -1,4 +1,4 @@
-pub struct StatefulSetConditionOpt {
+pub struct StatefulSetConditionAc {
     pub last_transition_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
@@ -9,16 +9,16 @@ pub struct StatefulSetConditionOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::StatefulSetCondition {
-    type Optioned = StatefulSetConditionOpt;
+    type Optioned = StatefulSetConditionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StatefulSetConditionOpt {
-    type Optioned = StatefulSetConditionOpt;
+impl crate::Optionable for StatefulSetConditionAc {
+    type Optioned = StatefulSetConditionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetCondition {
-    fn into_optioned(self) -> StatefulSetConditionOpt {
-        StatefulSetConditionOpt {
+    fn into_optioned(self) -> StatefulSetConditionAc {
+        StatefulSetConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -29,7 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetCondi
         }
     }
     fn try_from_optioned(
-        value: StatefulSetConditionOpt,
+        value: StatefulSetConditionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
@@ -55,7 +55,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetCondi
     }
     fn merge(
         &mut self,
-        other: StatefulSetConditionOpt,
+        other: StatefulSetConditionAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,

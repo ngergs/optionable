@@ -1,4 +1,4 @@
-pub struct StorageOSPersistentVolumeSourceOpt {
+pub struct StorageOSPersistentVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
     pub secret_ref: <Option<
@@ -10,17 +10,17 @@ pub struct StorageOSPersistentVolumeSourceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::core::v1::StorageOSPersistentVolumeSource {
-    type Optioned = StorageOSPersistentVolumeSourceOpt;
+    type Optioned = StorageOSPersistentVolumeSourceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for StorageOSPersistentVolumeSourceOpt {
-    type Optioned = StorageOSPersistentVolumeSourceOpt;
+impl crate::Optionable for StorageOSPersistentVolumeSourceAc {
+    type Optioned = StorageOSPersistentVolumeSourceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::StorageOSPersistentVolumeSource {
-    fn into_optioned(self) -> StorageOSPersistentVolumeSourceOpt {
-        StorageOSPersistentVolumeSourceOpt {
+    fn into_optioned(self) -> StorageOSPersistentVolumeSourceAc {
+        StorageOSPersistentVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
             secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
@@ -31,7 +31,7 @@ for ::k8s_openapi::api::core::v1::StorageOSPersistentVolumeSource {
         }
     }
     fn try_from_optioned(
-        value: StorageOSPersistentVolumeSourceOpt,
+        value: StorageOSPersistentVolumeSourceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
@@ -45,7 +45,7 @@ for ::k8s_openapi::api::core::v1::StorageOSPersistentVolumeSource {
     }
     fn merge(
         &mut self,
-        other: StorageOSPersistentVolumeSourceOpt,
+        other: StorageOSPersistentVolumeSourceAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;

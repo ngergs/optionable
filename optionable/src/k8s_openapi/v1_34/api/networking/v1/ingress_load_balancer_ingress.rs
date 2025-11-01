@@ -1,4 +1,4 @@
-pub struct IngressLoadBalancerIngressOpt {
+pub struct IngressLoadBalancerIngressAc {
     pub hostname: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub ip: <Option<std::string::String> as crate::Optionable>::Optioned,
     pub ports: <Option<
@@ -8,24 +8,24 @@ pub struct IngressLoadBalancerIngressOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::networking::v1::IngressLoadBalancerIngress {
-    type Optioned = IngressLoadBalancerIngressOpt;
+    type Optioned = IngressLoadBalancerIngressAc;
 }
 #[automatically_derived]
-impl crate::Optionable for IngressLoadBalancerIngressOpt {
-    type Optioned = IngressLoadBalancerIngressOpt;
+impl crate::Optionable for IngressLoadBalancerIngressAc {
+    type Optioned = IngressLoadBalancerIngressAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1::IngressLoadBalancerIngress {
-    fn into_optioned(self) -> IngressLoadBalancerIngressOpt {
-        IngressLoadBalancerIngressOpt {
+    fn into_optioned(self) -> IngressLoadBalancerIngressAc {
+        IngressLoadBalancerIngressAc {
             hostname: crate::OptionableConvert::into_optioned(self.hostname),
             ip: crate::OptionableConvert::into_optioned(self.ip),
             ports: crate::OptionableConvert::into_optioned(self.ports),
         }
     }
     fn try_from_optioned(
-        value: IngressLoadBalancerIngressOpt,
+        value: IngressLoadBalancerIngressAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
@@ -35,7 +35,7 @@ for ::k8s_openapi::api::networking::v1::IngressLoadBalancerIngress {
     }
     fn merge(
         &mut self,
-        other: IngressLoadBalancerIngressOpt,
+        other: IngressLoadBalancerIngressAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
         crate::OptionableConvert::merge(&mut self.ip, other.ip)?;

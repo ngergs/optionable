@@ -1,4 +1,4 @@
-pub struct RuleWithOperationsOpt {
+pub struct RuleWithOperationsAc {
     pub api_groups: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
@@ -16,17 +16,17 @@ pub struct RuleWithOperationsOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1::RuleWithOperations {
-    type Optioned = RuleWithOperationsOpt;
+    type Optioned = RuleWithOperationsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for RuleWithOperationsOpt {
-    type Optioned = RuleWithOperationsOpt;
+impl crate::Optionable for RuleWithOperationsAc {
+    type Optioned = RuleWithOperationsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::RuleWithOperations {
-    fn into_optioned(self) -> RuleWithOperationsOpt {
-        RuleWithOperationsOpt {
+    fn into_optioned(self) -> RuleWithOperationsAc {
+        RuleWithOperationsAc {
             api_groups: crate::OptionableConvert::into_optioned(self.api_groups),
             api_versions: crate::OptionableConvert::into_optioned(self.api_versions),
             operations: crate::OptionableConvert::into_optioned(self.operations),
@@ -35,7 +35,7 @@ for ::k8s_openapi::api::admissionregistration::v1::RuleWithOperations {
         }
     }
     fn try_from_optioned(
-        value: RuleWithOperationsOpt,
+        value: RuleWithOperationsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_groups: crate::OptionableConvert::try_from_optioned(value.api_groups)?,
@@ -49,7 +49,7 @@ for ::k8s_openapi::api::admissionregistration::v1::RuleWithOperations {
     }
     fn merge(
         &mut self,
-        other: RuleWithOperationsOpt,
+        other: RuleWithOperationsAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.api_groups, other.api_groups)?;
         crate::OptionableConvert::merge(&mut self.api_versions, other.api_versions)?;

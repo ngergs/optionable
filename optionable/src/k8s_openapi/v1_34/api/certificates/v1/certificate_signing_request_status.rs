@@ -1,4 +1,4 @@
-pub struct CertificateSigningRequestStatusOpt {
+pub struct CertificateSigningRequestStatusAc {
     pub certificate: <Option<::k8s_openapi::ByteString> as crate::Optionable>::Optioned,
     pub conditions: <Option<
         std::vec::Vec<
@@ -9,23 +9,23 @@ pub struct CertificateSigningRequestStatusOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestStatus {
-    type Optioned = CertificateSigningRequestStatusOpt;
+    type Optioned = CertificateSigningRequestStatusAc;
 }
 #[automatically_derived]
-impl crate::Optionable for CertificateSigningRequestStatusOpt {
-    type Optioned = CertificateSigningRequestStatusOpt;
+impl crate::Optionable for CertificateSigningRequestStatusAc {
+    type Optioned = CertificateSigningRequestStatusAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestStatus {
-    fn into_optioned(self) -> CertificateSigningRequestStatusOpt {
-        CertificateSigningRequestStatusOpt {
+    fn into_optioned(self) -> CertificateSigningRequestStatusAc {
+        CertificateSigningRequestStatusAc {
             certificate: crate::OptionableConvert::into_optioned(self.certificate),
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
         }
     }
     fn try_from_optioned(
-        value: CertificateSigningRequestStatusOpt,
+        value: CertificateSigningRequestStatusAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             certificate: crate::OptionableConvert::try_from_optioned(value.certificate)?,
@@ -34,7 +34,7 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestStatus {
     }
     fn merge(
         &mut self,
-        other: CertificateSigningRequestStatusOpt,
+        other: CertificateSigningRequestStatusAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.certificate, other.certificate)?;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;

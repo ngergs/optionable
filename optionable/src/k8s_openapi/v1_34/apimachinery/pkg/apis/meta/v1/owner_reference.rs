@@ -1,4 +1,4 @@
-pub struct OwnerReferenceOpt {
+pub struct OwnerReferenceAc {
     pub api_version: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub block_owner_deletion: <Option<bool> as crate::Optionable>::Optioned,
     pub controller: <Option<bool> as crate::Optionable>::Optioned,
@@ -9,17 +9,17 @@ pub struct OwnerReferenceOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::OwnerReference {
-    type Optioned = OwnerReferenceOpt;
+    type Optioned = OwnerReferenceAc;
 }
 #[automatically_derived]
-impl crate::Optionable for OwnerReferenceOpt {
-    type Optioned = OwnerReferenceOpt;
+impl crate::Optionable for OwnerReferenceAc {
+    type Optioned = OwnerReferenceAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::OwnerReference {
-    fn into_optioned(self) -> OwnerReferenceOpt {
-        OwnerReferenceOpt {
+    fn into_optioned(self) -> OwnerReferenceAc {
+        OwnerReferenceAc {
             api_version: Some(crate::OptionableConvert::into_optioned(self.api_version)),
             block_owner_deletion: crate::OptionableConvert::into_optioned(
                 self.block_owner_deletion,
@@ -31,7 +31,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::OwnerReference {
         }
     }
     fn try_from_optioned(
-        value: OwnerReferenceOpt,
+        value: OwnerReferenceAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(
@@ -70,7 +70,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::OwnerReference {
     }
     fn merge(
         &mut self,
-        other: OwnerReferenceOpt,
+        other: OwnerReferenceAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.api_version {
             crate::OptionableConvert::merge(&mut self.api_version, other_value)?;

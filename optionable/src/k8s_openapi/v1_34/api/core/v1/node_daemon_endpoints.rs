@@ -1,27 +1,27 @@
-pub struct NodeDaemonEndpointsOpt {
+pub struct NodeDaemonEndpointsAc {
     pub kubelet_endpoint: <Option<
         ::k8s_openapi::api::core::v1::DaemonEndpoint,
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::NodeDaemonEndpoints {
-    type Optioned = NodeDaemonEndpointsOpt;
+    type Optioned = NodeDaemonEndpointsAc;
 }
 #[automatically_derived]
-impl crate::Optionable for NodeDaemonEndpointsOpt {
-    type Optioned = NodeDaemonEndpointsOpt;
+impl crate::Optionable for NodeDaemonEndpointsAc {
+    type Optioned = NodeDaemonEndpointsAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeDaemonEndpoints {
-    fn into_optioned(self) -> NodeDaemonEndpointsOpt {
-        NodeDaemonEndpointsOpt {
+    fn into_optioned(self) -> NodeDaemonEndpointsAc {
+        NodeDaemonEndpointsAc {
             kubelet_endpoint: crate::OptionableConvert::into_optioned(
                 self.kubelet_endpoint,
             ),
         }
     }
     fn try_from_optioned(
-        value: NodeDaemonEndpointsOpt,
+        value: NodeDaemonEndpointsAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             kubelet_endpoint: crate::OptionableConvert::try_from_optioned(
@@ -31,7 +31,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeDaemonEndpoi
     }
     fn merge(
         &mut self,
-        other: NodeDaemonEndpointsOpt,
+        other: NodeDaemonEndpointsAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.kubelet_endpoint,

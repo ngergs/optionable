@@ -1,4 +1,4 @@
-pub struct DeviceCounterConsumptionOpt {
+pub struct DeviceCounterConsumptionAc {
     pub counter_set: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub counters: Option<
         <std::collections::BTreeMap<
@@ -10,23 +10,23 @@ pub struct DeviceCounterConsumptionOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::resource::v1beta1::DeviceCounterConsumption {
-    type Optioned = DeviceCounterConsumptionOpt;
+    type Optioned = DeviceCounterConsumptionAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceCounterConsumptionOpt {
-    type Optioned = DeviceCounterConsumptionOpt;
+impl crate::Optionable for DeviceCounterConsumptionAc {
+    type Optioned = DeviceCounterConsumptionAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::DeviceCounterConsumption {
-    fn into_optioned(self) -> DeviceCounterConsumptionOpt {
-        DeviceCounterConsumptionOpt {
+    fn into_optioned(self) -> DeviceCounterConsumptionAc {
+        DeviceCounterConsumptionAc {
             counter_set: Some(crate::OptionableConvert::into_optioned(self.counter_set)),
             counters: Some(crate::OptionableConvert::into_optioned(self.counters)),
         }
     }
     fn try_from_optioned(
-        value: DeviceCounterConsumptionOpt,
+        value: DeviceCounterConsumptionAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             counter_set: crate::OptionableConvert::try_from_optioned(
@@ -47,7 +47,7 @@ for ::k8s_openapi::api::resource::v1beta1::DeviceCounterConsumption {
     }
     fn merge(
         &mut self,
-        other: DeviceCounterConsumptionOpt,
+        other: DeviceCounterConsumptionAc,
     ) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.counter_set {
             crate::OptionableConvert::merge(&mut self.counter_set, other_value)?;

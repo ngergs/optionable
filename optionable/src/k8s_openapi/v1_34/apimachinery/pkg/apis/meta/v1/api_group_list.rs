@@ -1,4 +1,4 @@
-pub struct APIGroupListOpt {
+pub struct APIGroupListAc {
     pub groups: Option<
         <std::vec::Vec<
             ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup,
@@ -8,22 +8,22 @@ pub struct APIGroupListOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroupList {
-    type Optioned = APIGroupListOpt;
+    type Optioned = APIGroupListAc;
 }
 #[automatically_derived]
-impl crate::Optionable for APIGroupListOpt {
-    type Optioned = APIGroupListOpt;
+impl crate::Optionable for APIGroupListAc {
+    type Optioned = APIGroupListAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroupList {
-    fn into_optioned(self) -> APIGroupListOpt {
-        APIGroupListOpt {
+    fn into_optioned(self) -> APIGroupListAc {
+        APIGroupListAc {
             groups: Some(crate::OptionableConvert::into_optioned(self.groups)),
         }
     }
     fn try_from_optioned(
-        value: APIGroupListOpt,
+        value: APIGroupListAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             groups: crate::OptionableConvert::try_from_optioned(
@@ -35,7 +35,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroupList {
             )?,
         })
     }
-    fn merge(&mut self, other: APIGroupListOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: APIGroupListAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.groups {
             crate::OptionableConvert::merge(&mut self.groups, other_value)?;
         }

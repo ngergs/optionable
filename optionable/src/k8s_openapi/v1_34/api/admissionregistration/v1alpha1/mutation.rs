@@ -1,4 +1,4 @@
-pub struct MutationOpt {
+pub struct MutationAc {
     pub apply_configuration: <Option<
         ::k8s_openapi::api::admissionregistration::v1alpha1::ApplyConfiguration,
     > as crate::Optionable>::Optioned,
@@ -10,17 +10,17 @@ pub struct MutationOpt {
 #[automatically_derived]
 impl crate::Optionable
 for ::k8s_openapi::api::admissionregistration::v1alpha1::Mutation {
-    type Optioned = MutationOpt;
+    type Optioned = MutationAc;
 }
 #[automatically_derived]
-impl crate::Optionable for MutationOpt {
-    type Optioned = MutationOpt;
+impl crate::Optionable for MutationAc {
+    type Optioned = MutationAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1alpha1::Mutation {
-    fn into_optioned(self) -> MutationOpt {
-        MutationOpt {
+    fn into_optioned(self) -> MutationAc {
+        MutationAc {
             apply_configuration: crate::OptionableConvert::into_optioned(
                 self.apply_configuration,
             ),
@@ -28,7 +28,7 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::Mutation {
             patch_type: Some(crate::OptionableConvert::into_optioned(self.patch_type)),
         }
     }
-    fn try_from_optioned(value: MutationOpt) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: MutationAc) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             apply_configuration: crate::OptionableConvert::try_from_optioned(
                 value.apply_configuration,
@@ -43,7 +43,7 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::Mutation {
             )?,
         })
     }
-    fn merge(&mut self, other: MutationOpt) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: MutationAc) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(
             &mut self.apply_configuration,
             other.apply_configuration,

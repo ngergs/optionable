@@ -1,4 +1,4 @@
-pub struct SuccessPolicyOpt {
+pub struct SuccessPolicyAc {
     pub rules: Option<
         <std::vec::Vec<
             ::k8s_openapi::api::batch::v1::SuccessPolicyRule,
@@ -7,21 +7,21 @@ pub struct SuccessPolicyOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::SuccessPolicy {
-    type Optioned = SuccessPolicyOpt;
+    type Optioned = SuccessPolicyAc;
 }
 #[automatically_derived]
-impl crate::Optionable for SuccessPolicyOpt {
-    type Optioned = SuccessPolicyOpt;
+impl crate::Optionable for SuccessPolicyAc {
+    type Optioned = SuccessPolicyAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::SuccessPolicy {
-    fn into_optioned(self) -> SuccessPolicyOpt {
-        SuccessPolicyOpt {
+    fn into_optioned(self) -> SuccessPolicyAc {
+        SuccessPolicyAc {
             rules: Some(crate::OptionableConvert::into_optioned(self.rules)),
         }
     }
     fn try_from_optioned(
-        value: SuccessPolicyOpt,
+        value: SuccessPolicyAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             rules: crate::OptionableConvert::try_from_optioned(
@@ -33,10 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::SuccessPolicy {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SuccessPolicyOpt,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SuccessPolicyAc) -> Result<(), crate::optionable::Error> {
         if let Some(other_value) = other.rules {
             crate::OptionableConvert::merge(&mut self.rules, other_value)?;
         }

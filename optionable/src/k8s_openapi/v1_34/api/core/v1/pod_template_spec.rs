@@ -1,4 +1,4 @@
-pub struct PodTemplateSpecOpt {
+pub struct PodTemplateSpecAc {
     pub metadata: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     > as crate::Optionable>::Optioned,
@@ -8,22 +8,22 @@ pub struct PodTemplateSpecOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::PodTemplateSpec {
-    type Optioned = PodTemplateSpecOpt;
+    type Optioned = PodTemplateSpecAc;
 }
 #[automatically_derived]
-impl crate::Optionable for PodTemplateSpecOpt {
-    type Optioned = PodTemplateSpecOpt;
+impl crate::Optionable for PodTemplateSpecAc {
+    type Optioned = PodTemplateSpecAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodTemplateSpec {
-    fn into_optioned(self) -> PodTemplateSpecOpt {
-        PodTemplateSpecOpt {
+    fn into_optioned(self) -> PodTemplateSpecAc {
+        PodTemplateSpecAc {
             metadata: crate::OptionableConvert::into_optioned(self.metadata),
             spec: crate::OptionableConvert::into_optioned(self.spec),
         }
     }
     fn try_from_optioned(
-        value: PodTemplateSpecOpt,
+        value: PodTemplateSpecAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: crate::OptionableConvert::try_from_optioned(value.metadata)?,
@@ -32,7 +32,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodTemplateSpec 
     }
     fn merge(
         &mut self,
-        other: PodTemplateSpecOpt,
+        other: PodTemplateSpecAc,
     ) -> Result<(), crate::optionable::Error> {
         crate::OptionableConvert::merge(&mut self.metadata, other.metadata)?;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;

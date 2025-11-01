@@ -1,4 +1,6 @@
-pub struct DeviceTaintRuleOpt {
+#[derive(kube::Resource)]
+#[resource(inherit = DeviceTaintRule)]
+pub struct DeviceTaintRuleAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     pub spec: Option<
         <::k8s_openapi::api::resource::v1alpha3::DeviceTaintRuleSpec as crate::Optionable>::Optioned,
@@ -6,23 +8,23 @@ pub struct DeviceTaintRuleOpt {
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRule {
-    type Optioned = DeviceTaintRuleOpt;
+    type Optioned = DeviceTaintRuleAc;
 }
 #[automatically_derived]
-impl crate::Optionable for DeviceTaintRuleOpt {
-    type Optioned = DeviceTaintRuleOpt;
+impl crate::Optionable for DeviceTaintRuleAc {
+    type Optioned = DeviceTaintRuleAc;
 }
 #[automatically_derived]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRule {
-    fn into_optioned(self) -> DeviceTaintRuleOpt {
-        DeviceTaintRuleOpt {
+    fn into_optioned(self) -> DeviceTaintRuleAc {
+        DeviceTaintRuleAc {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
         }
     }
     fn try_from_optioned(
-        value: DeviceTaintRuleOpt,
+        value: DeviceTaintRuleAc,
     ) -> Result<Self, crate::optionable::Error> {
         Ok(Self {
             metadata: value.metadata,
@@ -37,7 +39,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRule {
     }
     fn merge(
         &mut self,
-        other: DeviceTaintRuleOpt,
+        other: DeviceTaintRuleAc,
     ) -> Result<(), crate::optionable::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
@@ -46,3 +48,5 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRule {
         Ok(())
     }
 }
+#[allow(unused_imports)]
+use ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRule;
