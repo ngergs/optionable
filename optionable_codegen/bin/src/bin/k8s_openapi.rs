@@ -1,7 +1,7 @@
 use clap::Parser;
 use darling::FromMeta;
 use optionable_codegen::CodegenSettings;
-use optionable_codegen_cli::{file_codegen, CodegenConfig};
+use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
 use proc_macro2::Span;
 use std::borrow::Cow;
 use std::fs::create_dir_all;
@@ -20,6 +20,11 @@ struct Args {
     output_dir: PathBuf,
 }
 
+#[derive(Clone)]
+struct Visitor {}
+
+impl CodegenVisitor for Visitor {}
+
 /// Dedicated binary target for the purpose of codegen for `k8s-openapi`.
 pub(crate) fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
@@ -33,7 +38,7 @@ pub(crate) fn main() -> Result<(), Box<dyn std::error::Error>> {
         &args.input_file,
         &args.output_dir,
         CodegenConfig {
-            type_attrs: &[],
+            visitor: &Visitor {},
             settings: Cow::Owned(codegen_settings),
             usage_aliases: vec![],
             is_mod_private: false,

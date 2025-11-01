@@ -1,7 +1,7 @@
 use clap::Parser;
 use darling::FromMeta;
 use optionable_codegen::{attribute_derives, attribute_no_convert, CodegenSettings};
-use optionable_codegen_cli::{file_codegen, CodegenConfig};
+use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
 use proc_macro2::Span;
 use std::borrow::Cow;
 use std::fs::create_dir_all;
@@ -31,6 +31,17 @@ struct Args {
     replace_crate_name: Option<String>,
 }
 
+#[derive(Clone)]
+struct Visitor {
+    type_attrs: Vec<Attribute>,
+}
+
+impl CodegenVisitor for Visitor {
+    fn visit_attrs(&self, attrs: &mut Vec<Attribute>) {
+        attrs.append(&mut self.type_attrs.clone());
+    }
+}
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
     let type_attrs = input_type_attrs(&args)?;
@@ -40,7 +51,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         &args.input_file,
         &args.output_dir,
         CodegenConfig {
-            type_attrs: &type_attrs,
+            visitor: &Visitor { type_attrs },
             settings: Cow::Owned(codegen_settings),
             usage_aliases: vec![],
             is_mod_private: false,
