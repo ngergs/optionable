@@ -15,11 +15,19 @@ use syn::{
     Visibility,
 };
 
+/// Used for callback actions when encountering specific elements.
+pub trait CodegenVisitor: Clone {
+    /// How to handle attributes.
+    /// # Errors
+    /// - When one of the attributes could not be processed.
+    fn visit_attrs(&self, _: &mut Vec<Attribute>) {}
+}
+
 /// Represents the current codegen configuration
 #[derive(Clone)]
-pub struct CodegenConfig<'a> {
-    /// Type attributes should be added to the generated types.
-    pub type_attrs: &'a [Attribute],
+pub struct CodegenConfig<'a, V: CodegenVisitor> {
+    /// Visitor for detailed field/type handling. See `CodegenVisitor` trait.
+    pub visitor: &'a V,
     /// Settings that can be configured via the library settings functionality
     pub settings: Cow<'a, CodegenSettings>,
     /// Re-exported aliases for types resulting from `pub use <....>` statements.
@@ -37,10 +45,10 @@ pub struct CodegenConfig<'a> {
 /// - IO errors on writing the output file.
 /// - Codegen errors, e.g. due to misused helper attributes.
 ///
-pub fn file_codegen(
+pub fn file_codegen<Vis: CodegenVisitor>(
     input_file: &Path,
     output_path: &Path,
-    mut conf: CodegenConfig,
+    mut conf: CodegenConfig<Vis>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     create_dir_all(output_path)?;
     let content_str = fs::read_to_string(input_file)?;
@@ -147,19 +155,19 @@ pub fn file_codegen(
 }
 
 /// Calls codegen for the respective item.
-fn item_codegen(
+fn item_codegen<V: CodegenVisitor>(
     item: Item,
     input_path: &Path,
     output_path: &Path,
-    conf: &CodegenConfig,
+    conf: &CodegenConfig<V>,
 ) -> Result<Vec<Item>, Box<dyn std::error::Error>> {
     match item {
         Struct(mut item) => {
-            item.attrs.append(&mut conf.type_attrs.into());
+            conf.visitor.visit_attrs(&mut item.attrs);
             Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?)
         }
         Enum(mut item) => {
-            item.attrs.append(&mut conf.type_attrs.into());
+            conf.visitor.visit_attrs(&mut item.attrs);
             Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?)
         }
         Mod(mut mod_entry) => {
