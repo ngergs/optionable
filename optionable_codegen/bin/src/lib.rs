@@ -20,14 +20,14 @@ pub trait CodegenVisitor: Clone {
     /// How to handle attributes.
     /// # Errors
     /// - When one of the attributes could not be processed.
-    fn visit_attrs(&self, _: &mut Vec<Attribute>) {}
+    fn visit_attrs(&mut self, _: &mut Vec<Attribute>) {}
 }
 
 /// Represents the current codegen configuration
 #[derive(Clone)]
 pub struct CodegenConfig<'a, V: CodegenVisitor> {
     /// Visitor for detailed field/type handling. See `CodegenVisitor` trait.
-    pub visitor: &'a V,
+    pub visitor: V,
     /// Settings that can be configured via the library settings functionality
     pub settings: Cow<'a, CodegenSettings>,
     /// Re-exported aliases for types resulting from `pub use <....>` statements.
@@ -121,7 +121,7 @@ pub fn file_codegen<Vis: CodegenVisitor>(
                     item_use.attrs.push(parse_quote! {#[allow(unused_imports)]});
                     Ok(vec![Use(item_use)])
                 } else {
-                    let conf=CodegenConfig{
+                    let mut conf =CodegenConfig{
                          settings,
                         ..conf.clone()
                     };
@@ -130,7 +130,7 @@ pub fn file_codegen<Vis: CodegenVisitor>(
                         item,
                         input_path,
                         output_path,
-                        &conf,
+                        &mut conf,
                     )
                 }
             })
@@ -159,7 +159,7 @@ fn item_codegen<V: CodegenVisitor>(
     item: Item,
     input_path: &Path,
     output_path: &Path,
-    conf: &CodegenConfig<V>,
+    conf: &mut CodegenConfig<V>,
 ) -> Result<Vec<Item>, Box<dyn std::error::Error>> {
     match item {
         Struct(mut item) => {
@@ -175,13 +175,13 @@ fn item_codegen<V: CodegenVisitor>(
                 let items = take(&mut content.1);
                 let mut usage_aliases: Vec<_> = conf.usage_aliases.clone();
                 usage_aliases.append(&mut get_usage_aliases(&items)?);
-                let conf = CodegenConfig {
+                let mut conf = CodegenConfig {
                     usage_aliases,
                     ..conf.clone()
                 };
                 content.1 = items
                     .into_iter()
-                    .map(|item| item_codegen(item, input_path, output_path, &conf))
+                    .map(|item| item_codegen(item, input_path, output_path, &mut conf))
                     .collect::<Result<Vec<_>, _>>()?
                     .into_iter()
                     .flatten()

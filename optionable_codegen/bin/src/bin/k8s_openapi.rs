@@ -38,7 +38,7 @@ pub(crate) fn main() -> Result<(), Box<dyn std::error::Error>> {
         &args.input_file,
         &args.output_dir,
         CodegenConfig {
-            visitor: &Visitor {},
+            visitor: Visitor {},
             settings: Cow::Owned(codegen_settings),
             usage_aliases: vec![],
             is_mod_private: false,

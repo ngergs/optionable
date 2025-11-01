@@ -37,7 +37,7 @@ struct Visitor {
 }
 
 impl CodegenVisitor for Visitor {
-    fn visit_attrs(&self, attrs: &mut Vec<Attribute>) {
+    fn visit_attrs(&mut self, attrs: &mut Vec<Attribute>) {
         attrs.append(&mut self.type_attrs.clone());
     }
 }
@@ -51,7 +51,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         &args.input_file,
         &args.output_dir,
         CodegenConfig {
-            visitor: &Visitor { type_attrs },
+            visitor: Visitor { type_attrs },
             settings: Cow::Owned(codegen_settings),
             usage_aliases: vec![],
             is_mod_private: false,
