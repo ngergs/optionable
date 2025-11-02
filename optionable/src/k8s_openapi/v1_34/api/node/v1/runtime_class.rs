@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct RuntimeClassAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub handler: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -11,6 +12,12 @@ pub struct RuntimeClassAc {
     pub scheduling: <Option<
         ::k8s_openapi::api::node::v1::Scheduling,
     > as crate::Optionable>::Optioned,
+    #[serde(
+        flatten,
+        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
+        skip_deserializing
+    )]
+    phantom: std::marker::PhantomData<RuntimeClassAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::node::v1::RuntimeClass {

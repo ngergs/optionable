@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct CronJobSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub concurrency_policy: <Option<std::string::String> as crate::Optionable>::Optioned,

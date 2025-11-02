@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct EnvVarSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config_map_key_ref: <Option<

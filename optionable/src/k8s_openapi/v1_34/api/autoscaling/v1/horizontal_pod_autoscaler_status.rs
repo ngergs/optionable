@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct HorizontalPodAutoscalerStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_cpu_utilization_percentage: <Option<i32> as crate::Optionable>::Optioned,

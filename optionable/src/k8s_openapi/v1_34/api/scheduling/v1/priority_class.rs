@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct PriorityClassAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -9,6 +10,12 @@ pub struct PriorityClassAc {
     pub preemption_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<i32>,
+    #[serde(
+        flatten,
+        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
+        skip_deserializing
+    )]
+    phantom: std::marker::PhantomData<PriorityClassAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::scheduling::v1::PriorityClass {

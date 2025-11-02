@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct CSIDriverSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attach_required: <Option<bool> as crate::Optionable>::Optioned,

@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct PodAntiAffinityAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preferred_during_scheduling_ignored_during_execution: <Option<

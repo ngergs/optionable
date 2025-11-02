@@ -4,6 +4,7 @@ use optionable_codegen::CodegenSettings;
 use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
 use proc_macro2::{Ident, Span};
 use quote::ToTokens;
+use std::collections::HashSet;
 use std::default::Default;
 use std::fs::create_dir_all;
 use std::mem::take;
@@ -38,6 +39,7 @@ struct Visitor {
     type_attrs_item_enum: Vec<Attribute>,
     /// Impl paths that should be copied over (with adjusting `crate` to `k8s-openapi`).
     impl_copy: Vec<Path>,
+    has_resource_impl: HashSet<Ident>,
     /// Additional item that should be appended to the output (used by `impl_copy` implementation).
     internal_output_additional_item: Option<Item>,
 }
@@ -91,6 +93,20 @@ impl Visitor {
 }
 
 impl CodegenVisitor for Visitor {
+    fn visit_pre_input(&mut self, item: &Item) {
+        if let Impl(item) = item
+            && let Some(trait_) = &item.trait_
+            && (trait_.1 == parse_quote!(crate::Resource) || trait_.1 == parse_quote!(Resource))
+            && let Type::Path(path) = &*item.self_ty
+            && path.path.segments.len() == 1
+        {
+            let mut ident = path.path.segments[0].ident.to_string();
+            ident.push_str(self.optioned_suffix);
+            self.has_resource_impl
+                .insert(Ident::from_string(&ident).unwrap());
+        }
+    }
+
     fn visit_input(&mut self, item: &mut Item) {
         let suffix = self.optioned_suffix;
         match item {
@@ -129,7 +145,7 @@ impl CodegenVisitor for Visitor {
         }
     }
 
-    fn visit_output(&mut self, items: &mut Vec<Item>, _: &CodegenSettings) {
+    fn visit_output(&mut self, items: &mut Vec<Item>) {
         if self.internal_output_additional_item.is_some() {
             let item_additional = take(&mut self.internal_output_additional_item);
             if let Some(item_additional) = item_additional {
@@ -141,6 +157,18 @@ impl CodegenVisitor for Visitor {
                     return;
                 }
                 items.push(item_additional);
+            }
+        }
+        for item in items.iter_mut() {
+            if let Struct(item) = item
+                && self.has_resource_impl.contains(&item.ident)
+                && let Fields::Named(fields) = &mut item.fields
+            {
+                let ty = &item.ident;
+                fields.named.push(parse_quote!(
+                    #[serde(flatten,serialize_with="crate::k8s_openapi::serialize_api_envelope",skip_deserializing)]
+                    phantom: std::marker::PhantomData<#ty>
+                ));
             }
         }
     }
@@ -164,9 +192,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 optioned_suffix,
                 type_attrs_input_struct: vec![
                     parse_quote!(#[optionable(derive(Clone,std::fmt::Debug,Default,serde::Serialize, serde::Deserialize))]),
+                    parse_quote!(#[optionable_attr(serde(rename_all="camelCase"))]),
                 ],
                 type_attrs_item_enum: vec![
                     parse_quote!(#[optionable(derive(Clone,std::fmt::Debug,serde::Serialize, serde::Deserialize))]),
+                    parse_quote!(#[optionable_attr(serde(rename_all="camelCase"))]),
                 ],
                 impl_copy: vec![
                     parse_quote!(crate::Resource),

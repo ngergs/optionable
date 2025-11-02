@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct VolumeAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub aws_elastic_block_store: <Option<

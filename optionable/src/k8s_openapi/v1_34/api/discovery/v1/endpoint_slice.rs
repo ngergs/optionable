@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct EndpointSliceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub address_type: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -13,6 +14,12 @@ pub struct EndpointSliceAc {
     pub ports: <Option<
         std::vec::Vec<::k8s_openapi::api::discovery::v1::EndpointPort>,
     > as crate::Optionable>::Optioned,
+    #[serde(
+        flatten,
+        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
+        skip_deserializing
+    )]
+    phantom: std::marker::PhantomData<EndpointSliceAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::discovery::v1::EndpointSlice {

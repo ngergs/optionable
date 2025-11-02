@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct APIVersionsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub server_address_by_client_cidrs: Option<
@@ -10,6 +11,12 @@ pub struct APIVersionsAc {
     pub versions: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,
+    #[serde(
+        flatten,
+        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
+        skip_deserializing
+    )]
+    phantom: std::marker::PhantomData<APIVersionsAc>,
 }
 #[automatically_derived]
 impl crate::Optionable

@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub enum IntOrStringAc {
     Int(#[serde(skip_serializing_if = "Option::is_none")] Option<i32>),
     String(

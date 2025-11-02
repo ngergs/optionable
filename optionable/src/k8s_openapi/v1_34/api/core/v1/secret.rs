@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct SecretAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data: <Option<
@@ -13,6 +14,12 @@ pub struct SecretAc {
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(
+        flatten,
+        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
+        skip_deserializing
+    )]
+    phantom: std::marker::PhantomData<SecretAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Secret {

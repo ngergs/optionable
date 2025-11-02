@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct QueuingConfigurationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hand_size: <Option<i32> as crate::Optionable>::Optioned,

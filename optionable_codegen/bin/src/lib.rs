@@ -29,7 +29,7 @@ pub trait CodegenVisitor: Clone {
     fn visit_input(&mut self, _: &mut Item) {}
     /// Mutates the generated code. Will be called once after code generation.
     /// Implementors can also reset internal states tracking input here.
-    fn visit_output(&mut self, _: &mut Vec<Item>, _: &CodegenSettings) {}
+    fn visit_output(&mut self, _: &mut Vec<Item>) {}
 }
 
 /// Represents the current codegen configuration
@@ -221,7 +221,7 @@ fn item_codegen<V: CodegenVisitor>(
         }
         _ => Ok(vec![]),
     }?;
-    conf.visitor.visit_output(&mut result, &conf.settings);
+    conf.visitor.visit_output(&mut result);
     Ok(result)
 }
 

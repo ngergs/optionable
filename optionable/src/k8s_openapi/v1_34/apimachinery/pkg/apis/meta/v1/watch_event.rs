@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub enum WatchEventAc<T>
 where
     T: crate::Optionable,

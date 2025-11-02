@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct EndpointAddressAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hostname: <Option<std::string::String> as crate::Optionable>::Optioned,

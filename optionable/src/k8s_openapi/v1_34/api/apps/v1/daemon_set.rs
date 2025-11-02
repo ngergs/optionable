@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct DaemonSetAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -9,6 +10,12 @@ pub struct DaemonSetAc {
     pub status: <Option<
         ::k8s_openapi::api::apps::v1::DaemonSetStatus,
     > as crate::Optionable>::Optioned,
+    #[serde(
+        flatten,
+        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
+        skip_deserializing
+    )]
+    phantom: std::marker::PhantomData<DaemonSetAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::DaemonSet {

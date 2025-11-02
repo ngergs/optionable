@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct ConfigMapAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub binary_data: <Option<
@@ -11,6 +12,12 @@ pub struct ConfigMapAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub immutable: <Option<bool> as crate::Optionable>::Optioned,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(
+        flatten,
+        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
+        skip_deserializing
+    )]
+    phantom: std::marker::PhantomData<ConfigMapAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMap {

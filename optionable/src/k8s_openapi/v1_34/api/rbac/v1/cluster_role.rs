@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct ClusterRoleAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub aggregation_rule: <Option<
@@ -9,6 +10,12 @@ pub struct ClusterRoleAc {
     pub rules: <Option<
         std::vec::Vec<::k8s_openapi::api::rbac::v1::PolicyRule>,
     > as crate::Optionable>::Optioned,
+    #[serde(
+        flatten,
+        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
+        skip_deserializing
+    )]
+    phantom: std::marker::PhantomData<ClusterRoleAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::rbac::v1::ClusterRole {

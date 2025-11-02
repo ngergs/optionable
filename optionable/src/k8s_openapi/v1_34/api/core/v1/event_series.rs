@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct EventSeriesAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub count: <Option<i32> as crate::Optionable>::Optioned,

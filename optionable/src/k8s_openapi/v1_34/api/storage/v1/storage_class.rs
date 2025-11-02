@@ -1,4 +1,5 @@
 #[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct StorageClassAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allow_volume_expansion: <Option<bool> as crate::Optionable>::Optioned,
@@ -23,6 +24,12 @@ pub struct StorageClassAc {
     pub volume_binding_mode: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(
+        flatten,
+        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
+        skip_deserializing
+    )]
+    phantom: std::marker::PhantomData<StorageClassAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::StorageClass {
