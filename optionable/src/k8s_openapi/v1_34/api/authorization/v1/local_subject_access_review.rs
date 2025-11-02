@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = LocalSubjectAccessReview)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct LocalSubjectAccessReviewAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -64,5 +56,20 @@ for ::k8s_openapi::api::authorization::v1::LocalSubjectAccessReview {
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::authorization::v1::LocalSubjectAccessReview;
+impl k8s_openapi::Resource for LocalSubjectAccessReviewAc {
+    const API_VERSION: &'static str = "authorization.k8s.io/v1";
+    const GROUP: &'static str = "authorization.k8s.io";
+    const KIND: &'static str = "LocalSubjectAccessReview";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "localsubjectaccessreviews";
+    type Scope = k8s_openapi::NamespaceResourceScope;
+}
+impl k8s_openapi::Metadata for LocalSubjectAccessReviewAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

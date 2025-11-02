@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = Ingress)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct IngressAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -49,5 +41,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::Ingress {
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::networking::v1::Ingress;
+impl k8s_openapi::Resource for IngressAc {
+    const API_VERSION: &'static str = "networking.k8s.io/v1";
+    const GROUP: &'static str = "networking.k8s.io";
+    const KIND: &'static str = "Ingress";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "ingresses";
+    type Scope = k8s_openapi::NamespaceResourceScope;
+}
+impl k8s_openapi::Metadata for IngressAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

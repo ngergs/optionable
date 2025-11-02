@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = CertificateSigningRequest)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct CertificateSigningRequestAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -64,5 +56,20 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequest {
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::certificates::v1::CertificateSigningRequest;
+impl k8s_openapi::Resource for CertificateSigningRequestAc {
+    const API_VERSION: &'static str = "certificates.k8s.io/v1";
+    const GROUP: &'static str = "certificates.k8s.io";
+    const KIND: &'static str = "CertificateSigningRequest";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "certificatesigningrequests";
+    type Scope = k8s_openapi::ClusterResourceScope;
+}
+impl k8s_openapi::Metadata for CertificateSigningRequestAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

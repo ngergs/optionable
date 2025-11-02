@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = CSIStorageCapacity)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct CSIStorageCapacityAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: <Option<
@@ -85,5 +77,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCap
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::storage::v1::CSIStorageCapacity;
+impl k8s_openapi::Resource for CSIStorageCapacityAc {
+    const API_VERSION: &'static str = "storage.k8s.io/v1";
+    const GROUP: &'static str = "storage.k8s.io";
+    const KIND: &'static str = "CSIStorageCapacity";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "csistoragecapacities";
+    type Scope = k8s_openapi::NamespaceResourceScope;
+}
+impl k8s_openapi::Metadata for CSIStorageCapacityAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

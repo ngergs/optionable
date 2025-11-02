@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = CronJob)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct CronJobAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -49,5 +41,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJob {
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::batch::v1::CronJob;
+impl k8s_openapi::Resource for CronJobAc {
+    const API_VERSION: &'static str = "batch/v1";
+    const GROUP: &'static str = "batch";
+    const KIND: &'static str = "CronJob";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "cronjobs";
+    type Scope = k8s_openapi::NamespaceResourceScope;
+}
+impl k8s_openapi::Metadata for CronJobAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = Scale)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ScaleAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -49,5 +41,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v1::Scale {
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::autoscaling::v1::Scale;
+impl k8s_openapi::Resource for ScaleAc {
+    const API_VERSION: &'static str = "autoscaling/v1";
+    const GROUP: &'static str = "autoscaling";
+    const KIND: &'static str = "Scale";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "scale";
+    type Scope = k8s_openapi::SubResourceScope;
+}
+impl k8s_openapi::Metadata for ScaleAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

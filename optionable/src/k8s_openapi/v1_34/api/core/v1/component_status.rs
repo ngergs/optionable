@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = ComponentStatus)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ComponentStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
@@ -47,5 +39,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentStatus 
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::core::v1::ComponentStatus;
+impl k8s_openapi::Resource for ComponentStatusAc {
+    const API_VERSION: &'static str = "v1";
+    const GROUP: &'static str = "";
+    const KIND: &'static str = "ComponentStatus";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "componentstatuses";
+    type Scope = k8s_openapi::ClusterResourceScope;
+}
+impl k8s_openapi::Metadata for ComponentStatusAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

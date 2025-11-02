@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = Secret)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct SecretAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data: <Option<
@@ -59,5 +51,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Secret {
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::core::v1::Secret;
+impl k8s_openapi::Resource for SecretAc {
+    const API_VERSION: &'static str = "v1";
+    const GROUP: &'static str = "";
+    const KIND: &'static str = "Secret";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "secrets";
+    type Scope = k8s_openapi::NamespaceResourceScope;
+}
+impl k8s_openapi::Metadata for SecretAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

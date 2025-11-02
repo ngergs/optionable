@@ -66,3 +66,11 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions {
         Ok(())
     }
 }
+impl k8s_openapi::Resource for APIVersionsAc {
+    const API_VERSION: &'static str = "v1";
+    const GROUP: &'static str = "";
+    const KIND: &'static str = "APIVersions";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "";
+    type Scope = k8s_openapi::ClusterResourceScope;
+}

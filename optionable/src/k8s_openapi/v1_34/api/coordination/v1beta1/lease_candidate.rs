@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = LeaseCandidate)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct LeaseCandidateAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -48,5 +40,20 @@ for ::k8s_openapi::api::coordination::v1beta1::LeaseCandidate {
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::coordination::v1beta1::LeaseCandidate;
+impl k8s_openapi::Resource for LeaseCandidateAc {
+    const API_VERSION: &'static str = "coordination.k8s.io/v1beta1";
+    const GROUP: &'static str = "coordination.k8s.io";
+    const KIND: &'static str = "LeaseCandidate";
+    const VERSION: &'static str = "v1beta1";
+    const URL_PATH_SEGMENT: &'static str = "leasecandidates";
+    type Scope = k8s_openapi::NamespaceResourceScope;
+}
+impl k8s_openapi::Metadata for LeaseCandidateAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

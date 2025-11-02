@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = DaemonSet)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct DaemonSetAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -49,5 +41,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSet {
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::apps::v1::DaemonSet;
+impl k8s_openapi::Resource for DaemonSetAc {
+    const API_VERSION: &'static str = "apps/v1";
+    const GROUP: &'static str = "apps";
+    const KIND: &'static str = "DaemonSet";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "daemonsets";
+    type Scope = k8s_openapi::NamespaceResourceScope;
+}
+impl k8s_openapi::Metadata for DaemonSetAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

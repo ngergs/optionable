@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = StorageClass)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct StorageClassAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allow_volume_expansion: <Option<bool> as crate::Optionable>::Optioned,
@@ -113,5 +105,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass 
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::storage::v1::StorageClass;
+impl k8s_openapi::Resource for StorageClassAc {
+    const API_VERSION: &'static str = "storage.k8s.io/v1";
+    const GROUP: &'static str = "storage.k8s.io";
+    const KIND: &'static str = "StorageClass";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "storageclasses";
+    type Scope = k8s_openapi::ClusterResourceScope;
+}
+impl k8s_openapi::Metadata for StorageClassAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

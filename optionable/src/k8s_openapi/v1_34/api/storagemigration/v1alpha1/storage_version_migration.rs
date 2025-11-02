@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = StorageVersionMigration)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct StorageVersionMigrationAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -56,5 +48,20 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration {
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration;
+impl k8s_openapi::Resource for StorageVersionMigrationAc {
+    const API_VERSION: &'static str = "storagemigration.k8s.io/v1alpha1";
+    const GROUP: &'static str = "storagemigration.k8s.io";
+    const KIND: &'static str = "StorageVersionMigration";
+    const VERSION: &'static str = "v1alpha1";
+    const URL_PATH_SEGMENT: &'static str = "storageversionmigrations";
+    type Scope = k8s_openapi::ClusterResourceScope;
+}
+impl k8s_openapi::Metadata for StorageVersionMigrationAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

@@ -44,3 +44,11 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroupList {
         Ok(())
     }
 }
+impl k8s_openapi::Resource for APIGroupListAc {
+    const API_VERSION: &'static str = "v1";
+    const GROUP: &'static str = "";
+    const KIND: &'static str = "APIGroupList";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "";
+    type Scope = k8s_openapi::ClusterResourceScope;
+}

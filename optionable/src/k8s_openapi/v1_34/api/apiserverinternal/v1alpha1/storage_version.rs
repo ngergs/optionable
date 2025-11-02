@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = StorageVersion)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct StorageVersionAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -72,5 +64,20 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion {
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion;
+impl k8s_openapi::Resource for StorageVersionAc {
+    const API_VERSION: &'static str = "internal.apiserver.k8s.io/v1alpha1";
+    const GROUP: &'static str = "internal.apiserver.k8s.io";
+    const KIND: &'static str = "StorageVersion";
+    const VERSION: &'static str = "v1alpha1";
+    const URL_PATH_SEGMENT: &'static str = "storageversions";
+    type Scope = k8s_openapi::ClusterResourceScope;
+}
+impl k8s_openapi::Metadata for StorageVersionAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

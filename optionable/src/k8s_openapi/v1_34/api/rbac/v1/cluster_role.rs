@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = ClusterRole)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ClusterRoleAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub aggregation_rule: <Option<
@@ -58,5 +50,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRole {
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::rbac::v1::ClusterRole;
+impl k8s_openapi::Resource for ClusterRoleAc {
+    const API_VERSION: &'static str = "rbac.authorization.k8s.io/v1";
+    const GROUP: &'static str = "rbac.authorization.k8s.io";
+    const KIND: &'static str = "ClusterRole";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "clusterroles";
+    type Scope = k8s_openapi::ClusterResourceScope;
+}
+impl k8s_openapi::Metadata for ClusterRoleAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

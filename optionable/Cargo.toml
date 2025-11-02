@@ -14,7 +14,7 @@ std = []
 derive = ["dep:optionable_derive"]
 chrono = ["dep:chrono"]
 serde_json = ["dep:serde_json"]
-k8s_openapi_v1_34 = ["dep:k8s-openapi", "dep:kube", "dep:serde", "k8s-openapi/v1_34", "serde_json", "chrono"]
+k8s_openapi_v1_34 = ["dep:k8s-openapi", "dep:serde", "k8s-openapi/v1_34", "serde_json", "chrono"]
 
 [lints.clippy]
 pedantic = "warn"
@@ -25,10 +25,8 @@ chrono = { version = "0.4.42", default-features = false, optional = true }
 serde = { version = "1.0.225", default-features = false, optional = true, features = ["derive"] }
 serde_json = { version = "1.0.145", default-features = false, optional = true }
 k8s-openapi = { version = "0.26.0", default-features = false, optional = true }
-kube = { version = "2.0.1", default-features = false, optional = true, features = ["derive"] }
 
 [dev-dependencies]
-kube = { version = "2.0.1", default-features = false, features = ["client"] }
 serde = { version = "1.0.225", default-features = false, features = ["derive"] }
 serde_json = { version = "1.0.145", default-features = false, features = ["std"] }
 

@@ -1,12 +1,4 @@
-#[derive(
-    Clone,
-    std::fmt::Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    kube::Resource
-)]
-#[resource(inherit = MutatingAdmissionPolicy)]
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct MutatingAdmissionPolicyAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -49,5 +41,20 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::MutatingAdmissionPolicy
         Ok(())
     }
 }
-#[allow(unused_imports)]
-use ::k8s_openapi::api::admissionregistration::v1alpha1::MutatingAdmissionPolicy;
+impl k8s_openapi::Resource for MutatingAdmissionPolicyAc {
+    const API_VERSION: &'static str = "admissionregistration.k8s.io/v1alpha1";
+    const GROUP: &'static str = "admissionregistration.k8s.io";
+    const KIND: &'static str = "MutatingAdmissionPolicy";
+    const VERSION: &'static str = "v1alpha1";
+    const URL_PATH_SEGMENT: &'static str = "mutatingadmissionpolicies";
+    type Scope = k8s_openapi::ClusterResourceScope;
+}
+impl k8s_openapi::Metadata for MutatingAdmissionPolicyAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
+    }
+}

@@ -8,10 +8,7 @@ pub struct StatusAc {
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<
-        <::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta as crate::Optionable>::Optioned,
-    >,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -33,7 +30,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
             code: crate::OptionableConvert::into_optioned(self.code),
             details: crate::OptionableConvert::into_optioned(self.details),
             message: crate::OptionableConvert::into_optioned(self.message),
-            metadata: Some(crate::OptionableConvert::into_optioned(self.metadata)),
+            metadata: self.metadata,
             reason: crate::OptionableConvert::into_optioned(self.reason),
             status: crate::OptionableConvert::into_optioned(self.status),
         }
@@ -43,13 +40,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
             code: crate::OptionableConvert::try_from_optioned(value.code)?,
             details: crate::OptionableConvert::try_from_optioned(value.details)?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
-            metadata: crate::OptionableConvert::try_from_optioned(
-                value
-                    .metadata
-                    .ok_or(crate::optionable::Error {
-                        missing_field: "metadata",
-                    })?,
-            )?,
+            metadata: value.metadata,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
@@ -58,11 +49,26 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
         crate::OptionableConvert::merge(&mut self.code, other.code)?;
         crate::OptionableConvert::merge(&mut self.details, other.details)?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
-        }
+        self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;
         Ok(())
+    }
+}
+impl k8s_openapi::Resource for StatusAc {
+    const API_VERSION: &'static str = "v1";
+    const GROUP: &'static str = "";
+    const KIND: &'static str = "Status";
+    const VERSION: &'static str = "v1";
+    const URL_PATH_SEGMENT: &'static str = "status";
+    type Scope = k8s_openapi::SubResourceScope;
+}
+impl k8s_openapi::Metadata for StatusAc {
+    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
     }
 }
