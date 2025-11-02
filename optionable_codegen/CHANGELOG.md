@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.5.0...optionable_codegen-v0.5.1) - 2025-11-02
+
+### Fixed
+
+- use `DeserializeOwned` as generic type bound for optioned `Deserialize`-derives
+- simplify generated code (use less explicit associated types)
+
+### Other
+
+- restructure cli bin
+
 ## [0.5.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.4.3...optionable_codegen-v0.5.0) - 2025-10-27
 
 ### Fixed
