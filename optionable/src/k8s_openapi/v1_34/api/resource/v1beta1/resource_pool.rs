@@ -1,6 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ResourcePoolAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub generation: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_slice_count: Option<i64>,
 }
 #[automatically_derived]

@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct IPAddressSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub parent_ref: Option<
         <::k8s_openapi::api::networking::v1::ParentReference as crate::Optionable>::Optioned,
     >,

@@ -1,109 +1,154 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct JSONSchemaPropsAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ref_path: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub schema: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub additional_items: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrBool,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub additional_properties: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrBool,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub all_of: <Option<
         std::vec::Vec<
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub any_of: <Option<
         std::vec::Vec<
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub default: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSON,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub definitions: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub dependencies: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrStringArray,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub description: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub enum_: <Option<
         std::vec::Vec<
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSON,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub example: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSON,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub exclusive_maximum: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub exclusive_minimum: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub external_docs: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ExternalDocumentation,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub format: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub id: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub items: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrArray,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub max_items: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub max_length: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub max_properties: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub maximum: <Option<f64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub min_items: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub min_length: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub min_properties: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub minimum: <Option<f64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub multiple_of: <Option<f64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub not: <Option<
         std::boxed::Box<
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub nullable: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub one_of: <Option<
         std::vec::Vec<
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pattern: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pattern_properties: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub properties: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub required: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub title: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub unique_items: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub x_kubernetes_embedded_resource: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub x_kubernetes_int_or_string: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub x_kubernetes_list_map_keys: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub x_kubernetes_list_type: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub x_kubernetes_map_type: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub x_kubernetes_preserve_unknown_fields: <Option<
         bool,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub x_kubernetes_validations: <Option<
         std::vec::Vec<
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ValidationRule,

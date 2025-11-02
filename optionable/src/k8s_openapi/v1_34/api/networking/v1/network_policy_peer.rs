@@ -1,10 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct NetworkPolicyPeerAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ip_block: <Option<
         ::k8s_openapi::api::networking::v1::IPBlock,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace_selector: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_selector: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,

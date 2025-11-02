@@ -1,26 +1,41 @@
+#[derive(Clone, std::fmt::Debug, serde::Serialize, serde::Deserialize)]
 pub enum WatchEventAc<T>
 where
     T: crate::Optionable,
-    <T as crate::Optionable>::Optioned: Sized,
+    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug
+        + serde::Serialize + serde::de::DeserializeOwned,
 {
-    Added(Option<<T as crate::Optionable>::Optioned>),
-    Deleted(Option<<T as crate::Optionable>::Optioned>),
-    Modified(Option<<T as crate::Optionable>::Optioned>),
+    Added(
+        #[serde(skip_serializing_if = "Option::is_none")]
+        Option<<T as crate::Optionable>::Optioned>,
+    ),
+    Deleted(
+        #[serde(skip_serializing_if = "Option::is_none")]
+        Option<<T as crate::Optionable>::Optioned>,
+    ),
+    Modified(
+        #[serde(skip_serializing_if = "Option::is_none")]
+        Option<<T as crate::Optionable>::Optioned>,
+    ),
     Bookmark {
+        #[serde(skip_serializing_if = "Option::is_none")]
         annotations: Option<
             <std::collections::BTreeMap<
                 std::string::String,
                 std::string::String,
             > as crate::Optionable>::Optioned,
         >,
+        #[serde(skip_serializing_if = "Option::is_none")]
         resource_version: Option<<std::string::String as crate::Optionable>::Optioned>,
     },
     ErrorStatus(
+        #[serde(skip_serializing_if = "Option::is_none")]
         Option<
             <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as crate::Optionable>::Optioned,
         >,
     ),
     ErrorOther(
+        #[serde(skip_serializing_if = "Option::is_none")]
         Option<
             <::k8s_openapi::apimachinery::pkg::runtime::RawExtension as crate::Optionable>::Optioned,
         >,
@@ -31,7 +46,8 @@ impl<T> crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::WatchEvent<T>
 where
     T: crate::Optionable,
-    <T as crate::Optionable>::Optioned: Sized,
+    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug
+        + serde::Serialize + serde::de::DeserializeOwned,
 {
     type Optioned = WatchEventAc<T>;
 }
@@ -39,7 +55,8 @@ where
 impl<T> crate::Optionable for WatchEventAc<T>
 where
     T: crate::Optionable,
-    <T as crate::Optionable>::Optioned: Sized,
+    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug
+        + serde::Serialize + serde::de::DeserializeOwned,
 {
     type Optioned = WatchEventAc<T>;
 }
@@ -48,7 +65,8 @@ impl<T> crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::WatchEvent<T>
 where
     T: crate::OptionableConvert,
-    <T as crate::Optionable>::Optioned: Sized,
+    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug
+        + serde::Serialize + serde::de::DeserializeOwned,
 {
     fn into_optioned(self) -> WatchEventAc<T> {
         match self {

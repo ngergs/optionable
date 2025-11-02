@@ -1,5 +1,8 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct EventSeriesAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub count: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub last_observed_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime,
     > as crate::Optionable>::Optioned,

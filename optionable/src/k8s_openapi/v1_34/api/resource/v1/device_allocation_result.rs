@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct DeviceAllocationResultAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub config: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceAllocationConfiguration>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub results: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1::DeviceRequestAllocationResult>,
     > as crate::Optionable>::Optioned,

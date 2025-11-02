@@ -1,10 +1,19 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = TokenReview)]
 pub struct TokenReviewAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi::api::authentication::v1::TokenReviewSpec as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub status: <Option<
         ::k8s_openapi::api::authentication::v1::TokenReviewStatus,
     > as crate::Optionable>::Optioned,

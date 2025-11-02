@@ -1,29 +1,42 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct MutatingWebhookAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub admission_review_versions: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub client_config: Option<
         <::k8s_openapi::api::admissionregistration::v1::WebhookClientConfig as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub failure_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub match_conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::MatchCondition>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub match_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace_selector: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub object_selector: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub reinvocation_policy: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub rules: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::RuleWithOperations>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub side_effects: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub timeout_seconds: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

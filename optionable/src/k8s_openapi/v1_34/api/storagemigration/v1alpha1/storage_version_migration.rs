@@ -1,10 +1,19 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = StorageVersionMigration)]
 pub struct StorageVersionMigrationAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: <Option<
         ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub status: <Option<
         ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationStatus,
     > as crate::Optionable>::Optioned,

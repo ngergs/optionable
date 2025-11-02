@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct TypeCheckingAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub expression_warnings: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::ExpressionWarning>,
     > as crate::Optionable>::Optioned,

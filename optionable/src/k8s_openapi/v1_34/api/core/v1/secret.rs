@@ -1,14 +1,25 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = Secret)]
 pub struct SecretAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub data: <Option<
         std::collections::BTreeMap<std::string::String, ::k8s_openapi::ByteString>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub immutable: <Option<bool> as crate::Optionable>::Optioned,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub string_data: <Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

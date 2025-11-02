@@ -1,10 +1,19 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = RoleBinding)]
 pub struct RoleBindingAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub role_ref: Option<
         <::k8s_openapi::api::rbac::v1::RoleRef as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub subjects: <Option<
         std::vec::Vec<::k8s_openapi::api::rbac::v1::Subject>,
     > as crate::Optionable>::Optioned,

@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct AggregationRuleAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster_role_selectors: <Option<
         std::vec::Vec<::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector>,
     > as crate::Optionable>::Optioned,

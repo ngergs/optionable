@@ -1,6 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct EndpointConditionsAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ready: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub serving: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub terminating: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

@@ -1,10 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ResourceClaimStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub allocation: <Option<
         ::k8s_openapi::api::resource::v1beta2::AllocationResult,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub devices: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1beta2::AllocatedDeviceStatus>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub reserved_for: <Option<
         std::vec::Vec<
             ::k8s_openapi::api::resource::v1beta2::ResourceClaimConsumerReference,

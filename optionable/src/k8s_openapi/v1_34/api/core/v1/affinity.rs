@@ -1,10 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct AffinityAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub node_affinity: <Option<
         ::k8s_openapi::api::core::v1::NodeAffinity,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_affinity: <Option<
         ::k8s_openapi::api::core::v1::PodAffinity,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_anti_affinity: <Option<
         ::k8s_openapi::api::core::v1::PodAntiAffinity,
     > as crate::Optionable>::Optioned,

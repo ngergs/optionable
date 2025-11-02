@@ -1,24 +1,34 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct CustomResourceDefinitionVersionAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub additional_printer_columns: <Option<
         std::vec::Vec<
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceColumnDefinition,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub deprecated: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub deprecation_warning: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub schema: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceValidation,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub selectable_fields: <Option<
         std::vec::Vec<
             ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub served: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub storage: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub subresources: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresources,
     > as crate::Optionable>::Optioned,

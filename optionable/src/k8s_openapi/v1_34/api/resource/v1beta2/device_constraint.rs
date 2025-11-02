@@ -1,6 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct DeviceConstraintAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub distinct_attribute: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub match_attribute: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub requests: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,

@@ -1,13 +1,22 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct CronJobSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub concurrency_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub failed_jobs_history_limit: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub job_template: Option<
         <::k8s_openapi::api::batch::v1::JobTemplateSpec as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub schedule: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub starting_deadline_seconds: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub successful_jobs_history_limit: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub suspend: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub time_zone: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

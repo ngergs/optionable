@@ -1,9 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ServerStorageVersionAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub api_server_id: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub decodable_versions: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub encoding_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub served_versions: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,

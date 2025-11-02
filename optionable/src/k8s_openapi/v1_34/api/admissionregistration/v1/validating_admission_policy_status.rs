@@ -1,8 +1,12 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ValidatingAdmissionPolicyStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub type_checking: <Option<
         ::k8s_openapi::api::admissionregistration::v1::TypeChecking,
     > as crate::Optionable>::Optioned,

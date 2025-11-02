@@ -1,8 +1,12 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct MetricValueStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub average_utilization: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub average_value: <Option<
         ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub value: <Option<
         ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
     > as crate::Optionable>::Optioned,

@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct SessionAffinityConfigAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub client_ip: <Option<
         ::k8s_openapi::api::core::v1::ClientIPConfig,
     > as crate::Optionable>::Optioned,

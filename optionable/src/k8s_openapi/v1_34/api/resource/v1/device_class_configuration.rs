@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct DeviceClassConfigurationAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub opaque: <Option<
         ::k8s_openapi::api::resource::v1::OpaqueDeviceConfiguration,
     > as crate::Optionable>::Optioned,

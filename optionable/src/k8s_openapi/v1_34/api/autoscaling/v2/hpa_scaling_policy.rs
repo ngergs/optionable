@@ -1,6 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct HPAScalingPolicyAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub period_seconds: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<i32>,
 }
 #[automatically_derived]

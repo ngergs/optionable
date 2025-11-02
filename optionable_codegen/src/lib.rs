@@ -42,7 +42,8 @@ const ERR_MSG_HELPER_ATTR_ENUM_VARIANTS: &str =
 /// Helper attributes on the type definition level (attached to the `struct` or `enum` itself).
 pub(crate) struct TypeHelperAttributes {
     /// Derive-macros that should be added to the optioned type
-    derive: Option<PathList>,
+    #[darling(multiple)]
+    derive: Vec<PathList>,
     #[darling(default=default_suffix)]
     /// Explicit suffix to use for the optioned type.
     suffix: LitStr,
@@ -122,6 +123,11 @@ pub fn derive_optionable(
     settings: Option<&CodegenSettings>,
 ) -> syn::Result<TokenStream> {
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
+    let derive = attrs
+        .derive
+        .into_iter()
+        .flat_map(|el| el.iter().map(|el| el.clone()).collect::<Vec<_>>())
+        .collect::<Vec<_>>();
     let settings = settings.map(Cow::Borrowed).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
     let forward_attrs = forwarded_attributes(&input.attrs)?;
@@ -139,10 +145,9 @@ pub fn derive_optionable(
     let (impl_generics, ty_generics, _) = input.generics.split_for_impl();
     let generics_colon = (!input.generics.params.is_empty()).then(|| quote! {::});
 
-    let skip_optionable_if_serde_serialize = attrs
-        .derive
-        .as_ref()
-        .is_some_and(|derives| derives.iter().any(is_serialize))
+    let skip_optionable_if_serde_serialize = derive
+        .iter()
+        .any(is_serialize)
         .then(|| quote!(#[serde(skip_serializing_if = "Option::is_none")]));
 
     /// Helper to collect the enum/struct specific derived code aspects in a typesafe way
@@ -179,7 +184,8 @@ pub fn derive_optionable(
                 crate_name,
                 settings.input_crate_replacement.as_ref(),
                 &input.generics,
-                &attrs,
+                &derive,
+                attrs.no_convert.is_some(),
                 &struct_parsed.fields,
             );
             let unnamed_struct_semicolon =
@@ -254,7 +260,8 @@ pub fn derive_optionable(
                 crate_name,
                 settings.input_crate_replacement.as_ref(),
                 &input.generics,
-                &attrs,
+                &derive,
+                attrs.no_convert.is_some(),
                 all_fields,
             );
 
@@ -332,9 +339,7 @@ pub fn derive_optionable(
         Data::Union(_) => return error("#[derive(Optionable)] not supported for unit structs"),
     };
 
-    let derives = attrs
-        .derive
-        .map(|derives| (!derives.is_empty()).then(|| quote! {#[derive(#(#derives),*)]}));
+    let derives = (!derive.is_empty()).then(|| quote! {#[derive(#(#derive),*)]});
     Ok(quote! {
                 #derives
                 #forward_attrs

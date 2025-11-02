@@ -1,15 +1,24 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct RBDVolumeSourceAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub image: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub keyring: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub monitors: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pool: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub secret_ref: <Option<
         ::k8s_openapi::api::core::v1::LocalObjectReference,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub user: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

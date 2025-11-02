@@ -1,11 +1,16 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct SubjectRulesReviewStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub evaluation_error: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub incomplete: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub non_resource_rules: Option<
         <std::vec::Vec<
             ::k8s_openapi::api::authorization::v1::NonResourceRule,
         > as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_rules: Option<
         <std::vec::Vec<
             ::k8s_openapi::api::authorization::v1::ResourceRule,

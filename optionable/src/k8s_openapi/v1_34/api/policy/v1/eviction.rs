@@ -1,6 +1,14 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = Eviction)]
 pub struct EvictionAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub delete_options: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions,
     > as crate::Optionable>::Optioned,

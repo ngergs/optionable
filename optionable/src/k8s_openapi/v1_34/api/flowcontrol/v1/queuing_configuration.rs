@@ -1,6 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct QueuingConfigurationAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub hand_size: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub queue_length_limit: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub queues: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

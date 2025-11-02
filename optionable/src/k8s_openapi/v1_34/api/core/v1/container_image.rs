@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ContainerImageAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub names: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub size_bytes: <Option<i64> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

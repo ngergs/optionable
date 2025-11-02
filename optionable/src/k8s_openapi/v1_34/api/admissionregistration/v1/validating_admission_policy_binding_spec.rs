@@ -1,11 +1,16 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ValidatingAdmissionPolicyBindingSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub match_resources: <Option<
         ::k8s_openapi::api::admissionregistration::v1::MatchResources,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub param_ref: <Option<
         ::k8s_openapi::api::admissionregistration::v1::ParamRef,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub policy_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub validation_actions: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,

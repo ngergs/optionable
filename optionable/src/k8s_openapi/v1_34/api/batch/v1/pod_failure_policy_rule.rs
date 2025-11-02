@@ -1,8 +1,12 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct PodFailurePolicyRuleAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub action: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub on_exit_codes: <Option<
         ::k8s_openapi::api::batch::v1::PodFailurePolicyOnExitCodesRequirement,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub on_pod_conditions: <Option<
         std::vec::Vec<
             ::k8s_openapi::api::batch::v1::PodFailurePolicyOnPodConditionsPattern,

@@ -1,21 +1,30 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct EndpointAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub addresses: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         ::k8s_openapi::api::discovery::v1::EndpointConditions,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub deprecated_topology: <Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub hints: <Option<
         ::k8s_openapi::api::discovery::v1::EndpointHints,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub hostname: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub node_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub target_ref: <Option<
         ::k8s_openapi::api::core::v1::ObjectReference,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub zone: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

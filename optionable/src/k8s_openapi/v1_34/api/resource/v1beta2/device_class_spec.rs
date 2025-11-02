@@ -1,10 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct DeviceClassSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub config: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1beta2::DeviceClassConfiguration>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub extended_resource_name: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub selectors: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1beta2::DeviceSelector>,
     > as crate::Optionable>::Optioned,

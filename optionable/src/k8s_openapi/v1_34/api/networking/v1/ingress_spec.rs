@@ -1,11 +1,16 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct IngressSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub default_backend: <Option<
         ::k8s_openapi::api::networking::v1::IngressBackend,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ingress_class_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub rules: <Option<
         std::vec::Vec<::k8s_openapi::api::networking::v1::IngressRule>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub tls: <Option<
         std::vec::Vec<::k8s_openapi::api::networking::v1::IngressTLS>,
     > as crate::Optionable>::Optioned,

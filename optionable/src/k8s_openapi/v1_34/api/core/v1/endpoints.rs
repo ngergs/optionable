@@ -1,7 +1,15 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = Endpoints)]
 pub struct EndpointsAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub subsets: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::EndpointSubset>,
     > as crate::Optionable>::Optioned,

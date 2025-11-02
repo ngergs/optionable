@@ -1,21 +1,32 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ProbeAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub exec: <Option<
         ::k8s_openapi::api::core::v1::ExecAction,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub failure_threshold: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub grpc: <Option<
         ::k8s_openapi::api::core::v1::GRPCAction,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub http_get: <Option<
         ::k8s_openapi::api::core::v1::HTTPGetAction,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub initial_delay_seconds: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub period_seconds: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub success_threshold: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub tcp_socket: <Option<
         ::k8s_openapi::api::core::v1::TCPSocketAction,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_grace_period_seconds: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub timeout_seconds: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

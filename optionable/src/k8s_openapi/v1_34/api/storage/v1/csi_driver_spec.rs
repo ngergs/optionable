@@ -1,16 +1,26 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct CSIDriverSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub attach_required: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_group_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub node_allocatable_update_period_seconds: <Option<
         i64,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_info_on_mount: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub requires_republish: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub se_linux_mount: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_capacity: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub token_requests: <Option<
         std::vec::Vec<::k8s_openapi::api::storage::v1::TokenRequest>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_lifecycle_modes: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,

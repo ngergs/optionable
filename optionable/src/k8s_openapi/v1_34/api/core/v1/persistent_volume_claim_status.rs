@@ -1,31 +1,40 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct PersistentVolumeClaimStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub access_modes: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub allocated_resource_statuses: <Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub allocated_resources: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::PersistentVolumeClaimCondition>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub current_volume_attributes_class_name: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub modify_volume_status: <Option<
         ::k8s_openapi::api::core::v1::ModifyVolumeStatus,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub phase: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

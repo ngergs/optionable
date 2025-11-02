@@ -1,11 +1,18 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct StatusDetailsAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub causes: <Option<
         std::vec::Vec<::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusCause>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub group: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub retry_after_seconds: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

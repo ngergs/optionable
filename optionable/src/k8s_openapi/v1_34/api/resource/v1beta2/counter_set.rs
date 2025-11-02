@@ -1,10 +1,13 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct CounterSetAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub counters: Option<
         <std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::api::resource::v1beta2::Counter,
         > as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]

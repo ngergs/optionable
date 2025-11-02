@@ -1,7 +1,12 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct DeviceAttributeAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub bool: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub int: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub string: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub version: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

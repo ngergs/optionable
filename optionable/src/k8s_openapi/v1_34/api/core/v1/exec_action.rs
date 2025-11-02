@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ExecActionAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub command: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,

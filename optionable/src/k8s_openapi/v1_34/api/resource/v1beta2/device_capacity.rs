@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct DeviceCapacityAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub request_policy: <Option<
         ::k8s_openapi::api::resource::v1beta2::CapacityRequestPolicy,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<
         <::k8s_openapi::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
     >,

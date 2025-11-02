@@ -1,12 +1,18 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct HorizontalPodAutoscalerSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub behavior: <Option<
         ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerBehavior,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub max_replicas: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub metrics: <Option<
         std::vec::Vec<::k8s_openapi::api::autoscaling::v2::MetricSpec>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub min_replicas: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub scale_target_ref: Option<
         <::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference as crate::Optionable>::Optioned,
     >,

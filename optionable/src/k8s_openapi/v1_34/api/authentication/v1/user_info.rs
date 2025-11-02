@@ -1,14 +1,19 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct UserInfoAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub extra: <Option<
         std::collections::BTreeMap<
             std::string::String,
             std::vec::Vec<std::string::String>,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub groups: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub username: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

@@ -4,6 +4,7 @@ use optionable_codegen::CodegenSettings;
 use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
 use proc_macro2::{Ident, Span};
 use std::collections::HashSet;
+use std::default::Default;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
 use syn::Item::{Enum, Impl, Struct};
@@ -24,14 +25,20 @@ struct Args {
 
 #[derive(Default)]
 struct Visitor {
+    type_attrs_struct: Vec<Attribute>,
+    type_attrs_enum: Vec<Attribute>,
     current_item_resource_ident: Option<Ident>,
     has_impl_resources: HashSet<Ident>,
 }
 
 impl Clone for Visitor {
     fn clone(&self) -> Self {
-        // we want to reset all fields when entering a new module
-        Self::default()
+        Self {
+            type_attrs_struct: self.type_attrs_struct.clone(),
+            type_attrs_enum: self.type_attrs_enum.clone(),
+            // we want to reset all other fields when entering a new module
+            ..Default::default()
+        }
     }
 }
 
@@ -105,12 +112,14 @@ impl CodegenVisitor for Visitor {
     fn visit_input(&mut self, item: &mut Item) {
         match item {
             Struct(item) => {
+                item.attrs.append(&mut self.type_attrs_struct.clone());
                 item.attrs.push(parse_quote!(#[optionable(suffix="Ac")]));
                 if Self::set_metadata_required(&mut item.fields) {
                     self.add_derive_resource(&item.ident, &mut item.attrs);
                 }
             }
             Enum(item) => {
+                item.attrs.append(&mut self.type_attrs_enum.clone());
                 item.attrs.push(parse_quote!(#[optionable(suffix="Ac")]));
                 if item
                     .variants
@@ -150,7 +159,15 @@ pub(crate) fn main() -> Result<(), Box<dyn std::error::Error>> {
         &args.input_file,
         &args.output_dir,
         CodegenConfig {
-            visitor: Visitor::default(),
+            visitor: Visitor {
+                type_attrs_struct: vec![
+                    parse_quote!(#[optionable(derive(Clone,std::fmt::Debug,Default,serde::Serialize, serde::Deserialize))]),
+                ],
+                type_attrs_enum: vec![
+                    parse_quote!(#[optionable(derive(Clone,std::fmt::Debug,serde::Serialize, serde::Deserialize))]),
+                ],
+                ..Default::default()
+            },
             optioned_suffix: "Ac",
             settings: codegen_settings,
             usage_aliases: vec![],

@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct PreferredSchedulingTermAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub preference: Option<
         <::k8s_openapi::api::core::v1::NodeSelectorTerm as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,
 }
 #[automatically_derived]

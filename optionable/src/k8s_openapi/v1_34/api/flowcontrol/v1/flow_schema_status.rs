@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct FlowSchemaStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::flowcontrol::v1::FlowSchemaCondition>,
     > as crate::Optionable>::Optioned,

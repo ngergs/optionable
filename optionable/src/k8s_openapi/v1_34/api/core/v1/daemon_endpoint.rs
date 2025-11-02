@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct DaemonEndpointAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<i32>,
 }
 #[automatically_derived]

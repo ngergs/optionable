@@ -1,5 +1,8 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct IngressRuleAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub host: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub http: <Option<
         ::k8s_openapi::api::networking::v1::HTTPIngressRuleValue,
     > as crate::Optionable>::Optioned,

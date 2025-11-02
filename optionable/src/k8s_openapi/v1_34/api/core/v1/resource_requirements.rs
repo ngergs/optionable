@@ -1,13 +1,17 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ResourceRequirementsAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub claims: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ResourceClaim>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub limits: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub requests: <Option<
         std::collections::BTreeMap<
             std::string::String,

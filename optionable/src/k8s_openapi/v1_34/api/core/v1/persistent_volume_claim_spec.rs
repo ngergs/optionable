@@ -1,24 +1,34 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct PersistentVolumeClaimSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub access_modes: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub data_source: <Option<
         ::k8s_openapi::api::core::v1::TypedLocalObjectReference,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub data_source_ref: <Option<
         ::k8s_openapi::api::core::v1::TypedObjectReference,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resources: <Option<
         ::k8s_openapi::api::core::v1::VolumeResourceRequirements,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub selector: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_class_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_attributes_class_name: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_name: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

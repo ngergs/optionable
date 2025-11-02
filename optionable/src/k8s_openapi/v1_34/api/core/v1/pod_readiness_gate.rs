@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct PodReadinessGateAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub condition_type: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]

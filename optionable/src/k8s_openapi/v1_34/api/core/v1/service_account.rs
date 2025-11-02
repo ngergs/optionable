@@ -1,11 +1,21 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = ServiceAccount)]
 pub struct ServiceAccountAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub automount_service_account_token: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub image_pull_secrets: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::LocalObjectReference>,
     > as crate::Optionable>::Optioned,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub secrets: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ObjectReference>,
     > as crate::Optionable>::Optioned,

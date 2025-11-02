@@ -1,5 +1,8 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ContainerRestartRuleAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub action: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub exit_codes: <Option<
         ::k8s_openapi::api::core::v1::ContainerRestartRuleOnExitCodes,
     > as crate::Optionable>::Optioned,

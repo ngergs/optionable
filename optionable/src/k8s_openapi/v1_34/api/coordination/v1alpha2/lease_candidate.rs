@@ -1,7 +1,15 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = LeaseCandidate)]
 pub struct LeaseCandidateAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: <Option<
         ::k8s_openapi::api::coordination::v1alpha2::LeaseCandidateSpec,
     > as crate::Optionable>::Optioned,

@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct NodeConfigSourceAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub config_map: <Option<
         ::k8s_openapi::api::core::v1::ConfigMapNodeConfigSource,
     > as crate::Optionable>::Optioned,

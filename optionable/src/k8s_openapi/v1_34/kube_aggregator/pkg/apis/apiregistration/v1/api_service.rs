@@ -1,10 +1,19 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = APIService)]
 pub struct APIServiceAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: <Option<
         ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub status: <Option<
         ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceStatus,
     > as crate::Optionable>::Optioned,

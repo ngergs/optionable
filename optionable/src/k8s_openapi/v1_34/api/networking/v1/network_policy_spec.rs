@@ -1,13 +1,18 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct NetworkPolicySpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub egress: <Option<
         std::vec::Vec<::k8s_openapi::api::networking::v1::NetworkPolicyEgressRule>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ingress: <Option<
         std::vec::Vec<::k8s_openapi::api::networking::v1::NetworkPolicyIngressRule>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_selector: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub policy_types: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,

@@ -1,6 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct NodeSelectorRequirementAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub key: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub operator: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub values: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,

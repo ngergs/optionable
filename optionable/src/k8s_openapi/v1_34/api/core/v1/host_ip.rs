@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct HostIPAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ip: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]

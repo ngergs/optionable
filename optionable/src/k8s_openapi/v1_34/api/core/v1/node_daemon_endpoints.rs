@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct NodeDaemonEndpointsAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub kubelet_endpoint: <Option<
         ::k8s_openapi::api::core::v1::DaemonEndpoint,
     > as crate::Optionable>::Optioned,

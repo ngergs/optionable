@@ -1,19 +1,26 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct MetricStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub container_resource: <Option<
         ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricStatus,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub external: <Option<
         ::k8s_openapi::api::autoscaling::v2::ExternalMetricStatus,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub object: <Option<
         ::k8s_openapi::api::autoscaling::v2::ObjectMetricStatus,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pods: <Option<
         ::k8s_openapi::api::autoscaling::v2::PodsMetricStatus,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: <Option<
         ::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]

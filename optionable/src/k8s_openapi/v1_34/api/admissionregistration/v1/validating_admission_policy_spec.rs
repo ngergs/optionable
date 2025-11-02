@@ -1,20 +1,28 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ValidatingAdmissionPolicySpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub audit_annotations: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::AuditAnnotation>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub failure_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub match_conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::MatchCondition>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub match_constraints: <Option<
         ::k8s_openapi::api::admissionregistration::v1::MatchResources,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub param_kind: <Option<
         ::k8s_openapi::api::admissionregistration::v1::ParamKind,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub validations: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::Validation>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub variables: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::Variable>,
     > as crate::Optionable>::Optioned,

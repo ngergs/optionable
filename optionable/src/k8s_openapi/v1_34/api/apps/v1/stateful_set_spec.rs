@@ -1,26 +1,38 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct StatefulSetSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub min_ready_seconds: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ordinals: <Option<
         ::k8s_openapi::api::apps::v1::StatefulSetOrdinals,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub persistent_volume_claim_retention_policy: <Option<
         ::k8s_openapi::api::apps::v1::StatefulSetPersistentVolumeClaimRetentionPolicy,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_management_policy: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub replicas: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub revision_history_limit: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub selector: Option<
         <::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub template: Option<
         <::k8s_openapi::api::core::v1::PodTemplateSpec as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub update_strategy: <Option<
         ::k8s_openapi::api::apps::v1::StatefulSetUpdateStrategy,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_claim_templates: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::PersistentVolumeClaim>,
     > as crate::Optionable>::Optioned,

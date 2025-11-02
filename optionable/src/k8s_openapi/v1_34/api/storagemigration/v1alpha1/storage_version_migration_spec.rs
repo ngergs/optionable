@@ -1,5 +1,8 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct StorageVersionMigrationSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub continue_token: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<
         <::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource as crate::Optionable>::Optioned,
     >,

@@ -1,33 +1,49 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ContainerStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub allocated_resources: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub allocated_resources_status: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ResourceStatus>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub container_id: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub image: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub image_id: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub last_state: <Option<
         ::k8s_openapi::api::core::v1::ContainerState,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ready: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resources: <Option<
         ::k8s_openapi::api::core::v1::ResourceRequirements,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub restart_count: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub started: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub state: <Option<
         ::k8s_openapi::api::core::v1::ContainerState,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub stop_signal: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub user: <Option<
         ::k8s_openapi::api::core::v1::ContainerUser,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_mounts: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::VolumeMountStatus>,
     > as crate::Optionable>::Optioned,

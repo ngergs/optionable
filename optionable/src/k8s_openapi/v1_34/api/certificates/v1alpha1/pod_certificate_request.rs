@@ -1,10 +1,19 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = PodCertificateRequest)]
 pub struct PodCertificateRequestAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestSpec as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub status: <Option<
         ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus,
     > as crate::Optionable>::Optioned,

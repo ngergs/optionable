@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct TokenRequestStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration_timestamp: Option<
         <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub token: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]

@@ -1,10 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct EndpointSubsetAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub addresses: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::EndpointAddress>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub not_ready_addresses: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::EndpointAddress>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ports: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::EndpointPort>,
     > as crate::Optionable>::Optioned,

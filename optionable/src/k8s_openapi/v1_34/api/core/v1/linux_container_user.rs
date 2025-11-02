@@ -1,6 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct LinuxContainerUserAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub gid: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub supplemental_groups: <Option<std::vec::Vec<i64>> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: Option<i64>,
 }
 #[automatically_derived]

@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct IngressLoadBalancerStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ingress: <Option<
         std::vec::Vec<::k8s_openapi::api::networking::v1::IngressLoadBalancerIngress>,
     > as crate::Optionable>::Optioned,

@@ -1,15 +1,26 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct DaemonSetStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub collision_count: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::apps::v1::DaemonSetCondition>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub current_number_scheduled: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub desired_number_scheduled: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub number_available: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub number_misscheduled: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub number_ready: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub number_unavailable: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub updated_number_scheduled: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

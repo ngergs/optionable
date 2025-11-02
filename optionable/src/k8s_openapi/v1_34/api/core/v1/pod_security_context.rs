@@ -1,30 +1,44 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct PodSecurityContextAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub app_armor_profile: <Option<
         ::k8s_openapi::api::core::v1::AppArmorProfile,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_group: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_group_change_policy: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub run_as_group: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub run_as_non_root: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub run_as_user: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub se_linux_change_policy: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub se_linux_options: <Option<
         ::k8s_openapi::api::core::v1::SELinuxOptions,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub seccomp_profile: <Option<
         ::k8s_openapi::api::core::v1::SeccompProfile,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub supplemental_groups: <Option<std::vec::Vec<i64>> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub supplemental_groups_policy: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sysctls: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::Sysctl>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub windows_options: <Option<
         ::k8s_openapi::api::core::v1::WindowsSecurityContextOptions,
     > as crate::Optionable>::Optioned,

@@ -1,10 +1,13 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ResourceQuotaStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub hard: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub used: <Option<
         std::collections::BTreeMap<
             std::string::String,

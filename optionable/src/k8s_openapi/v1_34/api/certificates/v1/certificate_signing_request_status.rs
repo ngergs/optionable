@@ -1,5 +1,8 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct CertificateSigningRequestStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub certificate: <Option<::k8s_openapi::ByteString> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         std::vec::Vec<
             ::k8s_openapi::api::certificates::v1::CertificateSigningRequestCondition,

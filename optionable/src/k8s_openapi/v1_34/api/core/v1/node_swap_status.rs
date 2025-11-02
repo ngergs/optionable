@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct NodeSwapStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: <Option<i64> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

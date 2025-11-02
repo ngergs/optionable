@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct IngressBackendAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: <Option<
         ::k8s_openapi::api::core::v1::TypedLocalObjectReference,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub service: <Option<
         ::k8s_openapi::api::networking::v1::IngressServiceBackend,
     > as crate::Optionable>::Optioned,

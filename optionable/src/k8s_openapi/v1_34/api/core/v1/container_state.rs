@@ -1,10 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ContainerStateAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub running: <Option<
         ::k8s_openapi::api::core::v1::ContainerStateRunning,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub terminated: <Option<
         ::k8s_openapi::api::core::v1::ContainerStateTerminated,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub waiting: <Option<
         ::k8s_openapi::api::core::v1::ContainerStateWaiting,
     > as crate::Optionable>::Optioned,

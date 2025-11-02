@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct SelfSubjectAccessReviewSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub non_resource_attributes: <Option<
         ::k8s_openapi::api::authorization::v1::NonResourceAttributes,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_attributes: <Option<
         ::k8s_openapi::api::authorization::v1::ResourceAttributes,
     > as crate::Optionable>::Optioned,

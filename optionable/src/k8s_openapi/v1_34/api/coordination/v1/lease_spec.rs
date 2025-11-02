@@ -1,14 +1,22 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct LeaseSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub acquire_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub holder_identity: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub lease_duration_seconds: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub lease_transitions: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub preferred_holder: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub renew_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub strategy: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

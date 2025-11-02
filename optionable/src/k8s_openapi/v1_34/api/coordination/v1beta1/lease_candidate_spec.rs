@@ -1,13 +1,20 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct LeaseCandidateSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub binary_version: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub emulation_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub lease_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ping_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub renew_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub strategy: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]

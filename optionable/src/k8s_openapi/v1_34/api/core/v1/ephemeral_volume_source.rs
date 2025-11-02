@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct EphemeralVolumeSourceAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_claim_template: <Option<
         ::k8s_openapi::api::core::v1::PersistentVolumeClaimTemplate,
     > as crate::Optionable>::Optioned,

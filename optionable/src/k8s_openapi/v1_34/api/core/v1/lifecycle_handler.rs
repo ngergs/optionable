@@ -1,13 +1,18 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct LifecycleHandlerAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub exec: <Option<
         ::k8s_openapi::api::core::v1::ExecAction,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub http_get: <Option<
         ::k8s_openapi::api::core::v1::HTTPGetAction,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sleep: <Option<
         ::k8s_openapi::api::core::v1::SleepAction,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub tcp_socket: <Option<
         ::k8s_openapi::api::core::v1::TCPSocketAction,
     > as crate::Optionable>::Optioned,

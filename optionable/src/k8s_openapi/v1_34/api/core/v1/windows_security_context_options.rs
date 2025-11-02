@@ -1,11 +1,16 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct WindowsSecurityContextOptionsAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub gmsa_credential_spec: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub gmsa_credential_spec_name: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub host_process: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub run_as_user_name: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

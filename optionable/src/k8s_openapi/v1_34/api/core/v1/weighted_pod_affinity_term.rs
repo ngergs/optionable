@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct WeightedPodAffinityTermAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_affinity_term: Option<
         <::k8s_openapi::api::core::v1::PodAffinityTerm as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,
 }
 #[automatically_derived]

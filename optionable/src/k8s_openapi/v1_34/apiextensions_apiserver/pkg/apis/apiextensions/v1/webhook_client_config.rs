@@ -1,8 +1,12 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct WebhookClientConfigAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ca_bundle: <Option<::k8s_openapi::ByteString> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub service: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub url: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

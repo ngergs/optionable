@@ -1,12 +1,16 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct StorageVersionStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub common_encoding_version: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         std::vec::Vec<
             ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionCondition,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_versions: <Option<
         std::vec::Vec<
             ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion,

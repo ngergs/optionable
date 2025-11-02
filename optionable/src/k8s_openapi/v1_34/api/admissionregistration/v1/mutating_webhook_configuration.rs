@@ -1,7 +1,15 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = MutatingWebhookConfiguration)]
 pub struct MutatingWebhookConfigurationAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub webhooks: <Option<
         std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::MutatingWebhook>,
     > as crate::Optionable>::Optioned,

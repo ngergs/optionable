@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct WebhookConversionAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub client_config: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookClientConfig,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conversion_review_versions: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,

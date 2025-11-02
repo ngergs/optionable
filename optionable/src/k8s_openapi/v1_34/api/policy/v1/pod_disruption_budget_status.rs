@@ -1,17 +1,25 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct PodDisruptionBudgetStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub current_healthy: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub desired_healthy: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub disrupted_pods: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub disruptions_allowed: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub expected_pods: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: <Option<i64> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

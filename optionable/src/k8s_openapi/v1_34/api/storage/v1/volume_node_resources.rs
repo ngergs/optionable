@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct VolumeNodeResourcesAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub count: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

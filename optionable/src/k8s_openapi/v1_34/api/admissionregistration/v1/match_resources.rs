@@ -1,16 +1,22 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct MatchResourcesAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub exclude_resource_rules: <Option<
         std::vec::Vec<
             ::k8s_openapi::api::admissionregistration::v1::NamedRuleWithOperations,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub match_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace_selector: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub object_selector: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_rules: <Option<
         std::vec::Vec<
             ::k8s_openapi::api::admissionregistration::v1::NamedRuleWithOperations,

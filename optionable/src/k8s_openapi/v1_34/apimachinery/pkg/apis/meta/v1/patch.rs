@@ -1,13 +1,19 @@
+#[derive(Clone, std::fmt::Debug, serde::Serialize, serde::Deserialize)]
 pub enum PatchAc {
     Json(
+        #[serde(skip_serializing_if = "Option::is_none")]
         Option<
             <std::vec::Vec<
                 ::k8s_openapi::serde_json::Value,
             > as crate::Optionable>::Optioned,
         >,
     ),
-    Merge(Option<<::k8s_openapi::serde_json::Value as crate::Optionable>::Optioned>),
+    Merge(
+        #[serde(skip_serializing_if = "Option::is_none")]
+        Option<<::k8s_openapi::serde_json::Value as crate::Optionable>::Optioned>,
+    ),
     StrategicMerge(
+        #[serde(skip_serializing_if = "Option::is_none")]
         Option<<::k8s_openapi::serde_json::Value as crate::Optionable>::Optioned>,
     ),
 }

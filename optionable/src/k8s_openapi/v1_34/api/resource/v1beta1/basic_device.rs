@@ -1,32 +1,44 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct BasicDeviceAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub all_nodes: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub allow_multiple_allocations: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub attributes: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::api::resource::v1beta1::DeviceAttribute,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub binding_conditions: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub binding_failure_conditions: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub binds_to_node: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::api::resource::v1beta1::DeviceCapacity,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub consumes_counters: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1beta1::DeviceCounterConsumption>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub node_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub node_selector: <Option<
         ::k8s_openapi::api::core::v1::NodeSelector,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub taints: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1beta1::DeviceTaint>,
     > as crate::Optionable>::Optioned,

@@ -1,12 +1,20 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct APIServiceSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ca_bundle: <Option<::k8s_openapi::ByteString> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub group: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub group_priority_minimum: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub insecure_skip_tls_verify: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub service: <Option<
         ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub version_priority: Option<i32>,
 }
 #[automatically_derived]

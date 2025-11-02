@@ -1,44 +1,58 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct NodeStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub addresses: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::NodeAddress>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub allocatable: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: <Option<
         std::collections::BTreeMap<
             std::string::String,
             ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::NodeCondition>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub config: <Option<
         ::k8s_openapi::api::core::v1::NodeConfigStatus,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub daemon_endpoints: <Option<
         ::k8s_openapi::api::core::v1::NodeDaemonEndpoints,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub features: <Option<
         ::k8s_openapi::api::core::v1::NodeFeatures,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub images: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ContainerImage>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub node_info: <Option<
         ::k8s_openapi::api::core::v1::NodeSystemInfo,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub phase: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub runtime_handlers: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::NodeRuntimeHandler>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub volumes_attached: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::AttachedVolume>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub volumes_in_use: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,

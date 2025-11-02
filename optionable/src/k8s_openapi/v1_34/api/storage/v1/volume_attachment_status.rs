@@ -1,11 +1,16 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct VolumeAttachmentStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub attach_error: <Option<
         ::k8s_openapi::api::storage::v1::VolumeError,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub attached: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub attachment_metadata: <Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub detach_error: <Option<
         ::k8s_openapi::api::storage::v1::VolumeError,
     > as crate::Optionable>::Optioned,

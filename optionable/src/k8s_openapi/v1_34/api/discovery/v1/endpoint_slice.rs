@@ -1,13 +1,23 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = EndpointSlice)]
 pub struct EndpointSliceAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub address_type: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub endpoints: Option<
         <std::vec::Vec<
             ::k8s_openapi::api::discovery::v1::Endpoint,
         > as crate::Optionable>::Optioned,
     >,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ports: <Option<
         std::vec::Vec<::k8s_openapi::api::discovery::v1::EndpointPort>,
     > as crate::Optionable>::Optioned,

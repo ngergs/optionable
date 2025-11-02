@@ -1,9 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct LimitedPriorityLevelConfigurationAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub borrowing_limit_percent: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub lendable_percent: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub limit_response: <Option<
         ::k8s_openapi::api::flowcontrol::v1::LimitResponse,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub nominal_concurrency_shares: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

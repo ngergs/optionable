@@ -1,92 +1,124 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct VolumeAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub aws_elastic_block_store: <Option<
         ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub azure_disk: <Option<
         ::k8s_openapi::api::core::v1::AzureDiskVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub azure_file: <Option<
         ::k8s_openapi::api::core::v1::AzureFileVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub cephfs: <Option<
         ::k8s_openapi::api::core::v1::CephFSVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub cinder: <Option<
         ::k8s_openapi::api::core::v1::CinderVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub config_map: <Option<
         ::k8s_openapi::api::core::v1::ConfigMapVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub csi: <Option<
         ::k8s_openapi::api::core::v1::CSIVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub downward_api: <Option<
         ::k8s_openapi::api::core::v1::DownwardAPIVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub empty_dir: <Option<
         ::k8s_openapi::api::core::v1::EmptyDirVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ephemeral: <Option<
         ::k8s_openapi::api::core::v1::EphemeralVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub fc: <Option<
         ::k8s_openapi::api::core::v1::FCVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub flex_volume: <Option<
         ::k8s_openapi::api::core::v1::FlexVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub flocker: <Option<
         ::k8s_openapi::api::core::v1::FlockerVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub gce_persistent_disk: <Option<
         ::k8s_openapi::api::core::v1::GCEPersistentDiskVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub git_repo: <Option<
         ::k8s_openapi::api::core::v1::GitRepoVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub glusterfs: <Option<
         ::k8s_openapi::api::core::v1::GlusterfsVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub host_path: <Option<
         ::k8s_openapi::api::core::v1::HostPathVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub image: <Option<
         ::k8s_openapi::api::core::v1::ImageVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub iscsi: <Option<
         ::k8s_openapi::api::core::v1::ISCSIVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub nfs: <Option<
         ::k8s_openapi::api::core::v1::NFSVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub persistent_volume_claim: <Option<
         ::k8s_openapi::api::core::v1::PersistentVolumeClaimVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub photon_persistent_disk: <Option<
         ::k8s_openapi::api::core::v1::PhotonPersistentDiskVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub portworx_volume: <Option<
         ::k8s_openapi::api::core::v1::PortworxVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub projected: <Option<
         ::k8s_openapi::api::core::v1::ProjectedVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub quobyte: <Option<
         ::k8s_openapi::api::core::v1::QuobyteVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub rbd: <Option<
         ::k8s_openapi::api::core::v1::RBDVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub scale_io: <Option<
         ::k8s_openapi::api::core::v1::ScaleIOVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub secret: <Option<
         ::k8s_openapi::api::core::v1::SecretVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub storageos: <Option<
         ::k8s_openapi::api::core::v1::StorageOSVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub vsphere_volume: <Option<
         ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource,
     > as crate::Optionable>::Optioned,

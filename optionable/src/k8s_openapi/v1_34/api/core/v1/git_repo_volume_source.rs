@@ -1,6 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct GitRepoVolumeSourceAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub directory: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub repository: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub revision: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

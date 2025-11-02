@@ -1,13 +1,18 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct PodDisruptionBudgetSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub max_unavailable: <Option<
         ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub min_available: <Option<
         ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub selector: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub unhealthy_pod_eviction_policy: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,

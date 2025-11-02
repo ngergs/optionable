@@ -1,11 +1,21 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = RuntimeClass)]
 pub struct RuntimeClassAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub handler: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub overhead: <Option<
         ::k8s_openapi::api::node::v1::Overhead,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub scheduling: <Option<
         ::k8s_openapi::api::node::v1::Scheduling,
     > as crate::Optionable>::Optioned,

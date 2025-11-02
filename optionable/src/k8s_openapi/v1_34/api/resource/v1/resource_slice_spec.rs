@@ -1,17 +1,26 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ResourceSliceSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub all_nodes: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub devices: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1::Device>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub driver: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub node_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub node_selector: <Option<
         ::k8s_openapi::api::core::v1::NodeSelector,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub per_device_node_selection: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pool: Option<
         <::k8s_openapi::api::resource::v1::ResourcePool as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub shared_counters: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1::CounterSet>,
     > as crate::Optionable>::Optioned,

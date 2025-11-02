@@ -1,5 +1,8 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct LabelSelectorAttributesAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub raw_selector: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub requirements: <Option<
         std::vec::Vec<
             ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelectorRequirement,

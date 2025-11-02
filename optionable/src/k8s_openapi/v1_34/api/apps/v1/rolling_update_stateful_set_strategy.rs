@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct RollingUpdateStatefulSetStrategyAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub max_unavailable: <Option<
         ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub partition: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

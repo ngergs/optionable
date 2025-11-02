@@ -1,18 +1,28 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct DeviceRequestAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub admin_access: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub allocation_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: <Option<
         ::k8s_openapi::api::resource::v1beta1::CapacityRequirements,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub count: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub device_class_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub first_available: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1beta1::DeviceSubRequest>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub selectors: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1beta1::DeviceSelector>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub tolerations: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1beta1::DeviceToleration>,
     > as crate::Optionable>::Optioned,

@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ResourceClaimTemplateSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub metadata: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi::api::resource::v1::ResourceClaimSpec as crate::Optionable>::Optioned,
     >,

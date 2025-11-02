@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ResourceClaimSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub devices: <Option<
         ::k8s_openapi::api::resource::v1::DeviceClaim,
     > as crate::Optionable>::Optioned,

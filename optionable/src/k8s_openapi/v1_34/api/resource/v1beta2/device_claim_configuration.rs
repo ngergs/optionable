@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct DeviceClaimConfigurationAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub opaque: <Option<
         ::k8s_openapi::api::resource::v1beta2::OpaqueDeviceConfiguration,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub requests: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,

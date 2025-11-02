@@ -1,9 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ConfigMapVolumeSourceAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub default_mode: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub items: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::KeyToPath>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub optional: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

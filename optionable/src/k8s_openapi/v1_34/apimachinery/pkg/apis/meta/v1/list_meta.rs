@@ -1,7 +1,12 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ListMetaAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub continue_: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub remaining_item_count: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub self_link: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

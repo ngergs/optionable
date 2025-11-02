@@ -1,23 +1,36 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct SecurityContextAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub allow_privilege_escalation: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub app_armor_profile: <Option<
         ::k8s_openapi::api::core::v1::AppArmorProfile,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub capabilities: <Option<
         ::k8s_openapi::api::core::v1::Capabilities,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub privileged: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub proc_mount: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only_root_filesystem: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub run_as_group: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub run_as_non_root: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub run_as_user: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub se_linux_options: <Option<
         ::k8s_openapi::api::core::v1::SELinuxOptions,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub seccomp_profile: <Option<
         ::k8s_openapi::api::core::v1::SeccompProfile,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub windows_options: <Option<
         ::k8s_openapi::api::core::v1::WindowsSecurityContextOptions,
     > as crate::Optionable>::Optioned,

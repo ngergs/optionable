@@ -1,8 +1,17 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = VolumeAttributesClass)]
 pub struct VolumeAttributesClassAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub driver_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub parameters: <Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     > as crate::Optionable>::Optioned,

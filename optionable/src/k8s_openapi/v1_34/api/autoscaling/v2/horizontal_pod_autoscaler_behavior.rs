@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct HorizontalPodAutoscalerBehaviorAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub scale_down: <Option<
         ::k8s_openapi::api::autoscaling::v2::HPAScalingRules,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub scale_up: <Option<
         ::k8s_openapi::api::autoscaling::v2::HPAScalingRules,
     > as crate::Optionable>::Optioned,

@@ -1,7 +1,12 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct LoadBalancerIngressAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub hostname: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ip: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ip_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ports: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::PortStatus>,
     > as crate::Optionable>::Optioned,

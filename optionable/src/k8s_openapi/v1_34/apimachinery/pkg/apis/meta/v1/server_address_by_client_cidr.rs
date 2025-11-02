@@ -1,5 +1,8 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ServerAddressByClientCIDRAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub client_cidr: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub server_address: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]

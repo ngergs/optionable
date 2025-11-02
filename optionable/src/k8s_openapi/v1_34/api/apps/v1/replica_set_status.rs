@@ -1,12 +1,20 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ReplicaSetStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub available_replicas: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi::api::apps::v1::ReplicaSetCondition>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub fully_labeled_replicas: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: <Option<i64> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ready_replicas: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub replicas: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub terminating_replicas: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

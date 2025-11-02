@@ -1,8 +1,12 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct HTTPIngressPathAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub backend: Option<
         <::k8s_openapi::api::networking::v1::IngressBackend as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub path: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub path_type: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]

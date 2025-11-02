@@ -1,19 +1,26 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct VolumeProjectionAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster_trust_bundle: <Option<
         ::k8s_openapi::api::core::v1::ClusterTrustBundleProjection,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub config_map: <Option<
         ::k8s_openapi::api::core::v1::ConfigMapProjection,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub downward_api: <Option<
         ::k8s_openapi::api::core::v1::DownwardAPIProjection,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_certificate: <Option<
         ::k8s_openapi::api::core::v1::PodCertificateProjection,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub secret: <Option<
         ::k8s_openapi::api::core::v1::SecretProjection,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub service_account_token: <Option<
         ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection,
     > as crate::Optionable>::Optioned,

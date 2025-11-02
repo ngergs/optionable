@@ -1,7 +1,12 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct SubjectAccessReviewStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub allowed: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub denied: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub evaluation_error: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

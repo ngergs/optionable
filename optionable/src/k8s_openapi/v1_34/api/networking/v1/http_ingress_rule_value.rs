@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct HTTPIngressRuleValueAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub paths: Option<
         <std::vec::Vec<
             ::k8s_openapi::api::networking::v1::HTTPIngressPath,

@@ -1,4 +1,8 @@
-pub struct QuantityAc(pub Option<<std::string::String as crate::Optionable>::Optioned>);
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+pub struct QuantityAc(
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub Option<<std::string::String as crate::Optionable>::Optioned>,
+);
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::api::resource::Quantity {
     type Optioned = QuantityAc;

@@ -1,62 +1,88 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ContainerAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub args: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub command: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub env: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::EnvVar>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub env_from: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::EnvFromSource>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub image: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub image_pull_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub lifecycle: <Option<
         ::k8s_openapi::api::core::v1::Lifecycle,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub liveness_probe: <Option<
         ::k8s_openapi::api::core::v1::Probe,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ports: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ContainerPort>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub readiness_probe: <Option<
         ::k8s_openapi::api::core::v1::Probe,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resize_policy: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ContainerResizePolicy>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resources: <Option<
         ::k8s_openapi::api::core::v1::ResourceRequirements,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub restart_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub restart_policy_rules: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ContainerRestartRule>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub security_context: <Option<
         ::k8s_openapi::api::core::v1::SecurityContext,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub startup_probe: <Option<
         ::k8s_openapi::api::core::v1::Probe,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub stdin: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub stdin_once: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_message_path: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_message_policy: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub tty: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_devices: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::VolumeDevice>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_mounts: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::VolumeMount>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub working_dir: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

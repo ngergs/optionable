@@ -1,5 +1,4 @@
 use crate::parsed_input::{FieldHandling, FieldParsed};
-use crate::TypeHelperAttributes;
 use darling::FromMeta;
 use proc_macro2::{Ident, TokenStream};
 use quote::quote;
@@ -23,7 +22,8 @@ pub(crate) fn where_clauses<'a>(
     crate_name: &Path,
     input_crate_replacement: Option<&Ident>,
     generics: &'a Generics,
-    attrs: &TypeHelperAttributes,
+    derive: &[Path],
+    no_convert: bool,
     fields: impl IntoIterator<Item = &'a FieldParsed> + Clone,
 ) -> WhereClauses {
     let generic_params = generic_params_need_optionable(&generics.params, fields);
@@ -38,9 +38,9 @@ pub(crate) fn where_clauses<'a>(
         where_clause_replace_input_crate_name(&mut where_input, input_crate_replacement);
     }
 
-    let predicate_struct_enum_optioned = if let Some(derive) = &attrs.derive
-        && !derive.is_empty()
-    {
+    let predicate_struct_enum_optioned = if derive.is_empty() {
+        &quote!(Sized)
+    } else {
         let derive: Vec<Cow<Path>> = derive
             .iter()
             .map(|el| {
@@ -54,8 +54,6 @@ pub(crate) fn where_clauses<'a>(
             })
             .collect();
         &quote!(Sized + #(#derive)+*)
-    } else {
-        &quote!(Sized)
     };
     let where_clause_struct_enum_def = where_clause_generalized(
         crate_name,
@@ -72,7 +70,7 @@ pub(crate) fn where_clauses<'a>(
         &quote!(#crate_name::Optionable),
         predicate_struct_enum_optioned,
     );
-    let where_clause_impl_convert = attrs.no_convert.is_none().then(|| {
+    let where_clause_impl_convert = (!no_convert).then(|| {
         where_clause_generalized(
             crate_name,
             &generic_params,

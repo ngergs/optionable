@@ -1,9 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct TokenReviewStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub audiences: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub authenticated: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub error: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub user: <Option<
         ::k8s_openapi::api::authentication::v1::UserInfo,
     > as crate::Optionable>::Optioned,

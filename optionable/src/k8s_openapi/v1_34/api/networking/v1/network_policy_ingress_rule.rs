@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct NetworkPolicyIngressRuleAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub from: <Option<
         std::vec::Vec<::k8s_openapi::api::networking::v1::NetworkPolicyPeer>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ports: <Option<
         std::vec::Vec<::k8s_openapi::api::networking::v1::NetworkPolicyPort>,
     > as crate::Optionable>::Optioned,

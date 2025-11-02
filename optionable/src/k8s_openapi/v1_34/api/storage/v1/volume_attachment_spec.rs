@@ -1,6 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct VolumeAttachmentSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub attacher: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub node_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub source: Option<
         <::k8s_openapi::api::storage::v1::VolumeAttachmentSource as crate::Optionable>::Optioned,
     >,

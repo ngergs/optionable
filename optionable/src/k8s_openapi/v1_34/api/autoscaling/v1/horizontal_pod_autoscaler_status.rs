@@ -1,10 +1,16 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct HorizontalPodAutoscalerStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub current_cpu_utilization_percentage: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub current_replicas: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub desired_replicas: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub last_scale_time: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: <Option<i64> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

@@ -1,5 +1,7 @@
+#[derive(Clone, std::fmt::Debug, serde::Serialize, serde::Deserialize)]
 pub enum JSONSchemaPropsOrArrayAc {
     Schema(
+        #[serde(skip_serializing_if = "Option::is_none")]
         Option<
             <std::boxed::Box<
                 ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
@@ -7,6 +9,7 @@ pub enum JSONSchemaPropsOrArrayAc {
         >,
     ),
     Schemas(
+        #[serde(skip_serializing_if = "Option::is_none")]
         Option<
             <std::vec::Vec<
                 ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,

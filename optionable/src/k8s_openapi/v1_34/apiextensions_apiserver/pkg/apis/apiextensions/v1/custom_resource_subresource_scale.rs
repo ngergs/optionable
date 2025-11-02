@@ -1,8 +1,12 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct CustomResourceSubresourceScaleAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub label_selector_path: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub spec_replicas_path: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub status_replicas_path: Option<
         <std::string::String as crate::Optionable>::Optioned,
     >,

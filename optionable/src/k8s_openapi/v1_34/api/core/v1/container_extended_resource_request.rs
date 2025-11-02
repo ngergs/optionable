@@ -1,6 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ContainerExtendedResourceRequestAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub container_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub request_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]

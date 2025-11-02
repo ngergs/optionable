@@ -1,10 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct MutationAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub apply_configuration: <Option<
         ::k8s_openapi::api::admissionregistration::v1alpha1::ApplyConfiguration,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub json_patch: <Option<
         ::k8s_openapi::api::admissionregistration::v1alpha1::JSONPatch,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub patch_type: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]

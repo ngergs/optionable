@@ -1,0 +1,11 @@
+[package]
+name = "optionable_k8s_openapi_example"
+version = "0.1.0"
+edition = "2024"
+description = "Example for how to use the optioned types for k8s-openapi"
+publish = false
+
+[lints.clippy]
+pedantic = "warn"
+
+[workspace]

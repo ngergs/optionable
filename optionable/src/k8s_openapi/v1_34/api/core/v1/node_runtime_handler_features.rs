@@ -1,5 +1,8 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct NodeRuntimeHandlerFeaturesAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub recursive_read_only_mounts: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub user_namespaces: <Option<bool> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

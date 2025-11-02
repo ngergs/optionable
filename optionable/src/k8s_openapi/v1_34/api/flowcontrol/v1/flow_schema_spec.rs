@@ -1,11 +1,16 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct FlowSchemaSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub distinguisher_method: <Option<
         ::k8s_openapi::api::flowcontrol::v1::FlowDistinguisherMethod,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub matching_precedence: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub priority_level_configuration: Option<
         <::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationReference as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub rules: <Option<
         std::vec::Vec<::k8s_openapi::api::flowcontrol::v1::PolicyRulesWithSubjects>,
     > as crate::Optionable>::Optioned,

@@ -1,10 +1,19 @@
-#[derive(kube::Resource)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    kube::Resource
+)]
 #[resource(inherit = ClusterRole)]
 pub struct ClusterRoleAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub aggregation_rule: <Option<
         ::k8s_openapi::api::rbac::v1::AggregationRule,
     > as crate::Optionable>::Optioned,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub rules: <Option<
         std::vec::Vec<::k8s_openapi::api::rbac::v1::PolicyRule>,
     > as crate::Optionable>::Optioned,

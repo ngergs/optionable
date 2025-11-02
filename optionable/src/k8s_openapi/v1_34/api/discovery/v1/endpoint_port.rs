@@ -1,7 +1,12 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct EndpointPortAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub app_protocol: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub port: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub protocol: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

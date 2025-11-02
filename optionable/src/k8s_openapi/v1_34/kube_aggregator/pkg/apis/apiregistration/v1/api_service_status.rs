@@ -1,4 +1,6 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct APIServiceStatusAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         std::vec::Vec<
             ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCondition,

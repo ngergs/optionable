@@ -1,6 +1,10 @@
+#[derive(Clone, std::fmt::Debug, serde::Serialize, serde::Deserialize)]
 pub enum IntOrStringAc {
-    Int(Option<i32>),
-    String(Option<<std::string::String as crate::Optionable>::Optioned>),
+    Int(#[serde(skip_serializing_if = "Option::is_none")] Option<i32>),
+    String(
+        #[serde(skip_serializing_if = "Option::is_none")]
+        Option<<std::string::String as crate::Optionable>::Optioned>,
+    ),
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString {

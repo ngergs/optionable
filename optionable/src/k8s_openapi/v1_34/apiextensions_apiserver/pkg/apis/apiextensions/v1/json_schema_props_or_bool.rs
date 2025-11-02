@@ -1,12 +1,14 @@
+#[derive(Clone, std::fmt::Debug, serde::Serialize, serde::Deserialize)]
 pub enum JSONSchemaPropsOrBoolAc {
     Schema(
+        #[serde(skip_serializing_if = "Option::is_none")]
         Option<
             <std::boxed::Box<
                 ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
             > as crate::Optionable>::Optioned,
         >,
     ),
-    Bool(Option<bool>),
+    Bool(#[serde(skip_serializing_if = "Option::is_none")] Option<bool>),
 }
 #[automatically_derived]
 impl crate::Optionable

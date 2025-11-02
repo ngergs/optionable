@@ -1,7 +1,10 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct EndpointHintsAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub for_nodes: <Option<
         std::vec::Vec<::k8s_openapi::api::discovery::v1::ForNode>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub for_zones: <Option<
         std::vec::Vec<::k8s_openapi::api::discovery::v1::ForZone>,
     > as crate::Optionable>::Optioned,

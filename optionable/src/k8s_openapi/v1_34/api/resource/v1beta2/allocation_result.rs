@@ -1,10 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct AllocationResultAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub allocation_timestamp: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub devices: <Option<
         ::k8s_openapi::api::resource::v1beta2::DeviceAllocationResult,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub node_selector: <Option<
         ::k8s_openapi::api::core::v1::NodeSelector,
     > as crate::Optionable>::Optioned,

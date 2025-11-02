@@ -1,8 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ContainerPortAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub container_port: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub host_ip: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub host_port: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub protocol: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

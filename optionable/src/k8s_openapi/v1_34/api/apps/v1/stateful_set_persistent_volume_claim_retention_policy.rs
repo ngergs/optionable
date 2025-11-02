@@ -1,5 +1,8 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct StatefulSetPersistentVolumeClaimRetentionPolicyAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub when_deleted: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub when_scaled: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

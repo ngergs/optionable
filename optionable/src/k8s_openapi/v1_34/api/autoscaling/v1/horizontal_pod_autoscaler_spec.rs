@@ -1,9 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct HorizontalPodAutoscalerSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub max_replicas: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub min_replicas: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub scale_target_ref: Option<
         <::k8s_openapi::api::autoscaling::v1::CrossVersionObjectReference as crate::Optionable>::Optioned,
     >,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub target_cpu_utilization_percentage: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]

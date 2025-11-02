@@ -1,10 +1,14 @@
+#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct PolicyRulesWithSubjectsAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub non_resource_rules: <Option<
         std::vec::Vec<::k8s_openapi::api::flowcontrol::v1::NonResourcePolicyRule>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_rules: <Option<
         std::vec::Vec<::k8s_openapi::api::flowcontrol::v1::ResourcePolicyRule>,
     > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub subjects: Option<
         <std::vec::Vec<
             ::k8s_openapi::api::flowcontrol::v1::Subject,
