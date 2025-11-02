@@ -1,10 +1,10 @@
 #![allow(clippy::all)]
 #![allow(clippy::pedantic)]
 
-#[cfg(feature = "k8s-openapi_v1_34")]
+#[cfg(feature = "k8s_openapi_v1_34")]
 mod optionable;
-#[cfg(feature = "k8s-openapi_v1_34")]
-mod v1_34;
+#[cfg(feature = "k8s_openapi_v1_34")]
+pub mod v1_34;
 
 /*mod test {
     use crate::k8s_openapi::v1_34::api::apps::v1::{DeploymentAc, DeploymentSpecAc};

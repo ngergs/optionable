@@ -177,7 +177,7 @@ pub mod optionable;
 
 #[cfg(feature = "chrono")]
 mod chrono;
-mod k8s_openapi;
+pub mod k8s_openapi;
 #[cfg(feature = "serde_json")]
 mod serde_json;
 

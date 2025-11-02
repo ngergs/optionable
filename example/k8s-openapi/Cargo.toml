@@ -8,4 +8,7 @@ publish = false
 [lints.clippy]
 pedantic = "warn"
 
-[workspace]
+[dependencies]
+kube = "2.0.1"
+tokio = { version = "1.47.1", features = ["rt", "rt-multi-thread", "macros"] }
+optionable = { version = "0.2.6", features = ["k8s_openapi_v1_34"] }

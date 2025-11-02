@@ -1,8 +1,9 @@
 [workspace]
 resolver = "3"
-members = ["optionable", "optionable_codegen", "optionable_derive", "optionable_codegen/bin"]
+members = ["optionable", "optionable_codegen", "optionable_derive", "optionable_codegen/bin", "example/k8s-openapi"]
 
 [patch.crates-io]
+optionable = { path = "optionable" }
 optionable_derive = { path = "optionable_derive" }
 optionable_codegen = { path = "optionable_codegen" }
 
