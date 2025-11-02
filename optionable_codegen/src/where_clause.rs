@@ -1,5 +1,6 @@
 use crate::parsed_input::{FieldHandling, FieldParsed};
 use crate::TypeHelperAttributes;
+use darling::FromMeta;
 use proc_macro2::{Ident, TokenStream};
 use quote::quote;
 use std::borrow::Cow;
@@ -40,6 +41,18 @@ pub(crate) fn where_clauses<'a>(
     let predicate_struct_enum_optioned = if let Some(derive) = &attrs.derive
         && !derive.is_empty()
     {
+        let derive: Vec<Cow<Path>> = derive
+            .iter()
+            .map(|el| {
+                if *el == Path::from_string("Deserialize").unwrap()
+                    || *el == Path::from_string("serde::Deserialize").unwrap()
+                {
+                    Cow::Owned(Path::from_string("serde::de::DeserializeOwned").unwrap())
+                } else {
+                    Cow::Borrowed(el)
+                }
+            })
+            .collect();
         &quote!(Sized + #(#derive)+*)
     } else {
         &quote!(Sized)

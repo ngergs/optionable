@@ -925,7 +925,8 @@ mod tests {
             TestCase {
                 input: quote! {
                     #[derive(Optionable)]
-                    struct DeriveExample<T, T2: Serialize, T3> where T: DeserializeOwned {
+                    #[optionable(derive(Serialize, Deserialize))]
+                    struct DeriveExample<T, T2: Serialize, T3> {
                         output: T,
                         input: T2,
                         #[optionable(required)]
@@ -933,43 +934,46 @@ mod tests {
                     }
                 },
                 output: quote! {
+                    #[derive (Serialize , Deserialize)]
                     struct DeriveExampleOpt<T, T2: Serialize, T3>
-                        where T: DeserializeOwned + ::optionable::Optionable,
-                              <T as ::optionable::Optionable>::Optioned: Sized,
+                        where T: ::optionable::Optionable,
+                              <T as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned,
                               T2: ::optionable::Optionable,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized
+                              <T2 as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned
                     {
+                        #[serde(skip_serializing_if="Option::is_none")]
                         output: Option< <T as ::optionable::Optionable>::Optioned>,
+                        #[serde(skip_serializing_if="Option::is_none")]
                         input: Option< <T2 as ::optionable::Optionable>::Optioned>,
                         extra: T3
                     }
 
                     #[automatically_derived]
                     impl<T, T2: Serialize, T3> ::optionable::Optionable for DeriveExample<T, T2, T3>
-                        where T: DeserializeOwned + ::optionable::Optionable,
-                              <T as ::optionable::Optionable>::Optioned: Sized,
+                        where T: ::optionable::Optionable,
+                              <T as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned,
                               T2: ::optionable::Optionable,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized
+                              <T2 as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned
                     {
                         type Optioned = DeriveExampleOpt<T,T2,T3>;
                     }
 
                     #[automatically_derived]
                     impl<T, T2: Serialize, T3> ::optionable::Optionable for DeriveExampleOpt<T, T2, T3>
-                        where T: DeserializeOwned + ::optionable::Optionable,
-                              <T as ::optionable::Optionable>::Optioned: Sized,
+                        where T: ::optionable::Optionable,
+                              <T as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned,
                               T2: ::optionable::Optionable,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized
+                              <T2 as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned
                     {
                         type Optioned = DeriveExampleOpt<T, T2, T3>;
                     }
 
                     #[automatically_derived]
                     impl <T, T2:Serialize, T3> ::optionable::OptionableConvert for DeriveExample<T, T2, T3>
-                        where T: DeserializeOwned + ::optionable::OptionableConvert,
-                              <T as ::optionable::Optionable>::Optioned: Sized,
+                        where T: ::optionable::OptionableConvert,
+                              <T as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned,
                               T2: ::optionable::OptionableConvert,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized
+                              <T2 as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned
                     {
                         fn into_optioned (self) -> DeriveExampleOpt<T, T2, T3> {
                             DeriveExampleOpt::<T, T2, T3> {

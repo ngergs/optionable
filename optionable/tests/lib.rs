@@ -139,8 +139,7 @@ fn derive_generic_convert() {
     #[allow(dead_code)]
     #[derive(Optionable)]
     #[optionable(derive(Clone))]
-    struct DeriveExample<T, T2>
-    {
+    struct DeriveExample<T, T2> {
         name: T,
         surname: T2,
     }
@@ -303,7 +302,7 @@ fn derive_forward_other_derives() {
 fn derive_generic_advanced_types() {
     #[allow(dead_code)]
     #[derive(Optionable)]
-    #[optionable(derive(Clone))]
+    #[optionable(derive(Clone, Serialize, Deserialize))]
     struct DeriveExample<T, T2, T3>
     where
         T: Debug,
@@ -312,9 +311,9 @@ fn derive_generic_advanced_types() {
         tuple: (T, T2, T3),
     }
 
-    let _ = DeriveExampleOpt::<u32, &'static str, i32> {
+    let _ = DeriveExampleOpt::<u32, String, i32> {
         array: Some([0, 1, 2]),
-        tuple: Some((Some(2), Some("a"), Some(-1))),
+        tuple: Some((Some(2), Some("a".to_owned()), Some(-1))),
     };
 }
 
