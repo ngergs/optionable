@@ -13,7 +13,7 @@ pub struct VolumeAttributesClassAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<VolumeAttributesClassAc>,
+    pub phantom: std::marker::PhantomData<VolumeAttributesClassAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass {
@@ -31,6 +31,7 @@ for ::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass {
             driver_name: Some(crate::OptionableConvert::into_optioned(self.driver_name)),
             metadata: self.metadata,
             parameters: crate::OptionableConvert::into_optioned(self.parameters),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(
@@ -61,15 +62,15 @@ for ::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass {
     }
 }
 impl k8s_openapi::Resource for VolumeAttributesClassAc {
-    const API_VERSION: &'static str = "storage.k8s.io/v1alpha1";
-    const GROUP: &'static str = "storage.k8s.io";
-    const KIND: &'static str = "VolumeAttributesClass";
-    const VERSION: &'static str = "v1alpha1";
-    const URL_PATH_SEGMENT: &'static str = "volumeattributesclasses";
-    type Scope = k8s_openapi::ClusterResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for VolumeAttributesClassAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

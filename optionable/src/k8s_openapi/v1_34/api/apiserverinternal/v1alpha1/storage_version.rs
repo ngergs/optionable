@@ -15,7 +15,7 @@ pub struct StorageVersionAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<StorageVersionAc>,
+    pub phantom: std::marker::PhantomData<StorageVersionAc>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -34,6 +34,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion {
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: Some(crate::OptionableConvert::into_optioned(self.status)),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(
@@ -72,15 +73,15 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion {
     }
 }
 impl k8s_openapi::Resource for StorageVersionAc {
-    const API_VERSION: &'static str = "internal.apiserver.k8s.io/v1alpha1";
-    const GROUP: &'static str = "internal.apiserver.k8s.io";
-    const KIND: &'static str = "StorageVersion";
-    const VERSION: &'static str = "v1alpha1";
-    const URL_PATH_SEGMENT: &'static str = "storageversions";
-    type Scope = k8s_openapi::ClusterResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for StorageVersionAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersion as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

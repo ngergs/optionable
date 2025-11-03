@@ -19,7 +19,7 @@ pub struct StatusAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<StatusAc>,
+    pub phantom: std::marker::PhantomData<StatusAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
@@ -40,6 +40,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
             metadata: self.metadata,
             reason: crate::OptionableConvert::into_optioned(self.reason),
             status: crate::OptionableConvert::into_optioned(self.status),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(value: StatusAc) -> Result<Self, crate::optionable::Error> {
@@ -63,15 +64,15 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
     }
 }
 impl k8s_openapi::Resource for StatusAc {
-    const API_VERSION: &'static str = "v1";
-    const GROUP: &'static str = "";
-    const KIND: &'static str = "Status";
-    const VERSION: &'static str = "v1";
-    const URL_PATH_SEGMENT: &'static str = "status";
-    type Scope = k8s_openapi::SubResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for StatusAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta;
+    type Ty = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

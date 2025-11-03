@@ -15,7 +15,7 @@ pub struct ScaleAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<ScaleAc>,
+    pub phantom: std::marker::PhantomData<ScaleAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::autoscaling::v1::Scale {
@@ -32,6 +32,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v1::Scale {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(value: ScaleAc) -> Result<Self, crate::optionable::Error> {
@@ -49,15 +50,15 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v1::Scale {
     }
 }
 impl k8s_openapi::Resource for ScaleAc {
-    const API_VERSION: &'static str = "autoscaling/v1";
-    const GROUP: &'static str = "autoscaling";
-    const KIND: &'static str = "Scale";
-    const VERSION: &'static str = "v1";
-    const URL_PATH_SEGMENT: &'static str = "scale";
-    type Scope = k8s_openapi::SubResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::api::autoscaling::v1::Scale as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::api::autoscaling::v1::Scale as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::api::autoscaling::v1::Scale as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::api::autoscaling::v1::Scale as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::api::autoscaling::v1::Scale as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::api::autoscaling::v1::Scale as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for ScaleAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::api::autoscaling::v1::Scale as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

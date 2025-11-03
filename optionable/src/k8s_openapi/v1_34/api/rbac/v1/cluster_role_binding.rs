@@ -15,7 +15,7 @@ pub struct ClusterRoleBindingAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<ClusterRoleBindingAc>,
+    pub phantom: std::marker::PhantomData<ClusterRoleBindingAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::rbac::v1::ClusterRoleBinding {
@@ -32,6 +32,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRoleBindi
             metadata: self.metadata,
             role_ref: Some(crate::OptionableConvert::into_optioned(self.role_ref)),
             subjects: crate::OptionableConvert::into_optioned(self.subjects),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(
@@ -62,15 +63,15 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRoleBindi
     }
 }
 impl k8s_openapi::Resource for ClusterRoleBindingAc {
-    const API_VERSION: &'static str = "rbac.authorization.k8s.io/v1";
-    const GROUP: &'static str = "rbac.authorization.k8s.io";
-    const KIND: &'static str = "ClusterRoleBinding";
-    const VERSION: &'static str = "v1";
-    const URL_PATH_SEGMENT: &'static str = "clusterrolebindings";
-    type Scope = k8s_openapi::ClusterResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::api::rbac::v1::ClusterRoleBinding as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::api::rbac::v1::ClusterRoleBinding as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::api::rbac::v1::ClusterRoleBinding as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::api::rbac::v1::ClusterRoleBinding as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::api::rbac::v1::ClusterRoleBinding as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::api::rbac::v1::ClusterRoleBinding as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for ClusterRoleBindingAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::api::rbac::v1::ClusterRoleBinding as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

@@ -15,7 +15,7 @@ pub struct StorageVersionMigrationAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<StorageVersionMigrationAc>,
+    pub phantom: std::marker::PhantomData<StorageVersionMigrationAc>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -34,6 +34,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(
@@ -56,15 +57,15 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration {
     }
 }
 impl k8s_openapi::Resource for StorageVersionMigrationAc {
-    const API_VERSION: &'static str = "storagemigration.k8s.io/v1alpha1";
-    const GROUP: &'static str = "storagemigration.k8s.io";
-    const KIND: &'static str = "StorageVersionMigration";
-    const VERSION: &'static str = "v1alpha1";
-    const URL_PATH_SEGMENT: &'static str = "storageversionmigrations";
-    type Scope = k8s_openapi::ClusterResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for StorageVersionMigrationAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

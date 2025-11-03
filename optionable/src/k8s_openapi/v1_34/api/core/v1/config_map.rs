@@ -17,7 +17,7 @@ pub struct ConfigMapAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<ConfigMapAc>,
+    pub phantom: std::marker::PhantomData<ConfigMapAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMap {
@@ -35,6 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMap {
             data: crate::OptionableConvert::into_optioned(self.data),
             immutable: crate::OptionableConvert::into_optioned(self.immutable),
             metadata: self.metadata,
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(value: ConfigMapAc) -> Result<Self, crate::optionable::Error> {
@@ -54,15 +55,15 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMap {
     }
 }
 impl k8s_openapi::Resource for ConfigMapAc {
-    const API_VERSION: &'static str = "v1";
-    const GROUP: &'static str = "";
-    const KIND: &'static str = "ConfigMap";
-    const VERSION: &'static str = "v1";
-    const URL_PATH_SEGMENT: &'static str = "configmaps";
-    type Scope = k8s_openapi::NamespaceResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::api::core::v1::ConfigMap as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::api::core::v1::ConfigMap as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::api::core::v1::ConfigMap as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::api::core::v1::ConfigMap as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::api::core::v1::ConfigMap as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::api::core::v1::ConfigMap as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for ConfigMapAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::api::core::v1::ConfigMap as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

@@ -14,7 +14,7 @@ where
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<ListAc>,
+    pub phantom: std::marker::PhantomData<ListAc<T>>,
 }
 #[automatically_derived]
 impl<T> crate::Optionable for ::k8s_openapi::List<T>
@@ -45,6 +45,7 @@ where
         ListAc::<T> {
             items: Some(crate::OptionableConvert::into_optioned(self.items)),
             metadata: self.metadata,
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(value: ListAc<T>) -> Result<Self, crate::optionable::Error> {
@@ -65,5 +66,38 @@ where
         }
         self.metadata = other.metadata;
         Ok(())
+    }
+}
+impl<T> k8s_openapi::Resource for ListAc<T>
+where
+    T: k8s_openapi::ListableResource + crate::Optionable,
+    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + Default
+        + serde::Serialize + serde::de::DeserializeOwned,
+{
+    const API_VERSION: &'static str = <::k8s_openapi::List<
+        T,
+    > as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::List<T> as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::List<T> as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::List<
+        T,
+    > as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::List<
+        T,
+    > as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::List<T> as k8s_openapi::Resource>::Scope;
+}
+impl<T> k8s_openapi::Metadata for ListAc<T>
+where
+    T: k8s_openapi::ListableResource + crate::Optionable,
+    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + Default
+        + serde::Serialize + serde::de::DeserializeOwned,
+{
+    type Ty = <::k8s_openapi::List<T> as k8s_openapi::Metadata>::Ty;
+    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+        &mut self.metadata
     }
 }

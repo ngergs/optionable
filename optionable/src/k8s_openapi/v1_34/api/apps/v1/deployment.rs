@@ -3,16 +3,19 @@
 pub struct DeploymentAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub spec: <Option<::k8s_openapi::api::apps::v1::DeploymentSpec> as crate::Optionable>::Optioned,
+    pub spec: <Option<
+        ::k8s_openapi::api::apps::v1::DeploymentSpec,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status:
-        <Option<::k8s_openapi::api::apps::v1::DeploymentStatus> as crate::Optionable>::Optioned,
+    pub status: <Option<
+        ::k8s_openapi::api::apps::v1::DeploymentStatus,
+    > as crate::Optionable>::Optioned,
     #[serde(
         flatten,
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<DeploymentAc>,
+    pub phantom: std::marker::PhantomData<DeploymentAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::Deployment {
@@ -47,15 +50,15 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::Deployment {
     }
 }
 impl k8s_openapi::Resource for DeploymentAc {
-    const API_VERSION: &'static str = "apps/v1";
-    const GROUP: &'static str = "apps";
-    const KIND: &'static str = "Deployment";
-    const VERSION: &'static str = "v1";
-    const URL_PATH_SEGMENT: &'static str = "deployments";
-    type Scope = k8s_openapi::NamespaceResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::api::apps::v1::Deployment as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::api::apps::v1::Deployment as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::api::apps::v1::Deployment as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::api::apps::v1::Deployment as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::api::apps::v1::Deployment as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::api::apps::v1::Deployment as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for DeploymentAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::api::apps::v1::Deployment as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

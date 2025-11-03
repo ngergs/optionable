@@ -7,6 +7,10 @@ repository = "https://github.com/ngergs/optionable"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 
+[features]
+default = []
+k8s_openapi = ["optionable_codegen/k8s_openapi"]
+
 [lints.clippy]
 pedantic = "warn"
 

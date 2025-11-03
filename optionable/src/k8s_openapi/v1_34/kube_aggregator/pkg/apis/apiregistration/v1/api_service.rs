@@ -15,7 +15,7 @@ pub struct APIServiceAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<APIServiceAc>,
+    pub phantom: std::marker::PhantomData<APIServiceAc>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -34,6 +34,7 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(value: APIServiceAc) -> Result<Self, crate::optionable::Error> {
@@ -51,15 +52,15 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService {
     }
 }
 impl k8s_openapi::Resource for APIServiceAc {
-    const API_VERSION: &'static str = "apiregistration.k8s.io/v1";
-    const GROUP: &'static str = "apiregistration.k8s.io";
-    const KIND: &'static str = "APIService";
-    const VERSION: &'static str = "v1";
-    const URL_PATH_SEGMENT: &'static str = "apiservices";
-    type Scope = k8s_openapi::ClusterResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for APIServiceAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

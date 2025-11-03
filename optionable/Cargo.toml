@@ -14,7 +14,7 @@ std = ["k8s-openapi/std"]
 derive = ["dep:optionable_derive"]
 chrono = ["dep:chrono"]
 serde_json = ["dep:serde_json"]
-k8s_openapi_v1_34 = ["dep:k8s-openapi", "dep:serde", "serde/std", "k8s-openapi/v1_34", "std", "serde_json", "chrono"]
+k8s_openapi_v1_34 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "serde/std", "k8s-openapi/v1_34", "std", "serde_json", "chrono"]
 
 [lints.clippy]
 pedantic = "warn"

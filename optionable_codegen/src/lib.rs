@@ -11,10 +11,15 @@
 //! can't export its non-macro functions (even the `proc_macro2` ones) for the usage by the codegen part.
 
 mod helper;
+#[cfg(feature = "k8s_openapi")]
+mod k8s_openapi;
 mod parsed_input;
 mod where_clause;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
+#[cfg(feature = "k8s_openapi")]
+use crate::k8s_openapi::{k8s_openapi_field_metadata_adjust, k8s_openapi_field_resource_adjust};
+use crate::k8s_openapi::{k8s_openapi_imp_resource, k8s_openapi_impl_metadata};
 use crate::parsed_input::{
     into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
 };
@@ -49,6 +54,17 @@ pub(crate) struct TypeHelperAttributes {
     suffix: LitStr,
     /// Skip generating `OptionableConvert` impl
     no_convert: Option<()>,
+    /// Adjustments of the derived optioned type for `k8s_openapi::Resource`-implementations.
+    /// - Adds serde statements to serialize all fields with camcelCase, with special case handling to restore the `OpenAPI` field names.
+    /// - Adds `apiVersion` and `kind` to the serialization output with values from the trait constants of the given `Resource` implementation
+    /// - Derives `k8s_openapi::resource` for the optioned type.
+    #[cfg(feature = "k8s_openapi")]
+    k8s_openapi_resource: Option<()>,
+    /// Adjustments of the derived optioned type for `k8s_openapi::Metadata`-implementations.
+    /// - Sets the `metadata` field as required for the optioned type.
+    /// - Derives `k8s_openapi::Metadata` for the optioned type.
+    #[cfg(feature = "k8s_openapi")]
+    k8s_openapi_metadata: Option<()>,
 }
 
 #[derive(FromDeriveInput, Debug, Clone)]
@@ -126,17 +142,17 @@ pub fn derive_optionable(
     let derive = attrs
         .derive
         .into_iter()
-        .flat_map(|el| el.iter().map(|el| el.clone()).collect::<Vec<_>>())
+        .flat_map(|el| el.iter().cloned().collect::<Vec<_>>())
         .collect::<Vec<_>>();
     let settings = settings.map(Cow::Borrowed).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
     let forward_attrs = forwarded_attributes(&input.attrs)?;
     let vis = input.vis;
-    let type_ident_opt = Ident::new(
+    let ty_ident_opt = Ident::new(
         &(input.ident.to_string() + &attrs.suffix.value()),
         input.ident.span(),
     );
-    let type_ident = if let Some(mut ty_prefix) = settings.ty_prefix.clone() {
+    let ty_ident = if let Some(mut ty_prefix) = settings.ty_prefix.clone() {
         ty_prefix.segments.push(input.ident.into());
         ty_prefix
     } else {
@@ -171,11 +187,25 @@ pub fn derive_optionable(
         impl_optionable_convert,
     } = match input.data {
         Data::Struct(s) => {
-            let struct_parsed = into_field_handling(
+            #[allow(unused_mut)] // used by k8s_openapi block and not worth splitting this up for it
+            let mut struct_parsed = into_field_handling(
                 crate_name.to_owned(),
                 s.fields,
                 settings.input_crate_replacement.as_ref(),
             )?;
+            #[cfg(feature = "k8s_openapi")]
+            if attrs.k8s_openapi_resource.is_some() {
+                k8s_openapi_field_resource_adjust(
+                    &mut struct_parsed,
+                    crate_name,
+                    &ty_ident_opt,
+                    &ty_generics,
+                );
+            }
+            #[cfg(feature = "k8s_openapi")]
+            if attrs.k8s_openapi_metadata.is_some() {
+                k8s_openapi_field_metadata_adjust(&mut struct_parsed);
+            }
             let WhereClauses {
                 struct_enum_def: where_clause_struct_enum,
                 impl_optionable: where_clause_impl_optionable,
@@ -204,16 +234,16 @@ pub fn derive_optionable(
                     true);
                 quote! {
                     #[automatically_derived]
-                    impl #impl_generics #crate_name::OptionableConvert for #type_ident #ty_generics #where_clause_impl_optionable_convert{
-                        fn into_optioned(self) -> #type_ident_opt #ty_generics {
-                            #type_ident_opt #generics_colon #ty_generics #into_optioned_fields
+                    impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_impl_optionable_convert{
+                        fn into_optioned(self) -> #ty_ident_opt #ty_generics {
+                            #ty_ident_opt #generics_colon #ty_generics #into_optioned_fields
                         }
 
-                        fn try_from_optioned(value: #type_ident_opt #ty_generics) -> Result<Self, #crate_name::optionable::Error>{
+                        fn try_from_optioned(value: #ty_ident_opt #ty_generics) -> Result<Self, #crate_name::optionable::Error>{
                             Ok(Self #try_from_optioned_fields)
                         }
 
-                        fn merge(&mut self, other: #type_ident_opt #ty_generics) -> Result<(), #crate_name::optionable::Error>{
+                        fn merge(&mut self, other: #ty_ident_opt #ty_generics) -> Result<(), #crate_name::optionable::Error>{
                             #merge_fields
                             Ok(())
                         }
@@ -282,8 +312,8 @@ pub fn derive_optionable(
                         });
                         let fields_try_from = try_from_optioned
                             (struct_parsed, |selector| {
-                            format_ident!("{other_prefix}{selector}").to_token_stream()
-                        });
+                                format_ident!("{other_prefix}{selector}").to_token_stream()
+                            });
                         let fields_merge = merge_fields(struct_parsed,
                                                         |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
                                                         |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
@@ -291,13 +321,13 @@ pub fn derive_optionable(
                         let self_destructure = destructure(struct_parsed, &self_prefix)?;
                         let other_destructure = destructure(struct_parsed, &other_prefix)?;
                         Ok::<_, Error>((
-                            quote!( Self::#variant #self_destructure => #type_ident_opt::#variant #fields_into ),
-                            quote!( #type_ident_opt::#variant #other_destructure => Self::#variant #fields_try_from ),
-                            quote!( #type_ident_opt::#variant #other_destructure => {
+                            quote!( Self::#variant #self_destructure => #ty_ident_opt::#variant #fields_into ),
+                            quote!( #ty_ident_opt::#variant #other_destructure => Self::#variant #fields_try_from ),
+                            quote!( #ty_ident_opt::#variant #other_destructure => {
                                 if let Self::#variant #self_destructure = self {
                                     #fields_merge
                                 } else {
-                                    *self = Self::try_from_optioned(#type_ident_opt::#variant #other_destructure)?;
+                                    *self = Self::try_from_optioned(#ty_ident_opt::#variant #other_destructure)?;
                                 }
                             })
                         ))
@@ -306,20 +336,20 @@ pub fn derive_optionable(
                     .into_iter().multiunzip();
                 Ok::<_, Error>(quote! {
                     #[automatically_derived]
-                    impl #impl_generics #crate_name::OptionableConvert for #type_ident #ty_generics # where_clause_impl_optionable_convert {
-                        fn into_optioned(self) -> #type_ident_opt #ty_generics {
+                    impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics # where_clause_impl_optionable_convert {
+                        fn into_optioned(self) -> #ty_ident_opt #ty_generics {
                             match self {
                                 #(#into_variants),*
                             }
                         }
 
-                        fn try_from_optioned(other: #type_ident_opt #ty_generics)->Result<Self,#crate_name::optionable::Error>{
+                        fn try_from_optioned(other: #ty_ident_opt #ty_generics)->Result<Self,#crate_name::optionable::Error>{
                             Ok(match other{
                                 #(#try_from_variants),*
                             })
                         }
 
-                        fn merge(&mut self, other: #type_ident_opt #ty_generics) -> Result<(), #crate_name::optionable::Error>{
+                        fn merge(&mut self, other: #ty_ident_opt #ty_generics) -> Result<(), #crate_name::optionable::Error>{
                             match other{
                                 #(#merge_variants),*
                             }
@@ -340,22 +370,49 @@ pub fn derive_optionable(
     };
 
     let derives = (!derive.is_empty()).then(|| quote! {#[derive(#(#derive),*)]});
+    #[cfg(not(feature = "k8s_openapi"))]
+    let impl_k8s_resource: Option<TokenStream> = None;
+    #[cfg(not(feature = "k8s_openapi"))]
+    let impl_k8s_metadata: Option<TokenStream> = None;
+    #[cfg(feature = "k8s_openapi")]
+    let impl_k8s_resource = attrs.k8s_openapi_resource.is_some().then(|| {
+        k8s_openapi_imp_resource(
+            &ty_ident,
+            &ty_ident_opt,
+            &impl_generics,
+            &ty_generics,
+            &where_clause_impl_optionable,
+        )
+    });
+    #[cfg(feature = "k8s_openapi")]
+    let impl_k8s_metadata = attrs.k8s_openapi_metadata.is_some().then(|| {
+        k8s_openapi_impl_metadata(
+            &ty_ident,
+            &ty_ident_opt,
+            &impl_generics,
+            &ty_generics,
+            &where_clause_impl_optionable,
+        )
+    });
     Ok(quote! {
                 #derives
                 #forward_attrs
-                #vis #enum_struct #type_ident_opt #impl_generics #where_clause_struct_enum #fields
+                #vis #enum_struct #ty_ident_opt #impl_generics #where_clause_struct_enum #fields
 
                 #[automatically_derived]
-                impl #impl_generics #crate_name::Optionable for #type_ident #ty_generics #where_clause_impl_optionable {
-                    type Optioned = #type_ident_opt #ty_generics;
+                impl #impl_generics #crate_name::Optionable for #ty_ident #ty_generics #where_clause_impl_optionable {
+                    type Optioned = #ty_ident_opt #ty_generics;
                 }
 
                 #[automatically_derived]
-                impl #impl_generics #crate_name::Optionable for #type_ident_opt #ty_generics #where_clause_impl_optionable {
-                    type Optioned = #type_ident_opt #ty_generics;
+                impl #impl_generics #crate_name::Optionable for #ty_ident_opt #ty_generics #where_clause_impl_optionable {
+                    type Optioned = #ty_ident_opt #ty_generics;
                 }
 
                 #impl_optionable_convert
+
+                #impl_k8s_resource
+                #impl_k8s_metadata
     })
 }
 
@@ -374,13 +431,13 @@ fn optioned_fields(
             let forward_attrs = forwarded_attributes(attrs)?;
             let optioned_ty = optioned_ty(&fields.crate_name, ty);
             let colon = ident.as_ref().map(|_| quote! {:});
-            Ok::<_,Error>(match handling {
-                FieldHandling::Required => quote! {#forward_attrs #vis #ident #colon #ty},
+            Ok::<_, Error>(match handling {
+                FieldHandling::Required | FieldHandling::OptionedOnly => quote! {#forward_attrs #vis #ident #colon #ty},
                 FieldHandling::IsOption => quote! {#forward_attrs #serde_attributes #vis #ident #colon #optioned_ty},
                 FieldHandling::Other => quote! {#forward_attrs #serde_attributes #vis #ident #colon Option<#optioned_ty>},
             })
         },
-    ).collect::<Result<Vec<_>,_>>()?;
+    ).collect::<Result<Vec<_>, _>>()?;
     Ok(struct_wrapper(fields_token, &fields.struct_type))
 }
 
@@ -398,12 +455,13 @@ fn into_optioned(
             quote! {#i}
         }, ToTokens::to_token_stream);
         let self_selector = self_selector_fn(&selector);
-        let crate_name= &struct_parsed.crate_name;
+        let crate_name = &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
             (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon #self_selector},
             (FieldHandling::IsOption, false) => quote! {#ident #colon #crate_name::OptionableConvert::into_optioned(#self_selector)},
             (FieldHandling::Other, true) => quote! {#ident #colon Some(#self_selector)},
-            (FieldHandling::Other, false) => quote! {#ident #colon Some(#crate_name::OptionableConvert::into_optioned(#self_selector))}
+            (FieldHandling::Other, false) => quote! {#ident #colon Some(#crate_name::OptionableConvert::into_optioned(#self_selector))},
+            (FieldHandling::OptionedOnly, _) => quote! {#ident #colon Default::default()},
         }
     });
     struct_wrapper(fields_token, &struct_parsed.struct_type)
@@ -423,7 +481,7 @@ fn try_from_optioned(
             quote! {#i}
         }, ToTokens::to_token_stream);
         let value_selector = value_selector_fn(&selector);
-        let crate_name= &struct_parsed.crate_name;
+        let crate_name = &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
             (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon value.#selector},
             (FieldHandling::IsOption, false) => quote! {
@@ -444,6 +502,7 @@ fn try_from_optioned(
                     )?
                 }
             }
+            (FieldHandling::OptionedOnly, _) => TokenStream::default(),
         }
     });
 
@@ -480,7 +539,7 @@ fn merge_fields(
             let deref_modifier = (!merge_self_mut).then(|| quote! {*});
             let self_selector = self_selector_fn(&selector);
             let other_selector = other_selector_fn(&selector);
-            let crate_name= &struct_parsed.crate_name;
+            let crate_name = &struct_parsed.crate_name;
             match (handling, is_self_resolving_optioned(ty)) {
                 (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#deref_modifier #self_selector = #other_selector;},
                 (FieldHandling::IsOption, false) => quote! {
@@ -495,7 +554,8 @@ fn merge_fields(
                     if let Some(other_value)=#other_selector{
                         #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, other_value)?;
                     }
-                }
+                },
+                (FieldHandling::OptionedOnly, _) => TokenStream::default(),
             }
         },
     );
@@ -547,7 +607,7 @@ fn forwarded_attributes(attrs: &[Attribute]) -> Result<Option<TokenStream>, Erro
             }
             Some(match &attr.meta {
                 Meta::List(MetaList { tokens, .. }) => Ok(quote!(#[#tokens])),
-                _ =>  error("Only lists like `#[optionable_attr(Serialize,Deserialize)]` are supported for `optionable_attr`"),
+                _ => error("Only lists like `#[optionable_attr(Serialize,Deserialize)]` are supported for `optionable_attr`"),
             })
         })
         .collect::<Result<TokenStream, Error>>()?;
@@ -1146,7 +1206,7 @@ mod tests {
                 }
 
                 #[automatically_derived]
-                impl crate::Optionable for ::crate_prefix::DeriveExample {
+                impl crate::Optionable for crate_prefix::DeriveExample {
                     type Optioned = DeriveExampleOpt;
                 }
 
@@ -1156,7 +1216,7 @@ mod tests {
                 }
 
                 #[automatically_derived]
-                impl crate::OptionableConvert for ::crate_prefix::DeriveExample {
+                impl crate::OptionableConvert for crate_prefix::DeriveExample {
                     fn into_optioned (self) -> DeriveExampleOpt {
                         DeriveExampleOpt  {
                             name: Some(crate::OptionableConvert::into_optioned(self.name)),
@@ -1188,7 +1248,7 @@ mod tests {
             let output = derive_optionable(
                 input,
                 Some(&CodegenSettings {
-                    ty_prefix: Some(Path::from_string("::crate_prefix").unwrap()),
+                    ty_prefix: Some(Path::from_string("crate_prefix").unwrap()),
                     optionable_crate_name: Path::from_string("crate").unwrap(),
                     input_crate_replacement: Some(parse_quote!(testcrate)),
                 }),

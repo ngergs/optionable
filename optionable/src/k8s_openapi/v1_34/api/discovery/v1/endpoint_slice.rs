@@ -19,7 +19,7 @@ pub struct EndpointSliceAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<EndpointSliceAc>,
+    pub phantom: std::marker::PhantomData<EndpointSliceAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::discovery::v1::EndpointSlice {
@@ -39,6 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSli
             endpoints: Some(crate::OptionableConvert::into_optioned(self.endpoints)),
             metadata: self.metadata,
             ports: crate::OptionableConvert::into_optioned(self.ports),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(
@@ -76,15 +77,15 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSli
     }
 }
 impl k8s_openapi::Resource for EndpointSliceAc {
-    const API_VERSION: &'static str = "discovery.k8s.io/v1";
-    const GROUP: &'static str = "discovery.k8s.io";
-    const KIND: &'static str = "EndpointSlice";
-    const VERSION: &'static str = "v1";
-    const URL_PATH_SEGMENT: &'static str = "endpointslices";
-    type Scope = k8s_openapi::NamespaceResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::api::discovery::v1::EndpointSlice as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::api::discovery::v1::EndpointSlice as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::api::discovery::v1::EndpointSlice as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::api::discovery::v1::EndpointSlice as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::api::discovery::v1::EndpointSlice as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::api::discovery::v1::EndpointSlice as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for EndpointSliceAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::api::discovery::v1::EndpointSlice as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

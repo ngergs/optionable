@@ -15,7 +15,7 @@ pub struct PodDisruptionBudgetAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<PodDisruptionBudgetAc>,
+    pub phantom: std::marker::PhantomData<PodDisruptionBudgetAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::policy::v1::PodDisruptionBudget {
@@ -32,6 +32,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::PodDisruptionB
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(
@@ -54,15 +55,15 @@ impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::PodDisruptionB
     }
 }
 impl k8s_openapi::Resource for PodDisruptionBudgetAc {
-    const API_VERSION: &'static str = "policy/v1";
-    const GROUP: &'static str = "policy";
-    const KIND: &'static str = "PodDisruptionBudget";
-    const VERSION: &'static str = "v1";
-    const URL_PATH_SEGMENT: &'static str = "poddisruptionbudgets";
-    type Scope = k8s_openapi::NamespaceResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::api::policy::v1::PodDisruptionBudget as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::api::policy::v1::PodDisruptionBudget as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::api::policy::v1::PodDisruptionBudget as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::api::policy::v1::PodDisruptionBudget as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::api::policy::v1::PodDisruptionBudget as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::api::policy::v1::PodDisruptionBudget as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for PodDisruptionBudgetAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::api::policy::v1::PodDisruptionBudget as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

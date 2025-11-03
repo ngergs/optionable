@@ -3,17 +3,12 @@ use darling::FromMeta;
 use optionable_codegen::CodegenSettings;
 use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
 use proc_macro2::{Ident, Span};
-use quote::ToTokens;
 use std::collections::HashSet;
 use std::default::Default;
 use std::fs::create_dir_all;
-use std::mem::take;
 use std::path::PathBuf;
 use syn::Item::{Enum, Impl, Struct};
-use syn::{
-    parse_quote, Attribute, Expr, Fields, ImplItem, Item, ItemImpl, Path, ReturnType, Type,
-    TypeGroup, TypeParamBound, TypeParen, TypeReference, WhereClause, WherePredicate,
-};
+use syn::{parse_quote, Attribute, Fields, Item, Path, Type};
 
 const K8S_OPENAPI: &str = "k8s_openapi";
 
@@ -37,11 +32,8 @@ struct Visitor {
     type_attrs_input_struct: Vec<Attribute>,
     /// Additional attributes that should be added to input enums.
     type_attrs_item_enum: Vec<Attribute>,
-    /// Impl paths that should be copied over (with adjusting `crate` to `k8s-openapi`).
-    impl_copy: Vec<Path>,
     has_resource_impl: HashSet<Ident>,
-    /// Additional item that should be appended to the output (used by `impl_copy` implementation).
-    internal_output_additional_item: Option<Item>,
+    has_metadata_impl: HashSet<Ident>,
 }
 
 impl Clone for Visitor {
@@ -50,7 +42,6 @@ impl Clone for Visitor {
             optioned_suffix: self.optioned_suffix,
             type_attrs_input_struct: self.type_attrs_input_struct.clone(),
             type_attrs_item_enum: self.type_attrs_item_enum.clone(),
-            impl_copy: self.impl_copy.clone(),
             // we want to reset all other fields when entering a new module
             ..Default::default()
         }
@@ -96,14 +87,17 @@ impl CodegenVisitor for Visitor {
     fn visit_pre_input(&mut self, item: &Item) {
         if let Impl(item) = item
             && let Some(trait_) = &item.trait_
-            && (trait_.1 == parse_quote!(crate::Resource) || trait_.1 == parse_quote!(Resource))
             && let Type::Path(path) = &*item.self_ty
             && path.path.segments.len() == 1
         {
-            let mut ident = path.path.segments[0].ident.to_string();
-            ident.push_str(self.optioned_suffix);
-            self.has_resource_impl
-                .insert(Ident::from_string(&ident).unwrap());
+            if trait_.1 == parse_quote!(crate::Resource) || trait_.1 == parse_quote!(Resource) {
+                self.has_resource_impl
+                    .insert(path.path.segments[0].ident.clone());
+            }
+            if trait_.1 == parse_quote!(crate::Metadata) || trait_.1 == parse_quote!(Metadata) {
+                self.has_metadata_impl
+                    .insert(path.path.segments[0].ident.clone());
+            }
         }
     }
 
@@ -113,6 +107,14 @@ impl CodegenVisitor for Visitor {
             Struct(item) => {
                 item.attrs.append(&mut self.type_attrs_input_struct.clone());
                 item.attrs.push(parse_quote!(#[optionable(suffix=#suffix)]));
+                if self.has_resource_impl.contains(&item.ident) {
+                    item.attrs
+                        .push(parse_quote!(#[optionable(k8s_openapi_resource)]));
+                }
+                if self.has_metadata_impl.contains(&item.ident) {
+                    item.attrs
+                        .push(parse_quote!(#[optionable(k8s_openapi_metadata)]));
+                }
                 Self::set_metadata_required(&mut item.fields);
             }
             Enum(item) => {
@@ -122,54 +124,7 @@ impl CodegenVisitor for Visitor {
                     .iter_mut()
                     .for_each(|variant| Self::set_metadata_required(&mut variant.fields));
             }
-            Impl(item) => {
-                if let Some(trait_) = &item.trait_
-                    && self.impl_copy.contains(&trait_.1)
-                {
-                    let mut item = item.clone();
-                    if let Type::Path(type_path) = item.self_ty.as_mut()
-                        && let Some(path_tail) = type_path.path.segments.last_mut()
-                    {
-                        // add name prefix to type
-                        let mut ident = path_tail.ident.to_string();
-                        ident.push_str("Ac");
-                        path_tail.ident = Ident::new(&ident, Span::call_site());
-
-                        // replace `crate` with `k8s_openapi`
-                        replace_crate_k8s_openapi(&mut item);
-                        self.internal_output_additional_item = Some(item.into());
-                    }
-                }
-            }
             _ => {}
-        }
-    }
-
-    fn visit_output(&mut self, items: &mut Vec<Item>) {
-        if self.internal_output_additional_item.is_some() {
-            let item_additional = take(&mut self.internal_output_additional_item);
-            if let Some(item_additional) = item_additional {
-                if let Impl(item) = &item_additional
-                    && item.self_ty == parse_quote!(ListAc<T>)
-                {
-                    // todo: generalize, atm ListAc makes a lot of problems due to it being generic over T
-                    // and listing items for apply configurations isn't a use case
-                    return;
-                }
-                items.push(item_additional);
-            }
-        }
-        for item in items.iter_mut() {
-            if let Struct(item) = item
-                && self.has_resource_impl.contains(&item.ident)
-                && let Fields::Named(fields) = &mut item.fields
-            {
-                let ty = &item.ident;
-                fields.named.push(parse_quote!(
-                    #[serde(flatten,serialize_with="crate::k8s_openapi::serialize_api_envelope",skip_deserializing)]
-                    phantom: std::marker::PhantomData<#ty>
-                ));
-            }
         }
     }
 }
@@ -198,12 +153,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     parse_quote!(#[optionable(derive(Clone,std::fmt::Debug,serde::Serialize, serde::Deserialize))]),
                     parse_quote!(#[optionable_attr(serde(rename_all="camelCase"))]),
                 ],
-                impl_copy: vec![
-                    parse_quote!(crate::Resource),
-                    parse_quote!(Resource),
-                    parse_quote!(crate::Metadata),
-                    parse_quote!(Metadata),
-                ],
                 ..Default::default()
             },
             optioned_suffix,
@@ -212,79 +161,4 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             is_mod_private: false,
         },
     )
-}
-
-/// Replace occurrences of `crate` with `k8s-openapi`
-fn replace_crate_k8s_openapi(item: &mut ItemImpl) {
-    if let Some(trait_) = &mut item.trait_
-        && trait_.1.segments[0].to_token_stream().to_string() == "crate"
-    {
-        trait_.1.segments[0] = parse_quote!(k8s_openapi);
-        trait_.1.leading_colon = None;
-    }
-    replace_crate_k8s_openapi_where_clause(&mut item.generics.where_clause);
-    item.items.iter_mut().for_each(|item| match item {
-        ImplItem::Type(item) => {
-            if let Type::Path(path) = &mut item.ty {
-                replace_crate_k8s_openapi_path(&mut path.path);
-            }
-        }
-        ImplItem::Fn(item) => {
-            if let ReturnType::Type(_, ty) = &mut item.sig.output {
-                replace_crate_k8s_openapi_ty(ty);
-            }
-        }
-        ImplItem::Const(item) => {
-            replace_crate_k8s_openapi_where_clause(&mut item.generics.where_clause);
-            replace_crate_k8s_openapi_ty(&mut item.ty);
-            if let Expr::Path(expr) = &mut item.expr {
-                replace_crate_k8s_openapi_path(&mut expr.path);
-                if let Some(qself) = &mut expr.qself {
-                    replace_crate_k8s_openapi_ty(&mut qself.ty);
-                }
-            }
-        }
-        _ => {}
-    });
-}
-
-fn replace_crate_k8s_openapi_where_clause(where_clause: &mut Option<WhereClause>) {
-    if let Some(where_clause) = where_clause {
-        where_clause
-            .predicates
-            .iter_mut()
-            .for_each(|where_predicate| {
-                if let WherePredicate::Type(ty) = where_predicate {
-                    ty.bounds.iter_mut().for_each(|bound| {
-                        if let TypeParamBound::Trait(trait_bound) = bound {
-                            replace_crate_k8s_openapi_path(&mut trait_bound.path);
-                        }
-                    });
-                }
-            });
-    }
-}
-
-/// Replace occurrences of `crate` with `k8s-openapi`
-fn replace_crate_k8s_openapi_ty(ty: &mut Type) {
-    match ty {
-        Type::Path(ty) => {
-            replace_crate_k8s_openapi_path(&mut ty.path);
-            if let Some(qself) = &mut ty.qself {
-                replace_crate_k8s_openapi_ty(&mut qself.ty);
-            }
-        }
-        Type::Reference(TypeReference { elem, .. })
-        | Type::Paren(TypeParen { elem, .. })
-        | Type::Group(TypeGroup { elem, .. }) => replace_crate_k8s_openapi_ty(elem),
-        _ => {}
-    }
-}
-
-/// Replace occurrences of `crate` with `k8s-openapi`
-fn replace_crate_k8s_openapi_path(path: &mut Path) {
-    if path.segments[0].to_token_stream().to_string() == "crate" {
-        path.segments[0] = parse_quote!(k8s_openapi);
-        path.leading_colon = None;
-    }
 }

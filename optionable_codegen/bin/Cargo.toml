@@ -10,6 +10,7 @@ publish = false
 
 [features]
 default = []
+k8s_openapi = ["optionable_codegen/k8s_openapi"]
 
 [lints.clippy]
 pedantic = "warn"

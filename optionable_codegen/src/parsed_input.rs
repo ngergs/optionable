@@ -9,9 +9,11 @@ use syn::{Error, Field, Fields, Path};
 /// How we handle different cases in order of importance/detection.
 /// E.g. if a field is `Required` we don't care whether it's of `Option` type or not.
 #[derive(Debug, Clone)]
+#[allow(dead_code)] // used by k8s_openapi feature and splitting the enum over this is not worth it
 pub(crate) enum FieldHandling {
     Required,
     IsOption,
+    OptionedOnly,
     Other,
 }
 

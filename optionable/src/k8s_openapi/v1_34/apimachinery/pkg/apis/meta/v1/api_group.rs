@@ -24,7 +24,7 @@ pub struct APIGroupAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<APIGroupAc>,
+    pub phantom: std::marker::PhantomData<APIGroupAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup {
@@ -47,6 +47,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup {
                 self.server_address_by_client_cidrs,
             ),
             versions: Some(crate::OptionableConvert::into_optioned(self.versions)),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(value: APIGroupAc) -> Result<Self, crate::optionable::Error> {
@@ -92,10 +93,10 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup {
     }
 }
 impl k8s_openapi::Resource for APIGroupAc {
-    const API_VERSION: &'static str = "v1";
-    const GROUP: &'static str = "";
-    const KIND: &'static str = "APIGroup";
-    const VERSION: &'static str = "v1";
-    const URL_PATH_SEGMENT: &'static str = "";
-    type Scope = k8s_openapi::ClusterResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup as k8s_openapi::Resource>::Scope;
 }

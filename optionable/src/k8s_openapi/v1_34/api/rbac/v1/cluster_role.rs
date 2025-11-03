@@ -15,7 +15,7 @@ pub struct ClusterRoleAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<ClusterRoleAc>,
+    pub phantom: std::marker::PhantomData<ClusterRoleAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::rbac::v1::ClusterRole {
@@ -34,6 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRole {
             ),
             metadata: self.metadata,
             rules: crate::OptionableConvert::into_optioned(self.rules),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(
@@ -58,15 +59,15 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRole {
     }
 }
 impl k8s_openapi::Resource for ClusterRoleAc {
-    const API_VERSION: &'static str = "rbac.authorization.k8s.io/v1";
-    const GROUP: &'static str = "rbac.authorization.k8s.io";
-    const KIND: &'static str = "ClusterRole";
-    const VERSION: &'static str = "v1";
-    const URL_PATH_SEGMENT: &'static str = "clusterroles";
-    type Scope = k8s_openapi::ClusterResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::api::rbac::v1::ClusterRole as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::api::rbac::v1::ClusterRole as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::api::rbac::v1::ClusterRole as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::api::rbac::v1::ClusterRole as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::api::rbac::v1::ClusterRole as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::api::rbac::v1::ClusterRole as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for ClusterRoleAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::api::rbac::v1::ClusterRole as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }

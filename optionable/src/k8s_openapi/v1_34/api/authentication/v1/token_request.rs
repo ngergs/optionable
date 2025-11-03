@@ -15,7 +15,7 @@ pub struct TokenRequestAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         skip_deserializing
     )]
-    phantom: std::marker::PhantomData<TokenRequestAc>,
+    pub phantom: std::marker::PhantomData<TokenRequestAc>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::authentication::v1::TokenRequest {
@@ -32,6 +32,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::TokenR
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: crate::OptionableConvert::into_optioned(self.status),
+            phantom: Default::default(),
         }
     }
     fn try_from_optioned(
@@ -59,15 +60,15 @@ impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::TokenR
     }
 }
 impl k8s_openapi::Resource for TokenRequestAc {
-    const API_VERSION: &'static str = "authentication.k8s.io/v1";
-    const GROUP: &'static str = "authentication.k8s.io";
-    const KIND: &'static str = "TokenRequest";
-    const VERSION: &'static str = "v1";
-    const URL_PATH_SEGMENT: &'static str = "token";
-    type Scope = k8s_openapi::SubResourceScope;
+    const API_VERSION: &'static str = <::k8s_openapi::api::authentication::v1::TokenRequest as k8s_openapi::Resource>::API_VERSION;
+    const GROUP: &'static str = <::k8s_openapi::api::authentication::v1::TokenRequest as k8s_openapi::Resource>::GROUP;
+    const KIND: &'static str = <::k8s_openapi::api::authentication::v1::TokenRequest as k8s_openapi::Resource>::KIND;
+    const VERSION: &'static str = <::k8s_openapi::api::authentication::v1::TokenRequest as k8s_openapi::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::api::authentication::v1::TokenRequest as k8s_openapi::Resource>::URL_PATH_SEGMENT;
+    type Scope = <::k8s_openapi::api::authentication::v1::TokenRequest as k8s_openapi::Resource>::Scope;
 }
 impl k8s_openapi::Metadata for TokenRequestAc {
-    type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    type Ty = <::k8s_openapi::api::authentication::v1::TokenRequest as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
         &self.metadata
     }
