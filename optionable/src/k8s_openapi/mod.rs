@@ -10,6 +10,14 @@ use serde::Serializer;
 use std::marker::PhantomData;
 
 mod optionable;
+#[cfg(feature = "k8s_openapi_v1_30")]
+pub mod v1_30;
+#[cfg(feature = "k8s_openapi_v1_31")]
+pub mod v1_31;
+#[cfg(feature = "k8s_openapi_v1_32")]
+pub mod v1_32;
+#[cfg(feature = "k8s_openapi_v1_33")]
+pub mod v1_33;
 #[cfg(feature = "k8s_openapi_v1_34")]
 pub mod v1_34;
 

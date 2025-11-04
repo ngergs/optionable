@@ -33,12 +33,15 @@ jobs:
       - name: Pre-release tests
         run: |-
           cargo +nightly doc --manifest-path=optionable/Cargo.toml --features serde_json/std,serde_json,derive
-          cargo +nightly test --all-features
+          cargo +nightly test --features k8s_openapi_v1_30
+          cargo +nightly test --features k8s_openapi_v1_31
+          cargo +nightly test --features k8s_openapi_v1_32
+          cargo +nightly test --features k8s_openapi_v1_33
+          cargo +nightly test --features k8s_openapi_v1_34
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features derive,chrono,serde_json
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono,serde_json
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features alloc,derive,chrono,serde_json
-          cargo +nightly test --manifest-path=optionable/Cargo.toml --features chrono,serde_json
-          cargo clippy --all-features --features serde_json/std
+          cargo clippy --features k8s_openapi_v1_34
           cargo install --locked cargo-deny
           cargo deny check license
       - name: Run release-plz

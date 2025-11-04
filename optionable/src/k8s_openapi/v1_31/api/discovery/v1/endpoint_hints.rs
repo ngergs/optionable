@@ -1,0 +1,42 @@
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    PartialEq,
+    serde::Serialize,
+    serde::Deserialize
+)]
+#[serde(rename_all = "camelCase")]
+pub struct EndpointHintsAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub for_zones: <Option<
+        std::vec::Vec<::k8s_openapi::api::discovery::v1::ForZone>,
+    > as crate::Optionable>::Optioned,
+}
+#[automatically_derived]
+impl crate::Optionable for ::k8s_openapi::api::discovery::v1::EndpointHints {
+    type Optioned = EndpointHintsAc;
+}
+#[automatically_derived]
+impl crate::Optionable for EndpointHintsAc {
+    type Optioned = EndpointHintsAc;
+}
+#[automatically_derived]
+impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointHints {
+    fn into_optioned(self) -> EndpointHintsAc {
+        EndpointHintsAc {
+            for_zones: crate::OptionableConvert::into_optioned(self.for_zones),
+        }
+    }
+    fn try_from_optioned(
+        value: EndpointHintsAc,
+    ) -> Result<Self, crate::optionable::Error> {
+        Ok(Self {
+            for_zones: crate::OptionableConvert::try_from_optioned(value.for_zones)?,
+        })
+    }
+    fn merge(&mut self, other: EndpointHintsAc) -> Result<(), crate::optionable::Error> {
+        crate::OptionableConvert::merge(&mut self.for_zones, other.for_zones)?;
+        Ok(())
+    }
+}

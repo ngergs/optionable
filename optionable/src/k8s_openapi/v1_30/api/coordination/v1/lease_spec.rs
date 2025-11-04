@@ -1,0 +1,85 @@
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    PartialEq,
+    serde::Serialize,
+    serde::Deserialize
+)]
+#[serde(rename_all = "camelCase")]
+pub struct LeaseSpecAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub acquire_time: <Option<
+        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime,
+    > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub holder_identity: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lease_duration_seconds: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lease_transitions: <Option<i32> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub renew_time: <Option<
+        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime,
+    > as crate::Optionable>::Optioned,
+}
+#[automatically_derived]
+impl crate::Optionable for ::k8s_openapi::api::coordination::v1::LeaseSpec {
+    type Optioned = LeaseSpecAc;
+}
+#[automatically_derived]
+impl crate::Optionable for LeaseSpecAc {
+    type Optioned = LeaseSpecAc;
+}
+#[automatically_derived]
+impl crate::OptionableConvert for ::k8s_openapi::api::coordination::v1::LeaseSpec {
+    fn into_optioned(self) -> LeaseSpecAc {
+        LeaseSpecAc {
+            acquire_time: crate::OptionableConvert::into_optioned(self.acquire_time),
+            holder_identity: crate::OptionableConvert::into_optioned(
+                self.holder_identity,
+            ),
+            lease_duration_seconds: crate::OptionableConvert::into_optioned(
+                self.lease_duration_seconds,
+            ),
+            lease_transitions: crate::OptionableConvert::into_optioned(
+                self.lease_transitions,
+            ),
+            renew_time: crate::OptionableConvert::into_optioned(self.renew_time),
+        }
+    }
+    fn try_from_optioned(value: LeaseSpecAc) -> Result<Self, crate::optionable::Error> {
+        Ok(Self {
+            acquire_time: crate::OptionableConvert::try_from_optioned(
+                value.acquire_time,
+            )?,
+            holder_identity: crate::OptionableConvert::try_from_optioned(
+                value.holder_identity,
+            )?,
+            lease_duration_seconds: crate::OptionableConvert::try_from_optioned(
+                value.lease_duration_seconds,
+            )?,
+            lease_transitions: crate::OptionableConvert::try_from_optioned(
+                value.lease_transitions,
+            )?,
+            renew_time: crate::OptionableConvert::try_from_optioned(value.renew_time)?,
+        })
+    }
+    fn merge(&mut self, other: LeaseSpecAc) -> Result<(), crate::optionable::Error> {
+        crate::OptionableConvert::merge(&mut self.acquire_time, other.acquire_time)?;
+        crate::OptionableConvert::merge(
+            &mut self.holder_identity,
+            other.holder_identity,
+        )?;
+        crate::OptionableConvert::merge(
+            &mut self.lease_duration_seconds,
+            other.lease_duration_seconds,
+        )?;
+        crate::OptionableConvert::merge(
+            &mut self.lease_transitions,
+            other.lease_transitions,
+        )?;
+        crate::OptionableConvert::merge(&mut self.renew_time, other.renew_time)?;
+        Ok(())
+    }
+}

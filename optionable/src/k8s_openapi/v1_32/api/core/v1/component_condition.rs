@@ -1,0 +1,74 @@
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    PartialEq,
+    serde::Serialize,
+    serde::Deserialize
+)]
+#[serde(rename_all = "camelCase")]
+pub struct ComponentConditionAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+}
+#[automatically_derived]
+impl crate::Optionable for ::k8s_openapi::api::core::v1::ComponentCondition {
+    type Optioned = ComponentConditionAc;
+}
+#[automatically_derived]
+impl crate::Optionable for ComponentConditionAc {
+    type Optioned = ComponentConditionAc;
+}
+#[automatically_derived]
+impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentCondition {
+    fn into_optioned(self) -> ComponentConditionAc {
+        ComponentConditionAc {
+            error: crate::OptionableConvert::into_optioned(self.error),
+            message: crate::OptionableConvert::into_optioned(self.message),
+            status: Some(crate::OptionableConvert::into_optioned(self.status)),
+            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
+        }
+    }
+    fn try_from_optioned(
+        value: ComponentConditionAc,
+    ) -> Result<Self, crate::optionable::Error> {
+        Ok(Self {
+            error: crate::OptionableConvert::try_from_optioned(value.error)?,
+            message: crate::OptionableConvert::try_from_optioned(value.message)?,
+            status: crate::OptionableConvert::try_from_optioned(
+                value
+                    .status
+                    .ok_or(crate::optionable::Error {
+                        missing_field: "status",
+                    })?,
+            )?,
+            type_: crate::OptionableConvert::try_from_optioned(
+                value
+                    .type_
+                    .ok_or(crate::optionable::Error {
+                        missing_field: "type_",
+                    })?,
+            )?,
+        })
+    }
+    fn merge(
+        &mut self,
+        other: ComponentConditionAc,
+    ) -> Result<(), crate::optionable::Error> {
+        crate::OptionableConvert::merge(&mut self.error, other.error)?;
+        crate::OptionableConvert::merge(&mut self.message, other.message)?;
+        if let Some(other_value) = other.status {
+            crate::OptionableConvert::merge(&mut self.status, other_value)?;
+        }
+        if let Some(other_value) = other.type_ {
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+        }
+        Ok(())
+    }
+}
