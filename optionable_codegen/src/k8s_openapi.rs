@@ -34,7 +34,7 @@ pub(crate) fn k8s_openapi_field_resource_adjust(
 
 /// Derives `k8s_openapi::Resource` for the `T::Optioned` type from the non-optioned type.
 /// It has to be ensured that the given `T` implements `k8s_openapi::Resource`.
-pub(crate) fn k8s_openapi_imp_resource(
+pub(crate) fn l(
     ty_ident: &Path,
     ty_ident_opt: &Ident,
     impl_generics: &ImplGenerics,

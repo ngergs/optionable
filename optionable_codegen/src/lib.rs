@@ -11,15 +11,15 @@
 //! can't export its non-macro functions (even the `proc_macro2` ones) for the usage by the codegen part.
 
 mod helper;
-#[cfg(feature = "k8s_openapi")]
 mod k8s_openapi;
 mod parsed_input;
 mod where_clause;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
-#[cfg(feature = "k8s_openapi")]
-use crate::k8s_openapi::{k8s_openapi_field_metadata_adjust, k8s_openapi_field_resource_adjust};
-use crate::k8s_openapi::{k8s_openapi_imp_resource, k8s_openapi_impl_metadata};
+use crate::k8s_openapi::{
+    k8s_openapi_field_metadata_adjust, k8s_openapi_field_resource_adjust,
+    k8s_openapi_impl_metadata, l,
+};
 use crate::parsed_input::{
     into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
 };
@@ -58,12 +58,10 @@ pub(crate) struct TypeHelperAttributes {
     /// - Adds serde statements to serialize all fields with camcelCase, with special case handling to restore the `OpenAPI` field names.
     /// - Adds `apiVersion` and `kind` to the serialization output with values from the trait constants of the given `Resource` implementation
     /// - Derives `k8s_openapi::resource` for the optioned type.
-    #[cfg(feature = "k8s_openapi")]
     k8s_openapi_resource: Option<()>,
     /// Adjustments of the derived optioned type for `k8s_openapi::Metadata`-implementations.
     /// - Sets the `metadata` field as required for the optioned type.
     /// - Derives `k8s_openapi::Metadata` for the optioned type.
-    #[cfg(feature = "k8s_openapi")]
     k8s_openapi_metadata: Option<()>,
 }
 
@@ -139,6 +137,13 @@ pub fn derive_optionable(
     settings: Option<&CodegenSettings>,
 ) -> syn::Result<TokenStream> {
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
+    #[cfg(not(feature = "k8s_openapi"))]
+    if attrs.k8s_openapi_metadata.is_some() || attrs.k8s_openapi_resource.is_some() {
+        return error(
+            "helper attributes `#[optionable(k8s_openapi_*] require one of the `k8s_openapi_*` features to be enabled for the `optionable` crate.",
+        );
+    }
+
     let derive = attrs
         .derive
         .into_iter()
@@ -193,7 +198,6 @@ pub fn derive_optionable(
                 s.fields,
                 settings.input_crate_replacement.as_ref(),
             )?;
-            #[cfg(feature = "k8s_openapi")]
             if attrs.k8s_openapi_resource.is_some() {
                 k8s_openapi_field_resource_adjust(
                     &mut struct_parsed,
@@ -202,7 +206,6 @@ pub fn derive_optionable(
                     &ty_generics,
                 );
             }
-            #[cfg(feature = "k8s_openapi")]
             if attrs.k8s_openapi_metadata.is_some() {
                 k8s_openapi_field_metadata_adjust(&mut struct_parsed);
             }
@@ -370,13 +373,9 @@ pub fn derive_optionable(
     };
 
     let derives = (!derive.is_empty()).then(|| quote! {#[derive(#(#derive),*)]});
-    #[cfg(not(feature = "k8s_openapi"))]
-    let impl_k8s_resource: Option<TokenStream> = None;
-    #[cfg(not(feature = "k8s_openapi"))]
-    let impl_k8s_metadata: Option<TokenStream> = None;
-    #[cfg(feature = "k8s_openapi")]
-    let impl_k8s_resource = attrs.k8s_openapi_resource.is_some().then(|| {
-        k8s_openapi_imp_resource(
+
+    let k8s_openapi_impl_resource = attrs.k8s_openapi_resource.is_some().then(|| {
+        l(
             &ty_ident,
             &ty_ident_opt,
             &impl_generics,
@@ -384,7 +383,6 @@ pub fn derive_optionable(
             &where_clause_impl_optionable,
         )
     });
-    #[cfg(feature = "k8s_openapi")]
     let impl_k8s_metadata = attrs.k8s_openapi_metadata.is_some().then(|| {
         k8s_openapi_impl_metadata(
             &ty_ident,
@@ -411,7 +409,7 @@ pub fn derive_optionable(
 
                 #impl_optionable_convert
 
-                #impl_k8s_resource
+                #k8s_openapi_impl_resource
                 #impl_k8s_metadata
     })
 }
