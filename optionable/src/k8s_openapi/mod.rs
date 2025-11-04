@@ -24,3 +24,40 @@ pub(crate) fn serialize_api_envelope<S: Serializer, R: Resource>(
     map.serialize_entry("kind", R::KIND)?;
     map.end()
 }
+
+#[cfg(test)]
+mod test {
+    use crate::k8s_openapi::v1_34::apimachinery::pkg::util::intstr::IntOrStringAc;
+
+    /// Tests if deserialization for `IntOrString` works.
+    #[test]
+    fn int_or_string_deser() {
+        struct TestCase {
+            input: &'static str,
+            expected: Result<IntOrStringAc, String>,
+        }
+        let tcs = [
+            TestCase {
+                input: "\"v1\"",
+                expected: Ok(IntOrStringAc::String(Some("v1".to_owned()))),
+            },
+            TestCase {
+                input: "42",
+                expected: Ok(IntOrStringAc::Int(Some(42))),
+            },
+            TestCase {
+                input: "-42",
+                expected: Ok(IntOrStringAc::Int(Some(-42))),
+            },
+            TestCase {
+                input: "\"25%\"",
+                expected: Ok(IntOrStringAc::String(Some("25%".to_owned()))),
+            },
+        ];
+        for tc in tcs.into_iter() {
+            let result: Result<IntOrStringAc, _> =
+                serde_json::from_str(tc.input).map_err(|e| e.to_string());
+            assert_eq!(tc.expected, result);
+        }
+    }
+}

@@ -146,12 +146,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             visitor: Visitor {
                 optioned_suffix,
                 type_attrs_input_struct: vec![
-                    parse_quote!(#[optionable(derive(Clone,std::fmt::Debug,Default,serde::Serialize, serde::Deserialize))]),
+                    parse_quote!(#[optionable(derive(Clone,std::fmt::Debug,Default,PartialEq,serde::Serialize, serde::Deserialize))]),
                     parse_quote!(#[optionable_attr(serde(rename_all="camelCase"))]),
                 ],
                 type_attrs_item_enum: vec![
-                    parse_quote!(#[optionable(derive(Clone,std::fmt::Debug,serde::Serialize, serde::Deserialize))]),
-                    parse_quote!(#[optionable_attr(serde(rename_all="camelCase"))]),
+                    parse_quote!(#[optionable(derive(Clone,std::fmt::Debug,PartialEq,serde::Serialize, serde::Deserialize))]),
+                    parse_quote!(#[optionable_attr(serde(rename_all="camelCase",untagged))]),
                 ],
                 ..Default::default()
             },

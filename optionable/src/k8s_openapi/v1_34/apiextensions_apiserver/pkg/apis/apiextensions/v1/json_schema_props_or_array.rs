@@ -1,5 +1,5 @@
-#[derive(Clone, std::fmt::Debug, serde::Serialize, serde::Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[derive(Clone, std::fmt::Debug, PartialEq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase", untagged)]
 pub enum JSONSchemaPropsOrArrayAc {
     Schema(
         #[serde(skip_serializing_if = "Option::is_none")]

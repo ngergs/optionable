@@ -1,4 +1,11 @@
-#[derive(Clone, std::fmt::Debug, Default, serde::Serialize, serde::Deserialize)]
+#[derive(
+    Clone,
+    std::fmt::Debug,
+    Default,
+    PartialEq,
+    serde::Serialize,
+    serde::Deserialize
+)]
 #[serde(rename_all = "camelCase")]
 pub struct EndpointsAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
