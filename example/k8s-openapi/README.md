@@ -7,7 +7,7 @@ Kubernetes server-side-apply.
 # prepare deployment
 kubectl apply -f deployment.yaml
 # run server side apply to change replica count to 2
-cargo run
+cargo run --bin patch
 # verify that server side apply has been used
 kubectl get deployment test -oyaml --show-managed-fields=true | yq .metadata.managedFields
 ```
