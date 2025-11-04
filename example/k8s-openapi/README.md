@@ -9,7 +9,7 @@ kubectl apply -f deployment.yaml
 # run server side apply to change replica count to 2
 cargo run
 # verify that server side apply has been used
-kubectl get deployment test -oyaml --show-managed-fields=true | yq .metadata.mana
+kubectl get deployment test -oyaml --show-managed-fields=true | yq .metadata.managedFields
 ```
 
 The resulting output will be:

@@ -18,7 +18,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }),
         ..Default::default()
     };
-    deployments
+    let d = deployments
         .patch(
             &patch.metadata.name.clone().ok_or("name missing")?,
             &PatchParams::apply("rust-manager").force(),
