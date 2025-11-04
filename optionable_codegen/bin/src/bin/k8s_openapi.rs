@@ -28,10 +28,8 @@ struct Args {
 struct Visitor {
     /// The type suffix for the optioned type. Here this is fixed to "Ac".
     optioned_suffix: &'static str,
-    /// Additional attributes that should be added to input structs.
-    type_attrs_input_struct: Vec<Attribute>,
-    /// Additional attributes that should be added to input enums.
-    type_attrs_item_enum: Vec<Attribute>,
+    /// Additional attributes that should be added to input structs/enums.
+    type_attrs_input_struct_enum: Vec<Attribute>,
     has_resource_impl: HashSet<Ident>,
     has_metadata_impl: HashSet<Ident>,
 }
@@ -40,8 +38,7 @@ impl Clone for Visitor {
     fn clone(&self) -> Self {
         Self {
             optioned_suffix: self.optioned_suffix,
-            type_attrs_input_struct: self.type_attrs_input_struct.clone(),
-            type_attrs_item_enum: self.type_attrs_item_enum.clone(),
+            type_attrs_input_struct_enum: self.type_attrs_input_struct_enum.clone(),
             // we want to reset all other fields when entering a new module
             ..Default::default()
         }
@@ -105,7 +102,8 @@ impl CodegenVisitor for Visitor {
         let suffix = self.optioned_suffix;
         match item {
             Struct(item) => {
-                item.attrs.append(&mut self.type_attrs_input_struct.clone());
+                item.attrs
+                    .append(&mut self.type_attrs_input_struct_enum.clone());
                 item.attrs.push(parse_quote!(#[optionable(suffix=#suffix)]));
                 if self.has_resource_impl.contains(&item.ident) {
                     item.attrs
@@ -118,7 +116,8 @@ impl CodegenVisitor for Visitor {
                 Self::set_metadata_required(&mut item.fields);
             }
             Enum(item) => {
-                item.attrs.append(&mut self.type_attrs_item_enum.clone());
+                item.attrs
+                    .append(&mut self.type_attrs_input_struct_enum.clone());
                 item.attrs.push(parse_quote!(#[optionable(suffix=#suffix)]));
                 item.variants
                     .iter_mut()
@@ -145,14 +144,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         CodegenConfig {
             visitor: Visitor {
                 optioned_suffix,
-                type_attrs_input_struct: vec![
-                    parse_quote!(#[optionable(derive(Clone,std::fmt::Debug,Default,PartialEq,serde::Serialize, serde::Deserialize))]),
-                    parse_quote!(#[optionable_attr(serde(rename_all="camelCase"))]),
-                ],
-                type_attrs_item_enum: vec![
-                    parse_quote!(#[optionable(derive(Clone,std::fmt::Debug,PartialEq,serde::Serialize, serde::Deserialize))]),
-                    parse_quote!(#[optionable_attr(serde(rename_all="camelCase",untagged))]),
-                ],
+                type_attrs_input_struct_enum: vec![parse_quote!(#[optionable(k8s_openapi)])],
                 ..Default::default()
             },
             optioned_suffix,

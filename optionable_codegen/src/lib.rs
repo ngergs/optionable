@@ -17,8 +17,8 @@ mod where_clause;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s_openapi::{
-    k8s_openapi_field_metadata_adjust, k8s_openapi_field_resource_adjust,
-    k8s_openapi_impl_metadata, l,
+    k8s_openapi_derives, k8s_openapi_field_metadata_adjust, k8s_openapi_field_resource_adjust,
+    k8s_openapi_impl_metadata, k8s_openapi_impl_resource, k8s_openapi_type_attr,
 };
 use crate::parsed_input::{
     into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
@@ -54,12 +54,18 @@ pub(crate) struct TypeHelperAttributes {
     suffix: LitStr,
     /// Skip generating `OptionableConvert` impl
     no_convert: Option<()>,
-    /// Adjustments of the derived optioned type for `k8s_openapi::Resource`-implementations.
+    /// Adjustments of the derived optioned type for `k8s_openapi-Resources`-implementations or subfields.
     /// - Adds serde statements to serialize all fields with camcelCase, with special case handling to restore the `OpenAPI` field names.
+    /// - Adds `apiVersion` and `kind` to the serialization output with values from the trait constants of the given `Resource` implementation
+    /// - Derives `k8s_openapi::resource` for the optioned type.
+    k8s_openapi: Option<()>,
+    /// Adjustments of the derived optioned type for `k8s_openapi::Resource`-implementations.
+    /// - Enables `k8s_openapi` type attribute.
     /// - Adds `apiVersion` and `kind` to the serialization output with values from the trait constants of the given `Resource` implementation
     /// - Derives `k8s_openapi::resource` for the optioned type.
     k8s_openapi_resource: Option<()>,
     /// Adjustments of the derived optioned type for `k8s_openapi::Metadata`-implementations.
+    /// - Enables `k8s_openapi` type attribute.
     /// - Sets the `metadata` field as required for the optioned type.
     /// - Derives `k8s_openapi::Metadata` for the optioned type.
     k8s_openapi_metadata: Option<()>,
@@ -136,7 +142,13 @@ pub fn derive_optionable(
     input: DeriveInput,
     settings: Option<&CodegenSettings>,
 ) -> syn::Result<TokenStream> {
-    let attrs = TypeHelperAttributes::from_derive_input(&input)?;
+    let attrs = {
+        let mut attrs = TypeHelperAttributes::from_derive_input(&input)?;
+        if attrs.k8s_openapi_metadata.is_some() || attrs.k8s_openapi_resource.is_some() {
+            attrs.k8s_openapi = Some(());
+        }
+        attrs
+    };
     #[cfg(not(feature = "k8s_openapi"))]
     if attrs.k8s_openapi_metadata.is_some() || attrs.k8s_openapi_resource.is_some() {
         return error(
@@ -144,14 +156,22 @@ pub fn derive_optionable(
         );
     }
 
-    let derive = attrs
+    let mut derive = attrs
         .derive
         .into_iter()
         .flat_map(|el| el.iter().cloned().collect::<Vec<_>>())
         .collect::<Vec<_>>();
+    if attrs.k8s_openapi.is_some() {
+        if let Some(k8s_derives) = &mut k8s_openapi_derives(&input) {
+            derive.append(k8s_derives);
+        }
+    }
     let settings = settings.map(Cow::Borrowed).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
     let forward_attrs = forwarded_attributes(&input.attrs)?;
+    let k8s_openapi_attrs = attrs
+        .k8s_openapi
+        .and_then(|()| k8s_openapi_type_attr(&input));
     let vis = input.vis;
     let ty_ident_opt = Ident::new(
         &(input.ident.to_string() + &attrs.suffix.value()),
@@ -166,10 +186,9 @@ pub fn derive_optionable(
     let (impl_generics, ty_generics, _) = input.generics.split_for_impl();
     let generics_colon = (!input.generics.params.is_empty()).then(|| quote! {::});
 
-    let skip_optionable_if_serde_serialize = derive
-        .iter()
-        .any(is_serialize)
-        .then(|| quote!(#[serde(skip_serializing_if = "Option::is_none")]));
+    let skip_optionable_if_serde_serialize = (attrs.k8s_openapi.is_some() // also sets #[derive(Serialize)]
+        || derive.iter().any(is_serialize))
+    .then(|| quote!(#[serde(skip_serializing_if = "Option::is_none")]));
 
     /// Helper to collect the enum/struct specific derived code aspects in a typesafe way
     struct Derived {
@@ -192,7 +211,6 @@ pub fn derive_optionable(
         impl_optionable_convert,
     } = match input.data {
         Data::Struct(s) => {
-            #[allow(unused_mut)] // used by k8s_openapi block and not worth splitting this up for it
             let mut struct_parsed = into_field_handling(
                 crate_name.to_owned(),
                 s.fields,
@@ -375,7 +393,7 @@ pub fn derive_optionable(
     let derives = (!derive.is_empty()).then(|| quote! {#[derive(#(#derive),*)]});
 
     let k8s_openapi_impl_resource = attrs.k8s_openapi_resource.is_some().then(|| {
-        l(
+        k8s_openapi_impl_resource(
             &ty_ident,
             &ty_ident_opt,
             &impl_generics,
@@ -395,6 +413,7 @@ pub fn derive_optionable(
     Ok(quote! {
                 #derives
                 #forward_attrs
+                #k8s_openapi_attrs
                 #vis #enum_struct #ty_ident_opt #impl_generics #where_clause_struct_enum #fields
 
                 #[automatically_derived]

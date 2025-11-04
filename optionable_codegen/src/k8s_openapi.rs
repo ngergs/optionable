@@ -1,8 +1,44 @@
 use crate::parsed_input::FieldHandling::OptionedOnly;
 use crate::parsed_input::{FieldParsed, StructParsed};
+use darling::FromMeta;
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
-use syn::{parse_quote, ImplGenerics, Path, TypeGenerics, WhereClause};
+use syn::{
+    parse_quote, Attribute, Data, DeriveInput, ImplGenerics, Path, TypeGenerics, WhereClause,
+};
+
+/// Additional derives to set for `k8s_openapi` types.
+pub(crate) fn k8s_openapi_derives(input: &DeriveInput) -> Option<Vec<Path>> {
+    //            parse_quote!(#[derive(Clone,std::fmt::Debug,Default,PartialEq,serde::Serialize, serde::Deserialize)]),
+    match input.data {
+        Data::Struct(_) => Some(vec![
+            Path::from_string("Clone").unwrap(),
+            Path::from_string("std::fmt::Debug").unwrap(),
+            Path::from_string("Default").unwrap(),
+            Path::from_string("PartialEq").unwrap(),
+            Path::from_string("serde::Serialize").unwrap(),
+            Path::from_string("serde::Deserialize").unwrap(),
+        ]),
+        Data::Enum(_) => Some(vec![
+            Path::from_string("Clone").unwrap(),
+            Path::from_string("std::fmt::Debug").unwrap(),
+            Path::from_string("PartialEq").unwrap(),
+            Path::from_string("serde::Serialize").unwrap(),
+            Path::from_string("serde::Deserialize").unwrap(),
+        ]),
+        _ => None,
+    }
+}
+
+/// The field type helper attributes for an optioned `Struct` or `Enum`.
+pub(crate) fn k8s_openapi_type_attr(input: &DeriveInput) -> Option<Attribute> {
+    //            parse_quote!(#[derive(Clone,std::fmt::Debug,Default,PartialEq,serde::Serialize, serde::Deserialize)]),
+    match input.data {
+        Data::Struct(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
+        Data::Enum(_) => Some(parse_quote!(#[serde(rename_all="camelCase",untagged)])),
+        _ => None,
+    }
+}
 
 /// Adjust the parsed struct for the `k8s_openapi::Metadata` requirements.
 pub(crate) fn k8s_openapi_field_metadata_adjust(struct_parsed: &mut StructParsed) {
@@ -34,7 +70,7 @@ pub(crate) fn k8s_openapi_field_resource_adjust(
 
 /// Derives `k8s_openapi::Resource` for the `T::Optioned` type from the non-optioned type.
 /// It has to be ensured that the given `T` implements `k8s_openapi::Resource`.
-pub(crate) fn l(
+pub(crate) fn k8s_openapi_impl_resource(
     ty_ident: &Path,
     ty_ident_opt: &Ident,
     impl_generics: &ImplGenerics,
