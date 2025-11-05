@@ -1,9 +1,6 @@
 #![allow(clippy::all)]
 #![allow(clippy::pedantic)]
 
-//todo: revert
-pub use k8s_openapi;
-
 use k8s_openapi::Resource;
 use serde::ser::SerializeMap;
 use serde::Serializer;
@@ -21,9 +18,9 @@ pub mod v1_33;
 #[cfg(feature = "k8s_openapi_v1_34")]
 pub mod v1_34;
 
-/// Serializes a PhantomData marker to add the API envelope fields `apiVersion` and `kind`.
+/// Serializes a `PhantomData` marker to add the API envelope fields `apiVersion` and `kind`.
 /// Intended use is together with `#[serde(flatten)]` for the marker field.
-pub(crate) fn serialize_api_envelope<S: Serializer, R: Resource>(
+pub fn serialize_api_envelope<S: Serializer, R: Resource>(
     _: &PhantomData<R>,
     s: S,
 ) -> Result<S::Ok, S::Error> {

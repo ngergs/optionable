@@ -1,6 +1,6 @@
+use k8s_openapi::api::apps::v1::Deployment;
 use kube::api::{ObjectMeta, Patch, PatchParams};
 use kube::{Api, Client};
-use optionable::k8s_openapi::k8s_openapi::api::apps::v1::Deployment;
 use optionable::k8s_openapi::v1_34::api::apps::v1::{DeploymentAc, DeploymentSpecAc};
 
 #[tokio::main]

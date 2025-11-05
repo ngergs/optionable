@@ -19,6 +19,7 @@ k8s_openapi_v1_31 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_open
 k8s_openapi_v1_32 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_32", "serde/std", "serde_json", "std", "chrono"]
 k8s_openapi_v1_33 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_33", "serde/std", "serde_json", "std", "chrono"]
 k8s_openapi_v1_34 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_34", "serde/std", "serde_json", "std", "chrono"]
+kube = ["dep:kube", "optionable_derive/kube"]
 
 [lints.clippy]
 pedantic = "warn"
@@ -29,6 +30,7 @@ chrono = { version = "0.4.42", default-features = false, optional = true }
 serde = { version = "1.0.225", default-features = false, optional = true, features = ["derive"] }
 serde_json = { version = "1.0.145", default-features = false, optional = true }
 k8s-openapi = { version = "0.26.0", default-features = false, optional = true }
+kube = { version = "2.0.1", default-features = false, optional = true }
 
 [dev-dependencies]
 serde = { version = "1.0.225", default-features = false, features = ["derive"] }

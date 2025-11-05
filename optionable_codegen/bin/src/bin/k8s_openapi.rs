@@ -8,7 +8,7 @@ use std::default::Default;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
 use syn::Item::{Enum, Impl, Struct};
-use syn::{parse_quote, Attribute, Fields, Item, Path, Type};
+use syn::{parse_quote, Attribute, Item, Path, Type};
 
 const K8S_OPENAPI: &str = "k8s_openapi";
 
@@ -45,40 +45,7 @@ impl Clone for Visitor {
     }
 }
 
-impl Visitor {
-    /// Adds the `#[optionable(required)]` attribute to the field if and only if
-    /// it has type `ObjectMeta` and has the name `metadata`.
-    /// Returns whether this mutation has been performed.
-    fn set_metadata_required(fields: &mut Fields) {
-        if let Fields::Named(fields) = fields {
-            for field in &mut fields.named {
-                if let Some(ident) = &field.ident
-                    && ident == "metadata"
-                    && Self::is_metadata(&field.ty)
-                {
-                    field.attrs.push(parse_quote!(#[optionable(required)]));
-                }
-            }
-        }
-    }
-
-    /// Returns true if ty is a `path` of `::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta`
-    /// or one of its shortened versions.
-    fn is_metadata(ty: &Type) -> bool {
-        if let Type::Path(type_path) = ty
-            && (type_path.path
-                == Path::from_string("crate::apimachinery::pkg::apis::meta::v1::ObjectMeta")
-                    .unwrap()
-                || type_path.path
-                    == Path::from_string("crate::apimachinery::pkg::apis::meta::v1::ListMeta")
-                        .unwrap())
-        {
-            true
-        } else {
-            false
-        }
-    }
-}
+impl Visitor {}
 
 impl CodegenVisitor for Visitor {
     fn visit_pre_input(&mut self, item: &Item) {
@@ -113,15 +80,11 @@ impl CodegenVisitor for Visitor {
                     item.attrs
                         .push(parse_quote!(#[optionable(k8s_openapi_metadata)]));
                 }
-                Self::set_metadata_required(&mut item.fields);
             }
             Enum(item) => {
                 item.attrs
                     .append(&mut self.type_attrs_input_struct_enum.clone());
                 item.attrs.push(parse_quote!(#[optionable(suffix=#suffix)]));
-                item.variants
-                    .iter_mut()
-                    .for_each(|variant| Self::set_metadata_required(&mut variant.fields));
             }
             _ => {}
         }

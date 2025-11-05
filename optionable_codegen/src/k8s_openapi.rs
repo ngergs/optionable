@@ -1,15 +1,41 @@
-use crate::parsed_input::FieldHandling::OptionedOnly;
+use crate::helper::error;
+use crate::parsed_input::FieldHandling::{OptionedOnly, Required};
 use crate::parsed_input::{FieldParsed, StructParsed};
+use crate::TypeHelperAttributes;
 use darling::FromMeta;
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
 use syn::{
-    parse_quote, Attribute, Data, DeriveInput, ImplGenerics, Path, TypeGenerics, WhereClause,
+    parse_quote, Attribute, Data, DeriveInput, Error, ImplGenerics, Path, TypeGenerics, WhereClause,
 };
+
+/// We have two useful `Resource` traits and dependent on the user needs we will use one
+/// of them for adding the API envelope `apiVersion` and `kind` fields when serializing.
+pub(crate) enum ResourceType {
+    K8sOpenApi,
+    Kube,
+}
+
+/// Validates the resource configuration and returns the resource type.
+pub(crate) fn k8s_resource_type(
+    attrs: &TypeHelperAttributes,
+) -> Result<Option<ResourceType>, Error> {
+    if attrs.kube_resource.is_some() && attrs.k8s_openapi_resource.is_some() {
+        return error(
+            "Conflicting configuration. Only the `#[optionable(k8s_openapi_resource)]` or `#[optionable(kube_resource)]` attribute is allowed.",
+        );
+    }
+    if attrs.k8s_openapi_resource.is_some() {
+        return Ok(Some(ResourceType::K8sOpenApi));
+    }
+    if attrs.kube_resource.is_some() {
+        return Ok(Some(ResourceType::Kube));
+    }
+    Ok(None)
+}
 
 /// Additional derives to set for `k8s_openapi` types.
 pub(crate) fn k8s_openapi_derives(input: &DeriveInput) -> Option<Vec<Path>> {
-    //            parse_quote!(#[derive(Clone,std::fmt::Debug,Default,PartialEq,serde::Serialize, serde::Deserialize)]),
     match input.data {
         Data::Struct(_) => Some(vec![
             Path::from_string("Clone").unwrap(),
@@ -26,27 +52,26 @@ pub(crate) fn k8s_openapi_derives(input: &DeriveInput) -> Option<Vec<Path>> {
             Path::from_string("serde::Serialize").unwrap(),
             Path::from_string("serde::Deserialize").unwrap(),
         ]),
-        _ => None,
+        Data::Union(_) => None,
     }
 }
 
 /// The field type helper attributes for an optioned `Struct` or `Enum`.
 pub(crate) fn k8s_openapi_type_attr(input: &DeriveInput) -> Option<Attribute> {
-    //            parse_quote!(#[derive(Clone,std::fmt::Debug,Default,PartialEq,serde::Serialize, serde::Deserialize)]),
     match input.data {
         Data::Struct(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
         Data::Enum(_) => Some(parse_quote!(#[serde(rename_all="camelCase",untagged)])),
-        _ => None,
+        Data::Union(_) => None,
     }
 }
 
 /// Adjust the parsed struct for the `k8s_openapi::Metadata` requirements.
-pub(crate) fn k8s_openapi_field_metadata_adjust(struct_parsed: &mut StructParsed) {
+pub(crate) fn k8s_openapi_set_metadata_required(struct_parsed: &mut StructParsed) {
     struct_parsed
         .fields
         .iter_mut()
         .filter(|f| f.field.ident.as_ref().is_some_and(|f| *f == "metadata"))
-        .for_each(|f| f.field.attrs.push(parse_quote!(#[optionable(required)])));
+        .for_each(|f| f.handling = Required);
 }
 
 /// Adjust the parsed struct for the `k8s_openapi::Resource` requirements.
@@ -55,9 +80,17 @@ pub(crate) fn k8s_openapi_field_resource_adjust(
     crate_name: &Path,
     ty_ident_opt: &Ident,
     ty_generics: &TypeGenerics,
+    resource_type: &ResourceType,
 ) {
     let mut serialize_fn_name = crate_name.to_token_stream().to_string();
-    serialize_fn_name.push_str("::k8s_openapi::serialize_api_envelope");
+    match resource_type {
+        ResourceType::K8sOpenApi => {
+            serialize_fn_name.push_str("::k8s_openapi::serialize_api_envelope");
+        }
+        ResourceType::Kube => {
+            serialize_fn_name.push_str("::kube::serialize_api_envelope");
+        }
+    }
     let field = parse_quote!(
                    #[optionable_attr(serde(flatten,serialize_with=#serialize_fn_name,skip_deserializing))]
                    pub phantom: std::marker::PhantomData<#ty_ident_opt #ty_generics>

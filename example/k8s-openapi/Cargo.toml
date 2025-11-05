@@ -9,6 +9,11 @@ publish = false
 pedantic = "warn"
 
 [dependencies]
-kube = "2.0.1"
+k8s-openapi = { version = "0.26.0", features = ["v1_34"] }
+optionable = { version = "0.2.6", features = ["kube", "k8s_openapi_v1_34"] }
+kube = { version = "2.0.1", features = ["derive"] }
 tokio = { version = "1.47.1", features = ["rt", "rt-multi-thread", "macros"] }
-optionable = { version = "0.2.6", features = ["k8s_openapi_v1_34"] }
+schemars = "1.0.5"
+serde = "1.0.228"
+serde_json = "1.0.145"
+serde_yaml_ng = "0.10.0"

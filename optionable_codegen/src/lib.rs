@@ -17,8 +17,9 @@ mod where_clause;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s_openapi::{
-    k8s_openapi_derives, k8s_openapi_field_metadata_adjust, k8s_openapi_field_resource_adjust,
-    k8s_openapi_impl_metadata, k8s_openapi_impl_resource, k8s_openapi_type_attr,
+    k8s_openapi_derives, k8s_openapi_field_resource_adjust, k8s_openapi_impl_metadata,
+    k8s_openapi_impl_resource, k8s_openapi_set_metadata_required, k8s_openapi_type_attr,
+    k8s_resource_type,
 };
 use crate::parsed_input::{
     into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
@@ -27,7 +28,7 @@ use crate::where_clause::{where_clauses, WhereClauses};
 use darling::util::PathList;
 use darling::{FromAttributes, FromDeriveInput};
 use itertools::MultiUnzip;
-use proc_macro2::{Ident, Literal, Span, TokenStream};
+use proc_macro2::{Ident, Literal, TokenStream};
 use quote::{format_ident, quote, ToTokens};
 use std::borrow::Cow;
 use std::default::Default;
@@ -49,9 +50,8 @@ pub(crate) struct TypeHelperAttributes {
     /// Derive-macros that should be added to the optioned type
     #[darling(multiple)]
     derive: Vec<PathList>,
-    #[darling(default=default_suffix)]
     /// Explicit suffix to use for the optioned type.
-    suffix: LitStr,
+    suffix: Option<LitStr>,
     /// Skip generating `OptionableConvert` impl
     no_convert: Option<()>,
     /// Adjustments of the derived optioned type for `k8s_openapi-Resources`-implementations or subfields.
@@ -59,16 +59,22 @@ pub(crate) struct TypeHelperAttributes {
     /// - Adds `apiVersion` and `kind` to the serialization output with values from the trait constants of the given `Resource` implementation
     /// - Derives `k8s_openapi::resource` for the optioned type.
     k8s_openapi: Option<()>,
-    /// Adjustments of the derived optioned type for `k8s_openapi::Resource`-implementations.
-    /// - Enables `k8s_openapi` type attribute.
-    /// - Adds `apiVersion` and `kind` to the serialization output with values from the trait constants of the given `Resource` implementation
-    /// - Derives `k8s_openapi::resource` for the optioned type.
-    k8s_openapi_resource: Option<()>,
     /// Adjustments of the derived optioned type for `k8s_openapi::Metadata`-implementations.
     /// - Enables `k8s_openapi` type attribute.
     /// - Sets the `metadata` field as required for the optioned type.
     /// - Derives `k8s_openapi::Metadata` for the optioned type.
     k8s_openapi_metadata: Option<()>,
+    /// Adjustments of the derived optioned type for `k8s_openapi::Resource`-implementations.
+    /// - Enables `k8s_openapi` type attribute.
+    /// - Adds `apiVersion` and `kind` to the serialization output with values from the trait constants of the given `Resource` implementation
+    /// - Derives `k8s_openapi::resource` for the optioned type.
+    k8s_openapi_resource: Option<()>,
+    /// Adjustments of the derived optioned type for `kube::Resource`-implementations.
+    /// - Enables `k8s_openapi` type attribute.
+    /// - Sets the `metadata` field as required for the optioned type.
+    /// - Adds `apiVersion` and `kind` to the serialization output with values from the trait constants of the given `Resource` implementation
+    /// - Derives `kube::Resource` for the optioned type.
+    kube_resource: Option<()>,
 }
 
 #[derive(FromDeriveInput, Debug, Clone)]
@@ -108,10 +114,6 @@ struct FieldHelperAttributes {
     required: Option<()>,
 }
 
-fn default_suffix() -> LitStr {
-    LitStr::new("Opt", Span::call_site())
-}
-
 /// Returns the attribute for opting-out of `OptionableConvert`-impl generation.
 #[must_use]
 pub fn attribute_no_convert() -> Attribute {
@@ -144,27 +146,26 @@ pub fn derive_optionable(
 ) -> syn::Result<TokenStream> {
     let attrs = {
         let mut attrs = TypeHelperAttributes::from_derive_input(&input)?;
-        if attrs.k8s_openapi_metadata.is_some() || attrs.k8s_openapi_resource.is_some() {
+        if attrs.k8s_openapi_metadata.is_some()
+            || attrs.k8s_openapi_resource.is_some()
+            || attrs.kube_resource.is_some()
+        {
             attrs.k8s_openapi = Some(());
         }
         attrs
     };
-    #[cfg(not(feature = "k8s_openapi"))]
-    if attrs.k8s_openapi_metadata.is_some() || attrs.k8s_openapi_resource.is_some() {
-        return error(
-            "helper attributes `#[optionable(k8s_openapi_*] require one of the `k8s_openapi_*` features to be enabled for the `optionable` crate.",
-        );
-    }
+    error_missing_features(&attrs)?;
+    let k8s_resource_type = k8s_resource_type(&attrs)?;
 
     let mut derive = attrs
         .derive
         .into_iter()
         .flat_map(|el| el.iter().cloned().collect::<Vec<_>>())
         .collect::<Vec<_>>();
-    if attrs.k8s_openapi.is_some() {
-        if let Some(k8s_derives) = &mut k8s_openapi_derives(&input) {
-            derive.append(k8s_derives);
-        }
+    if attrs.k8s_openapi.is_some()
+        && let Some(k8s_derives) = &mut k8s_openapi_derives(&input)
+    {
+        derive.append(k8s_derives);
     }
     let settings = settings.map(Cow::Borrowed).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
@@ -173,10 +174,19 @@ pub fn derive_optionable(
         .k8s_openapi
         .and_then(|()| k8s_openapi_type_attr(&input));
     let vis = input.vis;
-    let ty_ident_opt = Ident::new(
-        &(input.ident.to_string() + &attrs.suffix.value()),
-        input.ident.span(),
-    );
+    let ty_ident_opt = {
+        let suffix = attrs.suffix.map_or_else(
+            || {
+                if attrs.k8s_openapi.is_some() {
+                    Cow::Borrowed("Ac")
+                } else {
+                    Cow::Borrowed("Opt")
+                }
+            },
+            |s| Cow::Owned(s.value()),
+        );
+        Ident::new(&(input.ident.to_string() + &suffix), input.ident.span())
+    };
     let ty_ident = if let Some(mut ty_prefix) = settings.ty_prefix.clone() {
         ty_prefix.segments.push(input.ident.into());
         ty_prefix
@@ -216,16 +226,17 @@ pub fn derive_optionable(
                 s.fields,
                 settings.input_crate_replacement.as_ref(),
             )?;
-            if attrs.k8s_openapi_resource.is_some() {
+            if let Some(k8s_resource_type) = &k8s_resource_type {
                 k8s_openapi_field_resource_adjust(
                     &mut struct_parsed,
                     crate_name,
                     &ty_ident_opt,
                     &ty_generics,
+                    k8s_resource_type,
                 );
             }
-            if attrs.k8s_openapi_metadata.is_some() {
-                k8s_openapi_field_metadata_adjust(&mut struct_parsed);
+            if attrs.k8s_openapi_metadata.is_some() || attrs.kube_resource.is_some() {
+                k8s_openapi_set_metadata_required(&mut struct_parsed);
             }
             let WhereClauses {
                 struct_enum_def: where_clause_struct_enum,
@@ -410,8 +421,15 @@ pub fn derive_optionable(
             &where_clause_impl_optionable,
         )
     });
+    let kube_derive_resource = attrs.kube_resource.is_some().then(|| {
+        quote! {
+            #[derive(kube::Resource)]
+            #[resource(inherit = #ty_ident )]
+        }
+    });
     Ok(quote! {
                 #derives
+                #kube_derive_resource
                 #forward_attrs
                 #k8s_openapi_attrs
                 #vis #enum_struct #ty_ident_opt #impl_generics #where_clause_struct_enum #fields
@@ -629,6 +647,28 @@ fn forwarded_attributes(attrs: &[Attribute]) -> Result<Option<TokenStream>, Erro
         })
         .collect::<Result<TokenStream, Error>>()?;
     Ok((!forward_attrs.is_empty()).then_some(forward_attrs))
+}
+
+/// Errors if `k8s_openapi_*`  or `kube_*` type attributes are set without the corresponding feature being enabled.
+/// The feature does nothing besides this on this crate but is used to track that the required features are enabled
+/// on the user-facing `optionable`-crate.
+// false positive depending on the features enabled
+#[allow(unused_variables)]
+#[allow(clippy::unnecessary_wraps)]
+fn error_missing_features(attrs: &TypeHelperAttributes) -> Result<(), Error> {
+    #[cfg(not(feature = "k8s_openapi"))]
+    if attrs.k8s_openapi_metadata.is_some() || attrs.k8s_openapi_resource.is_some() {
+        return error(
+            "helper attributes `#[optionable(k8s_openapi_*)] require one of the `k8s_openapi_*` features to be enabled for the `optionable` crate.",
+        );
+    }
+    #[cfg(not(feature = "kube"))]
+    if attrs.kube_resource.is_some() {
+        return error(
+            "helper attributes `#[optionable(kube_*)] require the `kube` feature to be enabled for the `optionable` crate.",
+        );
+    }
+    Ok(())
 }
 
 #[cfg(test)]

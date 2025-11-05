@@ -131,7 +131,7 @@
 //! when using wrong types the associated types are resolved.
 //!
 //! For the derived `Optioned`-structs/enums a related issue is that other derive macros for those derived types won't see the resolved
-//! associated types. Therefore corresponding type bounds have to be added (done by the `Optionable`-derive) to the `Optioned`-structs/enums:
+//! associated types. Therefore, corresponding type bounds have to be added (done by the `Optionable`-derive) to the `Optioned`-structs/enums:
 //! ```rust
 //! # use optionable::Optionable;
 //! # use serde::Serialize;
@@ -168,19 +168,25 @@
 #[cfg(feature = "alloc")]
 extern crate alloc;
 
-use crate::optionable::Error;
-#[cfg_attr(docsrs, doc(cfg(feature = "derive")))]
 #[cfg(feature = "derive")]
 #[doc(inline)]
 pub use optionable_derive::Optionable;
+#[cfg(all(feature = "derive", feature = "kube"))]
+#[doc(inline)]
+pub use optionable_derive::OptionableKubeCrd;
+
 pub mod optionable;
 
 #[cfg(feature = "chrono")]
 mod chrono;
 #[cfg(feature = "k8s_openapi_v1_34")]
 pub mod k8s_openapi;
+#[cfg(feature = "kube")]
+pub mod kube;
 #[cfg(feature = "serde_json")]
 mod serde_json;
+
+use crate::optionable::Error;
 
 /// Marker trait that associated this type with a corresponding type where potential
 /// inner sub-fields are recursively optional if possible for the given use case of the type.

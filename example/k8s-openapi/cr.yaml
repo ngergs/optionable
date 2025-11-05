@@ -1,0 +1,8 @@
+apiVersion: example.localhost/v1
+kind: MyCrd
+metadata:
+  name: test
+spec:
+  msg: "hello world"
+  template:
+    replicas: 1

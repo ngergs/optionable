@@ -10,6 +10,7 @@ readme = "README.md"
 [features]
 default = []
 k8s_openapi = []
+kube = []
 
 [lints.clippy]
 pedantic = "warn"

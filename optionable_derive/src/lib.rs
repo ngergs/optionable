@@ -3,6 +3,7 @@
 //!
 //! This is only a separate crate as derive macros have to be a separate crate.
 use proc_macro::TokenStream;
+use syn::{parse_quote, DeriveInput};
 
 /// Derive macro to derive the `Optionable` trait for structs/enums recursively by generating
 /// a type with all fields recursively replaced with `Option` versions.
@@ -56,7 +57,22 @@ pub fn derive_optionable(input: TokenStream) -> TokenStream {
     try_derive_optionable(input).unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
 }
 
-/// Internal method for `derive_optionable` to simplify error handling
+/// Specialized derive macro to derive the `Optionable` trait for the root of a derived `kube::CustomResources`.
+/// Translates to `#[derive(Optionable)]` with the type attribute `#[optionable(k8s_openapi_resource)]`.
+#[proc_macro_derive(OptionableKubeCrd)]
+pub fn derive_optionable_kube_crd(input: TokenStream) -> TokenStream {
+    try_derive_optionable_kube_crd(input)
+        .unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
+}
+
+/// Internal method for `derive_optionable_kube_crd` to simplify error handling.
+fn try_derive_optionable_kube_crd(input: TokenStream) -> Result<TokenStream, syn::Error> {
+    let mut input: DeriveInput = syn::parse2(input.into())?;
+    input.attrs.push(parse_quote!(#[optionable(kube_resource)]));
+    Ok(optionable_codegen::derive_optionable(input, None)?.into())
+}
+
+/// Internal method for `derive_optionable` to simplify error handling.
 fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> {
     Ok(optionable_codegen::derive_optionable(syn::parse2(input.into())?, None)?.into())
 }
