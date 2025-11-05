@@ -20,9 +20,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
     deployments
         .patch(
-            &patch.metadata.name.clone().ok_or("name missing")?,
+            patch.metadata.name.as_ref().ok_or("name missing")?,
             &PatchParams::apply("rust-manager").force(),
-            &Patch::Apply(patch),
+            &Patch::Apply(&patch),
         )
         .await?;
     Ok(())
