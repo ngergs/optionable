@@ -32,6 +32,15 @@ pub fn serialize_api_envelope<S: Serializer, R: Resource>(
 
 #[cfg(test)]
 mod test {
+    #[cfg(feature = "k8s_openapi_v1_30")]
+    use crate::k8s_openapi::v1_30::apimachinery::pkg::util::intstr::IntOrStringAc;
+    #[cfg(feature = "k8s_openapi_v1_31")]
+    use crate::k8s_openapi::v1_31::apimachinery::pkg::util::intstr::IntOrStringAc;
+    #[cfg(feature = "k8s_openapi_v1_32")]
+    use crate::k8s_openapi::v1_32::apimachinery::pkg::util::intstr::IntOrStringAc;
+    #[cfg(feature = "k8s_openapi_v1_33")]
+    use crate::k8s_openapi::v1_33::apimachinery::pkg::util::intstr::IntOrStringAc;
+    #[cfg(feature = "k8s_openapi_v1_34")]
     use crate::k8s_openapi::v1_34::apimachinery::pkg::util::intstr::IntOrStringAc;
 
     /// Tests if deserialization for `IntOrString` works.

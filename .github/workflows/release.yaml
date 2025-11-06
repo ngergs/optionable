@@ -36,12 +36,12 @@ jobs:
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features derive,chrono,serde_json
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono,serde_json
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features alloc,derive,chrono,serde_json
-          cargo +nightly test --features k8s_openapi_v1_30,kube
-          cargo +nightly test --features k8s_openapi_v1_31,kube
-          cargo +nightly test --features k8s_openapi_v1_32,kube
-          cargo +nightly test --features k8s_openapi_v1_33,kube
-          cargo +nightly test --features k8s_openapi_v1_34,kube
-          cargo clippy --features std,derive,chrono,serde_json,k8s_openapi_v1_34,kube
+          cargo +nightly test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_30,kube
+          cargo +nightly test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_31,kube
+          cargo +nightly test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_32,kube
+          cargo +nightly test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_33,kube
+          cargo +nightly test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_34,kube
+          cargo clippy --features std,derive,chrono,serde_json,k8s_openapi_v1_34,kube --exclude optionable_k8s_openapi_example
           cargo install --locked cargo-deny
           cargo deny check license
 #      - name: Run release-plz
