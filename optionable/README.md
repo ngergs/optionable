@@ -3,18 +3,32 @@
 A rust library to derive `optioned` structs/enums versions of existing types where all fields have been recursively
 replaced with versions that support setting just a subset of the relevant fields (or none at all).
 
-One motivation for this concept is the common problem when expressing patches e.g.
-for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations) that for a given rust struct `T` a corresponding struct `T::Optioned`
-would be required where all fields are recursively optional to specify.  While trivial to write for plain structures 
-this quickly becomes tedious for nested structs/enums.
-
-Some examples for the usage of this library for type-safe Kubernetes server-side-apply in Rust can be found [here](https://github.com/ngergs/optionable/tree/main/example/k8s-openapi).
-
+One motivation for this concept is the common problem when expressing patches that for a given rust struct `T` 
+a corresponding struct `T::Optioned` would be required where all fields are recursively optional to specify.
+While trivial to write for plain structures this quickly becomes tedious for nested structs/enums.
 
 #### Links
 
 - [crates.io](https://crates.io/crates/optionable)
 - [rust documentation](https://docs.rs/optionable/)
+
+## Kubernetes server-side apply
+Examples for the usage of this library for type-safe Kubernetes server-side-apply in Rust can be found [here](https://github.com/ngergs/optionable/tree/main/example/k8s-openapi).
+
+It e.g. allows to write the patch of just the `spec.replica` of a `Deployment` as:
+```rust
+let patch = DeploymentAc {
+    metadata: ObjectMeta {
+    name: Some("test".to_owned()),
+        ..Default::default()
+    },
+    spec: Some(DeploymentSpecAc {
+        replicas: Some(2),
+        ..Default::default()
+    }),
+    ..Default::default()
+};
+```
 
 ## Deriving optional structs/enums
 
