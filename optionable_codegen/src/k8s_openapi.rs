@@ -96,8 +96,8 @@ pub(crate) fn k8s_adjust_fields(
             struct_parsed,
             k8s_resource_type,
             crate_name,
-            &ty_ident_opt,
-            &ty_generics,
+            ty_ident_opt,
+            ty_generics,
         );
     }
     Ok(())
