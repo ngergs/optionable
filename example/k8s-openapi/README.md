@@ -44,7 +44,7 @@ The resulting output will be:
 - <other entries from kubectl and other manager interacting with the deployment>
 ```
 
-## CRD
+## CRDs
 
 For the source code see [src/lib.rs](src/lib.rs) for the CRD definition and [src/apply_crd.rs](src/apply_crd.rs) for
 the optioned type example.
