@@ -8,7 +8,7 @@ use std::default::Default;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
 use syn::Item::{Enum, Impl, Struct};
-use syn::{parse_quote, Attribute, Item, Path, Type};
+use syn::{parse_quote, Item, Path, Type};
 
 const K8S_OPENAPI: &str = "k8s_openapi";
 
@@ -29,7 +29,6 @@ struct Visitor {
     /// The type suffix for the optioned type. Here this is fixed to "Ac".
     optioned_suffix: &'static str,
     /// Additional attributes that should be added to input structs/enums.
-    type_attrs_input_struct_enum: Vec<Attribute>,
     has_resource_impl: HashSet<Ident>,
     has_metadata_impl: HashSet<Ident>,
 }
@@ -38,7 +37,6 @@ impl Clone for Visitor {
     fn clone(&self) -> Self {
         Self {
             optioned_suffix: self.optioned_suffix,
-            type_attrs_input_struct_enum: self.type_attrs_input_struct_enum.clone(),
             // we want to reset all other fields when entering a new module
             ..Default::default()
         }
@@ -69,21 +67,20 @@ impl CodegenVisitor for Visitor {
         let suffix = self.optioned_suffix;
         match item {
             Struct(item) => {
-                item.attrs
-                    .append(&mut self.type_attrs_input_struct_enum.clone());
+                let k8s_attr = match (
+                    self.has_resource_impl.contains(&item.ident),
+                    self.has_metadata_impl.contains(&item.ident),
+                ) {
+                    (true, true) => parse_quote!(#[optionable(k8s_openapi(resource,metadata))]),
+                    (true, false) => parse_quote!(#[optionable(k8s_openapi(resource))]),
+                    (false, true) => parse_quote!(#[optionable(k8s_openapi(metadata))]),
+                    (false, false) => parse_quote!(#[optionable(k8s_openapi())]),
+                };
+                item.attrs.push(k8s_attr);
                 item.attrs.push(parse_quote!(#[optionable(suffix=#suffix)]));
-                if self.has_resource_impl.contains(&item.ident) {
-                    item.attrs
-                        .push(parse_quote!(#[optionable(k8s_openapi_resource)]));
-                }
-                if self.has_metadata_impl.contains(&item.ident) {
-                    item.attrs
-                        .push(parse_quote!(#[optionable(k8s_openapi_metadata)]));
-                }
             }
             Enum(item) => {
-                item.attrs
-                    .append(&mut self.type_attrs_input_struct_enum.clone());
+                item.attrs.push(parse_quote!(#[optionable(k8s_openapi())]));
                 item.attrs.push(parse_quote!(#[optionable(suffix=#suffix)]));
             }
             _ => {}
@@ -107,7 +104,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         CodegenConfig {
             visitor: Visitor {
                 optioned_suffix,
-                type_attrs_input_struct_enum: vec![parse_quote!(#[optionable(k8s_openapi)])],
                 ..Default::default()
             },
             optioned_suffix,

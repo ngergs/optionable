@@ -20,22 +20,30 @@ pub(crate) enum ResourceType {
 pub(crate) fn k8s_resource_type(
     attrs: &TypeHelperAttributes,
 ) -> Result<Option<ResourceType>, Error> {
-    if attrs.kube_resource.is_some() && attrs.k8s_openapi_resource.is_some() {
+    if attrs.k8s_openapi.is_some() && attrs.kube.is_some() {
         return error(
-            "Conflicting configuration. Only the `#[optionable(k8s_openapi_resource)]` or `#[optionable(kube_resource)]` attribute is allowed.",
+            "Conflicting configuration. Only one of the `#[optionable(k8s_openapi)]` or `#[optionable(kube)]` attribute is allowed at once per type.",
         );
     }
-    if attrs.k8s_openapi_resource.is_some() {
+    if attrs
+        .k8s_openapi
+        .as_ref()
+        .is_some_and(|attr| attr.resource.is_some())
+    {
         return Ok(Some(ResourceType::K8sOpenApi));
     }
-    if attrs.kube_resource.is_some() {
+    if attrs
+        .kube
+        .as_ref()
+        .is_some_and(|attr| attr.resource.is_some())
+    {
         return Ok(Some(ResourceType::Kube));
     }
     Ok(None)
 }
 
-/// Additional derives to set for `k8s_openapi` types.
-pub(crate) fn k8s_openapi_derives(input: &DeriveInput) -> Option<Vec<Path>> {
+/// Additional derives to set for `k8s` types.
+pub(crate) fn k8s_derives(input: &DeriveInput) -> Option<Vec<Path>> {
     match input.data {
         Data::Struct(_) => Some(vec![
             Path::from_string("Clone").unwrap(),
@@ -57,7 +65,7 @@ pub(crate) fn k8s_openapi_derives(input: &DeriveInput) -> Option<Vec<Path>> {
 }
 
 /// The field type helper attributes for an optioned `Struct` or `Enum`.
-pub(crate) fn k8s_openapi_type_attr(input: &DeriveInput) -> Option<Attribute> {
+pub(crate) fn k8s_type_attr(input: &DeriveInput) -> Option<Attribute> {
     match input.data {
         Data::Struct(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
         Data::Enum(_) => Some(parse_quote!(#[serde(rename_all="camelCase",untagged)])),
@@ -145,4 +153,34 @@ pub(crate) fn k8s_openapi_impl_metadata(
             }
         }
     )
+}
+
+/// Errors if `k8s_openapi_*`  or `kube_*` type attributes are set without the corresponding feature being enabled.
+/// The feature does nothing besides this on this crate but is used to track that the required features are enabled
+/// on the user-facing `optionable`-crate.
+// false positive depending on the features enabled
+#[allow(unused_variables)]
+#[allow(clippy::unnecessary_wraps)]
+pub(crate) fn error_missing_features(attrs: &TypeHelperAttributes) -> Result<(), Error> {
+    #[cfg(not(feature = "k8s_openapi"))]
+    if attrs
+        .k8s_openapi
+        .as_ref()
+        .is_some_and(|attr| attr.resource.is_some())
+    {
+        return error(
+            "helper attributes `#[optionable(k8s_openapi(resource))] require one of the `k8s_openapi_*` features to be enabled for the `optionable` crate.",
+        );
+    }
+    #[cfg(not(feature = "kube"))]
+    if attrs
+        .kube
+        .as_ref()
+        .is_some_and(|attr| attr.resource.is_some())
+    {
+        return error(
+            "helper attributes `#[optionable(kube(resource)] require the `kube` feature to be enabled for the `optionable` crate.",
+        );
+    }
+    Ok(())
 }

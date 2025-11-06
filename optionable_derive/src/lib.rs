@@ -68,7 +68,9 @@ pub fn derive_optionable_kube_crd(input: TokenStream) -> TokenStream {
 /// Internal method for `derive_optionable_kube_crd` to simplify error handling.
 fn try_derive_optionable_kube_crd(input: TokenStream) -> Result<TokenStream, syn::Error> {
     let mut input: DeriveInput = syn::parse2(input.into())?;
-    input.attrs.push(parse_quote!(#[optionable(kube_resource)]));
+    input
+        .attrs
+        .push(parse_quote!(#[optionable(kube(resource))]));
     Ok(optionable_codegen::derive_optionable(input, None)?.into())
 }
 

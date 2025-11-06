@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 /// Example how to use `ApplyConfigurations` with a CRD
 #[derive(Optionable, CustomResource, Clone, Debug, Deserialize, Serialize, JsonSchema)]
 #[kube(derive = "OptionableKubeCrd")]
-#[optionable(k8s_openapi)]
+#[optionable(kube())]
 #[kube(
     group = "example.localhost",
     version = "v1",
@@ -19,7 +19,7 @@ pub struct MyCrdSpec {
 }
 
 #[derive(Optionable, Clone, Debug, Deserialize, Serialize, JsonSchema)]
-#[optionable(k8s_openapi)]
+#[optionable(k8s_openapi())]
 pub struct MyCrdSpecTemplate {
     pub replicas: u32,
 }
