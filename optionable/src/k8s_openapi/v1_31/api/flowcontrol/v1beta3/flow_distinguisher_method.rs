@@ -8,6 +8,7 @@
 )]
 #[serde(rename_all = "camelCase")]
 pub struct FlowDistinguisherMethodAc {
+    #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }

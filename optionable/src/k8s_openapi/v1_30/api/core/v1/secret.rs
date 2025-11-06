@@ -19,6 +19,7 @@ pub struct SecretAc {
     pub string_data: <Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(

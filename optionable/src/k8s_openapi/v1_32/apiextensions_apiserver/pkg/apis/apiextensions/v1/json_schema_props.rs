@@ -10,6 +10,7 @@
 pub struct JSONSchemaPropsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ref_path: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(rename = "$schema")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub schema: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -52,6 +53,7 @@ pub struct JSONSchemaPropsAc {
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(rename = "enum")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub enum_: <Option<
         std::vec::Vec<
@@ -132,6 +134,7 @@ pub struct JSONSchemaPropsAc {
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub title: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]

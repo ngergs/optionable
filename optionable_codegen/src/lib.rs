@@ -17,9 +17,8 @@ mod where_clause;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s_openapi::{
-    error_missing_features, k8s_derives, k8s_openapi_field_resource_adjust,
-    k8s_openapi_impl_metadata, k8s_openapi_impl_resource, k8s_openapi_set_metadata_required,
-    k8s_resource_type, k8s_type_attr,
+    error_missing_features, k8s_adjust_fields, k8s_derives, k8s_openapi_impl_metadata,
+    k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr,
 };
 use crate::parsed_input::{
     into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
@@ -228,26 +227,15 @@ pub fn derive_optionable(
                 s.fields,
                 settings.input_crate_replacement.as_ref(),
             )?;
-            if let Some(k8s_resource_type) = &k8s_resource_type {
-                k8s_openapi_field_resource_adjust(
-                    &mut struct_parsed,
-                    crate_name,
-                    &ty_ident_opt,
-                    &ty_generics,
-                    k8s_resource_type,
-                );
-            }
-            if attrs
-                .k8s_openapi
-                .as_ref()
-                .is_some_and(|attr| attr.metadata.is_some())
-                || attrs
-                    .kube
-                    .as_ref()
-                    .is_some_and(|attr| attr.resource.is_some())
-            {
-                k8s_openapi_set_metadata_required(&mut struct_parsed);
-            }
+            k8s_adjust_fields(
+                &mut struct_parsed,
+                attrs.k8s_openapi.as_ref(),
+                attrs.kube.as_ref(),
+                k8s_resource_type.as_ref(),
+                crate_name,
+                &ty_ident_opt,
+                &ty_generics,
+            )?;
             let WhereClauses {
                 struct_enum_def: where_clause_struct_enum,
                 impl_optionable: where_clause_impl_optionable,
@@ -309,15 +297,21 @@ pub fn derive_optionable(
                 .into_iter()
                 .map(|v| {
                     error_on_helper_attributes(&v.attrs, ERR_MSG_HELPER_ATTR_ENUM_VARIANTS)?;
-                    Ok::<_, Error>((
-                        v.ident,
-                        forwarded_attributes(&v.attrs)?,
-                        into_field_handling(
-                            crate_name.to_owned(),
-                            v.fields,
-                            settings.input_crate_replacement.as_ref(),
-                        )?,
-                    ))
+                    let mut field_handling = into_field_handling(
+                        crate_name.to_owned(),
+                        v.fields,
+                        settings.input_crate_replacement.as_ref(),
+                    )?;
+                    k8s_adjust_fields(
+                        &mut field_handling,
+                        attrs.k8s_openapi.as_ref(),
+                        attrs.kube.as_ref(),
+                        k8s_resource_type.as_ref(),
+                        crate_name,
+                        &ty_ident_opt,
+                        &ty_generics,
+                    )?;
+                    Ok::<_, Error>((v.ident, forwarded_attributes(&v.attrs)?, field_handling))
                 })
                 .collect::<Result<Vec<_>, _>>()?;
             let all_fields = variants

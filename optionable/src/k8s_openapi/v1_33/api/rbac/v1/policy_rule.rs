@@ -12,6 +12,7 @@ pub struct PolicyRuleAc {
     pub api_groups: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "nonResourceURLs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub non_resource_urls: <Option<
         std::vec::Vec<std::string::String>,

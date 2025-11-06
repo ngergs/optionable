@@ -661,6 +661,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "k8s-openapi-codegen-common"
+version = "0.26.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d0c338bed5aa95a41a68524373215dce32096959277e44aa34a47b39bb85dde3"
+
+[[package]]
 name = "kube"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -826,6 +832,7 @@ version = "0.5.0"
 dependencies = [
  "darling",
  "itertools",
+ "k8s-openapi-codegen-common",
  "proc-macro2",
  "quote",
  "syn",

@@ -12,6 +12,7 @@ pub struct LimitResponseAc {
     pub queuing: <Option<
         ::k8s_openapi::api::flowcontrol::v1::QueuingConfiguration,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }

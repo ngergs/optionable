@@ -1,7 +1,7 @@
 use crate::helper::error;
 use crate::parsed_input::FieldHandling::{OptionedOnly, Required};
 use crate::parsed_input::{FieldParsed, StructParsed};
-use crate::TypeHelperAttributes;
+use crate::{TypeHelperAttributes, TypeHelperAttributesK8sOpenapi, TypeHelperAttributesKube};
 use darling::FromMeta;
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
@@ -73,8 +73,38 @@ pub(crate) fn k8s_type_attr(input: &DeriveInput) -> Option<Attribute> {
     }
 }
 
+/// Adjust the struct fields according to the `Kubernetes` use case.
+pub(crate) fn k8s_adjust_fields(
+    struct_parsed: &mut StructParsed,
+    attr_k8s_openapi: Option<&TypeHelperAttributesK8sOpenapi>,
+    attr_kube: Option<&TypeHelperAttributesKube>,
+    resource_type: Option<&ResourceType>,
+    crate_name: &Path,
+    ty_ident_opt: &Ident,
+    ty_generics: &TypeGenerics,
+) -> Result<(), Error> {
+    if attr_k8s_openapi.is_some() {
+        k8s_openapi_adjust_field_serde_renames(struct_parsed)?;
+    }
+    if attr_k8s_openapi.is_some_and(|attr| attr.metadata.is_some())
+        || attr_kube.is_some_and(|attr| attr.resource.is_some())
+    {
+        k8s_openapi_set_metadata_required(struct_parsed);
+    }
+    if let Some(k8s_resource_type) = &resource_type {
+        k8s_openapi_field_resource_adjust(
+            struct_parsed,
+            k8s_resource_type,
+            crate_name,
+            &ty_ident_opt,
+            &ty_generics,
+        );
+    }
+    Ok(())
+}
+
 /// Adjust the parsed struct for the `k8s_openapi::Metadata` requirements.
-pub(crate) fn k8s_openapi_set_metadata_required(struct_parsed: &mut StructParsed) {
+fn k8s_openapi_set_metadata_required(struct_parsed: &mut StructParsed) {
     struct_parsed
         .fields
         .iter_mut()
@@ -82,13 +112,78 @@ pub(crate) fn k8s_openapi_set_metadata_required(struct_parsed: &mut StructParsed
         .for_each(|f| f.handling = Required);
 }
 
+/// Adjust the serde handling of specific fields to handle fields deviating from just `camelCase`.
+/// See the [`get_rust_ident`](https://docs.rs/k8s-openapi-codegen-common/latest/k8s_openapi_codegen_common/fn.get_rust_ident.html) used by `k8s_openapi`.
+fn k8s_openapi_adjust_field_serde_renames(struct_parsed: &mut StructParsed) -> Result<(), Error> {
+    struct_parsed.fields.iter_mut().try_for_each(|f| {
+        if let Some(name) = &f.field.ident
+            && let Some(name_serialized) =
+                k8s_openapi_serde_rename_revert_special_cases(name.to_string().as_ref())
+        {
+            f.field
+                .attrs
+                .push(parse_quote!(#[optionable_attr(serde(rename=#name_serialized))]));
+        }
+        Ok(())
+    })
+}
+
+/// Reverts special case handling from `k8s_openapi`.
+/// Returns `None` if it is not a special case.
+/// See the [`get_rust_ident`](https://docs.rs/k8s-openapi-codegen-common/latest/k8s_openapi_codegen_common/fn.get_rust_ident.html) used by `k8s_openapi`.
+fn k8s_openapi_serde_rename_revert_special_cases(input: &str) -> Option<&'static str> {
+    match input {
+        "cluster_ips" => Some("clusterIPs"),
+        "external_ips" => Some("externalIPs"),
+        "host_ips" => Some("hostIPs"),
+        "non_resource_urls" => Some("nonResourceURLs"),
+        "pod_cidrs" => Some("podCIDRs"),
+        "pod_ips" => Some("podIPs"),
+        "server_address_by_client_cidrs" => Some("serverAddressByClientCIDRs"),
+        "target_wwns" => Some("targetWWNs"),
+        "schema" => Some("$schema"),
+        "as_" => Some("as"),
+        "continue_" => Some("continue"),
+        "enum_" => Some("enum"),
+        "ref_" => Some("ref"),
+        "type_" => Some("type"),
+        _ => None,
+    }
+}
+
+#[test]
+fn roundtrip_k8s_openapi_adjust_field_serde() {
+    const SPECIAL_KEYS: &[&str] = &[
+        "clusterIPs",
+        "externalIPs",
+        "hostIPs",
+        "nonResourceURLs",
+        "podCIDRs",
+        "podIPs",
+        "serverAddressByClientCIDRs",
+        "targetWWNs",
+        "$schema",
+        "as",
+        "continue",
+        "enum",
+        "ref",
+        "type",
+    ];
+    for key in SPECIAL_KEYS {
+        let rust_ident = k8s_openapi_codegen_common::get_rust_ident(key);
+        let key_roundtrip = k8s_openapi_serde_rename_revert_special_cases(rust_ident.as_ref());
+        assert!(key_roundtrip.is_some());
+        assert_eq!(key.to_owned(), key_roundtrip.unwrap().to_owned());
+    }
+}
+
 /// Adjust the parsed struct for the `k8s_openapi::Resource` requirements.
-pub(crate) fn k8s_openapi_field_resource_adjust(
+fn k8s_openapi_field_resource_adjust(
     struct_parsed: &mut StructParsed,
+    resource_type: &ResourceType,
     crate_name: &Path,
     ty_ident_opt: &Ident,
     ty_generics: &TypeGenerics,
-    resource_type: &ResourceType,
 ) {
     let mut serialize_fn_name = crate_name.to_token_stream().to_string();
     match resource_type {

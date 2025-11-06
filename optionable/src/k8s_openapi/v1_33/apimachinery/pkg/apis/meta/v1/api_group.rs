@@ -14,6 +14,7 @@ pub struct APIGroupAc {
     pub preferred_version: <Option<
         ::k8s_openapi::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "serverAddressByClientCIDRs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub server_address_by_client_cidrs: <Option<
         std::vec::Vec<

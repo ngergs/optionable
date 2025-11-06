@@ -16,6 +16,7 @@ pub struct NodeSpecAc {
     pub external_id: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_cidr: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(rename = "podCIDRs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_cidrs: <Option<
         std::vec::Vec<std::string::String>,

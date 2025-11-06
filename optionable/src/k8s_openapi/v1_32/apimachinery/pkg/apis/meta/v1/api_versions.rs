@@ -8,6 +8,7 @@
 )]
 #[serde(rename_all = "camelCase")]
 pub struct APIVersionsAc {
+    #[serde(rename = "serverAddressByClientCIDRs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub server_address_by_client_cidrs: Option<
         <std::vec::Vec<

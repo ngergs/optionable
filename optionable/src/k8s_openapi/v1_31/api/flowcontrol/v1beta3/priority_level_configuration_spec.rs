@@ -16,6 +16,7 @@ pub struct PriorityLevelConfigurationSpecAc {
     pub limited: <Option<
         ::k8s_openapi::api::flowcontrol::v1beta3::LimitedPriorityLevelConfiguration,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }

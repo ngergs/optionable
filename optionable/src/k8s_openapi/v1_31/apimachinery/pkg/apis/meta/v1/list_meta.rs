@@ -8,6 +8,7 @@
 )]
 #[serde(rename_all = "camelCase")]
 pub struct ListMetaAc {
+    #[serde(rename = "continue")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub continue_: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]

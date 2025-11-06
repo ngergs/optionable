@@ -12,6 +12,7 @@ pub struct DeploymentStrategyAc {
     pub rolling_update: <Option<
         ::k8s_openapi::api::apps::v1::RollingUpdateDeployment,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
 }

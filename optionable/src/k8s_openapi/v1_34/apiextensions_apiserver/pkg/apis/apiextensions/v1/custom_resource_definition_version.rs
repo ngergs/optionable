@@ -22,6 +22,7 @@ pub struct CustomResourceDefinitionVersionAc {
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(rename = "$schema")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub schema: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceValidation,

@@ -22,6 +22,10 @@ proc-macro2 = "1.0.101"
 darling = { version = "0.21.3", default-features = false }
 itertools = "0.14.0"
 
+[dev-dependencies]
+k8s-openapi-codegen-common = "0.26.0"
+
+
 [package.metadata.docs.rs]
 # to be able to document feature dependent settings, see https://users.rust-lang.org/t/how-to-document-optional-features-in-api-docs/64577/3
 rustdoc-args = ["--cfg", "docsrs"]

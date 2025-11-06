@@ -14,6 +14,7 @@ pub struct FCVolumeSourceAc {
     pub lun: <Option<i32> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(rename = "targetWWNs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target_wwns: <Option<
         std::vec::Vec<std::string::String>,
