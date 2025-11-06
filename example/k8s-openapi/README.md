@@ -1,8 +1,26 @@
 # Server side apply example
 
+One main motivation for the `optionable` crate is to support type-safe server-side apply for Kubernetes in Rust. 
+It is possible to express the intend to e.g. only patch the `spec.replica` count of a `Deployment` as:
+```rust
+let patch = DeploymentAc {
+    metadata: ObjectMeta {
+    name: Some("test".to_owned()),
+        ..Default::default()
+    },
+    spec: Some(DeploymentSpecAc {
+        replicas: Some(2),
+        ..Default::default()
+    }),
+    ..Default::default()
+};
+```
+
 ## Deployment
 
-A very simple for how the `optionable`-`k8s-openapi` types can be used to implement
+For the source code see [src/bin/apply_deployment.rs](src/bin/apply_deployment.rs).
+
+A very simple example for how the `optionable`-`k8s-openapi` types can be used to implement
 Kubernetes server-side-apply.
 
 ```bash
@@ -28,7 +46,11 @@ The resulting output will be:
 
 ## CRD
 
-How optioned types can be generated for `kube::CustomResources`.
+For the source code see [src/lib.rs](src/lib.rs) for the CRD definition and [src/apply_crd.rs](src/apply_crd.rs) for
+the optioned type example.
+
+Another simple example for how the `optionable` Kubernetes optimized derives can be used to implement
+Kubernetes server-side-apply for CRDs.
 
 ```bash
 # setup crd

@@ -52,13 +52,45 @@ use syn::{parse_quote, DeriveInput};
 ///     number: u32; // will also be a u32 in the derived `MyStructOpt`.
 ///   }
 ///   ```
+///
+/// ### Kubernetes type-level attributes (on the struct/enum level)
+/// Specialized Kubernetes specific type attributes to help deriving optioned types (in go called `ApplyConfiguration`)
+/// for Kubernetes resources/subfields.
+///
+/// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
+///
+///  - **`kube`**: Intended to be placed on types implementing subfields of a kube CRD spec.
+/// ```rust,ignore
+/// #[derive(Optionable, Clone, Debug, Deserialize, Serialize, JsonSchema)]
+/// #[optionable(kube())]
+/// pub struct MyCrdSpecTemplate {
+///    pub replicas: u32,
+/// }
+/// ```
 #[proc_macro_derive(Optionable, attributes(optionable, optionable_attr))]
 pub fn derive_optionable(input: TokenStream) -> TokenStream {
     try_derive_optionable(input).unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
 }
 
 /// Specialized derive macro to derive the `Optionable` trait for the root of a derived `kube::CustomResources`.
-/// Translates to `#[derive(Optionable)]` with the type attribute `#[optionable(k8s_openapi_resource)]`.
+/// Should be derived for the `kube::CustomResource` spec which implicitly creates the root type.
+/// Translates to `#[derive(Optionable)]` with the type attribute `#[optionable(kube(resource)]`.
+///
+/// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
+/// - Sets the `metadata` field as required for the optioned type.
+/// - Adds `apiVersion` and `kind` to the serialization output with values from the trait constants of the given `kube::Resource` implementation
+/// - Derives `kube::Resource` for the optioned type.
+///
+/// ```rust,ignore
+/// #[derive(Optionable, CustomResource, Clone, Debug, Deserialize, Serialize, JsonSchema)]
+/// #[kube(derive = "OptionableKubeCrd")]
+/// #[optionable(kube())]
+/// #[kube(group = "example.localhost", version = "v1", kind = "MyCrd", namespaced)]
+/// pub struct MyCrdSpec {
+///     pub msg: String,
+///     pub template: MyCrdSpecTemplate,
+/// }
+/// ```
 #[proc_macro_derive(OptionableKubeCrd)]
 pub fn derive_optionable_kube_crd(input: TokenStream) -> TokenStream {
     try_derive_optionable_kube_crd(input)

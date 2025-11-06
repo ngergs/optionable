@@ -19,7 +19,7 @@ pub struct MyCrdSpec {
 }
 
 #[derive(Optionable, Clone, Debug, Deserialize, Serialize, JsonSchema)]
-#[optionable(k8s_openapi())]
+#[optionable(kube())]
 pub struct MyCrdSpecTemplate {
     pub replicas: u32,
 }

@@ -1,11 +1,12 @@
-//! Library to derive `optioned` structs/enums versions of existing types
-//! where all fields have been recursively replaced with versions that support setting just a subset of the relevant fields (or none at all).
+//! Library to derive `optioned` structs/enums versions of existing types where all fields have been recursively
+//! replaced with versions that support setting just a subset of the relevant fields (or none at all).
 //!
-//! One motivation for this concept is the common problem when expressing patches e.g. for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations)
-//! that for a given rust struct `T` a corresponding struct `T::Optioned` would be required where all fields are recursively optional
-//! to specify.
+//! One motivation for this concept is the common problem when expressing patches e.g.
+//! for [Kubernetes apply configurations](https://pkg.go.dev/k8s.io/client-go/applyconfigurations) that for a given rust struct `T` a corresponding struct `T::Optioned`
+//! would be required where all fields are recursively optional to specify.  While trivial to write for plain structures
+//! this quickly becomes tedious for nested structs/enums.
 //!
-//! While trivial to write for plain structures this quickly becomes tedious for nested structs/enums.
+//! Some examples for the usage of this library for type-safe Kubernetes server-side-apply in Rust can be found [here](https://github.com/ngergs/optionable/tree/k8s-openapi/example/k8s-openapi).
 //!
 //! # Deriving optional structs/enums
 //!
@@ -118,6 +119,8 @@
 //! - `alloc`: Adds `Optionable`-implementations for [alloc](https://doc.rust-lang.org/alloc/) types (only useful when not enabling the `std` feature).
 //! - `chrono`: Derive [`trait@Optionable`] for types from [chrono](https://docs.rs/chrono/latest/chrono/).
 //! - `serde_json`: Derive [`trait@Optionable`] for [serde_json](https://docs.rs/serde_json/latest/serde_json/)`::Value`.
+//! - `k8s_openapi_v1_(30..=34)`: Adds `Optionable`-implementations for all [k8s_openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types. Only on feature version, e.g. `k8s_openapi_v1_34` may be enabled at once.
+//! - `kube`: Adds a serialization helper used by `#[derive(Optionable]` if `#[derive(kube)]` is set to add `apiVersion` and `kind` from the `kube::Resource`-impl to the serialized output.
 //!
 //! # Limitations
 //!
