@@ -182,7 +182,13 @@ pub mod optionable;
 
 #[cfg(feature = "chrono")]
 mod chrono;
-#[cfg(feature = "k8s_openapi_v1_34")]
+#[cfg(any(
+    feature = "k8s_openapi_v1_30",
+    feature = "k8s_openapi_v1_31",
+    feature = "k8s_openapi_v1_32",
+    feature = "k8s_openapi_v1_33",
+    feature = "k8s_openapi_v1_34"
+))]
 pub mod k8s_openapi;
 #[cfg(feature = "kube")]
 pub mod kube;

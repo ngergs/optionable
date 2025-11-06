@@ -8,17 +8,17 @@ license = "MIT OR Apache-2.0"
 readme = "README.md"
 
 [features]
-default = ["derive", "std", "k8s_openapi_v1_34"]
+default = ["derive", "std"]
 alloc = []
-std = ["k8s-openapi/std"]
+std = []
 derive = ["dep:optionable_derive"]
 chrono = ["dep:chrono"]
 serde_json = ["dep:serde_json"]
-k8s_openapi_v1_30 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_30", "serde/std", "serde_json", "std", "chrono"]
-k8s_openapi_v1_31 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_31", "serde/std", "serde_json", "std", "chrono"]
-k8s_openapi_v1_32 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_32", "serde/std", "serde_json", "std", "chrono"]
-k8s_openapi_v1_33 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_33", "serde/std", "serde_json", "std", "chrono"]
-k8s_openapi_v1_34 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_34", "serde/std", "serde_json", "std", "chrono"]
+k8s_openapi_v1_30 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_30", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
+k8s_openapi_v1_31 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_31", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
+k8s_openapi_v1_32 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_32", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
+k8s_openapi_v1_33 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_33", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
+k8s_openapi_v1_34 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_34", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
 kube = ["dep:kube", "optionable_derive/kube"]
 
 [lints.clippy]
@@ -27,7 +27,7 @@ pedantic = "warn"
 [dependencies]
 optionable_derive = { version = "0.2.0", optional = true }
 chrono = { version = "0.4.42", default-features = false, optional = true }
-serde = { version = "1.0.225", default-features = false, optional = true, features = ["derive"] }
+serde = { version = "1.0.225", default-features = false, optional = true }
 serde_json = { version = "1.0.145", default-features = false, optional = true }
 k8s-openapi = { version = "0.26.0", default-features = false, optional = true }
 kube = { version = "2.0.1", default-features = false, optional = true }
@@ -41,5 +41,5 @@ serde_json = { version = "1.0.145", default-features = false, features = ["std"]
 rustdoc-args = ["--cfg", "docsrs"]
 # std needed for serde_json
 # todo: only set serde_json/std here and use all-features=true once chrono has a release that does not use doc_auto_cfg anymore
-features = ["derive", "std", "serde_json", "serde_json/std"]
+features = ["alloc", "derive", "std", "serde_json", "serde_json/std"]
 all-features = false

@@ -33,14 +33,14 @@ jobs:
       - name: Pre-release tests
         run: |-
           cargo +nightly doc --manifest-path=optionable/Cargo.toml --features serde_json/std,serde_json,derive
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features derive,chrono,serde_json
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono,serde_json
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features alloc,derive,chrono,serde_json
           cargo +nightly test --features k8s_openapi_v1_30,kube
           cargo +nightly test --features k8s_openapi_v1_31,kube
           cargo +nightly test --features k8s_openapi_v1_32,kube
           cargo +nightly test --features k8s_openapi_v1_33,kube
           cargo +nightly test --features k8s_openapi_v1_34,kube
-          cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features derive,chrono,serde_json
-          cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono,serde_json
-          cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features alloc,derive,chrono,serde_json
           cargo clippy --features std,derive,chrono,serde_json,k8s_openapi_v1_34,kube
           cargo install --locked cargo-deny
           cargo deny check license
