@@ -6,7 +6,7 @@
 //! would be required where all fields are recursively optional to specify.  While trivial to write for plain structures
 //! this quickly becomes tedious for nested structs/enums.
 //!
-//! Some examples for the usage of this library for type-safe Kubernetes server-side-apply in Rust can be found [here](https://github.com/ngergs/optionable/tree/k8s-openapi/example/k8s-openapi).
+//! Some examples for the usage of this library for type-safe Kubernetes server-side-apply in Rust can be found [here](https://github.com/ngergs/optionable/tree/main/example/k8s-openapi).
 //!
 //! # Deriving optional structs/enums
 //!
