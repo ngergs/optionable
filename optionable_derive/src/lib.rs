@@ -3,11 +3,12 @@
 //!
 //! This is only a separate crate as derive macros have to be a separate crate.
 use proc_macro::TokenStream;
+#[cfg(feature = "kube")]
 use proc_macro2::Span;
+#[cfg(feature = "kube")]
 use quote::quote;
 #[cfg(feature = "kube")]
-use syn::{parse_quote, DeriveInput, ItemStruct, Meta};
-use syn::{Attribute, Item, ItemEnum};
+use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta};
 
 /// Derive macro to derive the `Optionable` trait for structs/enums recursively by generating
 /// a type with all fields recursively replaced with `Option` versions.
@@ -177,6 +178,7 @@ fn try_optionable_kube2(mut input: Item) -> Result<proc_macro2::TokenStream, syn
 }
 
 /// Adds a list of derive attribute to the potentially existing ones.
+#[cfg(feature = "kube")]
 fn add_derive_attributes(attrs: &mut Vec<Attribute>, items: &proc_macro2::TokenStream) {
     let derive_attr = attrs.iter_mut().find(|attr| attr.path().is_ident("derive"));
 
