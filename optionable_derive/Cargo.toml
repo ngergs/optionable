@@ -8,9 +8,9 @@ license = "MIT OR Apache-2.0"
 readme = "README.md"
 
 [features]
-default = []
+default = ["kube"]
 k8s_openapi = ["optionable_codegen/k8s_openapi"]
-kube = ["optionable_codegen/kube"]
+kube = ["optionable_codegen/kube", "dep:proc-macro2", "dep:quote"]
 
 [lints.clippy]
 pedantic = "warn"
@@ -21,3 +21,11 @@ proc-macro = true
 [dependencies]
 optionable_codegen = "0.5.0"
 syn = { version = "2.0.106", default-features = false }
+proc-macro2 = { version = "1.0.103", default-features = false, optional = true }
+quote = { version = "1.0.42", default-features = false, optional = true }
+log = "0.4.28"
+
+[package.metadata.docs.rs]
+# to be able to document feature dependent settings, see https://users.rust-lang.org/t/how-to-document-optional-features-in-api-docs/64577/3
+rustdoc-args = ["--cfg", "docsrs"]
+all-features = true

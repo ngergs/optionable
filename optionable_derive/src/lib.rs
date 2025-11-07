@@ -3,7 +3,11 @@
 //!
 //! This is only a separate crate as derive macros have to be a separate crate.
 use proc_macro::TokenStream;
-use syn::{parse_quote, DeriveInput};
+use proc_macro2::Span;
+use quote::quote;
+#[cfg(feature = "kube")]
+use syn::{parse_quote, DeriveInput, ItemStruct, Meta};
+use syn::{Attribute, Item, ItemEnum};
 
 /// Derive macro to derive the `Optionable` trait for structs/enums recursively by generating
 /// a type with all fields recursively replaced with `Option` versions.
@@ -72,9 +76,123 @@ pub fn derive_optionable(input: TokenStream) -> TokenStream {
     try_derive_optionable(input).unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
 }
 
+/// Internal method for `derive_optionable` to simplify error handling.
+fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> {
+    Ok(optionable_codegen::derive_optionable(syn::parse2(input.into())?, None)?.into())
+}
+
+/// Attribute macro to simplify deriving optioned types for `kube::CustomResource`.
+///
+/// It resolves to (with merge handling for the derive macros):
+/// ```rust,ignore
+/// #[derive(Optionable)]
+/// #[kube(derive = "OptionableKubeCrd")]
+/// #[kube(resource)]
+/// ```
+///
+/// ```rust,ignore
+/// #[derive(Optionable, CustomResource, Clone, Debug, Deserialize, Serialize, JsonSchema)]
+/// #[kube(group = "example.localhost", version = "v1", kind = "MyCrd", namespaced)]
+/// #[optionable_kube_cr]
+/// pub struct MyCrdSpec {
+///     pub msg: String,
+///     pub template: MyCrdSpecTemplate,
+/// }
+/// ```
+#[proc_macro_attribute]
+#[cfg(feature = "kube")]
+pub fn optionable_kube_cr(_attrs: TokenStream, input: TokenStream) -> TokenStream {
+    try_optionable_kube_cr(input).unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
+}
+
+/// Internal method for `optionable_kube_cr` to simplify error handling.
+#[cfg(feature = "kube")]
+fn try_optionable_kube_cr(input: TokenStream) -> Result<TokenStream, syn::Error> {
+    Ok(try_optionable_kube_cr2(syn::parse2(input.into())?)?.into())
+}
+
+/// Internal method for `optionable_kube_cr` to enable testability.
+#[cfg(feature = "kube")]
+fn try_optionable_kube_cr2(mut input: Item) -> Result<proc_macro2::TokenStream, syn::Error> {
+    match &mut input {
+        Item::Enum(ItemEnum { attrs, .. }) | Item::Struct(ItemStruct { attrs, .. }) => {
+            add_derive_attributes(attrs, quote!(Optionable));
+            attrs.push(syn::parse_quote!(#[kube(derive = "OptionableKubeCrd")]));
+            attrs.push(syn::parse_quote!(#[optionable(kube())]));
+        }
+        _ => {
+            return Err(syn::Error::new(
+                Span::call_site(),
+                "Expected enum or struct",
+            ));
+        }
+    }
+    Ok(quote!(#input))
+}
+
+/// Attribute macro to simplify deriving optioned types for `kube::CustomResource` subfields.
+/// It resolves to (with merge handling for the derive macros):
+/// ```rust,ignore
+/// #[derive(Optionable)]
+/// #[kube()]
+/// ```
+///
+/// For the `CustomResource` definition itself `#[optionable_kube_cr]` is the correct attribute macro.
+/// ```rust,ignore
+/// #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
+/// #[optionable_kube]
+/// pub struct MyCrdSpecTemplate {
+///    pub replicas: u32,
+/// }
+
+/// ```
+#[proc_macro_attribute]
+#[cfg(feature = "kube")]
+pub fn optionable_kube(_attrs: TokenStream, input: TokenStream) -> TokenStream {
+    try_optionable_kube(input).unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
+}
+
+/// Internal method for `optionable_kube_cr` to simplify error handling.
+#[cfg(feature = "kube")]
+fn try_optionable_kube(input: TokenStream) -> Result<TokenStream, syn::Error> {
+    Ok(try_optionable_kube2(syn::parse2(input.into())?)?.into())
+}
+
+/// Internal method for `optionable_kube_cr` to enable testability.
+#[cfg(feature = "kube")]
+fn try_optionable_kube2(mut input: Item) -> Result<proc_macro2::TokenStream, syn::Error> {
+    match &mut input {
+        Item::Enum(ItemEnum { attrs, .. }) | Item::Struct(ItemStruct { attrs, .. }) => {
+            add_derive_attributes(attrs, quote!(Optionable));
+            attrs.push(syn::parse_quote!(#[optionable(kube())]));
+        }
+        _ => {
+            return Err(syn::Error::new(
+                Span::call_site(),
+                "Expected enum or struct",
+            ));
+        }
+    }
+    Ok(quote!(#input))
+}
+
+/// Adds a list of derive attribute to the potentially existing ones.
+fn add_derive_attributes(attrs: &mut Vec<Attribute>, items: proc_macro2::TokenStream) {
+    let derive_attr = attrs.iter_mut().find(|attr| attr.path().is_ident("derive"));
+
+    if let Some(derive_attr) = derive_attr
+        && let Meta::List(meta) = &mut derive_attr.meta
+    {
+        let tokens = &meta.tokens;
+        meta.tokens = quote!(#tokens, #items);
+    } else {
+        attrs.push(parse_quote!(#[derive(#items)]));
+    }
+}
+
 /// Specialized derive macro to derive the `Optionable` trait for the root of a derived `kube::CustomResources`.
 /// Should be derived for the `kube::CustomResource` spec which implicitly creates the root type.
-/// Translates to `#[derive(Optionable)]` with the type attribute `#[optionable(kube(resource)]`.
+/// Translates to `#[derive(Optionable)]` with the type attribute `#[optionable(kube(resource))]`.
 ///
 /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
 /// - Sets the `metadata` field as required for the optioned type.
@@ -92,12 +210,14 @@ pub fn derive_optionable(input: TokenStream) -> TokenStream {
 /// }
 /// ```
 #[proc_macro_derive(OptionableKubeCrd)]
+#[cfg(feature = "kube")]
 pub fn derive_optionable_kube_crd(input: TokenStream) -> TokenStream {
     try_derive_optionable_kube_crd(input)
         .unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
 }
 
 /// Internal method for `derive_optionable_kube_crd` to simplify error handling.
+#[cfg(feature = "kube")]
 fn try_derive_optionable_kube_crd(input: TokenStream) -> Result<TokenStream, syn::Error> {
     let mut input: DeriveInput = syn::parse2(input.into())?;
     input
@@ -106,7 +226,85 @@ fn try_derive_optionable_kube_crd(input: TokenStream) -> Result<TokenStream, syn
     Ok(optionable_codegen::derive_optionable(input, None)?.into())
 }
 
-/// Internal method for `derive_optionable` to simplify error handling.
-fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> {
-    Ok(optionable_codegen::derive_optionable(syn::parse2(input.into())?, None)?.into())
+#[cfg(test)]
+#[cfg(feature = "kube")]
+mod test {
+    use quote::quote;
+    use syn::parse2;
+
+    #[test]
+    fn try_optionable_kube_cr_simple() {
+        let simple = crate::try_optionable_kube_cr2(
+            parse2(quote! {
+                struct MyStruct {}
+            })
+            .unwrap(),
+        )
+        .unwrap();
+        let expected = quote! {
+            #[derive(Optionable)]
+            #[kube(derive="OptionableKubeCrd")]
+            #[optionable(kube())]
+            struct MyStruct {}
+        };
+        assert_eq!(simple.to_string(), expected.to_string());
+    }
+
+    #[test]
+    fn try_optionable_kube_cr_merge() {
+        let simple = crate::try_optionable_kube_cr2(
+            parse2(quote! {
+                #[derive(Default)]
+                #[other_attr]
+                struct MyStruct {}
+            })
+            .unwrap(),
+        )
+        .unwrap();
+        let expected = quote! {
+            #[derive(Default,Optionable)]
+            #[other_attr]
+            #[kube(derive="OptionableKubeCrd")]
+            #[optionable(kube())]
+            struct MyStruct {}
+        };
+        assert_eq!(simple.to_string(), expected.to_string());
+    }
+
+    #[test]
+    fn try_optionable_kube_simple() {
+        let simple = crate::try_optionable_kube2(
+            parse2(quote! {
+                struct MyStruct {}
+            })
+            .unwrap(),
+        )
+        .unwrap();
+        let expected = quote! {
+            #[derive(Optionable)]
+            #[optionable(kube())]
+            struct MyStruct {}
+        };
+        assert_eq!(simple.to_string(), expected.to_string());
+    }
+
+    #[test]
+    fn try_optionable_kube_merge() {
+        let simple = crate::try_optionable_kube2(
+            parse2(quote! {
+                #[derive(Default)]
+                #[other_attr]
+                struct MyStruct {}
+            })
+            .unwrap(),
+        )
+        .unwrap();
+        let expected = quote! {
+            #[derive(Default,Optionable)]
+            #[other_attr]
+            #[optionable(kube())]
+            struct MyStruct {}
+        };
+        assert_eq!(simple.to_string(), expected.to_string());
+    }
 }

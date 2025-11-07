@@ -57,7 +57,7 @@ pub(crate) struct TypeHelperAttributes {
     /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
     /// - Takes the `k8s_openapi` serialization replacements into account for its own serialization.
     k8s_openapi: Option<TypeHelperAttributesK8sOpenapi>,
-    /// Adjustments of the derived optioned type for structs that `kube::CustomResourceDefintion` or respective subfields.
+    /// Adjustments of the derived optioned type for structs that `kube::CustomResource` or respective subfields.
     /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
     kube: Option<TypeHelperAttributesKube>,
 }
@@ -78,7 +78,7 @@ pub(crate) struct TypeHelperAttributesK8sOpenapi {
 }
 
 #[derive(FromMeta)]
-/// Adjustments of the derived optioned type for structs that `kube::CustomResourceDefintion` or respective subfields.
+/// Adjustments of the derived optioned type for structs that `kube::CustomResource` or respective subfields.
 /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
 pub(crate) struct TypeHelperAttributesKube {
     /// Adjustments of the derived optioned type for `kube::Resource`-implementations.

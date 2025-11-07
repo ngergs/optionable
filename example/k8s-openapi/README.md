@@ -1,7 +1,12 @@
 # Server side apply example
 
-One main motivation for the `optionable` crate is to support type-safe server-side apply for Kubernetes in Rust. 
-It is possible to express the intend to e.g. only patch the `spec.replica` count of a `Deployment` as:
+One main motivation for the `optionable` crate is to support type-safe server-side apply for Kubernetes in Rust.
+
+## Deployment
+
+For the source code see [src/bin/apply_deployment.rs](src/bin/apply_deployment.rs).
+
+It is possible to express the intent to e.g. only patch the `spec.replica` count of a `Deployment` as:
 ```rust
 let patch = DeploymentAc {
     metadata: ObjectMeta {
@@ -16,12 +21,8 @@ let patch = DeploymentAc {
 };
 ```
 
-## Deployment
-
-For the source code see [src/bin/apply_deployment.rs](src/bin/apply_deployment.rs).
-
-A very simple example for how the `optionable`-`k8s-openapi` types can be used to implement
-Kubernetes server-side-apply.
+The following script deploys an example `Deployment` to the current configured Kubernetes cluster and subsequently uses
+the [rust server-side apply example](src/bin/apply_deployment.rs) to patch the replica count.
 
 ```bash
 # prepare deployment
@@ -49,9 +50,23 @@ The resulting output will be:
 For the source code see [src/lib.rs](src/lib.rs) for the CRD definition and [src/bin/apply_crd.rs][(src/bin/apply_crd.rs) for
 the optioned type example.
 
-Another simple example for how the `optionable` Kubernetes optimized derives can be used to implement
-Kubernetes server-side-apply for CRDs.
+Also here we can express the granular intent to only patch `spec.template.replicas` while preserving type-safety.
+```rust
+let patch = MyCrdAc {
+    metadata: ObjectMeta {
+        name: Some("test".to_owned()),
+        ..Default::default()
+    },
+    spec: Some(MyCrdSpecAc {
+        template: Some(MyCrdSpecTemplateAc { replicas: Some(2) }),
+        ..Default::default()
+    }),
+..Default::default()
+};
+```
 
+The following script deploys the example `CRD` and an example `CR` to the current configured Kubernetes cluster and subsequently uses
+the [rust server-side apply example](src/bin/apply_crd.rs) to patch the `spec.template.replicas` count.
 ```bash
 # setup crd
 cargo run --bin crd | kubectl apply -f -
