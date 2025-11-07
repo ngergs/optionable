@@ -857,7 +857,6 @@ dependencies = [
 name = "optionable_derive"
 version = "0.2.1"
 dependencies = [
- "log",
  "optionable_codegen",
  "proc-macro2",
  "quote",

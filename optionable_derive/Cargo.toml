@@ -23,7 +23,6 @@ optionable_codegen = "0.5.0"
 syn = { version = "2.0.106", default-features = false }
 proc-macro2 = { version = "1.0.103", default-features = false, optional = true }
 quote = { version = "1.0.42", default-features = false, optional = true }
-log = "0.4.28"
 
 [package.metadata.docs.rs]
 # to be able to document feature dependent settings, see https://users.rust-lang.org/t/how-to-document-optional-features-in-api-docs/64577/3
