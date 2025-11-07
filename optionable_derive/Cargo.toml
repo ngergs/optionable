@@ -8,7 +8,7 @@ license = "MIT OR Apache-2.0"
 readme = "README.md"
 
 [features]
-default = ["kube"]
+default = []
 k8s_openapi = ["optionable_codegen/k8s_openapi"]
 kube = ["optionable_codegen/kube", "dep:proc-macro2", "dep:quote"]
 

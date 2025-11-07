@@ -61,15 +61,13 @@ use syn::{Attribute, Item, ItemEnum};
 /// Specialized Kubernetes specific type attributes to help deriving optioned types (in go called `ApplyConfiguration`)
 /// for Kubernetes resources/subfields.
 ///
-/// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
-///
 ///  - **`kube`**: Intended to be placed on types implementing subfields of a kube CRD spec.
+///    Add derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
 /// ```rust,ignore
 /// #[derive(Optionable, Clone, Debug, Deserialize, Serialize, JsonSchema)]
 /// #[optionable(kube())]
 /// pub struct MyCrdSpecTemplate {
 ///    pub replicas: u32,
-/// }
 /// ```
 #[proc_macro_derive(Optionable, attributes(optionable, optionable_attr))]
 pub fn derive_optionable(input: TokenStream) -> TokenStream {
@@ -82,6 +80,7 @@ fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> 
 }
 
 /// Attribute macro to simplify deriving optioned types for `kube::CustomResource`.
+/// Only available with the feature `kube` enabled.
 ///
 /// It resolves to (with merge handling for the derive macros):
 /// ```rust,ignore
@@ -131,6 +130,8 @@ fn try_optionable_kube_cr2(mut input: Item) -> Result<proc_macro2::TokenStream, 
 }
 
 /// Attribute macro to simplify deriving optioned types for `kube::CustomResource` subfields.
+/// Only available with the feature `kube` enabled.
+///
 /// It resolves to (with merge handling for the derive macros):
 /// ```rust,ignore
 /// #[derive(Optionable)]
@@ -144,7 +145,6 @@ fn try_optionable_kube_cr2(mut input: Item) -> Result<proc_macro2::TokenStream, 
 /// pub struct MyCrdSpecTemplate {
 ///    pub replicas: u32,
 /// }
-
 /// ```
 #[proc_macro_attribute]
 #[cfg(feature = "kube")]

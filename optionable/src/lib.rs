@@ -12,7 +12,7 @@
 //! from [k8s-openapi](https://crates.io/crates/k8s-openapi).
 //!
 //! It also provides tooling to derive optioned variants for `kube::CustomResource` implementations via an attribute macro.
-//! For more detailed documentation, see the [examples]([here](https://github.com/ngergs/optionable/tree/main/example/k8s-openapi).
+//! For more detailed documentation, see the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s-openapi).
 //! It e.g. allows to write the patch of just the `spec.replica` of a `Deployment` as:
 //!
 //! ```rust,ignore
