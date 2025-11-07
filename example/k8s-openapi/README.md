@@ -46,7 +46,7 @@ The resulting output will be:
 
 ## CRDs
 
-For the source code see [src/lib.rs](src/lib.rs) for the CRD definition and [src/apply_crd.rs](src/apply_crd.rs) for
+For the source code see [src/lib.rs](src/lib.rs) for the CRD definition and [src/bin/apply_crd.rs][(src/bin/apply_crd.rs) for
 the optioned type example.
 
 Another simple example for how the `optionable` Kubernetes optimized derives can be used to implement
