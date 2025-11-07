@@ -12,22 +12,7 @@
 //! from [k8s-openapi](https://crates.io/crates/k8s-openapi).
 //!
 //! It also provides tooling to derive optioned variants for `kube::CustomResource` implementations via an attribute macro.
-//! For more detailed documentation, see the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
-//! It e.g. allows to write the patch of just the `spec.replica` of a `Deployment` as:
-//!
-//! ```rust,ignore
-//! let patch = DeploymentAc {
-//! metadata: ObjectMeta {
-//! name: Some("test".to_owned()),
-//! ..Default::default()
-//! },
-//! spec: Some(DeploymentSpecAc {
-//! replicas: Some(2),
-//! ..Default::default()
-//! }),
-//! ..Default::default()
-//! };
-//! ```
+//! For detailed documentation, see the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
 //!
 //! # Deriving optional structs/enums
 //!
