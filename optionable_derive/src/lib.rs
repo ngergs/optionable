@@ -115,7 +115,7 @@ fn try_optionable_kube_cr(input: TokenStream) -> Result<TokenStream, syn::Error>
 fn try_optionable_kube_cr2(mut input: Item) -> Result<proc_macro2::TokenStream, syn::Error> {
     match &mut input {
         Item::Enum(ItemEnum { attrs, .. }) | Item::Struct(ItemStruct { attrs, .. }) => {
-            add_derive_attributes(attrs, quote!(Optionable));
+            add_derive_attributes(attrs, &quote!(Optionable));
             attrs.push(syn::parse_quote!(#[kube(derive = "OptionableKubeCrd")]));
             attrs.push(syn::parse_quote!(#[optionable(kube())]));
         }
@@ -163,7 +163,7 @@ fn try_optionable_kube(input: TokenStream) -> Result<TokenStream, syn::Error> {
 fn try_optionable_kube2(mut input: Item) -> Result<proc_macro2::TokenStream, syn::Error> {
     match &mut input {
         Item::Enum(ItemEnum { attrs, .. }) | Item::Struct(ItemStruct { attrs, .. }) => {
-            add_derive_attributes(attrs, quote!(Optionable));
+            add_derive_attributes(attrs, &quote!(Optionable));
             attrs.push(syn::parse_quote!(#[optionable(kube())]));
         }
         _ => {
@@ -177,7 +177,7 @@ fn try_optionable_kube2(mut input: Item) -> Result<proc_macro2::TokenStream, syn
 }
 
 /// Adds a list of derive attribute to the potentially existing ones.
-fn add_derive_attributes(attrs: &mut Vec<Attribute>, items: proc_macro2::TokenStream) {
+fn add_derive_attributes(attrs: &mut Vec<Attribute>, items: &proc_macro2::TokenStream) {
     let derive_attr = attrs.iter_mut().find(|attr| attr.path().is_ident("derive"));
 
     if let Some(derive_attr) = derive_attr
