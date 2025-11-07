@@ -69,6 +69,7 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 /// #[optionable(kube())]
 /// pub struct MyCrdSpecTemplate {
 ///    pub replicas: u32,
+/// }
 /// ```
 #[proc_macro_derive(Optionable, attributes(optionable, optionable_attr))]
 pub fn derive_optionable(input: TokenStream) -> TokenStream {
