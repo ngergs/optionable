@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.4.3...optionable_codegen-v0.5.0) - 2025-11-08
+
+### Added
+
+- Kubernetes server side apply support (see next two items).
+- Generated optioned types for all types from [`k8s-openapi`](https://crates.io/crates/k8s-openapi)
+- Support for deriving optioned types for [`kube`](https://docs.rs/kube/latest/kube/) CustomResources.
+
+### Fixed
+
+- [**breaking**] moved the error type from `optionable::optionable::Error` to `optionable::Error`
+- use DeserializeOwned as generic type bound for optioned Deserialize-derives
+- simplify generated code (use less explicit associated types)
+
+
 ## [0.2.6](https://github.com/ngergs/optionable/compare/optionable-v0.2.5...optionable-v0.2.6) - 2025-10-25
 
 ### Other
