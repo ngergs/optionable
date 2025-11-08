@@ -2,7 +2,8 @@
 //!
 //! The standard usage would be to add the `#[optionable_kube_cr]` to the spec type
 //! used to define the `kube::CustomResource` and the `#[optionable_kube]` attribute macro
-//! to all custom types used as subfields.
+//! to all custom types used as subfields. The `#[optionable_kube_cr]` attribute macro
+//! must be placed prior to any #[derive(...)] statements for the given type.
 //!
 //! For more specialized use cases the documentation of these attribute macros shows to
 //! what they resolve for customization.

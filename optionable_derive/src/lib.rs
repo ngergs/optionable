@@ -82,6 +82,7 @@ fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> 
 }
 
 /// Attribute macro to simplify deriving optioned types for `kube::CustomResource`.
+/// Must be placed prior to any #[derive(...)] statements for the given type.
 ///
 /// It resolves to (with merge handling for the derive macros):
 /// ```rust,ignore
@@ -133,6 +134,7 @@ fn try_optionable_kube_cr2(mut input: Item) -> Result<proc_macro2::TokenStream, 
 
 /// Attribute macro to simplify deriving optioned types for `kube::CustomResource` subfields.
 /// For the `CustomResource` definition itself `#[optionable_kube_cr]` is the correct attribute macro.
+///
 /// It resolves to (with merge handling for the derive macros):
 /// ```rust,ignore
 /// #[derive(Optionable)]
@@ -192,7 +194,7 @@ fn add_derive_attributes(attrs: &mut Vec<Attribute>, items: &proc_macro2::TokenS
     }
 }
 
-/// For most use cases just using the attribute macro `#[optionable_kube_resource]` is likely a better fit.
+/// For most use cases just using the attribute macro `#[optionable_kube_cr]` is likely a better fit.
 ///
 /// Specialized derive macro to derive the `Optionable` trait for the root of a derived `kube::CustomResources`.
 /// Should be derived for the `kube::CustomResource` spec which implicitly creates the root type.
