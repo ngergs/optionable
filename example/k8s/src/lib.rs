@@ -1,8 +1,8 @@
 use kube::CustomResource;
-use optionable::{optionable_kube, optionable_kube_cr, Optionable, OptionableKubeCrd};
+use optionable::kube::{optionable_kube, optionable_kube_cr};
+use optionable::Optionable;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-
 // Example how to use `ApplyConfigurations` with a CRD
 
 // The attribute macros `optionable_kube_cr` and `optionable_kube` append to the derive attribute macros

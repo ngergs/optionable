@@ -3,6 +3,10 @@ use serde::ser::SerializeMap;
 use serde::Serializer;
 use std::marker::PhantomData;
 
+pub use optionable_derive::optionable_kube;
+pub use optionable_derive::optionable_kube_cr;
+pub use optionable_derive::OptionableKubeCrd;
+
 /// Serializes a `PhantomData` marker to add the API envelope fields `apiVersion` and `kind`.
 /// Intended use is together with `#[serde(flatten)]` for the marker field.
 ///
