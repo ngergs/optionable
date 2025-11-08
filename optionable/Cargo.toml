@@ -19,7 +19,7 @@ k8s_openapi_v1_31 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_open
 k8s_openapi_v1_32 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_32", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
 k8s_openapi_v1_33 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_33", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
 k8s_openapi_v1_34 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_34", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
-kube = ["dep:kube", "optionable_derive/kube"]
+kube = ["dep:kube", "dep:serde", "optionable_derive/kube"]
 
 [lints.clippy]
 pedantic = "warn"
@@ -38,8 +38,9 @@ serde_json = { version = "1.0.145", default-features = false, features = ["std"]
 
 [package.metadata.docs.rs]
 # to be able to document feature dependent settings, see https://users.rust-lang.org/t/how-to-document-optional-features-in-api-docs/64577/3
-rustdoc-args = ["--cfg", "docsrs"]
+# disabled till chrono and kube are compatible to it to have `kube` in docs
+# rustdoc-args = ["--cfg", "docsrs"]
 # std needed for serde_json
-# specific k8s_openapi version needed for kubs
-features = ["alloc", "derive", "kube", "std", "serde_json", "serde_json/std", "k8s_openapi/v1_34"]
+# specific k8s_openapi version needed for kube
+features = ["alloc", "derive", "kube", "std", "serde_json", "serde_json/std", "k8s-openapi/v1_34"]
 all-features = false

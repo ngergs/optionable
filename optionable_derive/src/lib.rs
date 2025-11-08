@@ -82,7 +82,6 @@ fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> 
 }
 
 /// Attribute macro to simplify deriving optioned types for `kube::CustomResource`.
-/// Only available with the feature `kube` enabled.
 ///
 /// It resolves to (with merge handling for the derive macros):
 /// ```rust,ignore
@@ -91,6 +90,7 @@ fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> 
 /// #[kube(resource)]
 /// ```
 ///
+/// A usage example would be:
 /// ```rust,ignore
 /// #[derive(Optionable, CustomResource, Clone, Debug, Deserialize, Serialize, JsonSchema)]
 /// #[kube(group = "example.localhost", version = "v1", kind = "MyCrd", namespaced)]
@@ -132,15 +132,14 @@ fn try_optionable_kube_cr2(mut input: Item) -> Result<proc_macro2::TokenStream, 
 }
 
 /// Attribute macro to simplify deriving optioned types for `kube::CustomResource` subfields.
-/// Only available with the feature `kube` enabled.
-///
+/// For the `CustomResource` definition itself `#[optionable_kube_cr]` is the correct attribute macro.
 /// It resolves to (with merge handling for the derive macros):
 /// ```rust,ignore
 /// #[derive(Optionable)]
 /// #[kube()]
 /// ```
 ///
-/// For the `CustomResource` definition itself `#[optionable_kube_cr]` is the correct attribute macro.
+/// A usage example would be:
 /// ```rust,ignore
 /// #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
 /// #[optionable_kube]
@@ -193,6 +192,8 @@ fn add_derive_attributes(attrs: &mut Vec<Attribute>, items: &proc_macro2::TokenS
     }
 }
 
+/// For most use cases just using the attribute macro `#[optionable_kube_resource]` is likely a better fit.
+///
 /// Specialized derive macro to derive the `Optionable` trait for the root of a derived `kube::CustomResources`.
 /// Should be derived for the `kube::CustomResource` spec which implicitly creates the root type.
 /// Translates to `#[derive(Optionable)]` with the type attribute `#[optionable(kube(resource))]`.
