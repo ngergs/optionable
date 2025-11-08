@@ -18,13 +18,13 @@ pedantic = "warn"
 
 [dependencies]
 optionable_codegen = "0.5.0"
-quote = "1.0.40"
-syn = { version = "2.0.106", default-features = false, features = ["proc-macro", "derive", "visit"] }
-proc-macro2 = "1.0.101"
+quote = "1.0.42"
+syn = { version = "2.0.109", default-features = false, features = ["proc-macro", "derive", "visit"] }
+proc-macro2 = "1.0.103"
 darling = { version = "0.21.3", default-features = false }
-clap = { version = "4.5.48", features = ["derive"] }
+clap = { version = "4.5.51", features = ["derive"] }
 prettyplease = "0.2.37"
 
 [dev-dependencies]
-assert_cmd = "2.0.17"
+assert_cmd = "2.1.1"
 tempfile = "3.23.0"

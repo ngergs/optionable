@@ -25,15 +25,15 @@ kube = ["dep:kube", "optionable_derive/kube"]
 pedantic = "warn"
 
 [dependencies]
-optionable_derive = { version = "0.2.0", optional = true }
+optionable_derive = { version = "0.2.1", optional = true }
 chrono = { version = "0.4.42", default-features = false, optional = true }
-serde = { version = "1.0.225", default-features = false, optional = true }
+serde = { version = "1.0.228", default-features = false, optional = true }
 serde_json = { version = "1.0.145", default-features = false, optional = true }
 k8s-openapi = { version = "0.26.0", default-features = false, optional = true }
 kube = { version = "2.0.1", default-features = false, optional = true }
 
 [dev-dependencies]
-serde = { version = "1.0.225", default-features = false, features = ["derive"] }
+serde = { version = "1.0.228", default-features = false, features = ["derive"] }
 serde_json = { version = "1.0.145", default-features = false, features = ["std"] }
 
 [package.metadata.docs.rs]
