@@ -1,6 +1,6 @@
 # Server side apply example
 
-One main motivation for the `optionable` crate is to support type-safe server-side apply for Kubernetes in Rust.
+One main motivation for the `optionable` crate is to support type-safe server-side-apply for Kubernetes in Rust.
 
 ## Deployment
 
@@ -22,7 +22,7 @@ let patch = DeploymentAc {
 ```
 
 The following script deploys an example `Deployment` to the current configured Kubernetes cluster and subsequently uses
-the [rust server-side apply example](src/bin/apply_deployment.rs) to patch the replica count.
+the [rust server-side-apply example](src/bin/apply_deployment.rs) to patch the replica count.
 
 ```bash
 # prepare deployment
@@ -69,7 +69,7 @@ let patch = MyCrdAc {
 ```
 
 The following script deploys the example `CRD` and an example `CR` to the current configured Kubernetes cluster and subsequently uses
-the [rust server-side apply example](src/bin/apply_crd.rs) to patch the `spec.template.replicas` count.
+the [rust server-side-apply example](src/bin/apply_crd.rs) to patch the `spec.template.replicas` count.
 ```bash
 # setup crd
 cargo run --bin crd | kubectl apply -f -
@@ -105,3 +105,7 @@ The resulting output will be:
   manager: kubectl-client-side-apply
   operation: Update
 ```
+
+## Extracting owned fields
+The [src/bin/extract_deployment.rs](src/bin/extract_deployment.rs) and [src/bin/extract_crd.rs](src/bin/extract_crd.rs)
+show how an optioned type just containing the fields owned by the given field manager can be obtained.

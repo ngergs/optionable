@@ -10,21 +10,23 @@ use serde::{Deserialize, Serialize};
 // If you prefer an explicit version of the `Optionable` derive macro configuration: the documentation
 // of the attribute macros shows what they resolve to.
 
+pub const FIELD_MANAGER: &str = "rust-manager";
+
 #[optionable_kube_cr]
 #[derive(CustomResource, Clone, Debug, Deserialize, Serialize, JsonSchema)]
 #[kube(
     group = "example.localhost",
     version = "v1",
-    kind = "MyCrd",
+    kind = "CustomCrd",
     namespaced
 )]
-pub struct MyCrdSpec {
+pub struct CustomCrdSpec {
     pub msg: String,
-    pub template: MyCrdSpecTemplate,
+    pub template: CustomCrdSpecTemplate,
 }
 
 #[optionable_kube]
 #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
-pub struct MyCrdSpecTemplate {
+pub struct CustomCrdSpecTemplate {
     pub replicas: u32,
 }

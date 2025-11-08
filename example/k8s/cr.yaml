@@ -1,5 +1,5 @@
 apiVersion: example.localhost/v1
-kind: MyCrd
+kind: CustomCrd
 metadata:
   name: test
 spec:

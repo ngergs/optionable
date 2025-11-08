@@ -12,7 +12,7 @@ While trivial to write for plain structures this quickly becomes tedious for nes
 - [crates.io](https://crates.io/crates/optionable)
 - [rust documentation](https://docs.rs/optionable/)
 
-## Kubernetes server-side apply
+## Kubernetes server-side-apply
 Examples for the usage of this library for type-safe Kubernetes server-side-apply in Rust can be found [here](https://github.com/ngergs/optionable/tree/main/example/k8s).
 
 The library allows to use server-side-apply with built-in Kubernetes types by providing optioned variants for all types

@@ -1,0 +1,13 @@
+use kube::{Api, Client};
+use optionable::kube::extract;
+use optionable_k8s_openapi_example::{CustomCrd, FIELD_MANAGER};
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let client: Client = Client::try_default().await?;
+    let my_crd_api: Api<CustomCrd> = Api::default_namespaced(client);
+    let my_cr = my_crd_api.get("test").await?;
+    let my_cr_owned_fields = extract(my_cr, FIELD_MANAGER)?;
+    println!("{my_cr_owned_fields:#?}");
+    Ok(())
+}
