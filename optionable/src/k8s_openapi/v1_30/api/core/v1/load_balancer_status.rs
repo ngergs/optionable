@@ -28,17 +28,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LoadBalancerStat
             ingress: crate::OptionableConvert::into_optioned(self.ingress),
         }
     }
-    fn try_from_optioned(
-        value: LoadBalancerStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LoadBalancerStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             ingress: crate::OptionableConvert::try_from_optioned(value.ingress)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: LoadBalancerStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LoadBalancerStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.ingress, other.ingress)?;
         Ok(())
     }

@@ -31,19 +31,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IPBlock {
             except: crate::OptionableConvert::into_optioned(self.except),
         }
     }
-    fn try_from_optioned(value: IPBlockAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: IPBlockAc) -> Result<Self, crate::Error> {
         Ok(Self {
             cidr: crate::OptionableConvert::try_from_optioned(
                 value
                     .cidr
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "cidr",
                     })?,
             )?,
             except: crate::OptionableConvert::try_from_optioned(value.except)?,
         })
     }
-    fn merge(&mut self, other: IPBlockAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: IPBlockAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.cidr {
             crate::OptionableConvert::merge(&mut self.cidr, other_value)?;
         }

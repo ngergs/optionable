@@ -32,15 +32,12 @@ for ::k8s_openapi::api::resource::v1beta2::DeviceClassConfiguration {
     }
     fn try_from_optioned(
         value: DeviceClassConfigurationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             opaque: crate::OptionableConvert::try_from_optioned(value.opaque)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceClassConfigurationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceClassConfigurationAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.opaque, other.opaque)?;
         Ok(())
     }

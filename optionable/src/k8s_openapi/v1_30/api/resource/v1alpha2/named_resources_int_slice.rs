@@ -28,23 +28,18 @@ for ::k8s_openapi::api::resource::v1alpha2::NamedResourcesIntSlice {
             ints: Some(crate::OptionableConvert::into_optioned(self.ints)),
         }
     }
-    fn try_from_optioned(
-        value: NamedResourcesIntSliceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NamedResourcesIntSliceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             ints: crate::OptionableConvert::try_from_optioned(
                 value
                     .ints
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "ints",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NamedResourcesIntSliceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NamedResourcesIntSliceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.ints {
             crate::OptionableConvert::merge(&mut self.ints, other_value)?;
         }

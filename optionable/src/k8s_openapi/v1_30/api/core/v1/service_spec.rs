@@ -132,9 +132,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceSpec {
             type_: crate::OptionableConvert::into_optioned(self.type_),
         }
     }
-    fn try_from_optioned(
-        value: ServiceSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ServiceSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allocate_load_balancer_node_ports: crate::OptionableConvert::try_from_optioned(
                 value.allocate_load_balancer_node_ports,
@@ -186,7 +184,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceSpec {
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(&mut self, other: ServiceSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServiceSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.allocate_load_balancer_node_ports,
             other.allocate_load_balancer_node_ports,

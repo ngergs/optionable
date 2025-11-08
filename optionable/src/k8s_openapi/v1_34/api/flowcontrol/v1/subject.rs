@@ -43,13 +43,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::Subject {
             user: crate::OptionableConvert::into_optioned(self.user),
         }
     }
-    fn try_from_optioned(value: SubjectAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SubjectAc) -> Result<Self, crate::Error> {
         Ok(Self {
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
             kind: crate::OptionableConvert::try_from_optioned(
                 value
                     .kind
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kind",
                     })?,
             )?,
@@ -59,7 +59,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::Subject {
             user: crate::OptionableConvert::try_from_optioned(value.user)?,
         })
     }
-    fn merge(&mut self, other: SubjectAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SubjectAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.group, other.group)?;
         if let Some(other_value) = other.kind {
             crate::OptionableConvert::merge(&mut self.kind, other_value)?;

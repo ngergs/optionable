@@ -26,18 +26,16 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SleepAction {
             seconds: Some(self.seconds),
         }
     }
-    fn try_from_optioned(
-        value: SleepActionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SleepActionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             seconds: value
                 .seconds
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "seconds",
                 })?,
         })
     }
-    fn merge(&mut self, other: SleepActionAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SleepActionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.seconds {
             self.seconds = other_value;
         }

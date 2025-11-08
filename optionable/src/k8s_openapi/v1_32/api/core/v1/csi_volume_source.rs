@@ -46,14 +46,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CSIVolumeSource 
             ),
         }
     }
-    fn try_from_optioned(
-        value: CSIVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CSIVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             driver: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "driver",
                     })?,
             )?,
@@ -67,10 +65,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CSIVolumeSource 
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CSIVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CSIVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.driver {
             crate::OptionableConvert::merge(&mut self.driver, other_value)?;
         }

@@ -38,9 +38,7 @@ for ::k8s_openapi::api::storage::v1::VolumeAttachmentSource {
             ),
         }
     }
-    fn try_from_optioned(
-        value: VolumeAttachmentSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: VolumeAttachmentSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             inline_volume_spec: crate::OptionableConvert::try_from_optioned(
                 value.inline_volume_spec,
@@ -50,10 +48,7 @@ for ::k8s_openapi::api::storage::v1::VolumeAttachmentSource {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: VolumeAttachmentSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeAttachmentSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.inline_volume_spec,
             other.inline_volume_spec,

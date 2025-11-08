@@ -45,12 +45,12 @@ for ::k8s_openapi::api::core::v1::FlexPersistentVolumeSource {
     }
     fn try_from_optioned(
         value: FlexPersistentVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             driver: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "driver",
                     })?,
             )?,
@@ -63,7 +63,7 @@ for ::k8s_openapi::api::core::v1::FlexPersistentVolumeSource {
     fn merge(
         &mut self,
         other: FlexPersistentVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.driver {
             crate::OptionableConvert::merge(&mut self.driver, other_value)?;
         }

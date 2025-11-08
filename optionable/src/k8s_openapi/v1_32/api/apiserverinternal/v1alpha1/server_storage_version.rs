@@ -47,9 +47,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion {
             ),
         }
     }
-    fn try_from_optioned(
-        value: ServerStorageVersionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ServerStorageVersionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_server_id: crate::OptionableConvert::try_from_optioned(
                 value.api_server_id,
@@ -65,10 +63,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ServerStorageVersionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServerStorageVersionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_server_id, other.api_server_id)?;
         crate::OptionableConvert::merge(
             &mut self.decodable_versions,

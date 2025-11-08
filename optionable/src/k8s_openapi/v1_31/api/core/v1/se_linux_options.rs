@@ -36,9 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SELinuxOptions {
             user: crate::OptionableConvert::into_optioned(self.user),
         }
     }
-    fn try_from_optioned(
-        value: SELinuxOptionsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SELinuxOptionsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             level: crate::OptionableConvert::try_from_optioned(value.level)?,
             role: crate::OptionableConvert::try_from_optioned(value.role)?,
@@ -46,10 +44,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SELinuxOptions {
             user: crate::OptionableConvert::try_from_optioned(value.user)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SELinuxOptionsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SELinuxOptionsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.level, other.level)?;
         crate::OptionableConvert::merge(&mut self.role, other.role)?;
         crate::OptionableConvert::merge(&mut self.type_, other.type_)?;

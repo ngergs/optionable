@@ -41,37 +41,32 @@ for ::k8s_openapi::api::autoscaling::v2::ObjectMetricStatus {
             metric: Some(crate::OptionableConvert::into_optioned(self.metric)),
         }
     }
-    fn try_from_optioned(
-        value: ObjectMetricStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ObjectMetricStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             current: crate::OptionableConvert::try_from_optioned(
                 value
                     .current
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "current",
                     })?,
             )?,
             described_object: crate::OptionableConvert::try_from_optioned(
                 value
                     .described_object
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "described_object",
                     })?,
             )?,
             metric: crate::OptionableConvert::try_from_optioned(
                 value
                     .metric
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "metric",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ObjectMetricStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ObjectMetricStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.current {
             crate::OptionableConvert::merge(&mut self.current, other_value)?;
         }

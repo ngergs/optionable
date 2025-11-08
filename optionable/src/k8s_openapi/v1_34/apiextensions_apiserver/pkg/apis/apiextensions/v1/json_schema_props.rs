@@ -250,9 +250,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
             ),
         }
     }
-    fn try_from_optioned(
-        value: JSONSchemaPropsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: JSONSchemaPropsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             ref_path: crate::OptionableConvert::try_from_optioned(value.ref_path)?,
             schema: crate::OptionableConvert::try_from_optioned(value.schema)?,
@@ -334,10 +332,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: JSONSchemaPropsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: JSONSchemaPropsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.ref_path, other.ref_path)?;
         crate::OptionableConvert::merge(&mut self.schema, other.schema)?;
         crate::OptionableConvert::merge(

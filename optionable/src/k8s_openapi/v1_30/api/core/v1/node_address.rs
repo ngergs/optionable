@@ -30,27 +30,25 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAddress {
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(
-        value: NodeAddressAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeAddressAc) -> Result<Self, crate::Error> {
         Ok(Self {
             address: crate::OptionableConvert::try_from_optioned(
                 value
                     .address
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "address",
                     })?,
             )?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: NodeAddressAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeAddressAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.address {
             crate::OptionableConvert::merge(&mut self.address, other_value)?;
         }

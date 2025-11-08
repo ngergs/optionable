@@ -62,7 +62,7 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestSpec {
     }
     fn try_from_optioned(
         value: CertificateSigningRequestSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             expiration_seconds: crate::OptionableConvert::try_from_optioned(
                 value.expiration_seconds,
@@ -72,14 +72,14 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestSpec {
             request: crate::OptionableConvert::try_from_optioned(
                 value
                     .request
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "request",
                     })?,
             )?,
             signer_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .signer_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "signer_name",
                     })?,
             )?,
@@ -91,7 +91,7 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestSpec {
     fn merge(
         &mut self,
         other: CertificateSigningRequestSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.expiration_seconds,
             other.expiration_seconds,

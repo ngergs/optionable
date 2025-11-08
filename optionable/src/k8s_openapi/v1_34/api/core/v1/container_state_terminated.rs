@@ -51,14 +51,14 @@ for ::k8s_openapi::api::core::v1::ContainerStateTerminated {
     }
     fn try_from_optioned(
         value: ContainerStateTerminatedAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             container_id: crate::OptionableConvert::try_from_optioned(
                 value.container_id,
             )?,
             exit_code: value
                 .exit_code
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "exit_code",
                 })?,
             finished_at: crate::OptionableConvert::try_from_optioned(value.finished_at)?,
@@ -68,10 +68,7 @@ for ::k8s_openapi::api::core::v1::ContainerStateTerminated {
             started_at: crate::OptionableConvert::try_from_optioned(value.started_at)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ContainerStateTerminatedAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ContainerStateTerminatedAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.container_id, other.container_id)?;
         if let Some(other_value) = other.exit_code {
             self.exit_code = other_value;

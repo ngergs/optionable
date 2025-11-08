@@ -37,22 +37,19 @@ for ::k8s_openapi::api::resource::v1beta2::ResourceClaimTemplateSpec {
     }
     fn try_from_optioned(
         value: ResourceClaimTemplateSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: crate::OptionableConvert::try_from_optioned(value.metadata)?,
             spec: crate::OptionableConvert::try_from_optioned(
                 value
                     .spec
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "spec",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceClaimTemplateSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceClaimTemplateSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.metadata, other.metadata)?;
         if let Some(other_value) = other.spec {
             crate::OptionableConvert::merge(&mut self.spec, other_value)?;

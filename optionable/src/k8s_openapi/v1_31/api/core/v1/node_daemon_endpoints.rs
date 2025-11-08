@@ -30,19 +30,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeDaemonEndpoi
             ),
         }
     }
-    fn try_from_optioned(
-        value: NodeDaemonEndpointsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeDaemonEndpointsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             kubelet_endpoint: crate::OptionableConvert::try_from_optioned(
                 value.kubelet_endpoint,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NodeDaemonEndpointsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeDaemonEndpointsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.kubelet_endpoint,
             other.kubelet_endpoint,

@@ -45,9 +45,7 @@ for ::k8s_openapi::api::authorization::v1::ResourceAttributes {
             version: crate::OptionableConvert::into_optioned(self.version),
         }
     }
-    fn try_from_optioned(
-        value: ResourceAttributesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceAttributesAc) -> Result<Self, crate::Error> {
         Ok(Self {
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
@@ -58,10 +56,7 @@ for ::k8s_openapi::api::authorization::v1::ResourceAttributes {
             version: crate::OptionableConvert::try_from_optioned(value.version)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceAttributesAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceAttributesAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.group, other.group)?;
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;

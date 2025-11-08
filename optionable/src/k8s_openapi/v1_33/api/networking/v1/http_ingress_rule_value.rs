@@ -31,23 +31,18 @@ for ::k8s_openapi::api::networking::v1::HTTPIngressRuleValue {
             paths: Some(crate::OptionableConvert::into_optioned(self.paths)),
         }
     }
-    fn try_from_optioned(
-        value: HTTPIngressRuleValueAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: HTTPIngressRuleValueAc) -> Result<Self, crate::Error> {
         Ok(Self {
             paths: crate::OptionableConvert::try_from_optioned(
                 value
                     .paths
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "paths",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: HTTPIngressRuleValueAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: HTTPIngressRuleValueAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.paths {
             crate::OptionableConvert::merge(&mut self.paths, other_value)?;
         }

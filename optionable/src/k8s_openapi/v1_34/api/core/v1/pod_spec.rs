@@ -229,7 +229,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSpec {
             volumes: crate::OptionableConvert::into_optioned(self.volumes),
         }
     }
-    fn try_from_optioned(value: PodSpecAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PodSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             active_deadline_seconds: crate::OptionableConvert::try_from_optioned(
                 value.active_deadline_seconds,
@@ -241,7 +241,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSpec {
             containers: crate::OptionableConvert::try_from_optioned(
                 value
                     .containers
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "containers",
                     })?,
             )?,
@@ -330,7 +330,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSpec {
             volumes: crate::OptionableConvert::try_from_optioned(value.volumes)?,
         })
     }
-    fn merge(&mut self, other: PodSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.active_deadline_seconds,
             other.active_deadline_seconds,

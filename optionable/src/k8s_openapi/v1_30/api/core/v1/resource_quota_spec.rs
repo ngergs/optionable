@@ -41,9 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceQuotaSpe
             scopes: crate::OptionableConvert::into_optioned(self.scopes),
         }
     }
-    fn try_from_optioned(
-        value: ResourceQuotaSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceQuotaSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hard: crate::OptionableConvert::try_from_optioned(value.hard)?,
             scope_selector: crate::OptionableConvert::try_from_optioned(
@@ -52,10 +50,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceQuotaSpe
             scopes: crate::OptionableConvert::try_from_optioned(value.scopes)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceQuotaSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceQuotaSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hard, other.hard)?;
         crate::OptionableConvert::merge(&mut self.scope_selector, other.scope_selector)?;
         crate::OptionableConvert::merge(&mut self.scopes, other.scopes)?;

@@ -50,9 +50,7 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::FlowSchemaSpec {
             rules: crate::OptionableConvert::into_optioned(self.rules),
         }
     }
-    fn try_from_optioned(
-        value: FlowSchemaSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: FlowSchemaSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             distinguisher_method: crate::OptionableConvert::try_from_optioned(
                 value.distinguisher_method,
@@ -63,17 +61,14 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::FlowSchemaSpec {
             priority_level_configuration: crate::OptionableConvert::try_from_optioned(
                 value
                     .priority_level_configuration
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "priority_level_configuration",
                     })?,
             )?,
             rules: crate::OptionableConvert::try_from_optioned(value.rules)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: FlowSchemaSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: FlowSchemaSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.distinguisher_method,
             other.distinguisher_method,

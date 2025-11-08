@@ -49,9 +49,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetStatus
             replicas: Some(self.replicas),
         }
     }
-    fn try_from_optioned(
-        value: ReplicaSetStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ReplicaSetStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             available_replicas: crate::OptionableConvert::try_from_optioned(
                 value.available_replicas,
@@ -68,15 +66,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetStatus
             )?,
             replicas: value
                 .replicas
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "replicas",
                 })?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ReplicaSetStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ReplicaSetStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.available_replicas,
             other.available_replicas,

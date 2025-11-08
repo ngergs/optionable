@@ -32,15 +32,12 @@ for ::k8s_openapi::api::authentication::v1beta1::SelfSubjectReviewStatus {
     }
     fn try_from_optioned(
         value: SelfSubjectReviewStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             user_info: crate::OptionableConvert::try_from_optioned(value.user_info)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SelfSubjectReviewStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SelfSubjectReviewStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.user_info, other.user_info)?;
         Ok(())
     }

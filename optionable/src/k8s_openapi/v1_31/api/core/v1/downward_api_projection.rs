@@ -28,17 +28,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DownwardAPIProje
             items: crate::OptionableConvert::into_optioned(self.items),
         }
     }
-    fn try_from_optioned(
-        value: DownwardAPIProjectionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DownwardAPIProjectionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             items: crate::OptionableConvert::try_from_optioned(value.items)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DownwardAPIProjectionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DownwardAPIProjectionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.items, other.items)?;
         Ok(())
     }

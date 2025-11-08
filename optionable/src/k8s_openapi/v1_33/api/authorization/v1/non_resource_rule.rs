@@ -37,9 +37,7 @@ for ::k8s_openapi::api::authorization::v1::NonResourceRule {
             verbs: Some(crate::OptionableConvert::into_optioned(self.verbs)),
         }
     }
-    fn try_from_optioned(
-        value: NonResourceRuleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NonResourceRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             non_resource_urls: crate::OptionableConvert::try_from_optioned(
                 value.non_resource_urls,
@@ -47,16 +45,13 @@ for ::k8s_openapi::api::authorization::v1::NonResourceRule {
             verbs: crate::OptionableConvert::try_from_optioned(
                 value
                     .verbs
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "verbs",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NonResourceRuleAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NonResourceRuleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.non_resource_urls,
             other.non_resource_urls,

@@ -103,7 +103,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::events::v1::Event {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: EventAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EventAc) -> Result<Self, crate::Error> {
         Ok(Self {
             action: crate::OptionableConvert::try_from_optioned(value.action)?,
             deprecated_count: crate::OptionableConvert::try_from_optioned(
@@ -134,7 +134,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::events::v1::Event {
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(&mut self, other: EventAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EventAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.action, other.action)?;
         crate::OptionableConvert::merge(
             &mut self.deprecated_count,

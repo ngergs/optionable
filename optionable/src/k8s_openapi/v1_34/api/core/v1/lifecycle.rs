@@ -36,14 +36,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Lifecycle {
             stop_signal: crate::OptionableConvert::into_optioned(self.stop_signal),
         }
     }
-    fn try_from_optioned(value: LifecycleAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LifecycleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             post_start: crate::OptionableConvert::try_from_optioned(value.post_start)?,
             pre_stop: crate::OptionableConvert::try_from_optioned(value.pre_stop)?,
             stop_signal: crate::OptionableConvert::try_from_optioned(value.stop_signal)?,
         })
     }
-    fn merge(&mut self, other: LifecycleAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LifecycleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.post_start, other.post_start)?;
         crate::OptionableConvert::merge(&mut self.pre_stop, other.pre_stop)?;
         crate::OptionableConvert::merge(&mut self.stop_signal, other.stop_signal)?;

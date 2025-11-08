@@ -53,9 +53,7 @@ for ::k8s_openapi::api::coordination::v1alpha1::LeaseCandidateSpec {
             renew_time: crate::OptionableConvert::into_optioned(self.renew_time),
         }
     }
-    fn try_from_optioned(
-        value: LeaseCandidateSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LeaseCandidateSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             binary_version: crate::OptionableConvert::try_from_optioned(
                 value.binary_version,
@@ -66,7 +64,7 @@ for ::k8s_openapi::api::coordination::v1alpha1::LeaseCandidateSpec {
             lease_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .lease_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "lease_name",
                     })?,
             )?,
@@ -74,17 +72,14 @@ for ::k8s_openapi::api::coordination::v1alpha1::LeaseCandidateSpec {
             preferred_strategies: crate::OptionableConvert::try_from_optioned(
                 value
                     .preferred_strategies
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "preferred_strategies",
                     })?,
             )?,
             renew_time: crate::OptionableConvert::try_from_optioned(value.renew_time)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: LeaseCandidateSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LeaseCandidateSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.binary_version, other.binary_version)?;
         crate::OptionableConvert::merge(
             &mut self.emulation_version,

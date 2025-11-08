@@ -36,19 +36,14 @@ for ::k8s_openapi::api::admissionregistration::v1::WebhookClientConfig {
             url: crate::OptionableConvert::into_optioned(self.url),
         }
     }
-    fn try_from_optioned(
-        value: WebhookClientConfigAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: WebhookClientConfigAc) -> Result<Self, crate::Error> {
         Ok(Self {
             ca_bundle: crate::OptionableConvert::try_from_optioned(value.ca_bundle)?,
             service: crate::OptionableConvert::try_from_optioned(value.service)?,
             url: crate::OptionableConvert::try_from_optioned(value.url)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: WebhookClientConfigAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: WebhookClientConfigAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
         crate::OptionableConvert::merge(&mut self.service, other.service)?;
         crate::OptionableConvert::merge(&mut self.url, other.url)?;

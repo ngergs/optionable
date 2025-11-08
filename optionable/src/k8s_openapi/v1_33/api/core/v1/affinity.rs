@@ -40,7 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Affinity {
             ),
         }
     }
-    fn try_from_optioned(value: AffinityAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: AffinityAc) -> Result<Self, crate::Error> {
         Ok(Self {
             node_affinity: crate::OptionableConvert::try_from_optioned(
                 value.node_affinity,
@@ -53,7 +53,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Affinity {
             )?,
         })
     }
-    fn merge(&mut self, other: AffinityAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: AffinityAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.node_affinity, other.node_affinity)?;
         crate::OptionableConvert::merge(&mut self.pod_affinity, other.pod_affinity)?;
         crate::OptionableConvert::merge(

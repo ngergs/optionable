@@ -39,9 +39,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector {
             match_labels: crate::OptionableConvert::into_optioned(self.match_labels),
         }
     }
-    fn try_from_optioned(
-        value: LabelSelectorAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LabelSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             match_expressions: crate::OptionableConvert::try_from_optioned(
                 value.match_expressions,
@@ -51,7 +49,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector {
             )?,
         })
     }
-    fn merge(&mut self, other: LabelSelectorAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LabelSelectorAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.match_expressions,
             other.match_expressions,

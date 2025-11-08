@@ -45,9 +45,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition {
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(
-        value: MigrationConditionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: MigrationConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             last_update_time: crate::OptionableConvert::try_from_optioned(
                 value.last_update_time,
@@ -57,23 +55,20 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition {
             status: crate::OptionableConvert::try_from_optioned(
                 value
                     .status
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "status",
                     })?,
             )?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: MigrationConditionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: MigrationConditionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_update_time,
             other.last_update_time,

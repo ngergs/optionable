@@ -34,16 +34,14 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusCause {
             reason: crate::OptionableConvert::into_optioned(self.reason),
         }
     }
-    fn try_from_optioned(
-        value: StatusCauseAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: StatusCauseAc) -> Result<Self, crate::Error> {
         Ok(Self {
             field: crate::OptionableConvert::try_from_optioned(value.field)?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
         })
     }
-    fn merge(&mut self, other: StatusCauseAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StatusCauseAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.field, other.field)?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;
         crate::OptionableConvert::merge(&mut self.reason, other.reason)?;

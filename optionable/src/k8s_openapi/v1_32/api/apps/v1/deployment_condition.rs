@@ -50,9 +50,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentCondit
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(
-        value: DeploymentConditionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeploymentConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value.last_transition_time,
@@ -65,23 +63,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentCondit
             status: crate::OptionableConvert::try_from_optioned(
                 value
                     .status
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "status",
                     })?,
             )?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeploymentConditionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeploymentConditionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,
             other.last_transition_time,

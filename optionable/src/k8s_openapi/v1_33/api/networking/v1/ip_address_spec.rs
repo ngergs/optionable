@@ -28,20 +28,18 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IPAddressS
             parent_ref: Some(crate::OptionableConvert::into_optioned(self.parent_ref)),
         }
     }
-    fn try_from_optioned(
-        value: IPAddressSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: IPAddressSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             parent_ref: crate::OptionableConvert::try_from_optioned(
                 value
                     .parent_ref
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "parent_ref",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: IPAddressSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: IPAddressSpecAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.parent_ref {
             crate::OptionableConvert::merge(&mut self.parent_ref, other_value)?;
         }

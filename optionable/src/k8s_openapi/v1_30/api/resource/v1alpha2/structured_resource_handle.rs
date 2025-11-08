@@ -51,13 +51,13 @@ for ::k8s_openapi::api::resource::v1alpha2::StructuredResourceHandle {
     }
     fn try_from_optioned(
         value: StructuredResourceHandleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             node_name: crate::OptionableConvert::try_from_optioned(value.node_name)?,
             results: crate::OptionableConvert::try_from_optioned(
                 value
                     .results
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "results",
                     })?,
             )?,
@@ -69,10 +69,7 @@ for ::k8s_openapi::api::resource::v1alpha2::StructuredResourceHandle {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: StructuredResourceHandleAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StructuredResourceHandleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.node_name, other.node_name)?;
         if let Some(other_value) = other.results {
             crate::OptionableConvert::merge(&mut self.results, other_value)?;

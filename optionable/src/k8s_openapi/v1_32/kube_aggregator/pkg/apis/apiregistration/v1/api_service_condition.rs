@@ -45,9 +45,7 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCo
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(
-        value: APIServiceConditionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: APIServiceConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value.last_transition_time,
@@ -57,23 +55,20 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCo
             status: crate::OptionableConvert::try_from_optioned(
                 value
                     .status
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "status",
                     })?,
             )?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: APIServiceConditionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: APIServiceConditionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,
             other.last_transition_time,

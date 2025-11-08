@@ -50,15 +50,13 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSp
             version_priority: Some(self.version_priority),
         }
     }
-    fn try_from_optioned(
-        value: APIServiceSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: APIServiceSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             ca_bundle: crate::OptionableConvert::try_from_optioned(value.ca_bundle)?,
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
             group_priority_minimum: value
                 .group_priority_minimum
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "group_priority_minimum",
                 })?,
             insecure_skip_tls_verify: crate::OptionableConvert::try_from_optioned(
@@ -68,15 +66,12 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSp
             version: crate::OptionableConvert::try_from_optioned(value.version)?,
             version_priority: value
                 .version_priority
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "version_priority",
                 })?,
         })
     }
-    fn merge(
-        &mut self,
-        other: APIServiceSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: APIServiceSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
         crate::OptionableConvert::merge(&mut self.group, other.group)?;
         if let Some(other_value) = other.group_priority_minimum {

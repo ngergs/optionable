@@ -33,9 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::SuccessPolicyRu
             ),
         }
     }
-    fn try_from_optioned(
-        value: SuccessPolicyRuleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SuccessPolicyRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             succeeded_count: crate::OptionableConvert::try_from_optioned(
                 value.succeeded_count,
@@ -45,10 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::SuccessPolicyRu
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SuccessPolicyRuleAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SuccessPolicyRuleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.succeeded_count,
             other.succeeded_count,

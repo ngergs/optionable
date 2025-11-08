@@ -30,15 +30,11 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn try_from_optioned(
         value: CustomResourceSubresourceStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(
             Self(
                 crate::OptionableConvert::try_from_optioned(
-                    value
-                        .0
-                        .ok_or(crate::optionable::Error {
-                            missing_field: "0",
-                        })?,
+                    value.0.ok_or(crate::Error { missing_field: "0" })?,
                 )?,
             ),
         )
@@ -46,7 +42,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     fn merge(
         &mut self,
         other: CustomResourceSubresourceStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.0 {
             crate::OptionableConvert::merge(&mut self.0, other_value)?;
         }

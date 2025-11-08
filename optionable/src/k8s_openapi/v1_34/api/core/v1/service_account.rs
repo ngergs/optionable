@@ -49,9 +49,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: ServiceAccountAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ServiceAccountAc) -> Result<Self, crate::Error> {
         Ok(Self {
             automount_service_account_token: crate::OptionableConvert::try_from_optioned(
                 value.automount_service_account_token,
@@ -63,10 +61,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
             secrets: crate::OptionableConvert::try_from_optioned(value.secrets)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ServiceAccountAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServiceAccountAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.automount_service_account_token,
             other.automount_service_account_token,

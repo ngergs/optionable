@@ -48,7 +48,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::coordination::v1::LeaseSpe
             renew_time: crate::OptionableConvert::into_optioned(self.renew_time),
         }
     }
-    fn try_from_optioned(value: LeaseSpecAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LeaseSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             acquire_time: crate::OptionableConvert::try_from_optioned(
                 value.acquire_time,
@@ -65,7 +65,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::coordination::v1::LeaseSpe
             renew_time: crate::OptionableConvert::try_from_optioned(value.renew_time)?,
         })
     }
-    fn merge(&mut self, other: LeaseSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LeaseSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.acquire_time, other.acquire_time)?;
         crate::OptionableConvert::merge(
             &mut self.holder_identity,

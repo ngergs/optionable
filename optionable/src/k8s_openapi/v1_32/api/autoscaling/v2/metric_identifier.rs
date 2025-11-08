@@ -31,24 +31,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricIde
             selector: crate::OptionableConvert::into_optioned(self.selector),
         }
     }
-    fn try_from_optioned(
-        value: MetricIdentifierAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: MetricIdentifierAc) -> Result<Self, crate::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: MetricIdentifierAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: MetricIdentifierAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }

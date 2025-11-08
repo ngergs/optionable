@@ -32,19 +32,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointCon
             terminating: crate::OptionableConvert::into_optioned(self.terminating),
         }
     }
-    fn try_from_optioned(
-        value: EndpointConditionsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EndpointConditionsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             ready: crate::OptionableConvert::try_from_optioned(value.ready)?,
             serving: crate::OptionableConvert::try_from_optioned(value.serving)?,
             terminating: crate::OptionableConvert::try_from_optioned(value.terminating)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: EndpointConditionsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EndpointConditionsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.ready, other.ready)?;
         crate::OptionableConvert::merge(&mut self.serving, other.serving)?;
         crate::OptionableConvert::merge(&mut self.terminating, other.terminating)?;

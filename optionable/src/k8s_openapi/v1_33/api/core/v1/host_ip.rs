@@ -26,18 +26,18 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HostIP {
             ip: Some(crate::OptionableConvert::into_optioned(self.ip)),
         }
     }
-    fn try_from_optioned(value: HostIPAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: HostIPAc) -> Result<Self, crate::Error> {
         Ok(Self {
             ip: crate::OptionableConvert::try_from_optioned(
                 value
                     .ip
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "ip",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: HostIPAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: HostIPAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.ip {
             crate::OptionableConvert::merge(&mut self.ip, other_value)?;
         }

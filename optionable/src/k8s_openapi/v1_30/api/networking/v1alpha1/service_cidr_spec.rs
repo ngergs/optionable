@@ -29,17 +29,12 @@ for ::k8s_openapi::api::networking::v1alpha1::ServiceCIDRSpec {
             cidrs: crate::OptionableConvert::into_optioned(self.cidrs),
         }
     }
-    fn try_from_optioned(
-        value: ServiceCIDRSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ServiceCIDRSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             cidrs: crate::OptionableConvert::try_from_optioned(value.cidrs)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ServiceCIDRSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServiceCIDRSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.cidrs, other.cidrs)?;
         Ok(())
     }

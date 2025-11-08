@@ -66,7 +66,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicySpec
     }
     fn try_from_optioned(
         value: ValidatingAdmissionPolicySpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             audit_annotations: crate::OptionableConvert::try_from_optioned(
                 value.audit_annotations,
@@ -88,7 +88,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicySpec
     fn merge(
         &mut self,
         other: ValidatingAdmissionPolicySpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.audit_annotations,
             other.audit_annotations,

@@ -38,18 +38,13 @@ for ::k8s_openapi::api::coordination::v1beta1::LeaseCandidate {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: LeaseCandidateAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LeaseCandidateAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: LeaseCandidateAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LeaseCandidateAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         Ok(())

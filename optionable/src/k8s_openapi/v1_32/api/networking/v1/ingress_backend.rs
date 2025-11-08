@@ -33,18 +33,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressBac
             service: crate::OptionableConvert::into_optioned(self.service),
         }
     }
-    fn try_from_optioned(
-        value: IngressBackendAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: IngressBackendAc) -> Result<Self, crate::Error> {
         Ok(Self {
             resource: crate::OptionableConvert::try_from_optioned(value.resource)?,
             service: crate::OptionableConvert::try_from_optioned(value.service)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: IngressBackendAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: IngressBackendAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
         crate::OptionableConvert::merge(&mut self.service, other.service)?;
         Ok(())

@@ -41,14 +41,14 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::PriorityLevelConfigurationSpec {
     }
     fn try_from_optioned(
         value: PriorityLevelConfigurationSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             exempt: crate::OptionableConvert::try_from_optioned(value.exempt)?,
             limited: crate::OptionableConvert::try_from_optioned(value.limited)?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
@@ -57,7 +57,7 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::PriorityLevelConfigurationSpec {
     fn merge(
         &mut self,
         other: PriorityLevelConfigurationSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.exempt, other.exempt)?;
         crate::OptionableConvert::merge(&mut self.limited, other.limited)?;
         if let Some(other_value) = other.type_ {

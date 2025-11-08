@@ -32,9 +32,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SeccompProfile {
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(
-        value: SeccompProfileAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SeccompProfileAc) -> Result<Self, crate::Error> {
         Ok(Self {
             localhost_profile: crate::OptionableConvert::try_from_optioned(
                 value.localhost_profile,
@@ -42,16 +40,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SeccompProfile {
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SeccompProfileAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SeccompProfileAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.localhost_profile,
             other.localhost_profile,

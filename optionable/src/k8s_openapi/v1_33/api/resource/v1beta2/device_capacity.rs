@@ -28,23 +28,18 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::DeviceC
             value: Some(crate::OptionableConvert::into_optioned(self.value)),
         }
     }
-    fn try_from_optioned(
-        value: DeviceCapacityAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceCapacityAc) -> Result<Self, crate::Error> {
         Ok(Self {
             value: crate::OptionableConvert::try_from_optioned(
                 value
                     .value
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "value",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceCapacityAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceCapacityAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.value {
             crate::OptionableConvert::merge(&mut self.value, other_value)?;
         }

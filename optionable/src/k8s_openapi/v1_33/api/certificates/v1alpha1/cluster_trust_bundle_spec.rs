@@ -33,24 +33,19 @@ for ::k8s_openapi::api::certificates::v1alpha1::ClusterTrustBundleSpec {
             ),
         }
     }
-    fn try_from_optioned(
-        value: ClusterTrustBundleSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ClusterTrustBundleSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             signer_name: crate::OptionableConvert::try_from_optioned(value.signer_name)?,
             trust_bundle: crate::OptionableConvert::try_from_optioned(
                 value
                     .trust_bundle
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "trust_bundle",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ClusterTrustBundleSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ClusterTrustBundleSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.signer_name, other.signer_name)?;
         if let Some(other_value) = other.trust_bundle {
             crate::OptionableConvert::merge(&mut self.trust_bundle, other_value)?;

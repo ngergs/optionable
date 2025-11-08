@@ -39,22 +39,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSINodeDriver
             topology_keys: crate::OptionableConvert::into_optioned(self.topology_keys),
         }
     }
-    fn try_from_optioned(
-        value: CSINodeDriverAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CSINodeDriverAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allocatable: crate::OptionableConvert::try_from_optioned(value.allocatable)?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             node_id: crate::OptionableConvert::try_from_optioned(
                 value
                     .node_id
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "node_id",
                     })?,
             )?,
@@ -63,7 +61,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSINodeDriver
             )?,
         })
     }
-    fn merge(&mut self, other: CSINodeDriverAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CSINodeDriverAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.allocatable, other.allocatable)?;
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;

@@ -32,25 +32,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::GitRepoVolumeSou
             revision: crate::OptionableConvert::into_optioned(self.revision),
         }
     }
-    fn try_from_optioned(
-        value: GitRepoVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: GitRepoVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             directory: crate::OptionableConvert::try_from_optioned(value.directory)?,
             repository: crate::OptionableConvert::try_from_optioned(
                 value
                     .repository
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "repository",
                     })?,
             )?,
             revision: crate::OptionableConvert::try_from_optioned(value.revision)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: GitRepoVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: GitRepoVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.directory, other.directory)?;
         if let Some(other_value) = other.repository {
             crate::OptionableConvert::merge(&mut self.repository, other_value)?;

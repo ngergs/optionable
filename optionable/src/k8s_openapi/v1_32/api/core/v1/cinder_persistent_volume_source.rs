@@ -40,7 +40,7 @@ for ::k8s_openapi::api::core::v1::CinderPersistentVolumeSource {
     }
     fn try_from_optioned(
         value: CinderPersistentVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
@@ -48,7 +48,7 @@ for ::k8s_openapi::api::core::v1::CinderPersistentVolumeSource {
             volume_id: crate::OptionableConvert::try_from_optioned(
                 value
                     .volume_id
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "volume_id",
                     })?,
             )?,
@@ -57,7 +57,7 @@ for ::k8s_openapi::api::core::v1::CinderPersistentVolumeSource {
     fn merge(
         &mut self,
         other: CinderPersistentVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;

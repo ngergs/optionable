@@ -68,9 +68,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ISCSIVolumeSourc
             ),
         }
     }
-    fn try_from_optioned(
-        value: ISCSIVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ISCSIVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             chap_auth_discovery: crate::OptionableConvert::try_from_optioned(
                 value.chap_auth_discovery,
@@ -85,7 +83,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ISCSIVolumeSourc
             iqn: crate::OptionableConvert::try_from_optioned(
                 value
                     .iqn
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "iqn",
                     })?,
             )?,
@@ -94,7 +92,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ISCSIVolumeSourc
             )?,
             lun: value
                 .lun
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "lun",
                 })?,
             portals: crate::OptionableConvert::try_from_optioned(value.portals)?,
@@ -103,16 +101,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ISCSIVolumeSourc
             target_portal: crate::OptionableConvert::try_from_optioned(
                 value
                     .target_portal
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "target_portal",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ISCSIVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ISCSIVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.chap_auth_discovery,
             other.chap_auth_discovery,

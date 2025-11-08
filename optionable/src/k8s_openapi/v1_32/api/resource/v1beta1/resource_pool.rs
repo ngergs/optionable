@@ -32,30 +32,28 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::Resourc
             resource_slice_count: Some(self.resource_slice_count),
         }
     }
-    fn try_from_optioned(
-        value: ResourcePoolAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourcePoolAc) -> Result<Self, crate::Error> {
         Ok(Self {
             generation: value
                 .generation
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "generation",
                 })?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             resource_slice_count: value
                 .resource_slice_count
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "resource_slice_count",
                 })?,
         })
     }
-    fn merge(&mut self, other: ResourcePoolAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourcePoolAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.generation {
             self.generation = other_value;
         }

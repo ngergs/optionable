@@ -31,24 +31,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TCPSocketAction 
             port: Some(crate::OptionableConvert::into_optioned(self.port)),
         }
     }
-    fn try_from_optioned(
-        value: TCPSocketActionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TCPSocketActionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             host: crate::OptionableConvert::try_from_optioned(value.host)?,
             port: crate::OptionableConvert::try_from_optioned(
                 value
                     .port
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "port",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: TCPSocketActionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TCPSocketActionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.host, other.host)?;
         if let Some(other_value) = other.port {
             crate::OptionableConvert::merge(&mut self.port, other_value)?;

@@ -39,18 +39,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceQuotaSta
             used: crate::OptionableConvert::into_optioned(self.used),
         }
     }
-    fn try_from_optioned(
-        value: ResourceQuotaStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceQuotaStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hard: crate::OptionableConvert::try_from_optioned(value.hard)?,
             used: crate::OptionableConvert::try_from_optioned(value.used)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceQuotaStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceQuotaStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hard, other.hard)?;
         crate::OptionableConvert::merge(&mut self.used, other.used)?;
         Ok(())

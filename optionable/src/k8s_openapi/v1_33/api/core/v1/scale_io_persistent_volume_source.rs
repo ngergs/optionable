@@ -60,13 +60,13 @@ for ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource {
     }
     fn try_from_optioned(
         value: ScaleIOPersistentVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             gateway: crate::OptionableConvert::try_from_optioned(
                 value
                     .gateway
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "gateway",
                     })?,
             )?,
@@ -77,7 +77,7 @@ for ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource {
             secret_ref: crate::OptionableConvert::try_from_optioned(
                 value
                     .secret_ref
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "secret_ref",
                     })?,
             )?,
@@ -91,7 +91,7 @@ for ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource {
             system: crate::OptionableConvert::try_from_optioned(
                 value
                     .system
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "system",
                     })?,
             )?,
@@ -101,7 +101,7 @@ for ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource {
     fn merge(
         &mut self,
         other: ScaleIOPersistentVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         if let Some(other_value) = other.gateway {
             crate::OptionableConvert::merge(&mut self.gateway, other_value)?;

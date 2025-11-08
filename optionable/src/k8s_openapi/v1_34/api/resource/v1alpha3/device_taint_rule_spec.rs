@@ -36,9 +36,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRuleSpec {
             taint: Some(crate::OptionableConvert::into_optioned(self.taint)),
         }
     }
-    fn try_from_optioned(
-        value: DeviceTaintRuleSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceTaintRuleSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             device_selector: crate::OptionableConvert::try_from_optioned(
                 value.device_selector,
@@ -46,16 +44,13 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintRuleSpec {
             taint: crate::OptionableConvert::try_from_optioned(
                 value
                     .taint
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "taint",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceTaintRuleSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceTaintRuleSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.device_selector,
             other.device_selector,

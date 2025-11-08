@@ -33,30 +33,25 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerResizeP
             ),
         }
     }
-    fn try_from_optioned(
-        value: ContainerResizePolicyAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ContainerResizePolicyAc) -> Result<Self, crate::Error> {
         Ok(Self {
             resource_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "resource_name",
                     })?,
             )?,
             restart_policy: crate::OptionableConvert::try_from_optioned(
                 value
                     .restart_policy
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "restart_policy",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ContainerResizePolicyAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ContainerResizePolicyAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.resource_name {
             crate::OptionableConvert::merge(&mut self.resource_name, other_value)?;
         }

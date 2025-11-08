@@ -49,7 +49,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Secret {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: SecretAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SecretAc) -> Result<Self, crate::Error> {
         Ok(Self {
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
             immutable: crate::OptionableConvert::try_from_optioned(value.immutable)?,
@@ -58,7 +58,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Secret {
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(&mut self, other: SecretAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SecretAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
         crate::OptionableConvert::merge(&mut self.immutable, other.immutable)?;
         self.metadata = other.metadata;

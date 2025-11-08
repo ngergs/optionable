@@ -31,18 +31,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressCla
             parameters: crate::OptionableConvert::into_optioned(self.parameters),
         }
     }
-    fn try_from_optioned(
-        value: IngressClassSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: IngressClassSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             controller: crate::OptionableConvert::try_from_optioned(value.controller)?,
             parameters: crate::OptionableConvert::try_from_optioned(value.parameters)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: IngressClassSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: IngressClassSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.controller, other.controller)?;
         crate::OptionableConvert::merge(&mut self.parameters, other.parameters)?;
         Ok(())

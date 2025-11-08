@@ -89,9 +89,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSecurityConte
             ),
         }
     }
-    fn try_from_optioned(
-        value: PodSecurityContextAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PodSecurityContextAc) -> Result<Self, crate::Error> {
         Ok(Self {
             app_armor_profile: crate::OptionableConvert::try_from_optioned(
                 value.app_armor_profile,
@@ -125,10 +123,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSecurityConte
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PodSecurityContextAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodSecurityContextAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.app_armor_profile,
             other.app_armor_profile,

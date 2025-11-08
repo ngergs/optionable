@@ -39,9 +39,7 @@ for ::k8s_openapi::api::autoscaling::v2::MetricValueStatus {
             value: crate::OptionableConvert::into_optioned(self.value),
         }
     }
-    fn try_from_optioned(
-        value: MetricValueStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: MetricValueStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             average_utilization: crate::OptionableConvert::try_from_optioned(
                 value.average_utilization,
@@ -52,10 +50,7 @@ for ::k8s_openapi::api::autoscaling::v2::MetricValueStatus {
             value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: MetricValueStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: MetricValueStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.average_utilization,
             other.average_utilization,

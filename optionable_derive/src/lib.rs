@@ -118,7 +118,7 @@ fn try_optionable_kube_cr2(mut input: Item) -> Result<proc_macro2::TokenStream, 
     match &mut input {
         Item::Enum(ItemEnum { attrs, .. }) | Item::Struct(ItemStruct { attrs, .. }) => {
             add_derive_attributes(attrs, &quote!(Optionable));
-            attrs.push(syn::parse_quote!(#[kube(derive = "OptionableKubeCrd")]));
+            attrs.push(syn::parse_quote!(#[kube(derive = "optionable::kube::OptionableKubeCrd")]));
             attrs.push(syn::parse_quote!(#[optionable(kube())]));
         }
         _ => {
@@ -247,7 +247,7 @@ mod test {
         .unwrap();
         let expected = quote! {
             #[derive(Optionable)]
-            #[kube(derive="OptionableKubeCrd")]
+            #[kube(derive="optionable::kube::OptionableKubeCrd")]
             #[optionable(kube())]
             struct MyStruct {}
         };
@@ -268,7 +268,7 @@ mod test {
         let expected = quote! {
             #[derive(Default,Optionable)]
             #[other_attr]
-            #[kube(derive="OptionableKubeCrd")]
+            #[kube(derive="optionable::kube::OptionableKubeCrd")]
             #[optionable(kube())]
             struct MyStruct {}
         };

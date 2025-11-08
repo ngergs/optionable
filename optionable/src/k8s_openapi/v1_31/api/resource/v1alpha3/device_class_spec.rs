@@ -39,9 +39,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceClassSpec {
             suitable_nodes: crate::OptionableConvert::into_optioned(self.suitable_nodes),
         }
     }
-    fn try_from_optioned(
-        value: DeviceClassSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceClassSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             config: crate::OptionableConvert::try_from_optioned(value.config)?,
             selectors: crate::OptionableConvert::try_from_optioned(value.selectors)?,
@@ -50,10 +48,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceClassSpec {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceClassSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceClassSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.config, other.config)?;
         crate::OptionableConvert::merge(&mut self.selectors, other.selectors)?;
         crate::OptionableConvert::merge(&mut self.suitable_nodes, other.suitable_nodes)?;

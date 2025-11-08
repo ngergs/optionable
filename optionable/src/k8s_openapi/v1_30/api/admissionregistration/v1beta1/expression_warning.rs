@@ -31,30 +31,25 @@ for ::k8s_openapi::api::admissionregistration::v1beta1::ExpressionWarning {
             warning: Some(crate::OptionableConvert::into_optioned(self.warning)),
         }
     }
-    fn try_from_optioned(
-        value: ExpressionWarningAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ExpressionWarningAc) -> Result<Self, crate::Error> {
         Ok(Self {
             field_ref: crate::OptionableConvert::try_from_optioned(
                 value
                     .field_ref
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "field_ref",
                     })?,
             )?,
             warning: crate::OptionableConvert::try_from_optioned(
                 value
                     .warning
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "warning",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ExpressionWarningAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ExpressionWarningAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.field_ref {
             crate::OptionableConvert::merge(&mut self.field_ref, other_value)?;
         }

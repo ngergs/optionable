@@ -44,43 +44,34 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Patch {
             }
         }
     }
-    fn try_from_optioned(other: PatchAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(other: PatchAc) -> Result<Self, crate::Error> {
         Ok(
             match other {
                 PatchAc::Json(other_0) => {
                     Self::Json(
                         crate::OptionableConvert::try_from_optioned(
-                            other_0
-                                .ok_or(crate::optionable::Error {
-                                    missing_field: "0",
-                                })?,
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
                         )?,
                     )
                 }
                 PatchAc::Merge(other_0) => {
                     Self::Merge(
                         crate::OptionableConvert::try_from_optioned(
-                            other_0
-                                .ok_or(crate::optionable::Error {
-                                    missing_field: "0",
-                                })?,
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
                         )?,
                     )
                 }
                 PatchAc::StrategicMerge(other_0) => {
                     Self::StrategicMerge(
                         crate::OptionableConvert::try_from_optioned(
-                            other_0
-                                .ok_or(crate::optionable::Error {
-                                    missing_field: "0",
-                                })?,
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
                         )?,
                     )
                 }
             },
         )
     }
-    fn merge(&mut self, other: PatchAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PatchAc) -> Result<(), crate::Error> {
         match other {
             PatchAc::Json(other_0) => {
                 if let Self::Json(self_0) = self {

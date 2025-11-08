@@ -48,9 +48,7 @@ for ::k8s_openapi::api::admissionregistration::v1::RuleWithOperations {
             scope: crate::OptionableConvert::into_optioned(self.scope),
         }
     }
-    fn try_from_optioned(
-        value: RuleWithOperationsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: RuleWithOperationsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_groups: crate::OptionableConvert::try_from_optioned(value.api_groups)?,
             api_versions: crate::OptionableConvert::try_from_optioned(
@@ -61,10 +59,7 @@ for ::k8s_openapi::api::admissionregistration::v1::RuleWithOperations {
             scope: crate::OptionableConvert::try_from_optioned(value.scope)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: RuleWithOperationsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: RuleWithOperationsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_groups, other.api_groups)?;
         crate::OptionableConvert::merge(&mut self.api_versions, other.api_versions)?;
         crate::OptionableConvert::merge(&mut self.operations, other.operations)?;

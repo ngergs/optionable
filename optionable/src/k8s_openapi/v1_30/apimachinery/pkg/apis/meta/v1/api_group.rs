@@ -58,12 +58,12 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: APIGroupAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: APIGroupAc) -> Result<Self, crate::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -76,13 +76,13 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup {
             versions: crate::OptionableConvert::try_from_optioned(
                 value
                     .versions
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "versions",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: APIGroupAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: APIGroupAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }

@@ -37,7 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::Eviction {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: EvictionAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EvictionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             delete_options: crate::OptionableConvert::try_from_optioned(
                 value.delete_options,
@@ -45,7 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::Eviction {
             metadata: value.metadata,
         })
     }
-    fn merge(&mut self, other: EvictionAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EvictionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.delete_options, other.delete_options)?;
         self.metadata = other.metadata;
         Ok(())

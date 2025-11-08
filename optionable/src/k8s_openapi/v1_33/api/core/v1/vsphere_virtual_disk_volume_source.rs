@@ -44,7 +44,7 @@ for ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource {
     }
     fn try_from_optioned(
         value: VsphereVirtualDiskVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             storage_policy_id: crate::OptionableConvert::try_from_optioned(
@@ -56,7 +56,7 @@ for ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource {
             volume_path: crate::OptionableConvert::try_from_optioned(
                 value
                     .volume_path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "volume_path",
                     })?,
             )?,
@@ -65,7 +65,7 @@ for ::k8s_openapi::api::core::v1::VsphereVirtualDiskVolumeSource {
     fn merge(
         &mut self,
         other: VsphereVirtualDiskVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(
             &mut self.storage_policy_id,

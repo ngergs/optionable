@@ -29,18 +29,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ImageVolumeSourc
             reference: crate::OptionableConvert::into_optioned(self.reference),
         }
     }
-    fn try_from_optioned(
-        value: ImageVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ImageVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             pull_policy: crate::OptionableConvert::try_from_optioned(value.pull_policy)?,
             reference: crate::OptionableConvert::try_from_optioned(value.reference)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ImageVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ImageVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.pull_policy, other.pull_policy)?;
         crate::OptionableConvert::merge(&mut self.reference, other.reference)?;
         Ok(())

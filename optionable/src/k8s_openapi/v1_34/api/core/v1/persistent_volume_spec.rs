@@ -191,9 +191,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
             vsphere_volume: crate::OptionableConvert::into_optioned(self.vsphere_volume),
         }
     }
-    fn try_from_optioned(
-        value: PersistentVolumeSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PersistentVolumeSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             access_modes: crate::OptionableConvert::try_from_optioned(
                 value.access_modes,
@@ -250,10 +248,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PersistentVolumeSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PersistentVolumeSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.access_modes, other.access_modes)?;
         crate::OptionableConvert::merge(
             &mut self.aws_elastic_block_store,

@@ -35,28 +35,25 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR 
     }
     fn try_from_optioned(
         value: ServerAddressByClientCIDRAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             client_cidr: crate::OptionableConvert::try_from_optioned(
                 value
                     .client_cidr
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "client_cidr",
                     })?,
             )?,
             server_address: crate::OptionableConvert::try_from_optioned(
                 value
                     .server_address
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "server_address",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ServerAddressByClientCIDRAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServerAddressByClientCIDRAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.client_cidr {
             crate::OptionableConvert::merge(&mut self.client_cidr, other_value)?;
         }

@@ -47,7 +47,7 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::LimitedPriorityLevelConfiguration 
     }
     fn try_from_optioned(
         value: LimitedPriorityLevelConfigurationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             borrowing_limit_percent: crate::OptionableConvert::try_from_optioned(
                 value.borrowing_limit_percent,
@@ -66,7 +66,7 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::LimitedPriorityLevelConfiguration 
     fn merge(
         &mut self,
         other: LimitedPriorityLevelConfigurationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.borrowing_limit_percent,
             other.borrowing_limit_percent,

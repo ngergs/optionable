@@ -41,7 +41,7 @@ for ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReviewSpec {
     }
     fn try_from_optioned(
         value: SelfSubjectAccessReviewSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             non_resource_attributes: crate::OptionableConvert::try_from_optioned(
                 value.non_resource_attributes,
@@ -54,7 +54,7 @@ for ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReviewSpec {
     fn merge(
         &mut self,
         other: SelfSubjectAccessReviewSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.non_resource_attributes,
             other.non_resource_attributes,

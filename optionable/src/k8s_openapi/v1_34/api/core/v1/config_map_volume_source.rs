@@ -37,9 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapVolumeS
             optional: crate::OptionableConvert::into_optioned(self.optional),
         }
     }
-    fn try_from_optioned(
-        value: ConfigMapVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ConfigMapVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             default_mode: crate::OptionableConvert::try_from_optioned(
                 value.default_mode,
@@ -48,17 +46,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapVolumeS
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             optional: crate::OptionableConvert::try_from_optioned(value.optional)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ConfigMapVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ConfigMapVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.default_mode, other.default_mode)?;
         crate::OptionableConvert::merge(&mut self.items, other.items)?;
         if let Some(other_value) = other.name {

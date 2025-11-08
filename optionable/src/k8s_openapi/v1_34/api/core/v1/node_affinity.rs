@@ -37,9 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAffinity {
             ),
         }
     }
-    fn try_from_optioned(
-        value: NodeAffinityAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeAffinityAc) -> Result<Self, crate::Error> {
         Ok(Self {
             preferred_during_scheduling_ignored_during_execution: crate::OptionableConvert::try_from_optioned(
                 value.preferred_during_scheduling_ignored_during_execution,
@@ -49,7 +47,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAffinity {
             )?,
         })
     }
-    fn merge(&mut self, other: NodeAffinityAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeAffinityAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.preferred_during_scheduling_ignored_during_execution,
             other.preferred_during_scheduling_ignored_during_execution,

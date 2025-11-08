@@ -34,16 +34,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeError {
             time: crate::OptionableConvert::into_optioned(self.time),
         }
     }
-    fn try_from_optioned(
-        value: VolumeErrorAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: VolumeErrorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             error_code: crate::OptionableConvert::try_from_optioned(value.error_code)?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             time: crate::OptionableConvert::try_from_optioned(value.time)?,
         })
     }
-    fn merge(&mut self, other: VolumeErrorAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeErrorAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.error_code, other.error_code)?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;
         crate::OptionableConvert::merge(&mut self.time, other.time)?;

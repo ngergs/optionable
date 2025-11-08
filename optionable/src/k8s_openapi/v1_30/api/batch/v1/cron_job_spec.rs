@@ -59,9 +59,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJobSpec {
             time_zone: crate::OptionableConvert::into_optioned(self.time_zone),
         }
     }
-    fn try_from_optioned(
-        value: CronJobSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CronJobSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             concurrency_policy: crate::OptionableConvert::try_from_optioned(
                 value.concurrency_policy,
@@ -72,14 +70,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJobSpec {
             job_template: crate::OptionableConvert::try_from_optioned(
                 value
                     .job_template
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "job_template",
                     })?,
             )?,
             schedule: crate::OptionableConvert::try_from_optioned(
                 value
                     .schedule
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "schedule",
                     })?,
             )?,
@@ -93,7 +91,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJobSpec {
             time_zone: crate::OptionableConvert::try_from_optioned(value.time_zone)?,
         })
     }
-    fn merge(&mut self, other: CronJobSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CronJobSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.concurrency_policy,
             other.concurrency_policy,

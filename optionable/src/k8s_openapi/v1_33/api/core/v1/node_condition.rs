@@ -50,9 +50,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeCondition {
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(
-        value: NodeConditionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             last_heartbeat_time: crate::OptionableConvert::try_from_optioned(
                 value.last_heartbeat_time,
@@ -65,20 +63,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeCondition {
             status: crate::OptionableConvert::try_from_optioned(
                 value
                     .status
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "status",
                     })?,
             )?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: NodeConditionAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeConditionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_heartbeat_time,
             other.last_heartbeat_time,

@@ -40,9 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPol
             pod_selector: crate::OptionableConvert::into_optioned(self.pod_selector),
         }
     }
-    fn try_from_optioned(
-        value: NetworkPolicyPeerAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NetworkPolicyPeerAc) -> Result<Self, crate::Error> {
         Ok(Self {
             ip_block: crate::OptionableConvert::try_from_optioned(value.ip_block)?,
             namespace_selector: crate::OptionableConvert::try_from_optioned(
@@ -53,10 +51,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPol
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NetworkPolicyPeerAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NetworkPolicyPeerAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.ip_block, other.ip_block)?;
         crate::OptionableConvert::merge(
             &mut self.namespace_selector,

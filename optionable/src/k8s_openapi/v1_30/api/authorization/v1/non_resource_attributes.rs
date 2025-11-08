@@ -30,18 +30,13 @@ for ::k8s_openapi::api::authorization::v1::NonResourceAttributes {
             verb: crate::OptionableConvert::into_optioned(self.verb),
         }
     }
-    fn try_from_optioned(
-        value: NonResourceAttributesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NonResourceAttributesAc) -> Result<Self, crate::Error> {
         Ok(Self {
             path: crate::OptionableConvert::try_from_optioned(value.path)?,
             verb: crate::OptionableConvert::try_from_optioned(value.verb)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NonResourceAttributesAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NonResourceAttributesAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.path, other.path)?;
         crate::OptionableConvert::merge(&mut self.verb, other.verb)?;
         Ok(())

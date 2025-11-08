@@ -34,13 +34,11 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LinuxContainerUs
             uid: Some(self.uid),
         }
     }
-    fn try_from_optioned(
-        value: LinuxContainerUserAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LinuxContainerUserAc) -> Result<Self, crate::Error> {
         Ok(Self {
             gid: value
                 .gid
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "gid",
                 })?,
             supplemental_groups: crate::OptionableConvert::try_from_optioned(
@@ -48,15 +46,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LinuxContainerUs
             )?,
             uid: value
                 .uid
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "uid",
                 })?,
         })
     }
-    fn merge(
-        &mut self,
-        other: LinuxContainerUserAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LinuxContainerUserAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.gid {
             self.gid = other_value;
         }

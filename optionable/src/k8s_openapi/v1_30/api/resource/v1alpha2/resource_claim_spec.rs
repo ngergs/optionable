@@ -41,9 +41,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceClaimSpec {
             ),
         }
     }
-    fn try_from_optioned(
-        value: ResourceClaimSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceClaimSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allocation_mode: crate::OptionableConvert::try_from_optioned(
                 value.allocation_mode,
@@ -54,16 +52,13 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceClaimSpec {
             resource_class_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource_class_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "resource_class_name",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceClaimSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceClaimSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.allocation_mode,
             other.allocation_mode,

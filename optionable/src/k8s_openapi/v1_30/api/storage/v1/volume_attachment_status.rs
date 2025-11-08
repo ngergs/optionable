@@ -44,16 +44,14 @@ for ::k8s_openapi::api::storage::v1::VolumeAttachmentStatus {
             detach_error: crate::OptionableConvert::into_optioned(self.detach_error),
         }
     }
-    fn try_from_optioned(
-        value: VolumeAttachmentStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: VolumeAttachmentStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             attach_error: crate::OptionableConvert::try_from_optioned(
                 value.attach_error,
             )?,
             attached: value
                 .attached
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "attached",
                 })?,
             attachment_metadata: crate::OptionableConvert::try_from_optioned(
@@ -64,10 +62,7 @@ for ::k8s_openapi::api::storage::v1::VolumeAttachmentStatus {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: VolumeAttachmentStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeAttachmentStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.attach_error, other.attach_error)?;
         if let Some(other_value) = other.attached {
             self.attached = other_value;

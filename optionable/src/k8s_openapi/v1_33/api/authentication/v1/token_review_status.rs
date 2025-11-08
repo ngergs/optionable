@@ -40,9 +40,7 @@ for ::k8s_openapi::api::authentication::v1::TokenReviewStatus {
             user: crate::OptionableConvert::into_optioned(self.user),
         }
     }
-    fn try_from_optioned(
-        value: TokenReviewStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TokenReviewStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             audiences: crate::OptionableConvert::try_from_optioned(value.audiences)?,
             authenticated: crate::OptionableConvert::try_from_optioned(
@@ -52,10 +50,7 @@ for ::k8s_openapi::api::authentication::v1::TokenReviewStatus {
             user: crate::OptionableConvert::try_from_optioned(value.user)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: TokenReviewStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TokenReviewStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.audiences, other.audiences)?;
         crate::OptionableConvert::merge(&mut self.authenticated, other.authenticated)?;
         crate::OptionableConvert::merge(&mut self.error, other.error)?;

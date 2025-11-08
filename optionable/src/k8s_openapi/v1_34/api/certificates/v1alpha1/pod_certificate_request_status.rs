@@ -54,7 +54,7 @@ for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus {
     }
     fn try_from_optioned(
         value: PodCertificateRequestStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             begin_refresh_at: crate::OptionableConvert::try_from_optioned(
                 value.begin_refresh_at,
@@ -70,7 +70,7 @@ for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus {
     fn merge(
         &mut self,
         other: PodCertificateRequestStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.begin_refresh_at,
             other.begin_refresh_at,

@@ -46,17 +46,14 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigration {
     }
     fn try_from_optioned(
         value: StorageVersionMigrationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: StorageVersionMigrationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StorageVersionMigrationAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;

@@ -34,28 +34,25 @@ for ::k8s_openapi::api::resource::v1::OpaqueDeviceConfiguration {
     }
     fn try_from_optioned(
         value: OpaqueDeviceConfigurationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             driver: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "driver",
                     })?,
             )?,
             parameters: crate::OptionableConvert::try_from_optioned(
                 value
                     .parameters
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "parameters",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: OpaqueDeviceConfigurationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: OpaqueDeviceConfigurationAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.driver {
             crate::OptionableConvert::merge(&mut self.driver, other_value)?;
         }

@@ -29,25 +29,25 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Sysctl {
             value: Some(crate::OptionableConvert::into_optioned(self.value)),
         }
     }
-    fn try_from_optioned(value: SysctlAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SysctlAc) -> Result<Self, crate::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             value: crate::OptionableConvert::try_from_optioned(
                 value
                     .value
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "value",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: SysctlAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SysctlAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }

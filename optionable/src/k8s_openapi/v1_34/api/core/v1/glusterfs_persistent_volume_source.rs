@@ -43,12 +43,12 @@ for ::k8s_openapi::api::core::v1::GlusterfsPersistentVolumeSource {
     }
     fn try_from_optioned(
         value: GlusterfsPersistentVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             endpoints: crate::OptionableConvert::try_from_optioned(
                 value
                     .endpoints
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "endpoints",
                     })?,
             )?,
@@ -58,7 +58,7 @@ for ::k8s_openapi::api::core::v1::GlusterfsPersistentVolumeSource {
             path: crate::OptionableConvert::try_from_optioned(
                 value
                     .path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "path",
                     })?,
             )?,
@@ -68,7 +68,7 @@ for ::k8s_openapi::api::core::v1::GlusterfsPersistentVolumeSource {
     fn merge(
         &mut self,
         other: GlusterfsPersistentVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.endpoints {
             crate::OptionableConvert::merge(&mut self.endpoints, other_value)?;
         }

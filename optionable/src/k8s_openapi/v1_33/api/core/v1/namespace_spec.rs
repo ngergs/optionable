@@ -28,14 +28,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceSpec {
             finalizers: crate::OptionableConvert::into_optioned(self.finalizers),
         }
     }
-    fn try_from_optioned(
-        value: NamespaceSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NamespaceSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             finalizers: crate::OptionableConvert::try_from_optioned(value.finalizers)?,
         })
     }
-    fn merge(&mut self, other: NamespaceSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NamespaceSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.finalizers, other.finalizers)?;
         Ok(())
     }

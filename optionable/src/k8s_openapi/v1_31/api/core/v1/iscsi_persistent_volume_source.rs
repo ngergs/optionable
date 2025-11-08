@@ -71,7 +71,7 @@ for ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource {
     }
     fn try_from_optioned(
         value: ISCSIPersistentVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             chap_auth_discovery: crate::OptionableConvert::try_from_optioned(
                 value.chap_auth_discovery,
@@ -86,7 +86,7 @@ for ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource {
             iqn: crate::OptionableConvert::try_from_optioned(
                 value
                     .iqn
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "iqn",
                     })?,
             )?,
@@ -95,7 +95,7 @@ for ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource {
             )?,
             lun: value
                 .lun
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "lun",
                 })?,
             portals: crate::OptionableConvert::try_from_optioned(value.portals)?,
@@ -104,7 +104,7 @@ for ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource {
             target_portal: crate::OptionableConvert::try_from_optioned(
                 value
                     .target_portal
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "target_portal",
                     })?,
             )?,
@@ -113,7 +113,7 @@ for ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource {
     fn merge(
         &mut self,
         other: ISCSIPersistentVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.chap_auth_discovery,
             other.chap_auth_discovery,

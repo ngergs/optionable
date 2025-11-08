@@ -42,22 +42,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleBinding {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: RoleBindingAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: RoleBindingAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             role_ref: crate::OptionableConvert::try_from_optioned(
                 value
                     .role_ref
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "role_ref",
                     })?,
             )?,
             subjects: crate::OptionableConvert::try_from_optioned(value.subjects)?,
         })
     }
-    fn merge(&mut self, other: RoleBindingAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: RoleBindingAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.role_ref {
             crate::OptionableConvert::merge(&mut self.role_ref, other_value)?;

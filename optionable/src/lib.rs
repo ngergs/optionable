@@ -177,12 +177,14 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #[cfg(feature = "alloc")]
 extern crate alloc;
+extern crate core;
 
+use core::fmt::{Display, Formatter};
 #[cfg(feature = "derive")]
 #[doc(inline)]
 pub use optionable_derive::Optionable;
 
-pub mod optionable;
+mod optionable;
 
 #[cfg(feature = "chrono")]
 mod chrono;
@@ -198,8 +200,6 @@ pub mod k8s_openapi;
 pub mod kube;
 #[cfg(feature = "serde_json")]
 mod serde_json;
-
-use crate::optionable::Error;
 
 /// Marker trait that associated this type with a corresponding type where potential
 /// inner sub-fields are recursively optional if possible for the given use case of the type.
@@ -270,3 +270,22 @@ where
 
 impl<T, TOpt> Sealed<T> for TOpt where T: Optionable<Optioned = TOpt> + OptionableConvert {}
 impl<T, TOpt> OptionedConvert<T> for TOpt where T: Optionable<Optioned = TOpt> + OptionableConvert {}
+
+/// Represents errors that occur when trying to build a full type from its optioned variant.
+#[derive(Debug)]
+pub struct Error {
+    /// Field that is missing
+    pub missing_field: &'static str,
+}
+
+impl Display for Error {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        write!(
+            f,
+            "The following required field is missing: {:?}",
+            self.missing_field
+        )
+    }
+}
+
+impl core::error::Error for Error {}

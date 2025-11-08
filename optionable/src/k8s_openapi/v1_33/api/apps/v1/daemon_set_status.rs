@@ -65,9 +65,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetStatus 
             ),
         }
     }
-    fn try_from_optioned(
-        value: DaemonSetStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DaemonSetStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             collision_count: crate::OptionableConvert::try_from_optioned(
                 value.collision_count,
@@ -75,12 +73,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetStatus 
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             current_number_scheduled: value
                 .current_number_scheduled
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "current_number_scheduled",
                 })?,
             desired_number_scheduled: value
                 .desired_number_scheduled
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "desired_number_scheduled",
                 })?,
             number_available: crate::OptionableConvert::try_from_optioned(
@@ -88,12 +86,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetStatus 
             )?,
             number_misscheduled: value
                 .number_misscheduled
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "number_misscheduled",
                 })?,
             number_ready: value
                 .number_ready
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "number_ready",
                 })?,
             number_unavailable: crate::OptionableConvert::try_from_optioned(
@@ -107,10 +105,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetStatus 
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DaemonSetStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DaemonSetStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.collision_count,
             other.collision_count,

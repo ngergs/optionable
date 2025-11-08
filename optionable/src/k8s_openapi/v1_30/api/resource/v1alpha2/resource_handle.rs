@@ -37,9 +37,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceHandle {
             ),
         }
     }
-    fn try_from_optioned(
-        value: ResourceHandleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceHandleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
             driver_name: crate::OptionableConvert::try_from_optioned(value.driver_name)?,
@@ -48,10 +46,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceHandle {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceHandleAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceHandleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
         crate::OptionableConvert::merge(&mut self.driver_name, other.driver_name)?;
         crate::OptionableConvert::merge(

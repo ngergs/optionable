@@ -33,25 +33,23 @@ impl crate::OptionableConvert for ::k8s_openapi::api::events::v1::EventSeries {
             ),
         }
     }
-    fn try_from_optioned(
-        value: EventSeriesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EventSeriesAc) -> Result<Self, crate::Error> {
         Ok(Self {
             count: value
                 .count
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "count",
                 })?,
             last_observed_time: crate::OptionableConvert::try_from_optioned(
                 value
                     .last_observed_time
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "last_observed_time",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: EventSeriesAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EventSeriesAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.count {
             self.count = other_value;
         }

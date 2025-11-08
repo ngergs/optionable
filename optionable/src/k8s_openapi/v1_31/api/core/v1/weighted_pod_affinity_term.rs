@@ -35,26 +35,23 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::WeightedPodAffin
     }
     fn try_from_optioned(
         value: WeightedPodAffinityTermAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             pod_affinity_term: crate::OptionableConvert::try_from_optioned(
                 value
                     .pod_affinity_term
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "pod_affinity_term",
                     })?,
             )?,
             weight: value
                 .weight
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "weight",
                 })?,
         })
     }
-    fn merge(
-        &mut self,
-        other: WeightedPodAffinityTermAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: WeightedPodAffinityTermAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.pod_affinity_term {
             crate::OptionableConvert::merge(&mut self.pod_affinity_term, other_value)?;
         }

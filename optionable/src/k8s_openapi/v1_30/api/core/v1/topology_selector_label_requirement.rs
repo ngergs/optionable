@@ -35,19 +35,19 @@ for ::k8s_openapi::api::core::v1::TopologySelectorLabelRequirement {
     }
     fn try_from_optioned(
         value: TopologySelectorLabelRequirementAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             key: crate::OptionableConvert::try_from_optioned(
                 value
                     .key
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "key",
                     })?,
             )?,
             values: crate::OptionableConvert::try_from_optioned(
                 value
                     .values
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "values",
                     })?,
             )?,
@@ -56,7 +56,7 @@ for ::k8s_openapi::api::core::v1::TopologySelectorLabelRequirement {
     fn merge(
         &mut self,
         other: TopologySelectorLabelRequirementAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.key {
             crate::OptionableConvert::merge(&mut self.key, other_value)?;
         }

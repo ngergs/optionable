@@ -53,7 +53,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceClassParameters {
     }
     fn try_from_optioned(
         value: ResourceClassParametersAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             filters: crate::OptionableConvert::try_from_optioned(value.filters)?,
             generated_from: crate::OptionableConvert::try_from_optioned(
@@ -65,10 +65,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceClassParameters {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceClassParametersAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceClassParametersAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.filters, other.filters)?;
         crate::OptionableConvert::merge(&mut self.generated_from, other.generated_from)?;
         self.metadata = other.metadata;

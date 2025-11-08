@@ -38,16 +38,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1alpha3::Device
             requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
-    fn try_from_optioned(
-        value: DeviceClaimAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceClaimAc) -> Result<Self, crate::Error> {
         Ok(Self {
             config: crate::OptionableConvert::try_from_optioned(value.config)?,
             constraints: crate::OptionableConvert::try_from_optioned(value.constraints)?,
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
         })
     }
-    fn merge(&mut self, other: DeviceClaimAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceClaimAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.config, other.config)?;
         crate::OptionableConvert::merge(&mut self.constraints, other.constraints)?;
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;

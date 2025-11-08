@@ -42,9 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HTTPGetAction {
             scheme: crate::OptionableConvert::into_optioned(self.scheme),
         }
     }
-    fn try_from_optioned(
-        value: HTTPGetActionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: HTTPGetActionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             host: crate::OptionableConvert::try_from_optioned(value.host)?,
             http_headers: crate::OptionableConvert::try_from_optioned(
@@ -54,14 +52,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HTTPGetAction {
             port: crate::OptionableConvert::try_from_optioned(
                 value
                     .port
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "port",
                     })?,
             )?,
             scheme: crate::OptionableConvert::try_from_optioned(value.scheme)?,
         })
     }
-    fn merge(&mut self, other: HTTPGetActionAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: HTTPGetActionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.host, other.host)?;
         crate::OptionableConvert::merge(&mut self.http_headers, other.http_headers)?;
         crate::OptionableConvert::merge(&mut self.path, other.path)?;

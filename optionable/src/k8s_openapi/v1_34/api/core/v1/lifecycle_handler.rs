@@ -43,9 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LifecycleHandler
             tcp_socket: crate::OptionableConvert::into_optioned(self.tcp_socket),
         }
     }
-    fn try_from_optioned(
-        value: LifecycleHandlerAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LifecycleHandlerAc) -> Result<Self, crate::Error> {
         Ok(Self {
             exec: crate::OptionableConvert::try_from_optioned(value.exec)?,
             http_get: crate::OptionableConvert::try_from_optioned(value.http_get)?,
@@ -53,10 +51,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LifecycleHandler
             tcp_socket: crate::OptionableConvert::try_from_optioned(value.tcp_socket)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: LifecycleHandlerAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LifecycleHandlerAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.exec, other.exec)?;
         crate::OptionableConvert::merge(&mut self.http_get, other.http_get)?;
         crate::OptionableConvert::merge(&mut self.sleep, other.sleep)?;

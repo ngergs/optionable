@@ -33,18 +33,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodTemplateSpec 
             spec: crate::OptionableConvert::into_optioned(self.spec),
         }
     }
-    fn try_from_optioned(
-        value: PodTemplateSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PodTemplateSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: crate::OptionableConvert::try_from_optioned(value.metadata)?,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PodTemplateSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodTemplateSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.metadata, other.metadata)?;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         Ok(())

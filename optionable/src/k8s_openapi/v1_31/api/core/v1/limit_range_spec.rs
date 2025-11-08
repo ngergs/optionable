@@ -30,23 +30,18 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LimitRangeSpec {
             limits: Some(crate::OptionableConvert::into_optioned(self.limits)),
         }
     }
-    fn try_from_optioned(
-        value: LimitRangeSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LimitRangeSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             limits: crate::OptionableConvert::try_from_optioned(
                 value
                     .limits
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "limits",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: LimitRangeSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LimitRangeSpecAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.limits {
             crate::OptionableConvert::merge(&mut self.limits, other_value)?;
         }

@@ -34,19 +34,19 @@ for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
     }
     fn try_from_optioned(
         value: PodFailurePolicyOnPodConditionsPatternAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             status: crate::OptionableConvert::try_from_optioned(
                 value
                     .status
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "status",
                     })?,
             )?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
@@ -55,7 +55,7 @@ for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
     fn merge(
         &mut self,
         other: PodFailurePolicyOnPodConditionsPatternAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.status {
             crate::OptionableConvert::merge(&mut self.status, other_value)?;
         }

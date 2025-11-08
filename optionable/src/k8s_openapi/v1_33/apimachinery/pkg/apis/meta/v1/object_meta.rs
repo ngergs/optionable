@@ -95,7 +95,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta {
             uid: crate::OptionableConvert::into_optioned(self.uid),
         }
     }
-    fn try_from_optioned(value: ObjectMetaAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ObjectMetaAc) -> Result<Self, crate::Error> {
         Ok(Self {
             annotations: crate::OptionableConvert::try_from_optioned(value.annotations)?,
             creation_timestamp: crate::OptionableConvert::try_from_optioned(
@@ -128,7 +128,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta {
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
-    fn merge(&mut self, other: ObjectMetaAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ObjectMetaAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.annotations, other.annotations)?;
         crate::OptionableConvert::merge(
             &mut self.creation_timestamp,

@@ -39,9 +39,7 @@ for ::k8s_openapi::api::resource::v1alpha2::DriverRequests {
             ),
         }
     }
-    fn try_from_optioned(
-        value: DriverRequestsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DriverRequestsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             driver_name: crate::OptionableConvert::try_from_optioned(value.driver_name)?,
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
@@ -50,10 +48,7 @@ for ::k8s_openapi::api::resource::v1alpha2::DriverRequests {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DriverRequestsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DriverRequestsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.driver_name, other.driver_name)?;
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
         crate::OptionableConvert::merge(

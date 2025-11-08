@@ -45,14 +45,12 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::OwnerReference {
             uid: Some(crate::OptionableConvert::into_optioned(self.uid)),
         }
     }
-    fn try_from_optioned(
-        value: OwnerReferenceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: OwnerReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(
                 value
                     .api_version
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "api_version",
                     })?,
             )?,
@@ -63,30 +61,27 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::OwnerReference {
             kind: crate::OptionableConvert::try_from_optioned(
                 value
                     .kind
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kind",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             uid: crate::OptionableConvert::try_from_optioned(
                 value
                     .uid
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "uid",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: OwnerReferenceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: OwnerReferenceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.api_version {
             crate::OptionableConvert::merge(&mut self.api_version, other_value)?;
         }

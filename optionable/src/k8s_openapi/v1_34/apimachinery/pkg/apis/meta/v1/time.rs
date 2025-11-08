@@ -29,20 +29,16 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time {
     fn into_optioned(self) -> TimeAc {
         TimeAc(Some(crate::OptionableConvert::into_optioned(self.0)))
     }
-    fn try_from_optioned(value: TimeAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TimeAc) -> Result<Self, crate::Error> {
         Ok(
             Self(
                 crate::OptionableConvert::try_from_optioned(
-                    value
-                        .0
-                        .ok_or(crate::optionable::Error {
-                            missing_field: "0",
-                        })?,
+                    value.0.ok_or(crate::Error { missing_field: "0" })?,
                 )?,
             ),
         )
     }
-    fn merge(&mut self, other: TimeAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TimeAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.0 {
             crate::OptionableConvert::merge(&mut self.0, other_value)?;
         }

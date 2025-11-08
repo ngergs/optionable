@@ -144,9 +144,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EphemeralContain
             working_dir: crate::OptionableConvert::into_optioned(self.working_dir),
         }
     }
-    fn try_from_optioned(
-        value: EphemeralContainerAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EphemeralContainerAc) -> Result<Self, crate::Error> {
         Ok(Self {
             args: crate::OptionableConvert::try_from_optioned(value.args)?,
             command: crate::OptionableConvert::try_from_optioned(value.command)?,
@@ -163,7 +161,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EphemeralContain
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -205,10 +203,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EphemeralContain
             working_dir: crate::OptionableConvert::try_from_optioned(value.working_dir)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: EphemeralContainerAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EphemeralContainerAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.args, other.args)?;
         crate::OptionableConvert::merge(&mut self.command, other.command)?;
         crate::OptionableConvert::merge(&mut self.env, other.env)?;

@@ -67,9 +67,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass 
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: StorageClassAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: StorageClassAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allow_volume_expansion: crate::OptionableConvert::try_from_optioned(
                 value.allow_volume_expansion,
@@ -85,7 +83,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass 
             provisioner: crate::OptionableConvert::try_from_optioned(
                 value
                     .provisioner
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "provisioner",
                     })?,
             )?,
@@ -97,7 +95,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass 
             )?,
         })
     }
-    fn merge(&mut self, other: StorageClassAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StorageClassAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.allow_volume_expansion,
             other.allow_volume_expansion,

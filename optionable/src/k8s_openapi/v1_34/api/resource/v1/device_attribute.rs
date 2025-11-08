@@ -35,9 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceAttrib
             version: crate::OptionableConvert::into_optioned(self.version),
         }
     }
-    fn try_from_optioned(
-        value: DeviceAttributeAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceAttributeAc) -> Result<Self, crate::Error> {
         Ok(Self {
             bool: crate::OptionableConvert::try_from_optioned(value.bool)?,
             int: crate::OptionableConvert::try_from_optioned(value.int)?,
@@ -45,10 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceAttrib
             version: crate::OptionableConvert::try_from_optioned(value.version)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceAttributeAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceAttributeAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.bool, other.bool)?;
         crate::OptionableConvert::merge(&mut self.int, other.int)?;
         crate::OptionableConvert::merge(&mut self.string, other.string)?;

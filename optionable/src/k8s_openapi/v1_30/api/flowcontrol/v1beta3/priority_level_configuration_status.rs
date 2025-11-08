@@ -34,7 +34,7 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::PriorityLevelConfigurationStatus {
     }
     fn try_from_optioned(
         value: PriorityLevelConfigurationStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
         })
@@ -42,7 +42,7 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::PriorityLevelConfigurationStatus {
     fn merge(
         &mut self,
         other: PriorityLevelConfigurationStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         Ok(())
     }

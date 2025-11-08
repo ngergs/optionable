@@ -33,18 +33,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobTemplateSpec
             spec: crate::OptionableConvert::into_optioned(self.spec),
         }
     }
-    fn try_from_optioned(
-        value: JobTemplateSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: JobTemplateSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: crate::OptionableConvert::try_from_optioned(value.metadata)?,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: JobTemplateSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: JobTemplateSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.metadata, other.metadata)?;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         Ok(())

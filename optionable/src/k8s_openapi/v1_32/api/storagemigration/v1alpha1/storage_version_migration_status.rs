@@ -37,7 +37,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationStatu
     }
     fn try_from_optioned(
         value: StorageVersionMigrationStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             resource_version: crate::OptionableConvert::try_from_optioned(
@@ -48,7 +48,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationStatu
     fn merge(
         &mut self,
         other: StorageVersionMigrationStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(
             &mut self.resource_version,

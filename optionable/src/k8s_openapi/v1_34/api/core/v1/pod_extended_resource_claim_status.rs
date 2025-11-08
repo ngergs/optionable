@@ -42,19 +42,19 @@ for ::k8s_openapi::api::core::v1::PodExtendedResourceClaimStatus {
     }
     fn try_from_optioned(
         value: PodExtendedResourceClaimStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             request_mappings: crate::OptionableConvert::try_from_optioned(
                 value
                     .request_mappings
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "request_mappings",
                     })?,
             )?,
             resource_claim_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource_claim_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "resource_claim_name",
                     })?,
             )?,
@@ -63,7 +63,7 @@ for ::k8s_openapi::api::core::v1::PodExtendedResourceClaimStatus {
     fn merge(
         &mut self,
         other: PodExtendedResourceClaimStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.request_mappings {
             crate::OptionableConvert::merge(&mut self.request_mappings, other_value)?;
         }

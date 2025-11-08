@@ -33,13 +33,13 @@ for ::k8s_openapi::api::core::v1::PhotonPersistentDiskVolumeSource {
     }
     fn try_from_optioned(
         value: PhotonPersistentDiskVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             pd_id: crate::OptionableConvert::try_from_optioned(
                 value
                     .pd_id
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "pd_id",
                     })?,
             )?,
@@ -48,7 +48,7 @@ for ::k8s_openapi::api::core::v1::PhotonPersistentDiskVolumeSource {
     fn merge(
         &mut self,
         other: PhotonPersistentDiskVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         if let Some(other_value) = other.pd_id {
             crate::OptionableConvert::merge(&mut self.pd_id, other_value)?;

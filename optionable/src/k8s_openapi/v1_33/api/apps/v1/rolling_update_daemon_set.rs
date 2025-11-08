@@ -35,9 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::RollingUpdateDae
             ),
         }
     }
-    fn try_from_optioned(
-        value: RollingUpdateDaemonSetAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: RollingUpdateDaemonSetAc) -> Result<Self, crate::Error> {
         Ok(Self {
             max_surge: crate::OptionableConvert::try_from_optioned(value.max_surge)?,
             max_unavailable: crate::OptionableConvert::try_from_optioned(
@@ -45,10 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::RollingUpdateDae
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: RollingUpdateDaemonSetAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: RollingUpdateDaemonSetAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.max_surge, other.max_surge)?;
         crate::OptionableConvert::merge(
             &mut self.max_unavailable,

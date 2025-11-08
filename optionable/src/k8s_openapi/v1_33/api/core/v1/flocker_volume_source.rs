@@ -29,9 +29,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FlockerVolumeSou
             dataset_uuid: crate::OptionableConvert::into_optioned(self.dataset_uuid),
         }
     }
-    fn try_from_optioned(
-        value: FlockerVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: FlockerVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             dataset_name: crate::OptionableConvert::try_from_optioned(
                 value.dataset_name,
@@ -41,10 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FlockerVolumeSou
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: FlockerVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: FlockerVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.dataset_name, other.dataset_name)?;
         crate::OptionableConvert::merge(&mut self.dataset_uuid, other.dataset_uuid)?;
         Ok(())

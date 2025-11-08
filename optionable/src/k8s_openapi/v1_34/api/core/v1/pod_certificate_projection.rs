@@ -54,7 +54,7 @@ for ::k8s_openapi::api::core::v1::PodCertificateProjection {
     }
     fn try_from_optioned(
         value: PodCertificateProjectionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             certificate_chain_path: crate::OptionableConvert::try_from_optioned(
                 value.certificate_chain_path,
@@ -66,7 +66,7 @@ for ::k8s_openapi::api::core::v1::PodCertificateProjection {
             key_type: crate::OptionableConvert::try_from_optioned(
                 value
                     .key_type
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "key_type",
                     })?,
             )?,
@@ -76,16 +76,13 @@ for ::k8s_openapi::api::core::v1::PodCertificateProjection {
             signer_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .signer_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "signer_name",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PodCertificateProjectionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodCertificateProjectionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.certificate_chain_path,
             other.certificate_chain_path,

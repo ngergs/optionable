@@ -41,9 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetSpec {
             template: crate::OptionableConvert::into_optioned(self.template),
         }
     }
-    fn try_from_optioned(
-        value: ReplicaSetSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ReplicaSetSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             min_ready_seconds: crate::OptionableConvert::try_from_optioned(
                 value.min_ready_seconds,
@@ -52,17 +50,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetSpec {
             selector: crate::OptionableConvert::try_from_optioned(
                 value
                     .selector
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "selector",
                     })?,
             )?,
             template: crate::OptionableConvert::try_from_optioned(value.template)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ReplicaSetSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ReplicaSetSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.min_ready_seconds,
             other.min_ready_seconds,

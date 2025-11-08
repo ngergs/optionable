@@ -37,7 +37,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceClaimSchedulingStatus {
     }
     fn try_from_optioned(
         value: ResourceClaimSchedulingStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
             unsuitable_nodes: crate::OptionableConvert::try_from_optioned(
@@ -48,7 +48,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceClaimSchedulingStatus {
     fn merge(
         &mut self,
         other: ResourceClaimSchedulingStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(
             &mut self.unsuitable_nodes,

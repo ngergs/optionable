@@ -44,9 +44,7 @@ for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaCondition {
             type_: crate::OptionableConvert::into_optioned(self.type_),
         }
     }
-    fn try_from_optioned(
-        value: FlowSchemaConditionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: FlowSchemaConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value.last_transition_time,
@@ -57,10 +55,7 @@ for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaCondition {
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: FlowSchemaConditionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: FlowSchemaConditionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,
             other.last_transition_time,

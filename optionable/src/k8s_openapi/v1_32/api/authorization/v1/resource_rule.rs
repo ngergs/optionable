@@ -43,9 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::authorization::v1::Resourc
             verbs: Some(crate::OptionableConvert::into_optioned(self.verbs)),
         }
     }
-    fn try_from_optioned(
-        value: ResourceRuleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_groups: crate::OptionableConvert::try_from_optioned(value.api_groups)?,
             resource_names: crate::OptionableConvert::try_from_optioned(
@@ -55,13 +53,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::authorization::v1::Resourc
             verbs: crate::OptionableConvert::try_from_optioned(
                 value
                     .verbs
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "verbs",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: ResourceRuleAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceRuleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_groups, other.api_groups)?;
         crate::OptionableConvert::merge(&mut self.resource_names, other.resource_names)?;
         crate::OptionableConvert::merge(&mut self.resources, other.resources)?;

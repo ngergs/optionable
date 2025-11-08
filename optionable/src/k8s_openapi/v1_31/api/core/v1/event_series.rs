@@ -33,9 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EventSeries {
             ),
         }
     }
-    fn try_from_optioned(
-        value: EventSeriesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EventSeriesAc) -> Result<Self, crate::Error> {
         Ok(Self {
             count: crate::OptionableConvert::try_from_optioned(value.count)?,
             last_observed_time: crate::OptionableConvert::try_from_optioned(
@@ -43,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EventSeries {
             )?,
         })
     }
-    fn merge(&mut self, other: EventSeriesAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EventSeriesAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.count, other.count)?;
         crate::OptionableConvert::merge(
             &mut self.last_observed_time,

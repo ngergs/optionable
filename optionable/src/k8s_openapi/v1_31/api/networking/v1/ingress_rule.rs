@@ -31,15 +31,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressRul
             http: crate::OptionableConvert::into_optioned(self.http),
         }
     }
-    fn try_from_optioned(
-        value: IngressRuleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: IngressRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             host: crate::OptionableConvert::try_from_optioned(value.host)?,
             http: crate::OptionableConvert::try_from_optioned(value.http)?,
         })
     }
-    fn merge(&mut self, other: IngressRuleAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: IngressRuleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.host, other.host)?;
         crate::OptionableConvert::merge(&mut self.http, other.http)?;
         Ok(())

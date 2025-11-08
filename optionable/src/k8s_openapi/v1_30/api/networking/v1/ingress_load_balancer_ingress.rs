@@ -38,7 +38,7 @@ for ::k8s_openapi::api::networking::v1::IngressLoadBalancerIngress {
     }
     fn try_from_optioned(
         value: IngressLoadBalancerIngressAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
             ip: crate::OptionableConvert::try_from_optioned(value.ip)?,
@@ -48,7 +48,7 @@ for ::k8s_openapi::api::networking::v1::IngressLoadBalancerIngress {
     fn merge(
         &mut self,
         other: IngressLoadBalancerIngressAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
         crate::OptionableConvert::merge(&mut self.ip, other.ip)?;
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;

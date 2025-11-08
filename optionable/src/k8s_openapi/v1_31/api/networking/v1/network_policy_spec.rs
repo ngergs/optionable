@@ -43,9 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPol
             policy_types: crate::OptionableConvert::into_optioned(self.policy_types),
         }
     }
-    fn try_from_optioned(
-        value: NetworkPolicySpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NetworkPolicySpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             egress: crate::OptionableConvert::try_from_optioned(value.egress)?,
             ingress: crate::OptionableConvert::try_from_optioned(value.ingress)?,
@@ -57,10 +55,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPol
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NetworkPolicySpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NetworkPolicySpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.egress, other.egress)?;
         crate::OptionableConvert::merge(&mut self.ingress, other.ingress)?;
         crate::OptionableConvert::merge(&mut self.pod_selector, other.pod_selector)?;

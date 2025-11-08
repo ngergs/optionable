@@ -33,7 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::Scheduling {
             tolerations: crate::OptionableConvert::into_optioned(self.tolerations),
         }
     }
-    fn try_from_optioned(value: SchedulingAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SchedulingAc) -> Result<Self, crate::Error> {
         Ok(Self {
             node_selector: crate::OptionableConvert::try_from_optioned(
                 value.node_selector,
@@ -41,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::Scheduling {
             tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
         })
     }
-    fn merge(&mut self, other: SchedulingAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SchedulingAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
         crate::OptionableConvert::merge(&mut self.tolerations, other.tolerations)?;
         Ok(())

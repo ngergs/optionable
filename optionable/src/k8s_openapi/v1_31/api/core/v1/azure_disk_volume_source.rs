@@ -41,9 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AzureDiskVolumeS
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
         }
     }
-    fn try_from_optioned(
-        value: AzureDiskVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: AzureDiskVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             caching_mode: crate::OptionableConvert::try_from_optioned(
                 value.caching_mode,
@@ -51,14 +49,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AzureDiskVolumeS
             disk_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .disk_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "disk_name",
                     })?,
             )?,
             disk_uri: crate::OptionableConvert::try_from_optioned(
                 value
                     .disk_uri
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "disk_uri",
                     })?,
             )?,
@@ -67,10 +65,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AzureDiskVolumeS
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: AzureDiskVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: AzureDiskVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.caching_mode, other.caching_mode)?;
         if let Some(other_value) = other.disk_name {
             crate::OptionableConvert::merge(&mut self.disk_name, other_value)?;

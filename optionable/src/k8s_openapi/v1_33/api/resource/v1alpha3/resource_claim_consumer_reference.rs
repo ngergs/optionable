@@ -39,27 +39,27 @@ for ::k8s_openapi::api::resource::v1alpha3::ResourceClaimConsumerReference {
     }
     fn try_from_optioned(
         value: ResourceClaimConsumerReferenceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             api_group: crate::OptionableConvert::try_from_optioned(value.api_group)?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             resource: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "resource",
                     })?,
             )?,
             uid: crate::OptionableConvert::try_from_optioned(
                 value
                     .uid
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "uid",
                     })?,
             )?,
@@ -68,7 +68,7 @@ for ::k8s_openapi::api::resource::v1alpha3::ResourceClaimConsumerReference {
     fn merge(
         &mut self,
         other: ResourceClaimConsumerReferenceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;

@@ -21,28 +21,23 @@ impl ::optionable::OptionableConvert for Member {
             ),
         }
     }
-    fn try_from_optioned(
-        value: MemberOpt,
-    ) -> Result<Self, ::optionable::optionable::Error> {
+    fn try_from_optioned(value: MemberOpt) -> Result<Self, ::optionable::Error> {
         Ok(Self {
             name: value
                 .name
-                .ok_or(::optionable::optionable::Error {
+                .ok_or(::optionable::Error {
                     missing_field: "name",
                 })?,
             addresses: ::optionable::OptionableConvert::try_from_optioned(
                 value
                     .addresses
-                    .ok_or(::optionable::optionable::Error {
+                    .ok_or(::optionable::Error {
                         missing_field: "addresses",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: MemberOpt,
-    ) -> Result<(), ::optionable::optionable::Error> {
+    fn merge(&mut self, other: MemberOpt) -> Result<(), ::optionable::Error> {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
@@ -76,28 +71,23 @@ mod test {
                 ),
             }
         }
-        fn try_from_optioned(
-            value: MemberTestOpt,
-        ) -> Result<Self, ::optionable::optionable::Error> {
+        fn try_from_optioned(value: MemberTestOpt) -> Result<Self, ::optionable::Error> {
             Ok(Self {
                 name: value
                     .name
-                    .ok_or(::optionable::optionable::Error {
+                    .ok_or(::optionable::Error {
                         missing_field: "name",
                     })?,
                 addresses: ::optionable::OptionableConvert::try_from_optioned(
                     value
                         .addresses
-                        .ok_or(::optionable::optionable::Error {
+                        .ok_or(::optionable::Error {
                             missing_field: "addresses",
                         })?,
                 )?,
             })
         }
-        fn merge(
-            &mut self,
-            other: MemberTestOpt,
-        ) -> Result<(), ::optionable::optionable::Error> {
+        fn merge(&mut self, other: MemberTestOpt) -> Result<(), ::optionable::Error> {
             if let Some(other_value) = other.name {
                 self.name = other_value;
             }

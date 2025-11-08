@@ -101,7 +101,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodStatus {
             start_time: crate::OptionableConvert::into_optioned(self.start_time),
         }
     }
-    fn try_from_optioned(value: PodStatusAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PodStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             container_statuses: crate::OptionableConvert::try_from_optioned(
@@ -131,7 +131,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodStatus {
             start_time: crate::OptionableConvert::try_from_optioned(value.start_time)?,
         })
     }
-    fn merge(&mut self, other: PodStatusAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(
             &mut self.container_statuses,

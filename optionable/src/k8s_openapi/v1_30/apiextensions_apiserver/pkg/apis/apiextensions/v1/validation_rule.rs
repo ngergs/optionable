@@ -47,9 +47,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Valida
             rule: Some(crate::OptionableConvert::into_optioned(self.rule)),
         }
     }
-    fn try_from_optioned(
-        value: ValidationRuleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ValidationRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             field_path: crate::OptionableConvert::try_from_optioned(value.field_path)?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
@@ -63,16 +61,13 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Valida
             rule: crate::OptionableConvert::try_from_optioned(
                 value
                     .rule
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "rule",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ValidationRuleAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ValidationRuleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.field_path, other.field_path)?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;
         crate::OptionableConvert::merge(

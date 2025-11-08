@@ -42,13 +42,13 @@ for ::k8s_openapi::api::resource::v1beta2::CapacityRequestPolicyRange {
     }
     fn try_from_optioned(
         value: CapacityRequestPolicyRangeAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             max: crate::OptionableConvert::try_from_optioned(value.max)?,
             min: crate::OptionableConvert::try_from_optioned(
                 value
                     .min
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "min",
                     })?,
             )?,
@@ -58,7 +58,7 @@ for ::k8s_openapi::api::resource::v1beta2::CapacityRequestPolicyRange {
     fn merge(
         &mut self,
         other: CapacityRequestPolicyRangeAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.max, other.max)?;
         if let Some(other_value) = other.min {
             crate::OptionableConvert::merge(&mut self.min, other_value)?;

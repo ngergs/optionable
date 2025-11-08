@@ -28,12 +28,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ExecAction {
             command: crate::OptionableConvert::into_optioned(self.command),
         }
     }
-    fn try_from_optioned(value: ExecActionAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ExecActionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             command: crate::OptionableConvert::try_from_optioned(value.command)?,
         })
     }
-    fn merge(&mut self, other: ExecActionAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ExecActionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.command, other.command)?;
         Ok(())
     }

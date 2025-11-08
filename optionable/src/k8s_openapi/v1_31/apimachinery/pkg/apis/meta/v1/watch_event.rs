@@ -111,38 +111,27 @@ where
             }
         }
     }
-    fn try_from_optioned(
-        other: WatchEventAc<T>,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(other: WatchEventAc<T>) -> Result<Self, crate::Error> {
         Ok(
             match other {
                 WatchEventAc::Added(other_0) => {
                     Self::Added(
                         crate::OptionableConvert::try_from_optioned(
-                            other_0
-                                .ok_or(crate::optionable::Error {
-                                    missing_field: "0",
-                                })?,
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
                         )?,
                     )
                 }
                 WatchEventAc::Deleted(other_0) => {
                     Self::Deleted(
                         crate::OptionableConvert::try_from_optioned(
-                            other_0
-                                .ok_or(crate::optionable::Error {
-                                    missing_field: "0",
-                                })?,
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
                         )?,
                     )
                 }
                 WatchEventAc::Modified(other_0) => {
                     Self::Modified(
                         crate::OptionableConvert::try_from_optioned(
-                            other_0
-                                .ok_or(crate::optionable::Error {
-                                    missing_field: "0",
-                                })?,
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
                         )?,
                     )
                 }
@@ -153,13 +142,13 @@ where
                     Self::Bookmark {
                         annotations: crate::OptionableConvert::try_from_optioned(
                             other_annotations
-                                .ok_or(crate::optionable::Error {
+                                .ok_or(crate::Error {
                                     missing_field: "annotations",
                                 })?,
                         )?,
                         resource_version: crate::OptionableConvert::try_from_optioned(
                             other_resource_version
-                                .ok_or(crate::optionable::Error {
+                                .ok_or(crate::Error {
                                     missing_field: "resource_version",
                                 })?,
                         )?,
@@ -168,27 +157,21 @@ where
                 WatchEventAc::ErrorStatus(other_0) => {
                     Self::ErrorStatus(
                         crate::OptionableConvert::try_from_optioned(
-                            other_0
-                                .ok_or(crate::optionable::Error {
-                                    missing_field: "0",
-                                })?,
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
                         )?,
                     )
                 }
                 WatchEventAc::ErrorOther(other_0) => {
                     Self::ErrorOther(
                         crate::OptionableConvert::try_from_optioned(
-                            other_0
-                                .ok_or(crate::optionable::Error {
-                                    missing_field: "0",
-                                })?,
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
                         )?,
                     )
                 }
             },
         )
     }
-    fn merge(&mut self, other: WatchEventAc<T>) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: WatchEventAc<T>) -> Result<(), crate::Error> {
         match other {
             WatchEventAc::Added(other_0) => {
                 if let Self::Added(self_0) = self {

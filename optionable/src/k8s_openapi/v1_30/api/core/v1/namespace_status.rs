@@ -31,18 +31,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceStatus 
             phase: crate::OptionableConvert::into_optioned(self.phase),
         }
     }
-    fn try_from_optioned(
-        value: NamespaceStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NamespaceStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             phase: crate::OptionableConvert::try_from_optioned(value.phase)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NamespaceStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NamespaceStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(&mut self.phase, other.phase)?;
         Ok(())

@@ -41,11 +41,11 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus {
     }
     fn try_from_optioned(
         value: SubjectAccessReviewStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             allowed: value
                 .allowed
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "allowed",
                 })?,
             denied: crate::OptionableConvert::try_from_optioned(value.denied)?,
@@ -55,10 +55,7 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus {
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SubjectAccessReviewStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SubjectAccessReviewStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.allowed {
             self.allowed = other_value;
         }

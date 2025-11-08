@@ -93,7 +93,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeStatus {
             volumes_in_use: crate::OptionableConvert::into_optioned(self.volumes_in_use),
         }
     }
-    fn try_from_optioned(value: NodeStatusAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             addresses: crate::OptionableConvert::try_from_optioned(value.addresses)?,
             allocatable: crate::OptionableConvert::try_from_optioned(value.allocatable)?,
@@ -117,7 +117,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeStatus {
             )?,
         })
     }
-    fn merge(&mut self, other: NodeStatusAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.addresses, other.addresses)?;
         crate::OptionableConvert::merge(&mut self.allocatable, other.allocatable)?;
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;

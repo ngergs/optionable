@@ -39,15 +39,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::BasicDe
             capacity: crate::OptionableConvert::into_optioned(self.capacity),
         }
     }
-    fn try_from_optioned(
-        value: BasicDeviceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: BasicDeviceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             attributes: crate::OptionableConvert::try_from_optioned(value.attributes)?,
             capacity: crate::OptionableConvert::try_from_optioned(value.capacity)?,
         })
     }
-    fn merge(&mut self, other: BasicDeviceAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: BasicDeviceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.attributes, other.attributes)?;
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
         Ok(())

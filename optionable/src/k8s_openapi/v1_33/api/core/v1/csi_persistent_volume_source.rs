@@ -82,7 +82,7 @@ for ::k8s_openapi::api::core::v1::CSIPersistentVolumeSource {
     }
     fn try_from_optioned(
         value: CSIPersistentVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             controller_expand_secret_ref: crate::OptionableConvert::try_from_optioned(
                 value.controller_expand_secret_ref,
@@ -93,7 +93,7 @@ for ::k8s_openapi::api::core::v1::CSIPersistentVolumeSource {
             driver: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "driver",
                     })?,
             )?,
@@ -114,16 +114,13 @@ for ::k8s_openapi::api::core::v1::CSIPersistentVolumeSource {
             volume_handle: crate::OptionableConvert::try_from_optioned(
                 value
                     .volume_handle
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "volume_handle",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CSIPersistentVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CSIPersistentVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.controller_expand_secret_ref,
             other.controller_expand_secret_ref,

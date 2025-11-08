@@ -37,13 +37,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Endpoints {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: EndpointsAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EndpointsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             subsets: crate::OptionableConvert::try_from_optioned(value.subsets)?,
         })
     }
-    fn merge(&mut self, other: EndpointsAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EndpointsAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.subsets, other.subsets)?;
         Ok(())

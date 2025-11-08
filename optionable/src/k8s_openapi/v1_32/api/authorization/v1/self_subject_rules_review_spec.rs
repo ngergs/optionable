@@ -30,7 +30,7 @@ for ::k8s_openapi::api::authorization::v1::SelfSubjectRulesReviewSpec {
     }
     fn try_from_optioned(
         value: SelfSubjectRulesReviewSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
         })
@@ -38,7 +38,7 @@ for ::k8s_openapi::api::authorization::v1::SelfSubjectRulesReviewSpec {
     fn merge(
         &mut self,
         other: SelfSubjectRulesReviewSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
         Ok(())
     }

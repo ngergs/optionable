@@ -45,7 +45,7 @@ for ::k8s_openapi::api::flowcontrol::v1::PolicyRulesWithSubjects {
     }
     fn try_from_optioned(
         value: PolicyRulesWithSubjectsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             non_resource_rules: crate::OptionableConvert::try_from_optioned(
                 value.non_resource_rules,
@@ -56,16 +56,13 @@ for ::k8s_openapi::api::flowcontrol::v1::PolicyRulesWithSubjects {
             subjects: crate::OptionableConvert::try_from_optioned(
                 value
                     .subjects
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "subjects",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PolicyRulesWithSubjectsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PolicyRulesWithSubjectsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.non_resource_rules,
             other.non_resource_rules,

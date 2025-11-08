@@ -34,9 +34,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceFieldSel
             resource: Some(crate::OptionableConvert::into_optioned(self.resource)),
         }
     }
-    fn try_from_optioned(
-        value: ResourceFieldSelectorAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceFieldSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             container_name: crate::OptionableConvert::try_from_optioned(
                 value.container_name,
@@ -45,16 +43,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceFieldSel
             resource: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "resource",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceFieldSelectorAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceFieldSelectorAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.container_name, other.container_name)?;
         crate::OptionableConvert::merge(&mut self.divisor, other.divisor)?;
         if let Some(other_value) = other.resource {

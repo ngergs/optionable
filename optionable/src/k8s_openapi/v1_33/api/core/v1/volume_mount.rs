@@ -50,14 +50,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeMount {
             sub_path_expr: crate::OptionableConvert::into_optioned(self.sub_path_expr),
         }
     }
-    fn try_from_optioned(
-        value: VolumeMountAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: VolumeMountAc) -> Result<Self, crate::Error> {
         Ok(Self {
             mount_path: crate::OptionableConvert::try_from_optioned(
                 value
                     .mount_path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "mount_path",
                     })?,
             )?,
@@ -67,7 +65,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeMount {
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -81,7 +79,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeMount {
             )?,
         })
     }
-    fn merge(&mut self, other: VolumeMountAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeMountAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.mount_path {
             crate::OptionableConvert::merge(&mut self.mount_path, other_value)?;
         }

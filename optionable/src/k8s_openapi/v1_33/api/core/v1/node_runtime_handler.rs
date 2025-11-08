@@ -31,18 +31,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeRuntimeHandl
             name: crate::OptionableConvert::into_optioned(self.name),
         }
     }
-    fn try_from_optioned(
-        value: NodeRuntimeHandlerAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeRuntimeHandlerAc) -> Result<Self, crate::Error> {
         Ok(Self {
             features: crate::OptionableConvert::try_from_optioned(value.features)?,
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NodeRuntimeHandlerAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeRuntimeHandlerAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.features, other.features)?;
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         Ok(())

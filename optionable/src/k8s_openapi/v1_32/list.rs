@@ -55,19 +55,19 @@ where
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: ListAc<T>) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ListAc<T>) -> Result<Self, crate::Error> {
         Ok(Self {
             items: crate::OptionableConvert::try_from_optioned(
                 value
                     .items
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "items",
                     })?,
             )?,
             metadata: value.metadata,
         })
     }
-    fn merge(&mut self, other: ListAc<T>) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ListAc<T>) -> Result<(), crate::Error> {
         if let Some(other_value) = other.items {
             crate::OptionableConvert::merge(&mut self.items, other_value)?;
         }

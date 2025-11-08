@@ -42,9 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJobStatus {
             ),
         }
     }
-    fn try_from_optioned(
-        value: CronJobStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CronJobStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             active: crate::OptionableConvert::try_from_optioned(value.active)?,
             last_schedule_time: crate::OptionableConvert::try_from_optioned(
@@ -55,7 +53,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJobStatus {
             )?,
         })
     }
-    fn merge(&mut self, other: CronJobStatusAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CronJobStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.active, other.active)?;
         crate::OptionableConvert::merge(
             &mut self.last_schedule_time,

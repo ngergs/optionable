@@ -36,16 +36,13 @@ for ::k8s_openapi::api::batch::v1::UncountedTerminatedPods {
     }
     fn try_from_optioned(
         value: UncountedTerminatedPodsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             failed: crate::OptionableConvert::try_from_optioned(value.failed)?,
             succeeded: crate::OptionableConvert::try_from_optioned(value.succeeded)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: UncountedTerminatedPodsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: UncountedTerminatedPodsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.failed, other.failed)?;
         crate::OptionableConvert::merge(&mut self.succeeded, other.succeeded)?;
         Ok(())

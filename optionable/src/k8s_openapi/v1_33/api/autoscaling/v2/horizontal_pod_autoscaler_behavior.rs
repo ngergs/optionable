@@ -37,7 +37,7 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerBehavior {
     }
     fn try_from_optioned(
         value: HorizontalPodAutoscalerBehaviorAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             scale_down: crate::OptionableConvert::try_from_optioned(value.scale_down)?,
             scale_up: crate::OptionableConvert::try_from_optioned(value.scale_up)?,
@@ -46,7 +46,7 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerBehavior {
     fn merge(
         &mut self,
         other: HorizontalPodAutoscalerBehaviorAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.scale_down, other.scale_down)?;
         crate::OptionableConvert::merge(&mut self.scale_up, other.scale_up)?;
         Ok(())

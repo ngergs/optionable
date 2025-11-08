@@ -38,9 +38,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ResourceClai
             reserved_for: crate::OptionableConvert::into_optioned(self.reserved_for),
         }
     }
-    fn try_from_optioned(
-        value: ResourceClaimStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceClaimStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allocation: crate::OptionableConvert::try_from_optioned(value.allocation)?,
             devices: crate::OptionableConvert::try_from_optioned(value.devices)?,
@@ -49,10 +47,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::ResourceClai
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceClaimStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceClaimStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.allocation, other.allocation)?;
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
         crate::OptionableConvert::merge(&mut self.reserved_for, other.reserved_for)?;

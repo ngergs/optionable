@@ -29,18 +29,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretReference 
             namespace: crate::OptionableConvert::into_optioned(self.namespace),
         }
     }
-    fn try_from_optioned(
-        value: SecretReferenceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SecretReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
             namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SecretReferenceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SecretReferenceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
         Ok(())

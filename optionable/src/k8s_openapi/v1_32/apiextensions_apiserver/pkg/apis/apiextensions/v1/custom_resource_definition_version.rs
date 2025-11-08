@@ -75,7 +75,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn try_from_optioned(
         value: CustomResourceDefinitionVersionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             additional_printer_columns: crate::OptionableConvert::try_from_optioned(
                 value.additional_printer_columns,
@@ -87,7 +87,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -97,12 +97,12 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
             )?,
             served: value
                 .served
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "served",
                 })?,
             storage: value
                 .storage
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "storage",
                 })?,
             subresources: crate::OptionableConvert::try_from_optioned(
@@ -113,7 +113,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     fn merge(
         &mut self,
         other: CustomResourceDefinitionVersionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.additional_printer_columns,
             other.additional_printer_columns,

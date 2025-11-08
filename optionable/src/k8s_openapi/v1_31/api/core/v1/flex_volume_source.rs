@@ -42,14 +42,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FlexVolumeSource
             secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
         }
     }
-    fn try_from_optioned(
-        value: FlexVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: FlexVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             driver: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "driver",
                     })?,
             )?,
@@ -59,10 +57,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FlexVolumeSource
             secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: FlexVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: FlexVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.driver {
             crate::OptionableConvert::merge(&mut self.driver, other_value)?;
         }

@@ -57,15 +57,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScaleIOVolumeSou
             volume_name: crate::OptionableConvert::into_optioned(self.volume_name),
         }
     }
-    fn try_from_optioned(
-        value: ScaleIOVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ScaleIOVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             gateway: crate::OptionableConvert::try_from_optioned(
                 value
                     .gateway
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "gateway",
                     })?,
             )?,
@@ -76,7 +74,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScaleIOVolumeSou
             secret_ref: crate::OptionableConvert::try_from_optioned(
                 value
                     .secret_ref
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "secret_ref",
                     })?,
             )?,
@@ -90,17 +88,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScaleIOVolumeSou
             system: crate::OptionableConvert::try_from_optioned(
                 value
                     .system
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "system",
                     })?,
             )?,
             volume_name: crate::OptionableConvert::try_from_optioned(value.volume_name)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ScaleIOVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ScaleIOVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         if let Some(other_value) = other.gateway {
             crate::OptionableConvert::merge(&mut self.gateway, other_value)?;

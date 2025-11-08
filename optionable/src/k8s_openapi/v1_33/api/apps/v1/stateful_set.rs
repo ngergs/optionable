@@ -42,16 +42,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSet {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: StatefulSetAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: StatefulSetAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(&mut self, other: StatefulSetAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StatefulSetAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;

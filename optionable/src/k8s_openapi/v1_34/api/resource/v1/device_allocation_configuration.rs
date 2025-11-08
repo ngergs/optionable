@@ -40,14 +40,14 @@ for ::k8s_openapi::api::resource::v1::DeviceAllocationConfiguration {
     }
     fn try_from_optioned(
         value: DeviceAllocationConfigurationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             opaque: crate::OptionableConvert::try_from_optioned(value.opaque)?,
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
             source: crate::OptionableConvert::try_from_optioned(
                 value
                     .source
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "source",
                     })?,
             )?,
@@ -56,7 +56,7 @@ for ::k8s_openapi::api::resource::v1::DeviceAllocationConfiguration {
     fn merge(
         &mut self,
         other: DeviceAllocationConfigurationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.opaque, other.opaque)?;
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
         if let Some(other_value) = other.source {

@@ -34,19 +34,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPol
             protocol: crate::OptionableConvert::into_optioned(self.protocol),
         }
     }
-    fn try_from_optioned(
-        value: NetworkPolicyPortAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NetworkPolicyPortAc) -> Result<Self, crate::Error> {
         Ok(Self {
             end_port: crate::OptionableConvert::try_from_optioned(value.end_port)?,
             port: crate::OptionableConvert::try_from_optioned(value.port)?,
             protocol: crate::OptionableConvert::try_from_optioned(value.protocol)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NetworkPolicyPortAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NetworkPolicyPortAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.end_port, other.end_port)?;
         crate::OptionableConvert::merge(&mut self.port, other.port)?;
         crate::OptionableConvert::merge(&mut self.protocol, other.protocol)?;

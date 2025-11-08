@@ -37,21 +37,19 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Servic
             port: crate::OptionableConvert::into_optioned(self.port),
         }
     }
-    fn try_from_optioned(
-        value: ServiceReferenceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ServiceReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             namespace: crate::OptionableConvert::try_from_optioned(
                 value
                     .namespace
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "namespace",
                     })?,
             )?,
@@ -59,10 +57,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Servic
             port: crate::OptionableConvert::try_from_optioned(value.port)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ServiceReferenceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServiceReferenceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }

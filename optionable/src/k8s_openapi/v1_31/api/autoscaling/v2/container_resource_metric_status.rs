@@ -38,26 +38,26 @@ for ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricStatus {
     }
     fn try_from_optioned(
         value: ContainerResourceMetricStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             container: crate::OptionableConvert::try_from_optioned(
                 value
                     .container
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "container",
                     })?,
             )?,
             current: crate::OptionableConvert::try_from_optioned(
                 value
                     .current
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "current",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -66,7 +66,7 @@ for ::k8s_openapi::api::autoscaling::v2::ContainerResourceMetricStatus {
     fn merge(
         &mut self,
         other: ContainerResourceMetricStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.container {
             crate::OptionableConvert::merge(&mut self.container, other_value)?;
         }

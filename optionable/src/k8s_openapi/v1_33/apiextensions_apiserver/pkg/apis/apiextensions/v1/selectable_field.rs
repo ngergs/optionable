@@ -28,23 +28,18 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Select
             json_path: Some(crate::OptionableConvert::into_optioned(self.json_path)),
         }
     }
-    fn try_from_optioned(
-        value: SelectableFieldAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SelectableFieldAc) -> Result<Self, crate::Error> {
         Ok(Self {
             json_path: crate::OptionableConvert::try_from_optioned(
                 value
                     .json_path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "json_path",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SelectableFieldAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SelectableFieldAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.json_path {
             crate::OptionableConvert::merge(&mut self.json_path, other_value)?;
         }

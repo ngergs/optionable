@@ -32,7 +32,7 @@ jobs:
         uses: Swatinem/rust-cache@v2
       - name: Pre-release tests
         run: |-
-          cargo +nightly doc --manifest-path=optionable/Cargo.toml --features alloc,derive,std,serde_json/std,serde_json
+          cargo +nightly doc --manifest-path=optionable/Cargo.toml --features kube,derive
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features derive,chrono,serde_json
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono,serde_json
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features alloc,derive,chrono,serde_json

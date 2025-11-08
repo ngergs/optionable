@@ -56,17 +56,17 @@ for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetStatus {
     }
     fn try_from_optioned(
         value: PodDisruptionBudgetStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             current_healthy: value
                 .current_healthy
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "current_healthy",
                 })?,
             desired_healthy: value
                 .desired_healthy
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "desired_healthy",
                 })?,
             disrupted_pods: crate::OptionableConvert::try_from_optioned(
@@ -74,12 +74,12 @@ for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetStatus {
             )?,
             disruptions_allowed: value
                 .disruptions_allowed
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "disruptions_allowed",
                 })?,
             expected_pods: value
                 .expected_pods
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "expected_pods",
                 })?,
             observed_generation: crate::OptionableConvert::try_from_optioned(
@@ -87,10 +87,7 @@ for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetStatus {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PodDisruptionBudgetStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodDisruptionBudgetStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         if let Some(other_value) = other.current_healthy {
             self.current_healthy = other_value;

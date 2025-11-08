@@ -41,16 +41,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::QuobyteVolumeSou
             volume: Some(crate::OptionableConvert::into_optioned(self.volume)),
         }
     }
-    fn try_from_optioned(
-        value: QuobyteVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: QuobyteVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
             registry: crate::OptionableConvert::try_from_optioned(
                 value
                     .registry
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "registry",
                     })?,
             )?,
@@ -59,16 +57,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::QuobyteVolumeSou
             volume: crate::OptionableConvert::try_from_optioned(
                 value
                     .volume
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "volume",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: QuobyteVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: QuobyteVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.group, other.group)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         if let Some(other_value) = other.registry {

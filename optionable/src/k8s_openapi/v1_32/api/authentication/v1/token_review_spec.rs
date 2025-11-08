@@ -32,18 +32,13 @@ for ::k8s_openapi::api::authentication::v1::TokenReviewSpec {
             token: crate::OptionableConvert::into_optioned(self.token),
         }
     }
-    fn try_from_optioned(
-        value: TokenReviewSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TokenReviewSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             audiences: crate::OptionableConvert::try_from_optioned(value.audiences)?,
             token: crate::OptionableConvert::try_from_optioned(value.token)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: TokenReviewSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TokenReviewSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.audiences, other.audiences)?;
         crate::OptionableConvert::merge(&mut self.token, other.token)?;
         Ok(())

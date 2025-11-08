@@ -70,9 +70,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIDriverSpec
             ),
         }
     }
-    fn try_from_optioned(
-        value: CSIDriverSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CSIDriverSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             attach_required: crate::OptionableConvert::try_from_optioned(
                 value.attach_required,
@@ -103,7 +101,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIDriverSpec
             )?,
         })
     }
-    fn merge(&mut self, other: CSIDriverSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CSIDriverSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.attach_required,
             other.attach_required,

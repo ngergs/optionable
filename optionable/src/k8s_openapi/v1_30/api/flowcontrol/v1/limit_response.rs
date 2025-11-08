@@ -32,21 +32,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::LimitResp
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(
-        value: LimitResponseAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LimitResponseAc) -> Result<Self, crate::Error> {
         Ok(Self {
             queuing: crate::OptionableConvert::try_from_optioned(value.queuing)?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: LimitResponseAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LimitResponseAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.queuing, other.queuing)?;
         if let Some(other_value) = other.type_ {
             crate::OptionableConvert::merge(&mut self.type_, other_value)?;

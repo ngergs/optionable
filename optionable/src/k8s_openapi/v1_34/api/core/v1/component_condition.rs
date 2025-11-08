@@ -36,32 +36,27 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentConditi
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(
-        value: ComponentConditionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ComponentConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             error: crate::OptionableConvert::try_from_optioned(value.error)?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             status: crate::OptionableConvert::try_from_optioned(
                 value
                     .status
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "status",
                     })?,
             )?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ComponentConditionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ComponentConditionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.error, other.error)?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;
         if let Some(other_value) = other.status {

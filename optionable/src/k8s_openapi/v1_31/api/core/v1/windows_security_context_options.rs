@@ -48,7 +48,7 @@ for ::k8s_openapi::api::core::v1::WindowsSecurityContextOptions {
     }
     fn try_from_optioned(
         value: WindowsSecurityContextOptionsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             gmsa_credential_spec: crate::OptionableConvert::try_from_optioned(
                 value.gmsa_credential_spec,
@@ -67,7 +67,7 @@ for ::k8s_openapi::api::core::v1::WindowsSecurityContextOptions {
     fn merge(
         &mut self,
         other: WindowsSecurityContextOptionsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.gmsa_credential_spec,
             other.gmsa_credential_spec,

@@ -28,8 +28,14 @@ use serde::ser::SerializeMap;
 use serde::Serializer;
 use std::marker::PhantomData;
 
+#[cfg(feature = "derive")]
+#[doc(inline)]
 pub use optionable_derive::optionable_kube;
+#[cfg(feature = "derive")]
+#[doc(inline)]
 pub use optionable_derive::optionable_kube_cr;
+#[cfg(feature = "derive")]
+#[doc(inline)]
 pub use optionable_derive::OptionableKubeCrd;
 
 /// Serializes a `PhantomData` marker to add the API envelope fields `apiVersion` and `kind`.

@@ -34,19 +34,14 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::ServiceRefer
             port: crate::OptionableConvert::into_optioned(self.port),
         }
     }
-    fn try_from_optioned(
-        value: ServiceReferenceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ServiceReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
             namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
             port: crate::OptionableConvert::try_from_optioned(value.port)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ServiceReferenceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServiceReferenceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
         crate::OptionableConvert::merge(&mut self.port, other.port)?;

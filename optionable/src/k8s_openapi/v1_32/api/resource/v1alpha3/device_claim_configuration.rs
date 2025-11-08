@@ -37,16 +37,13 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceClaimConfiguration {
     }
     fn try_from_optioned(
         value: DeviceClaimConfigurationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             opaque: crate::OptionableConvert::try_from_optioned(value.opaque)?,
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceClaimConfigurationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceClaimConfigurationAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.opaque, other.opaque)?;
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
         Ok(())

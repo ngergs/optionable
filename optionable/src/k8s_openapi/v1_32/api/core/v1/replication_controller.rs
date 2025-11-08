@@ -42,19 +42,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ReplicationContr
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: ReplicationControllerAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ReplicationControllerAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ReplicationControllerAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ReplicationControllerAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;

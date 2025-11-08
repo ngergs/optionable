@@ -48,9 +48,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionStatus {
             ),
         }
     }
-    fn try_from_optioned(
-        value: StorageVersionStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: StorageVersionStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             common_encoding_version: crate::OptionableConvert::try_from_optioned(
                 value.common_encoding_version,
@@ -61,10 +59,7 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionStatus {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: StorageVersionStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StorageVersionStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.common_encoding_version,
             other.common_encoding_version,

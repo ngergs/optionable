@@ -36,7 +36,7 @@ for ::k8s_openapi::api::core::v1::NodeRuntimeHandlerFeatures {
     }
     fn try_from_optioned(
         value: NodeRuntimeHandlerFeaturesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             recursive_read_only_mounts: crate::OptionableConvert::try_from_optioned(
                 value.recursive_read_only_mounts,
@@ -49,7 +49,7 @@ for ::k8s_openapi::api::core::v1::NodeRuntimeHandlerFeatures {
     fn merge(
         &mut self,
         other: NodeRuntimeHandlerFeaturesAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.recursive_read_only_mounts,
             other.recursive_read_only_mounts,

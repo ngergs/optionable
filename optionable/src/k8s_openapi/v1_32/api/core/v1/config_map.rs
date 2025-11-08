@@ -45,7 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMap {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: ConfigMapAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ConfigMapAc) -> Result<Self, crate::Error> {
         Ok(Self {
             binary_data: crate::OptionableConvert::try_from_optioned(value.binary_data)?,
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
@@ -53,7 +53,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMap {
             metadata: value.metadata,
         })
     }
-    fn merge(&mut self, other: ConfigMapAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ConfigMapAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.binary_data, other.binary_data)?;
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
         crate::OptionableConvert::merge(&mut self.immutable, other.immutable)?;

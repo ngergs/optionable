@@ -18,15 +18,13 @@ impl ::optionable::OptionableConvert for address::Address {
             Self::Address(self_0) => AddressOpt::Address(Some(self_0)),
         }
     }
-    fn try_from_optioned(
-        other: AddressOpt,
-    ) -> Result<Self, ::optionable::optionable::Error> {
+    fn try_from_optioned(other: AddressOpt) -> Result<Self, ::optionable::Error> {
         Ok(
             match other {
                 AddressOpt::NumberOnly(other_0) => {
                     Self::NumberOnly(
                         other_0
-                            .ok_or(::optionable::optionable::Error {
+                            .ok_or(::optionable::Error {
                                 missing_field: "0",
                             })?,
                     )
@@ -34,7 +32,7 @@ impl ::optionable::OptionableConvert for address::Address {
                 AddressOpt::Address(other_0) => {
                     Self::Address(
                         other_0
-                            .ok_or(::optionable::optionable::Error {
+                            .ok_or(::optionable::Error {
                                 missing_field: "0",
                             })?,
                     )
@@ -42,10 +40,7 @@ impl ::optionable::OptionableConvert for address::Address {
             },
         )
     }
-    fn merge(
-        &mut self,
-        other: AddressOpt,
-    ) -> Result<(), ::optionable::optionable::Error> {
+    fn merge(&mut self, other: AddressOpt) -> Result<(), ::optionable::Error> {
         match other {
             AddressOpt::NumberOnly(other_0) => {
                 if let Self::NumberOnly(self_0) = self {

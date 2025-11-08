@@ -41,14 +41,12 @@ for ::k8s_openapi::api::authentication::v1::TokenRequestSpec {
             ),
         }
     }
-    fn try_from_optioned(
-        value: TokenRequestSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TokenRequestSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             audiences: crate::OptionableConvert::try_from_optioned(
                 value
                     .audiences
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "audiences",
                     })?,
             )?,
@@ -60,10 +58,7 @@ for ::k8s_openapi::api::authentication::v1::TokenRequestSpec {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: TokenRequestSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TokenRequestSpecAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.audiences {
             crate::OptionableConvert::merge(&mut self.audiences, other_value)?;
         }

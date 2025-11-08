@@ -28,12 +28,12 @@ for ::k8s_openapi::api::admissionregistration::v1beta1::JSONPatch {
             expression: crate::OptionableConvert::into_optioned(self.expression),
         }
     }
-    fn try_from_optioned(value: JSONPatchAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: JSONPatchAc) -> Result<Self, crate::Error> {
         Ok(Self {
             expression: crate::OptionableConvert::try_from_optioned(value.expression)?,
         })
     }
-    fn merge(&mut self, other: JSONPatchAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: JSONPatchAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.expression, other.expression)?;
         Ok(())
     }

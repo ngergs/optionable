@@ -35,7 +35,7 @@ for ::k8s_openapi::api::apps::v1::StatefulSetUpdateStrategy {
     }
     fn try_from_optioned(
         value: StatefulSetUpdateStrategyAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             rolling_update: crate::OptionableConvert::try_from_optioned(
                 value.rolling_update,
@@ -43,10 +43,7 @@ for ::k8s_openapi::api::apps::v1::StatefulSetUpdateStrategy {
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: StatefulSetUpdateStrategyAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StatefulSetUpdateStrategyAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.rolling_update, other.rolling_update)?;
         crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
         Ok(())

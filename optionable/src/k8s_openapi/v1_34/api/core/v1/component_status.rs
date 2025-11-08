@@ -37,18 +37,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentStatus 
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: ComponentStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ComponentStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             metadata: value.metadata,
         })
     }
-    fn merge(
-        &mut self,
-        other: ComponentStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ComponentStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         self.metadata = other.metadata;
         Ok(())

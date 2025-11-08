@@ -71,7 +71,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimSpec {
     }
     fn try_from_optioned(
         value: PersistentVolumeClaimSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             access_modes: crate::OptionableConvert::try_from_optioned(
                 value.access_modes,
@@ -92,10 +92,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimSpec {
             volume_name: crate::OptionableConvert::try_from_optioned(value.volume_name)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PersistentVolumeClaimSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PersistentVolumeClaimSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.access_modes, other.access_modes)?;
         crate::OptionableConvert::merge(&mut self.data_source, other.data_source)?;
         crate::OptionableConvert::merge(

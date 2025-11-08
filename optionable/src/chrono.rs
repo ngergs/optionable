@@ -1,5 +1,5 @@
-use crate::optionable::{impl_optional_self, Error};
-use crate::{Optionable, OptionableConvert};
+use crate::optionable::impl_optional_self;
+use crate::{Error, Optionable, OptionableConvert};
 use chrono::{DateTime, Days, Months, NaiveDate, NaiveDateTime, NaiveTime, TimeDelta, TimeZone};
 
 impl<Tz: TimeZone> Optionable for DateTime<Tz> {

@@ -38,19 +38,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerState {
             waiting: crate::OptionableConvert::into_optioned(self.waiting),
         }
     }
-    fn try_from_optioned(
-        value: ContainerStateAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ContainerStateAc) -> Result<Self, crate::Error> {
         Ok(Self {
             running: crate::OptionableConvert::try_from_optioned(value.running)?,
             terminated: crate::OptionableConvert::try_from_optioned(value.terminated)?,
             waiting: crate::OptionableConvert::try_from_optioned(value.waiting)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ContainerStateAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ContainerStateAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.running, other.running)?;
         crate::OptionableConvert::merge(&mut self.terminated, other.terminated)?;
         crate::OptionableConvert::merge(&mut self.waiting, other.waiting)?;

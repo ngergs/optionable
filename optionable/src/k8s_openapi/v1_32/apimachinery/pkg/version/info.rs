@@ -52,74 +52,74 @@ impl crate::OptionableConvert for ::k8s_openapi::apimachinery::pkg::version::Inf
             platform: Some(crate::OptionableConvert::into_optioned(self.platform)),
         }
     }
-    fn try_from_optioned(value: InfoAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: InfoAc) -> Result<Self, crate::Error> {
         Ok(Self {
             build_date: crate::OptionableConvert::try_from_optioned(
                 value
                     .build_date
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "build_date",
                     })?,
             )?,
             compiler: crate::OptionableConvert::try_from_optioned(
                 value
                     .compiler
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "compiler",
                     })?,
             )?,
             git_commit: crate::OptionableConvert::try_from_optioned(
                 value
                     .git_commit
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "git_commit",
                     })?,
             )?,
             git_tree_state: crate::OptionableConvert::try_from_optioned(
                 value
                     .git_tree_state
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "git_tree_state",
                     })?,
             )?,
             git_version: crate::OptionableConvert::try_from_optioned(
                 value
                     .git_version
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "git_version",
                     })?,
             )?,
             go_version: crate::OptionableConvert::try_from_optioned(
                 value
                     .go_version
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "go_version",
                     })?,
             )?,
             major: crate::OptionableConvert::try_from_optioned(
                 value
                     .major
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "major",
                     })?,
             )?,
             minor: crate::OptionableConvert::try_from_optioned(
                 value
                     .minor
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "minor",
                     })?,
             )?,
             platform: crate::OptionableConvert::try_from_optioned(
                 value
                     .platform
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "platform",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: InfoAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: InfoAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.build_date {
             crate::OptionableConvert::merge(&mut self.build_date, other_value)?;
         }

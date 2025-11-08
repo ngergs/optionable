@@ -46,9 +46,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityCl
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: PriorityClassAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PriorityClassAc) -> Result<Self, crate::Error> {
         Ok(Self {
             description: crate::OptionableConvert::try_from_optioned(value.description)?,
             global_default: crate::OptionableConvert::try_from_optioned(
@@ -60,12 +58,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityCl
             )?,
             value: value
                 .value
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "value",
                 })?,
         })
     }
-    fn merge(&mut self, other: PriorityClassAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PriorityClassAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.description, other.description)?;
         crate::OptionableConvert::merge(&mut self.global_default, other.global_default)?;
         self.metadata = other.metadata;

@@ -32,24 +32,24 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PortStatus {
             protocol: Some(crate::OptionableConvert::into_optioned(self.protocol)),
         }
     }
-    fn try_from_optioned(value: PortStatusAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PortStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             error: crate::OptionableConvert::try_from_optioned(value.error)?,
             port: value
                 .port
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "port",
                 })?,
             protocol: crate::OptionableConvert::try_from_optioned(
                 value
                     .protocol
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "protocol",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: PortStatusAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PortStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.error, other.error)?;
         if let Some(other_value) = other.port {
             self.port = other_value;

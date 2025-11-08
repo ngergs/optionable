@@ -30,23 +30,18 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::PodFailurePolic
             rules: Some(crate::OptionableConvert::into_optioned(self.rules)),
         }
     }
-    fn try_from_optioned(
-        value: PodFailurePolicyAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PodFailurePolicyAc) -> Result<Self, crate::Error> {
         Ok(Self {
             rules: crate::OptionableConvert::try_from_optioned(
                 value
                     .rules
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "rules",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PodFailurePolicyAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodFailurePolicyAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.rules {
             crate::OptionableConvert::merge(&mut self.rules, other_value)?;
         }

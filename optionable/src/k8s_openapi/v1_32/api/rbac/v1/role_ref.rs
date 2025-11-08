@@ -32,32 +32,32 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleRef {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
-    fn try_from_optioned(value: RoleRefAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: RoleRefAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_group: crate::OptionableConvert::try_from_optioned(
                 value
                     .api_group
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "api_group",
                     })?,
             )?,
             kind: crate::OptionableConvert::try_from_optioned(
                 value
                     .kind
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kind",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: RoleRefAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: RoleRefAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.api_group {
             crate::OptionableConvert::merge(&mut self.api_group, other_value)?;
         }

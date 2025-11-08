@@ -41,13 +41,13 @@ for ::k8s_openapi::api::core::v1::AzureFilePersistentVolumeSource {
     }
     fn try_from_optioned(
         value: AzureFilePersistentVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
             secret_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .secret_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "secret_name",
                     })?,
             )?,
@@ -57,7 +57,7 @@ for ::k8s_openapi::api::core::v1::AzureFilePersistentVolumeSource {
             share_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .share_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "share_name",
                     })?,
             )?,
@@ -66,7 +66,7 @@ for ::k8s_openapi::api::core::v1::AzureFilePersistentVolumeSource {
     fn merge(
         &mut self,
         other: AzureFilePersistentVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         if let Some(other_value) = other.secret_name {
             crate::OptionableConvert::merge(&mut self.secret_name, other_value)?;

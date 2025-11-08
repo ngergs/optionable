@@ -42,26 +42,26 @@ for ::k8s_openapi::api::core::v1::ContainerExtendedResourceRequest {
     }
     fn try_from_optioned(
         value: ContainerExtendedResourceRequestAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             container_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .container_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "container_name",
                     })?,
             )?,
             request_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .request_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "request_name",
                     })?,
             )?,
             resource_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "resource_name",
                     })?,
             )?,
@@ -70,7 +70,7 @@ for ::k8s_openapi::api::core::v1::ContainerExtendedResourceRequest {
     fn merge(
         &mut self,
         other: ContainerExtendedResourceRequestAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.container_name {
             crate::OptionableConvert::merge(&mut self.container_name, other_value)?;
         }

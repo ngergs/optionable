@@ -269,11 +269,11 @@ pub fn derive_optionable(
                             #ty_ident_opt #generics_colon #ty_generics #into_optioned_fields
                         }
 
-                        fn try_from_optioned(value: #ty_ident_opt #ty_generics) -> Result<Self, #crate_name::optionable::Error>{
+                        fn try_from_optioned(value: #ty_ident_opt #ty_generics) -> Result<Self, #crate_name::Error>{
                             Ok(Self #try_from_optioned_fields)
                         }
 
-                        fn merge(&mut self, other: #ty_ident_opt #ty_generics) -> Result<(), #crate_name::optionable::Error>{
+                        fn merge(&mut self, other: #ty_ident_opt #ty_generics) -> Result<(), #crate_name::Error>{
                             #merge_fields
                             Ok(())
                         }
@@ -379,13 +379,13 @@ pub fn derive_optionable(
                             }
                         }
 
-                        fn try_from_optioned(other: #ty_ident_opt #ty_generics)->Result<Self,#crate_name::optionable::Error>{
+                        fn try_from_optioned(other: #ty_ident_opt #ty_generics)->Result<Self,#crate_name::Error>{
                             Ok(match other{
                                 #(#try_from_variants),*
                             })
                         }
 
-                        fn merge(&mut self, other: #ty_ident_opt #ty_generics) -> Result<(), #crate_name::optionable::Error>{
+                        fn merge(&mut self, other: #ty_ident_opt #ty_generics) -> Result<(), #crate_name::Error>{
                             match other{
                                 #(#merge_variants),*
                             }
@@ -542,13 +542,13 @@ fn try_from_optioned(
             (FieldHandling::Other, true) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 quote! {
-                    #ident #colon #value_selector.ok_or(#crate_name::optionable::Error{ missing_field: #selector_quoted })?
+                    #ident #colon #value_selector.ok_or(#crate_name::Error{ missing_field: #selector_quoted })?
                 }
             }
             (FieldHandling::Other, false) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 quote! {
-                    #ident #colon #crate_name::OptionableConvert::try_from_optioned(#value_selector.ok_or(#crate_name::optionable::Error{ missing_field: #selector_quoted })?
+                    #ident #colon #crate_name::OptionableConvert::try_from_optioned(#value_selector.ok_or(#crate_name::Error{ missing_field: #selector_quoted })?
                     )?
                 }
             }
@@ -715,14 +715,14 @@ mod tests {
                             }
                         }
 
-                        fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
+                        fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
                             Ok(Self{
-                                name: value.name.ok_or(::optionable::optionable::Error { missing_field: "name" })?,
-                                surname: value.surname.ok_or(::optionable::optionable::Error { missing_field: "surname" })?
+                                name: value.name.ok_or(::optionable::Error { missing_field: "name" })?,
+                                surname: value.surname.ok_or(::optionable::Error { missing_field: "surname" })?
                             })
                         }
 
-                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::optionable::Error> {
+                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
                             if let Some(other_value) = other.name {
                                 self.name = other_value;
                             }
@@ -796,14 +796,14 @@ mod tests {
                             }
                         }
 
-                        fn try_from_optioned(value:DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
+                        fn try_from_optioned(value:DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
                             Ok (Self {
-                                name: value.name.ok_or(::optionable::optionable::Error { missing_field: "name" })?,
+                                name: value.name.ok_or(::optionable::Error { missing_field: "name" })?,
                                 surname: value.surname
                             })
                         }
 
-                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::optionable::Error> {
+                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
                             if let Some(other_value) = other.name {
                                 self.name = other_value;
                             }
@@ -861,15 +861,15 @@ mod tests {
                             }
                         }
 
-                        fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::optionable::Error> {
+                        fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::Error> {
                             Ok(Self{
-                                name: value.name.ok_or(::optionable::optionable::Error { missing_field: "name"})?,
+                                name: value.name.ok_or(::optionable::Error { missing_field: "name"})?,
                                 middle_name: ::optionable::OptionableConvert::try_from_optioned(value.middle_name)?,
-                                surname: value.surname.ok_or(::optionable::optionable::Error { missing_field: "surname"})?
+                                surname: value.surname.ok_or(::optionable::Error { missing_field: "surname"})?
                             })
                         }
 
-                        fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::optionable::Error> {
+                        fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
                             if let Some(other_value) = other.name {
                                 self.name =  other_value;
                             }
@@ -920,14 +920,14 @@ mod tests {
                             }
                         }
 
-                        fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::optionable::Error> {
+                        fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::Error> {
                              Ok(Self{
-                                name: value.name.ok_or(::optionable::optionable::Error{ missing_field: "name"})?,
-                                surname: value.surname.ok_or(::optionable::optionable::Error{ missing_field: "surname"})?
+                                name: value.name.ok_or(::optionable::Error{ missing_field: "name"})?,
+                                surname: value.surname.ok_or(::optionable::Error{ missing_field: "surname"})?
                             })
                         }
 
-                        fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::optionable::Error> {
+                        fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
                             if let Some(other_value) = other.name {
                                 self.name = other_value;
                             }
@@ -970,14 +970,14 @@ mod tests {
                             )
                         }
 
-                         fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
+                         fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
                             Ok(Self(
-                                value.0.ok_or(::optionable::optionable::Error { missing_field:"0" })?,
-                                value.1.ok_or(::optionable::optionable::Error { missing_field: "1" })?
+                                value.0.ok_or(::optionable::Error { missing_field:"0" })?,
+                                value.1.ok_or(::optionable::Error { missing_field: "1" })?
                             ))
                         }
 
-                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::optionable::Error> {
+                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
                             if let Some(other_value) = other.0 {
                                 self.0 = other_value;
                             }
@@ -1020,13 +1020,13 @@ mod tests {
                             )
                         }
 
-                         fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::optionable::Error> {
+                         fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
                             Ok(Self(
-                                value.0.ok_or(::optionable::optionable::Error { missing_field: "0" })?,
+                                value.0.ok_or(::optionable::Error { missing_field: "0" })?,
                                 value.1))
                         }
 
-                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::optionable::Error> {
+                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
                             if let Some(other_value) = other.0 {
                                 self.0 = other_value;
                             }
@@ -1098,15 +1098,15 @@ mod tests {
                             }
                         }
 
-                         fn try_from_optioned(value: DeriveExampleOpt<T, T2, T3> ) -> Result <Self, ::optionable::optionable::Error> {
+                         fn try_from_optioned(value: DeriveExampleOpt<T, T2, T3> ) -> Result <Self, ::optionable::Error> {
                              Ok(Self{
-                                output: ::optionable::OptionableConvert::try_from_optioned(value.output.ok_or(::optionable::optionable::Error { missing_field: "output" })?)?,
-                                input: ::optionable::OptionableConvert::try_from_optioned(value.input.ok_or(::optionable::optionable::Error { missing_field: "input" })?)?,
+                                output: ::optionable::OptionableConvert::try_from_optioned(value.output.ok_or(::optionable::Error { missing_field: "output" })?)?,
+                                input: ::optionable::OptionableConvert::try_from_optioned(value.input.ok_or(::optionable::Error { missing_field: "input" })?)?,
                                 extra: value.extra
                             })
                         }
 
-                        fn merge(&mut self, other: DeriveExampleOpt<T, T2, T3> ) -> Result<(), ::optionable::optionable::Error> {
+                        fn merge(&mut self, other: DeriveExampleOpt<T, T2, T3> ) -> Result<(), ::optionable::Error> {
                             if let Some(other_value) = other.output {
                                 ::optionable::OptionableConvert::merge(&mut self.output, other_value)?;
                             }
@@ -1166,23 +1166,23 @@ mod tests {
                             }
                         }
 
-                         fn try_from_optioned(other: DeriveExampleOpt) -> Result <Self, ::optionable::optionable::Error> {
+                         fn try_from_optioned(other: DeriveExampleOpt) -> Result <Self, ::optionable::Error> {
                             Ok (match other {
                                 DeriveExampleOpt::Unit => Self::Unit,
                                 DeriveExampleOpt::Plain(other_0) => Self::Plain(
-                                    other_0.ok_or(::optionable::optionable::Error { missing_field: "0" })?
+                                    other_0.ok_or(::optionable::Error { missing_field: "0" })?
                                 ),
                                 DeriveExampleOpt::Address{street: other_street, number: other_number} => Self::Address{
-                                    street: other_street.ok_or(::optionable::optionable::Error { missing_field: "street" })?,
-                                    number: other_number.ok_or(::optionable::optionable::Error { missing_field: "number" })?
+                                    street: other_street.ok_or(::optionable::Error { missing_field: "street" })?,
+                                    number: other_number.ok_or(::optionable::Error { missing_field: "number" })?
                                 },
                                 DeriveExampleOpt::Address2(other_0, other_1) => Self::Address2(
-                                    other_0.ok_or(::optionable::optionable::Error { missing_field: "0"})?,
-                                    other_1.ok_or(::optionable::optionable::Error { missing_field: "1"})?)
+                                    other_0.ok_or(::optionable::Error { missing_field: "0"})?,
+                                    other_1.ok_or(::optionable::Error { missing_field: "1"})?)
                             })
                         }
 
-                        fn merge(&mut self, other: DeriveExampleOpt) -> Result<(), ::optionable::optionable::Error> {
+                        fn merge(&mut self, other: DeriveExampleOpt) -> Result<(), ::optionable::Error> {
                             match other {
                                 DeriveExampleOpt::Unit => {
                                     if let Self::Unit = self {} else {
@@ -1274,14 +1274,14 @@ mod tests {
                         }
                     }
 
-                    fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, crate::optionable::Error> {
+                    fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, crate::Error> {
                         Ok(Self{
-                            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::optionable::Error { missing_field: "name" })?)?,
-                            surname: crate::OptionableConvert::try_from_optioned(value.surname.ok_or(crate::optionable::Error { missing_field: "surname" })?)?
+                            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error { missing_field: "name" })?)?,
+                            surname: crate::OptionableConvert::try_from_optioned(value.surname.ok_or(crate::Error { missing_field: "surname" })?)?
                         })
                     }
 
-                    fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), crate::optionable::Error> {
+                    fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), crate::Error> {
                         if let Some(other_value) = other.name {
                              crate::OptionableConvert::merge(&mut self.name, other_value)?;
                         }

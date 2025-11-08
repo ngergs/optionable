@@ -44,9 +44,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceClaimStatus {
             reserved_for: crate::OptionableConvert::into_optioned(self.reserved_for),
         }
     }
-    fn try_from_optioned(
-        value: ResourceClaimStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceClaimStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allocation: crate::OptionableConvert::try_from_optioned(value.allocation)?,
             deallocation_requested: crate::OptionableConvert::try_from_optioned(
@@ -58,10 +56,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceClaimStatus {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceClaimStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceClaimStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.allocation, other.allocation)?;
         crate::OptionableConvert::merge(
             &mut self.deallocation_requested,

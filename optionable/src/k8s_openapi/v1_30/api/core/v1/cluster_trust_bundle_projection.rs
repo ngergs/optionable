@@ -43,7 +43,7 @@ for ::k8s_openapi::api::core::v1::ClusterTrustBundleProjection {
     }
     fn try_from_optioned(
         value: ClusterTrustBundleProjectionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             label_selector: crate::OptionableConvert::try_from_optioned(
                 value.label_selector,
@@ -53,7 +53,7 @@ for ::k8s_openapi::api::core::v1::ClusterTrustBundleProjection {
             path: crate::OptionableConvert::try_from_optioned(
                 value
                     .path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "path",
                     })?,
             )?,
@@ -63,7 +63,7 @@ for ::k8s_openapi::api::core::v1::ClusterTrustBundleProjection {
     fn merge(
         &mut self,
         other: ClusterTrustBundleProjectionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(&mut self.optional, other.optional)?;

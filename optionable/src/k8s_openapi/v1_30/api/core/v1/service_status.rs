@@ -33,9 +33,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceStatus {
             load_balancer: crate::OptionableConvert::into_optioned(self.load_balancer),
         }
     }
-    fn try_from_optioned(
-        value: ServiceStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ServiceStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             load_balancer: crate::OptionableConvert::try_from_optioned(
@@ -43,7 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceStatus {
             )?,
         })
     }
-    fn merge(&mut self, other: ServiceStatusAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServiceStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(&mut self.load_balancer, other.load_balancer)?;
         Ok(())

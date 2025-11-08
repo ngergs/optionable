@@ -39,7 +39,7 @@ for ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource {
     }
     fn try_from_optioned(
         value: AWSElasticBlockStoreVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             partition: crate::OptionableConvert::try_from_optioned(value.partition)?,
@@ -47,7 +47,7 @@ for ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource {
             volume_id: crate::OptionableConvert::try_from_optioned(
                 value
                     .volume_id
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "volume_id",
                     })?,
             )?,
@@ -56,7 +56,7 @@ for ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource {
     fn merge(
         &mut self,
         other: AWSElasticBlockStoreVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.partition, other.partition)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;

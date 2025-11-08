@@ -31,13 +31,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressTLS
             secret_name: crate::OptionableConvert::into_optioned(self.secret_name),
         }
     }
-    fn try_from_optioned(value: IngressTLSAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: IngressTLSAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hosts: crate::OptionableConvert::try_from_optioned(value.hosts)?,
             secret_name: crate::OptionableConvert::try_from_optioned(value.secret_name)?,
         })
     }
-    fn merge(&mut self, other: IngressTLSAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: IngressTLSAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hosts, other.hosts)?;
         crate::OptionableConvert::merge(&mut self.secret_name, other.secret_name)?;
         Ok(())

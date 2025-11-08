@@ -44,9 +44,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRole {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: ClusterRoleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ClusterRoleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             aggregation_rule: crate::OptionableConvert::try_from_optioned(
                 value.aggregation_rule,
@@ -55,7 +53,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRole {
             rules: crate::OptionableConvert::try_from_optioned(value.rules)?,
         })
     }
-    fn merge(&mut self, other: ClusterRoleAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ClusterRoleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.aggregation_rule,
             other.aggregation_rule,

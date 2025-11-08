@@ -43,9 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeConfigStatus
             ),
         }
     }
-    fn try_from_optioned(
-        value: NodeConfigStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeConfigStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             active: crate::OptionableConvert::try_from_optioned(value.active)?,
             assigned: crate::OptionableConvert::try_from_optioned(value.assigned)?,
@@ -55,10 +53,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeConfigStatus
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NodeConfigStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeConfigStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.active, other.active)?;
         crate::OptionableConvert::merge(&mut self.assigned, other.assigned)?;
         crate::OptionableConvert::merge(&mut self.error, other.error)?;

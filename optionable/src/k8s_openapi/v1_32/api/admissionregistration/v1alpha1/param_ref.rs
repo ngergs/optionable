@@ -43,7 +43,7 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::ParamRef {
             selector: crate::OptionableConvert::into_optioned(self.selector),
         }
     }
-    fn try_from_optioned(value: ParamRefAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ParamRefAc) -> Result<Self, crate::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
             namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
@@ -53,7 +53,7 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::ParamRef {
             selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
         })
     }
-    fn merge(&mut self, other: ParamRefAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ParamRefAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
         crate::OptionableConvert::merge(

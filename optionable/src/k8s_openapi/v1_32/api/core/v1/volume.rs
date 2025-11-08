@@ -186,7 +186,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Volume {
             vsphere_volume: crate::OptionableConvert::into_optioned(self.vsphere_volume),
         }
     }
-    fn try_from_optioned(value: VolumeAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: VolumeAc) -> Result<Self, crate::Error> {
         Ok(Self {
             aws_elastic_block_store: crate::OptionableConvert::try_from_optioned(
                 value.aws_elastic_block_store,
@@ -216,7 +216,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Volume {
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -241,7 +241,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Volume {
             )?,
         })
     }
-    fn merge(&mut self, other: VolumeAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.aws_elastic_block_store,
             other.aws_elastic_block_store,

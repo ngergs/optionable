@@ -37,12 +37,12 @@ for ::k8s_openapi::api::resource::v1alpha3::ResourceClaimSchedulingStatus {
     }
     fn try_from_optioned(
         value: ResourceClaimSchedulingStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -54,7 +54,7 @@ for ::k8s_openapi::api::resource::v1alpha3::ResourceClaimSchedulingStatus {
     fn merge(
         &mut self,
         other: ResourceClaimSchedulingStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }

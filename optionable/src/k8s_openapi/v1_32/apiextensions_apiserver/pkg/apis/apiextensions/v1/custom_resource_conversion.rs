@@ -35,22 +35,19 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn try_from_optioned(
         value: CustomResourceConversionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             strategy: crate::OptionableConvert::try_from_optioned(
                 value
                     .strategy
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "strategy",
                     })?,
             )?,
             webhook: crate::OptionableConvert::try_from_optioned(value.webhook)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CustomResourceConversionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CustomResourceConversionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.strategy {
             crate::OptionableConvert::merge(&mut self.strategy, other_value)?;
         }

@@ -33,26 +33,23 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PreferredSchedul
     }
     fn try_from_optioned(
         value: PreferredSchedulingTermAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             preference: crate::OptionableConvert::try_from_optioned(
                 value
                     .preference
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "preference",
                     })?,
             )?,
             weight: value
                 .weight
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "weight",
                 })?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PreferredSchedulingTermAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PreferredSchedulingTermAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.preference {
             crate::OptionableConvert::merge(&mut self.preference, other_value)?;
         }

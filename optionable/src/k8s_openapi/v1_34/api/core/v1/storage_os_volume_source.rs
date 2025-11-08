@@ -42,9 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::StorageOSVolumeS
             ),
         }
     }
-    fn try_from_optioned(
-        value: StorageOSVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: StorageOSVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
@@ -55,10 +53,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::StorageOSVolumeS
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: StorageOSVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StorageOSVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;

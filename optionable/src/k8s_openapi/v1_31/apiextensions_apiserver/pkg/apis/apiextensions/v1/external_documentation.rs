@@ -31,18 +31,13 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Extern
             url: crate::OptionableConvert::into_optioned(self.url),
         }
     }
-    fn try_from_optioned(
-        value: ExternalDocumentationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ExternalDocumentationAc) -> Result<Self, crate::Error> {
         Ok(Self {
             description: crate::OptionableConvert::try_from_optioned(value.description)?,
             url: crate::OptionableConvert::try_from_optioned(value.url)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ExternalDocumentationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ExternalDocumentationAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.description, other.description)?;
         crate::OptionableConvert::merge(&mut self.url, other.url)?;
         Ok(())

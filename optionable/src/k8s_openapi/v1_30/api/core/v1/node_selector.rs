@@ -32,20 +32,18 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelector {
             ),
         }
     }
-    fn try_from_optioned(
-        value: NodeSelectorAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             node_selector_terms: crate::OptionableConvert::try_from_optioned(
                 value
                     .node_selector_terms
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "node_selector_terms",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: NodeSelectorAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeSelectorAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.node_selector_terms {
             crate::OptionableConvert::merge(&mut self.node_selector_terms, other_value)?;
         }

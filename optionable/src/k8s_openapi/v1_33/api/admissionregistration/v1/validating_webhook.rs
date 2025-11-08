@@ -84,21 +84,19 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhook {
             ),
         }
     }
-    fn try_from_optioned(
-        value: ValidatingWebhookAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ValidatingWebhookAc) -> Result<Self, crate::Error> {
         Ok(Self {
             admission_review_versions: crate::OptionableConvert::try_from_optioned(
                 value
                     .admission_review_versions
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "admission_review_versions",
                     })?,
             )?,
             client_config: crate::OptionableConvert::try_from_optioned(
                 value
                     .client_config
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "client_config",
                     })?,
             )?,
@@ -114,7 +112,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhook {
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -128,7 +126,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhook {
             side_effects: crate::OptionableConvert::try_from_optioned(
                 value
                     .side_effects
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "side_effects",
                     })?,
             )?,
@@ -137,10 +135,7 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhook {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ValidatingWebhookAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ValidatingWebhookAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.admission_review_versions {
             crate::OptionableConvert::merge(
                 &mut self.admission_review_versions,

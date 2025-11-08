@@ -46,9 +46,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ObjectReference 
             uid: crate::OptionableConvert::into_optioned(self.uid),
         }
     }
-    fn try_from_optioned(
-        value: ObjectReferenceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ObjectReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
             field_path: crate::OptionableConvert::try_from_optioned(value.field_path)?,
@@ -61,10 +59,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ObjectReference 
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ObjectReferenceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ObjectReferenceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         crate::OptionableConvert::merge(&mut self.field_path, other.field_path)?;
         crate::OptionableConvert::merge(&mut self.kind, other.kind)?;

@@ -32,9 +32,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentStrate
             type_: crate::OptionableConvert::into_optioned(self.type_),
         }
     }
-    fn try_from_optioned(
-        value: DeploymentStrategyAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeploymentStrategyAc) -> Result<Self, crate::Error> {
         Ok(Self {
             rolling_update: crate::OptionableConvert::try_from_optioned(
                 value.rolling_update,
@@ -42,10 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentStrate
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeploymentStrategyAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeploymentStrategyAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.rolling_update, other.rolling_update)?;
         crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
         Ok(())

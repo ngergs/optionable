@@ -67,36 +67,34 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResource {
             version: crate::OptionableConvert::into_optioned(self.version),
         }
     }
-    fn try_from_optioned(
-        value: APIResourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: APIResourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             categories: crate::OptionableConvert::try_from_optioned(value.categories)?,
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
             kind: crate::OptionableConvert::try_from_optioned(
                 value
                     .kind
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kind",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             namespaced: value
                 .namespaced
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "namespaced",
                 })?,
             short_names: crate::OptionableConvert::try_from_optioned(value.short_names)?,
             singular_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .singular_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "singular_name",
                     })?,
             )?,
@@ -106,14 +104,14 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResource {
             verbs: crate::OptionableConvert::try_from_optioned(
                 value
                     .verbs
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "verbs",
                     })?,
             )?,
             version: crate::OptionableConvert::try_from_optioned(value.version)?,
         })
     }
-    fn merge(&mut self, other: APIResourceAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: APIResourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.categories, other.categories)?;
         crate::OptionableConvert::merge(&mut self.group, other.group)?;
         if let Some(other_value) = other.kind {

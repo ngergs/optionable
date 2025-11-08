@@ -59,12 +59,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::Endpoint {
             zone: crate::OptionableConvert::into_optioned(self.zone),
         }
     }
-    fn try_from_optioned(value: EndpointAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EndpointAc) -> Result<Self, crate::Error> {
         Ok(Self {
             addresses: crate::OptionableConvert::try_from_optioned(
                 value
                     .addresses
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "addresses",
                     })?,
             )?,
@@ -79,7 +79,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::Endpoint {
             zone: crate::OptionableConvert::try_from_optioned(value.zone)?,
         })
     }
-    fn merge(&mut self, other: EndpointAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EndpointAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.addresses {
             crate::OptionableConvert::merge(&mut self.addresses, other_value)?;
         }

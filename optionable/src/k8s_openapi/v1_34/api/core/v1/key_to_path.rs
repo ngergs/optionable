@@ -32,12 +32,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::KeyToPath {
             path: Some(crate::OptionableConvert::into_optioned(self.path)),
         }
     }
-    fn try_from_optioned(value: KeyToPathAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: KeyToPathAc) -> Result<Self, crate::Error> {
         Ok(Self {
             key: crate::OptionableConvert::try_from_optioned(
                 value
                     .key
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "key",
                     })?,
             )?,
@@ -45,13 +45,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::KeyToPath {
             path: crate::OptionableConvert::try_from_optioned(
                 value
                     .path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "path",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: KeyToPathAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: KeyToPathAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.key {
             crate::OptionableConvert::merge(&mut self.key, other_value)?;
         }

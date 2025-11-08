@@ -39,12 +39,12 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::Validation {
             reason: crate::OptionableConvert::into_optioned(self.reason),
         }
     }
-    fn try_from_optioned(value: ValidationAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ValidationAc) -> Result<Self, crate::Error> {
         Ok(Self {
             expression: crate::OptionableConvert::try_from_optioned(
                 value
                     .expression
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "expression",
                     })?,
             )?,
@@ -55,7 +55,7 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::Validation {
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
         })
     }
-    fn merge(&mut self, other: ValidationAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ValidationAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expression {
             crate::OptionableConvert::merge(&mut self.expression, other_value)?;
         }

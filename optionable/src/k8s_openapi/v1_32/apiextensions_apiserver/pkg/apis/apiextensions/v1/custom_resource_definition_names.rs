@@ -49,13 +49,13 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn try_from_optioned(
         value: CustomResourceDefinitionNamesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             categories: crate::OptionableConvert::try_from_optioned(value.categories)?,
             kind: crate::OptionableConvert::try_from_optioned(
                 value
                     .kind
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kind",
                     })?,
             )?,
@@ -63,7 +63,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
             plural: crate::OptionableConvert::try_from_optioned(
                 value
                     .plural
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "plural",
                     })?,
             )?,
@@ -74,7 +74,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     fn merge(
         &mut self,
         other: CustomResourceDefinitionNamesAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.categories, other.categories)?;
         if let Some(other_value) = other.kind {
             crate::OptionableConvert::merge(&mut self.kind, other_value)?;

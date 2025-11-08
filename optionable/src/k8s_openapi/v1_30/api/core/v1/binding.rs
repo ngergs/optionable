@@ -37,19 +37,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Binding {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: BindingAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: BindingAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             target: crate::OptionableConvert::try_from_optioned(
                 value
                     .target
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "target",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: BindingAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: BindingAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.target {
             crate::OptionableConvert::merge(&mut self.target, other_value)?;

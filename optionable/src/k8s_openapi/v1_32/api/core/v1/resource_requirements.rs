@@ -44,19 +44,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceRequirem
             requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
-    fn try_from_optioned(
-        value: ResourceRequirementsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceRequirementsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             claims: crate::OptionableConvert::try_from_optioned(value.claims)?,
             limits: crate::OptionableConvert::try_from_optioned(value.limits)?,
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceRequirementsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceRequirementsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.claims, other.claims)?;
         crate::OptionableConvert::merge(&mut self.limits, other.limits)?;
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;

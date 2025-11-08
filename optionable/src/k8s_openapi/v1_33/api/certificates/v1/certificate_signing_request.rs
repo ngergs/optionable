@@ -46,23 +46,20 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequest {
     }
     fn try_from_optioned(
         value: CertificateSigningRequestAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(
                 value
                     .spec
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "spec",
                     })?,
             )?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CertificateSigningRequestAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CertificateSigningRequestAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
             crate::OptionableConvert::merge(&mut self.spec, other_value)?;

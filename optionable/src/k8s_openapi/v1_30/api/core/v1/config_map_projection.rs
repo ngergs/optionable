@@ -34,25 +34,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapProject
             optional: crate::OptionableConvert::into_optioned(self.optional),
         }
     }
-    fn try_from_optioned(
-        value: ConfigMapProjectionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ConfigMapProjectionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             items: crate::OptionableConvert::try_from_optioned(value.items)?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             optional: crate::OptionableConvert::try_from_optioned(value.optional)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ConfigMapProjectionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ConfigMapProjectionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.items, other.items)?;
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;

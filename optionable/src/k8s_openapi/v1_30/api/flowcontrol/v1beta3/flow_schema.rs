@@ -42,14 +42,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1beta3::Flow
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: FlowSchemaAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: FlowSchemaAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(&mut self, other: FlowSchemaAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: FlowSchemaAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;

@@ -37,7 +37,7 @@ for ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy {
     }
     fn try_from_optioned(
         value: RollingUpdateStatefulSetStrategyAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             max_unavailable: crate::OptionableConvert::try_from_optioned(
                 value.max_unavailable,
@@ -48,7 +48,7 @@ for ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy {
     fn merge(
         &mut self,
         other: RollingUpdateStatefulSetStrategyAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.max_unavailable,
             other.max_unavailable,

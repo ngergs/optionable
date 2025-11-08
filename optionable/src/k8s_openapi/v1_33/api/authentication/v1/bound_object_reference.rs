@@ -36,9 +36,7 @@ for ::k8s_openapi::api::authentication::v1::BoundObjectReference {
             uid: crate::OptionableConvert::into_optioned(self.uid),
         }
     }
-    fn try_from_optioned(
-        value: BoundObjectReferenceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: BoundObjectReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
             kind: crate::OptionableConvert::try_from_optioned(value.kind)?,
@@ -46,10 +44,7 @@ for ::k8s_openapi::api::authentication::v1::BoundObjectReference {
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: BoundObjectReferenceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: BoundObjectReferenceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
         crate::OptionableConvert::merge(&mut self.name, other.name)?;

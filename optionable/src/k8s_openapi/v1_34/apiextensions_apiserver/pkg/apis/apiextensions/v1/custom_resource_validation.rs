@@ -34,17 +34,14 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn try_from_optioned(
         value: CustomResourceValidationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             open_api_v3_schema: crate::OptionableConvert::try_from_optioned(
                 value.open_api_v3_schema,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CustomResourceValidationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CustomResourceValidationAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.open_api_v3_schema,
             other.open_api_v3_schema,

@@ -41,7 +41,7 @@ for ::k8s_openapi::api::admissionregistration::v1::MutatingWebhookConfiguration 
     }
     fn try_from_optioned(
         value: MutatingWebhookConfigurationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             webhooks: crate::OptionableConvert::try_from_optioned(value.webhooks)?,
@@ -50,7 +50,7 @@ for ::k8s_openapi::api::admissionregistration::v1::MutatingWebhookConfiguration 
     fn merge(
         &mut self,
         other: MutatingWebhookConfigurationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.webhooks, other.webhooks)?;
         Ok(())

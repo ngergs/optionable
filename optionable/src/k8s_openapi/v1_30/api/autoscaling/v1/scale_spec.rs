@@ -26,12 +26,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v1::ScaleSpec
             replicas: crate::OptionableConvert::into_optioned(self.replicas),
         }
     }
-    fn try_from_optioned(value: ScaleSpecAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ScaleSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             replicas: crate::OptionableConvert::try_from_optioned(value.replicas)?,
         })
     }
-    fn merge(&mut self, other: ScaleSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ScaleSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.replicas, other.replicas)?;
         Ok(())
     }

@@ -31,19 +31,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HostAlias {
             ip: Some(crate::OptionableConvert::into_optioned(self.ip)),
         }
     }
-    fn try_from_optioned(value: HostAliasAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: HostAliasAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hostnames: crate::OptionableConvert::try_from_optioned(value.hostnames)?,
             ip: crate::OptionableConvert::try_from_optioned(
                 value
                     .ip
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "ip",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: HostAliasAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: HostAliasAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hostnames, other.hostnames)?;
         if let Some(other_value) = other.ip {
             crate::OptionableConvert::merge(&mut self.ip, other_value)?;

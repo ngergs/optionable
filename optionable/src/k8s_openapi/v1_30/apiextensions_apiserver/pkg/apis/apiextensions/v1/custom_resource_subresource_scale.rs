@@ -46,7 +46,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn try_from_optioned(
         value: CustomResourceSubresourceScaleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             label_selector_path: crate::OptionableConvert::try_from_optioned(
                 value.label_selector_path,
@@ -54,14 +54,14 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
             spec_replicas_path: crate::OptionableConvert::try_from_optioned(
                 value
                     .spec_replicas_path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "spec_replicas_path",
                     })?,
             )?,
             status_replicas_path: crate::OptionableConvert::try_from_optioned(
                 value
                     .status_replicas_path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "status_replicas_path",
                     })?,
             )?,
@@ -70,7 +70,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     fn merge(
         &mut self,
         other: CustomResourceSubresourceScaleAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.label_selector_path,
             other.label_selector_path,

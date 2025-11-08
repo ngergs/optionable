@@ -39,7 +39,7 @@ for ::k8s_openapi::api::admissionregistration::v1beta1::Mutation {
             patch_type: Some(crate::OptionableConvert::into_optioned(self.patch_type)),
         }
     }
-    fn try_from_optioned(value: MutationAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: MutationAc) -> Result<Self, crate::Error> {
         Ok(Self {
             apply_configuration: crate::OptionableConvert::try_from_optioned(
                 value.apply_configuration,
@@ -48,13 +48,13 @@ for ::k8s_openapi::api::admissionregistration::v1beta1::Mutation {
             patch_type: crate::OptionableConvert::try_from_optioned(
                 value
                     .patch_type
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "patch_type",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: MutationAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: MutationAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.apply_configuration,
             other.apply_configuration,

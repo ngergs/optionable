@@ -31,16 +31,14 @@ for ::k8s_openapi::api::admissionregistration::v1::TypeChecking {
             ),
         }
     }
-    fn try_from_optioned(
-        value: TypeCheckingAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TypeCheckingAc) -> Result<Self, crate::Error> {
         Ok(Self {
             expression_warnings: crate::OptionableConvert::try_from_optioned(
                 value.expression_warnings,
             )?,
         })
     }
-    fn merge(&mut self, other: TypeCheckingAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TypeCheckingAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.expression_warnings,
             other.expression_warnings,

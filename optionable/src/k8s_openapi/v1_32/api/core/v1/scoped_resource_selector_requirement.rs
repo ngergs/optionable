@@ -38,19 +38,19 @@ for ::k8s_openapi::api::core::v1::ScopedResourceSelectorRequirement {
     }
     fn try_from_optioned(
         value: ScopedResourceSelectorRequirementAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             operator: crate::OptionableConvert::try_from_optioned(
                 value
                     .operator
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "operator",
                     })?,
             )?,
             scope_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .scope_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "scope_name",
                     })?,
             )?,
@@ -60,7 +60,7 @@ for ::k8s_openapi::api::core::v1::ScopedResourceSelectorRequirement {
     fn merge(
         &mut self,
         other: ScopedResourceSelectorRequirementAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.operator {
             crate::OptionableConvert::merge(&mut self.operator, other_value)?;
         }

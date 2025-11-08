@@ -45,9 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressSpe
             tls: crate::OptionableConvert::into_optioned(self.tls),
         }
     }
-    fn try_from_optioned(
-        value: IngressSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: IngressSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             default_backend: crate::OptionableConvert::try_from_optioned(
                 value.default_backend,
@@ -59,7 +57,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressSpe
             tls: crate::OptionableConvert::try_from_optioned(value.tls)?,
         })
     }
-    fn merge(&mut self, other: IngressSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: IngressSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.default_backend,
             other.default_backend,

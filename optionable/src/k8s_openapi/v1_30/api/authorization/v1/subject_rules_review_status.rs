@@ -53,36 +53,33 @@ for ::k8s_openapi::api::authorization::v1::SubjectRulesReviewStatus {
     }
     fn try_from_optioned(
         value: SubjectRulesReviewStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             evaluation_error: crate::OptionableConvert::try_from_optioned(
                 value.evaluation_error,
             )?,
             incomplete: value
                 .incomplete
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "incomplete",
                 })?,
             non_resource_rules: crate::OptionableConvert::try_from_optioned(
                 value
                     .non_resource_rules
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "non_resource_rules",
                     })?,
             )?,
             resource_rules: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource_rules
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "resource_rules",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SubjectRulesReviewStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SubjectRulesReviewStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.evaluation_error,
             other.evaluation_error,

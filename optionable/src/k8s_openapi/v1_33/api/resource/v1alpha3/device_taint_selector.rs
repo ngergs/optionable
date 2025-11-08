@@ -43,9 +43,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintSelector {
             selectors: crate::OptionableConvert::into_optioned(self.selectors),
         }
     }
-    fn try_from_optioned(
-        value: DeviceTaintSelectorAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceTaintSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             device: crate::OptionableConvert::try_from_optioned(value.device)?,
             device_class_name: crate::OptionableConvert::try_from_optioned(
@@ -56,10 +54,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceTaintSelector {
             selectors: crate::OptionableConvert::try_from_optioned(value.selectors)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceTaintSelectorAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceTaintSelectorAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.device, other.device)?;
         crate::OptionableConvert::merge(
             &mut self.device_class_name,

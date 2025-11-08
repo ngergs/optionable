@@ -65,7 +65,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Device 
             taints: crate::OptionableConvert::into_optioned(self.taints),
         }
     }
-    fn try_from_optioned(value: DeviceAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             all_nodes: crate::OptionableConvert::try_from_optioned(value.all_nodes)?,
             attributes: crate::OptionableConvert::try_from_optioned(value.attributes)?,
@@ -76,7 +76,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Device 
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -87,7 +87,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::Device 
             taints: crate::OptionableConvert::try_from_optioned(value.taints)?,
         })
     }
-    fn merge(&mut self, other: DeviceAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.all_nodes, other.all_nodes)?;
         crate::OptionableConvert::merge(&mut self.attributes, other.attributes)?;
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;

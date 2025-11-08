@@ -45,14 +45,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1alpha2::Resour
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: ResourceSliceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceSliceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             driver_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "driver_name",
                     })?,
             )?,
@@ -63,7 +61,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1alpha2::Resour
             node_name: crate::OptionableConvert::try_from_optioned(value.node_name)?,
         })
     }
-    fn merge(&mut self, other: ResourceSliceAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceSliceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.driver_name {
             crate::OptionableConvert::merge(&mut self.driver_name, other_value)?;
         }

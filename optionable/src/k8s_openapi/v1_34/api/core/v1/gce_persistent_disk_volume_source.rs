@@ -38,14 +38,14 @@ for ::k8s_openapi::api::core::v1::GCEPersistentDiskVolumeSource {
     }
     fn try_from_optioned(
         value: GCEPersistentDiskVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             partition: crate::OptionableConvert::try_from_optioned(value.partition)?,
             pd_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .pd_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "pd_name",
                     })?,
             )?,
@@ -55,7 +55,7 @@ for ::k8s_openapi::api::core::v1::GCEPersistentDiskVolumeSource {
     fn merge(
         &mut self,
         other: GCEPersistentDiskVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.partition, other.partition)?;
         if let Some(other_value) = other.pd_name {

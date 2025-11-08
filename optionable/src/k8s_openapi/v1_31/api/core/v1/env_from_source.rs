@@ -36,9 +36,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EnvFromSource {
             secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
         }
     }
-    fn try_from_optioned(
-        value: EnvFromSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EnvFromSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             config_map_ref: crate::OptionableConvert::try_from_optioned(
                 value.config_map_ref,
@@ -47,7 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EnvFromSource {
             secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
         })
     }
-    fn merge(&mut self, other: EnvFromSourceAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EnvFromSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.config_map_ref, other.config_map_ref)?;
         crate::OptionableConvert::merge(&mut self.prefix, other.prefix)?;
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;

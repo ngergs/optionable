@@ -42,9 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricTar
             value: crate::OptionableConvert::into_optioned(self.value),
         }
     }
-    fn try_from_optioned(
-        value: MetricTargetAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: MetricTargetAc) -> Result<Self, crate::Error> {
         Ok(Self {
             average_utilization: crate::OptionableConvert::try_from_optioned(
                 value.average_utilization,
@@ -55,14 +53,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricTar
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
             value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
     }
-    fn merge(&mut self, other: MetricTargetAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: MetricTargetAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.average_utilization,
             other.average_utilization,

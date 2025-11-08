@@ -35,7 +35,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec 
     }
     fn try_from_optioned(
         value: StorageVersionMigrationSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             continue_token: crate::OptionableConvert::try_from_optioned(
                 value.continue_token,
@@ -43,7 +43,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec 
             resource: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "resource",
                     })?,
             )?,
@@ -52,7 +52,7 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec 
     fn merge(
         &mut self,
         other: StorageVersionMigrationSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.continue_token, other.continue_token)?;
         if let Some(other_value) = other.resource {
             crate::OptionableConvert::merge(&mut self.resource, other_value)?;

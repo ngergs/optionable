@@ -59,9 +59,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentSpec {
             template: Some(crate::OptionableConvert::into_optioned(self.template)),
         }
     }
-    fn try_from_optioned(
-        value: DeploymentSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeploymentSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             min_ready_seconds: crate::OptionableConvert::try_from_optioned(
                 value.min_ready_seconds,
@@ -77,7 +75,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentSpec {
             selector: crate::OptionableConvert::try_from_optioned(
                 value
                     .selector
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "selector",
                     })?,
             )?,
@@ -85,16 +83,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentSpec {
             template: crate::OptionableConvert::try_from_optioned(
                 value
                     .template
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "template",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeploymentSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeploymentSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.min_ready_seconds,
             other.min_ready_seconds,

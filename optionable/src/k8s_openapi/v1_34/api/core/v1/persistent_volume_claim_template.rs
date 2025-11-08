@@ -36,13 +36,13 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimTemplate {
     }
     fn try_from_optioned(
         value: PersistentVolumeClaimTemplateAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: crate::OptionableConvert::try_from_optioned(value.metadata)?,
             spec: crate::OptionableConvert::try_from_optioned(
                 value
                     .spec
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "spec",
                     })?,
             )?,
@@ -51,7 +51,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimTemplate {
     fn merge(
         &mut self,
         other: PersistentVolumeClaimTemplateAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.metadata, other.metadata)?;
         if let Some(other_value) = other.spec {
             crate::OptionableConvert::merge(&mut self.spec, other_value)?;

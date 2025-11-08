@@ -35,9 +35,7 @@ for ::k8s_openapi::api::resource::v1beta1::NetworkDeviceData {
             ips: crate::OptionableConvert::into_optioned(self.ips),
         }
     }
-    fn try_from_optioned(
-        value: NetworkDeviceDataAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NetworkDeviceDataAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hardware_address: crate::OptionableConvert::try_from_optioned(
                 value.hardware_address,
@@ -48,10 +46,7 @@ for ::k8s_openapi::api::resource::v1beta1::NetworkDeviceData {
             ips: crate::OptionableConvert::try_from_optioned(value.ips)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NetworkDeviceDataAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NetworkDeviceDataAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.hardware_address,
             other.hardware_address,

@@ -29,17 +29,17 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::GRPCAction {
             service: crate::OptionableConvert::into_optioned(self.service),
         }
     }
-    fn try_from_optioned(value: GRPCActionAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: GRPCActionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             port: value
                 .port
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "port",
                 })?,
             service: crate::OptionableConvert::try_from_optioned(value.service)?,
         })
     }
-    fn merge(&mut self, other: GRPCActionAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: GRPCActionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.port {
             self.port = other_value;
         }

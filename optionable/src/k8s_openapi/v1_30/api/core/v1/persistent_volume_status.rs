@@ -39,9 +39,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
             reason: crate::OptionableConvert::into_optioned(self.reason),
         }
     }
-    fn try_from_optioned(
-        value: PersistentVolumeStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PersistentVolumeStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             last_phase_transition_time: crate::OptionableConvert::try_from_optioned(
                 value.last_phase_transition_time,
@@ -51,10 +49,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolume
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PersistentVolumeStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PersistentVolumeStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_phase_transition_time,
             other.last_phase_transition_time,

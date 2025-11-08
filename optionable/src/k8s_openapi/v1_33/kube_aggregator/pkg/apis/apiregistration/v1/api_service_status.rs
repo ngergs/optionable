@@ -32,17 +32,12 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSt
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
         }
     }
-    fn try_from_optioned(
-        value: APIServiceStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: APIServiceStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: APIServiceStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: APIServiceStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         Ok(())
     }

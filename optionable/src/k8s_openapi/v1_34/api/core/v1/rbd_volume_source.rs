@@ -51,15 +51,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::RBDVolumeSource 
             user: crate::OptionableConvert::into_optioned(self.user),
         }
     }
-    fn try_from_optioned(
-        value: RBDVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: RBDVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             image: crate::OptionableConvert::try_from_optioned(
                 value
                     .image
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "image",
                     })?,
             )?,
@@ -67,7 +65,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::RBDVolumeSource 
             monitors: crate::OptionableConvert::try_from_optioned(
                 value
                     .monitors
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "monitors",
                     })?,
             )?,
@@ -77,10 +75,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::RBDVolumeSource 
             user: crate::OptionableConvert::try_from_optioned(value.user)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: RBDVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: RBDVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         if let Some(other_value) = other.image {
             crate::OptionableConvert::merge(&mut self.image, other_value)?;

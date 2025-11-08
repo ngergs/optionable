@@ -33,30 +33,25 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::PodsMetri
             target: Some(crate::OptionableConvert::into_optioned(self.target)),
         }
     }
-    fn try_from_optioned(
-        value: PodsMetricSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PodsMetricSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metric: crate::OptionableConvert::try_from_optioned(
                 value
                     .metric
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "metric",
                     })?,
             )?,
             target: crate::OptionableConvert::try_from_optioned(
                 value
                     .target
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "target",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PodsMetricSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodsMetricSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.metric {
             crate::OptionableConvert::merge(&mut self.metric, other_value)?;
         }

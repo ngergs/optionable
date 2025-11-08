@@ -27,23 +27,18 @@ for ::k8s_openapi::api::resource::v1alpha2::NamedResourcesFilter {
             selector: Some(crate::OptionableConvert::into_optioned(self.selector)),
         }
     }
-    fn try_from_optioned(
-        value: NamedResourcesFilterAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NamedResourcesFilterAc) -> Result<Self, crate::Error> {
         Ok(Self {
             selector: crate::OptionableConvert::try_from_optioned(
                 value
                     .selector
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "selector",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NamedResourcesFilterAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NamedResourcesFilterAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.selector {
             crate::OptionableConvert::merge(&mut self.selector, other_value)?;
         }

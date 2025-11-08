@@ -89,9 +89,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStatus 
             volume_mounts: crate::OptionableConvert::into_optioned(self.volume_mounts),
         }
     }
-    fn try_from_optioned(
-        value: ContainerStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ContainerStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allocated_resources: crate::OptionableConvert::try_from_optioned(
                 value.allocated_resources,
@@ -105,14 +103,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStatus 
             image: crate::OptionableConvert::try_from_optioned(
                 value
                     .image
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "image",
                     })?,
             )?,
             image_id: crate::OptionableConvert::try_from_optioned(
                 value
                     .image_id
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "image_id",
                     })?,
             )?,
@@ -120,19 +118,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStatus 
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             ready: value
                 .ready
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "ready",
                 })?,
             resources: crate::OptionableConvert::try_from_optioned(value.resources)?,
             restart_count: value
                 .restart_count
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "restart_count",
                 })?,
             started: crate::OptionableConvert::try_from_optioned(value.started)?,
@@ -144,10 +142,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStatus 
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ContainerStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ContainerStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.allocated_resources,
             other.allocated_resources,

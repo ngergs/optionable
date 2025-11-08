@@ -42,7 +42,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::UserIn
             username: crate::OptionableConvert::into_optioned(self.username),
         }
     }
-    fn try_from_optioned(value: UserInfoAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: UserInfoAc) -> Result<Self, crate::Error> {
         Ok(Self {
             extra: crate::OptionableConvert::try_from_optioned(value.extra)?,
             groups: crate::OptionableConvert::try_from_optioned(value.groups)?,
@@ -50,7 +50,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::UserIn
             username: crate::OptionableConvert::try_from_optioned(value.username)?,
         })
     }
-    fn merge(&mut self, other: UserInfoAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: UserInfoAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.extra, other.extra)?;
         crate::OptionableConvert::merge(&mut self.groups, other.groups)?;
         crate::OptionableConvert::merge(&mut self.uid, other.uid)?;

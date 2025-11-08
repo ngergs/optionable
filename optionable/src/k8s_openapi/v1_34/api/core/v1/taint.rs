@@ -37,19 +37,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Taint {
             value: crate::OptionableConvert::into_optioned(self.value),
         }
     }
-    fn try_from_optioned(value: TaintAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TaintAc) -> Result<Self, crate::Error> {
         Ok(Self {
             effect: crate::OptionableConvert::try_from_optioned(
                 value
                     .effect
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "effect",
                     })?,
             )?,
             key: crate::OptionableConvert::try_from_optioned(
                 value
                     .key
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "key",
                     })?,
             )?,
@@ -57,7 +57,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Taint {
             value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
     }
-    fn merge(&mut self, other: TaintAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TaintAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.effect {
             crate::OptionableConvert::merge(&mut self.effect, other_value)?;
         }

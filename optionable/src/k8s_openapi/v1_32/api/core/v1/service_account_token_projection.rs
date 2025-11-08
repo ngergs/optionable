@@ -37,7 +37,7 @@ for ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection {
     }
     fn try_from_optioned(
         value: ServiceAccountTokenProjectionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             audience: crate::OptionableConvert::try_from_optioned(value.audience)?,
             expiration_seconds: crate::OptionableConvert::try_from_optioned(
@@ -46,7 +46,7 @@ for ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection {
             path: crate::OptionableConvert::try_from_optioned(
                 value
                     .path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "path",
                     })?,
             )?,
@@ -55,7 +55,7 @@ for ::k8s_openapi::api::core::v1::ServiceAccountTokenProjection {
     fn merge(
         &mut self,
         other: ServiceAccountTokenProjectionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.audience, other.audience)?;
         crate::OptionableConvert::merge(
             &mut self.expiration_seconds,

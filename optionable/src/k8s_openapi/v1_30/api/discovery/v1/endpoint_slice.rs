@@ -49,21 +49,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSli
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: EndpointSliceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EndpointSliceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             address_type: crate::OptionableConvert::try_from_optioned(
                 value
                     .address_type
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "address_type",
                     })?,
             )?,
             endpoints: crate::OptionableConvert::try_from_optioned(
                 value
                     .endpoints
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "endpoints",
                     })?,
             )?,
@@ -71,7 +69,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSli
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
         })
     }
-    fn merge(&mut self, other: EndpointSliceAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EndpointSliceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.address_type {
             crate::OptionableConvert::merge(&mut self.address_type, other_value)?;
         }

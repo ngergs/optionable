@@ -39,9 +39,7 @@ for ::k8s_openapi::api::resource::v1beta2::CapacityRequestPolicy {
             valid_values: crate::OptionableConvert::into_optioned(self.valid_values),
         }
     }
-    fn try_from_optioned(
-        value: CapacityRequestPolicyAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CapacityRequestPolicyAc) -> Result<Self, crate::Error> {
         Ok(Self {
             default: crate::OptionableConvert::try_from_optioned(value.default)?,
             valid_range: crate::OptionableConvert::try_from_optioned(value.valid_range)?,
@@ -50,10 +48,7 @@ for ::k8s_openapi::api::resource::v1beta2::CapacityRequestPolicy {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CapacityRequestPolicyAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CapacityRequestPolicyAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.default, other.default)?;
         crate::OptionableConvert::merge(&mut self.valid_range, other.valid_range)?;
         crate::OptionableConvert::merge(&mut self.valid_values, other.valid_values)?;

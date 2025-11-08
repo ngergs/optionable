@@ -54,9 +54,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricSta
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(
-        value: MetricStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: MetricStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             container_resource: crate::OptionableConvert::try_from_optioned(
                 value.container_resource,
@@ -68,13 +66,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricSta
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: MetricStatusAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: MetricStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.container_resource,
             other.container_resource,

@@ -35,9 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelectorTerm
             match_fields: crate::OptionableConvert::into_optioned(self.match_fields),
         }
     }
-    fn try_from_optioned(
-        value: NodeSelectorTermAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeSelectorTermAc) -> Result<Self, crate::Error> {
         Ok(Self {
             match_expressions: crate::OptionableConvert::try_from_optioned(
                 value.match_expressions,
@@ -47,10 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelectorTerm
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NodeSelectorTermAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeSelectorTermAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.match_expressions,
             other.match_expressions,

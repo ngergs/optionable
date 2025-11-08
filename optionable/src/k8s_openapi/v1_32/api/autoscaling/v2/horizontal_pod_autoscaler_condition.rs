@@ -47,7 +47,7 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
     }
     fn try_from_optioned(
         value: HorizontalPodAutoscalerConditionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value.last_transition_time,
@@ -57,14 +57,14 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
             status: crate::OptionableConvert::try_from_optioned(
                 value
                     .status
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "status",
                     })?,
             )?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
@@ -73,7 +73,7 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
     fn merge(
         &mut self,
         other: HorizontalPodAutoscalerConditionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,
             other.last_transition_time,

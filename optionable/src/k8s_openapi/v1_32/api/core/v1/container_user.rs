@@ -28,14 +28,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerUser {
             linux: crate::OptionableConvert::into_optioned(self.linux),
         }
     }
-    fn try_from_optioned(
-        value: ContainerUserAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ContainerUserAc) -> Result<Self, crate::Error> {
         Ok(Self {
             linux: crate::OptionableConvert::try_from_optioned(value.linux)?,
         })
     }
-    fn merge(&mut self, other: ContainerUserAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ContainerUserAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.linux, other.linux)?;
         Ok(())
     }

@@ -34,21 +34,18 @@ for ::k8s_openapi::api::resource::v1alpha2::NamedResourcesResources {
     }
     fn try_from_optioned(
         value: NamedResourcesResourcesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             instances: crate::OptionableConvert::try_from_optioned(
                 value
                     .instances
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "instances",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NamedResourcesResourcesAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NamedResourcesResourcesAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.instances {
             crate::OptionableConvert::merge(&mut self.instances, other_value)?;
         }

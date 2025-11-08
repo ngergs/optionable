@@ -52,7 +52,7 @@ for ::k8s_openapi::api::core::v1::ReplicationControllerStatus {
     }
     fn try_from_optioned(
         value: ReplicationControllerStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             available_replicas: crate::OptionableConvert::try_from_optioned(
                 value.available_replicas,
@@ -69,7 +69,7 @@ for ::k8s_openapi::api::core::v1::ReplicationControllerStatus {
             )?,
             replicas: value
                 .replicas
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "replicas",
                 })?,
         })
@@ -77,7 +77,7 @@ for ::k8s_openapi::api::core::v1::ReplicationControllerStatus {
     fn merge(
         &mut self,
         other: ReplicationControllerStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.available_replicas,
             other.available_replicas,

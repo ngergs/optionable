@@ -28,17 +28,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceSelect
             cel: crate::OptionableConvert::into_optioned(self.cel),
         }
     }
-    fn try_from_optioned(
-        value: DeviceSelectorAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             cel: crate::OptionableConvert::try_from_optioned(value.cel)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceSelectorAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceSelectorAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.cel, other.cel)?;
         Ok(())
     }

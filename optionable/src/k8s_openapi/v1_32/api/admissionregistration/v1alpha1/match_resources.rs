@@ -58,9 +58,7 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::MatchResources {
             resource_rules: crate::OptionableConvert::into_optioned(self.resource_rules),
         }
     }
-    fn try_from_optioned(
-        value: MatchResourcesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: MatchResourcesAc) -> Result<Self, crate::Error> {
         Ok(Self {
             exclude_resource_rules: crate::OptionableConvert::try_from_optioned(
                 value.exclude_resource_rules,
@@ -79,10 +77,7 @@ for ::k8s_openapi::api::admissionregistration::v1alpha1::MatchResources {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: MatchResourcesAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: MatchResourcesAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.exclude_resource_rules,
             other.exclude_resource_rules,

@@ -57,7 +57,7 @@ for ::k8s_openapi::api::resource::v1alpha2::NamedResourcesAttribute {
     }
     fn try_from_optioned(
         value: NamedResourcesAttributeAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             bool: crate::OptionableConvert::try_from_optioned(value.bool)?,
             int: crate::OptionableConvert::try_from_optioned(value.int)?,
@@ -65,7 +65,7 @@ for ::k8s_openapi::api::resource::v1alpha2::NamedResourcesAttribute {
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -77,10 +77,7 @@ for ::k8s_openapi::api::resource::v1alpha2::NamedResourcesAttribute {
             version: crate::OptionableConvert::try_from_optioned(value.version)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NamedResourcesAttributeAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NamedResourcesAttributeAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.bool, other.bool)?;
         crate::OptionableConvert::merge(&mut self.int, other.int)?;
         crate::OptionableConvert::merge(&mut self.int_slice, other.int_slice)?;

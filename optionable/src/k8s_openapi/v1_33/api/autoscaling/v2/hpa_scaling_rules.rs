@@ -41,9 +41,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalin
             tolerance: crate::OptionableConvert::into_optioned(self.tolerance),
         }
     }
-    fn try_from_optioned(
-        value: HPAScalingRulesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: HPAScalingRulesAc) -> Result<Self, crate::Error> {
         Ok(Self {
             policies: crate::OptionableConvert::try_from_optioned(value.policies)?,
             select_policy: crate::OptionableConvert::try_from_optioned(
@@ -55,10 +53,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalin
             tolerance: crate::OptionableConvert::try_from_optioned(value.tolerance)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: HPAScalingRulesAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: HPAScalingRulesAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.policies, other.policies)?;
         crate::OptionableConvert::merge(&mut self.select_policy, other.select_policy)?;
         crate::OptionableConvert::merge(

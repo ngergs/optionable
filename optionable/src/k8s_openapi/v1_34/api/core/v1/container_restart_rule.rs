@@ -31,24 +31,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerRestart
             exit_codes: crate::OptionableConvert::into_optioned(self.exit_codes),
         }
     }
-    fn try_from_optioned(
-        value: ContainerRestartRuleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ContainerRestartRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             action: crate::OptionableConvert::try_from_optioned(
                 value
                     .action
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "action",
                     })?,
             )?,
             exit_codes: crate::OptionableConvert::try_from_optioned(value.exit_codes)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ContainerRestartRuleAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ContainerRestartRuleAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.action {
             crate::OptionableConvert::merge(&mut self.action, other_value)?;
         }

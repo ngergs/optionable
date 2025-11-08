@@ -35,9 +35,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointPort {
             protocol: crate::OptionableConvert::into_optioned(self.protocol),
         }
     }
-    fn try_from_optioned(
-        value: EndpointPortAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EndpointPortAc) -> Result<Self, crate::Error> {
         Ok(Self {
             app_protocol: crate::OptionableConvert::try_from_optioned(
                 value.app_protocol,
@@ -45,13 +43,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointPort {
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
             port: value
                 .port
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "port",
                 })?,
             protocol: crate::OptionableConvert::try_from_optioned(value.protocol)?,
         })
     }
-    fn merge(&mut self, other: EndpointPortAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EndpointPortAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.app_protocol, other.app_protocol)?;
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         if let Some(other_value) = other.port {

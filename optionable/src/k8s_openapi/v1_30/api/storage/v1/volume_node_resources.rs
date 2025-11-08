@@ -26,17 +26,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeNodeRes
             count: crate::OptionableConvert::into_optioned(self.count),
         }
     }
-    fn try_from_optioned(
-        value: VolumeNodeResourcesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: VolumeNodeResourcesAc) -> Result<Self, crate::Error> {
         Ok(Self {
             count: crate::OptionableConvert::try_from_optioned(value.count)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: VolumeNodeResourcesAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeNodeResourcesAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.count, other.count)?;
         Ok(())
     }

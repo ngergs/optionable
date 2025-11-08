@@ -27,23 +27,18 @@ for ::k8s_openapi::api::resource::v1beta2::CELDeviceSelector {
             expression: Some(crate::OptionableConvert::into_optioned(self.expression)),
         }
     }
-    fn try_from_optioned(
-        value: CELDeviceSelectorAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CELDeviceSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             expression: crate::OptionableConvert::try_from_optioned(
                 value
                     .expression
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "expression",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CELDeviceSelectorAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CELDeviceSelectorAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expression {
             crate::OptionableConvert::merge(&mut self.expression, other_value)?;
         }

@@ -50,7 +50,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: StatusAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: StatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             code: crate::OptionableConvert::try_from_optioned(value.code)?,
             details: crate::OptionableConvert::try_from_optioned(value.details)?,
@@ -60,7 +60,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(&mut self, other: StatusAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.code, other.code)?;
         crate::OptionableConvert::merge(&mut self.details, other.details)?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;

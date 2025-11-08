@@ -34,18 +34,13 @@ for ::k8s_openapi::api::resource::v1::DeviceAllocationResult {
             results: crate::OptionableConvert::into_optioned(self.results),
         }
     }
-    fn try_from_optioned(
-        value: DeviceAllocationResultAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceAllocationResultAc) -> Result<Self, crate::Error> {
         Ok(Self {
             config: crate::OptionableConvert::try_from_optioned(value.config)?,
             results: crate::OptionableConvert::try_from_optioned(value.results)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceAllocationResultAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceAllocationResultAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.config, other.config)?;
         crate::OptionableConvert::merge(&mut self.results, other.results)?;
         Ok(())

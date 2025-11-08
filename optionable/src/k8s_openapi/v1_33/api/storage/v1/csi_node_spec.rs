@@ -30,20 +30,18 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSINodeSpec {
             drivers: Some(crate::OptionableConvert::into_optioned(self.drivers)),
         }
     }
-    fn try_from_optioned(
-        value: CSINodeSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CSINodeSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             drivers: crate::OptionableConvert::try_from_optioned(
                 value
                     .drivers
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "drivers",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: CSINodeSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CSINodeSpecAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.drivers {
             crate::OptionableConvert::merge(&mut self.drivers, other_value)?;
         }

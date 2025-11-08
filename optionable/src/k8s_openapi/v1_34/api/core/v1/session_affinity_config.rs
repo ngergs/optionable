@@ -28,17 +28,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SessionAffinityC
             client_ip: crate::OptionableConvert::into_optioned(self.client_ip),
         }
     }
-    fn try_from_optioned(
-        value: SessionAffinityConfigAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SessionAffinityConfigAc) -> Result<Self, crate::Error> {
         Ok(Self {
             client_ip: crate::OptionableConvert::try_from_optioned(value.client_ip)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SessionAffinityConfigAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SessionAffinityConfigAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.client_ip, other.client_ip)?;
         Ok(())
     }

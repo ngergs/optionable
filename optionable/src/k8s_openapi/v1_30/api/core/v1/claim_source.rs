@@ -37,9 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ClaimSource {
             ),
         }
     }
-    fn try_from_optioned(
-        value: ClaimSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ClaimSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             resource_claim_name: crate::OptionableConvert::try_from_optioned(
                 value.resource_claim_name,
@@ -49,7 +47,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ClaimSource {
             )?,
         })
     }
-    fn merge(&mut self, other: ClaimSourceAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ClaimSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.resource_claim_name,
             other.resource_claim_name,

@@ -33,9 +33,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Preconditions {
             uid: crate::OptionableConvert::into_optioned(self.uid),
         }
     }
-    fn try_from_optioned(
-        value: PreconditionsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PreconditionsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             resource_version: crate::OptionableConvert::try_from_optioned(
                 value.resource_version,
@@ -43,7 +41,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Preconditions {
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
-    fn merge(&mut self, other: PreconditionsAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PreconditionsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.resource_version,
             other.resource_version,

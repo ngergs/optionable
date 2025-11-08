@@ -29,24 +29,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ObjectFieldSelec
             field_path: Some(crate::OptionableConvert::into_optioned(self.field_path)),
         }
     }
-    fn try_from_optioned(
-        value: ObjectFieldSelectorAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ObjectFieldSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
             field_path: crate::OptionableConvert::try_from_optioned(
                 value
                     .field_path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "field_path",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ObjectFieldSelectorAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ObjectFieldSelectorAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         if let Some(other_value) = other.field_path {
             crate::OptionableConvert::merge(&mut self.field_path, other_value)?;

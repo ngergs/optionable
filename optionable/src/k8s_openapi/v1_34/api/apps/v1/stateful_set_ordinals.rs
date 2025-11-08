@@ -26,17 +26,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetOrdin
             start: crate::OptionableConvert::into_optioned(self.start),
         }
     }
-    fn try_from_optioned(
-        value: StatefulSetOrdinalsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: StatefulSetOrdinalsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             start: crate::OptionableConvert::try_from_optioned(value.start)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: StatefulSetOrdinalsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StatefulSetOrdinalsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.start, other.start)?;
         Ok(())
     }

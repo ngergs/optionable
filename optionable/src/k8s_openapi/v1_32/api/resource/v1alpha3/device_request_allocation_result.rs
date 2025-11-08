@@ -42,7 +42,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceRequestAllocationResult {
     }
     fn try_from_optioned(
         value: DeviceRequestAllocationResultAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             admin_access: crate::OptionableConvert::try_from_optioned(
                 value.admin_access,
@@ -50,28 +50,28 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceRequestAllocationResult {
             device: crate::OptionableConvert::try_from_optioned(
                 value
                     .device
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "device",
                     })?,
             )?,
             driver: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "driver",
                     })?,
             )?,
             pool: crate::OptionableConvert::try_from_optioned(
                 value
                     .pool
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "pool",
                     })?,
             )?,
             request: crate::OptionableConvert::try_from_optioned(
                 value
                     .request
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "request",
                     })?,
             )?,
@@ -80,7 +80,7 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceRequestAllocationResult {
     fn merge(
         &mut self,
         other: DeviceRequestAllocationResultAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
         if let Some(other_value) = other.device {
             crate::OptionableConvert::merge(&mut self.device, other_value)?;

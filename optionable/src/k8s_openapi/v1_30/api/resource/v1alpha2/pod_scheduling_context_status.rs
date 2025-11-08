@@ -36,7 +36,7 @@ for ::k8s_openapi::api::resource::v1alpha2::PodSchedulingContextStatus {
     }
     fn try_from_optioned(
         value: PodSchedulingContextStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             resource_claims: crate::OptionableConvert::try_from_optioned(
                 value.resource_claims,
@@ -46,7 +46,7 @@ for ::k8s_openapi::api::resource::v1alpha2::PodSchedulingContextStatus {
     fn merge(
         &mut self,
         other: PodSchedulingContextStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.resource_claims,
             other.resource_claims,

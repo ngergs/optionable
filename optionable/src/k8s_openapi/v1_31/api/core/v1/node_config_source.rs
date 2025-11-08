@@ -28,17 +28,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeConfigSource
             config_map: crate::OptionableConvert::into_optioned(self.config_map),
         }
     }
-    fn try_from_optioned(
-        value: NodeConfigSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeConfigSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             config_map: crate::OptionableConvert::try_from_optioned(value.config_map)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NodeConfigSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeConfigSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.config_map, other.config_map)?;
         Ok(())
     }

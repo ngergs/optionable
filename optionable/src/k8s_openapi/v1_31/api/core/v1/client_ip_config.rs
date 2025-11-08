@@ -28,19 +28,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ClientIPConfig {
             ),
         }
     }
-    fn try_from_optioned(
-        value: ClientIPConfigAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ClientIPConfigAc) -> Result<Self, crate::Error> {
         Ok(Self {
             timeout_seconds: crate::OptionableConvert::try_from_optioned(
                 value.timeout_seconds,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ClientIPConfigAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ClientIPConfigAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.timeout_seconds,
             other.timeout_seconds,

@@ -49,23 +49,21 @@ for ::k8s_openapi::api::resource::v1alpha3::AllocatedDeviceStatus {
             pool: Some(crate::OptionableConvert::into_optioned(self.pool)),
         }
     }
-    fn try_from_optioned(
-        value: AllocatedDeviceStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: AllocatedDeviceStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
             device: crate::OptionableConvert::try_from_optioned(
                 value
                     .device
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "device",
                     })?,
             )?,
             driver: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "driver",
                     })?,
             )?,
@@ -75,16 +73,13 @@ for ::k8s_openapi::api::resource::v1alpha3::AllocatedDeviceStatus {
             pool: crate::OptionableConvert::try_from_optioned(
                 value
                     .pool
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "pool",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: AllocatedDeviceStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: AllocatedDeviceStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
         if let Some(other_value) = other.device {

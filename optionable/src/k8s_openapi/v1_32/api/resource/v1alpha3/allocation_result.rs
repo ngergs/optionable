@@ -34,9 +34,7 @@ for ::k8s_openapi::api::resource::v1alpha3::AllocationResult {
             node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
         }
     }
-    fn try_from_optioned(
-        value: AllocationResultAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: AllocationResultAc) -> Result<Self, crate::Error> {
         Ok(Self {
             devices: crate::OptionableConvert::try_from_optioned(value.devices)?,
             node_selector: crate::OptionableConvert::try_from_optioned(
@@ -44,10 +42,7 @@ for ::k8s_openapi::api::resource::v1alpha3::AllocationResult {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: AllocationResultAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: AllocationResultAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
         crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
         Ok(())

@@ -39,20 +39,18 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroupList {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: APIGroupListAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: APIGroupListAc) -> Result<Self, crate::Error> {
         Ok(Self {
             groups: crate::OptionableConvert::try_from_optioned(
                 value
                     .groups
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "groups",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: APIGroupListAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: APIGroupListAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.groups {
             crate::OptionableConvert::merge(&mut self.groups, other_value)?;
         }

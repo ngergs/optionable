@@ -38,9 +38,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceRequest {
             ),
         }
     }
-    fn try_from_optioned(
-        value: ResourceRequestAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceRequestAc) -> Result<Self, crate::Error> {
         Ok(Self {
             named_resources: crate::OptionableConvert::try_from_optioned(
                 value.named_resources,
@@ -50,10 +48,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceRequest {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceRequestAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceRequestAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.named_resources,
             other.named_resources,

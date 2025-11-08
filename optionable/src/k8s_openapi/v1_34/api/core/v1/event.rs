@@ -99,7 +99,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Event {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: EventAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EventAc) -> Result<Self, crate::Error> {
         Ok(Self {
             action: crate::OptionableConvert::try_from_optioned(value.action)?,
             count: crate::OptionableConvert::try_from_optioned(value.count)?,
@@ -110,7 +110,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Event {
             involved_object: crate::OptionableConvert::try_from_optioned(
                 value
                     .involved_object
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "involved_object",
                     })?,
             )?,
@@ -132,7 +132,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Event {
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(&mut self, other: EventAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EventAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.action, other.action)?;
         crate::OptionableConvert::merge(&mut self.count, other.count)?;
         crate::OptionableConvert::merge(&mut self.event_time, other.event_time)?;

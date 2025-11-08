@@ -44,7 +44,7 @@ for ::k8s_openapi::api::core::v1::ReplicationControllerSpec {
     }
     fn try_from_optioned(
         value: ReplicationControllerSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             min_ready_seconds: crate::OptionableConvert::try_from_optioned(
                 value.min_ready_seconds,
@@ -54,10 +54,7 @@ for ::k8s_openapi::api::core::v1::ReplicationControllerSpec {
             template: crate::OptionableConvert::try_from_optioned(value.template)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ReplicationControllerSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ReplicationControllerSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.min_ready_seconds,
             other.min_ready_seconds,

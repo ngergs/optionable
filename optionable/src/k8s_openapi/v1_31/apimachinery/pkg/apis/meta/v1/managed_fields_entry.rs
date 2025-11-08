@@ -50,9 +50,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
             time: crate::OptionableConvert::into_optioned(self.time),
         }
     }
-    fn try_from_optioned(
-        value: ManagedFieldsEntryAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ManagedFieldsEntryAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
             fields_type: crate::OptionableConvert::try_from_optioned(value.fields_type)?,
@@ -63,10 +61,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
             time: crate::OptionableConvert::try_from_optioned(value.time)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ManagedFieldsEntryAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ManagedFieldsEntryAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         crate::OptionableConvert::merge(&mut self.fields_type, other.fields_type)?;
         crate::OptionableConvert::merge(&mut self.fields_v1, other.fields_v1)?;

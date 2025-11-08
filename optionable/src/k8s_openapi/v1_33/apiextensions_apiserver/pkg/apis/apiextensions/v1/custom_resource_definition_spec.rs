@@ -55,20 +55,20 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn try_from_optioned(
         value: CustomResourceDefinitionSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             conversion: crate::OptionableConvert::try_from_optioned(value.conversion)?,
             group: crate::OptionableConvert::try_from_optioned(
                 value
                     .group
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "group",
                     })?,
             )?,
             names: crate::OptionableConvert::try_from_optioned(
                 value
                     .names
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "names",
                     })?,
             )?,
@@ -78,14 +78,14 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
             scope: crate::OptionableConvert::try_from_optioned(
                 value
                     .scope
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "scope",
                     })?,
             )?,
             versions: crate::OptionableConvert::try_from_optioned(
                 value
                     .versions
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "versions",
                     })?,
             )?,
@@ -94,7 +94,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     fn merge(
         &mut self,
         other: CustomResourceDefinitionSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conversion, other.conversion)?;
         if let Some(other_value) = other.group {
             crate::OptionableConvert::merge(&mut self.group, other_value)?;

@@ -29,30 +29,25 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::AttachedVolume {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
-    fn try_from_optioned(
-        value: AttachedVolumeAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: AttachedVolumeAc) -> Result<Self, crate::Error> {
         Ok(Self {
             device_path: crate::OptionableConvert::try_from_optioned(
                 value
                     .device_path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "device_path",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: AttachedVolumeAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: AttachedVolumeAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.device_path {
             crate::OptionableConvert::merge(&mut self.device_path, other_value)?;
         }

@@ -59,9 +59,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1alpha3::Device
             tolerations: crate::OptionableConvert::into_optioned(self.tolerations),
         }
     }
-    fn try_from_optioned(
-        value: DeviceRequestAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceRequestAc) -> Result<Self, crate::Error> {
         Ok(Self {
             admin_access: crate::OptionableConvert::try_from_optioned(
                 value.admin_access,
@@ -79,7 +77,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1alpha3::Device
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -87,7 +85,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1alpha3::Device
             tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
         })
     }
-    fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
         crate::OptionableConvert::merge(
             &mut self.allocation_mode,

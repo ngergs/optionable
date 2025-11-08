@@ -45,26 +45,26 @@ for ::k8s_openapi::api::core::v1::ConfigMapNodeConfigSource {
     }
     fn try_from_optioned(
         value: ConfigMapNodeConfigSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             kubelet_config_key: crate::OptionableConvert::try_from_optioned(
                 value
                     .kubelet_config_key
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kubelet_config_key",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             namespace: crate::OptionableConvert::try_from_optioned(
                 value
                     .namespace
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "namespace",
                     })?,
             )?,
@@ -74,10 +74,7 @@ for ::k8s_openapi::api::core::v1::ConfigMapNodeConfigSource {
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ConfigMapNodeConfigSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ConfigMapNodeConfigSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.kubelet_config_key {
             crate::OptionableConvert::merge(&mut self.kubelet_config_key, other_value)?;
         }

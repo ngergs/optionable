@@ -31,14 +31,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::TokenRequest 
             ),
         }
     }
-    fn try_from_optioned(
-        value: TokenRequestAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TokenRequestAc) -> Result<Self, crate::Error> {
         Ok(Self {
             audience: crate::OptionableConvert::try_from_optioned(
                 value
                     .audience
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "audience",
                     })?,
             )?,
@@ -47,7 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::TokenRequest 
             )?,
         })
     }
-    fn merge(&mut self, other: TokenRequestAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TokenRequestAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.audience {
             crate::OptionableConvert::merge(&mut self.audience, other_value)?;
         }

@@ -34,37 +34,32 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeAttachm
             source: Some(crate::OptionableConvert::into_optioned(self.source)),
         }
     }
-    fn try_from_optioned(
-        value: VolumeAttachmentSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: VolumeAttachmentSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             attacher: crate::OptionableConvert::try_from_optioned(
                 value
                     .attacher
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "attacher",
                     })?,
             )?,
             node_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .node_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "node_name",
                     })?,
             )?,
             source: crate::OptionableConvert::try_from_optioned(
                 value
                     .source
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "source",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: VolumeAttachmentSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeAttachmentSpecAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.attacher {
             crate::OptionableConvert::merge(&mut self.attacher, other_value)?;
         }

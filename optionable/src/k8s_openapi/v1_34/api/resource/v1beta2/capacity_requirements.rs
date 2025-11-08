@@ -32,17 +32,12 @@ for ::k8s_openapi::api::resource::v1beta2::CapacityRequirements {
             requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
-    fn try_from_optioned(
-        value: CapacityRequirementsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CapacityRequirementsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CapacityRequirementsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CapacityRequirementsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
         Ok(())
     }

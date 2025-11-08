@@ -35,14 +35,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FileKeySelector 
             volume_name: Some(crate::OptionableConvert::into_optioned(self.volume_name)),
         }
     }
-    fn try_from_optioned(
-        value: FileKeySelectorAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: FileKeySelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             key: crate::OptionableConvert::try_from_optioned(
                 value
                     .key
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "key",
                     })?,
             )?,
@@ -50,23 +48,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FileKeySelector 
             path: crate::OptionableConvert::try_from_optioned(
                 value
                     .path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "path",
                     })?,
             )?,
             volume_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .volume_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "volume_name",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: FileKeySelectorAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: FileKeySelectorAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.key {
             crate::OptionableConvert::merge(&mut self.key, other_value)?;
         }

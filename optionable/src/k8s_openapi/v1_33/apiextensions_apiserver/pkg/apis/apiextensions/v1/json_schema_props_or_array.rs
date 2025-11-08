@@ -44,38 +44,27 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSc
             }
         }
     }
-    fn try_from_optioned(
-        other: JSONSchemaPropsOrArrayAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(other: JSONSchemaPropsOrArrayAc) -> Result<Self, crate::Error> {
         Ok(
             match other {
                 JSONSchemaPropsOrArrayAc::Schema(other_0) => {
                     Self::Schema(
                         crate::OptionableConvert::try_from_optioned(
-                            other_0
-                                .ok_or(crate::optionable::Error {
-                                    missing_field: "0",
-                                })?,
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
                         )?,
                     )
                 }
                 JSONSchemaPropsOrArrayAc::Schemas(other_0) => {
                     Self::Schemas(
                         crate::OptionableConvert::try_from_optioned(
-                            other_0
-                                .ok_or(crate::optionable::Error {
-                                    missing_field: "0",
-                                })?,
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
                         )?,
                     )
                 }
             },
         )
     }
-    fn merge(
-        &mut self,
-        other: JSONSchemaPropsOrArrayAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: JSONSchemaPropsOrArrayAc) -> Result<(), crate::Error> {
         match other {
             JSONSchemaPropsOrArrayAc::Schema(other_0) => {
                 if let Self::Schema(self_0) = self {

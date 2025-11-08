@@ -30,19 +30,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::AggregationRule 
             ),
         }
     }
-    fn try_from_optioned(
-        value: AggregationRuleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: AggregationRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             cluster_role_selectors: crate::OptionableConvert::try_from_optioned(
                 value.cluster_role_selectors,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: AggregationRuleAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: AggregationRuleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.cluster_role_selectors,
             other.cluster_role_selectors,

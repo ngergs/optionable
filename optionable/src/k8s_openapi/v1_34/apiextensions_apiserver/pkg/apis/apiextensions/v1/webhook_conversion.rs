@@ -37,9 +37,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Webhoo
             ),
         }
     }
-    fn try_from_optioned(
-        value: WebhookConversionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: WebhookConversionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             client_config: crate::OptionableConvert::try_from_optioned(
                 value.client_config,
@@ -47,16 +45,13 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Webhoo
             conversion_review_versions: crate::OptionableConvert::try_from_optioned(
                 value
                     .conversion_review_versions
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "conversion_review_versions",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: WebhookConversionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: WebhookConversionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.client_config, other.client_config)?;
         if let Some(other_value) = other.conversion_review_versions {
             crate::OptionableConvert::merge(

@@ -45,17 +45,14 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscaler {
     }
     fn try_from_optioned(
         value: HorizontalPodAutoscalerAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: HorizontalPodAutoscalerAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: HorizontalPodAutoscalerAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;

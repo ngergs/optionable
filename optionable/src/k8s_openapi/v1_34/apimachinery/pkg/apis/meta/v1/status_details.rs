@@ -47,9 +47,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusDetails {
             uid: crate::OptionableConvert::into_optioned(self.uid),
         }
     }
-    fn try_from_optioned(
-        value: StatusDetailsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: StatusDetailsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             causes: crate::OptionableConvert::try_from_optioned(value.causes)?,
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
@@ -61,7 +59,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusDetails {
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
-    fn merge(&mut self, other: StatusDetailsAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StatusDetailsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.causes, other.causes)?;
         crate::OptionableConvert::merge(&mut self.group, other.group)?;
         crate::OptionableConvert::merge(&mut self.kind, other.kind)?;

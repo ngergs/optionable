@@ -37,7 +37,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     }
     fn try_from_optioned(
         value: CustomResourceSubresourcesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             scale: crate::OptionableConvert::try_from_optioned(value.scale)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
@@ -46,7 +46,7 @@ for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custom
     fn merge(
         &mut self,
         other: CustomResourceSubresourcesAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.scale, other.scale)?;
         crate::OptionableConvert::merge(&mut self.status, other.status)?;
         Ok(())

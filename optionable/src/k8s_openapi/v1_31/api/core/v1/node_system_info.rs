@@ -67,86 +67,81 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSystemInfo {
             system_uuid: Some(crate::OptionableConvert::into_optioned(self.system_uuid)),
         }
     }
-    fn try_from_optioned(
-        value: NodeSystemInfoAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeSystemInfoAc) -> Result<Self, crate::Error> {
         Ok(Self {
             architecture: crate::OptionableConvert::try_from_optioned(
                 value
                     .architecture
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "architecture",
                     })?,
             )?,
             boot_id: crate::OptionableConvert::try_from_optioned(
                 value
                     .boot_id
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "boot_id",
                     })?,
             )?,
             container_runtime_version: crate::OptionableConvert::try_from_optioned(
                 value
                     .container_runtime_version
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "container_runtime_version",
                     })?,
             )?,
             kernel_version: crate::OptionableConvert::try_from_optioned(
                 value
                     .kernel_version
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kernel_version",
                     })?,
             )?,
             kube_proxy_version: crate::OptionableConvert::try_from_optioned(
                 value
                     .kube_proxy_version
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kube_proxy_version",
                     })?,
             )?,
             kubelet_version: crate::OptionableConvert::try_from_optioned(
                 value
                     .kubelet_version
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kubelet_version",
                     })?,
             )?,
             machine_id: crate::OptionableConvert::try_from_optioned(
                 value
                     .machine_id
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "machine_id",
                     })?,
             )?,
             operating_system: crate::OptionableConvert::try_from_optioned(
                 value
                     .operating_system
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "operating_system",
                     })?,
             )?,
             os_image: crate::OptionableConvert::try_from_optioned(
                 value
                     .os_image
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "os_image",
                     })?,
             )?,
             system_uuid: crate::OptionableConvert::try_from_optioned(
                 value
                     .system_uuid
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "system_uuid",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NodeSystemInfoAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeSystemInfoAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.architecture {
             crate::OptionableConvert::merge(&mut self.architecture, other_value)?;
         }

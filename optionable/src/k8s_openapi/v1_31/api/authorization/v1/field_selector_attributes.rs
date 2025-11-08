@@ -37,7 +37,7 @@ for ::k8s_openapi::api::authorization::v1::FieldSelectorAttributes {
     }
     fn try_from_optioned(
         value: FieldSelectorAttributesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             raw_selector: crate::OptionableConvert::try_from_optioned(
                 value.raw_selector,
@@ -47,10 +47,7 @@ for ::k8s_openapi::api::authorization::v1::FieldSelectorAttributes {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: FieldSelectorAttributesAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: FieldSelectorAttributesAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.raw_selector, other.raw_selector)?;
         crate::OptionableConvert::merge(&mut self.requirements, other.requirements)?;
         Ok(())

@@ -59,9 +59,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAffinityTerm 
             ),
         }
     }
-    fn try_from_optioned(
-        value: PodAffinityTermAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PodAffinityTermAc) -> Result<Self, crate::Error> {
         Ok(Self {
             label_selector: crate::OptionableConvert::try_from_optioned(
                 value.label_selector,
@@ -79,16 +77,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAffinityTerm 
             topology_key: crate::OptionableConvert::try_from_optioned(
                 value
                     .topology_key
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "topology_key",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PodAffinityTermAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodAffinityTermAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
         crate::OptionableConvert::merge(
             &mut self.match_label_keys,

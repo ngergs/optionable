@@ -45,14 +45,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: RuntimeClassAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: RuntimeClassAc) -> Result<Self, crate::Error> {
         Ok(Self {
             handler: crate::OptionableConvert::try_from_optioned(
                 value
                     .handler
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "handler",
                     })?,
             )?,
@@ -61,7 +59,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
             scheduling: crate::OptionableConvert::try_from_optioned(value.scheduling)?,
         })
     }
-    fn merge(&mut self, other: RuntimeClassAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: RuntimeClassAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.handler {
             crate::OptionableConvert::merge(&mut self.handler, other_value)?;
         }

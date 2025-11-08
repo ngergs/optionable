@@ -29,19 +29,17 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v1::ScaleStat
             selector: crate::OptionableConvert::into_optioned(self.selector),
         }
     }
-    fn try_from_optioned(
-        value: ScaleStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ScaleStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             replicas: value
                 .replicas
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "replicas",
                 })?,
             selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
         })
     }
-    fn merge(&mut self, other: ScaleStatusAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ScaleStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.replicas {
             self.replicas = other_value;
         }

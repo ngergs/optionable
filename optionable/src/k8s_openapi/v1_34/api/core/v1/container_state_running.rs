@@ -28,17 +28,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStateRu
             started_at: crate::OptionableConvert::into_optioned(self.started_at),
         }
     }
-    fn try_from_optioned(
-        value: ContainerStateRunningAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ContainerStateRunningAc) -> Result<Self, crate::Error> {
         Ok(Self {
             started_at: crate::OptionableConvert::try_from_optioned(value.started_at)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ContainerStateRunningAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ContainerStateRunningAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.started_at, other.started_at)?;
         Ok(())
     }

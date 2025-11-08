@@ -37,9 +37,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LoadBalancerIngr
             ports: crate::OptionableConvert::into_optioned(self.ports),
         }
     }
-    fn try_from_optioned(
-        value: LoadBalancerIngressAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LoadBalancerIngressAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
             ip: crate::OptionableConvert::try_from_optioned(value.ip)?,
@@ -47,10 +45,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LoadBalancerIngr
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: LoadBalancerIngressAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LoadBalancerIngressAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
         crate::OptionableConvert::merge(&mut self.ip, other.ip)?;
         crate::OptionableConvert::merge(&mut self.ip_mode, other.ip_mode)?;

@@ -34,19 +34,14 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource {
             version: crate::OptionableConvert::into_optioned(self.version),
         }
     }
-    fn try_from_optioned(
-        value: GroupVersionResourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: GroupVersionResourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
             resource: crate::OptionableConvert::try_from_optioned(value.resource)?,
             version: crate::OptionableConvert::try_from_optioned(value.version)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: GroupVersionResourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: GroupVersionResourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.group, other.group)?;
         crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
         crate::OptionableConvert::merge(&mut self.version, other.version)?;

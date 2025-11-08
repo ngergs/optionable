@@ -40,14 +40,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::PodFailurePolic
             ),
         }
     }
-    fn try_from_optioned(
-        value: PodFailurePolicyRuleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PodFailurePolicyRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             action: crate::OptionableConvert::try_from_optioned(
                 value
                     .action
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "action",
                     })?,
             )?,
@@ -59,10 +57,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::PodFailurePolic
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PodFailurePolicyRuleAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodFailurePolicyRuleAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.action {
             crate::OptionableConvert::merge(&mut self.action, other_value)?;
         }

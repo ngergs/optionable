@@ -64,9 +64,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentStatus
             ),
         }
     }
-    fn try_from_optioned(
-        value: DeploymentStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeploymentStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             available_replicas: crate::OptionableConvert::try_from_optioned(
                 value.available_replicas,
@@ -93,10 +91,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentStatus
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeploymentStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeploymentStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.available_replicas,
             other.available_replicas,

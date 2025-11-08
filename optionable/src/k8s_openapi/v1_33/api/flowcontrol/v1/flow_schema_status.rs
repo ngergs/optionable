@@ -28,17 +28,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::FlowSchem
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
         }
     }
-    fn try_from_optioned(
-        value: FlowSchemaStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: FlowSchemaStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: FlowSchemaStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: FlowSchemaStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         Ok(())
     }

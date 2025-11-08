@@ -36,29 +36,26 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelectorRequ
     }
     fn try_from_optioned(
         value: NodeSelectorRequirementAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             key: crate::OptionableConvert::try_from_optioned(
                 value
                     .key
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "key",
                     })?,
             )?,
             operator: crate::OptionableConvert::try_from_optioned(
                 value
                     .operator
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "operator",
                     })?,
             )?,
             values: crate::OptionableConvert::try_from_optioned(value.values)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NodeSelectorRequirementAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeSelectorRequirementAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.key {
             crate::OptionableConvert::merge(&mut self.key, other_value)?;
         }

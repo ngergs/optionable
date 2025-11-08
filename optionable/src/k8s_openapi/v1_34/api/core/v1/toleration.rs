@@ -40,7 +40,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Toleration {
             value: crate::OptionableConvert::into_optioned(self.value),
         }
     }
-    fn try_from_optioned(value: TolerationAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TolerationAc) -> Result<Self, crate::Error> {
         Ok(Self {
             effect: crate::OptionableConvert::try_from_optioned(value.effect)?,
             key: crate::OptionableConvert::try_from_optioned(value.key)?,
@@ -51,7 +51,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Toleration {
             value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
     }
-    fn merge(&mut self, other: TolerationAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TolerationAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.effect, other.effect)?;
         crate::OptionableConvert::merge(&mut self.key, other.key)?;
         crate::OptionableConvert::merge(&mut self.operator, other.operator)?;

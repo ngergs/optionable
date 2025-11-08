@@ -52,9 +52,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeProjection
             ),
         }
     }
-    fn try_from_optioned(
-        value: VolumeProjectionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: VolumeProjectionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             cluster_trust_bundle: crate::OptionableConvert::try_from_optioned(
                 value.cluster_trust_bundle,
@@ -69,10 +67,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeProjection
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: VolumeProjectionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeProjectionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.cluster_trust_bundle,
             other.cluster_trust_bundle,

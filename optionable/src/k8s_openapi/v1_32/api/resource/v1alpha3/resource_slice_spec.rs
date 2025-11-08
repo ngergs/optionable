@@ -48,16 +48,14 @@ for ::k8s_openapi::api::resource::v1alpha3::ResourceSliceSpec {
             pool: Some(crate::OptionableConvert::into_optioned(self.pool)),
         }
     }
-    fn try_from_optioned(
-        value: ResourceSliceSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceSliceSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             all_nodes: crate::OptionableConvert::try_from_optioned(value.all_nodes)?,
             devices: crate::OptionableConvert::try_from_optioned(value.devices)?,
             driver: crate::OptionableConvert::try_from_optioned(
                 value
                     .driver
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "driver",
                     })?,
             )?,
@@ -68,16 +66,13 @@ for ::k8s_openapi::api::resource::v1alpha3::ResourceSliceSpec {
             pool: crate::OptionableConvert::try_from_optioned(
                 value
                     .pool
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "pool",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceSliceSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceSliceSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.all_nodes, other.all_nodes)?;
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
         if let Some(other_value) = other.driver {

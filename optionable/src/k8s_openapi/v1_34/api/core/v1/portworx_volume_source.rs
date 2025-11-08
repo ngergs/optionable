@@ -32,25 +32,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PortworxVolumeSo
             volume_id: Some(crate::OptionableConvert::into_optioned(self.volume_id)),
         }
     }
-    fn try_from_optioned(
-        value: PortworxVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PortworxVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
             volume_id: crate::OptionableConvert::try_from_optioned(
                 value
                     .volume_id
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "volume_id",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PortworxVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PortworxVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         if let Some(other_value) = other.volume_id {

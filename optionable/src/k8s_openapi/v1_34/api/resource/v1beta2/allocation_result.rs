@@ -41,9 +41,7 @@ for ::k8s_openapi::api::resource::v1beta2::AllocationResult {
             node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
         }
     }
-    fn try_from_optioned(
-        value: AllocationResultAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: AllocationResultAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allocation_timestamp: crate::OptionableConvert::try_from_optioned(
                 value.allocation_timestamp,
@@ -54,10 +52,7 @@ for ::k8s_openapi::api::resource::v1beta2::AllocationResult {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: AllocationResultAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: AllocationResultAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.allocation_timestamp,
             other.allocation_timestamp,

@@ -40,23 +40,18 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ControllerRevisi
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: ControllerRevisionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ControllerRevisionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
             metadata: value.metadata,
             revision: value
                 .revision
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "revision",
                 })?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ControllerRevisionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ControllerRevisionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
         self.metadata = other.metadata;
         if let Some(other_value) = other.revision {

@@ -28,17 +28,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeNodeAffini
             required: crate::OptionableConvert::into_optioned(self.required),
         }
     }
-    fn try_from_optioned(
-        value: VolumeNodeAffinityAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: VolumeNodeAffinityAc) -> Result<Self, crate::Error> {
         Ok(Self {
             required: crate::OptionableConvert::try_from_optioned(value.required)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: VolumeNodeAffinityAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VolumeNodeAffinityAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.required, other.required)?;
         Ok(())
     }

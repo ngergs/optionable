@@ -30,24 +30,19 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HostPathVolumeSo
             type_: crate::OptionableConvert::into_optioned(self.type_),
         }
     }
-    fn try_from_optioned(
-        value: HostPathVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: HostPathVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             path: crate::OptionableConvert::try_from_optioned(
                 value
                     .path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "path",
                     })?,
             )?,
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: HostPathVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: HostPathVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.path {
             crate::OptionableConvert::merge(&mut self.path, other_value)?;
         }

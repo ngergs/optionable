@@ -39,9 +39,7 @@ for ::k8s_openapi::api::resource::v1alpha2::DriverAllocationResult {
             ),
         }
     }
-    fn try_from_optioned(
-        value: DriverAllocationResultAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DriverAllocationResultAc) -> Result<Self, crate::Error> {
         Ok(Self {
             named_resources: crate::OptionableConvert::try_from_optioned(
                 value.named_resources,
@@ -51,10 +49,7 @@ for ::k8s_openapi::api::resource::v1alpha2::DriverAllocationResult {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DriverAllocationResultAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DriverAllocationResultAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.named_resources,
             other.named_resources,

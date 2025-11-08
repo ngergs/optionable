@@ -97,7 +97,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobSpec {
             ),
         }
     }
-    fn try_from_optioned(value: JobSpecAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: JobSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             active_deadline_seconds: crate::OptionableConvert::try_from_optioned(
                 value.active_deadline_seconds,
@@ -134,7 +134,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobSpec {
             template: crate::OptionableConvert::try_from_optioned(
                 value
                     .template
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "template",
                     })?,
             )?,
@@ -143,7 +143,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobSpec {
             )?,
         })
     }
-    fn merge(&mut self, other: JobSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: JobSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.active_deadline_seconds,
             other.active_deadline_seconds,

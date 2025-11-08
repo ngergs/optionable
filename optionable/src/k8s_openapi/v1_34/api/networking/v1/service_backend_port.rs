@@ -30,18 +30,13 @@ for ::k8s_openapi::api::networking::v1::ServiceBackendPort {
             number: crate::OptionableConvert::into_optioned(self.number),
         }
     }
-    fn try_from_optioned(
-        value: ServiceBackendPortAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ServiceBackendPortAc) -> Result<Self, crate::Error> {
         Ok(Self {
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
             number: crate::OptionableConvert::try_from_optioned(value.number)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ServiceBackendPortAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ServiceBackendPortAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(&mut self.number, other.number)?;
         Ok(())

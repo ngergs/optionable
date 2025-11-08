@@ -37,7 +37,7 @@ for ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration {
     }
     fn try_from_optioned(
         value: ExemptPriorityLevelConfigurationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             lendable_percent: crate::OptionableConvert::try_from_optioned(
                 value.lendable_percent,
@@ -50,7 +50,7 @@ for ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration {
     fn merge(
         &mut self,
         other: ExemptPriorityLevelConfigurationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.lendable_percent,
             other.lendable_percent,

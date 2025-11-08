@@ -34,30 +34,25 @@ for ::k8s_openapi::api::authentication::v1::TokenRequestStatus {
             token: Some(crate::OptionableConvert::into_optioned(self.token)),
         }
     }
-    fn try_from_optioned(
-        value: TokenRequestStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TokenRequestStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             expiration_timestamp: crate::OptionableConvert::try_from_optioned(
                 value
                     .expiration_timestamp
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "expiration_timestamp",
                     })?,
             )?,
             token: crate::OptionableConvert::try_from_optioned(
                 value
                     .token
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "token",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: TokenRequestStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TokenRequestStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expiration_timestamp {
             crate::OptionableConvert::merge(
                 &mut self.expiration_timestamp,

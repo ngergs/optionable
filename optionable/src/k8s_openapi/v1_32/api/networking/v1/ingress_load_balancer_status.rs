@@ -32,15 +32,12 @@ for ::k8s_openapi::api::networking::v1::IngressLoadBalancerStatus {
     }
     fn try_from_optioned(
         value: IngressLoadBalancerStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             ingress: crate::OptionableConvert::try_from_optioned(value.ingress)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: IngressLoadBalancerStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: IngressLoadBalancerStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.ingress, other.ingress)?;
         Ok(())
     }

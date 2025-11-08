@@ -49,19 +49,19 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition {
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(value: ConditionAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value
                     .last_transition_time
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "last_transition_time",
                     })?,
             )?,
             message: crate::OptionableConvert::try_from_optioned(
                 value
                     .message
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "message",
                     })?,
             )?,
@@ -71,27 +71,27 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Condition {
             reason: crate::OptionableConvert::try_from_optioned(
                 value
                     .reason
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "reason",
                     })?,
             )?,
             status: crate::OptionableConvert::try_from_optioned(
                 value
                     .status
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "status",
                     })?,
             )?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: ConditionAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ConditionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.last_transition_time {
             crate::OptionableConvert::merge(
                 &mut self.last_transition_time,

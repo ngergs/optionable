@@ -56,9 +56,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions {
             ),
         }
     }
-    fn try_from_optioned(
-        value: DeleteOptionsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeleteOptionsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
             dry_run: crate::OptionableConvert::try_from_optioned(value.dry_run)?,
@@ -77,7 +75,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions {
             )?,
         })
     }
-    fn merge(&mut self, other: DeleteOptionsAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeleteOptionsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         crate::OptionableConvert::merge(&mut self.dry_run, other.dry_run)?;
         crate::OptionableConvert::merge(

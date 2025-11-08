@@ -42,20 +42,20 @@ for ::k8s_openapi::api::networking::v1::IngressClassParametersReference {
     }
     fn try_from_optioned(
         value: IngressClassParametersReferenceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             api_group: crate::OptionableConvert::try_from_optioned(value.api_group)?,
             kind: crate::OptionableConvert::try_from_optioned(
                 value
                     .kind
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kind",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -66,7 +66,7 @@ for ::k8s_openapi::api::networking::v1::IngressClassParametersReference {
     fn merge(
         &mut self,
         other: IngressClassParametersReferenceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
         if let Some(other_value) = other.kind {
             crate::OptionableConvert::merge(&mut self.kind, other_value)?;

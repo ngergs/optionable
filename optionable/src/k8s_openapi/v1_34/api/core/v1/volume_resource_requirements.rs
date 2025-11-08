@@ -42,7 +42,7 @@ for ::k8s_openapi::api::core::v1::VolumeResourceRequirements {
     }
     fn try_from_optioned(
         value: VolumeResourceRequirementsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             limits: crate::OptionableConvert::try_from_optioned(value.limits)?,
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
@@ -51,7 +51,7 @@ for ::k8s_openapi::api::core::v1::VolumeResourceRequirements {
     fn merge(
         &mut self,
         other: VolumeResourceRequirementsAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.limits, other.limits)?;
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
         Ok(())

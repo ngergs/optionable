@@ -34,9 +34,7 @@ for ::k8s_openapi::api::resource::v1beta2::DeviceConstraint {
             requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
-    fn try_from_optioned(
-        value: DeviceConstraintAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceConstraintAc) -> Result<Self, crate::Error> {
         Ok(Self {
             match_attribute: crate::OptionableConvert::try_from_optioned(
                 value.match_attribute,
@@ -44,10 +42,7 @@ for ::k8s_openapi::api::resource::v1beta2::DeviceConstraint {
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceConstraintAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceConstraintAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.match_attribute,
             other.match_attribute,

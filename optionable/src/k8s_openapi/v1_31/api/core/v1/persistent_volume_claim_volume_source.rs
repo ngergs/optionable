@@ -33,12 +33,12 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimVolumeSource {
     }
     fn try_from_optioned(
         value: PersistentVolumeClaimVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             claim_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .claim_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "claim_name",
                     })?,
             )?,
@@ -48,7 +48,7 @@ for ::k8s_openapi::api::core::v1::PersistentVolumeClaimVolumeSource {
     fn merge(
         &mut self,
         other: PersistentVolumeClaimVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.claim_name {
             crate::OptionableConvert::merge(&mut self.claim_name, other_value)?;
         }

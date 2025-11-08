@@ -35,29 +35,26 @@ for ::k8s_openapi::api::core::v1::TypedLocalObjectReference {
     }
     fn try_from_optioned(
         value: TypedLocalObjectReferenceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             api_group: crate::OptionableConvert::try_from_optioned(value.api_group)?,
             kind: crate::OptionableConvert::try_from_optioned(
                 value
                     .kind
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kind",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: TypedLocalObjectReferenceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TypedLocalObjectReferenceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
         if let Some(other_value) = other.kind {
             crate::OptionableConvert::merge(&mut self.kind, other_value)?;

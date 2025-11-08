@@ -38,28 +38,25 @@ for ::k8s_openapi::api::resource::v1beta2::DeviceCounterConsumption {
     }
     fn try_from_optioned(
         value: DeviceCounterConsumptionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             counter_set: crate::OptionableConvert::try_from_optioned(
                 value
                     .counter_set
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "counter_set",
                     })?,
             )?,
             counters: crate::OptionableConvert::try_from_optioned(
                 value
                     .counters
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "counters",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceCounterConsumptionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceCounterConsumptionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.counter_set {
             crate::OptionableConvert::merge(&mut self.counter_set, other_value)?;
         }

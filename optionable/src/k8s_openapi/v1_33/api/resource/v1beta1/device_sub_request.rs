@@ -50,9 +50,7 @@ for ::k8s_openapi::api::resource::v1beta1::DeviceSubRequest {
             tolerations: crate::OptionableConvert::into_optioned(self.tolerations),
         }
     }
-    fn try_from_optioned(
-        value: DeviceSubRequestAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceSubRequestAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allocation_mode: crate::OptionableConvert::try_from_optioned(
                 value.allocation_mode,
@@ -61,14 +59,14 @@ for ::k8s_openapi::api::resource::v1beta1::DeviceSubRequest {
             device_class_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .device_class_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "device_class_name",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -76,10 +74,7 @@ for ::k8s_openapi::api::resource::v1beta1::DeviceSubRequest {
             tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceSubRequestAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceSubRequestAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.allocation_mode,
             other.allocation_mode,

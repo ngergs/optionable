@@ -51,7 +51,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::PolicyRule {
             verbs: Some(crate::OptionableConvert::into_optioned(self.verbs)),
         }
     }
-    fn try_from_optioned(value: PolicyRuleAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: PolicyRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_groups: crate::OptionableConvert::try_from_optioned(value.api_groups)?,
             non_resource_urls: crate::OptionableConvert::try_from_optioned(
@@ -64,13 +64,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::PolicyRule {
             verbs: crate::OptionableConvert::try_from_optioned(
                 value
                     .verbs
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "verbs",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: PolicyRuleAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PolicyRuleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_groups, other.api_groups)?;
         crate::OptionableConvert::merge(
             &mut self.non_resource_urls,

@@ -82,9 +82,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetSpec 
             ),
         }
     }
-    fn try_from_optioned(
-        value: StatefulSetSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: StatefulSetSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             min_ready_seconds: crate::OptionableConvert::try_from_optioned(
                 value.min_ready_seconds,
@@ -103,7 +101,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetSpec 
             selector: crate::OptionableConvert::try_from_optioned(
                 value
                     .selector
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "selector",
                     })?,
             )?,
@@ -113,7 +111,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetSpec 
             template: crate::OptionableConvert::try_from_optioned(
                 value
                     .template
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "template",
                     })?,
             )?,
@@ -125,10 +123,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetSpec 
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: StatefulSetSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: StatefulSetSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.min_ready_seconds,
             other.min_ready_seconds,

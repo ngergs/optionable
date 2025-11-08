@@ -37,7 +37,7 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestStatus {
     }
     fn try_from_optioned(
         value: CertificateSigningRequestStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             certificate: crate::OptionableConvert::try_from_optioned(value.certificate)?,
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
@@ -46,7 +46,7 @@ for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestStatus {
     fn merge(
         &mut self,
         other: CertificateSigningRequestStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.certificate, other.certificate)?;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         Ok(())

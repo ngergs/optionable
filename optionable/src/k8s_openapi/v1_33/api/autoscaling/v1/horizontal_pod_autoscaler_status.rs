@@ -50,19 +50,19 @@ for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
     }
     fn try_from_optioned(
         value: HorizontalPodAutoscalerStatusAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             current_cpu_utilization_percentage: crate::OptionableConvert::try_from_optioned(
                 value.current_cpu_utilization_percentage,
             )?,
             current_replicas: value
                 .current_replicas
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "current_replicas",
                 })?,
             desired_replicas: value
                 .desired_replicas
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "desired_replicas",
                 })?,
             last_scale_time: crate::OptionableConvert::try_from_optioned(
@@ -76,7 +76,7 @@ for ::k8s_openapi::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
     fn merge(
         &mut self,
         other: HorizontalPodAutoscalerStatusAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.current_cpu_utilization_percentage,
             other.current_cpu_utilization_percentage,

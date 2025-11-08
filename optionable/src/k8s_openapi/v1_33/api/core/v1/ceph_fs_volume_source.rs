@@ -45,14 +45,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CephFSVolumeSour
             user: crate::OptionableConvert::into_optioned(self.user),
         }
     }
-    fn try_from_optioned(
-        value: CephFSVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CephFSVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             monitors: crate::OptionableConvert::try_from_optioned(
                 value
                     .monitors
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "monitors",
                     })?,
             )?,
@@ -63,10 +61,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CephFSVolumeSour
             user: crate::OptionableConvert::try_from_optioned(value.user)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CephFSVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CephFSVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.monitors {
             crate::OptionableConvert::merge(&mut self.monitors, other_value)?;
         }

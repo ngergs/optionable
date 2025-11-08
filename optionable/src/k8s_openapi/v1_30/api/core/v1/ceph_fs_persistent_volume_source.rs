@@ -48,12 +48,12 @@ for ::k8s_openapi::api::core::v1::CephFSPersistentVolumeSource {
     }
     fn try_from_optioned(
         value: CephFSPersistentVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             monitors: crate::OptionableConvert::try_from_optioned(
                 value
                     .monitors
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "monitors",
                     })?,
             )?,
@@ -67,7 +67,7 @@ for ::k8s_openapi::api::core::v1::CephFSPersistentVolumeSource {
     fn merge(
         &mut self,
         other: CephFSPersistentVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.monitors {
             crate::OptionableConvert::merge(&mut self.monitors, other_value)?;
         }

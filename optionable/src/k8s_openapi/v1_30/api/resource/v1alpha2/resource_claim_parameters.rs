@@ -51,7 +51,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceClaimParameters {
     }
     fn try_from_optioned(
         value: ResourceClaimParametersAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             driver_requests: crate::OptionableConvert::try_from_optioned(
                 value.driver_requests,
@@ -63,10 +63,7 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceClaimParameters {
             shareable: crate::OptionableConvert::try_from_optioned(value.shareable)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceClaimParametersAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceClaimParametersAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.driver_requests,
             other.driver_requests,

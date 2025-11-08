@@ -33,33 +33,28 @@ impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalin
             value: Some(self.value),
         }
     }
-    fn try_from_optioned(
-        value: HPAScalingPolicyAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: HPAScalingPolicyAc) -> Result<Self, crate::Error> {
         Ok(Self {
             period_seconds: value
                 .period_seconds
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "period_seconds",
                 })?,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
             value: value
                 .value
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "value",
                 })?,
         })
     }
-    fn merge(
-        &mut self,
-        other: HPAScalingPolicyAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: HPAScalingPolicyAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.period_seconds {
             self.period_seconds = other_value;
         }

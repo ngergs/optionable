@@ -33,15 +33,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointHin
             for_zones: crate::OptionableConvert::into_optioned(self.for_zones),
         }
     }
-    fn try_from_optioned(
-        value: EndpointHintsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EndpointHintsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             for_nodes: crate::OptionableConvert::try_from_optioned(value.for_nodes)?,
             for_zones: crate::OptionableConvert::try_from_optioned(value.for_zones)?,
         })
     }
-    fn merge(&mut self, other: EndpointHintsAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EndpointHintsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.for_nodes, other.for_nodes)?;
         crate::OptionableConvert::merge(&mut self.for_zones, other.for_zones)?;
         Ok(())

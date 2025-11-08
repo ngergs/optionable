@@ -36,7 +36,7 @@ for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnExitCodesRequirement {
     }
     fn try_from_optioned(
         value: PodFailurePolicyOnExitCodesRequirementAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             container_name: crate::OptionableConvert::try_from_optioned(
                 value.container_name,
@@ -44,14 +44,14 @@ for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnExitCodesRequirement {
             operator: crate::OptionableConvert::try_from_optioned(
                 value
                     .operator
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "operator",
                     })?,
             )?,
             values: crate::OptionableConvert::try_from_optioned(
                 value
                     .values
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "values",
                     })?,
             )?,
@@ -60,7 +60,7 @@ for ::k8s_openapi::api::batch::v1::PodFailurePolicyOnExitCodesRequirement {
     fn merge(
         &mut self,
         other: PodFailurePolicyOnExitCodesRequirementAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.container_name, other.container_name)?;
         if let Some(other_value) = other.operator {
             crate::OptionableConvert::merge(&mut self.operator, other_value)?;

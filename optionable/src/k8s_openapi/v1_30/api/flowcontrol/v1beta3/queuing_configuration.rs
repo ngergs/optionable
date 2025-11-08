@@ -36,9 +36,7 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::QueuingConfiguration {
             queues: crate::OptionableConvert::into_optioned(self.queues),
         }
     }
-    fn try_from_optioned(
-        value: QueuingConfigurationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: QueuingConfigurationAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hand_size: crate::OptionableConvert::try_from_optioned(value.hand_size)?,
             queue_length_limit: crate::OptionableConvert::try_from_optioned(
@@ -47,10 +45,7 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::QueuingConfiguration {
             queues: crate::OptionableConvert::try_from_optioned(value.queues)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: QueuingConfigurationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: QueuingConfigurationAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hand_size, other.hand_size)?;
         crate::OptionableConvert::merge(
             &mut self.queue_length_limit,

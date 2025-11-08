@@ -41,7 +41,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta {
             self_link: crate::OptionableConvert::into_optioned(self.self_link),
         }
     }
-    fn try_from_optioned(value: ListMetaAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ListMetaAc) -> Result<Self, crate::Error> {
         Ok(Self {
             continue_: crate::OptionableConvert::try_from_optioned(value.continue_)?,
             remaining_item_count: crate::OptionableConvert::try_from_optioned(
@@ -53,7 +53,7 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta {
             self_link: crate::OptionableConvert::try_from_optioned(value.self_link)?,
         })
     }
-    fn merge(&mut self, other: ListMetaAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ListMetaAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.continue_, other.continue_)?;
         crate::OptionableConvert::merge(
             &mut self.remaining_item_count,

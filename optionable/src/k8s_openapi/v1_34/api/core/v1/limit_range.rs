@@ -37,13 +37,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LimitRange {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(value: LimitRangeAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: LimitRangeAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
         })
     }
-    fn merge(&mut self, other: LimitRangeAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: LimitRangeAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         Ok(())

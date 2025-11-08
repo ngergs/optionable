@@ -36,20 +36,20 @@ for ::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference {
     }
     fn try_from_optioned(
         value: CrossVersionObjectReferenceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
             kind: crate::OptionableConvert::try_from_optioned(
                 value
                     .kind
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kind",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
@@ -58,7 +58,7 @@ for ::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference {
     fn merge(
         &mut self,
         other: CrossVersionObjectReferenceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         if let Some(other_value) = other.kind {
             crate::OptionableConvert::merge(&mut self.kind, other_value)?;

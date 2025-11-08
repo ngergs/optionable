@@ -32,31 +32,26 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::GlusterfsVolumeS
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
         }
     }
-    fn try_from_optioned(
-        value: GlusterfsVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: GlusterfsVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             endpoints: crate::OptionableConvert::try_from_optioned(
                 value
                     .endpoints
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "endpoints",
                     })?,
             )?,
             path: crate::OptionableConvert::try_from_optioned(
                 value
                     .path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "path",
                     })?,
             )?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: GlusterfsVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: GlusterfsVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.endpoints {
             crate::OptionableConvert::merge(&mut self.endpoints, other_value)?;
         }

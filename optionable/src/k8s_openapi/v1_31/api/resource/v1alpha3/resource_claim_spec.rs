@@ -32,18 +32,13 @@ for ::k8s_openapi::api::resource::v1alpha3::ResourceClaimSpec {
             devices: crate::OptionableConvert::into_optioned(self.devices),
         }
     }
-    fn try_from_optioned(
-        value: ResourceClaimSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ResourceClaimSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             controller: crate::OptionableConvert::try_from_optioned(value.controller)?,
             devices: crate::OptionableConvert::try_from_optioned(value.devices)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ResourceClaimSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ResourceClaimSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.controller, other.controller)?;
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
         Ok(())

@@ -30,16 +30,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScopeSelector {
             ),
         }
     }
-    fn try_from_optioned(
-        value: ScopeSelectorAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ScopeSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             match_expressions: crate::OptionableConvert::try_from_optioned(
                 value.match_expressions,
             )?,
         })
     }
-    fn merge(&mut self, other: ScopeSelectorAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ScopeSelectorAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.match_expressions,
             other.match_expressions,

@@ -36,16 +36,13 @@ for ::k8s_openapi::api::networking::v1::NetworkPolicyIngressRule {
     }
     fn try_from_optioned(
         value: NetworkPolicyIngressRuleAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             from: crate::OptionableConvert::try_from_optioned(value.from)?,
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: NetworkPolicyIngressRuleAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NetworkPolicyIngressRuleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.from, other.from)?;
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
         Ok(())

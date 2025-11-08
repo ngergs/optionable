@@ -42,22 +42,20 @@ impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::TokenR
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: TokenRequestAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TokenRequestAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(
                 value
                     .spec
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "spec",
                     })?,
             )?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
-    fn merge(&mut self, other: TokenRequestAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TokenRequestAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
             crate::OptionableConvert::merge(&mut self.spec, other_value)?;

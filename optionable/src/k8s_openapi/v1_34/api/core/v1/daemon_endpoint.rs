@@ -26,21 +26,16 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DaemonEndpoint {
             port: Some(self.port),
         }
     }
-    fn try_from_optioned(
-        value: DaemonEndpointAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DaemonEndpointAc) -> Result<Self, crate::Error> {
         Ok(Self {
             port: value
                 .port
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "port",
                 })?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DaemonEndpointAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DaemonEndpointAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.port {
             self.port = other_value;
         }

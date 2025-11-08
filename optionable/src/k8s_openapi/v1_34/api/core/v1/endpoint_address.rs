@@ -37,15 +37,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointAddress 
             target_ref: crate::OptionableConvert::into_optioned(self.target_ref),
         }
     }
-    fn try_from_optioned(
-        value: EndpointAddressAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: EndpointAddressAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
             ip: crate::OptionableConvert::try_from_optioned(
                 value
                     .ip
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "ip",
                     })?,
             )?,
@@ -53,10 +51,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointAddress 
             target_ref: crate::OptionableConvert::try_from_optioned(value.target_ref)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: EndpointAddressAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: EndpointAddressAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
         if let Some(other_value) = other.ip {
             crate::OptionableConvert::merge(&mut self.ip, other_value)?;

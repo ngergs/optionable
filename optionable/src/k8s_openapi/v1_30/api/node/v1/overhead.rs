@@ -31,12 +31,12 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::Overhead {
             pod_fixed: crate::OptionableConvert::into_optioned(self.pod_fixed),
         }
     }
-    fn try_from_optioned(value: OverheadAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: OverheadAc) -> Result<Self, crate::Error> {
         Ok(Self {
             pod_fixed: crate::OptionableConvert::try_from_optioned(value.pod_fixed)?,
         })
     }
-    fn merge(&mut self, other: OverheadAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: OverheadAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.pod_fixed, other.pod_fixed)?;
         Ok(())
     }

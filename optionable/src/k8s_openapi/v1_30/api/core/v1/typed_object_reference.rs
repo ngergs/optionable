@@ -35,32 +35,27 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TypedObjectRefer
             namespace: crate::OptionableConvert::into_optioned(self.namespace),
         }
     }
-    fn try_from_optioned(
-        value: TypedObjectReferenceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TypedObjectReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_group: crate::OptionableConvert::try_from_optioned(value.api_group)?,
             kind: crate::OptionableConvert::try_from_optioned(
                 value
                     .kind
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "kind",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
             namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: TypedObjectReferenceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TypedObjectReferenceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
         if let Some(other_value) = other.kind {
             crate::OptionableConvert::merge(&mut self.kind, other_value)?;

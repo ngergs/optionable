@@ -33,12 +33,12 @@ for ::k8s_openapi::api::core::v1::ContainerRestartRuleOnExitCodes {
     }
     fn try_from_optioned(
         value: ContainerRestartRuleOnExitCodesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             operator: crate::OptionableConvert::try_from_optioned(
                 value
                     .operator
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "operator",
                     })?,
             )?,
@@ -48,7 +48,7 @@ for ::k8s_openapi::api::core::v1::ContainerRestartRuleOnExitCodes {
     fn merge(
         &mut self,
         other: ContainerRestartRuleOnExitCodesAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.operator {
             crate::OptionableConvert::merge(&mut self.operator, other_value)?;
         }

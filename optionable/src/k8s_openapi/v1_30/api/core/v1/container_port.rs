@@ -38,13 +38,11 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerPort {
             protocol: crate::OptionableConvert::into_optioned(self.protocol),
         }
     }
-    fn try_from_optioned(
-        value: ContainerPortAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ContainerPortAc) -> Result<Self, crate::Error> {
         Ok(Self {
             container_port: value
                 .container_port
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "container_port",
                 })?,
             host_ip: crate::OptionableConvert::try_from_optioned(value.host_ip)?,
@@ -53,7 +51,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerPort {
             protocol: crate::OptionableConvert::try_from_optioned(value.protocol)?,
         })
     }
-    fn merge(&mut self, other: ContainerPortAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ContainerPortAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.container_port {
             self.container_port = other_value;
         }

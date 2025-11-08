@@ -43,9 +43,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FCVolumeSource {
             wwids: crate::OptionableConvert::into_optioned(self.wwids),
         }
     }
-    fn try_from_optioned(
-        value: FCVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: FCVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             lun: crate::OptionableConvert::try_from_optioned(value.lun)?,
@@ -54,10 +52,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FCVolumeSource {
             wwids: crate::OptionableConvert::try_from_optioned(value.wwids)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: FCVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: FCVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.lun, other.lun)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;

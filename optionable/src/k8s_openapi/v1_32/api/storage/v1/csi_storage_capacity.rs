@@ -54,9 +54,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCap
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: CSIStorageCapacityAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CSIStorageCapacityAc) -> Result<Self, crate::Error> {
         Ok(Self {
             capacity: crate::OptionableConvert::try_from_optioned(value.capacity)?,
             maximum_volume_size: crate::OptionableConvert::try_from_optioned(
@@ -69,16 +67,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCap
             storage_class_name: crate::OptionableConvert::try_from_optioned(
                 value
                     .storage_class_name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "storage_class_name",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CSIStorageCapacityAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CSIStorageCapacityAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
         crate::OptionableConvert::merge(
             &mut self.maximum_volume_size,

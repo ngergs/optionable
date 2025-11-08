@@ -33,30 +33,25 @@ for ::k8s_openapi::api::admissionregistration::v1beta1::AuditAnnotation {
             ),
         }
     }
-    fn try_from_optioned(
-        value: AuditAnnotationAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: AuditAnnotationAc) -> Result<Self, crate::Error> {
         Ok(Self {
             key: crate::OptionableConvert::try_from_optioned(
                 value
                     .key
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "key",
                     })?,
             )?,
             value_expression: crate::OptionableConvert::try_from_optioned(
                 value
                     .value_expression
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "value_expression",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: AuditAnnotationAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: AuditAnnotationAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.key {
             crate::OptionableConvert::merge(&mut self.key, other_value)?;
         }

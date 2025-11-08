@@ -83,9 +83,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecurityContext 
             ),
         }
     }
-    fn try_from_optioned(
-        value: SecurityContextAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: SecurityContextAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allow_privilege_escalation: crate::OptionableConvert::try_from_optioned(
                 value.allow_privilege_escalation,
@@ -119,10 +117,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecurityContext 
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SecurityContextAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SecurityContextAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.allow_privilege_escalation,
             other.allow_privilege_escalation,

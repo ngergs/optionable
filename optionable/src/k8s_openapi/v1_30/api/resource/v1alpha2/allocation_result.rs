@@ -41,9 +41,7 @@ for ::k8s_openapi::api::resource::v1alpha2::AllocationResult {
             shareable: crate::OptionableConvert::into_optioned(self.shareable),
         }
     }
-    fn try_from_optioned(
-        value: AllocationResultAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: AllocationResultAc) -> Result<Self, crate::Error> {
         Ok(Self {
             available_on_nodes: crate::OptionableConvert::try_from_optioned(
                 value.available_on_nodes,
@@ -54,10 +52,7 @@ for ::k8s_openapi::api::resource::v1alpha2::AllocationResult {
             shareable: crate::OptionableConvert::try_from_optioned(value.shareable)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: AllocationResultAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: AllocationResultAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.available_on_nodes,
             other.available_on_nodes,

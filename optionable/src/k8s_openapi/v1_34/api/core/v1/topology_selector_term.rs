@@ -30,19 +30,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::TopologySelector
             ),
         }
     }
-    fn try_from_optioned(
-        value: TopologySelectorTermAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: TopologySelectorTermAc) -> Result<Self, crate::Error> {
         Ok(Self {
             match_label_expressions: crate::OptionableConvert::try_from_optioned(
                 value.match_label_expressions,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: TopologySelectorTermAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TopologySelectorTermAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.match_label_expressions,
             other.match_label_expressions,

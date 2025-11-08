@@ -49,27 +49,25 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: APIVersionsAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: APIVersionsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             server_address_by_client_cidrs: crate::OptionableConvert::try_from_optioned(
                 value
                     .server_address_by_client_cidrs
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "server_address_by_client_cidrs",
                     })?,
             )?,
             versions: crate::OptionableConvert::try_from_optioned(
                 value
                     .versions
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "versions",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: APIVersionsAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: APIVersionsAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.server_address_by_client_cidrs {
             crate::OptionableConvert::merge(
                 &mut self.server_address_by_client_cidrs,

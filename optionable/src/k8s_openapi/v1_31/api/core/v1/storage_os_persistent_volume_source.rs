@@ -46,7 +46,7 @@ for ::k8s_openapi::api::core::v1::StorageOSPersistentVolumeSource {
     }
     fn try_from_optioned(
         value: StorageOSPersistentVolumeSourceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
@@ -60,7 +60,7 @@ for ::k8s_openapi::api::core::v1::StorageOSPersistentVolumeSource {
     fn merge(
         &mut self,
         other: StorageOSPersistentVolumeSourceAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;

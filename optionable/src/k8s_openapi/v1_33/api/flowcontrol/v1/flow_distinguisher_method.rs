@@ -30,21 +30,18 @@ for ::k8s_openapi::api::flowcontrol::v1::FlowDistinguisherMethod {
     }
     fn try_from_optioned(
         value: FlowDistinguisherMethodAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "type_",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: FlowDistinguisherMethodAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: FlowDistinguisherMethodAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.type_ {
             crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }

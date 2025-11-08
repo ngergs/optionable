@@ -50,7 +50,7 @@ for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetSpec {
     }
     fn try_from_optioned(
         value: PodDisruptionBudgetSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             max_unavailable: crate::OptionableConvert::try_from_optioned(
                 value.max_unavailable,
@@ -64,10 +64,7 @@ for ::k8s_openapi::api::policy::v1::PodDisruptionBudgetSpec {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PodDisruptionBudgetSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: PodDisruptionBudgetSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.max_unavailable,
             other.max_unavailable,

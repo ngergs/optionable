@@ -84,9 +84,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::BasicDe
             taints: crate::OptionableConvert::into_optioned(self.taints),
         }
     }
-    fn try_from_optioned(
-        value: BasicDeviceAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: BasicDeviceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             all_nodes: crate::OptionableConvert::try_from_optioned(value.all_nodes)?,
             allow_multiple_allocations: crate::OptionableConvert::try_from_optioned(
@@ -113,7 +111,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::BasicDe
             taints: crate::OptionableConvert::try_from_optioned(value.taints)?,
         })
     }
-    fn merge(&mut self, other: BasicDeviceAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: BasicDeviceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.all_nodes, other.all_nodes)?;
         crate::OptionableConvert::merge(
             &mut self.allow_multiple_allocations,

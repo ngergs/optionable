@@ -51,7 +51,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSpec {
             unschedulable: crate::OptionableConvert::into_optioned(self.unschedulable),
         }
     }
-    fn try_from_optioned(value: NodeSpecAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: NodeSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             config_source: crate::OptionableConvert::try_from_optioned(
                 value.config_source,
@@ -66,7 +66,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSpec {
             )?,
         })
     }
-    fn merge(&mut self, other: NodeSpecAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: NodeSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.config_source, other.config_source)?;
         crate::OptionableConvert::merge(&mut self.external_id, other.external_id)?;
         crate::OptionableConvert::merge(&mut self.pod_cidr, other.pod_cidr)?;

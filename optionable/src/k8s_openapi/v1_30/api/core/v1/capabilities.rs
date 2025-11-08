@@ -31,15 +31,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Capabilities {
             drop: crate::OptionableConvert::into_optioned(self.drop),
         }
     }
-    fn try_from_optioned(
-        value: CapabilitiesAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: CapabilitiesAc) -> Result<Self, crate::Error> {
         Ok(Self {
             add: crate::OptionableConvert::try_from_optioned(value.add)?,
             drop: crate::OptionableConvert::try_from_optioned(value.drop)?,
         })
     }
-    fn merge(&mut self, other: CapabilitiesAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: CapabilitiesAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.add, other.add)?;
         crate::OptionableConvert::merge(&mut self.drop, other.drop)?;
         Ok(())

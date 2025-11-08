@@ -38,9 +38,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::DeviceR
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
-    fn try_from_optioned(
-        value: DeviceRequestAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DeviceRequestAc) -> Result<Self, crate::Error> {
         Ok(Self {
             exactly: crate::OptionableConvert::try_from_optioned(value.exactly)?,
             first_available: crate::OptionableConvert::try_from_optioned(
@@ -49,13 +47,13 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::DeviceR
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
         })
     }
-    fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.exactly, other.exactly)?;
         crate::OptionableConvert::merge(
             &mut self.first_available,

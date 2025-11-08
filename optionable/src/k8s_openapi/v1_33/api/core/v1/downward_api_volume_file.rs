@@ -41,16 +41,14 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DownwardAPIVolum
             ),
         }
     }
-    fn try_from_optioned(
-        value: DownwardAPIVolumeFileAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: DownwardAPIVolumeFileAc) -> Result<Self, crate::Error> {
         Ok(Self {
             field_ref: crate::OptionableConvert::try_from_optioned(value.field_ref)?,
             mode: crate::OptionableConvert::try_from_optioned(value.mode)?,
             path: crate::OptionableConvert::try_from_optioned(
                 value
                     .path
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "path",
                     })?,
             )?,
@@ -59,10 +57,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DownwardAPIVolum
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DownwardAPIVolumeFileAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: DownwardAPIVolumeFileAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.field_ref, other.field_ref)?;
         crate::OptionableConvert::merge(&mut self.mode, other.mode)?;
         if let Some(other_value) = other.path {

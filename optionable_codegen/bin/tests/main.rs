@@ -1,5 +1,5 @@
 use assert_cmd::assert::OutputAssertExt;
-use assert_cmd::Command;
+use assert_cmd::cargo_bin_cmd;
 use std::path::{Path, PathBuf};
 use std::{fs, io};
 use tempfile::TempDir;
@@ -41,7 +41,7 @@ fn test(input_file: &str, expected_output_path: &str, extra_args: &Vec<&str>) {
         .map(ToString::to_string)
         .collect::<Vec<_>>();
     args.append(&mut extra_args);
-    let cmd = Command::cargo_bin("cli").unwrap().args(args).unwrap();
+    let cmd = cargo_bin_cmd!("cli").args(args).unwrap();
     cmd.assert().success();
     assert!(dirs_contained(&expected_output_path.into(), temp_dir.path()).unwrap());
 }

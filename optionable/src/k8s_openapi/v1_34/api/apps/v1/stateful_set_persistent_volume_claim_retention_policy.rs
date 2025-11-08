@@ -33,7 +33,7 @@ for ::k8s_openapi::api::apps::v1::StatefulSetPersistentVolumeClaimRetentionPolic
     }
     fn try_from_optioned(
         value: StatefulSetPersistentVolumeClaimRetentionPolicyAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             when_deleted: crate::OptionableConvert::try_from_optioned(
                 value.when_deleted,
@@ -44,7 +44,7 @@ for ::k8s_openapi::api::apps::v1::StatefulSetPersistentVolumeClaimRetentionPolic
     fn merge(
         &mut self,
         other: StatefulSetPersistentVolumeClaimRetentionPolicyAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.when_deleted, other.when_deleted)?;
         crate::OptionableConvert::merge(&mut self.when_scaled, other.when_scaled)?;
         Ok(())

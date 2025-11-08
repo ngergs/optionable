@@ -31,30 +31,25 @@ for ::k8s_openapi::api::admissionregistration::v1::MatchCondition {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
-    fn try_from_optioned(
-        value: MatchConditionAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: MatchConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             expression: crate::OptionableConvert::try_from_optioned(
                 value
                     .expression
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "expression",
                     })?,
             )?,
             name: crate::OptionableConvert::try_from_optioned(
                 value
                     .name
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "name",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: MatchConditionAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: MatchConditionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expression {
             crate::OptionableConvert::merge(&mut self.expression, other_value)?;
         }

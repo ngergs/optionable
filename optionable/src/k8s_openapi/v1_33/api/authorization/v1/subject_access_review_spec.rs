@@ -60,7 +60,7 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewSpec {
     }
     fn try_from_optioned(
         value: SubjectAccessReviewSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             extra: crate::OptionableConvert::try_from_optioned(value.extra)?,
             groups: crate::OptionableConvert::try_from_optioned(value.groups)?,
@@ -74,10 +74,7 @@ for ::k8s_openapi::api::authorization::v1::SubjectAccessReviewSpec {
             user: crate::OptionableConvert::try_from_optioned(value.user)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SubjectAccessReviewSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: SubjectAccessReviewSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.extra, other.extra)?;
         crate::OptionableConvert::merge(&mut self.groups, other.groups)?;
         crate::OptionableConvert::merge(

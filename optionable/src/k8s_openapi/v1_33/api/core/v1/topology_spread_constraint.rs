@@ -66,7 +66,7 @@ for ::k8s_openapi::api::core::v1::TopologySpreadConstraint {
     }
     fn try_from_optioned(
         value: TopologySpreadConstraintAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             label_selector: crate::OptionableConvert::try_from_optioned(
                 value.label_selector,
@@ -76,7 +76,7 @@ for ::k8s_openapi::api::core::v1::TopologySpreadConstraint {
             )?,
             max_skew: value
                 .max_skew
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "max_skew",
                 })?,
             min_domains: crate::OptionableConvert::try_from_optioned(value.min_domains)?,
@@ -89,23 +89,20 @@ for ::k8s_openapi::api::core::v1::TopologySpreadConstraint {
             topology_key: crate::OptionableConvert::try_from_optioned(
                 value
                     .topology_key
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "topology_key",
                     })?,
             )?,
             when_unsatisfiable: crate::OptionableConvert::try_from_optioned(
                 value
                     .when_unsatisfiable
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "when_unsatisfiable",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: TopologySpreadConstraintAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: TopologySpreadConstraintAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
         crate::OptionableConvert::merge(
             &mut self.match_label_keys,

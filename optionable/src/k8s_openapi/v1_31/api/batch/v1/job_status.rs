@@ -70,7 +70,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobStatus {
             ),
         }
     }
-    fn try_from_optioned(value: JobStatusAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: JobStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             active: crate::OptionableConvert::try_from_optioned(value.active)?,
             completed_indexes: crate::OptionableConvert::try_from_optioned(
@@ -93,7 +93,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobStatus {
             )?,
         })
     }
-    fn merge(&mut self, other: JobStatusAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: JobStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.active, other.active)?;
         crate::OptionableConvert::merge(
             &mut self.completed_indexes,

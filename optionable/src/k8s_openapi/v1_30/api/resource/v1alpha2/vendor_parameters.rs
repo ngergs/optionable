@@ -32,18 +32,13 @@ for ::k8s_openapi::api::resource::v1alpha2::VendorParameters {
             parameters: crate::OptionableConvert::into_optioned(self.parameters),
         }
     }
-    fn try_from_optioned(
-        value: VendorParametersAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: VendorParametersAc) -> Result<Self, crate::Error> {
         Ok(Self {
             driver_name: crate::OptionableConvert::try_from_optioned(value.driver_name)?,
             parameters: crate::OptionableConvert::try_from_optioned(value.parameters)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: VendorParametersAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: VendorParametersAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.driver_name, other.driver_name)?;
         crate::OptionableConvert::merge(&mut self.parameters, other.parameters)?;
         Ok(())

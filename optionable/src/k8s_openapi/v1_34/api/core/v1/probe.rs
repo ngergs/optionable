@@ -71,7 +71,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Probe {
             ),
         }
     }
-    fn try_from_optioned(value: ProbeAc) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: ProbeAc) -> Result<Self, crate::Error> {
         Ok(Self {
             exec: crate::OptionableConvert::try_from_optioned(value.exec)?,
             failure_threshold: crate::OptionableConvert::try_from_optioned(
@@ -97,7 +97,7 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Probe {
             )?,
         })
     }
-    fn merge(&mut self, other: ProbeAc) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: ProbeAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.exec, other.exec)?;
         crate::OptionableConvert::merge(
             &mut self.failure_threshold,

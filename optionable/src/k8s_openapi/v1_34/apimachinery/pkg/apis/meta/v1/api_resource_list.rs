@@ -44,30 +44,25 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList {
             phantom: Default::default(),
         }
     }
-    fn try_from_optioned(
-        value: APIResourceListAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    fn try_from_optioned(value: APIResourceListAc) -> Result<Self, crate::Error> {
         Ok(Self {
             group_version: crate::OptionableConvert::try_from_optioned(
                 value
                     .group_version
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "group_version",
                     })?,
             )?,
             resources: crate::OptionableConvert::try_from_optioned(
                 value
                     .resources
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "resources",
                     })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: APIResourceListAc,
-    ) -> Result<(), crate::optionable::Error> {
+    fn merge(&mut self, other: APIResourceListAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.group_version {
             crate::OptionableConvert::merge(&mut self.group_version, other_value)?;
         }

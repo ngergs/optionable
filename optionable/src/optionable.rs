@@ -7,9 +7,9 @@ macro_rules! import_std_or_alloc {
     };
 }
 
-use crate::{Optionable, OptionableConvert};
+use crate::{Error, Optionable, OptionableConvert};
 use core::cell::{Cell, RefCell};
-use core::fmt::{Debug, Display, Formatter};
+use core::fmt::Debug;
 
 import_std_or_alloc!(boxed::{Box});
 import_std_or_alloc!(borrow::{Cow, ToOwned});
@@ -30,25 +30,6 @@ import_std_or_alloc!(sync::{Arc, Weak as ArcWeak});
 use std::sync::{Mutex, RwLock};
 #[cfg(feature = "std")]
 use std::time::Duration;
-
-/// Represents errors that occur when trying to build a full type from its optioned variant.
-#[derive(Debug)]
-pub struct Error {
-    /// Field that is missing
-    pub missing_field: &'static str,
-}
-
-impl Display for Error {
-    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
-        write!(
-            f,
-            "The following required field is missing: {:?}",
-            self.missing_field
-        )
-    }
-}
-
-impl core::error::Error for Error {}
 
 // Blanket implementation for references to `Optionable` types.
 impl<'a, T: ?Sized + Optionable> Optionable for &'a T {
@@ -76,11 +57,11 @@ macro_rules! impl_optional_self {
                     self
                 }
 
-                fn try_from_optioned(value: Self::Optioned) -> Result<Self, crate::optionable::Error> {
+                fn try_from_optioned(value: Self::Optioned) -> Result<Self, crate::Error> {
                     Ok(value)
                 }
 
-                fn merge(&mut self, other: Self::Optioned) -> Result<(), crate::optionable::Error> {
+                fn merge(&mut self, other: Self::Optioned) -> Result<(), crate::Error> {
                     *self = other;
                     Ok(())
                 }
@@ -639,7 +620,7 @@ mod tests {
     import_std_or_alloc!(vec::{Vec});
     import_std_or_alloc!(string::{String});
     import_std_or_alloc!(borrow::{Cow,ToOwned});
-    use crate::optionable::Error;
+    use crate::Error;
     #[cfg(feature = "std")]
     use std::collections::{BTreeMap, HashMap};
 

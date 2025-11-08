@@ -50,12 +50,12 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerSpec {
     }
     fn try_from_optioned(
         value: HorizontalPodAutoscalerSpecAc,
-    ) -> Result<Self, crate::optionable::Error> {
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             behavior: crate::OptionableConvert::try_from_optioned(value.behavior)?,
             max_replicas: value
                 .max_replicas
-                .ok_or(crate::optionable::Error {
+                .ok_or(crate::Error {
                     missing_field: "max_replicas",
                 })?,
             metrics: crate::OptionableConvert::try_from_optioned(value.metrics)?,
@@ -65,7 +65,7 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerSpec {
             scale_target_ref: crate::OptionableConvert::try_from_optioned(
                 value
                     .scale_target_ref
-                    .ok_or(crate::optionable::Error {
+                    .ok_or(crate::Error {
                         missing_field: "scale_target_ref",
                     })?,
             )?,
@@ -74,7 +74,7 @@ for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscalerSpec {
     fn merge(
         &mut self,
         other: HorizontalPodAutoscalerSpecAc,
-    ) -> Result<(), crate::optionable::Error> {
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.behavior, other.behavior)?;
         if let Some(other_value) = other.max_replicas {
             self.max_replicas = other_value;
