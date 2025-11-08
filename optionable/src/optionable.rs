@@ -9,6 +9,7 @@ macro_rules! import_std_or_alloc {
 
 use crate::{Error, Optionable, OptionableConvert};
 use core::cell::{Cell, RefCell};
+#[cfg(any(feature = "alloc", feature = "std"))]
 use core::fmt::Debug;
 
 import_std_or_alloc!(boxed::{Box});
