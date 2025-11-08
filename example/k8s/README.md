@@ -50,8 +50,8 @@ The resulting output will be:
 For the source code see [src/lib.rs](src/lib.rs) for the CRD definition and [src/bin/apply_crd.rs](src/bin/apply_crd.rs) for
 the optioned type example.
 
-The most relevant helper attribute macros to derive optioned types for `kube::CustomResource` are [`#[optionable_kube_cr]`](todo) 
-for the type with the `#[derive(CustomResource)]` derive macro and [`#[optionable_kube]`](todo) for general types like nested subfields.
+The most relevant helper attribute macros to derive optioned types for `kube::CustomResource` are [`#[optionable_kube_cr]`](https://docs.rs/optionable/latest/optionable/kube/attr.optionable_kube_cr.html) 
+for the type with the `#[derive(CustomResource)]` derive macro and [`#[optionable_kube]`](https://docs.rs/optionable/latest/optionable/kube/attr.optionable_kube.html) for general types like nested subfields.
 
 Also, here we can express the granular intent to only patch `spec.template.replicas` while preserving type-safety.
 ```rust

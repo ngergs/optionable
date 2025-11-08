@@ -1,0 +1,45 @@
+[package]
+name = "optionable"
+version = "0.3.0"
+edition = "2024"
+description = "Derive macro (and associated marker trait) to derive nested structs/enums with all subfields being optional (e.g. for patches or Kubernetes server side apply)."
+repository = "https://github.com/ngergs/optionable"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+
+[features]
+default = ["derive", "std"]
+alloc = []
+std = []
+derive = ["dep:optionable_derive"]
+chrono = ["dep:chrono"]
+serde_json = ["dep:serde_json"]
+k8s_openapi_v1_30 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_30", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
+k8s_openapi_v1_31 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_31", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
+k8s_openapi_v1_32 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_32", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
+k8s_openapi_v1_33 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_33", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
+k8s_openapi_v1_34 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_34", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
+kube = ["dep:kube", "dep:serde", "optionable_derive/kube"]
+
+[lints.clippy]
+pedantic = "warn"
+
+[dependencies]
+optionable_derive = { version = "0.3.0", optional = true }
+chrono = { version = "0.4.42", default-features = false, optional = true }
+serde = { version = "1.0.228", default-features = false, optional = true }
+serde_json = { version = "1.0.145", default-features = false, optional = true }
+k8s-openapi = { version = "0.26.0", default-features = false, optional = true }
+kube = { version = "2.0.1", default-features = false, optional = true }
+
+[dev-dependencies]
+serde = { version = "1.0.228", default-features = false, features = ["derive"] }
+serde_json = { version = "1.0.145", default-features = false, features = ["std"] }
+
+[package.metadata.docs.rs]
+# disabled till chrono and kube are compatible to it to have `kube` in docs
+# rustdoc-args = ["--cfg", "docsrs"]
+# std needed for serde_json
+# specific k8s_openapi version needed for kube
+features = ["alloc", "derive", "kube", "std", "serde_json", "serde_json/std", "k8s-openapi/v1_34"]
+all-features = false
