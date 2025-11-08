@@ -11,7 +11,6 @@ use crate::{Error, Optionable, OptionableConvert};
 use core::cell::{Cell, RefCell};
 #[cfg(any(feature = "alloc", feature = "std"))]
 use core::fmt::Debug;
-
 import_std_or_alloc!(boxed::{Box});
 import_std_or_alloc!(borrow::{Cow, ToOwned});
 import_std_or_alloc!(vec::{Vec});
