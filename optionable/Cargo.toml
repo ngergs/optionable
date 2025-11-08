@@ -40,5 +40,6 @@ serde_json = { version = "1.0.145", default-features = false, features = ["std"]
 # to be able to document feature dependent settings, see https://users.rust-lang.org/t/how-to-document-optional-features-in-api-docs/64577/3
 rustdoc-args = ["--cfg", "docsrs"]
 # std needed for serde_json
-features = ["alloc", "derive", "std", "serde_json", "serde_json/std"]
+# specific k8s_openapi version needed for kubs
+features = ["alloc", "derive", "kube", "std", "serde_json", "serde_json/std", "k8s_openapi/v1_34"]
 all-features = false

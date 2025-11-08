@@ -12,7 +12,8 @@
 //! from [k8s-openapi](https://crates.io/crates/k8s-openapi).
 //!
 //! It also provides tooling to derive optioned variants for `kube::CustomResource` implementations via an attribute macro.
-//! For detailed documentation, see the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
+//!
+//! For detailed documentation, see the documentation in `kube` for the CRD use case and the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
 //!
 //! # Deriving optional structs/enums
 //!
