@@ -828,7 +828,7 @@ dependencies = [
  "chrono",
  "k8s-openapi",
  "kube",
- "optionable_derive 0.3.0",
+ "optionable_derive 0.4.0",
  "serde",
  "serde_json",
 ]
@@ -889,7 +889,7 @@ dependencies = [
 name = "optionable_derive"
 version = "0.4.0"
 dependencies = [
- "optionable_codegen 0.6.0",
+ "optionable_codegen 0.7.0",
  "proc-macro2",
  "quote",
  "syn",
