@@ -26,6 +26,7 @@ impl crate::Optionable for SubjectAc {
     type Optioned = SubjectAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::Subject {
     fn into_optioned(self) -> SubjectAc {
         SubjectAc {

@@ -26,6 +26,7 @@ impl crate::Optionable for NodeSelectorRequirementAc {
     type Optioned = NodeSelectorRequirementAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelectorRequirement {
     fn into_optioned(self) -> NodeSelectorRequirementAc {
         NodeSelectorRequirementAc {

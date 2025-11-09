@@ -20,6 +20,7 @@ impl crate::Optionable for DaemonEndpointAc {
     type Optioned = DaemonEndpointAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DaemonEndpoint {
     fn into_optioned(self) -> DaemonEndpointAc {
         DaemonEndpointAc {

@@ -26,6 +26,7 @@ impl crate::Optionable for NodeAffinityAc {
     type Optioned = NodeAffinityAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeAffinity {
     fn into_optioned(self) -> NodeAffinityAc {
         NodeAffinityAc {

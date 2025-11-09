@@ -62,6 +62,7 @@ where
     type Optioned = WatchEventAc<T>;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl<T> crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::WatchEvent<T>
 where

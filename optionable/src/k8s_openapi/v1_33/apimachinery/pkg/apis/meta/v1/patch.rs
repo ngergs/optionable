@@ -27,6 +27,7 @@ impl crate::Optionable for PatchAc {
     type Optioned = PatchAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Patch {
     fn into_optioned(self) -> PatchAc {

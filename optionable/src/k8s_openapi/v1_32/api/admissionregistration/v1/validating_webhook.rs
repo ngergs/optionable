@@ -53,6 +53,7 @@ impl crate::Optionable for ValidatingWebhookAc {
     type Optioned = ValidatingWebhookAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhook {
     fn into_optioned(self) -> ValidatingWebhookAc {

@@ -23,6 +23,7 @@ impl crate::Optionable for ServerAddressByClientCIDRAc {
     type Optioned = ServerAddressByClientCIDRAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR {
     fn into_optioned(self) -> ServerAddressByClientCIDRAc {

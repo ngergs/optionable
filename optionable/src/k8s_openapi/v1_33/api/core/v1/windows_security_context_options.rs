@@ -30,6 +30,7 @@ impl crate::Optionable for WindowsSecurityContextOptionsAc {
     type Optioned = WindowsSecurityContextOptionsAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::WindowsSecurityContextOptions {
     fn into_optioned(self) -> WindowsSecurityContextOptionsAc {

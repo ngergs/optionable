@@ -24,6 +24,7 @@ impl crate::Optionable for ConfigMapKeySelectorAc {
     type Optioned = ConfigMapKeySelectorAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapKeySelector {
     fn into_optioned(self) -> ConfigMapKeySelectorAc {
         ConfigMapKeySelectorAc {

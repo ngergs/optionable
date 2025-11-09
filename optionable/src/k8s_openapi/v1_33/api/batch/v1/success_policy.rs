@@ -24,6 +24,7 @@ impl crate::Optionable for SuccessPolicyAc {
     type Optioned = SuccessPolicyAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::SuccessPolicy {
     fn into_optioned(self) -> SuccessPolicyAc {
         SuccessPolicyAc {

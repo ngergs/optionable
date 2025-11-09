@@ -131,6 +131,7 @@ where
 - `chrono`: Derive `Optionable` for types from [chrono](https://docs.rs/chrono/latest/chrono/).
 - `serde_json`: Derive `Optionable` for [serde_json](https://docs.rs/serde_json/latest/serde_json/)::Value.
 - `k8s_openapi_v1_(30..=34)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types. Only on feature version, e.g. `k8s_openapi_v1_34` may be enabled at once.
+- `k8s_openapi_convert`: Adds `OptionableConvert`-implementations for all optioned [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types specified by the `k8s_openapi_v1_(30..=34)` feature.
 - `kube`: Adds a serialization helper used by `#[derive(Optionable]` if `#[derive(kube)]` is set to add `apiVersion` and `kind` from the `kube::Resource`-impl to the serialized output.
 
 ## Limitations

@@ -32,6 +32,7 @@ impl crate::Optionable for PriorityLevelConfigurationConditionAc {
     type Optioned = PriorityLevelConfigurationConditionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfigurationCondition {
     fn into_optioned(self) -> PriorityLevelConfigurationConditionAc {

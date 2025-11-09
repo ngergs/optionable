@@ -24,6 +24,7 @@ impl crate::Optionable for VolumeErrorAc {
     type Optioned = VolumeErrorAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::VolumeError {
     fn into_optioned(self) -> VolumeErrorAc {
         VolumeErrorAc {

@@ -24,6 +24,7 @@ impl crate::Optionable for HostAliasAc {
     type Optioned = HostAliasAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HostAlias {
     fn into_optioned(self) -> HostAliasAc {
         HostAliasAc {

@@ -47,6 +47,7 @@ impl crate::Optionable for PodCertificateRequestSpecAc {
     type Optioned = PodCertificateRequestSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestSpec {
     fn into_optioned(self) -> PodCertificateRequestSpecAc {

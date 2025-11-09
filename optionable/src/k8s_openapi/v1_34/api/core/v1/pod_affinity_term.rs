@@ -40,6 +40,7 @@ impl crate::Optionable for PodAffinityTermAc {
     type Optioned = PodAffinityTermAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAffinityTerm {
     fn into_optioned(self) -> PodAffinityTermAc {
         PodAffinityTermAc {

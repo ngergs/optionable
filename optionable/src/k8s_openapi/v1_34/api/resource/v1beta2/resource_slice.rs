@@ -29,6 +29,7 @@ impl crate::Optionable for ResourceSliceAc {
     type Optioned = ResourceSliceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::ResourceSlice {
     fn into_optioned(self) -> ResourceSliceAc {
         ResourceSliceAc {

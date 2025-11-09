@@ -38,6 +38,7 @@ impl crate::Optionable for RBDPersistentVolumeSourceAc {
     type Optioned = RBDPersistentVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::RBDPersistentVolumeSource {
     fn into_optioned(self) -> RBDPersistentVolumeSourceAc {

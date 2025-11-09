@@ -140,6 +140,7 @@ impl crate::Optionable for VolumeAc {
     type Optioned = VolumeAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Volume {
     fn into_optioned(self) -> VolumeAc {
         VolumeAc {

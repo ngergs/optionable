@@ -23,6 +23,7 @@ impl crate::Optionable for ServiceAccountSubjectAc {
     type Optioned = ServiceAccountSubjectAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1beta3::ServiceAccountSubject {
     fn into_optioned(self) -> ServiceAccountSubjectAc {

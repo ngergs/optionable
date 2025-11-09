@@ -25,6 +25,7 @@ impl crate::Optionable for CapacityRequirementsAc {
     type Optioned = CapacityRequirementsAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::CapacityRequirements {
     fn into_optioned(self) -> CapacityRequirementsAc {

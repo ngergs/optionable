@@ -27,6 +27,7 @@ impl crate::Optionable for ComponentConditionAc {
     type Optioned = ComponentConditionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentCondition {
     fn into_optioned(self) -> ComponentConditionAc {
         ComponentConditionAc {

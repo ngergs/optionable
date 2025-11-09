@@ -28,6 +28,7 @@ impl crate::Optionable for CinderVolumeSourceAc {
     type Optioned = CinderVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CinderVolumeSource {
     fn into_optioned(self) -> CinderVolumeSourceAc {
         CinderVolumeSourceAc {

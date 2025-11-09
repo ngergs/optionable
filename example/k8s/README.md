@@ -78,7 +78,7 @@ kubectl apply -f cr.yaml
 # run server side apply to change replica count to 2
 cargo run --bin apply_crd
 # verify that server side apply has been used
-kubectl get mycrd test -oyaml --show-managed-fields=true | yq .metadata.managedFields
+kubectl get customcrd test -oyaml --show-managed-fields=true | yq .metadata.managedFields
 ```
 
 The resulting output will be:

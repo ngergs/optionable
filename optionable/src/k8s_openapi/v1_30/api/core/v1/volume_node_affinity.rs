@@ -22,6 +22,7 @@ impl crate::Optionable for VolumeNodeAffinityAc {
     type Optioned = VolumeNodeAffinityAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::VolumeNodeAffinity {
     fn into_optioned(self) -> VolumeNodeAffinityAc {
         VolumeNodeAffinityAc {

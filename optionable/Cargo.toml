@@ -19,6 +19,7 @@ k8s_openapi_v1_31 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_open
 k8s_openapi_v1_32 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_32", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
 k8s_openapi_v1_33 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_33", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
 k8s_openapi_v1_34 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_34", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
+k8s_openapi_convert = []
 kube = ["dep:kube", "dep:serde", "serde_json", "optionable_derive/kube"]
 
 [lints.clippy]

@@ -23,6 +23,7 @@ impl crate::Optionable for SeccompProfileAc {
     type Optioned = SeccompProfileAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SeccompProfile {
     fn into_optioned(self) -> SeccompProfileAc {
         SeccompProfileAc {

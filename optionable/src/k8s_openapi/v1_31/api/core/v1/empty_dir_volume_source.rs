@@ -24,6 +24,7 @@ impl crate::Optionable for EmptyDirVolumeSourceAc {
     type Optioned = EmptyDirVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EmptyDirVolumeSource {
     fn into_optioned(self) -> EmptyDirVolumeSourceAc {
         EmptyDirVolumeSourceAc {

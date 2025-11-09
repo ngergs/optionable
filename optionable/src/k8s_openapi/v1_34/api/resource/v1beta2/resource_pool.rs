@@ -24,6 +24,7 @@ impl crate::Optionable for ResourcePoolAc {
     type Optioned = ResourcePoolAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta2::ResourcePool {
     fn into_optioned(self) -> ResourcePoolAc {
         ResourcePoolAc {

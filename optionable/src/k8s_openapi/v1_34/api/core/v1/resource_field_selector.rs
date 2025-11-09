@@ -26,6 +26,7 @@ impl crate::Optionable for ResourceFieldSelectorAc {
     type Optioned = ResourceFieldSelectorAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceFieldSelector {
     fn into_optioned(self) -> ResourceFieldSelectorAc {
         ResourceFieldSelectorAc {

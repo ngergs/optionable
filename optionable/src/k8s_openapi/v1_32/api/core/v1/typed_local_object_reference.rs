@@ -24,6 +24,7 @@ impl crate::Optionable for TypedLocalObjectReferenceAc {
     type Optioned = TypedLocalObjectReferenceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::TypedLocalObjectReference {
     fn into_optioned(self) -> TypedLocalObjectReferenceAc {

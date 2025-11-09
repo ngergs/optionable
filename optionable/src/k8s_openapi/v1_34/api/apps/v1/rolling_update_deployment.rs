@@ -26,6 +26,7 @@ impl crate::Optionable for RollingUpdateDeploymentAc {
     type Optioned = RollingUpdateDeploymentAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::RollingUpdateDeployment {
     fn into_optioned(self) -> RollingUpdateDeploymentAc {
         RollingUpdateDeploymentAc {

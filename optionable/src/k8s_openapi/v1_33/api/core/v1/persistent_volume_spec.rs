@@ -141,6 +141,7 @@ impl crate::Optionable for PersistentVolumeSpecAc {
     type Optioned = PersistentVolumeSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PersistentVolumeSpec {
     fn into_optioned(self) -> PersistentVolumeSpecAc {
         PersistentVolumeSpecAc {

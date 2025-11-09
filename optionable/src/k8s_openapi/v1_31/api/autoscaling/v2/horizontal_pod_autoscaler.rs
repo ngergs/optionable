@@ -33,6 +33,7 @@ impl crate::Optionable for HorizontalPodAutoscalerAc {
     type Optioned = HorizontalPodAutoscalerAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::HorizontalPodAutoscaler {
     fn into_optioned(self) -> HorizontalPodAutoscalerAc {

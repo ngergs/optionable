@@ -22,6 +22,7 @@ impl crate::Optionable for NamespaceSpecAc {
     type Optioned = NamespaceSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NamespaceSpec {
     fn into_optioned(self) -> NamespaceSpecAc {
         NamespaceSpecAc {

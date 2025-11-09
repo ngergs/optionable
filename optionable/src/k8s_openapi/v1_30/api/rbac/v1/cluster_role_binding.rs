@@ -33,6 +33,7 @@ impl crate::Optionable for ClusterRoleBindingAc {
     type Optioned = ClusterRoleBindingAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRoleBinding {
     fn into_optioned(self) -> ClusterRoleBindingAc {
         ClusterRoleBindingAc {

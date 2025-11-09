@@ -26,6 +26,7 @@ impl crate::Optionable for BoundObjectReferenceAc {
     type Optioned = BoundObjectReferenceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authentication::v1::BoundObjectReference {
     fn into_optioned(self) -> BoundObjectReferenceAc {

@@ -24,6 +24,7 @@ impl crate::Optionable for KeyToPathAc {
     type Optioned = KeyToPathAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::KeyToPath {
     fn into_optioned(self) -> KeyToPathAc {
         KeyToPathAc {

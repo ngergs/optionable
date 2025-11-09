@@ -20,6 +20,7 @@ impl crate::Optionable for CELDeviceSelectorAc {
     type Optioned = CELDeviceSelectorAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha3::CELDeviceSelector {
     fn into_optioned(self) -> CELDeviceSelectorAc {

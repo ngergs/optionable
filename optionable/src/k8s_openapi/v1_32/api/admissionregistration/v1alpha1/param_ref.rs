@@ -31,6 +31,7 @@ impl crate::Optionable for ParamRefAc {
     type Optioned = ParamRefAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1alpha1::ParamRef {
     fn into_optioned(self) -> ParamRefAc {

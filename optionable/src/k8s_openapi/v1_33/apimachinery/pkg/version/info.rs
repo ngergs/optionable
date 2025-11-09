@@ -48,6 +48,7 @@ impl crate::Optionable for InfoAc {
     type Optioned = InfoAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::apimachinery::pkg::version::Info {
     fn into_optioned(self) -> InfoAc {
         InfoAc {

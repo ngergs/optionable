@@ -56,6 +56,7 @@ impl crate::Optionable for PodSecurityContextAc {
     type Optioned = PodSecurityContextAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSecurityContext {
     fn into_optioned(self) -> PodSecurityContextAc {
         PodSecurityContextAc {

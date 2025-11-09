@@ -24,6 +24,7 @@ impl crate::Optionable for DeviceConstraintAc {
     type Optioned = DeviceConstraintAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::DeviceConstraint {
     fn into_optioned(self) -> DeviceConstraintAc {

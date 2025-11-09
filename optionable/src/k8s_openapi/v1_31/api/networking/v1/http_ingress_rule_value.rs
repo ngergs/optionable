@@ -24,6 +24,7 @@ impl crate::Optionable for HTTPIngressRuleValueAc {
     type Optioned = HTTPIngressRuleValueAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1::HTTPIngressRuleValue {
     fn into_optioned(self) -> HTTPIngressRuleValueAc {

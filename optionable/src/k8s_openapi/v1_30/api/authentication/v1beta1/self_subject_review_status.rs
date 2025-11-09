@@ -23,6 +23,7 @@ impl crate::Optionable for SelfSubjectReviewStatusAc {
     type Optioned = SelfSubjectReviewStatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authentication::v1beta1::SelfSubjectReviewStatus {
     fn into_optioned(self) -> SelfSubjectReviewStatusAc {

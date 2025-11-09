@@ -23,6 +23,7 @@ impl crate::Optionable for PhotonPersistentDiskVolumeSourceAc {
     type Optioned = PhotonPersistentDiskVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::PhotonPersistentDiskVolumeSource {
     fn into_optioned(self) -> PhotonPersistentDiskVolumeSourceAc {

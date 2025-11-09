@@ -54,6 +54,7 @@ impl crate::Optionable for StatefulSetSpecAc {
     type Optioned = StatefulSetSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetSpec {
     fn into_optioned(self) -> StatefulSetSpecAc {
         StatefulSetSpecAc {

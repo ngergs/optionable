@@ -22,6 +22,7 @@ impl crate::Optionable for SessionAffinityConfigAc {
     type Optioned = SessionAffinityConfigAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SessionAffinityConfig {
     fn into_optioned(self) -> SessionAffinityConfigAc {
         SessionAffinityConfigAc {

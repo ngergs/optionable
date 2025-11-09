@@ -20,6 +20,7 @@ impl crate::Optionable for PodSchedulingGateAc {
     type Optioned = PodSchedulingGateAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodSchedulingGate {
     fn into_optioned(self) -> PodSchedulingGateAc {
         PodSchedulingGateAc {

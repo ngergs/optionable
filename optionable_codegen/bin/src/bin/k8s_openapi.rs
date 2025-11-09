@@ -86,6 +86,20 @@ impl CodegenVisitor for Visitor {
             _ => {}
         }
     }
+
+    fn visit_output(&mut self, items: &mut Vec<Item>) {
+        for item in items.iter_mut() {
+            if let Impl(item) = item
+                && item
+                    .trait_
+                    .as_ref()
+                    .is_some_and(|trait_| trait_.1 == parse_quote!(crate::OptionableConvert))
+            {
+                item.attrs
+                    .push(parse_quote!(#[cfg(feature="k8s_openapi_convert")]));
+            }
+        }
+    }
 }
 
 /// Dedicated binary target for the purpose of codegen for `k8s-openapi`.

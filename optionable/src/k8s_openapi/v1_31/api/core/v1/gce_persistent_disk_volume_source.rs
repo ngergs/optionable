@@ -26,6 +26,7 @@ impl crate::Optionable for GCEPersistentDiskVolumeSourceAc {
     type Optioned = GCEPersistentDiskVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::GCEPersistentDiskVolumeSource {
     fn into_optioned(self) -> GCEPersistentDiskVolumeSourceAc {

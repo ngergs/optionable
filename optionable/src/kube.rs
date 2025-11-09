@@ -24,7 +24,7 @@
 //! }
 //! ```
 
-use crate::{Optionable, OptionableConvert};
+use crate::Optionable;
 use kube::Resource;
 #[cfg(feature = "derive")]
 #[doc(inline)]
@@ -61,7 +61,9 @@ pub fn serialize_api_envelope<S: Serializer, R: Resource<DynamicType = ()>>(
 /// Prevent implementation outside of this crate.
 trait ExtractManagedFieldsSealed {}
 
-/// Trait to add the `extract(field_manager)` functionality to optionable `kube::Resources`.
+/// Trait to add the `extract(field_manager)` functionality to `kube::Resources + Optionable`.
+/// Extracts the fields from the Resource `T` which are owned by the `field_manager`.
+#[allow(private_bounds)]
 pub trait ExtractManagedFields: ExtractManagedFieldsSealed + Optionable<Optioned: Sized> {
     /// Extracts the fields from the Resource `T` which are owned by the `field_manager`.
     /// The `metadata` entry is emptied except `name`, `namespace` and `generateName`.

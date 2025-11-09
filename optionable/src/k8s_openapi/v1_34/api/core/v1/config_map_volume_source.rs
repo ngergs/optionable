@@ -28,6 +28,7 @@ impl crate::Optionable for ConfigMapVolumeSourceAc {
     type Optioned = ConfigMapVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMapVolumeSource {
     fn into_optioned(self) -> ConfigMapVolumeSourceAc {
         ConfigMapVolumeSourceAc {

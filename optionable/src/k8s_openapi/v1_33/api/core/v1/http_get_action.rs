@@ -32,6 +32,7 @@ impl crate::Optionable for HTTPGetActionAc {
     type Optioned = HTTPGetActionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HTTPGetAction {
     fn into_optioned(self) -> HTTPGetActionAc {
         HTTPGetActionAc {

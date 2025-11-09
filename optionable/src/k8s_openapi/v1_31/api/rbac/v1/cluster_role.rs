@@ -33,6 +33,7 @@ impl crate::Optionable for ClusterRoleAc {
     type Optioned = ClusterRoleAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRole {
     fn into_optioned(self) -> ClusterRoleAc {
         ClusterRoleAc {

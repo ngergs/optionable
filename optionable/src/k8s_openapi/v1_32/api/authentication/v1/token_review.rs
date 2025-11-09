@@ -33,6 +33,7 @@ impl crate::Optionable for TokenReviewAc {
     type Optioned = TokenReviewAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::TokenReview {
     fn into_optioned(self) -> TokenReviewAc {
         TokenReviewAc {

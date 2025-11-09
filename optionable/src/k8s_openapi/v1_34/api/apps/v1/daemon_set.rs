@@ -33,6 +33,7 @@ impl crate::Optionable for DaemonSetAc {
     type Optioned = DaemonSetAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSet {
     fn into_optioned(self) -> DaemonSetAc {
         DaemonSetAc {

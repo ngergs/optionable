@@ -22,6 +22,7 @@ impl crate::Optionable for EventSourceAc {
     type Optioned = EventSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EventSource {
     fn into_optioned(self) -> EventSourceAc {
         EventSourceAc {

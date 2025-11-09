@@ -22,6 +22,7 @@ impl crate::Optionable for ServiceCIDRSpecAc {
     type Optioned = ServiceCIDRSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1beta1::ServiceCIDRSpec {
     fn into_optioned(self) -> ServiceCIDRSpecAc {

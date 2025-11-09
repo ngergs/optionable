@@ -22,6 +22,7 @@ impl crate::Optionable for ContainerResizePolicyAc {
     type Optioned = ContainerResizePolicyAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerResizePolicy {
     fn into_optioned(self) -> ContainerResizePolicyAc {
         ContainerResizePolicyAc {

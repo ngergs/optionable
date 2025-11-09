@@ -27,6 +27,7 @@ impl crate::Optionable for DriverAllocationResultAc {
     type Optioned = DriverAllocationResultAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha2::DriverAllocationResult {
     fn into_optioned(self) -> DriverAllocationResultAc {

@@ -24,6 +24,7 @@ impl crate::Optionable for ModifyVolumeStatusAc {
     type Optioned = ModifyVolumeStatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ModifyVolumeStatus {
     fn into_optioned(self) -> ModifyVolumeStatusAc {
         ModifyVolumeStatusAc {

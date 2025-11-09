@@ -37,6 +37,7 @@ impl crate::Optionable for EndpointSliceAc {
     type Optioned = EndpointSliceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSlice {
     fn into_optioned(self) -> EndpointSliceAc {
         EndpointSliceAc {

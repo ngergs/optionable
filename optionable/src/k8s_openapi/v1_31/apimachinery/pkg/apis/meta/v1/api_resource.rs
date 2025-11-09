@@ -47,6 +47,7 @@ impl crate::Optionable for APIResourceAc {
     type Optioned = APIResourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResource {
     fn into_optioned(self) -> APIResourceAc {

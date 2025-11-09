@@ -41,6 +41,7 @@ impl crate::Optionable for NamedRuleWithOperationsAc {
     type Optioned = NamedRuleWithOperationsAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::NamedRuleWithOperations {
     fn into_optioned(self) -> NamedRuleWithOperationsAc {

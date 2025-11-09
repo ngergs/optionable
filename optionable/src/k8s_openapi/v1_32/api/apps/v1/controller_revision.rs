@@ -31,6 +31,7 @@ impl crate::Optionable for ControllerRevisionAc {
     type Optioned = ControllerRevisionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ControllerRevision {
     fn into_optioned(self) -> ControllerRevisionAc {
         ControllerRevisionAc {

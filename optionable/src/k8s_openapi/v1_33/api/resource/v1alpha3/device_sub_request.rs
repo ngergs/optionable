@@ -34,6 +34,7 @@ impl crate::Optionable for DeviceSubRequestAc {
     type Optioned = DeviceSubRequestAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha3::DeviceSubRequest {
     fn into_optioned(self) -> DeviceSubRequestAc {

@@ -31,6 +31,7 @@ impl crate::Optionable for ReplicaSetConditionAc {
     type Optioned = ReplicaSetConditionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ReplicaSetCondition {
     fn into_optioned(self) -> ReplicaSetConditionAc {
         ReplicaSetConditionAc {

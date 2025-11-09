@@ -27,6 +27,7 @@ impl crate::Optionable for AWSElasticBlockStoreVolumeSourceAc {
     type Optioned = AWSElasticBlockStoreVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::AWSElasticBlockStoreVolumeSource {
     fn into_optioned(self) -> AWSElasticBlockStoreVolumeSourceAc {

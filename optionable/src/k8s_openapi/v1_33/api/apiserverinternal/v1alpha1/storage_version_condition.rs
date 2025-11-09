@@ -34,6 +34,7 @@ impl crate::Optionable for StorageVersionConditionAc {
     type Optioned = StorageVersionConditionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::apiserverinternal::v1alpha1::StorageVersionCondition {
     fn into_optioned(self) -> StorageVersionConditionAc {

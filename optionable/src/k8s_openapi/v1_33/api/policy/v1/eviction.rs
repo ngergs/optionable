@@ -29,6 +29,7 @@ impl crate::Optionable for EvictionAc {
     type Optioned = EvictionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::Eviction {
     fn into_optioned(self) -> EvictionAc {
         EvictionAc {

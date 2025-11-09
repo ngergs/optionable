@@ -34,6 +34,7 @@ impl crate::Optionable for CephFSPersistentVolumeSourceAc {
     type Optioned = CephFSPersistentVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::CephFSPersistentVolumeSource {
     fn into_optioned(self) -> CephFSPersistentVolumeSourceAc {

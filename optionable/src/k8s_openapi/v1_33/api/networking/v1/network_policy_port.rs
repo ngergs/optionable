@@ -26,6 +26,7 @@ impl crate::Optionable for NetworkPolicyPortAc {
     type Optioned = NetworkPolicyPortAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::NetworkPolicyPort {
     fn into_optioned(self) -> NetworkPolicyPortAc {
         NetworkPolicyPortAc {

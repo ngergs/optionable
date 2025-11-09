@@ -20,6 +20,7 @@ impl crate::Optionable for ForZoneAc {
     type Optioned = ForZoneAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::ForZone {
     fn into_optioned(self) -> ForZoneAc {
         ForZoneAc {

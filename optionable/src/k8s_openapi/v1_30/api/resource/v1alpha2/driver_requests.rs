@@ -28,6 +28,7 @@ impl crate::Optionable for DriverRequestsAc {
     type Optioned = DriverRequestsAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha2::DriverRequests {
     fn into_optioned(self) -> DriverRequestsAc {

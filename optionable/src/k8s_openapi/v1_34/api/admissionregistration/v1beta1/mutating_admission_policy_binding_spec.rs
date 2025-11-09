@@ -29,6 +29,7 @@ impl crate::Optionable for MutatingAdmissionPolicyBindingSpecAc {
     type Optioned = MutatingAdmissionPolicyBindingSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBindingSpec {
     fn into_optioned(self) -> MutatingAdmissionPolicyBindingSpecAc {

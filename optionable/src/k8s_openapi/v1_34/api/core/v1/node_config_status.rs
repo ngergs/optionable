@@ -32,6 +32,7 @@ impl crate::Optionable for NodeConfigStatusAc {
     type Optioned = NodeConfigStatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeConfigStatus {
     fn into_optioned(self) -> NodeConfigStatusAc {
         NodeConfigStatusAc {

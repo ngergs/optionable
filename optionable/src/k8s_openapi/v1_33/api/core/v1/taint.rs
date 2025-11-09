@@ -28,6 +28,7 @@ impl crate::Optionable for TaintAc {
     type Optioned = TaintAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Taint {
     fn into_optioned(self) -> TaintAc {
         TaintAc {

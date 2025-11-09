@@ -36,6 +36,7 @@ impl crate::Optionable for CertificateSigningRequestConditionAc {
     type Optioned = CertificateSigningRequestConditionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::certificates::v1::CertificateSigningRequestCondition {
     fn into_optioned(self) -> CertificateSigningRequestConditionAc {

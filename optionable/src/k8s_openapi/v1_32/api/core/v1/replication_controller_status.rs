@@ -32,6 +32,7 @@ impl crate::Optionable for ReplicationControllerStatusAc {
     type Optioned = ReplicationControllerStatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ReplicationControllerStatus {
     fn into_optioned(self) -> ReplicationControllerStatusAc {

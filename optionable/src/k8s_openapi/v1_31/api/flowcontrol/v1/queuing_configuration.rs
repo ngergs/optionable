@@ -24,6 +24,7 @@ impl crate::Optionable for QueuingConfigurationAc {
     type Optioned = QueuingConfigurationAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::QueuingConfiguration {
     fn into_optioned(self) -> QueuingConfigurationAc {

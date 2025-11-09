@@ -32,6 +32,7 @@ impl crate::Optionable for IngressSpecAc {
     type Optioned = IngressSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressSpec {
     fn into_optioned(self) -> IngressSpecAc {
         IngressSpecAc {

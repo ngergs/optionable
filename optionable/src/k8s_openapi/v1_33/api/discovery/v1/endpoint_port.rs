@@ -26,6 +26,7 @@ impl crate::Optionable for EndpointPortAc {
     type Optioned = EndpointPortAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointPort {
     fn into_optioned(self) -> EndpointPortAc {
         EndpointPortAc {

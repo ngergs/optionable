@@ -20,6 +20,7 @@ impl crate::Optionable for RawExtensionAc {
     type Optioned = RawExtensionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::runtime::RawExtension {
     fn into_optioned(self) -> RawExtensionAc {

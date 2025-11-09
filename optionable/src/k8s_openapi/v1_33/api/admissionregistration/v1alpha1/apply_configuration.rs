@@ -21,6 +21,7 @@ impl crate::Optionable for ApplyConfigurationAc {
     type Optioned = ApplyConfigurationAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1alpha1::ApplyConfiguration {
     fn into_optioned(self) -> ApplyConfigurationAc {

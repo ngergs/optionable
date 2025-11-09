@@ -29,6 +29,7 @@ impl crate::Optionable for PodTemplateAc {
     type Optioned = PodTemplateAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodTemplate {
     fn into_optioned(self) -> PodTemplateAc {
         PodTemplateAc {

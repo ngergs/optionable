@@ -20,6 +20,7 @@ impl crate::Optionable for QuantityAc {
     type Optioned = QuantityAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::api::resource::Quantity {
     fn into_optioned(self) -> QuantityAc {

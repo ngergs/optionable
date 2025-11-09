@@ -20,6 +20,7 @@ impl crate::Optionable for NamedResourcesFilterAc {
     type Optioned = NamedResourcesFilterAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha2::NamedResourcesFilter {
     fn into_optioned(self) -> NamedResourcesFilterAc {

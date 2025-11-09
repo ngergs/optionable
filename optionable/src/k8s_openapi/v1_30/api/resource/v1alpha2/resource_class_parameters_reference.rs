@@ -27,6 +27,7 @@ impl crate::Optionable for ResourceClassParametersReferenceAc {
     type Optioned = ResourceClassParametersReferenceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha2::ResourceClassParametersReference {
     fn into_optioned(self) -> ResourceClassParametersReferenceAc {

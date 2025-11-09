@@ -29,6 +29,7 @@ impl crate::Optionable for CSIDriverAc {
     type Optioned = CSIDriverAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIDriver {
     fn into_optioned(self) -> CSIDriverAc {
         CSIDriverAc {

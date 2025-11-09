@@ -26,6 +26,7 @@ impl crate::Optionable for VolumeAttachmentSourceAc {
     type Optioned = VolumeAttachmentSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::storage::v1::VolumeAttachmentSource {
     fn into_optioned(self) -> VolumeAttachmentSourceAc {

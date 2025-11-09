@@ -38,6 +38,7 @@ impl crate::Optionable for SecretAc {
     type Optioned = SecretAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Secret {
     fn into_optioned(self) -> SecretAc {
         SecretAc {

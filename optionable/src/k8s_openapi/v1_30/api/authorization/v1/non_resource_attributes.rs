@@ -22,6 +22,7 @@ impl crate::Optionable for NonResourceAttributesAc {
     type Optioned = NonResourceAttributesAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::NonResourceAttributes {
     fn into_optioned(self) -> NonResourceAttributesAc {

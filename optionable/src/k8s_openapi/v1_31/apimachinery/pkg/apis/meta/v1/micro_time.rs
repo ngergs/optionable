@@ -24,6 +24,7 @@ impl crate::Optionable for MicroTimeAc {
     type Optioned = MicroTimeAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::MicroTime {
     fn into_optioned(self) -> MicroTimeAc {

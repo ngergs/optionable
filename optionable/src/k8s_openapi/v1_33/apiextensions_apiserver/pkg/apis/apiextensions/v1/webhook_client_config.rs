@@ -27,6 +27,7 @@ impl crate::Optionable for WebhookClientConfigAc {
     type Optioned = WebhookClientConfigAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookClientConfig {
     fn into_optioned(self) -> WebhookClientConfigAc {

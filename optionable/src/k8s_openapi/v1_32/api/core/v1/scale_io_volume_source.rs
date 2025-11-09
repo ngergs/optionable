@@ -40,6 +40,7 @@ impl crate::Optionable for ScaleIOVolumeSourceAc {
     type Optioned = ScaleIOVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ScaleIOVolumeSource {
     fn into_optioned(self) -> ScaleIOVolumeSourceAc {
         ScaleIOVolumeSourceAc {

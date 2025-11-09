@@ -21,6 +21,7 @@ impl crate::Optionable for JSONPatchAc {
     type Optioned = JSONPatchAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1alpha1::JSONPatch {
     fn into_optioned(self) -> JSONPatchAc {

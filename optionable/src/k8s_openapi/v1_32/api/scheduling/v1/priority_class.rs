@@ -33,6 +33,7 @@ impl crate::Optionable for PriorityClassAc {
     type Optioned = PriorityClassAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityClass {
     fn into_optioned(self) -> PriorityClassAc {
         PriorityClassAc {

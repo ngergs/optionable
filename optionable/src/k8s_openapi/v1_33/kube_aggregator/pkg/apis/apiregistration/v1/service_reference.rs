@@ -25,6 +25,7 @@ impl crate::Optionable for ServiceReferenceAc {
     type Optioned = ServiceReferenceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference {
     fn into_optioned(self) -> ServiceReferenceAc {

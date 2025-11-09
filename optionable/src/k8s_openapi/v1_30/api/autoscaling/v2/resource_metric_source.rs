@@ -24,6 +24,7 @@ impl crate::Optionable for ResourceMetricSourceAc {
     type Optioned = ResourceMetricSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::ResourceMetricSource {
     fn into_optioned(self) -> ResourceMetricSourceAc {

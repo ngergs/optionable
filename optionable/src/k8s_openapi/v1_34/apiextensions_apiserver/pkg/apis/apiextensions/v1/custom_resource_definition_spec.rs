@@ -39,6 +39,7 @@ impl crate::Optionable for CustomResourceDefinitionSpecAc {
     type Optioned = CustomResourceDefinitionSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionSpec {
     fn into_optioned(self) -> CustomResourceDefinitionSpecAc {

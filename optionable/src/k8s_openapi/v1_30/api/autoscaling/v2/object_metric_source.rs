@@ -30,6 +30,7 @@ impl crate::Optionable for ObjectMetricSourceAc {
     type Optioned = ObjectMetricSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::ObjectMetricSource {
     fn into_optioned(self) -> ObjectMetricSourceAc {

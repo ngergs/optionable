@@ -26,6 +26,7 @@ impl crate::Optionable for SchedulingAc {
     type Optioned = SchedulingAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::Scheduling {
     fn into_optioned(self) -> SchedulingAc {
         SchedulingAc {

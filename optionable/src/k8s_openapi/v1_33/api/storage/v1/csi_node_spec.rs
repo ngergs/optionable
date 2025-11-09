@@ -24,6 +24,7 @@ impl crate::Optionable for CSINodeSpecAc {
     type Optioned = CSINodeSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSINodeSpec {
     fn into_optioned(self) -> CSINodeSpecAc {
         CSINodeSpecAc {

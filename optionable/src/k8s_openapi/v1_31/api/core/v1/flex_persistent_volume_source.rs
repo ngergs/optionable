@@ -32,6 +32,7 @@ impl crate::Optionable for FlexPersistentVolumeSourceAc {
     type Optioned = FlexPersistentVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::FlexPersistentVolumeSource {
     fn into_optioned(self) -> FlexPersistentVolumeSourceAc {

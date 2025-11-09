@@ -31,6 +31,7 @@ impl crate::Optionable for OwnerReferenceAc {
     type Optioned = OwnerReferenceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::OwnerReference {
     fn into_optioned(self) -> OwnerReferenceAc {

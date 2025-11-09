@@ -29,6 +29,7 @@ impl crate::Optionable for RoleAc {
     type Optioned = RoleAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::Role {
     fn into_optioned(self) -> RoleAc {
         RoleAc {

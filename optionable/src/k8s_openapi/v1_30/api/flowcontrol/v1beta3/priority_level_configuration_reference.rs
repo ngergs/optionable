@@ -21,6 +21,7 @@ impl crate::Optionable for PriorityLevelConfigurationReferenceAc {
     type Optioned = PriorityLevelConfigurationReferenceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1beta3::PriorityLevelConfigurationReference {
     fn into_optioned(self) -> PriorityLevelConfigurationReferenceAc {

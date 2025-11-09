@@ -30,6 +30,7 @@ impl crate::Optionable for PodFailurePolicyRuleAc {
     type Optioned = PodFailurePolicyRuleAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::PodFailurePolicyRule {
     fn into_optioned(self) -> PodFailurePolicyRuleAc {
         PodFailurePolicyRuleAc {

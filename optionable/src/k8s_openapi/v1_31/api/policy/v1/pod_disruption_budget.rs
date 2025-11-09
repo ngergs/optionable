@@ -33,6 +33,7 @@ impl crate::Optionable for PodDisruptionBudgetAc {
     type Optioned = PodDisruptionBudgetAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::PodDisruptionBudget {
     fn into_optioned(self) -> PodDisruptionBudgetAc {
         PodDisruptionBudgetAc {

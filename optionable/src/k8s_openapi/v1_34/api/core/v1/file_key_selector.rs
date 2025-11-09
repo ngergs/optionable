@@ -26,6 +26,7 @@ impl crate::Optionable for FileKeySelectorAc {
     type Optioned = FileKeySelectorAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::FileKeySelector {
     fn into_optioned(self) -> FileKeySelectorAc {
         FileKeySelectorAc {

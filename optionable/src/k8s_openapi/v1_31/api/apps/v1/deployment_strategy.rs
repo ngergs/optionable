@@ -25,6 +25,7 @@ impl crate::Optionable for DeploymentStrategyAc {
     type Optioned = DeploymentStrategyAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DeploymentStrategy {
     fn into_optioned(self) -> DeploymentStrategyAc {
         DeploymentStrategyAc {

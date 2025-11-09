@@ -24,6 +24,7 @@ impl crate::Optionable for NFSVolumeSourceAc {
     type Optioned = NFSVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NFSVolumeSource {
     fn into_optioned(self) -> NFSVolumeSourceAc {
         NFSVolumeSourceAc {

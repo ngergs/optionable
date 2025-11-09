@@ -32,6 +32,7 @@ impl crate::Optionable for ResourceClaimStatusAc {
     type Optioned = ResourceClaimStatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha3::ResourceClaimStatus {
     fn into_optioned(self) -> ResourceClaimStatusAc {

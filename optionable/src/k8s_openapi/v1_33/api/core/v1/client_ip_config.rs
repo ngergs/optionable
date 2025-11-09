@@ -20,6 +20,7 @@ impl crate::Optionable for ClientIPConfigAc {
     type Optioned = ClientIPConfigAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ClientIPConfig {
     fn into_optioned(self) -> ClientIPConfigAc {
         ClientIPConfigAc {

@@ -22,6 +22,7 @@ impl crate::Optionable for AggregationRuleAc {
     type Optioned = AggregationRuleAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::AggregationRule {
     fn into_optioned(self) -> AggregationRuleAc {
         AggregationRuleAc {

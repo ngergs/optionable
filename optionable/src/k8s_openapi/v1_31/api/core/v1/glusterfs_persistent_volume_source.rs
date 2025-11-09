@@ -29,6 +29,7 @@ impl crate::Optionable for GlusterfsPersistentVolumeSourceAc {
     type Optioned = GlusterfsPersistentVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::GlusterfsPersistentVolumeSource {
     fn into_optioned(self) -> GlusterfsPersistentVolumeSourceAc {

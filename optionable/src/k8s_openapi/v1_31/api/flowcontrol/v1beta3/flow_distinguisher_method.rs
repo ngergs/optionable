@@ -22,6 +22,7 @@ impl crate::Optionable for FlowDistinguisherMethodAc {
     type Optioned = FlowDistinguisherMethodAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1beta3::FlowDistinguisherMethod {
     fn into_optioned(self) -> FlowDistinguisherMethodAc {

@@ -35,6 +35,7 @@ impl crate::Optionable for StructuredResourceHandleAc {
     type Optioned = StructuredResourceHandleAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha2::StructuredResourceHandle {
     fn into_optioned(self) -> StructuredResourceHandleAc {

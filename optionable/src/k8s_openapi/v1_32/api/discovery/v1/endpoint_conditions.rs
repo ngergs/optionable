@@ -24,6 +24,7 @@ impl crate::Optionable for EndpointConditionsAc {
     type Optioned = EndpointConditionsAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointConditions {
     fn into_optioned(self) -> EndpointConditionsAc {
         EndpointConditionsAc {

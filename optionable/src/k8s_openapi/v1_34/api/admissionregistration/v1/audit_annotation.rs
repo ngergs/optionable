@@ -23,6 +23,7 @@ impl crate::Optionable for AuditAnnotationAc {
     type Optioned = AuditAnnotationAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::AuditAnnotation {
     fn into_optioned(self) -> AuditAnnotationAc {

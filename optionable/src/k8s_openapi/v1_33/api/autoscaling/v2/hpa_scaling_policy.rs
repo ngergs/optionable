@@ -25,6 +25,7 @@ impl crate::Optionable for HPAScalingPolicyAc {
     type Optioned = HPAScalingPolicyAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::HPAScalingPolicy {
     fn into_optioned(self) -> HPAScalingPolicyAc {
         HPAScalingPolicyAc {

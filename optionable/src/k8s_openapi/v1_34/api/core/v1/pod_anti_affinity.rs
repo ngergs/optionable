@@ -26,6 +26,7 @@ impl crate::Optionable for PodAntiAffinityAc {
     type Optioned = PodAntiAffinityAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodAntiAffinity {
     fn into_optioned(self) -> PodAntiAffinityAc {
         PodAntiAffinityAc {

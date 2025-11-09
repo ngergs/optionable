@@ -25,6 +25,7 @@ impl crate::Optionable for StatefulSetUpdateStrategyAc {
     type Optioned = StatefulSetUpdateStrategyAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::apps::v1::StatefulSetUpdateStrategy {
     fn into_optioned(self) -> StatefulSetUpdateStrategyAc {

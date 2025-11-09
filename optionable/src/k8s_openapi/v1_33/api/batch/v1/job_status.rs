@@ -48,6 +48,7 @@ impl crate::Optionable for JobStatusAc {
     type Optioned = JobStatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::JobStatus {
     fn into_optioned(self) -> JobStatusAc {
         JobStatusAc {

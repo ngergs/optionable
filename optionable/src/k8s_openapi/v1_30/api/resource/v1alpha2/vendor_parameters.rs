@@ -24,6 +24,7 @@ impl crate::Optionable for VendorParametersAc {
     type Optioned = VendorParametersAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha2::VendorParameters {
     fn into_optioned(self) -> VendorParametersAc {

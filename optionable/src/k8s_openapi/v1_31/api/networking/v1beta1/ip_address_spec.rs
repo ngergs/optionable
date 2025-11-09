@@ -22,6 +22,7 @@ impl crate::Optionable for IPAddressSpecAc {
     type Optioned = IPAddressSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1beta1::IPAddressSpec {
     fn into_optioned(self) -> IPAddressSpecAc {

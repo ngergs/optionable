@@ -22,6 +22,7 @@ impl crate::Optionable for ObjectFieldSelectorAc {
     type Optioned = ObjectFieldSelectorAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ObjectFieldSelector {
     fn into_optioned(self) -> ObjectFieldSelectorAc {
         ObjectFieldSelectorAc {

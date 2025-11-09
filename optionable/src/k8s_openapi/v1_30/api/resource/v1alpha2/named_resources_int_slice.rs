@@ -21,6 +21,7 @@ impl crate::Optionable for NamedResourcesIntSliceAc {
     type Optioned = NamedResourcesIntSliceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha2::NamedResourcesIntSlice {
     fn into_optioned(self) -> NamedResourcesIntSliceAc {

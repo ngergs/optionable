@@ -42,6 +42,7 @@ where
     type Optioned = ListAc<T>;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl<T> crate::OptionableConvert for ::k8s_openapi::List<T>
 where
     T: k8s_openapi::ListableResource + crate::OptionableConvert,

@@ -27,6 +27,7 @@ impl crate::Optionable for ScopedResourceSelectorRequirementAc {
     type Optioned = ScopedResourceSelectorRequirementAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::ScopedResourceSelectorRequirement {
     fn into_optioned(self) -> ScopedResourceSelectorRequirementAc {

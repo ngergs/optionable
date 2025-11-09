@@ -24,6 +24,7 @@ impl crate::Optionable for PreferredSchedulingTermAc {
     type Optioned = PreferredSchedulingTermAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PreferredSchedulingTerm {
     fn into_optioned(self) -> PreferredSchedulingTermAc {
         PreferredSchedulingTermAc {

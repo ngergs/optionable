@@ -22,6 +22,7 @@ impl crate::Optionable for FlowSchemaStatusAc {
     type Optioned = FlowSchemaStatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::FlowSchemaStatus {
     fn into_optioned(self) -> FlowSchemaStatusAc {
         FlowSchemaStatusAc {

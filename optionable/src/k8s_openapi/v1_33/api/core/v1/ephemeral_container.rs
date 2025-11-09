@@ -102,6 +102,7 @@ impl crate::Optionable for EphemeralContainerAc {
     type Optioned = EphemeralContainerAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EphemeralContainer {
     fn into_optioned(self) -> EphemeralContainerAc {
         EphemeralContainerAc {

@@ -35,6 +35,7 @@ impl crate::Optionable for LeaseCandidateSpecAc {
     type Optioned = LeaseCandidateSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::coordination::v1beta1::LeaseCandidateSpec {
     fn into_optioned(self) -> LeaseCandidateSpecAc {

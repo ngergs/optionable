@@ -32,6 +32,7 @@ impl crate::Optionable for MigrationConditionAc {
     type Optioned = MigrationConditionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::storagemigration::v1alpha1::MigrationCondition {
     fn into_optioned(self) -> MigrationConditionAc {

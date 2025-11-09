@@ -20,6 +20,7 @@ impl crate::Optionable for FieldsV1Ac {
     type Optioned = FieldsV1Ac;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::FieldsV1 {
     fn into_optioned(self) -> FieldsV1Ac {

@@ -23,6 +23,7 @@ impl crate::Optionable for ClusterTrustBundleSpecAc {
     type Optioned = ClusterTrustBundleSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::certificates::v1beta1::ClusterTrustBundleSpec {
     fn into_optioned(self) -> ClusterTrustBundleSpecAc {

@@ -25,6 +25,7 @@ impl crate::Optionable for APIServiceStatusAc {
     type Optioned = APIServiceStatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceStatus {
     fn into_optioned(self) -> APIServiceStatusAc {

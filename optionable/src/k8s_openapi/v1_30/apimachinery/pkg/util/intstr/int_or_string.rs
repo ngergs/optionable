@@ -16,6 +16,7 @@ impl crate::Optionable for IntOrStringAc {
     type Optioned = IntOrStringAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::util::intstr::IntOrString {
     fn into_optioned(self) -> IntOrStringAc {

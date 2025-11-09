@@ -32,6 +32,7 @@ impl crate::Optionable for ObjectReferenceAc {
     type Optioned = ObjectReferenceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ObjectReference {
     fn into_optioned(self) -> ObjectReferenceAc {
         ObjectReferenceAc {

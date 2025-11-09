@@ -22,6 +22,7 @@ impl crate::Optionable for PodDNSConfigOptionAc {
     type Optioned = PodDNSConfigOptionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::PodDNSConfigOption {
     fn into_optioned(self) -> PodDNSConfigOptionAc {
         PodDNSConfigOptionAc {

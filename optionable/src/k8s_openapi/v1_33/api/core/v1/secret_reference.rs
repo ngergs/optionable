@@ -22,6 +22,7 @@ impl crate::Optionable for SecretReferenceAc {
     type Optioned = SecretReferenceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretReference {
     fn into_optioned(self) -> SecretReferenceAc {
         SecretReferenceAc {

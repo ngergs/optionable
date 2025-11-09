@@ -26,6 +26,7 @@ impl crate::Optionable for SecretProjectionAc {
     type Optioned = SecretProjectionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretProjection {
     fn into_optioned(self) -> SecretProjectionAc {
         SecretProjectionAc {

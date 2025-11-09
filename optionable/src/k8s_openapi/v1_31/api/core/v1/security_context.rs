@@ -52,6 +52,7 @@ impl crate::Optionable for SecurityContextAc {
     type Optioned = SecurityContextAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecurityContext {
     fn into_optioned(self) -> SecurityContextAc {
         SecurityContextAc {

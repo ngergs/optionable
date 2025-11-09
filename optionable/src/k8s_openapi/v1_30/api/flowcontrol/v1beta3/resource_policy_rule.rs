@@ -36,6 +36,7 @@ impl crate::Optionable for ResourcePolicyRuleAc {
     type Optioned = ResourcePolicyRuleAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1beta3::ResourcePolicyRule {
     fn into_optioned(self) -> ResourcePolicyRuleAc {

@@ -22,6 +22,7 @@ impl crate::Optionable for LocalVolumeSourceAc {
     type Optioned = LocalVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::LocalVolumeSource {
     fn into_optioned(self) -> LocalVolumeSourceAc {
         LocalVolumeSourceAc {

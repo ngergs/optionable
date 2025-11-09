@@ -41,6 +41,7 @@ impl crate::Optionable for MetricSpecAc {
     type Optioned = MetricSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v2::MetricSpec {
     fn into_optioned(self) -> MetricSpecAc {
         MetricSpecAc {

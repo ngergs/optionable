@@ -64,6 +64,7 @@ impl crate::Optionable for ObjectMetaAc {
     type Optioned = ObjectMetaAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta {
     fn into_optioned(self) -> ObjectMetaAc {

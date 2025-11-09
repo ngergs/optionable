@@ -24,6 +24,7 @@ impl crate::Optionable for GitRepoVolumeSourceAc {
     type Optioned = GitRepoVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::GitRepoVolumeSource {
     fn into_optioned(self) -> GitRepoVolumeSourceAc {
         GitRepoVolumeSourceAc {

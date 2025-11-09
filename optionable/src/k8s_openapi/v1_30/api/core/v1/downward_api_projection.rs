@@ -22,6 +22,7 @@ impl crate::Optionable for DownwardAPIProjectionAc {
     type Optioned = DownwardAPIProjectionAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::DownwardAPIProjection {
     fn into_optioned(self) -> DownwardAPIProjectionAc {
         DownwardAPIProjectionAc {

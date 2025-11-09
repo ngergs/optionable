@@ -28,6 +28,7 @@ impl crate::Optionable for AllocationResultAc {
     type Optioned = AllocationResultAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha3::AllocationResult {
     fn into_optioned(self) -> AllocationResultAc {

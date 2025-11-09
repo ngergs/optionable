@@ -23,6 +23,7 @@ impl crate::Optionable for PreconditionsAc {
     type Optioned = PreconditionsAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Preconditions {
     fn into_optioned(self) -> PreconditionsAc {

@@ -25,6 +25,7 @@ impl crate::Optionable for CrossVersionObjectReferenceAc {
     type Optioned = CrossVersionObjectReferenceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::autoscaling::v2::CrossVersionObjectReference {
     fn into_optioned(self) -> CrossVersionObjectReferenceAc {

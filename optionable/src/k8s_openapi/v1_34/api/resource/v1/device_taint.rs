@@ -28,6 +28,7 @@ impl crate::Optionable for DeviceTaintAc {
     type Optioned = DeviceTaintAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceTaint {
     fn into_optioned(self) -> DeviceTaintAc {
         DeviceTaintAc {

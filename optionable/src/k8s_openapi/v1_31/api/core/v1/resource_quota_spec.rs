@@ -33,6 +33,7 @@ impl crate::Optionable for ResourceQuotaSpecAc {
     type Optioned = ResourceQuotaSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceQuotaSpec {
     fn into_optioned(self) -> ResourceQuotaSpecAc {
         ResourceQuotaSpecAc {

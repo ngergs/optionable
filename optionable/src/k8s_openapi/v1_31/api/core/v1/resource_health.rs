@@ -22,6 +22,7 @@ impl crate::Optionable for ResourceHealthAc {
     type Optioned = ResourceHealthAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ResourceHealth {
     fn into_optioned(self) -> ResourceHealthAc {
         ResourceHealthAc {

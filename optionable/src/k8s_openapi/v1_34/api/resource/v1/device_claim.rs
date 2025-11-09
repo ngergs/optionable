@@ -30,6 +30,7 @@ impl crate::Optionable for DeviceClaimAc {
     type Optioned = DeviceClaimAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceClaim {
     fn into_optioned(self) -> DeviceClaimAc {
         DeviceClaimAc {

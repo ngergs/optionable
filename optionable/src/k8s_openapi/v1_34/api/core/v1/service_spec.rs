@@ -83,6 +83,7 @@ impl crate::Optionable for ServiceSpecAc {
     type Optioned = ServiceSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceSpec {
     fn into_optioned(self) -> ServiceSpecAc {
         ServiceSpecAc {

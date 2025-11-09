@@ -23,6 +23,7 @@ impl crate::Optionable for ExpressionWarningAc {
     type Optioned = ExpressionWarningAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1beta1::ExpressionWarning {
     fn into_optioned(self) -> ExpressionWarningAc {

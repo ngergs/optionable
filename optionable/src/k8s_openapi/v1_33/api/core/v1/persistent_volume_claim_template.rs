@@ -26,6 +26,7 @@ impl crate::Optionable for PersistentVolumeClaimTemplateAc {
     type Optioned = PersistentVolumeClaimTemplateAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::core::v1::PersistentVolumeClaimTemplate {
     fn into_optioned(self) -> PersistentVolumeClaimTemplateAc {

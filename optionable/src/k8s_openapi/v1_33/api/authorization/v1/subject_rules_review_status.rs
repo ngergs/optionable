@@ -35,6 +35,7 @@ impl crate::Optionable for SubjectRulesReviewStatusAc {
     type Optioned = SubjectRulesReviewStatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::SubjectRulesReviewStatus {
     fn into_optioned(self) -> SubjectRulesReviewStatusAc {

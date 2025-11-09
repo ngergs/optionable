@@ -29,6 +29,7 @@ impl crate::Optionable for ValidatingAdmissionPolicyStatusAc {
     type Optioned = ValidatingAdmissionPolicyStatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::ValidatingAdmissionPolicyStatus {
     fn into_optioned(self) -> ValidatingAdmissionPolicyStatusAc {

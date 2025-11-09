@@ -24,6 +24,7 @@ impl crate::Optionable for IngressRuleAc {
     type Optioned = IngressRuleAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressRule {
     fn into_optioned(self) -> IngressRuleAc {
         IngressRuleAc {

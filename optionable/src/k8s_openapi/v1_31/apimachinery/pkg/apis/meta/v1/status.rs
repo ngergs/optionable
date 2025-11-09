@@ -37,6 +37,7 @@ impl crate::Optionable for StatusAc {
     type Optioned = StatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
     fn into_optioned(self) -> StatusAc {

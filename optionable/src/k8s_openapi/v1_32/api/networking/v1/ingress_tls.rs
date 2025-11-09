@@ -24,6 +24,7 @@ impl crate::Optionable for IngressTLSAc {
     type Optioned = IngressTLSAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressTLS {
     fn into_optioned(self) -> IngressTLSAc {
         IngressTLSAc {

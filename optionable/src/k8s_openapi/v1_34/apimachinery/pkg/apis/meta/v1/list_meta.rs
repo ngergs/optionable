@@ -27,6 +27,7 @@ impl crate::Optionable for ListMetaAc {
     type Optioned = ListMetaAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta {
     fn into_optioned(self) -> ListMetaAc {

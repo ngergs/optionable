@@ -26,6 +26,7 @@ impl crate::Optionable for NodeSelectorTermAc {
     type Optioned = NodeSelectorTermAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::NodeSelectorTerm {
     fn into_optioned(self) -> NodeSelectorTermAc {
         NodeSelectorTermAc {

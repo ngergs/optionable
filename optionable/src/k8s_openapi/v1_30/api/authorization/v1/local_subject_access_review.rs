@@ -34,6 +34,7 @@ impl crate::Optionable for LocalSubjectAccessReviewAc {
     type Optioned = LocalSubjectAccessReviewAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::LocalSubjectAccessReview {
     fn into_optioned(self) -> LocalSubjectAccessReviewAc {

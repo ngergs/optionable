@@ -24,6 +24,7 @@ impl crate::Optionable for IPBlockAc {
     type Optioned = IPBlockAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IPBlock {
     fn into_optioned(self) -> IPBlockAc {
         IPBlockAc {

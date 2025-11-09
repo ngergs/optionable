@@ -33,6 +33,7 @@ impl crate::Optionable for ScaleAc {
     type Optioned = ScaleAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::autoscaling::v1::Scale {
     fn into_optioned(self) -> ScaleAc {
         ScaleAc {

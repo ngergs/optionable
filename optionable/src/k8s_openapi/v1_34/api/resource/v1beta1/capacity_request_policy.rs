@@ -30,6 +30,7 @@ impl crate::Optionable for CapacityRequestPolicyAc {
     type Optioned = CapacityRequestPolicyAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1beta1::CapacityRequestPolicy {
     fn into_optioned(self) -> CapacityRequestPolicyAc {

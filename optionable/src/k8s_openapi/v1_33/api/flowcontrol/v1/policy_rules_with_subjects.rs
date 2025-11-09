@@ -32,6 +32,7 @@ impl crate::Optionable for PolicyRulesWithSubjectsAc {
     type Optioned = PolicyRulesWithSubjectsAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::flowcontrol::v1::PolicyRulesWithSubjects {
     fn into_optioned(self) -> PolicyRulesWithSubjectsAc {

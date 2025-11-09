@@ -21,6 +21,7 @@ impl crate::Optionable for JSONSchemaPropsOrBoolAc {
     type Optioned = JSONSchemaPropsOrBoolAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrBool {
     fn into_optioned(self) -> JSONSchemaPropsOrBoolAc {

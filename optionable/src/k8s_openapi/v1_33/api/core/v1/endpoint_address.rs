@@ -28,6 +28,7 @@ impl crate::Optionable for EndpointAddressAc {
     type Optioned = EndpointAddressAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::EndpointAddress {
     fn into_optioned(self) -> EndpointAddressAc {
         EndpointAddressAc {

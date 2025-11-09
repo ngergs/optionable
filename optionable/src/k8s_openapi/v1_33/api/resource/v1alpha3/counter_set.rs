@@ -27,6 +27,7 @@ impl crate::Optionable for CounterSetAc {
     type Optioned = CounterSetAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1alpha3::CounterSet {
     fn into_optioned(self) -> CounterSetAc {
         CounterSetAc {

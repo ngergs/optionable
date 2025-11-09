@@ -32,6 +32,7 @@ impl crate::Optionable for CSIVolumeSourceAc {
     type Optioned = CSIVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::CSIVolumeSource {
     fn into_optioned(self) -> CSIVolumeSourceAc {
         CSIVolumeSourceAc {

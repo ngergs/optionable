@@ -23,6 +23,7 @@ impl crate::Optionable for HostPathVolumeSourceAc {
     type Optioned = HostPathVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::HostPathVolumeSource {
     fn into_optioned(self) -> HostPathVolumeSourceAc {
         HostPathVolumeSourceAc {

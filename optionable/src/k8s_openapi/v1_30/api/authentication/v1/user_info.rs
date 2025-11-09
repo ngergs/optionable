@@ -33,6 +33,7 @@ impl crate::Optionable for UserInfoAc {
     type Optioned = UserInfoAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::authentication::v1::UserInfo {
     fn into_optioned(self) -> UserInfoAc {
         UserInfoAc {

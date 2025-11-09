@@ -25,6 +25,7 @@ impl crate::Optionable for OverheadAc {
     type Optioned = OverheadAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::Overhead {
     fn into_optioned(self) -> OverheadAc {
         OverheadAc {

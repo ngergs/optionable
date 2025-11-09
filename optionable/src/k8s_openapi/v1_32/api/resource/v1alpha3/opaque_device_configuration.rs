@@ -25,6 +25,7 @@ impl crate::Optionable for OpaqueDeviceConfigurationAc {
     type Optioned = OpaqueDeviceConfigurationAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha3::OpaqueDeviceConfiguration {
     fn into_optioned(self) -> OpaqueDeviceConfigurationAc {

@@ -36,6 +36,7 @@ impl crate::Optionable for CronJobSpecAc {
     type Optioned = CronJobSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJobSpec {
     fn into_optioned(self) -> CronJobSpecAc {
         CronJobSpecAc {

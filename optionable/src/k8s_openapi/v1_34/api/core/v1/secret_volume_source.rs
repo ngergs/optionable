@@ -28,6 +28,7 @@ impl crate::Optionable for SecretVolumeSourceAc {
     type Optioned = SecretVolumeSourceAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::SecretVolumeSource {
     fn into_optioned(self) -> SecretVolumeSourceAc {
         SecretVolumeSourceAc {

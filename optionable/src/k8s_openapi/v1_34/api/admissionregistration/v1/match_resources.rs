@@ -41,6 +41,7 @@ impl crate::Optionable for MatchResourcesAc {
     type Optioned = MatchResourcesAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::MatchResources {
     fn into_optioned(self) -> MatchResourcesAc {

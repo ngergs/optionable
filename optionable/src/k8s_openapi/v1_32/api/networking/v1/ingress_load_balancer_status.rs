@@ -23,6 +23,7 @@ impl crate::Optionable for IngressLoadBalancerStatusAc {
     type Optioned = IngressLoadBalancerStatusAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::networking::v1::IngressLoadBalancerStatus {
     fn into_optioned(self) -> IngressLoadBalancerStatusAc {

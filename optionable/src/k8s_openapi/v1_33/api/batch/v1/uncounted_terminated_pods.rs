@@ -26,6 +26,7 @@ impl crate::Optionable for UncountedTerminatedPodsAc {
     type Optioned = UncountedTerminatedPodsAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::batch::v1::UncountedTerminatedPods {
     fn into_optioned(self) -> UncountedTerminatedPodsAc {

@@ -25,6 +25,7 @@ impl crate::Optionable for PodSchedulingContextSpecAc {
     type Optioned = PodSchedulingContextSpecAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha3::PodSchedulingContextSpec {
     fn into_optioned(self) -> PodSchedulingContextSpecAc {

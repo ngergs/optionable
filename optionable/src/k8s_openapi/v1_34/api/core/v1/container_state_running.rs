@@ -22,6 +22,7 @@ impl crate::Optionable for ContainerStateRunningAc {
     type Optioned = ContainerStateRunningAc;
 }
 #[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ContainerStateRunning {
     fn into_optioned(self) -> ContainerStateRunningAc {
         ContainerStateRunningAc {
