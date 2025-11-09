@@ -35,7 +35,7 @@ kube = { version = "2.0.1", default-features = false, optional = true }
 
 [dev-dependencies]
 serde = { version = "1.0.228", default-features = false, features = ["derive"] }
-serde_json = { version = "1.0.145", default-features = false, features = ["std"] }
+serde_json = { version = "1.0.145", default-features = false, features = ["alloc"] }
 
 [package.metadata.docs.rs]
 # to be able to document feature dependent settings, see https://users.rust-lang.org/t/how-to-document-optional-features-in-api-docs/64577/3
