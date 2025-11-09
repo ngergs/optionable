@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0](https://github.com/ngergs/optionable/compare/optionable_derive-v0.3.0...optionable_derive-v0.4.0) - 2025-11-09
+
+### Added
+
+- granular option to copy over specified helper attributes to the optioned type
+
+### Fixed
+
+- [**breaking**] breaking change in codegen (no longer adds serde untagged for kube/k8s_openapi enums)
+
 ## [0.3.0](https://github.com/ngergs/optionable/compare/optionable_derive-v0.2.0...optionable_derive-v0.2.1) - 2025-11-08
 
 ### Added
