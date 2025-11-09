@@ -82,6 +82,17 @@ impl CodegenVisitor for Visitor {
             Enum(item) => {
                 item.attrs.push(parse_quote!(#[optionable(k8s_openapi())]));
                 item.attrs.push(parse_quote!(#[optionable(suffix=#suffix)]));
+
+                // special case we can't easily handle (without custom code for this type that likely won't see much usage as an optioned variant)
+                // the two error types sharing the same tag. So we remove the specialized one.
+                if item.ident == "WatchEvent" {
+                    item.variants = item
+                        .variants
+                        .clone()
+                        .into_iter()
+                        .filter(|v| v.ident != "ErrorStatus")
+                        .collect();
+                }
             }
             _ => {}
         }
@@ -89,14 +100,44 @@ impl CodegenVisitor for Visitor {
 
     fn visit_output(&mut self, items: &mut Vec<Item>) {
         for item in items.iter_mut() {
-            if let Impl(item) = item
-                && item
-                    .trait_
-                    .as_ref()
-                    .is_some_and(|trait_| trait_.1 == parse_quote!(crate::OptionableConvert))
-            {
-                item.attrs
-                    .push(parse_quote!(#[cfg(feature="k8s_openapi_convert")]));
+            match item {
+                Impl(item) => {
+                    if item
+                        .trait_
+                        .as_ref()
+                        .is_some_and(|trait_| trait_.1 == parse_quote!(crate::OptionableConvert))
+                    {
+                        item.attrs
+                            .push(parse_quote!(#[cfg(feature="k8s_openapi_convert")]));
+                    }
+                }
+                Enum(item) => {
+                    if item.ident == "WatchEventAc" {
+                        // special case https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#watchevent-v1-meta
+                        item.attrs
+                            .push(parse_quote!(#[serde(tag = "type", content = "object")]));
+                        // map variant names, see serialization here https://github.com/Arnavion/k8s-openapi/blob/master/src/v1_34/apimachinery/pkg/apis/meta/v1/watch_event.rs
+                        for variant in &mut item.variants {
+                            let serde_rename = match variant.ident.to_string().as_str() {
+                                "Added" => "ADDED",
+                                "Deleted" => "DELETED",
+                                "Modified" => "MODIFIED",
+                                "Bookmark" => "BOOKMARK",
+                                "ErrorOther" => "ERROR",
+                                _ => panic!(
+                                    "Unknown variant for WatchEvent handling: {}",
+                                    variant.ident
+                                ),
+                            };
+                            variant
+                                .attrs
+                                .push(parse_quote!(#[serde(rename=#serde_rename)]));
+                        }
+                    } else {
+                        item.attrs.push(parse_quote!(#[serde(untagged)]));
+                    }
+                }
+                _ => {}
             }
         }
     }

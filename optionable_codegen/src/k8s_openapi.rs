@@ -67,8 +67,7 @@ pub(crate) fn k8s_derives(input: &DeriveInput) -> Option<Vec<Path>> {
 /// The field type helper attributes for an optioned `Struct` or `Enum`.
 pub(crate) fn k8s_type_attr(input: &DeriveInput) -> Option<Attribute> {
     match input.data {
-        Data::Struct(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
-        Data::Enum(_) => Some(parse_quote!(#[serde(rename_all="camelCase",untagged)])),
+        Data::Struct(_) | Data::Enum(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
         Data::Union(_) => None,
     }
 }
