@@ -121,10 +121,10 @@ fn filter_json_value(item: &mut Value, filter: &Value, is_root: bool) {
     if let (Value::Object(item), Value::Object(filter)) = (item, filter) {
         let allowed_fields: HashMap<_, _> = filter
             .iter()
-            .filter_map(|(k, v)| k.strip_prefix("f:").map(|s| (s.to_string(), v)))
+            .filter_map(|(k, v)| k.strip_prefix("f:").map(|s| (s, v)))
             .collect();
 
-        item.retain(|k, _| allowed_fields.contains_key(k) || (is_root && k == "metadata"));
+        item.retain(|k, _| allowed_fields.contains_key(k.as_str()) || (is_root && k == "metadata"));
         if is_root && let Some(meta) = item.get_mut("metadata") {
             filter_metadata(meta);
         }
