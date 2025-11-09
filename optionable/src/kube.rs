@@ -24,7 +24,7 @@
 //! }
 //! ```
 
-use crate::OptionableConvert;
+use crate::{Optionable, OptionableConvert};
 use kube::Resource;
 #[cfg(feature = "derive")]
 #[doc(inline)]
@@ -38,7 +38,7 @@ pub use optionable_derive::OptionableKubeCrd;
 use serde::de::DeserializeOwned;
 use serde::ser::SerializeMap;
 use serde::{Serialize, Serializer};
-use serde_json::Value;
+use serde_json::{Error, Value};
 use std::collections::HashMap;
 use std::marker::PhantomData;
 use std::mem::take;
@@ -58,47 +58,60 @@ pub fn serialize_api_envelope<S: Serializer, R: Resource<DynamicType = ()>>(
     map.end()
 }
 
-/// Extracts the fields from the Resource `T` which are owned by the `field_manager`.
-/// The `metadata` entry is emptied except `name`, `namespace` and `generateName`.
-/// Returns `Ok(None)` is no fields at all are owned.
-///
-/// # Errors
-/// - Serialization/Deserialization errors. The function uses `serde_json::Value` internally to get the
-///   serialization keys referenced by Kubernetes.
-pub fn extract<T>(
-    mut item: T,
-    field_manager: &str,
-) -> Result<Option<T::Optioned>, serde_json::Error>
+/// Prevent implementation outside of this crate.
+trait ExtractManagedFieldsSealed {}
+
+/// Trait to add the `extract(field_manager)` functionality to optionable `kube::Resources`.
+pub trait ExtractManagedFields: ExtractManagedFieldsSealed + Optionable<Optioned: Sized> {
+    /// Extracts the fields from the Resource `T` which are owned by the `field_manager`.
+    /// The `metadata` entry is emptied except `name`, `namespace` and `generateName`.
+    /// Returns `Ok(None)` is no fields at all are owned.
+    ///
+    /// # Errors
+    /// - Serialization/Deserialization errors. The function uses `serde_json::Value` internally to get the
+    ///   serialization keys referenced by Kubernetes.
+    fn extract(self, field_manager: impl AsRef<str>) -> Result<Option<Self::Optioned>, Error>;
+}
+
+impl<T> ExtractManagedFieldsSealed for T
 where
-    T: Resource + OptionableConvert + Serialize,
+    T: Resource + Optionable + Serialize,
     T::Optioned: Sized + DeserializeOwned,
 {
-    // Managed fields are not forwarded to the result anyway so we can just take them.
-    let managed_fields = take(&mut item.meta_mut().managed_fields);
-    if let Some(managed_fields) = &managed_fields {
-        let managed_fields = managed_fields.iter().find(|el| {
-            el.fields_type
-                .as_ref()
-                .is_some_and(|fields_type| fields_type == "FieldsV1")
-                && el
-                    .manager
+}
+
+impl<T> ExtractManagedFields for T
+where
+    T: Resource + Optionable + Serialize,
+    T::Optioned: Sized + DeserializeOwned,
+{
+    fn extract(mut self, field_manager: impl AsRef<str>) -> Result<Option<Self::Optioned>, Error> {
+        // Managed fields are not forwarded to the result anyway so we can just take them.
+        let managed_fields = take(&mut self.meta_mut().managed_fields);
+        if let Some(managed_fields) = &managed_fields {
+            let managed_fields = managed_fields.iter().find(|el| {
+                el.fields_type
                     .as_ref()
-                    .is_some_and(|manager| manager == field_manager)
-        });
-        if let Some(managed_fields) = managed_fields
-            && let Some(fields) = &managed_fields.fields_v1
-        {
-            let mut data_json = serde_json::to_value(item)?;
-            filter_json_value(&mut data_json, &fields.0, true);
-            Ok(Some(serde_json::from_value::<T::Optioned>(data_json)?))
+                    .is_some_and(|fields_type| fields_type == "FieldsV1")
+                    && el
+                        .manager
+                        .as_ref()
+                        .is_some_and(|manager| manager == field_manager.as_ref())
+            });
+            if let Some(managed_fields) = managed_fields
+                && let Some(fields) = &managed_fields.fields_v1
+            {
+                let mut data_json = serde_json::to_value(self)?;
+                filter_json_value(&mut data_json, &fields.0, true);
+                Ok(Some(serde_json::from_value::<T::Optioned>(data_json)?))
+            } else {
+                Ok(None)
+            }
         } else {
             Ok(None)
         }
-    } else {
-        Ok(None)
     }
 }
-
 /// Only retains those fields in `item` that are also contained in the `filter` json value.
 /// Used by the Kubernetes server-side-apply `extract` implementations.
 /// Has special handling for the `metadata` root entry whose `name`, `namespace` and `generateName` fields are copied over.
@@ -137,7 +150,7 @@ fn filter_metadata(item: &mut Value) {
 ))]
 #[cfg(test)]
 mod test {
-    use crate::kube::extract;
+    use crate::kube::ExtractManagedFields;
     use k8s_openapi::api::apps::v1::{Deployment, DeploymentSpec};
     use k8s_openapi::api::core::v1::{Container, PodSpec, PodTemplateSpec};
     use k8s_openapi::apimachinery::pkg::apis::meta::v1::{
@@ -178,7 +191,7 @@ mod test {
             }),
             ..Default::default()
         };
-        let deployment_extract = extract(deployment.clone(), field_manager).unwrap().unwrap();
+        let deployment_extract = deployment.clone().extract(field_manager).unwrap().unwrap();
         assert_eq!(deployment.metadata.name, deployment_extract.metadata.name);
         assert_eq!(
             deployment.metadata.namespace,

@@ -243,12 +243,12 @@ pub trait OptionableConvert: Sized + Optionable {
 }
 
 /// Prevent implementation outside of this crate.
-trait Sealed<T> {}
+trait OptionedConvertSealed<T> {}
 
 /// Sealed helper trait to transform from the perspective of the optioned type.
 /// Will be automatically implemented for every target `<T as Optionable>:Optioned`.
 #[allow(private_bounds)]
-pub trait OptionedConvert<T>: Sized + Sealed<T>
+pub trait OptionedConvert<T>: Sized + OptionedConvertSealed<T>
 where
     T: Optionable<Optioned = Self> + OptionableConvert,
 {
@@ -268,7 +268,10 @@ where
     }
 }
 
-impl<T, TOpt> Sealed<T> for TOpt where T: Optionable<Optioned = TOpt> + OptionableConvert {}
+impl<T, TOpt> OptionedConvertSealed<T> for TOpt where
+    T: Optionable<Optioned = TOpt> + OptionableConvert
+{
+}
 impl<T, TOpt> OptionedConvert<T> for TOpt where T: Optionable<Optioned = TOpt> + OptionableConvert {}
 
 /// Represents errors that occur when trying to build a full type from its optioned variant.
