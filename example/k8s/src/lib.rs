@@ -30,6 +30,7 @@ pub struct CustomCrdSpec {
 #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
 #[serde(rename_all = "camelCase")]
 pub struct CustomCrdSpecTemplate {
+    // example for a rename use case as `type` is a reserved keyword in rust
     #[serde(rename = "type")]
     pub type_: CustomCrdSpecTemplateType,
 }
