@@ -810,11 +810,25 @@ checksum = "d05e27ee213611ffe7d6348b942e8f942b37114c00cc03cec254295a4a17852e"
 [[package]]
 name = "optionable"
 version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f9ef81d2c796ed85d32bdade157acd7454f0f1bc6b953788ad8e8cd52d510d5d"
 dependencies = [
  "chrono",
  "k8s-openapi",
  "kube",
- "optionable_derive",
+ "optionable_derive 0.3.0",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "optionable"
+version = "0.5.0"
+dependencies = [
+ "chrono",
+ "k8s-openapi",
+ "kube",
+ "optionable_derive 0.3.0",
  "serde",
  "serde_json",
 ]
@@ -822,6 +836,19 @@ dependencies = [
 [[package]]
 name = "optionable_codegen"
 version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "08ff1b49f10dfc44c01ca7defae35759a961d8ca05276744411b609547c2f61e"
+dependencies = [
+ "darling",
+ "itertools",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "optionable_codegen"
+version = "0.7.0"
 dependencies = [
  "darling",
  "itertools",
@@ -838,7 +865,7 @@ dependencies = [
  "assert_cmd",
  "clap",
  "darling",
- "optionable_codegen",
+ "optionable_codegen 0.6.0",
  "prettyplease",
  "proc-macro2",
  "quote",
@@ -849,8 +876,20 @@ dependencies = [
 [[package]]
 name = "optionable_derive"
 version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1202386d09847a761105b895d8b5c4a9fc6b27e0576e812f9548cb02767f615e"
 dependencies = [
- "optionable_codegen",
+ "optionable_codegen 0.6.0",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "optionable_derive"
+version = "0.4.0"
+dependencies = [
+ "optionable_codegen 0.6.0",
  "proc-macro2",
  "quote",
  "syn",
@@ -862,7 +901,7 @@ version = "0.1.0"
 dependencies = [
  "k8s-openapi",
  "kube",
- "optionable",
+ "optionable 0.4.0",
  "schemars",
  "serde",
  "serde_json",

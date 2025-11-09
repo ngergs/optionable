@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0](https://github.com/ngergs/optionable/compare/optionable-v0.4.0...optionable-v0.5.0) - 2025-11-09
+
+### Fixed
+
+- [**breaking**] optionable kube/k8s_openapi no longer automatically add serde untagged
+- avoid cloning in extract function
+
+### Other
+
+- docs
+
 ## [0.4.0](https://github.com/ngergs/optionable/compare/optionable-v0.3.0...optionable-v0.4.0) - 2025-11-09
 
 ### Added
