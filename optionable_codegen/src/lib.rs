@@ -30,7 +30,7 @@ use itertools::MultiUnzip;
 use proc_macro2::{Ident, Literal, TokenStream};
 use quote::{format_ident, quote, ToTokens};
 use std::borrow::Cow;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::default::Default;
 use syn::parse::Parser;
 use syn::spanned::Spanned;
@@ -61,6 +61,7 @@ pub(crate) struct TypeHelperAttributes {
     k8s_openapi: Option<TypeHelperAttributesK8sOpenapi>,
     /// Adjustments of the derived optioned type for structs that `kube::CustomResource` or respective subfields.
     /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
+    /// - Copy `#[(serde(rename="...")]` attributes over the optioned types.
     kube: Option<TypeHelperAttributesKube>,
     /// Forwards the specified `attr` to the definition of the optioned type.
     /// If any `key` is set it filters the configuration of the forwarded attributes for the specified configuration names.
@@ -124,17 +125,31 @@ pub struct CodegenSettings {
 }
 
 /// Processes the input field attribute forwards to a `HashMap`.
-fn field_attr_copy_hashmap(input: Vec<FieldAttributeToCopy>) -> HashMap<Path, Vec<Path>> {
-    let mut result = HashMap::<Path, Vec<Path>>::new();
+/// Adds `attr=serde,key=rename` if the `kube` input attribute is present.
+fn field_attr_copy_hashmap(
+    input: Vec<FieldAttributeToCopy>,
+    attr_kube: Option<&TypeHelperAttributesKube>,
+) -> HashMap<Path, HashSet<Path>> {
+    let mut result = HashMap::<Path, HashSet<Path>>::new();
     for el in input {
         if let Some(key) = el.key {
             if let Some(entry) = result.get_mut(&el.attr) {
-                if !entry.contains(&key) {
-                    entry.push(key);
-                }
+                entry.insert(key);
             } else {
-                result.insert(el.attr, vec![key]);
+                result.insert(el.attr, HashSet::from([key]));
             }
+        }
+    }
+    if attr_kube.is_some() {
+        let path_serde = Path::from_string("serde").unwrap();
+        let path_rename = Path::from_string("rename").unwrap();
+        if let Some(entry) = result.get_mut(&path_serde) {
+            // If the keys are empty everything will be copied, so don't restrict it here
+            if !entry.is_empty() {
+                entry.insert(path_rename);
+            }
+        } else {
+            result.insert(path_serde, HashSet::from([path_rename]));
         }
     }
     result
@@ -191,7 +206,7 @@ pub fn derive_optionable(
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
     error_missing_features(&attrs)?;
     let k8s_resource_type = k8s_resource_type(&attrs)?;
-    let attr_copy_identifier = field_attr_copy_hashmap(attrs.attr_copy);
+    let attr_copy_identifier = field_attr_copy_hashmap(attrs.attr_copy, attrs.kube.as_ref());
 
     let mut derive = attrs
         .derive
@@ -517,7 +532,7 @@ pub fn derive_optionable(
 fn optioned_fields(
     fields: &StructParsed,
     serde_attributes: Option<&TokenStream>,
-    field_attr_forwards: &HashMap<Path, Vec<Path>>,
+    field_attr_forwards: &HashMap<Path, HashSet<Path>>,
 ) -> Result<TokenStream, Error> {
     let fields_token = fields.fields.iter().map(
         |FieldParsed {
@@ -696,7 +711,7 @@ fn is_self_resolving_optioned(ty: &Type) -> bool {
 /// as `TokenStream` that can be used as respective attribute.
 fn forwarded_attributes(
     attrs: &[Attribute],
-    attr_to_copy: &HashMap<Path, Vec<Path>>,
+    attr_to_copy: &HashMap<Path, HashSet<Path>>,
 ) -> Result<Option<TokenStream>, Error> {
     let forward_attrs = attrs
         .iter()

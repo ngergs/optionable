@@ -14,6 +14,7 @@ pub const FIELD_MANAGER: &str = "rust-manager";
 
 #[optionable_kube_cr]
 #[derive(CustomResource, Clone, Debug, Deserialize, Serialize, JsonSchema)]
+#[serde(rename_all = "camelCase")]
 #[kube(
     group = "example.localhost",
     version = "v1",
@@ -27,6 +28,17 @@ pub struct CustomCrdSpec {
 
 #[optionable_kube]
 #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct CustomCrdSpecTemplate {
-    pub replicas: u32,
+    #[serde(rename = "type")]
+    pub type_: CustomCrdSpecTemplateType,
+}
+
+#[optionable_kube]
+#[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
+#[serde(rename_all = "camelCase")]
+pub enum CustomCrdSpecTemplateType {
+    V1alpha1,
+    V1beta1,
+    V1,
 }

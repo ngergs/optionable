@@ -5,4 +5,4 @@ metadata:
 spec:
   msg: "hello world"
   template:
-    replicas: 1
+    type: v1alpha1

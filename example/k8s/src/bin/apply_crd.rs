@@ -1,7 +1,8 @@
 use kube::api::{ObjectMeta, Patch, PatchParams};
 use kube::{Api, Client};
 use optionable_k8s_openapi_example::{
-    CustomCrd, CustomCrdAc, CustomCrdSpecAc, CustomCrdSpecTemplateAc, FIELD_MANAGER,
+    CustomCrd, CustomCrdAc, CustomCrdSpecAc, CustomCrdSpecTemplateAc, CustomCrdSpecTemplateTypeAc,
+    FIELD_MANAGER,
 };
 
 #[tokio::main]
@@ -15,7 +16,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             ..Default::default()
         },
         spec: Some(CustomCrdSpecAc {
-            template: Some(CustomCrdSpecTemplateAc { replicas: Some(2) }),
+            template: Some(CustomCrdSpecTemplateAc {
+                type_: Some(CustomCrdSpecTemplateTypeAc::V1beta1),
+            }),
             ..Default::default()
         }),
         ..Default::default()

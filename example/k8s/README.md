@@ -73,9 +73,9 @@ the [rust server-side-apply example](src/bin/apply_crd.rs) to patch the `spec.te
 ```bash
 # setup crd
 cargo run --bin crd | kubectl apply -f -
-# prepare deployment
+# prepare cr
 kubectl apply -f cr.yaml
-# run server side apply to change replica count to 2
+# run server side apply to change the `spec.template.type` to `v1beta1`
 cargo run --bin apply_crd
 # verify that server side apply has been used
 kubectl get customcrd test -oyaml --show-managed-fields=true | yq .metadata.managedFields
@@ -88,7 +88,7 @@ The resulting output will be:
   fieldsV1:
     f:spec:
       f:template:
-        f:replicas: {}
+        f:type: {}
   manager: rust-manager
   operation: Apply
 - apiVersion: example.localhost/v1

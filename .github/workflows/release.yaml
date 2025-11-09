@@ -62,7 +62,7 @@ jobs:
           cargo run --bin crd | kubectl apply -f -
           kubectl apply -f cr.yaml
           cargo run --bin apply_crd
-          if [[ $(kubectl get customcrd test -o jsonpath='{.spec.template.replicas}') -ne 2 ]]; then
+          if [[ $(kubectl get customcrd test -o jsonpath='{.spec.template.type}') -ne "v1beta1" ]]; then
               exit 1
           fi
           cargo run --bin extract_crd
