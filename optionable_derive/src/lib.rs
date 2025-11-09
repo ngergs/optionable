@@ -44,6 +44,17 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 ///   #[optionable(suffix="Ac")]
 ///   struct MyStruct{}
 ///   ```
+///  - **`attr_copy`**: Attributes that should be copied over the the optioned type.
+///    If no `key` filter is set all attributes with the given path are copied over.
+///   ```rust,ignore
+///   #[derive(optionable)]
+///   #[optionable(derive(Deserialize, Serialize))]
+///   #[optionable(attr_copy(path=serde,key=rename))]
+///   struct MyStruct{
+///     name: String,
+///     surname: String,
+///   }
+///   ```
 ///
 /// ### Field-level attributes (for structs and struct-typed enum variants)
 /// - **`optionable_attr`**: Helper for the `derive` type-level attribute, for details see the `derive` attribute.

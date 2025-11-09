@@ -30,7 +30,9 @@ use itertools::MultiUnzip;
 use proc_macro2::{Ident, Literal, TokenStream};
 use quote::{format_ident, quote, ToTokens};
 use std::borrow::Cow;
+use std::collections::HashMap;
 use std::default::Default;
+use syn::parse::Parser;
 use syn::spanned::Spanned;
 use syn::{
     parse_quote, Attribute, Data, DeriveInput, Error, Field, LitStr, Meta, MetaList, Path, Type,
@@ -60,6 +62,11 @@ pub(crate) struct TypeHelperAttributes {
     /// Adjustments of the derived optioned type for structs that `kube::CustomResource` or respective subfields.
     /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
     kube: Option<TypeHelperAttributesKube>,
+    /// Forwards the specified `attr` to the definition of the optioned type.
+    /// If any `key` is set it filters the configuration of the forwarded attributes for the specified configuration names.
+    /// E.g. `#[optionable(attr_copy(attr=serde,key=rename)]` will only forward the `rename`sub-attribute of serde.
+    #[darling(multiple)]
+    attr_copy: Vec<FieldAttributeToCopy>,
 }
 
 #[derive(FromMeta)]
@@ -88,6 +95,15 @@ pub(crate) struct TypeHelperAttributesKube {
     resource: Option<()>,
 }
 
+#[derive(FromMeta)]
+/// Forwards the specified `attr` to the definition of the optioned type.
+/// If `sub_names` is set it filters the configuration of the forwarded attribure for the specified configuration names.
+/// E.g. `attr=serde,sub_names=rename` will only forward the `rename`sub-attribute of serde.
+pub struct FieldAttributeToCopy {
+    pub attr: Path,
+    pub key: Option<Path>,
+}
+
 #[derive(FromDeriveInput, Debug, Clone)]
 #[darling(attributes(optionable))]
 /// Settings that are only available to be set via the rust function signature of `derive_optionable`
@@ -105,6 +121,23 @@ pub struct CodegenSettings {
     /// Useful when generating code for the `optionable` crate as pre-existing `crate` references
     /// need to be replaced with the concret crate name.
     pub input_crate_replacement: Option<Ident>,
+}
+
+/// Processes the input field attribute forwards to a `HashMap`.
+fn field_attr_copy_hashmap(input: Vec<FieldAttributeToCopy>) -> HashMap<Path, Vec<Path>> {
+    let mut result = HashMap::<Path, Vec<Path>>::new();
+    for el in input {
+        if let Some(key) = el.key {
+            if let Some(entry) = result.get_mut(&el.attr) {
+                if !entry.contains(&key) {
+                    entry.push(key);
+                }
+            } else {
+                result.insert(el.attr, vec![key]);
+            }
+        }
+    }
+    result
 }
 
 impl Default for CodegenSettings {
@@ -158,6 +191,7 @@ pub fn derive_optionable(
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
     error_missing_features(&attrs)?;
     let k8s_resource_type = k8s_resource_type(&attrs)?;
+    let attr_copy_identifier = field_attr_copy_hashmap(attrs.attr_copy);
 
     let mut derive = attrs
         .derive
@@ -171,7 +205,7 @@ pub fn derive_optionable(
     }
     let settings = settings.map(Cow::Borrowed).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
-    let forward_attrs = forwarded_attributes(&input.attrs)?;
+    let ty_attr_forwarded = forwarded_attributes(&input.attrs, &attr_copy_identifier)?;
     let k8s_openapi_attrs =
         (attrs.k8s_openapi.is_some() || attrs.kube.is_some()).then(|| k8s_type_attr(&input));
     let vis = input.vis;
@@ -250,8 +284,11 @@ pub fn derive_optionable(
             );
             let unnamed_struct_semicolon =
                 (struct_parsed.struct_type == StructType::Unnamed).then(|| quote!(;));
-            let optioned_fields =
-                optioned_fields(&struct_parsed, skip_optionable_if_serde_serialize.as_ref())?;
+            let optioned_fields = optioned_fields(
+                &struct_parsed,
+                skip_optionable_if_serde_serialize.as_ref(),
+                &attr_copy_identifier,
+            )?;
 
             let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
                 let into_optioned_fields = into_optioned(&struct_parsed, |selector| quote! { self.#selector });
@@ -311,7 +348,11 @@ pub fn derive_optionable(
                         &ty_ident_opt,
                         &ty_generics,
                     )?;
-                    Ok::<_, Error>((v.ident, forwarded_attributes(&v.attrs)?, field_handling))
+                    Ok::<_, Error>((
+                        v.ident,
+                        forwarded_attributes(&v.attrs, &attr_copy_identifier)?,
+                        field_handling,
+                    ))
                 })
                 .collect::<Result<Vec<_>, _>>()?;
             let all_fields = variants
@@ -334,7 +375,11 @@ pub fn derive_optionable(
             let optioned_variants = variants
                 .iter()
                 .map(|(variant, forward_attrs, f)| {
-                    let fields = optioned_fields(f, skip_optionable_if_serde_serialize.as_ref())?;
+                    let fields = optioned_fields(
+                        f,
+                        skip_optionable_if_serde_serialize.as_ref(),
+                        &attr_copy_identifier,
+                    )?;
                     Ok::<_, Error>(quote!( #forward_attrs #variant #fields ))
                 })
                 .collect::<Result<Vec<_>, _>>()?;
@@ -445,7 +490,7 @@ pub fn derive_optionable(
     Ok(quote! {
                 #derives
                 #kube_derive_resource
-                #forward_attrs
+                #ty_attr_forwarded
                 #k8s_openapi_attrs
                 #vis #enum_struct #ty_ident_opt #impl_generics #where_clause_struct_enum #fields
 
@@ -472,19 +517,20 @@ pub fn derive_optionable(
 fn optioned_fields(
     fields: &StructParsed,
     serde_attributes: Option<&TokenStream>,
+    field_attr_forwards: &HashMap<Path, Vec<Path>>,
 ) -> Result<TokenStream, Error> {
     let fields_token = fields.fields.iter().map(
         |FieldParsed {
              field: Field { attrs, vis, ident, ty, .. },
              handling,
          }| {
-            let forward_attrs = forwarded_attributes(attrs)?;
+            let forwarded_attrs = forwarded_attributes(attrs, field_attr_forwards)?;
             let optioned_ty = optioned_ty(&fields.crate_name, ty);
             let colon = ident.as_ref().map(|_| quote! {:});
             Ok::<_, Error>(match handling {
-                FieldHandling::Required | FieldHandling::OptionedOnly => quote! {#forward_attrs #vis #ident #colon #ty},
-                FieldHandling::IsOption => quote! {#forward_attrs #serde_attributes #vis #ident #colon #optioned_ty},
-                FieldHandling::Other => quote! {#forward_attrs #serde_attributes #vis #ident #colon Option<#optioned_ty>},
+                FieldHandling::Required | FieldHandling::OptionedOnly => quote! {#forwarded_attrs #vis #ident #colon #ty},
+                FieldHandling::IsOption => quote! {#forwarded_attrs #serde_attributes #vis #ident #colon #optioned_ty},
+                FieldHandling::Other => quote! {#forwarded_attrs #serde_attributes #vis #ident #colon Option<#optioned_ty>},
             })
         },
     ).collect::<Result<Vec<_>, _>>()?;
@@ -648,19 +694,58 @@ fn is_self_resolving_optioned(ty: &Type) -> bool {
 
 /// Extracts the `HELPER_ATTR_IDENT` attributes, unwraps them and returns them
 /// as `TokenStream` that can be used as respective attribute.
-fn forwarded_attributes(attrs: &[Attribute]) -> Result<Option<TokenStream>, Error> {
+fn forwarded_attributes(
+    attrs: &[Attribute],
+    attr_to_copy: &HashMap<Path, Vec<Path>>,
+) -> Result<Option<TokenStream>, Error> {
     let forward_attrs = attrs
         .iter()
-        .filter_map(|attr| {
-            if !attr.path().is_ident(HELPER_ATTR_IDENT) {
-                return None;
+        .map(|attr| {
+            if attr.path().is_ident(HELPER_ATTR_IDENT) {
+                return match &attr.meta {
+                    Meta::List(MetaList { tokens, .. }) => Ok(Some(quote!(#[#tokens]))),
+                    _ => error("Only lists like `#[optionable_attr(Serialize,Deserialize)]` are supported for `optionable_attr`"),
+                };
             }
-            Some(match &attr.meta {
-                Meta::List(MetaList { tokens, .. }) => Ok(quote!(#[#tokens])),
-                _ => error("Only lists like `#[optionable_attr(Serialize,Deserialize)]` are supported for `optionable_attr`"),
-            })
+            let keys_to_copy=attr_to_copy.get(attr.path());
+            if let Some(keys_to_copy)=keys_to_copy{
+                // no key restrictions
+                if keys_to_copy.is_empty(){
+                     Ok(Some(attr.to_token_stream()))
+                } else{
+                    match &attr.meta{
+                        Meta::Path(_) => Ok(None),
+                        Meta::NameValue(meta_name_value) => Ok(keys_to_copy.contains(&meta_name_value.path).then(|| attr.to_token_stream())),
+                        Meta::List(meta_list) => {
+                            // we support one level of nesting for a Meta::List(Meta::NameValue(..)) setup like it's used by #[serde(rename=...)]
+                            let inner_metas :Vec<TokenStream>= syn::punctuated::Punctuated::<Meta, syn::Token![,]>::parse_terminated
+                                .parse2(meta_list.tokens.clone())?.into_iter().filter_map(|meta|{
+                                if let Meta::NameValue(meta_name_value)= meta{
+                                    keys_to_copy.contains(&meta_name_value.path).then(|| Ok::<_,Error>(meta_name_value.to_token_stream()))
+                                } else{
+                                    None
+                                }
+                            }).collect::<Result<_,_>>()?;
+                            if inner_metas.is_empty() {
+                                Ok(None)
+                            } else {
+                                let mut attr=attr.clone();
+                                let mut meta_list=meta_list.clone();
+                                meta_list.tokens=inner_metas.into_iter().collect();
+                                attr.meta=meta_list.into();
+                                Ok(Some(attr.to_token_stream()))
+                            }
+                        }
+                    }
+                }
+            } else{
+                Ok(None)
+            }
         })
-        .collect::<Result<TokenStream, Error>>()?;
+        .collect::<Result<Vec<_>,_>>()?
+        .into_iter()
+        .flatten()
+        .collect::<TokenStream>();
     Ok((!forward_attrs.is_empty()).then_some(forward_attrs))
 }
 
@@ -818,11 +903,13 @@ mod tests {
                 input: quote! {
                     #[derive(Optionable)]
                     #[optionable(derive(Deserialize,Serialize,Default),suffix="Ac")]
+                    #[optionable(attr_copy(attr=serde,key=rename))]
                     #[optionable_attr(serde(rename_all = "camelCase", deny_unknown_fields))]
                     #[optionable_attr(serde(default))]
                     struct DeriveExample {
                         #[optionable_attr(serde(rename = "firstName"))]
                         name: String,
+                        #[serde(rename="middle__name")]
                         middle_name: Option<String>,
                         surname: String,
                     }
@@ -835,6 +922,7 @@ mod tests {
                         #[serde(rename = "firstName")]
                         #[serde(skip_serializing_if = "Option::is_none")]
                         name: Option<String>,
+                        #[serde(rename = "middle__name")]
                         #[serde(skip_serializing_if = "Option::is_none")]
                         middle_name: <Option<String> as ::optionable::Optionable>::Optioned,
                         #[serde(skip_serializing_if = "Option::is_none")]
