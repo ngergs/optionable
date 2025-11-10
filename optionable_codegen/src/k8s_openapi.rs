@@ -5,7 +5,7 @@ use crate::{TypeHelperAttributes, TypeHelperAttributesK8sOpenapi, TypeHelperAttr
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
 use syn::{
-    parse_quote, Attribute, Data, DeriveInput, Error, ImplGenerics, Path, TypeGenerics, WhereClause,
+    parse_quote, Data, DeriveInput, Error, ImplGenerics, Path, TypeGenerics, WhereClause,
 };
 
 /// We have two useful `Resource` traits and dependent on the user needs we will use one
@@ -59,14 +59,6 @@ pub(crate) fn k8s_derives(input: &DeriveInput) -> Option<Vec<String>> {
             "serde::Serialize".to_owned(),
             "serde::Deserialize".to_owned(),
         ]),
-        Data::Union(_) => None,
-    }
-}
-
-/// The field type helper attributes for an optioned `Struct` or `Enum`.
-pub(crate) fn k8s_type_attr(input: &DeriveInput) -> Option<Attribute> {
-    match input.data {
-        Data::Struct(_) | Data::Enum(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
         Data::Union(_) => None,
     }
 }

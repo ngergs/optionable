@@ -18,7 +18,7 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 /// ### Type-level attributes (on the struct/enum level)
 /// - **`optionable_attr`**: Helper for the `derive` type-level attribute, for details see the `derive` attribute.
 /// - **`derive`**: Allows to specify derive attributes that should be attached to the generate optioned struct/enum.
-///   If you need to forward additional helper attributes to the generated type use `optionable_attr`
+///   If you need to forward additional helper attributes to the generated type use `attr_copy` or `optionable_attr`
 ///   with the attribute to forward as content (works for type and field attributes).
 ///   ```rust,ignore
 ///   #[derive(optionable)]
@@ -30,7 +30,7 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 ///     surname: String,
 ///   }
 ///   ```
-/// - **`attr_copy`**: Attributes that should be copied over the the optioned type.
+/// - **`attr_copy`**: Attributes that should be copied over the optioned type.
 ///   If no `key` filter is set all attributes with the given path are copied over.
 ///   ```rust,ignore
 ///   #[derive(optionable)]
@@ -74,7 +74,7 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 ///
 /// - **`kube`**: Intended to be placed on types implementing subfields of a kube CRD spec.
 ///   Add derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
-///   Also copies over any `#[(serde(rename="...")]` attributes over the optioned types.
+///   Also copies over any `#[(serde(rename="...")]` and `#[(serde(rename_all="...")]` attributes over to the optioned types.
 ///   ```rust,ignore
 ///   #[derive(Optionable, Clone, Debug, Deserialize, Serialize, JsonSchema)]
 ///   #[optionable(kube())]

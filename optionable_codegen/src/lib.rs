@@ -18,7 +18,7 @@ mod where_clause;
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s_openapi::{
     error_missing_features, k8s_adjust_fields, k8s_derives, k8s_openapi_impl_metadata,
-    k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr,
+    k8s_openapi_impl_resource, k8s_resource_type,
 };
 use crate::parsed_input::{
     into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
@@ -67,7 +67,7 @@ pub(crate) struct TypeHelperAttributes {
     k8s_openapi: Option<TypeHelperAttributesK8sOpenapi>,
     /// Adjustments of the derived optioned type for structs that `kube::CustomResource` or respective subfields.
     /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
-    /// - Copy `#[(serde(rename="...")]` attributes over the optioned types.
+    /// - Copy `#[(serde(rename="...")]` and `#[(serde(rename_all="...")]` attributes over to the optioned types.
     kube: Option<TypeHelperAttributesKube>,
 }
 
@@ -144,13 +144,15 @@ fn field_attr_copy_hashmap(
     if attr_kube.is_some() {
         let path_serde = Path::from_string("serde").unwrap();
         let path_rename = Path::from_string("rename").unwrap();
+        let path_rename_all = Path::from_string("rename_all").unwrap();
         if let Some(entry) = result.get_mut(&path_serde) {
             // If the keys are empty everything will be copied, so don't restrict it here
             if !entry.is_empty() {
                 entry.insert(path_rename);
+                entry.insert(path_rename_all);
             }
         } else {
-            result.insert(path_serde, HashSet::from([path_rename]));
+            result.insert(path_serde, HashSet::from([path_rename, path_rename_all]));
         }
     }
     result
@@ -228,8 +230,6 @@ pub fn derive_optionable(
     let settings = settings.map(Cow::Borrowed).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
     let ty_attr_forwarded = forwarded_attributes(&input.attrs, &attr_copy_identifier)?;
-    let k8s_openapi_attrs =
-        (attrs.k8s_openapi.is_some() || attrs.kube.is_some()).then(|| k8s_type_attr(&input));
     let vis = input.vis;
     let ty_ident_opt = {
         let suffix = attrs.suffix.map_or_else(
@@ -518,7 +518,6 @@ pub fn derive_optionable(
                 #derive
                 #kube_derive_resource
                 #ty_attr_forwarded
-                #k8s_openapi_attrs
                 #vis #enum_struct #ty_ident_opt #impl_generics #where_clause_struct_enum #fields
 
                 #[automatically_derived]
