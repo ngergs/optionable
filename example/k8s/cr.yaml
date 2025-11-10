@@ -6,3 +6,4 @@ spec:
   msg: "hello world"
   template:
     type: v1alpha1
+    body: "Hello {msg}"

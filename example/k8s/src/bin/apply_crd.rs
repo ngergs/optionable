@@ -18,6 +18,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         spec: Some(CustomCrdSpecAc {
             template: Some(CustomCrdSpecTemplateAc {
                 type_: Some(CustomCrdSpecTemplateTypeAc::V1beta1),
+                ..Default::default()
             }),
             ..Default::default()
         }),
