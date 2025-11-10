@@ -33,6 +33,7 @@ pub struct CustomCrdSpecTemplate {
     // example for a rename use case as `type` is a reserved keyword in rust
     #[serde(rename = "type")]
     pub type_: CustomCrdSpecTemplateType,
+    pub body: String,
 }
 
 #[optionable_kube]

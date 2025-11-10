@@ -99,8 +99,10 @@ The resulting output will be:
         f:kubectl.kubernetes.io/last-applied-configuration: {}
     f:spec:
       .: {}
-      f:msg: {}
-      f:template: {}
+      f:template:
+        .: {}
+        f:body: {}
+  `#[(serde(rename="...")]`
   manager: kubectl-client-side-apply
   operation: Update
 ```
