@@ -38,7 +38,7 @@ impl<'a, T: ?Sized + Optionable> Optionable for &'a T {
 
 // Blanket implementation for mut references to `Optionable` types.
 impl<'a, T: ?Sized + Optionable> Optionable for &'a mut T {
-    type Optioned = &'a T::Optioned;
+    type Optioned = &'a mut T::Optioned;
 }
 
 /// Helper macro to generate an impl for `Optionalable` where the `Optioned` type

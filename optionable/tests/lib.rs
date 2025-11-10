@@ -317,7 +317,7 @@ fn derive_generic_advanced_types() {
     };
 }
 
-/// Check that the derive macro works for a bunch of not plain types that are not expected to support convert.
+/// Check that the derive macro works for not plain types that are not expected to support convert.
 #[test]
 fn derive_generic_advanced_types_no_convert() {
     #[allow(dead_code)]
@@ -325,6 +325,5 @@ fn derive_generic_advanced_types_no_convert() {
     #[optionable(no_convert, derive(Clone))]
     struct DeriveExample<'a, T> {
         slice: &'a [T],
-        slice_mut: &'a mut [T],
     }
 }
