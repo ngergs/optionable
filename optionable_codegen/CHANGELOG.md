@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - merge derives from the derive, kube and k8s_openapi helper attributes
+- forward serde(rename_all) for kube helper instead of deaulting to camelCase
 
 ## [0.7.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.7.0...optionable_codegen-v0.7.1) - 2025-11-10
 
