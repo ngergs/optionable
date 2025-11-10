@@ -30,6 +30,16 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 ///     surname: String,
 ///   }
 ///   ```
+///  - **`attr_copy`**: Attributes that should be copied over the the optioned type.
+///    If no `key` filter is set all attributes with the given path are copied over.
+///   ```rust,ignore
+///   #[derive(optionable)]
+///   #[optionable(derive(Deserialize, Serialize))]
+///   #[optionable(attr_copy(path=serde,key=rename))]
+///   struct MyStruct{
+///     name: String,
+///     surname: String,
+///   }
 /// - **`no_convert`**: Does not derive the `OptionableConvert` implementation.
 ///   Might be required if the target type involves smart pointers or unsized fields.
 ///   ```rust,ignore
@@ -44,16 +54,6 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 ///   #[optionable(suffix="Ac")]
 ///   struct MyStruct{}
 ///   ```
-///  - **`attr_copy`**: Attributes that should be copied over the the optioned type.
-///    If no `key` filter is set all attributes with the given path are copied over.
-///   ```rust,ignore
-///   #[derive(optionable)]
-///   #[optionable(derive(Deserialize, Serialize))]
-///   #[optionable(attr_copy(path=serde,key=rename))]
-///   struct MyStruct{
-///     name: String,
-///     surname: String,
-///   }
 ///   ```
 ///
 /// ### Field-level attributes (for structs and struct-typed enum variants)
@@ -82,6 +82,7 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 /// pub struct MyCrdSpecTemplate {
 ///    pub replicas: u32,
 /// }
+/// ```
 ///
 /// If you need to configure optionable explicitly setting this is e.g. for a Struct equivalent to:
 /// ```rust,ignore
