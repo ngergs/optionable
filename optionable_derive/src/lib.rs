@@ -75,12 +75,20 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 ///
 ///  - **`kube`**: Intended to be placed on types implementing subfields of a kube CRD spec.
 ///    Add derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
+///    Also copies over any `#[(serde(rename="...")]` attributes over the optioned types.
 /// ```rust,ignore
 /// #[derive(Optionable, Clone, Debug, Deserialize, Serialize, JsonSchema)]
 /// #[optionable(kube())]
 /// pub struct MyCrdSpecTemplate {
 ///    pub replicas: u32,
 /// }
+///
+/// If you need to configure optionable explicitly setting this is e.g. for a Struct equivalent to:
+/// ```rust,ignore
+/// `#[optionable(
+///     derive(Clone, Debug, PartialEq, Serialize, Deserialize),
+///     attr_copy(path=serde,key=rename)
+/// )]`
 /// ```
 #[proc_macro_derive(Optionable, attributes(optionable, optionable_attr))]
 pub fn derive_optionable(input: TokenStream) -> TokenStream {
@@ -94,13 +102,7 @@ fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> 
 
 /// Attribute macro to simplify deriving optioned types for `kube::CustomResource`.
 /// Must be placed prior to any #[derive(...)] statements for the given type.
-///
-/// It resolves to (with merge handling for the derive macros):
-/// ```rust,ignore
-/// #[derive(Optionable)]
-/// #[kube(derive = "OptionableKubeCrd")]
-/// #[kube(resource)]
-/// ```
+/// Has to be used together with `#[derive(kube::CustomResource)]`.
 ///
 /// A usage example would be:
 /// ```rust,ignore
@@ -149,7 +151,7 @@ fn try_optionable_kube_cr2(mut input: Item) -> Result<proc_macro2::TokenStream, 
 /// It resolves to (with merge handling for the derive macros):
 /// ```rust,ignore
 /// #[derive(Optionable)]
-/// #[kube()]
+/// #[optionable(kube())]
 /// ```
 ///
 /// A usage example would be:
