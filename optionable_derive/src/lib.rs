@@ -30,8 +30,8 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 ///     surname: String,
 ///   }
 ///   ```
-///  - **`attr_copy`**: Attributes that should be copied over the the optioned type.
-///    If no `key` filter is set all attributes with the given path are copied over.
+/// - **`attr_copy`**: Attributes that should be copied over the the optioned type.
+///   If no `key` filter is set all attributes with the given path are copied over.
 ///   ```rust,ignore
 ///   #[derive(optionable)]
 ///   #[optionable(derive(Deserialize, Serialize))]
@@ -54,7 +54,6 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 ///   #[optionable(suffix="Ac")]
 ///   struct MyStruct{}
 ///   ```
-///   ```
 ///
 /// ### Field-level attributes (for structs and struct-typed enum variants)
 /// - **`optionable_attr`**: Helper for the `derive` type-level attribute, for details see the `derive` attribute.
@@ -73,24 +72,24 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 /// Specialized Kubernetes specific type attributes to help deriving optioned types (in go called `ApplyConfiguration`)
 /// for Kubernetes resources/subfields.
 ///
-///  - **`kube`**: Intended to be placed on types implementing subfields of a kube CRD spec.
-///    Add derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
-///    Also copies over any `#[(serde(rename="...")]` attributes over the optioned types.
-/// ```rust,ignore
-/// #[derive(Optionable, Clone, Debug, Deserialize, Serialize, JsonSchema)]
-/// #[optionable(kube())]
-/// pub struct MyCrdSpecTemplate {
-///    pub replicas: u32,
-/// }
-/// ```
-///
-/// If you need to configure optionable explicitly setting this is e.g. for a Struct equivalent to:
-/// ```rust,ignore
-/// `#[optionable(
+/// - **`kube`**: Intended to be placed on types implementing subfields of a kube CRD spec.
+///   Add derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
+///   Also copies over any `#[(serde(rename="...")]` attributes over the optioned types.
+///   ```rust,ignore
+///   #[derive(Optionable, Clone, Debug, Deserialize, Serialize, JsonSchema)]
+///   #[optionable(kube())]
+///   pub struct MyCrdSpecTemplate {
+///     pub replicas: u32,
+///   }
+///   ```
+///  
+///   If you need to configure optionable explicitly setting this is e.g. for a Struct equivalent to:
+///   ```rust,ignore
+///   #[optionable(
 ///     derive(Clone, Debug, PartialEq, Serialize, Deserialize),
 ///     attr_copy(path=serde,key=rename)
-/// )]`
-/// ```
+///   )]
+///   ```
 #[proc_macro_derive(Optionable, attributes(optionable, optionable_attr))]
 pub fn derive_optionable(input: TokenStream) -> TokenStream {
     try_derive_optionable(input).unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
