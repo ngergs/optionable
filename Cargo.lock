@@ -809,7 +809,7 @@ checksum = "d05e27ee213611ffe7d6348b942e8f942b37114c00cc03cec254295a4a17852e"
 
 [[package]]
 name = "optionable"
-version = "0.5.1"
+version = "0.5.2"
 dependencies = [
  "chrono",
  "k8s-openapi",
@@ -821,7 +821,7 @@ dependencies = [
 
 [[package]]
 name = "optionable_codegen"
-version = "0.7.1"
+version = "0.7.2"
 dependencies = [
  "darling",
  "itertools",
