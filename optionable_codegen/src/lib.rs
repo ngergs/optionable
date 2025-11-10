@@ -33,10 +33,11 @@ use std::borrow::Cow;
 use std::collections::{HashMap, HashSet};
 use std::default::Default;
 use syn::parse::Parser;
+use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::{
-    parse_quote, Attribute, Data, DeriveInput, Error, Field, LitStr, Meta, MetaList, Path, Type,
-    TypePath, WhereClause,
+    parse_quote, Attribute, Data, DeriveInput, Error, Field, LitStr, Meta, MetaList, Path, Token,
+    Type, TypePath, WhereClause,
 };
 
 const HELPER_IDENT: &str = "optionable";
@@ -726,14 +727,19 @@ fn forwarded_attributes(
             if let Some(keys_to_copy)=keys_to_copy{
                 // no key restrictions
                 if keys_to_copy.is_empty(){
-                     Ok(Some(attr.to_token_stream()))
+                    if attr.path().is_ident("derive")&& let   Meta::List(meta_list)=&attr.meta{
+                        let derives=Punctuated::<Path, Token![,]>::parse_terminated
+                            .parse2(meta_list.tokens.clone())?.into_iter().filter(|el|el.to_token_stream().to_string()!="Optionable"&&el.to_token_stream().to_string()!="optionable::Optionable");
+                        return Ok(Some(quote! {#[derive(#(#derives,)*)]}));
+                    }
+                    Ok(Some(attr.to_token_stream()))
                 } else{
                     match &attr.meta{
                         Meta::Path(_) => Ok(None),
                         Meta::NameValue(meta_name_value) => Ok(keys_to_copy.contains(&meta_name_value.path).then(|| attr.to_token_stream())),
                         Meta::List(meta_list) => {
                             // we support one level of nesting for a Meta::List(Meta::NameValue(..)) setup like it's used by #[serde(rename=...)]
-                            let inner_metas :Vec<TokenStream>= syn::punctuated::Punctuated::<Meta, syn::Token![,]>::parse_terminated
+                            let inner_metas :Vec<TokenStream>= Punctuated::<Meta, Token![,]>::parse_terminated
                                 .parse2(meta_list.tokens.clone())?.into_iter().filter_map(|meta|{
                                 if let Meta::NameValue(meta_name_value)= meta{
                                     keys_to_copy.contains(&meta_name_value.path).then(|| Ok::<_,Error>(meta_name_value.to_token_stream()))
