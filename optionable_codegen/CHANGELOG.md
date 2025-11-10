@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.2](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.7.1...optionable_codegen-v0.7.2) - 2025-11-10
+
+### Fixed
+
+- merge derives from the derive, kube and k8s_openapi helper attributes
+
 ## [0.7.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.7.0...optionable_codegen-v0.7.1) - 2025-11-10
 
 ### Added
