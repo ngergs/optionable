@@ -7,7 +7,7 @@ use proc_macro2::{Ident, Span, TokenStream};
 use quote::{format_ident, quote};
 use std::fmt;
 use syn::token::PathSep;
-use syn::{Attribute, Error, GenericArgument, Path, PathArguments, Type, TypePath};
+use syn::{Attribute, Error, GenericArgument, PathArguments, Type, TypePath};
 
 /// error just prepares an error message that references the source span
 pub(crate) fn error<S: AsRef<str> + fmt::Display, T>(msg: S) -> syn::Result<T> {
@@ -130,9 +130,6 @@ pub(crate) fn is_option(ty: &Type) -> bool {
 }
 
 /// Checks whether this path is `serde::Serialize` or a shortened version of it.
-pub(crate) fn is_serialize(path: &Path) -> bool {
-    path.is_ident("Serialize") || {
-        let segments = &path.segments;
-        segments.len() == 2 && segments[0].ident == "serde" && segments[1].ident == "Serialize"
-    }
+pub(crate) fn is_serialize(path: &str) -> bool {
+    path == "Serialize" || path == "serde :: Serialize"
 }

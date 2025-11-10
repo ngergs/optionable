@@ -2,7 +2,6 @@ use crate::helper::error;
 use crate::parsed_input::FieldHandling::{OptionedOnly, Required};
 use crate::parsed_input::{FieldParsed, StructParsed};
 use crate::{TypeHelperAttributes, TypeHelperAttributesK8sOpenapi, TypeHelperAttributesKube};
-use darling::FromMeta;
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
 use syn::{
@@ -43,22 +42,22 @@ pub(crate) fn k8s_resource_type(
 }
 
 /// Additional derives to set for `k8s` types.
-pub(crate) fn k8s_derives(input: &DeriveInput) -> Option<Vec<Path>> {
+pub(crate) fn k8s_derives(input: &DeriveInput) -> Option<Vec<String>> {
     match input.data {
         Data::Struct(_) => Some(vec![
-            Path::from_string("Clone").unwrap(),
-            Path::from_string("std::fmt::Debug").unwrap(),
-            Path::from_string("Default").unwrap(),
-            Path::from_string("PartialEq").unwrap(),
-            Path::from_string("serde::Serialize").unwrap(),
-            Path::from_string("serde::Deserialize").unwrap(),
+            "Clone".to_owned(),
+            "std::fmt::Debug".to_owned(),
+            "Default".to_owned(),
+            "PartialEq".to_owned(),
+            "serde::Serialize".to_owned(),
+            "serde::Deserialize".to_owned(),
         ]),
         Data::Enum(_) => Some(vec![
-            Path::from_string("Clone").unwrap(),
-            Path::from_string("std::fmt::Debug").unwrap(),
-            Path::from_string("PartialEq").unwrap(),
-            Path::from_string("serde::Serialize").unwrap(),
-            Path::from_string("serde::Deserialize").unwrap(),
+            "Clone".to_owned(),
+            "std::fmt::Debug".to_owned(),
+            "PartialEq".to_owned(),
+            "serde::Serialize".to_owned(),
+            "serde::Deserialize".to_owned(),
         ]),
         Data::Union(_) => None,
     }

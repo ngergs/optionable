@@ -1,5 +1,5 @@
 pub mod address;
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(serde::Deserialize, serde::Serialize)]
 struct MemberOpt {
     #[serde(skip_serializing_if = "Option::is_none")]
     name: Option<String>,
@@ -52,7 +52,7 @@ impl ::optionable::OptionableConvert for Member {
 }
 #[cfg(test)]
 mod test {
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(serde::Deserialize, serde::Serialize)]
     struct MemberTestOpt {
         #[serde(skip_serializing_if = "Option::is_none")]
         name: Option<String>,

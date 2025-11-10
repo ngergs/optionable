@@ -30,7 +30,7 @@ use itertools::MultiUnzip;
 use proc_macro2::{Ident, Literal, TokenStream};
 use quote::{format_ident, quote, ToTokens};
 use std::borrow::Cow;
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeSet, HashMap, HashSet};
 use std::default::Default;
 use syn::parse::Parser;
 use syn::punctuated::Punctuated;
@@ -212,12 +212,18 @@ pub fn derive_optionable(
     let mut derive = attrs
         .derive
         .into_iter()
-        .flat_map(|el| el.iter().cloned().collect::<Vec<_>>())
-        .collect::<Vec<_>>();
+        .flat_map(|el| {
+            el.iter()
+                .map(|el| el.to_token_stream().to_string())
+                .collect::<Vec<_>>()
+        })
+        .collect::<BTreeSet<_>>();
     if (attrs.k8s_openapi.is_some() || attrs.kube.is_some())
-        && let Some(k8s_derives) = &mut k8s_derives(&input)
+        && let Some(k8s_derives) = k8s_derives(&input)
     {
-        derive.append(k8s_derives);
+        for el in k8s_derives {
+            derive.insert(el);
+        }
     }
     let settings = settings.map(Cow::Borrowed).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
@@ -247,9 +253,10 @@ pub fn derive_optionable(
     let (impl_generics, ty_generics, _) = input.generics.split_for_impl();
     let generics_colon = (!input.generics.params.is_empty()).then(|| quote! {::});
 
-    let skip_optionable_if_serde_serialize = (attrs.k8s_openapi.is_some() // also sets #[derive(Serialize)]
-        || derive.iter().any(is_serialize))
-    .then(|| quote!(#[serde(skip_serializing_if = "Option::is_none")]));
+    let skip_optionable_if_serde_serialize =
+        (attrs.k8s_openapi.is_some() // also sets #[derive(Serialize)]
+        || derive.iter().any(|el|is_serialize(el.as_str())))
+        .then(|| quote!(#[serde(skip_serializing_if = "Option::is_none")]));
 
     /// Helper to collect the enum/struct specific derived code aspects in a typesafe way
     struct Derived {
@@ -297,7 +304,7 @@ pub fn derive_optionable(
                 &derive,
                 attrs.no_convert.is_some(),
                 &struct_parsed.fields,
-            );
+            )?;
             let unnamed_struct_semicolon =
                 (struct_parsed.struct_type == StructType::Unnamed).then(|| quote!(;));
             let optioned_fields = optioned_fields(
@@ -386,7 +393,7 @@ pub fn derive_optionable(
                 &derive,
                 attrs.no_convert.is_some(),
                 all_fields,
-            );
+            )?;
 
             let optioned_variants = variants
                 .iter()
@@ -466,7 +473,11 @@ pub fn derive_optionable(
         Data::Union(_) => return error("#[derive(Optionable)] not supported for unit structs"),
     };
 
-    let derives = (!derive.is_empty()).then(|| quote! {#[derive(#(#derive),*)]});
+    let derive = derive
+        .into_iter()
+        .map(|derive| Path::from_string(&derive))
+        .collect::<Result<Vec<_>, _>>()?;
+    let derive = (!derive.is_empty()).then(|| quote! {#[derive(#(#derive),*)]});
 
     let k8s_openapi_impl_resource = attrs
         .k8s_openapi
@@ -504,7 +515,7 @@ pub fn derive_optionable(
             }
         });
     Ok(quote! {
-                #derives
+                #derive
                 #kube_derive_resource
                 #ty_attr_forwarded
                 #k8s_openapi_attrs
@@ -936,7 +947,7 @@ mod tests {
                     }
                 },
                 output: quote! {
-                    #[derive(Deserialize, Serialize,Default)]
+                    #[derive(Default, Deserialize, Serialize)]
                     #[serde(rename_all = "camelCase", deny_unknown_fields)]
                     #[serde(default)]
                     struct DeriveExampleAc {
@@ -1158,12 +1169,12 @@ mod tests {
                     }
                 },
                 output: quote! {
-                    #[derive (Serialize , Deserialize)]
+                    #[derive (Deserialize, Serialize)]
                     struct DeriveExampleOpt<T, T2: Serialize, T3>
                         where T: ::optionable::Optionable,
-                              <T as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned,
+                              <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
                               T2: ::optionable::Optionable,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned
+                              <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                     {
                         #[serde(skip_serializing_if="Option::is_none")]
                         output: Option< <T as ::optionable::Optionable>::Optioned>,
@@ -1175,9 +1186,9 @@ mod tests {
                     #[automatically_derived]
                     impl<T, T2: Serialize, T3> ::optionable::Optionable for DeriveExample<T, T2, T3>
                         where T: ::optionable::Optionable,
-                              <T as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned,
+                              <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
                               T2: ::optionable::Optionable,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned
+                              <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                     {
                         type Optioned = DeriveExampleOpt<T,T2,T3>;
                     }
@@ -1185,9 +1196,9 @@ mod tests {
                     #[automatically_derived]
                     impl<T, T2: Serialize, T3> ::optionable::Optionable for DeriveExampleOpt<T, T2, T3>
                         where T: ::optionable::Optionable,
-                              <T as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned,
+                              <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
                               T2: ::optionable::Optionable,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned
+                              <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                     {
                         type Optioned = DeriveExampleOpt<T, T2, T3>;
                     }
@@ -1195,9 +1206,9 @@ mod tests {
                     #[automatically_derived]
                     impl <T, T2:Serialize, T3> ::optionable::OptionableConvert for DeriveExample<T, T2, T3>
                         where T: ::optionable::OptionableConvert,
-                              <T as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned,
+                              <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
                               T2: ::optionable::OptionableConvert,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized + Serialize + serde::de::DeserializeOwned
+                              <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                     {
                         fn into_optioned (self) -> DeriveExampleOpt<T, T2, T3> {
                             DeriveExampleOpt::<T, T2, T3> {

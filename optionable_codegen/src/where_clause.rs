@@ -3,12 +3,12 @@ use darling::FromMeta;
 use proc_macro2::{Ident, TokenStream};
 use quote::quote;
 use std::borrow::Cow;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use syn::punctuated::Punctuated;
 use syn::token::Where;
 use syn::visit::Visit;
 use syn::{
-    parse_quote, visit, GenericParam, Generics, Path, PathSegment, Type, TypeParamBound,
+    parse_quote, visit, Error, GenericParam, Generics, Path, PathSegment, Type, TypeParamBound,
     TypePath, WhereClause, WherePredicate,
 };
 
@@ -22,10 +22,10 @@ pub(crate) fn where_clauses<'a>(
     crate_name: &Path,
     input_crate_replacement: Option<&Ident>,
     generics: &'a Generics,
-    derive: &[Path],
+    derive: &BTreeSet<String>,
     no_convert: bool,
     fields: impl IntoIterator<Item = &'a FieldParsed> + Clone,
-) -> WhereClauses {
+) -> Result<WhereClauses, Error> {
     let generic_params = generic_params_need_optionable(&generics.params, fields);
     let mut where_input = generics
         .where_clause
@@ -41,18 +41,17 @@ pub(crate) fn where_clauses<'a>(
     let predicate_struct_enum_optioned = if derive.is_empty() {
         &quote!(Sized)
     } else {
-        let derive: Vec<Cow<Path>> = derive
+        let derive: Vec<Path> = derive
             .iter()
             .map(|el| {
-                if *el == Path::from_string("Deserialize").unwrap()
-                    || *el == Path::from_string("serde::Deserialize").unwrap()
-                {
-                    Cow::Owned(Path::from_string("serde::de::DeserializeOwned").unwrap())
+                if el == "Deserialize" || el == "serde::Deserialize" {
+                    Cow::Owned("serde::de::DeserializeOwned".to_owned())
                 } else {
                     Cow::Borrowed(el)
                 }
             })
-            .collect();
+            .map(|el| Path::from_string(&el))
+            .collect::<Result<Vec<_>, _>>()?;
         &quote!(Sized + #(#derive)+*)
     };
     let where_clause_struct_enum_def = where_clause_generalized(
@@ -79,11 +78,11 @@ pub(crate) fn where_clauses<'a>(
             predicate_struct_enum_optioned,
         )
     });
-    WhereClauses {
+    Ok(WhereClauses {
         struct_enum_def: where_clause_struct_enum_def,
         impl_optionable: where_clause_impl,
         impl_optionable_convert: where_clause_impl_convert,
-    }
+    })
 }
 
 /// Internal generalized logic for the where clause

@@ -1,17 +1,17 @@
 #[derive(
     Clone,
-    std::fmt::Debug,
     Default,
     PartialEq,
+    serde::Deserialize,
     serde::Serialize,
-    serde::Deserialize
+    std::fmt::Debug
 )]
 #[serde(rename_all = "camelCase")]
 pub struct ListAc<T>
 where
     T: k8s_openapi::ListableResource + crate::Optionable,
-    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + Default
-        + PartialEq + serde::Serialize + serde::de::DeserializeOwned,
+    <T as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub items: Option<<std::vec::Vec<T> as crate::Optionable>::Optioned>,
@@ -27,8 +27,8 @@ where
 impl<T> crate::Optionable for ::k8s_openapi::List<T>
 where
     T: k8s_openapi::ListableResource + crate::Optionable,
-    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + Default
-        + PartialEq + serde::Serialize + serde::de::DeserializeOwned,
+    <T as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     type Optioned = ListAc<T>;
 }
@@ -36,8 +36,8 @@ where
 impl<T> crate::Optionable for ListAc<T>
 where
     T: k8s_openapi::ListableResource + crate::Optionable,
-    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + Default
-        + PartialEq + serde::Serialize + serde::de::DeserializeOwned,
+    <T as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     type Optioned = ListAc<T>;
 }
@@ -46,8 +46,8 @@ where
 impl<T> crate::OptionableConvert for ::k8s_openapi::List<T>
 where
     T: k8s_openapi::ListableResource + crate::OptionableConvert,
-    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + Default
-        + PartialEq + serde::Serialize + serde::de::DeserializeOwned,
+    <T as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     fn into_optioned(self) -> ListAc<T> {
         ListAc::<T> {
@@ -79,8 +79,8 @@ where
 impl<T> k8s_openapi::Resource for ListAc<T>
 where
     T: k8s_openapi::ListableResource + crate::Optionable,
-    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + Default
-        + PartialEq + serde::Serialize + serde::de::DeserializeOwned,
+    <T as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     const API_VERSION: &'static str = <::k8s_openapi::List<
         T,
@@ -98,8 +98,8 @@ where
 impl<T> k8s_openapi::Metadata for ListAc<T>
 where
     T: k8s_openapi::ListableResource + crate::Optionable,
-    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + Default
-        + PartialEq + serde::Serialize + serde::de::DeserializeOwned,
+    <T as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     type Ty = <::k8s_openapi::List<T> as k8s_openapi::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {

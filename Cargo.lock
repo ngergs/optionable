@@ -821,19 +821,6 @@ dependencies = [
 
 [[package]]
 name = "optionable_codegen"
-version = "0.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "08ff1b49f10dfc44c01ca7defae35759a961d8ca05276744411b609547c2f61e"
-dependencies = [
- "darling",
- "itertools",
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
-name = "optionable_codegen"
 version = "0.7.1"
 dependencies = [
  "darling",
@@ -851,7 +838,7 @@ dependencies = [
  "assert_cmd",
  "clap",
  "darling",
- "optionable_codegen 0.6.0",
+ "optionable_codegen",
  "prettyplease",
  "proc-macro2",
  "quote",
@@ -863,7 +850,7 @@ dependencies = [
 name = "optionable_derive"
 version = "0.4.1"
 dependencies = [
- "optionable_codegen 0.7.1",
+ "optionable_codegen",
  "proc-macro2",
  "quote",
  "syn",

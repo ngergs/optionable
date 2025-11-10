@@ -1,11 +1,11 @@
-#[derive(Clone, std::fmt::Debug, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase")]
 #[serde(tag = "type", content = "object")]
 pub enum WatchEventAc<T>
 where
     T: crate::Optionable,
-    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + PartialEq
-        + serde::Serialize + serde::de::DeserializeOwned,
+    <T as crate::Optionable>::Optioned: Sized + Clone + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     #[serde(rename = "ADDED")]
     Added(
@@ -47,8 +47,8 @@ impl<T> crate::Optionable
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::WatchEvent<T>
 where
     T: crate::Optionable,
-    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + PartialEq
-        + serde::Serialize + serde::de::DeserializeOwned,
+    <T as crate::Optionable>::Optioned: Sized + Clone + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     type Optioned = WatchEventAc<T>;
 }
@@ -56,8 +56,8 @@ where
 impl<T> crate::Optionable for WatchEventAc<T>
 where
     T: crate::Optionable,
-    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + PartialEq
-        + serde::Serialize + serde::de::DeserializeOwned,
+    <T as crate::Optionable>::Optioned: Sized + Clone + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     type Optioned = WatchEventAc<T>;
 }
@@ -67,8 +67,8 @@ impl<T> crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::WatchEvent<T>
 where
     T: crate::OptionableConvert,
-    <T as crate::Optionable>::Optioned: Sized + Clone + std::fmt::Debug + PartialEq
-        + serde::Serialize + serde::de::DeserializeOwned,
+    <T as crate::Optionable>::Optioned: Sized + Clone + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     fn into_optioned(self) -> WatchEventAc<T> {
         match self {

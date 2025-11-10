@@ -1,10 +1,10 @@
 #[derive(
     Clone,
-    std::fmt::Debug,
     Default,
     PartialEq,
+    serde::Deserialize,
     serde::Serialize,
-    serde::Deserialize
+    std::fmt::Debug
 )]
 #[serde(rename_all = "camelCase")]
 pub struct GroupSubjectAc {
