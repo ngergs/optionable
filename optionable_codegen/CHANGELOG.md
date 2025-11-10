@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.7.0...optionable_codegen-v0.7.1) - 2025-11-10
+
+### Added
+
+- filter out `Optionable` out of forward derive attributes
+
+### Other
+
+- docs, update example
+
 ## [0.7.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.6.0...optionable_codegen-v0.7.0) - 2025-11-09
 
 ### Added
