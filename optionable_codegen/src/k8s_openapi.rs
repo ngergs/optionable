@@ -63,14 +63,6 @@ pub(crate) fn k8s_derives(input: &DeriveInput) -> Option<Vec<String>> {
     }
 }
 
-/// The field type helper attributes for an optioned `Struct` or `Enum`.
-pub(crate) fn k8s_type_attr(input: &DeriveInput) -> Option<Attribute> {
-    match input.data {
-        Data::Struct(_) | Data::Enum(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
-        Data::Union(_) => None,
-    }
-}
-
 /// Adjust the struct fields according to the `Kubernetes` use case.
 pub(crate) fn k8s_adjust_fields(
     struct_parsed: &mut StructParsed,
@@ -172,6 +164,14 @@ fn roundtrip_k8s_openapi_adjust_field_serde() {
         let key_roundtrip = k8s_openapi_serde_rename_revert_special_cases(rust_ident.as_ref());
         assert!(key_roundtrip.is_some());
         assert_eq!(key.to_owned(), key_roundtrip.unwrap().to_owned());
+    }
+}
+
+/// The field type helper attributes for an optioned `Struct` or `Enum`.
+pub(crate) fn k8s_type_attr(input: &DeriveInput) -> Option<Attribute> {
+    match input.data {
+        Data::Struct(_) | Data::Enum(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
+        Data::Union(_) => None,
     }
 }
 
