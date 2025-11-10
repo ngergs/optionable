@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 pub const FIELD_MANAGER: &str = "rust-manager";
 
-#[optionable_kube_cr]
+#[optionable_kube_cr] // attribute macro to be used with the `CustomResource` type
 #[derive(CustomResource, Clone, Debug, Deserialize, Serialize, JsonSchema)]
 #[serde(rename_all = "camelCase")]
 #[kube(
@@ -26,7 +26,7 @@ pub struct CustomCrdSpec {
     pub template: CustomCrdSpecTemplate,
 }
 
-#[optionable_kube]
+#[optionable_kube] // attribute macro to be used with the subfields of a `CustomResource`
 #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
 #[serde(rename_all = "camelCase")]
 pub struct CustomCrdSpecTemplate {

@@ -49,6 +49,11 @@ const ERR_MSG_HELPER_ATTR_ENUM_VARIANTS: &str =
 #[darling(attributes(optionable))]
 /// Helper attributes on the type definition level (attached to the `struct` or `enum` itself).
 pub(crate) struct TypeHelperAttributes {
+    /// Forwards the specified `attr` to the definition of the optioned type.
+    /// If any `key` is set it filters the configuration of the forwarded attributes for the specified configuration names.
+    /// E.g. `#[optionable(attr_copy(attr=serde,key=rename)]` will only forward the `rename`sub-attribute of serde.
+    #[darling(multiple)]
+    attr_copy: Vec<FieldAttributeToCopy>,
     /// Derive-macros that should be added to the optioned type
     #[darling(multiple)]
     derive: Vec<PathList>,
@@ -64,11 +69,6 @@ pub(crate) struct TypeHelperAttributes {
     /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
     /// - Copy `#[(serde(rename="...")]` attributes over the optioned types.
     kube: Option<TypeHelperAttributesKube>,
-    /// Forwards the specified `attr` to the definition of the optioned type.
-    /// If any `key` is set it filters the configuration of the forwarded attributes for the specified configuration names.
-    /// E.g. `#[optionable(attr_copy(attr=serde,key=rename)]` will only forward the `rename`sub-attribute of serde.
-    #[darling(multiple)]
-    attr_copy: Vec<FieldAttributeToCopy>,
 }
 
 #[derive(FromMeta)]
