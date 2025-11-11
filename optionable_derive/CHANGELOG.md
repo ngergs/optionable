@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3](https://github.com/ngergs/optionable/compare/optionable_derive-v0.4.2...optionable_derive-v0.4.3) - 2025-11-11
+
+### Other
+
+- simplify derive
+
 ## [0.4.2](https://github.com/ngergs/optionable/compare/optionable_derive-v0.4.1...optionable_derive-v0.4.2) - 2025-11-10
 
 ### Fixed

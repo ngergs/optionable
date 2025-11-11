@@ -1,6 +1,6 @@
 [package]
 name = "optionable_codegen"
-version = "0.7.2"
+version = "0.7.3"
 edition = "2024"
 description = "proc_macro2 functions for the derive macro and codegen implementations in the `optionable_derive` crate to derive nested structs/enums with all subfields being optional (e.g. for patches or Kubernetes server side apply)."
 repository = "https://github.com/ngergs/optionable"
