@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.3](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.7.2...optionable_codegen-v0.7.3) - 2025-11-11
+
+### Added
+
+- optionable::kube::deserialize_envelope function to verify api envelope
+
 ## [0.7.2](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.7.1...optionable_codegen-v0.7.2) - 2025-11-10
 
 ### Fixed
