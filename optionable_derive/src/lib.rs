@@ -8,7 +8,7 @@ use proc_macro2::Span;
 #[cfg(feature = "kube")]
 use quote::quote;
 #[cfg(feature = "kube")]
-use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta};
+use syn::{parse_quote, DeriveInput, Item, ItemEnum, ItemStruct};
 
 /// Derive macro to derive the `Optionable` trait for structs/enums recursively by generating
 /// a type with all fields recursively replaced with `Option` versions.
@@ -82,7 +82,7 @@ use syn::{parse_quote, Attribute, DeriveInput, Item, ItemEnum, ItemStruct, Meta}
 ///     pub replicas: u32,
 ///   }
 ///   ```
-///  
+///
 ///   If you need to configure optionable explicitly setting this is e.g. for a Struct equivalent to:
 ///   ```rust,ignore
 ///   #[optionable(
@@ -131,9 +131,9 @@ fn try_optionable_kube_cr(input: TokenStream) -> Result<TokenStream, syn::Error>
 fn try_optionable_kube_cr2(mut input: Item) -> Result<proc_macro2::TokenStream, syn::Error> {
     match &mut input {
         Item::Enum(ItemEnum { attrs, .. }) | Item::Struct(ItemStruct { attrs, .. }) => {
-            add_derive_attributes(attrs, &quote!(Optionable));
-            attrs.push(syn::parse_quote!(#[kube(derive = "optionable::kube::OptionableKubeCrd")]));
-            attrs.push(syn::parse_quote!(#[optionable(kube())]));
+            attrs.push(parse_quote!(#[derive(Optionable)]));
+            attrs.push(parse_quote!(#[kube(derive = "optionable::kube::OptionableKubeCrd")]));
+            attrs.push(parse_quote!(#[optionable(kube())]));
         }
         _ => {
             return Err(syn::Error::new(
@@ -179,8 +179,8 @@ fn try_optionable_kube(input: TokenStream) -> Result<TokenStream, syn::Error> {
 fn try_optionable_kube2(mut input: Item) -> Result<proc_macro2::TokenStream, syn::Error> {
     match &mut input {
         Item::Enum(ItemEnum { attrs, .. }) | Item::Struct(ItemStruct { attrs, .. }) => {
-            add_derive_attributes(attrs, &quote!(Optionable));
-            attrs.push(syn::parse_quote!(#[optionable(kube())]));
+            attrs.push(parse_quote!(#[derive(Optionable)]));
+            attrs.push(parse_quote!(#[optionable(kube())]));
         }
         _ => {
             return Err(syn::Error::new(
@@ -190,21 +190,6 @@ fn try_optionable_kube2(mut input: Item) -> Result<proc_macro2::TokenStream, syn
         }
     }
     Ok(quote!(#input))
-}
-
-/// Adds a list of derive attribute to the potentially existing ones.
-#[cfg(feature = "kube")]
-fn add_derive_attributes(attrs: &mut Vec<Attribute>, items: &proc_macro2::TokenStream) {
-    let derive_attr = attrs.iter_mut().find(|attr| attr.path().is_ident("derive"));
-
-    if let Some(derive_attr) = derive_attr
-        && let Meta::List(meta) = &mut derive_attr.meta
-    {
-        let tokens = &meta.tokens;
-        meta.tokens = quote!(#tokens, #items);
-    } else {
-        attrs.push(parse_quote!(#[derive(#items)]));
-    }
 }
 
 /// For most use cases just using the attribute macro `#[optionable_kube_cr]` is likely a better fit.
@@ -281,8 +266,9 @@ mod test {
         )
         .unwrap();
         let expected = quote! {
-            #[derive(Default,Optionable)]
+            #[derive(Default)]
             #[other_attr]
+            #[derive(Optionable)]
             #[kube(derive="optionable::kube::OptionableKubeCrd")]
             #[optionable(kube())]
             struct MyStruct {}
@@ -319,8 +305,9 @@ mod test {
         )
         .unwrap();
         let expected = quote! {
-            #[derive(Default,Optionable)]
+            #[derive(Default)]
             #[other_attr]
+            #[derive(Optionable)]
             #[optionable(kube())]
             struct MyStruct {}
         };
