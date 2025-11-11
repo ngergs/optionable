@@ -45,7 +45,7 @@ pub fn deserialize_api_envelope<'de, D: Deserializer<'de>, R: Resource>(
 
     if let Some(api_version) = envelope.get("apiVersion") {
         let api_version_expected = R::API_VERSION;
-        if *api_version != api_version_expected {
+        if api_version != api_version_expected {
             return Err(Error::invalid_value(
                 Unexpected::Str(api_version),
                 &format!("apiVersion: {api_version_expected}").as_str(),
@@ -56,7 +56,7 @@ pub fn deserialize_api_envelope<'de, D: Deserializer<'de>, R: Resource>(
     }
     if let Some(kind) = envelope.get("kind") {
         let kind_expected = R::KIND;
-        if *kind != kind_expected {
+        if kind != kind_expected {
             return Err(Error::invalid_value(
                 Unexpected::Str(kind),
                 &format!("kind: {kind_expected}").as_str(),
