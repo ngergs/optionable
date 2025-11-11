@@ -76,8 +76,8 @@ use syn::{parse_quote, DeriveInput, Item, ItemEnum, ItemStruct};
 ///   Add derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
 ///   Also copies over any `#[(serde(rename="...")]` and `#[(serde(rename_all="...")]` attributes over to the optioned types.
 ///   ```rust,ignore
-///   #[derive(Optionable, Clone, Debug, Deserialize, Serialize, JsonSchema)]
 ///   #[optionable(kube())]
+///   #[derive(Optionable, Clone, Debug, Deserialize, Serialize, JsonSchema)]
 ///   pub struct MyCrdSpecTemplate {
 ///     pub replicas: u32,
 ///   }
@@ -106,9 +106,9 @@ fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> 
 ///
 /// A usage example would be:
 /// ```rust,ignore
+/// #[optionable_kube_cr]
 /// #[derive(Optionable, CustomResource, Clone, Debug, Deserialize, Serialize, JsonSchema)]
 /// #[kube(group = "example.localhost", version = "v1", kind = "MyCrd", namespaced)]
-/// #[optionable_kube_cr]
 /// pub struct MyCrdSpec {
 ///     pub msg: String,
 ///     pub template: MyCrdSpecTemplate,
@@ -156,8 +156,8 @@ fn try_optionable_kube_cr2(mut input: Item) -> Result<proc_macro2::TokenStream, 
 ///
 /// A usage example would be:
 /// ```rust,ignore
-/// #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
 /// #[optionable_kube]
+/// #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
 /// pub struct MyCrdSpecTemplate {
 ///    pub replicas: u32,
 /// }
