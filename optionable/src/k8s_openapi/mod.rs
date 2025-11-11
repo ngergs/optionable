@@ -2,8 +2,10 @@
 #![allow(clippy::pedantic)]
 
 use k8s_openapi::Resource;
+use serde::de::{Error, Unexpected};
 use serde::ser::SerializeMap;
-use serde::Serializer;
+use serde::{Deserialize, Deserializer, Serializer};
+use std::collections::HashMap;
 use std::marker::PhantomData;
 
 mod optionable;
@@ -30,6 +32,42 @@ pub fn serialize_api_envelope<S: Serializer, R: Resource>(
     map.end()
 }
 
+/// Deserializes a `PhantomData` marker to verify the API envelope fields `apiVersion` and `kind`.
+/// Intended use is together with `#[serde(flatten)]` for the marker field.
+///
+/// # Errors
+/// - If the marker fields do not have the expected value specified in the `Resource` wrapped by the `PhantomData`.
+/// - Forwards any deserialization errors.
+pub fn deserialize_api_envelope<'de, D: Deserializer<'de>, R: Resource>(
+    d: D,
+) -> Result<PhantomData<R>, D::Error> {
+    let envelope: HashMap<String, String> = HashMap::deserialize(d)?;
+
+    if let Some(api_version) = envelope.get("apiVersion") {
+        let api_version_expected = R::API_VERSION;
+        if *api_version != api_version_expected {
+            return Err(Error::invalid_value(
+                Unexpected::Str(api_version),
+                &format!("apiVersion: {api_version_expected}").as_str(),
+            ));
+        }
+    } else {
+        return Err(Error::missing_field("apiVersion"));
+    }
+    if let Some(kind) = envelope.get("kind") {
+        let kind_expected = R::KIND;
+        if *kind != kind_expected {
+            return Err(Error::invalid_value(
+                Unexpected::Str(kind),
+                &format!("kind: {kind_expected}").as_str(),
+            ));
+        }
+    } else {
+        return Err(Error::missing_field("kind"));
+    }
+    Ok(PhantomData)
+}
+
 #[cfg(test)]
 mod test {
     #[cfg(feature = "k8s_openapi_v1_30")]
@@ -42,6 +80,45 @@ mod test {
     use crate::k8s_openapi::v1_33::apimachinery::pkg::util::intstr::IntOrStringAc;
     #[cfg(feature = "k8s_openapi_v1_34")]
     use crate::k8s_openapi::v1_34::apimachinery::pkg::util::intstr::IntOrStringAc;
+    use k8s_openapi::api::apps::v1::Deployment;
+    use serde::{Deserialize, Serialize};
+    use serde_json::json;
+    use std::marker::PhantomData;
+
+    #[derive(Serialize, Deserialize, Default, Debug)]
+    struct ApiEnvelopeDeployment {
+        #[serde(flatten)]
+        #[serde(
+            serialize_with = "crate::k8s_openapi::serialize_api_envelope",
+            deserialize_with = "crate::k8s_openapi::deserialize_api_envelope"
+        )]
+        phantom: PhantomData<Deployment>,
+    }
+
+    #[test]
+    fn serialize_api_envelope() {
+        let envelope = ApiEnvelopeDeployment {
+            ..Default::default()
+        };
+        let json = serde_json::to_value(envelope).unwrap();
+        assert_eq!(json, json!({"apiVersion": "apps/v1", "kind": "Deployment"}));
+    }
+
+    #[test]
+    fn deserialize_api_envelope_happy() {
+        let json = json!({"apiVersion": "apps/v1", "kind": "Deployment"});
+        let _: ApiEnvelopeDeployment = serde_json::from_value(json).unwrap();
+    }
+
+    #[test]
+    fn deserialize_api_envelope_typo() {
+        let json = json!({"apiVersion": "apps/v1", "kind": "Deployments"});
+        let err = serde_json::from_value::<ApiEnvelopeDeployment>(json).unwrap_err();
+        assert_eq!(
+            err.to_string(),
+            "invalid value: string \"Deployments\", expected kind: Deployment"
+        );
+    }
 
     /// Tests if deserialization for `IntOrString` works.
     #[test]

@@ -17,7 +17,7 @@ pub struct APIGroupListAc {
     #[serde(
         flatten,
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
-        skip_deserializing
+        deserialize_with = "crate::k8s_openapi::deserialize_api_envelope"
     )]
     pub phantom: std::marker::PhantomData<APIGroupListAc>,
 }

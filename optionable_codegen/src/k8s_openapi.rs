@@ -183,17 +183,21 @@ fn k8s_openapi_field_resource_adjust(
     ty_ident_opt: &Ident,
     ty_generics: &TypeGenerics,
 ) {
-    let mut serialize_fn_name = crate_name.to_token_stream().to_string();
+    let mut envelope_serde_path = crate_name.to_token_stream().to_string();
     match resource_type {
         ResourceType::K8sOpenApi => {
-            serialize_fn_name.push_str("::k8s_openapi::serialize_api_envelope");
+            envelope_serde_path.push_str("::k8s_openapi");
         }
         ResourceType::Kube => {
-            serialize_fn_name.push_str("::kube::serialize_api_envelope");
+            envelope_serde_path.push_str("::kube");
         }
     }
+    let mut serialize_fn = envelope_serde_path.clone();
+    serialize_fn.push_str("::serialize_api_envelope");
+    let mut deserialize_fn = envelope_serde_path;
+    deserialize_fn.push_str("::deserialize_api_envelope");
     let field = parse_quote!(
-                   #[optionable_attr(serde(flatten,serialize_with=#serialize_fn_name,skip_deserializing))]
+                   #[optionable_attr(serde(flatten,serialize_with=#serialize_fn,deserialize_with=#deserialize_fn))]
                    pub phantom: std::marker::PhantomData<#ty_ident_opt #ty_generics>
     );
     struct_parsed.fields.push(FieldParsed {
