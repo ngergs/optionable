@@ -1,5 +1,5 @@
 #[derive(Clone, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all_fields = "camelCase")]
 #[serde(tag = "type", content = "object")]
 pub enum WatchEventAc<T>
 where

@@ -1,5 +1,5 @@
 #[derive(Clone, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all_fields = "camelCase")]
 #[serde(untagged)]
 pub enum IntOrStringAc {
     Int(#[serde(skip_serializing_if = "Option::is_none")] Option<i32>),

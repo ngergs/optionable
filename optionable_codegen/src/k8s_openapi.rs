@@ -170,7 +170,8 @@ fn roundtrip_k8s_openapi_adjust_field_serde() {
 /// The field type helper attributes for an optioned `Struct` or `Enum`.
 pub(crate) fn k8s_type_attr(input: &DeriveInput) -> Option<Attribute> {
     match input.data {
-        Data::Struct(_) | Data::Enum(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
+        Data::Struct(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
+        Data::Enum(_) => Some(parse_quote!(#[serde(rename_all_fields="camelCase")])),
         Data::Union(_) => None,
     }
 }

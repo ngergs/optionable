@@ -145,6 +145,7 @@ fn field_attr_copy_hashmap(
         let path_serde = Path::from_string("serde").unwrap();
         let path_rename = Path::from_string("rename").unwrap();
         let path_rename_all = Path::from_string("rename_all").unwrap();
+        let path_rename_all_fields = Path::from_string("rename_all_fields").unwrap();
         if let Some(entry) = result.get_mut(&path_serde) {
             // If the keys are empty everything will be copied, so don't restrict it here
             if !entry.is_empty() {
@@ -152,7 +153,10 @@ fn field_attr_copy_hashmap(
                 entry.insert(path_rename_all);
             }
         } else {
-            result.insert(path_serde, HashSet::from([path_rename, path_rename_all]));
+            result.insert(
+                path_serde,
+                HashSet::from([path_rename, path_rename_all, path_rename_all_fields]),
+            );
         }
     }
     result
@@ -937,7 +941,7 @@ mod tests {
                     #[derive(Optionable)]
                     #[optionable(derive(Deserialize,Serialize,Default),suffix="Ac")]
                     #[optionable(attr_copy(attr=serde,key=rename))]
-                    #[optionable_attr(serde(rename_all = "camelCase", deny_unknown_fields))]
+                    #[optionable_attr(serde(rename_all_fields = "camelCase", deny_unknown_fields))]
                     #[optionable_attr(serde(default))]
                     struct DeriveExample {
                         #[optionable_attr(serde(rename = "firstName"))]
@@ -949,7 +953,7 @@ mod tests {
                 },
                 output: quote! {
                     #[derive(Default, Deserialize, Serialize)]
-                    #[serde(rename_all = "camelCase", deny_unknown_fields)]
+                    #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
                     #[serde(default)]
                     struct DeriveExampleAc {
                         #[serde(rename = "firstName")]
