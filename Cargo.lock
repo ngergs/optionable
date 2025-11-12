@@ -809,7 +809,7 @@ checksum = "d05e27ee213611ffe7d6348b942e8f942b37114c00cc03cec254295a4a17852e"
 
 [[package]]
 name = "optionable"
-version = "0.5.3"
+version = "0.5.4"
 dependencies = [
  "chrono",
  "k8s-openapi",
@@ -848,7 +848,7 @@ dependencies = [
 
 [[package]]
 name = "optionable_derive"
-version = "0.4.3"
+version = "0.4.4"
 dependencies = [
  "kube-derive",
  "optionable_codegen",

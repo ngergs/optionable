@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.4](https://github.com/ngergs/optionable/compare/optionable-v0.5.3...optionable-v0.5.4) - 2025-11-12
+
+### Fixed
+
+- simplify extract function signature
+- avoid deref in deserialize_api_envelope
+
+### Other
+
+- docs
+
 ## [0.5.3](https://github.com/ngergs/optionable/compare/optionable-v0.5.2...optionable-v0.5.3) - 2025-11-11
 
 ### Added
