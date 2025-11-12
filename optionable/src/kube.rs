@@ -108,10 +108,7 @@ pub trait ExtractManagedFields: ExtractManagedFieldsSealed + Optionable<Optioned
     /// # Errors
     /// - Serialization/Deserialization errors. The function uses `serde_json::Value` internally to get the
     ///   serialization keys referenced by Kubernetes.
-    fn extract(
-        self,
-        field_manager: impl AsRef<str>,
-    ) -> Result<Option<Self::Optioned>, serde_json::Error>;
+    fn extract(self, field_manager: &str) -> Result<Option<Self::Optioned>, serde_json::Error>;
 }
 
 impl<T> ExtractManagedFieldsSealed for T
@@ -126,10 +123,7 @@ where
     T: Resource + Optionable + Serialize,
     T::Optioned: Sized + DeserializeOwned,
 {
-    fn extract(
-        mut self,
-        field_manager: impl AsRef<str>,
-    ) -> Result<Option<Self::Optioned>, serde_json::Error> {
+    fn extract(mut self, field_manager: &str) -> Result<Option<Self::Optioned>, serde_json::Error> {
         // Managed fields are not forwarded to the result anyway so we can just take them.
         let managed_fields = take(&mut self.meta_mut().managed_fields);
         if let Some(managed_fields) = &managed_fields {
@@ -140,7 +134,7 @@ where
                     && el
                         .manager
                         .as_ref()
-                        .is_some_and(|manager| manager == field_manager.as_ref())
+                        .is_some_and(|manager| manager == field_manager)
             });
             if let Some(managed_fields) = managed_fields
                 && let Some(fields) = &managed_fields.fields_v1
