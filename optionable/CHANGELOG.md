@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.5](https://github.com/ngergs/optionable/compare/optionable-v0.5.4...optionable-v0.5.5) - 2025-11-12
+
+### Fixed
+
+- for kube/k8s-openapi use #[serde(rename_all_fields="...")] instead of rename_all for enums
+
 ## [0.5.4](https://github.com/ngergs/optionable/compare/optionable-v0.5.3...optionable-v0.5.4) - 2025-11-12
 
 ### Fixed
