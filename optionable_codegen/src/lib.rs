@@ -295,8 +295,6 @@ pub fn derive_optionable(
                 attrs.kube.as_ref(),
                 k8s_resource_type.as_ref(),
                 crate_name,
-                &ty_ident_opt,
-                &ty_generics,
             )?;
             let WhereClauses {
                 struct_enum_def: where_clause_struct_enum,
@@ -373,8 +371,6 @@ pub fn derive_optionable(
                         attrs.kube.as_ref(),
                         k8s_resource_type.as_ref(),
                         crate_name,
-                        &ty_ident_opt,
-                        &ty_generics,
                     )?;
                     Ok::<_, Error>((
                         v.ident,

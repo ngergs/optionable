@@ -19,7 +19,7 @@ pub struct APIGroupListAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         deserialize_with = "crate::k8s_openapi::deserialize_api_envelope"
     )]
-    pub phantom: std::marker::PhantomData<APIGroupListAc>,
+    pub phantom: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable

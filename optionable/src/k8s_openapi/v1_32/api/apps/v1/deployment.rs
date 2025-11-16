@@ -22,7 +22,7 @@ pub struct DeploymentAc {
         serialize_with = "crate::k8s_openapi::serialize_api_envelope",
         deserialize_with = "crate::k8s_openapi::deserialize_api_envelope"
     )]
-    pub phantom: std::marker::PhantomData<DeploymentAc>,
+    pub phantom: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::Deployment {

@@ -70,8 +70,6 @@ pub(crate) fn k8s_adjust_fields(
     attr_kube: Option<&TypeHelperAttributesKube>,
     resource_type: Option<&ResourceType>,
     crate_name: &Path,
-    ty_ident_opt: &Ident,
-    ty_generics: &TypeGenerics,
 ) -> Result<(), Error> {
     if attr_k8s_openapi.is_some() {
         k8s_openapi_adjust_field_serde_renames(struct_parsed)?;
@@ -82,13 +80,7 @@ pub(crate) fn k8s_adjust_fields(
         k8s_openapi_set_metadata_required(struct_parsed);
     }
     if let Some(k8s_resource_type) = &resource_type {
-        k8s_openapi_field_resource_adjust(
-            struct_parsed,
-            k8s_resource_type,
-            crate_name,
-            ty_ident_opt,
-            ty_generics,
-        );
+        k8s_openapi_field_resource_adjust(struct_parsed, k8s_resource_type, crate_name);
     }
     Ok(())
 }
@@ -181,8 +173,6 @@ fn k8s_openapi_field_resource_adjust(
     struct_parsed: &mut StructParsed,
     resource_type: &ResourceType,
     crate_name: &Path,
-    ty_ident_opt: &Ident,
-    ty_generics: &TypeGenerics,
 ) {
     let mut envelope_serde_path = crate_name.to_token_stream().to_string();
     match resource_type {
@@ -199,7 +189,7 @@ fn k8s_openapi_field_resource_adjust(
     deserialize_fn.push_str("::deserialize_api_envelope");
     let field = parse_quote!(
                    #[optionable_attr(serde(flatten,serialize_with=#serialize_fn,deserialize_with=#deserialize_fn))]
-                   pub phantom: std::marker::PhantomData<#ty_ident_opt #ty_generics>
+                   pub phantom: std::marker::PhantomData<Self>
     );
     struct_parsed.fields.push(FieldParsed {
         field,
