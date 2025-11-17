@@ -762,10 +762,14 @@ fn forwarded_attributes(
                             if inner_metas.is_empty() {
                                 Ok(None)
                             } else {
-                                let mut attr=attr.clone();
-                                let mut meta_list=meta_list.clone();
-                                meta_list.tokens=inner_metas.into_iter().collect();
-                                attr.meta=meta_list.into();
+                                let attr=Attribute{
+                                    meta: MetaList{
+                                        path: meta_list.path.clone(),
+                                        delimiter: meta_list.delimiter.clone(),
+                                        tokens: inner_metas.into_iter().collect(),
+                                    }.into(),
+                                    ..*attr
+                                };
                                 Ok(Some(attr.to_token_stream()))
                             }
                         }
