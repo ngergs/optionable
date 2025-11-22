@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.5](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.7.4...optionable_codegen-v0.7.5) - 2025-11-22
+
+### Fixed
+
+- avoid some unecessary clones during derive/codegen
+- simplify generated/derived code by using `PhantomData<Self>` for the api envelope
+
 ## [0.7.4](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.7.3...optionable_codegen-v0.7.4) - 2025-11-12
 
 ### Fixed
