@@ -92,6 +92,7 @@ allow = [
     "Apache-2.0",
     "BSD-3-Clause",
     "MIT",
+    "Zlib",
     "ISC",
     "Unicode-3.0",
 ]
