@@ -28,11 +28,13 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
+      - name: Install cargo-docs-rs
+        uses: dtolnay/install@cargo-docs-rs
       - name: Configure cache
         uses: Swatinem/rust-cache@v2
       - name: Pre-release tests
         run: |-
-          cargo +nightly doc --manifest-path=optionable/Cargo.toml --no-default-features --features alloc,derive,std,serde_json,serde_json/std,kube,k8s-openapi/v1_34
+          cargo +nightly docs-rs -p optionable
           cargo +nightly test --manifest-path=optionable/Cargo.toml --features derive,kube,k8s-openapi/v1_34
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features derive,chrono,serde_json
           cargo +nightly test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono,serde_json
