@@ -1,0 +1,2 @@
+doc:
+  RUSTFLAGS="--cfg docsrs" RUSTDOCFLAGS="--cfg docsrs" cargo +nightly doc --no-deps --open --features "alloc","derive","std","serde_json","serde_json/std" --lib
