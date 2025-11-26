@@ -17,7 +17,7 @@ mod where_clause;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s_openapi::{
-    error_missing_features, k8s_adjust_fields, k8s_derives, k8s_openapi_impl_metadata,
+    error_missing_features, k8s_adjust_fields, k8s_openapi_derives, k8s_openapi_impl_metadata,
     k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr,
 };
 use crate::parsed_input::{
@@ -225,8 +225,8 @@ pub fn derive_optionable(
                 .collect::<Vec<_>>()
         })
         .collect::<BTreeSet<_>>();
-    if (attrs.k8s_openapi.is_some() || attrs.kube.is_some())
-        && let Some(k8s_derives) = k8s_derives(&input)
+    if attrs.k8s_openapi.is_some()
+        && let Some(k8s_derives) = k8s_openapi_derives(&input)
     {
         for el in k8s_derives {
             derive.insert(el);

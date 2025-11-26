@@ -41,8 +41,8 @@ pub(crate) fn k8s_resource_type(
     Ok(None)
 }
 
-/// Additional derives to set for `k8s` types.
-pub(crate) fn k8s_derives(input: &DeriveInput) -> Option<Vec<String>> {
+/// Additional derives to set for `k8s-openapi` types.
+pub(crate) fn k8s_openapi_derives(input: &DeriveInput) -> Option<Vec<String>> {
     match input.data {
         Data::Struct(_) => Some(vec![
             "Clone".to_owned(),
