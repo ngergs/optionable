@@ -11,13 +11,13 @@
 //! can't export its non-macro functions (even the `proc_macro2` ones) for the usage by the codegen part.
 
 mod helper;
-mod k8s_openapi;
+mod k8s;
 mod parsed_input;
 mod where_clause;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
-use crate::k8s_openapi::{
-    error_missing_features, k8s_adjust_fields, k8s_derives, k8s_openapi_impl_metadata,
+use crate::k8s::{
+    error_missing_features, k8s_adjust_fields, k8s_openapi_derives, k8s_openapi_impl_metadata,
     k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr,
 };
 use crate::parsed_input::{
@@ -101,6 +101,8 @@ pub(crate) struct TypeHelperAttributesKube {
     /// - Adds `apiVersion` and `kind` to the serialization output with values from the trait constants of the given `kube::Resource` implementation
     /// - Derives `kube::Resource` for the optioned type.
     resource: Option<()>,
+    /// Internal. k8s-openapi crate name, used to forward it to `kube` when deriving the custom resource root `Resource` impl..
+    k8s_openapi_crate: Option<String>,
 }
 
 #[derive(FromMeta)]
@@ -272,11 +274,6 @@ pub fn derive_optionable(
         ));
     }
 
-    let k8s_resource_type = k8s_resource_type(attr_k8s_openapi.as_ref(), attr_kube.as_ref())?;
-    let k8s_openapi_attrs = attr_k8s_openapi.is_some().then(|| k8s_type_attr(&data));
-    let attr_copy_identifier = field_attr_copy_hashmap(attr_copy, attr_kube.as_ref());
-    let ty_attr_forwarded = forwarded_attributes(&attrs, &attr_copy_identifier)?;
-
     let mut derive = attr_derive
         .into_iter()
         .flat_map(|el| {
@@ -285,13 +282,19 @@ pub fn derive_optionable(
                 .collect::<Vec<_>>()
         })
         .collect::<BTreeSet<_>>();
-    if (attr_k8s_openapi.is_some() || attr_kube.is_some())
-        && let Some(k8s_derives) = k8s_derives(&data)
+    if attr_k8s_openapi.is_some()
+        && let Some(k8s_openapi_derives) = k8s_openapi_derives(&data)
     {
-        for el in k8s_derives {
+        for el in k8s_openapi_derives {
             derive.insert(el);
         }
     }
+
+    let k8s_resource_type =
+        k8s_resource_type(attr_k8s_openapi.as_ref(), attr_kube.as_ref(), &derive)?;
+    let k8s_openapi_attrs = attr_k8s_openapi.is_some().then(|| k8s_type_attr(&data));
+    let attr_copy_identifier = field_attr_copy_hashmap(attr_copy, attr_kube.as_ref());
+    let ty_attr_forwarded = forwarded_attributes(&attrs, &attr_copy_identifier)?;
 
     let vis = vis;
     // basically split_for_impl, but we move the where clause out instead of just taking a reference
@@ -566,14 +569,20 @@ pub fn derive_optionable(
                 &where_clause_optionable,
             )
         });
-    let kube_derive_resource = attr_kube
-        .is_some_and(|attr| attr.resource.is_some())
-        .then(|| {
-            quote! {
+    let kube_derive_resource = attr_kube.map(|attr| {
+        attr.resource?;
+        if let Some(k8s_openapi_crate) = attr.k8s_openapi_crate {
+            Some(quote! {
                 #[derive(kube::Resource)]
-                #[resource(inherit = #ty_ident )]
-            }
-        });
+                #[resource(inherit = #ty_ident,crates(k8s_openapi=#k8s_openapi_crate))]
+            })
+        } else {
+            Some(quote! {
+                #[derive(kube::Resource)]
+                #[resource(inherit = #ty_ident)]
+            })
+        }
+    });
     let k8s_roundtrip_test = (attr_k8s_openapi.is_some_and(|attr|attr.resource.is_some())
         && ty_generics.to_token_stream().is_empty()
         // causes stackoverflows during the roundtrip tests, the stackoverflow already happens when trying to generate a `fake CRD`, so doesn't originate from this crate
