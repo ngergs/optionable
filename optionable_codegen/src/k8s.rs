@@ -1,12 +1,11 @@
-use crate::helper::error;
+use crate::helper::{error, is_serde};
 use crate::parsed_input::FieldHandling::{OptionedOnly, Required};
 use crate::parsed_input::{FieldParsed, StructParsed};
 use crate::{TypeHelperAttributesK8sOpenapi, TypeHelperAttributesKube};
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
-use syn::{
-    parse_quote, Attribute, Data, Error, ImplGenerics, Path, TypeGenerics, WhereClause,
-};
+use std::collections::BTreeSet;
+use syn::{parse_quote, Attribute, Data, Error, ImplGenerics, Path, TypeGenerics, WhereClause};
 
 /// We have two useful `Resource` traits and dependent on the user needs we will use one
 /// of them for adding the API envelope `apiVersion` and `kind` fields when serializing.
@@ -16,9 +15,12 @@ pub(crate) enum ResourceType {
 }
 
 /// Validates the resource configuration and returns the resource type.
+/// Returns `None` for `kube` if no serde derives are present as all we are doing
+/// is adding a `PhantomData` field to serialize/deserialize the API-Envelope.
 pub(crate) fn k8s_resource_type(
     attrs_k8s_openapi: Option<&TypeHelperAttributesK8sOpenapi>,
     attrs_kube: Option<&TypeHelperAttributesKube>,
+    derive: &BTreeSet<String>,
 ) -> Result<Option<ResourceType>, Error> {
     if attrs_k8s_openapi.is_some() && attrs_kube.is_some() {
         return error(
@@ -34,14 +36,15 @@ pub(crate) fn k8s_resource_type(
     if attrs_kube
         .as_ref()
         .is_some_and(|attr| attr.resource.is_some())
+        && derive.iter().any(|el| is_serde(el.as_str()))
     {
         return Ok(Some(ResourceType::Kube));
     }
     Ok(None)
 }
 
-/// Additional derives to set for `k8s` types.
-pub(crate) fn k8s_derives(data: &Data) -> Option<Vec<String>> {
+/// Additional derives to set for `k8s-openapi` types.
+pub(crate) fn k8s_openapi_derives(data: &Data) -> Option<Vec<String>> {
     match data {
         Data::Struct(_) => Some(vec![
             "Clone".to_owned(),
@@ -79,7 +82,7 @@ pub(crate) fn k8s_adjust_fields(
         k8s_openapi_set_metadata_required(struct_parsed);
     }
     if let Some(k8s_resource_type) = &resource_type {
-        k8s_openapi_field_resource_adjust(struct_parsed, k8s_resource_type, crate_name);
+        k8s_openapi_field_resource_add_api_envelope(struct_parsed, k8s_resource_type, crate_name);
     }
     Ok(())
 }
@@ -167,8 +170,11 @@ pub(crate) fn k8s_type_attr(data: &Data) -> Option<Attribute> {
     }
 }
 
-/// Adjust the parsed struct for the `k8s_openapi::Resource` requirements.
-fn k8s_openapi_field_resource_adjust(
+/// Adjust the parsed struct for the `k8s_openapi::Resource` or `kube::Resource` requirements by adding
+/// a `PhantomData` field with serialization helper attributes that serializes the apiGroup/kind
+/// envelope from the `k8s_openapi::Metadata` or `kube::Resource` information.
+/// Also, validation for deserialization is added.
+fn k8s_openapi_field_resource_add_api_envelope(
     struct_parsed: &mut StructParsed,
     resource_type: &ResourceType,
     crate_name: &Path,

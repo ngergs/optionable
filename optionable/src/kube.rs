@@ -1,49 +1,7 @@
-//! Tooling to derive optioned types for [`kube::CustomResource`](https://docs.rs/kube/latest/kube/derive.CustomResource.html).
-//!
-//! The standard usage would be to add the `#[optionable_kube_cr]` to the spec type
-//! used to define the `kube::CustomResource` and the `#[optionable_kube]` attribute macro
-//! to all custom types used as subfields. The `#[optionable_kube_cr]` attribute macro
-//! must be placed prior to any #[derive(...)] statements for the given type.
-//!
-//! For more specialized use cases the documentation of these attribute macros shows to
-//! what they resolve for customization.
-//!
-//! ```rust,ignore
-//! #[optionable_kube_cr]
-//! #[derive(CustomResource, Clone, Debug, Deserialize, Serialize, JsonSchema)]
-//! #[kube(group = "example.localhost", version = "v1", kind = "MyCrd", namespaced)]
-//! pub struct MyCrdSpec {
-//!     pub msg: String,
-//!     pub template: MyCrdSpecTemplate,
-//! }
-//!
-//! #[optionable_kube]
-//! #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
-//! pub struct MyCrdSpecTemplate {
-//!     pub replicas: u32,
-//! }
-//! ```
-//!
-//! ## API limitations
-//!
-//! The available API to derive optioned types for Custom Resource Definitions is not ideal and does not allow to configure what
-//! types to derive for the optioned root type of the custom resource.
-//!
-//! With kube v3 the originating design limitations (not being able to set attributes for the derives CRD root type) are resolved,
-//! you can take a look at the [kube branch](https://github.com/ngergs/optionable/tree/kube/example/k8s) for a first impression
-//! of the reworked API from `optionable` utilizing this.
+//! Tooling to help deriving optioned types for `kube::CustomResource`.
 
 use crate::Optionable;
 use kube::Resource;
-#[cfg(feature = "derive")]
-#[doc(inline)]
-pub use optionable_derive::optionable_kube;
-#[cfg(feature = "derive")]
-#[doc(inline)]
-pub use optionable_derive::optionable_kube_cr;
-#[cfg(feature = "derive")]
-#[doc(inline)]
-pub use optionable_derive::OptionableKubeCrd;
 use serde::de::{DeserializeOwned, Error, Unexpected};
 use serde::ser::SerializeMap;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
@@ -53,7 +11,7 @@ use std::marker::PhantomData;
 use std::mem::take;
 
 /// Serializes a `PhantomData` marker to add the API envelope fields `apiVersion` and `kind`.
-/// Intended use is together with `#[serde(flatten)]` for the marker field.
+/// Intended use is together with `#[serde(flatten,serialize_with="...")]` for the marker field.
 ///
 /// # Errors
 /// - Forwards any serialization errors.
@@ -68,7 +26,7 @@ pub fn serialize_api_envelope<S: Serializer, R: Resource<DynamicType = ()>>(
 }
 
 /// Deserializes a `PhantomData` marker to verify the API envelope fields `apiVersion` and `kind`.
-/// Intended use is together with `#[serde(flatten)]` for the marker field.
+/// Intended use is together with `#[serde(flatten,deserialize_with="...")]` for the marker field.
 ///
 /// # Errors
 /// - If the marker fields do not have the expected value specified in the `Resource` wrapped by the `PhantomData`.
@@ -214,8 +172,8 @@ mod test {
 
     #[derive(Serialize, Deserialize, Default, Debug)]
     struct ApiEnvelopeDeployment {
-        #[serde(flatten)]
         #[serde(
+            flatten,
             serialize_with = "crate::kube::serialize_api_envelope",
             deserialize_with = "crate::kube::deserialize_api_envelope"
         )]
