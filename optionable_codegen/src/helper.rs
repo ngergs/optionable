@@ -129,6 +129,15 @@ pub(crate) fn is_option(ty: &Type) -> bool {
     }
 }
 
+/// Checks whether this path is `serde::Serialize`, `serde::Deserialize` or a shortened version of it.
+pub(crate) fn is_serde(path: &str) -> bool {
+    path == "Deserialize" || path == "Serialize" || {
+        let mut path = path.to_owned();
+        path.retain(|c| !c.is_whitespace());
+        path == "serde::Deserialize" || path == "serde::Serialize"
+    }
+}
+
 /// Checks whether this path is `serde::Serialize` or a shortened version of it.
 pub(crate) fn is_serialize(path: &str) -> bool {
     path == "Serialize" || {

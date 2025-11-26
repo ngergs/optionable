@@ -2,14 +2,6 @@
 
 One main motivation for the `optionable` crate is to support type-safe server-side-apply for Kubernetes in Rust.
 
-## API limitation
-
-The available API to derive optioned types for `kube` Custom Resource Definitions is not ideal and does not allow to configure what
-types to derive for the optioned root type of the custom resource.
-
-With the not yet released kube v3 this is possible, you can take a look at the [kube branch](https://github.com/ngergs/optionable/tree/kube/example/k8s) for a first impression 
-of the reworked API from `optionable` utilizing the possibility to set attributes for the root type of the CRD.
-
 ## Deployment
 
 For the source code see [src/bin/apply_deployment.rs](src/bin/apply_deployment.rs).
