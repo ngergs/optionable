@@ -212,7 +212,6 @@ pub fn derive_optionable(
 ) -> syn::Result<TokenStream> {
     let attrs = TypeHelperAttributes::from_derive_input(&input)?;
     error_missing_features(&attrs)?;
-    let k8s_resource_type = k8s_resource_type(&attrs)?;
     let k8s_openapi_attrs = attrs.k8s_openapi.is_some().then(|| k8s_type_attr(&input));
     let attr_copy_identifier = field_attr_copy_hashmap(attrs.attr_copy, attrs.kube.as_ref());
 
@@ -232,6 +231,8 @@ pub fn derive_optionable(
             derive.insert(el);
         }
     }
+    let k8s_resource_type =
+        k8s_resource_type(attrs.k8s_openapi.as_ref(), attrs.kube.as_ref(), &derive)?;
     let settings = settings.map(Cow::Borrowed).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
     let ty_attr_forwarded = forwarded_attributes(&input.attrs, &attr_copy_identifier)?;
