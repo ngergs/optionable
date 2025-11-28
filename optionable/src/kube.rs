@@ -11,7 +11,7 @@ use std::marker::PhantomData;
 use std::mem::take;
 
 /// Serializes a `PhantomData` marker to add the API envelope fields `apiVersion` and `kind`.
-/// Intended use is together with `#[serde(flatten)]` for the marker field.
+/// Intended use is together with `#[serde(flatten,serialize_with="...")]` for the marker field.
 ///
 /// # Errors
 /// - Forwards any serialization errors.
@@ -26,7 +26,7 @@ pub fn serialize_api_envelope<S: Serializer, R: Resource<DynamicType = ()>>(
 }
 
 /// Deserializes a `PhantomData` marker to verify the API envelope fields `apiVersion` and `kind`.
-/// Intended use is together with `#[serde(flatten)]` for the marker field.
+/// Intended use is together with `#[serde(flatten,deserialize_with="...")]` for the marker field.
 ///
 /// # Errors
 /// - If the marker fields do not have the expected value specified in the `Resource` wrapped by the `PhantomData`.
@@ -172,8 +172,8 @@ mod test {
 
     #[derive(Serialize, Deserialize, Default, Debug)]
     struct ApiEnvelopeDeployment {
-        #[serde(flatten)]
         #[serde(
+            flatten,
             serialize_with = "crate::kube::serialize_api_envelope",
             deserialize_with = "crate::kube::deserialize_api_envelope"
         )]

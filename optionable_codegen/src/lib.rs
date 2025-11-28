@@ -11,12 +11,12 @@
 //! can't export its non-macro functions (even the `proc_macro2` ones) for the usage by the codegen part.
 
 mod helper;
-mod k8s_openapi;
+mod k8s;
 mod parsed_input;
 mod where_clause;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
-use crate::k8s_openapi::{
+use crate::k8s::{
     error_missing_features, k8s_adjust_fields, k8s_openapi_derives, k8s_openapi_impl_metadata,
     k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr,
 };
