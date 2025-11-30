@@ -1,6 +1,6 @@
 [package]
 name = "optionable_derive"
-version = "0.4.5"
+version = "0.5.0"
 edition = "2024"
 rust-version = "1.88.0"
 description = "Derive macro to derive nested structs/enums with all subfields being optional (e.g. for patches or Kubernetes server side apply)."
@@ -20,7 +20,7 @@ pedantic = "warn"
 proc-macro = true
 
 [dependencies]
-optionable_codegen = "0.7.0"
+optionable_codegen = "0.8.0"
 syn = { version = "2.0.109", default-features = false }
 kube-derive = { version = "2.0.1", default-features = false, optional = true }
 proc-macro2 = { version = "1.0.103", default-features = false, optional = true }
