@@ -1166,64 +1166,64 @@ mod tests {
                 input: quote! {
                     #[derive(Optionable)]
                     #[optionable(derive(Serialize, Deserialize))]
-                    struct DeriveExample<T, T2: Serialize, T3> {
+                    struct DeriveExample<'a, T, T2: Serialize, T3> {
                         output: T,
-                        input: T2,
+                        input: Cow<'a, T2>,
                         #[optionable(required)]
                         extra: T3,
                     }
                 },
                 output: quote! {
                     #[derive (Deserialize, Serialize)]
-                    struct DeriveExampleOpt<T, T2: Serialize, T3>
+                    struct DeriveExampleOpt<'a, T, T2: Serialize, T3>
                         where T: ::optionable::Optionable,
                               <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                              T2: ::optionable::Optionable,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                              Cow<'a ,T2>: ::optionable::Optionable,
+                              <Cow<'a,T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                     {
                         #[serde(skip_serializing_if="Option::is_none")]
                         output: Option< <T as ::optionable::Optionable>::Optioned>,
                         #[serde(skip_serializing_if="Option::is_none")]
-                        input: Option< <T2 as ::optionable::Optionable>::Optioned>,
+                        input: Option< <Cow<'a, T2> as ::optionable::Optionable>::Optioned>,
                         extra: T3
                     }
 
                     #[automatically_derived]
-                    impl<T, T2: Serialize, T3> ::optionable::Optionable for DeriveExample<T, T2, T3>
+                    impl<'a, T, T2: Serialize, T3> ::optionable::Optionable for DeriveExample<'a, T, T2, T3>
                         where T: ::optionable::Optionable,
                               <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                              T2: ::optionable::Optionable,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                              Cow<'a, T2>: ::optionable::Optionable,
+                              <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                     {
-                        type Optioned = DeriveExampleOpt<T,T2,T3>;
+                        type Optioned = DeriveExampleOpt<'a, T,T2,T3>;
                     }
 
                     #[automatically_derived]
-                    impl<T, T2: Serialize, T3> ::optionable::Optionable for DeriveExampleOpt<T, T2, T3>
+                    impl<'a, T, T2: Serialize, T3> ::optionable::Optionable for DeriveExampleOpt<'a ,T, T2, T3>
                         where T: ::optionable::Optionable,
                               <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                              T2: ::optionable::Optionable,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                              Cow<'a, T2>: ::optionable::Optionable,
+                              <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                     {
-                        type Optioned = DeriveExampleOpt<T, T2, T3>;
+                        type Optioned = DeriveExampleOpt<'a, T, T2, T3>;
                     }
 
                     #[automatically_derived]
-                    impl <T, T2:Serialize, T3> ::optionable::OptionableConvert for DeriveExample<T, T2, T3>
+                    impl <'a, T, T2:Serialize, T3> ::optionable::OptionableConvert for DeriveExample<'a, T, T2, T3>
                         where T: ::optionable::OptionableConvert,
                               <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                              T2: ::optionable::OptionableConvert,
-                              <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                              Cow<'a, T2>: ::optionable::OptionableConvert,
+                              <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                     {
-                        fn into_optioned (self) -> DeriveExampleOpt<T, T2, T3> {
-                            DeriveExampleOpt::<T, T2, T3> {
+                        fn into_optioned (self) -> DeriveExampleOpt<'a, T, T2, T3> {
+                            DeriveExampleOpt::<'a, T, T2, T3> {
                                 output: Some(::optionable::OptionableConvert::into_optioned(self.output)),
                                 input: Some(::optionable::OptionableConvert::into_optioned(self.input)),
                                 extra: self.extra
                             }
                         }
 
-                         fn try_from_optioned(value: DeriveExampleOpt<T, T2, T3> ) -> Result <Self, ::optionable::Error> {
+                         fn try_from_optioned(value: DeriveExampleOpt<'a, T, T2, T3> ) -> Result <Self, ::optionable::Error> {
                              Ok(Self{
                                 output: ::optionable::OptionableConvert::try_from_optioned(value.output.ok_or(::optionable::Error { missing_field: "output" })?)?,
                                 input: ::optionable::OptionableConvert::try_from_optioned(value.input.ok_or(::optionable::Error { missing_field: "input" })?)?,
@@ -1231,7 +1231,7 @@ mod tests {
                             })
                         }
 
-                        fn merge(&mut self, other: DeriveExampleOpt<T, T2, T3> ) -> Result<(), ::optionable::Error> {
+                        fn merge(&mut self, other: DeriveExampleOpt<'a, T, T2, T3> ) -> Result<(), ::optionable::Error> {
                             if let Some(other_value) = other.output {
                                 ::optionable::OptionableConvert::merge(&mut self.output, other_value)?;
                             }

@@ -59,7 +59,6 @@ pub(crate) fn where_clauses<'a>(
         &generic_field_ty,
         where_input.clone(),
         &quote!(#crate_name::Optionable),
-        // todo: excludes the usage of types that allow unsized types, like a generic parameter `T::Optioned=Cow<...>`
         predicate_struct_enum_optioned,
     );
     let where_clause_impl = where_clause_generalized(

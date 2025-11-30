@@ -237,3 +237,19 @@ fn derive_generic_advanced_types_no_convert() {
         slice: &'a [T],
     }
 }
+
+/// Check that the derive macro works for unsized generics as long as they are covered by something
+/// that makes the field where they are used sized
+#[test]
+fn derive_unsized_generic_convert() {
+    #[allow(dead_code)]
+    #[derive(Optionable)]
+    #[optionable(derive(Clone))]
+    struct DeriveExample<T: ?Sized + ToOwned> {
+        el: Box<T>,
+    }
+
+    let _ = DeriveExample::<&str> {
+        el: Box::new("hello"),
+    };
+}
