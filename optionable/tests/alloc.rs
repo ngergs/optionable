@@ -1,3 +1,5 @@
+#![cfg(any(feature = "alloc", feature = "std"))]
+
 use optionable_derive::Optionable;
 use serde::{Deserialize, Serialize};
 use std::fmt::Debug;

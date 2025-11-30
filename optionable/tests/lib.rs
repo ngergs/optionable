@@ -1,9 +1,6 @@
 use optionable::OptionedConvert;
 use optionable::{Optionable, OptionableConvert};
 
-#[cfg(any(feature = "alloc", feature = "std"))]
-mod alloc;
-
 #[test]
 /// Check that the derive macro works with visibility modifier.
 fn derive_named_struct() {
