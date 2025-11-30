@@ -37,6 +37,74 @@ pub(crate) fn where_clauses<'a>(
         where_clause_replace_input_crate_name(&mut where_input, input_crate_replacement);
     }
 
+    let predicate_struct_enum_optioned = if derive.is_empty() {
+        &quote!(Sized)
+    } else {
+        let derive: Vec<Path> = derive
+            .iter()
+            .map(|el| {
+                if el == "Deserialize" || el == "serde::Deserialize" {
+                    Cow::Owned("serde::de::DeserializeOwned".to_owned())
+                } else {
+                    Cow::Borrowed(el)
+                }
+            })
+            .map(|el| Path::from_string(&el))
+            .collect::<Result<Vec<_>, _>>()?;
+        &quote!(Sized + #(#derive)+*)
+    };
+    let where_clause_struct_enum_def = where_clause_generalized(
+        crate_name,
+        &generic_field_ty,
+        where_input.clone(),
+        &quote!(#crate_name::Optionable),
+        predicate_struct_enum_optioned,
+    );
+    let where_clause_impl = where_clause_generalized(
+        crate_name,
+        &generic_field_ty,
+        where_input.clone(),
+        &quote!(#crate_name::Optionable),
+        predicate_struct_enum_optioned,
+    );
+    let where_clause_impl_convert = (!no_convert).then(|| {
+        where_clause_generalized(
+            crate_name,
+            &generic_field_ty,
+            where_input,
+            &quote!(#crate_name::OptionableConvert),
+            predicate_struct_enum_optioned,
+        )
+    });
+    Ok(WhereClauses {
+        struct_enum_def: where_clause_struct_enum_def,
+        impl_optionable: where_clause_impl,
+        impl_optionable_convert: where_clause_impl_convert,
+    })
+}
+
+/// Internal generalized logic for the where clause
+fn where_clause_generalized(
+    crate_name: &Path,
+    generic_params: &Vec<&Type>,
+    mut where_clause: WhereClause,
+    predicate: &TokenStream,
+    predicate_optioned: &TokenStream,
+) -> WhereClause {
+    where_clause_add_params(
+        crate_name,
+        &mut where_clause,
+        generic_params,
+        predicate,
+        predicate_optioned,
+    );
+    where_clause
+}
+
+/// Returns the list of field types that contain any generic parameter.
+fn generic_field_types<'a>(
+    generic_params: impl IntoIterator<Item = &'a GenericParam>,
+    fields: impl IntoIterator<Item = &'a FieldParsed>,
     let bound_optioned = derive
         .iter()
         .map(|el| {
@@ -59,58 +127,16 @@ pub(crate) fn where_clauses<'a>(
         );
     let optionable_bound = vec![parse_quote!(#crate_name::Optionable)];
     let optionable_convert_bound = vec![parse_quote!(#crate_name::OptionableConvert)];
-    let where_clause_struct_enum_def = where_clause_generalized(
-        crate_name,
-        &generic_field_ty,
-        where_input.clone(),
         &optionable_bound,
         &bound_optioned,
-    );
-    let where_clause_impl = where_clause_generalized(
-        crate_name,
-        &generic_field_ty,
-        where_input.clone(),
         &optionable_bound,
         &bound_optioned,
-    );
-    let where_clause_impl_convert = (!no_convert).then(|| {
-        where_clause_generalized(
-            crate_name,
-            &generic_field_ty,
-            where_input,
             &optionable_convert_bound,
             &bound_optioned,
-        )
-    });
-    Ok(WhereClauses {
-        struct_enum_def: where_clause_struct_enum_def,
-        impl_optionable: where_clause_impl,
-        impl_optionable_convert: where_clause_impl_convert,
-    })
-}
-
-/// Internal generalized logic for the where clause
-fn where_clause_generalized(
-    crate_name: &Path,
-    generic_params: &Vec<&Type>,
-    mut where_clause: WhereClause,
     bound: &[TypeParamBound],
     bound_optioned: &[TypeParamBound],
-) -> WhereClause {
-    where_clause_add_params(
-        crate_name,
-        &mut where_clause,
-        generic_params,
         bound,
         bound_optioned,
-    );
-    where_clause
-}
-
-/// Returns the list of field types that contain any generic parameter.
-fn generic_field_types<'a>(
-    generic_params: impl IntoIterator<Item = &'a GenericParam>,
-    fields: impl IntoIterator<Item = &'a FieldParsed>,
 ) -> Vec<&'a Type> {
     struct TypeHasGenerics<'a> {
         generics: &'a BTreeMap<&'a Ident, bool>,
