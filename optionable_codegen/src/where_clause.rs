@@ -8,8 +8,8 @@ use syn::punctuated::Punctuated;
 use syn::token::Where;
 use syn::visit::Visit;
 use syn::{
-    parse_quote, visit, Error, GenericParam, Generics, Path, PathSegment, Type, TypeParamBound,
-    TypePath, WhereClause, WherePredicate,
+    parse_quote, visit, Error, GenericParam, Generics, Path, PathSegment, Type,
+    TypeParamBound, WhereClause, WherePredicate,
 };
 
 pub(crate) struct WhereClauses {
@@ -26,7 +26,7 @@ pub(crate) fn where_clauses<'a>(
     no_convert: bool,
     fields: impl IntoIterator<Item = &'a FieldParsed> + Clone,
 ) -> Result<WhereClauses, Error> {
-    let generic_params = generic_params_need_optionable(&generics.params, fields);
+    let generic_field_ty = generic_field_types(&generics.params, fields);
     let mut where_input = generics
         .where_clause
         .clone()
@@ -56,15 +56,14 @@ pub(crate) fn where_clauses<'a>(
     };
     let where_clause_struct_enum_def = where_clause_generalized(
         crate_name,
-        &generic_params,
+        &generic_field_ty,
         where_input.clone(),
         &quote!(#crate_name::Optionable),
-        // todo: excludes the usage of types that allow unsized types, like a generic parameter `T::Optioned=Cow<...>`
         predicate_struct_enum_optioned,
     );
     let where_clause_impl = where_clause_generalized(
         crate_name,
-        &generic_params,
+        &generic_field_ty,
         where_input.clone(),
         &quote!(#crate_name::Optionable),
         predicate_struct_enum_optioned,
@@ -72,7 +71,7 @@ pub(crate) fn where_clauses<'a>(
     let where_clause_impl_convert = (!no_convert).then(|| {
         where_clause_generalized(
             crate_name,
-            &generic_params,
+            &generic_field_ty,
             where_input,
             &quote!(#crate_name::OptionableConvert),
             predicate_struct_enum_optioned,
@@ -88,7 +87,7 @@ pub(crate) fn where_clauses<'a>(
 /// Internal generalized logic for the where clause
 fn where_clause_generalized(
     crate_name: &Path,
-    generic_params: &Vec<&Ident>,
+    generic_params: &Vec<&Type>,
     mut where_clause: WhereClause,
     predicate: &TokenStream,
     predicate_optioned: &TokenStream,
@@ -103,54 +102,54 @@ fn where_clause_generalized(
     where_clause
 }
 
-/// Gets the list of generic parameters `T` which needs to be restricted to implement `Optionable`.
-/// For this purpose the list of `fields` is gone through and all non-required fields are checked
-/// for using any generic parameters.
-fn generic_params_need_optionable<'a>(
+/// Returns the list of field types that contain any generic parameter.
+fn generic_field_types<'a>(
     generic_params: impl IntoIterator<Item = &'a GenericParam>,
     fields: impl IntoIterator<Item = &'a FieldParsed>,
-) -> Vec<&'a Ident> {
-    struct TypeNeedsOptionableVisitor<'a>(BTreeMap<&'a Ident, bool>);
-    impl<'ast> Visit<'ast> for TypeNeedsOptionableVisitor<'ast> {
+) -> Vec<&'a Type> {
+    struct TypeHasGenerics<'a> {
+        generics: &'a BTreeMap<&'a Ident, bool>,
+        value: bool,
+    }
+    impl<'ast> Visit<'ast> for TypeHasGenerics<'ast> {
         fn visit_path_segment(&mut self, segment: &'ast PathSegment) {
-            if segment.arguments.is_none()
-                && self.0.contains_key(&segment.ident)
-                && !(*self
-                    .0
-                    .get(&segment.ident)
-                    .map(Cow::Borrowed)
-                    .unwrap_or_default())
-            {
-                self.0.insert(&segment.ident, true);
+            if self.generics.contains_key(&segment.ident) {
+                self.value = true;
+            } else {
+                // Call the default impl to recurse nested segments.
+                visit::visit_path_segment(self, segment);
             }
-            // Call the default impl to recurse nested segments.
-            visit::visit_path_segment(self, segment);
         }
     }
 
-    let mut type_needs_optionable = TypeNeedsOptionableVisitor(
-        generic_params
-            .into_iter()
-            .filter_map(|param| {
-                if let GenericParam::Type(ty_param) = param {
-                    Some((&ty_param.ident, false))
-                } else {
-                    None
-                }
-            })
-            .collect::<BTreeMap<_, _>>(),
-    );
-    if type_needs_optionable.0.is_empty() {
+    let generics = generic_params
+        .into_iter()
+        .filter_map(|param| {
+            if let GenericParam::Type(ty_param) = param {
+                Some((&ty_param.ident, false))
+            } else {
+                None
+            }
+        })
+        .collect::<BTreeMap<_, _>>();
+    let mut type_has_generics = {
+        TypeHasGenerics {
+            generics: &generics,
+            value: false,
+        }
+    };
+    if type_has_generics.generics.is_empty() {
         vec![]
     } else {
         fields
             .into_iter()
             .filter(|f| !matches!(f.handling, FieldHandling::Required))
-            .for_each(|f| type_needs_optionable.visit_type(&f.field.ty));
-        type_needs_optionable
-            .0
-            .into_iter()
-            .filter_map(|(k, v)| if v { Some(k) } else { None })
+            .filter(|f| {
+                type_has_generics.value = false;
+                type_has_generics.visit_type(&f.field.ty);
+                type_has_generics.value
+            })
+            .map(|f| &f.field.ty)
             .collect()
     }
 }
@@ -161,19 +160,15 @@ fn generic_params_need_optionable<'a>(
 fn where_clause_add_params(
     crate_name: &Path,
     where_clause: &mut WhereClause,
-    params: &Vec<&Ident>,
+    params: &Vec<&Type>,
     predicate: &TokenStream,
     predicate_optioned: &TokenStream,
 ) {
-    for ty_ident in params {
-        let ty_path = Type::Path(TypePath {
-            qself: None,
-            path: (*ty_ident).clone().into(),
-        });
-        where_clause_add_predicate(where_clause, &ty_path, predicate);
+    for ty in params {
+        where_clause_add_predicate(where_clause, ty, predicate);
         where_clause_add_predicate(
             where_clause,
-            &Type::Path(parse_quote!(<#ty_ident as #crate_name::Optionable>::Optioned)),
+            &Type::Path(parse_quote!(<#ty as #crate_name::Optionable>::Optioned)),
             predicate_optioned,
         );
     }
