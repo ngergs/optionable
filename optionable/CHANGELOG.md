@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/ngergs/optionable/compare/optionable-v0.5.8...optionable-v0.6.0) - 2025-11-30
+
+### Added
+
+- [**breaking**] derived optionable implementation for plain enums to itself
+
+### Fixed
+
+- document (and verify in release gha) minimal rust version
+
 ## [0.5.8](https://github.com/ngergs/optionable/compare/optionable-v0.5.7...optionable-v0.5.8) - 2025-11-30
 
 ### Fixed
