@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.5](https://github.com/ngergs/optionable/compare/optionable_derive-v0.4.4...optionable_derive-v0.4.5) - 2025-11-30
+
+### Fixed
+
+- document (and verify in release gha) minimal rust version
+
 ## [0.4.4](https://github.com/ngergs/optionable/compare/optionable_derive-v0.4.3...optionable_derive-v0.4.4) - 2025-11-12
 
 ### Other
