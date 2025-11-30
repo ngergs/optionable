@@ -1,7 +1,6 @@
 use crate::parsed_input::{FieldHandling, FieldParsed};
 use darling::FromMeta;
-use proc_macro2::{Ident, TokenStream};
-use quote::quote;
+use proc_macro2::Ident;
 use std::borrow::Cow;
 use std::collections::{BTreeMap, BTreeSet};
 use syn::punctuated::Punctuated;
@@ -38,43 +37,49 @@ pub(crate) fn where_clauses<'a>(
         where_clause_replace_input_crate_name(&mut where_input, input_crate_replacement);
     }
 
-    let predicate_struct_enum_optioned = if derive.is_empty() {
-        &quote!(Sized)
-    } else {
-        let derive: Vec<Path> = derive
-            .iter()
-            .map(|el| {
-                if el == "Deserialize" || el == "serde::Deserialize" {
-                    Cow::Owned("serde::de::DeserializeOwned".to_owned())
-                } else {
-                    Cow::Borrowed(el)
-                }
-            })
-            .map(|el| Path::from_string(&el))
-            .collect::<Result<Vec<_>, _>>()?;
-        &quote!(Sized + #(#derive)+*)
-    };
+    let bound_optioned = derive
+        .iter()
+        .map(|el| {
+            if el == "Deserialize" || el == "serde::Deserialize" {
+                Cow::Owned("serde::de::DeserializeOwned".to_owned())
+            } else {
+                Cow::Borrowed(el)
+            }
+        })
+        .map(|el| Path::from_string(&el))
+        .collect::<Result<Vec<_>, _>>()?
+        .into_iter()
+        .map(|el| parse_quote!(#el))
+        .fold(
+            vec![parse_quote!(Sized)],
+            |mut acc: Vec<TypeParamBound>, el| {
+                acc.push(el);
+                acc
+            },
+        );
+    let optionable_bound = vec![parse_quote!(#crate_name::Optionable)];
+    let optionable_convert_bound = vec![parse_quote!(#crate_name::OptionableConvert)];
     let where_clause_struct_enum_def = where_clause_generalized(
         crate_name,
         &generic_field_ty,
         where_input.clone(),
-        &quote!(#crate_name::Optionable),
-        predicate_struct_enum_optioned,
+        &optionable_bound,
+        &bound_optioned,
     );
     let where_clause_impl = where_clause_generalized(
         crate_name,
         &generic_field_ty,
         where_input.clone(),
-        &quote!(#crate_name::Optionable),
-        predicate_struct_enum_optioned,
+        &optionable_bound,
+        &bound_optioned,
     );
     let where_clause_impl_convert = (!no_convert).then(|| {
         where_clause_generalized(
             crate_name,
             &generic_field_ty,
             where_input,
-            &quote!(#crate_name::OptionableConvert),
-            predicate_struct_enum_optioned,
+            &optionable_convert_bound,
+            &bound_optioned,
         )
     });
     Ok(WhereClauses {
@@ -89,15 +94,15 @@ fn where_clause_generalized(
     crate_name: &Path,
     generic_params: &Vec<&Type>,
     mut where_clause: WhereClause,
-    predicate: &TokenStream,
-    predicate_optioned: &TokenStream,
+    bound: &[TypeParamBound],
+    bound_optioned: &[TypeParamBound],
 ) -> WhereClause {
     where_clause_add_params(
         crate_name,
         &mut where_clause,
         generic_params,
-        predicate,
-        predicate_optioned,
+        bound,
+        bound_optioned,
     );
     where_clause
 }
@@ -161,23 +166,27 @@ fn where_clause_add_params(
     crate_name: &Path,
     where_clause: &mut WhereClause,
     params: &Vec<&Type>,
-    predicate: &TokenStream,
-    predicate_optioned: &TokenStream,
+    bounds: &[TypeParamBound],
+    bounds_optioned: &[TypeParamBound],
 ) {
     for ty in params {
-        where_clause_add_predicate(where_clause, ty, predicate);
+        where_clause_add_predicate(where_clause, ty, bounds);
         where_clause_add_predicate(
             where_clause,
             &Type::Path(parse_quote!(<#ty as #crate_name::Optionable>::Optioned)),
-            predicate_optioned,
+            bounds_optioned,
         );
     }
 }
 
 /// Goes through the list of predicates and appends the new restriction to an already existing
 /// entry if found or creates a new one
-fn where_clause_add_predicate(where_clause: &mut WhereClause, ty: &Type, entry: &TokenStream) {
-    let bounds = where_clause.predicates.iter_mut().find_map(|pred| {
+fn where_clause_add_predicate(
+    where_clause: &mut WhereClause,
+    ty: &Type,
+    bounds: &[TypeParamBound],
+) {
+    let existing_bounds = where_clause.predicates.iter_mut().find_map(|pred| {
         if let WherePredicate::Type(pred_ty) = pred
             && *ty == pred_ty.bounded_ty
         {
@@ -186,10 +195,17 @@ fn where_clause_add_predicate(where_clause: &mut WhereClause, ty: &Type, entry: 
             None
         }
     });
-    if let Some(bounds) = bounds {
-        bounds.push(parse_quote!(#entry));
+
+    if let Some(existing_bounds) = existing_bounds {
+        for bound in bounds {
+            if !existing_bounds.iter().any(|el| el == bound) {
+                existing_bounds.push(bound.clone());
+            }
+        }
     } else {
-        where_clause.predicates.push(parse_quote!(#ty: #entry));
+        where_clause
+            .predicates
+            .push(parse_quote!(#ty: #(#bounds)+*));
     }
 }
 
