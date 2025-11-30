@@ -3,7 +3,7 @@
 use k8s_openapi::apimachinery::pkg::apis::meta::v1::{FieldsV1, ManagedFieldsEntry, ObjectMeta};
 use kube::CustomResource;
 use optionable::kube::ExtractManagedFields;
-use optionable::{Optionable, OptionableConvert};
+use optionable::{Optionable, OptionableConvert, OptionedConvert};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
@@ -92,7 +92,8 @@ fn kube_crd() {
         },
     };
 
-    let _: CustomCrdAc = my_cr.clone().into_optioned();
+    let my_cr_optioned: CustomCrdAc = my_cr.clone().into_optioned();
+    assert_eq!(my_cr, my_cr_optioned.try_into_optionable().unwrap());
     let my_cr_managed = my_cr.clone().extract(&field_manager).unwrap();
     let my_cr_managed_expected = Some(CustomCrdAc {
         metadata: ObjectMeta {
