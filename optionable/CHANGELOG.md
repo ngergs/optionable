@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.7](https://github.com/ngergs/optionable/compare/optionable-v0.5.6...optionable-v0.5.7) - 2025-11-30
+
+### Added
+
+- full support unsized generic types for convert
+
+### Fixed
+
+- nightly docgen config
+
+### Other
+
+- conditional integration tests adjustment
+- restructure integration tests
+
 ## [0.5.6](https://github.com/ngergs/optionable/compare/optionable-v0.5.5...optionable-v0.5.6) - 2025-11-22
 
 ### Fixed
