@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.8](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.7.7...optionable_codegen-v0.7.8) - 2025-11-30
+
+### Fixed
+
+- document (and verify in release gha) minimal rust version
+
 ## [0.7.7](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.7.6...optionable_codegen-v0.7.7) - 2025-11-30
 
 ### Fixed
