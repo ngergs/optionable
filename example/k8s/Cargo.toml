@@ -1,13 +1,13 @@
 [package]
 name = "optionable_k8s_openapi_example"
 version = "0.1.0"
-edition = "2024"
-rust-version = "1.88.0"
 description = "Example for how to use the optioned types for k8s-openapi"
-repository = "https://github.com/ngergs/optionable"
-license = "MIT OR Apache-2.0"
 readme = "README.md"
 publish = false
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
 
 [lints.clippy]
 pedantic = "warn"

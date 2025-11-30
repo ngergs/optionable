@@ -2,6 +2,12 @@
 resolver = "3"
 members = ["optionable", "optionable_codegen", "optionable_derive", "optionable_codegen/bin", "example/k8s"]
 
+[workspace.package]
+edition = "2024"
+rust-version = "1.88.0"
+repository = "https://github.com/ngergs/optionable"
+license = "MIT OR Apache-2.0"
+
 [patch.crates-io]
 optionable = { path = "optionable" }
 optionable_derive = { path = "optionable_derive" }

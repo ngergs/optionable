@@ -1,12 +1,12 @@
 [package]
 name = "optionable_derive"
 version = "0.5.0"
-edition = "2024"
-rust-version = "1.88.0"
 description = "Derive macro to derive nested structs/enums with all subfields being optional (e.g. for patches or Kubernetes server side apply)."
-repository = "https://github.com/ngergs/optionable"
-license = "MIT OR Apache-2.0"
 readme = "README.md"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
 
 [features]
 default = []
