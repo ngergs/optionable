@@ -224,6 +224,21 @@ fn derive_enum() {
     }
 }
 
+#[test]
+/// Check that the derive macro works for plain enums without inner structure and that they resolve to themselves
+fn derive_enum_plain() {
+    #[allow(dead_code)]
+    #[derive(Optionable)]
+    enum DeriveExample {
+        Unit,
+        Unit2,
+        Unit3,
+    }
+
+    // unit does not get optioned as it has no inner structure
+    let _: DeriveExample = <DeriveExample as Optionable>::Optioned::Unit;
+}
+
 /// Check that the derive macro works for not plain types that are not expected to support convert.
 #[test]
 fn derive_generic_advanced_types_no_convert() {

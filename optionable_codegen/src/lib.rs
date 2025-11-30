@@ -36,7 +36,7 @@ use syn::parse::Parser;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::{
-    parse_quote, Attribute, Data, DeriveInput, Error, Field, LitStr, Meta, MetaList, Path, Token,
+    parse_quote, Attribute, Data, DeriveInput, Error, Field, Fields, LitStr, Meta, MetaList, Path, Token,
     Type, TypePath, WhereClause,
 };
 
@@ -255,6 +255,19 @@ pub fn derive_optionable(
     } else {
         input.ident.into()
     };
+    if let Data::Enum(e) = &input.data
+        && e.variants
+            .iter()
+            .all(|el| matches!(el.fields, Fields::Unit))
+    {
+        // plain enum without nested structs/tuples
+        return Ok(impl_optionable_self(
+            crate_name,
+            &ty_ident,
+            attrs.no_convert.is_some(),
+        ));
+    }
+
     let (impl_generics, ty_generics, _) = input.generics.split_for_impl();
     let generics_colon = (!input.generics.params.is_empty()).then(|| quote! {::});
 
@@ -441,7 +454,7 @@ pub fn derive_optionable(
                     .into_iter().multiunzip();
                 Ok::<_, Error>(quote! {
                     #[automatically_derived]
-                    impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics # where_clause_impl_optionable_convert {
+                    impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_impl_optionable_convert {
                         fn into_optioned(self) -> #ty_ident_opt #ty_generics {
                             match self {
                                 #(#into_variants),*
@@ -537,6 +550,37 @@ pub fn derive_optionable(
                 #k8s_openapi_impl_resource
                 #impl_k8s_metadata
     })
+}
+
+/// Returns the `Optionable` and `OptionableConvert` implementation for self-resolving types
+fn impl_optionable_self(crate_name: &Path, ty_ident: &Path, no_convert: bool) -> TokenStream {
+    let convert_impl = (!no_convert).then(|| {
+        quote! {
+            #[automatically_derived]
+            impl #crate_name::OptionableConvert for #ty_ident{
+                fn into_optioned(self) -> #ty_ident {
+                    self
+                }
+
+                fn try_from_optioned(value: Self::Optioned) -> Result<Self, #crate_name::Error> {
+                    Ok(value)
+                }
+
+                fn merge(&mut self, other: Self::Optioned) -> Result<(), #crate_name::Error> {
+                    *self = other;
+                    Ok(())
+                }
+            }
+        }
+    });
+    quote! {
+        #[automatically_derived]
+        impl #crate_name::Optionable for #ty_ident{
+            type Optioned = Self;
+        }
+
+        #convert_impl
+    }
 }
 
 /// Returns a tokenstream for the optioned fields and potential convert implementation of the optioned object (struct/enum variants).
@@ -1348,6 +1392,38 @@ mod tests {
                                     }
                                 }
                             }
+                            Ok(())
+                        }
+                    }
+                },
+            },
+            TestCase {
+                input: quote! {
+                    #[derive(Optionable)]
+                    enum DeriveExample {
+                        Unit,
+                        Unit2,
+                        Unit3
+                    }
+                },
+                output: quote! {
+                    #[automatically_derived]
+                    impl ::optionable::Optionable for DeriveExample {
+                        type Optioned = Self;
+                    }
+
+                    #[automatically_derived]
+                    impl ::optionable::OptionableConvert for DeriveExample {
+                        fn into_optioned(self) -> DeriveExample{
+                            self
+                        }
+
+                        fn try_from_optioned(value: Self::Optioned) -> Result <Self , ::optionable::Error> {
+                            Ok (value)
+                        }
+
+                        fn merge (&mut self , other: Self::Optioned) -> Result <() , ::optionable::Error> {
+                            *self = other;
                             Ok(())
                         }
                     }

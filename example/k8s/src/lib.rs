@@ -37,7 +37,7 @@ pub struct CustomCrdSpecTemplate {
 }
 
 #[optionable_kube]
-#[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
+#[derive(Clone, Debug, Deserialize, Serialize, JsonSchema, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub enum CustomCrdSpecTemplateType {
     V1alpha1,
