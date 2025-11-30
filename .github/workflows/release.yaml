@@ -45,6 +45,10 @@ jobs:
           cargo +nightly test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_33,kube
           cargo +nightly test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_34,kube
           cargo clippy --features std,derive,chrono,serde_json,k8s_openapi_v1_34,kube
+          cargo install cargo-msrv --locked
+          cargo msrv verify --path optionable_codegen
+          cargo msrv verify --path optionable_derive
+          cargo msrv verify --path optionable
           cargo install --locked cargo-deny
           cargo deny check license
       - name: Setup kind for integration test of k8s types

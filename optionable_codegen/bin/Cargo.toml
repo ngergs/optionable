@@ -2,6 +2,7 @@
 name = "optionable_codegen_cli"
 version = "0.1.0"
 edition = "2024"
+rust-version = "1.88.0"
 description = "Implementation of the codegen cli"
 repository = "https://github.com/ngergs/optionable"
 license = "MIT OR Apache-2.0"
