@@ -1,4 +1,4 @@
-//! Tooling to derive optioned types for `kube::CustomResource`.
+//! Tooling to derive optioned types for [`kube::CustomResource`](https://docs.rs/kube/latest/kube/derive.CustomResource.html).
 //!
 //! The standard usage would be to add the `#[optionable_kube_cr]` to the spec type
 //! used to define the `kube::CustomResource` and the `#[optionable_kube]` attribute macro
@@ -23,6 +23,15 @@
 //!     pub replicas: u32,
 //! }
 //! ```
+//!
+//! ## API limitations
+//!
+//! The available API to derive optioned types for Custom Resource Definitions is not ideal and does not allow to configure what
+//! types to derive for the optioned root type of the custom resource.
+//!
+//! With kube v3 the originating design limitations (not being able to set attributes for the derives CRD root type) are resolved,
+//! you can take a look at the [kube branch](https://github.com/ngergs/optionable/tree/kube/example/k8s) for a first impression
+//! of the reworked API from `optionable` utilizing this.
 
 use crate::Optionable;
 use kube::Resource;

@@ -13,25 +13,21 @@ While trivial to write for plain structures this quickly becomes tedious for nes
 - [docs.rs documentation](https://docs.rs/optionable/)
 
 ## Kubernetes server-side-apply
-Examples for the usage of this library for type-safe Kubernetes server-side-apply in Rust can be found [here](https://github.com/ngergs/optionable/tree/main/example/k8s).
 
 The library allows to use server-side-apply with built-in Kubernetes types by providing optioned variants for all types
-from [k8s-openapi](https://crates.io/crates/k8s-openapi). It also provides tooling to derive optioned variants for
-`kube::CustomResource` implementations via an attribute macro. Furthermore, it also provides [`extract`](http://docs.rs/optionable/latest/optionable/kube/trait.ExtractManagedFields.html)- functionality
-to get from a Kubernetes resource a partial representation with only the owned fields remaining.
+from [k8s-openapi](https://crates.io/crates/k8s-openapi). It also provides tooling to derive optioned variants for `kube::CustomResource` implementations.
 
-For detailed documentation, see the documentation in [kube module](https://docs.rs/optionable/latest/optionable/kube/index.html) for the CRD use case and the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
+For detailed documentation, see the documentation in [kube module](https://docs.rs/optionable/latest/optionable/kube/index.html) 
+for the CRD use case and the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
 
 ## Deriving optional structs/enums
 
-The core utility of this library is to provide an `Optionable`-derive macro that derives such an optioned type
-and implements the corresponding `Optionable`-trait (see below for details).
+The core utility of this library is to provide an [`Optionable`](https://docs.rs/optionable/latest/optionable/derive.Optionable.html) derive macro that derives such an optioned type
+and implements the corresponding [`Optionable`](https://docs.rs/optionable/latest/optionable/trait.Optionable.html) trait (see below for details).
 It supports nested structures, enums as well as various container types.
 
-For detailed configuration options via helper attributes, see the [`Optionable`-derive macro docs](https://docs.rs/optionable/latest/optionable/derive.Optionable.html).
-
-The general logic is the same as for other rust derives. If you want to use the derive `Optionable` for a struct/enum
-every type used for a field needs to also have implemented the corresponding `Optionable` trait:
+The general logic is the same as for other rust derives. If you want to use the [`Optionable`](https://docs.rs/optionable/latest/optionable/derive.Optionable.html) derive macro for a struct/enum
+every type used for a field needs to also have implemented the corresponding [`Optionable`](https://docs.rs/optionable/latest/optionable/trait.Optionable.html) trait:
 
 ```rust
 #[derive(Optionable)]
@@ -82,7 +78,7 @@ fn example() {
 
 ## Core concept
 
-The main `Optionable` trait is quite simple:
+The main [`Optionable`](https://docs.rs/optionable/latest/optionable/trait.Optionable.html) trait is quite simple:
 
 ```rust
 pub trait Optionable {
@@ -100,7 +96,7 @@ impl Optionable for String {
 }
 ```
 
-For many primitive types as well as common wrapper or collection types the `Optionable`-trait is already implemented.
+For many primitive types as well as common wrapper or collection types the [`Optionable`](https://docs.rs/optionable/latest/optionable/trait.Optionable.html) trait is already implemented.
 
 ### Conversion
 
@@ -150,7 +146,7 @@ Due to the use of associated types some IDE-hints do not fully resolve the assoc
 when using wrong types the associated types are resolved.
 
 For the derived `Optioned`-structs/enums a related issue is that other derive macros for those derived types won't see the resolved
-associated types. Therefore, corresponding type bounds have to be added (done by the `Optionable`-derive) to the `Optioned`-structs/enums:
+associated types. Therefore, corresponding type bounds have to be added(done by the [`Optionable`](https://docs.rs/optionable/latest/optionable/derive.Optionable.html) derive macro) to the `Optioned`-structs/enums:
 ```rust
 #[derive(Optionable)]
 #[optionable(derive(Serialize))]
