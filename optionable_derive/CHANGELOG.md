@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1](https://github.com/ngergs/optionable/compare/optionable_derive-v0.5.0...optionable_derive-v0.5.1) - 2025-12-01
+
+### Other
+
+- set Cargo edition, rust version, license and repo in workspace settings
+
 ## [0.4.5](https://github.com/ngergs/optionable/compare/optionable_derive-v0.4.4...optionable_derive-v0.4.5) - 2025-11-30
 
 ### Fixed

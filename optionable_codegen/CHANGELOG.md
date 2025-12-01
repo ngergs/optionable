@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.8.0...optionable_codegen-v0.8.1) - 2025-12-01
+
+### Other
+
+- set Cargo edition, rust version, license and repo in workspace settings
+
 ## [0.8.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.7.7...optionable_codegen-v0.8.0) - 2025-11-30
 
 ### Added
