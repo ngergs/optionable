@@ -6,12 +6,10 @@
 //! While trivial to write for plain structures this quickly becomes tedious for nested structs/enums.
 //!
 //! ## Kubernetes server-side-apply
-//! Examples for the usage of this library for type-safe Kubernetes server-side-apply in Rust can be found [here](https://github.com/ngergs/optionable/tree/main/example/k8s).
 //!
 //! The library allows to use server-side-apply with built-in Kubernetes types by providing optioned variants for all types
 //! from [k8s-openapi](https://crates.io/crates/k8s-openapi). It also provides tooling to derive optioned variants for
-//! `kube::CustomResource` implementations via an attribute macro. Furthermore, it also provides [`extract`](kube::ExtractManagedFields)-functionality
-//! to get from a Kubernetes resource a partial representation with only the owned fields remaining.
+//! `kube::CustomResource` implementations.
 //!
 //! For detailed documentation, see the documentation in [`kube`] for the CRD use case and the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
 //!

@@ -1,4 +1,4 @@
-//! Tooling to derive optioned types for `kube::CustomResource`.
+//! Tooling to derive optioned types for [`kube::CustomResource`](https://docs.rs/kube/latest/kube/derive.CustomResource.html).
 //!
 //! The standard usage would be to add the `#[optionable_kube_cr]` to the spec type
 //! used to define the `kube::CustomResource` and the `#[optionable_kube]` attribute macro
