@@ -17,6 +17,7 @@ struct Example {
 #[derive(PartialEq, Debug, Clone)]
 struct JsonValue(Value);
 
+// Not needed if `#[optionable(no_convert)]` is used for `Example`.
 impl OptionedConvert<Value> for JsonValue {
     fn from_optionable(value: Value) -> Self {
         Self(value)
