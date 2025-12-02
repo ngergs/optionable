@@ -18,7 +18,7 @@ kube = ["optionable_codegen/kube"]
 pedantic = "warn"
 
 [dependencies]
-optionable_codegen = "0.8.0"
+optionable_codegen = "0.9.0"
 quote = "1.0.42"
 syn = { version = "2.0.109", default-features = false, features = ["proc-macro", "derive", "visit"] }
 proc-macro2 = "1.0.103"
