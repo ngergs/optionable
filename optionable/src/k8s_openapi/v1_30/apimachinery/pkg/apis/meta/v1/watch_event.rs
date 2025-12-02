@@ -34,6 +34,13 @@ where
         #[serde(skip_serializing_if = "Option::is_none")]
         resource_version: Option<<std::string::String as crate::Optionable>::Optioned>,
     },
+    #[serde(skip)]
+    ErrorStatus(
+        #[serde(skip_serializing_if = "Option::is_none")]
+        Option<
+            <::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status as crate::Optionable>::Optioned,
+        >,
+    ),
     #[serde(rename = "ERROR")]
     ErrorOther(
         #[serde(skip_serializing_if = "Option::is_none")]
@@ -100,6 +107,11 @@ where
                     ),
                 }
             }
+            Self::ErrorStatus(self_0) => {
+                WatchEventAc::ErrorStatus(
+                    Some(crate::OptionableConvert::into_optioned(self_0)),
+                )
+            }
             Self::ErrorOther(self_0) => {
                 WatchEventAc::ErrorOther(
                     Some(crate::OptionableConvert::into_optioned(self_0)),
@@ -149,6 +161,13 @@ where
                                 })?,
                         )?,
                     }
+                }
+                WatchEventAc::ErrorStatus(other_0) => {
+                    Self::ErrorStatus(
+                        crate::OptionableConvert::try_from_optioned(
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
+                        )?,
+                    )
                 }
                 WatchEventAc::ErrorOther(other_0) => {
                     Self::ErrorOther(
@@ -211,6 +230,15 @@ where
                         annotations: other_annotations,
                         resource_version: other_resource_version,
                     })?;
+                }
+            }
+            WatchEventAc::ErrorStatus(other_0) => {
+                if let Self::ErrorStatus(self_0) = self {
+                    if let Some(other_value) = other_0 {
+                        crate::OptionableConvert::merge(self_0, other_value)?;
+                    }
+                } else {
+                    *self = Self::try_from_optioned(WatchEventAc::ErrorStatus(other_0))?;
                 }
             }
             WatchEventAc::ErrorOther(other_0) => {
