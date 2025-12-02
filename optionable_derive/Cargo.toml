@@ -1,6 +1,6 @@
 [package]
 name = "optionable_derive"
-version = "0.5.1"
+version = "0.6.0"
 description = "Derive macro to derive nested structs/enums with all subfields being optional (e.g. for patches or Kubernetes server side apply)."
 readme = "README.md"
 edition.workspace = true

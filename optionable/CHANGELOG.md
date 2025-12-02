@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0](https://github.com/ngergs/optionable/compare/optionable-v0.6.1...optionable-v0.7.0) - 2025-12-02
+
+### Added
+
+- [**breaking**] unseal `OptionedConvert`, drop blanket implementation, add `optioned_type` derive field attribute
+
+### Fixed
+
+- OptionableConvert for k8s-openapi watch event broke compilation
+- regenerate k8s-openapi generated code
+
+### Other
+
+- docs
+
 ## [0.6.1](https://github.com/ngergs/optionable/compare/optionable-v0.6.0...optionable-v0.6.1) - 2025-12-01
 
 ### Other

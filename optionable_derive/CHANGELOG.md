@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/ngergs/optionable/compare/optionable_derive-v0.5.1...optionable_derive-v0.6.0) - 2025-12-02
+
+### Added
+
+- [**breaking**] unseal `OptionedConvert`, drop blanket implementation, add `optioned_type` derive field attribute
+
 ## [0.5.1](https://github.com/ngergs/optionable/compare/optionable_derive-v0.5.0...optionable_derive-v0.5.1) - 2025-12-01
 
 ### Other
