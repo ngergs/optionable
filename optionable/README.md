@@ -137,6 +137,10 @@ where
 
 Due to the orphan rule the usage of the library becomes cumbersome if one has a use case which heavily relies on
 crate-external types.
+
+If just have a few types from external crates don't have an `Optionable` impl the [example/orphanrule](example/orphanrule)
+illustrates how to circumvent this limitation.
+
 For well-established libraries adding corresponding `impl` to this crate (feature-gated) would be a worthwhile approach.
 
 ### Resolving associated types
