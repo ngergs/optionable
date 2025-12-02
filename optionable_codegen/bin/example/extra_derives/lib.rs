@@ -50,6 +50,18 @@ impl ::optionable::OptionableConvert for Member {
         Ok(())
     }
 }
+#[automatically_derived]
+impl ::optionable::OptionedConvert<Member> for MemberOpt {
+    fn from_optionable(value: Member) -> Self {
+        ::optionable::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(self) -> Result<Member, ::optionable::Error> {
+        ::optionable::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(self, other: &mut Member) -> Result<(), ::optionable::Error> {
+        ::optionable::OptionableConvert::merge(other, self)
+    }
+}
 #[cfg(test)]
 mod test {
     #[derive(serde::Deserialize, serde::Serialize)]
@@ -104,6 +116,18 @@ mod test {
                 )?;
             }
             Ok(())
+        }
+    }
+    #[automatically_derived]
+    impl ::optionable::OptionedConvert<MemberTest> for MemberTestOpt {
+        fn from_optionable(value: MemberTest) -> Self {
+            ::optionable::OptionableConvert::into_optioned(value)
+        }
+        fn try_into_optionable(self) -> Result<MemberTest, ::optionable::Error> {
+            ::optionable::OptionableConvert::try_from_optioned(self)
+        }
+        fn merge_into(self, other: &mut MemberTest) -> Result<(), ::optionable::Error> {
+            ::optionable::OptionableConvert::merge(other, self)
         }
     }
 }

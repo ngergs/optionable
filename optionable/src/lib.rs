@@ -241,37 +241,31 @@ pub trait OptionableConvert: Sized + Optionable {
     fn merge(&mut self, other: Self::Optioned) -> Result<(), Error>;
 }
 
-/// Prevent implementation outside of this crate.
-trait OptionedConvertSealed<T> {}
-
-/// Sealed helper trait to transform from the perspective of the optioned type.
-/// Will be automatically implemented for every target `<T as Optionable>:Optioned`.
-#[allow(private_bounds)]
-pub trait OptionedConvert<T>: Sized + OptionedConvertSealed<T>
-where
-    T: Optionable<Optioned = Self> + OptionableConvert,
-{
+/// Trait to transform from the perspective of the optioned type back to an origin `optionable` type.
+/// `OptionedConvert` is more general than `OptionableConvert` as it allows targeting a `T` which itself
+/// does not implement `Optionable`. This allows to circumvent to some degree orphan rule restrictions
+/// when deriving `Optionable` (see todo attribute in todo)
+pub trait OptionedConvert<T>: Sized {
     /// Gets an optioned variant with all fields set.
     ///
     /// We cannot implement `From` from the stdlib as we need to implement this
     /// for various stdlib primitives and containers.
-    fn from_optionable(value: T) -> Self {
-        value.into_optioned()
-    }
+    fn from_optionable(value: T) -> Self;
 
     /// Try to build a full type from this optioned variant.
     /// # Errors
     /// - If fields required by the full type are not set.
-    fn try_into_optionable(self) -> Result<T, Error> {
-        T::try_from_optioned(self)
-    }
+    fn try_into_optionable(self) -> Result<T, Error>;
+    /// Merge this optioned values into the provided full type. List-like types are overwritten if set in `other`.
+    /// Maps are merged per key.
+    ///
+    /// # Errors
+    /// - There are scenarios where the full type allows some missing fields but the optioned type
+    ///   also does not hold enough subfields to constructs a full entry with the respective `try_from`.
+    ///   An example would be a field with type `Option<T>` and value `None` for `self` and type `Option<T::Optioned>`
+    ///   and `Some` value for `other`. The `T::try_from(T::Optioned)` can fail is fields are missing for this subfield.
+    fn merge_into(self, other: &mut T) -> Result<(), Error>;
 }
-
-impl<T, TOpt> OptionedConvertSealed<T> for TOpt where
-    T: Optionable<Optioned = TOpt> + OptionableConvert
-{
-}
-impl<T, TOpt> OptionedConvert<T> for TOpt where T: Optionable<Optioned = TOpt> + OptionableConvert {}
 
 /// Represents errors that occur when trying to build a full type from its optioned variant.
 #[derive(Debug)]

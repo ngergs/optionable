@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["optionable", "optionable_codegen", "optionable_derive", "optionable_codegen/bin", "example/k8s"]
+members = ["optionable", "optionable_codegen", "optionable_derive", "optionable_codegen/bin", "example/k8s", "example/orphanrule"]
 
 [workspace.package]
 edition = "2024"

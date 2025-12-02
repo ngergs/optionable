@@ -178,6 +178,10 @@ impl Default for CodegenSettings {
 struct FieldHelperAttributes {
     /// Given field won't be optioned, it will also be required for the derived optioned type.
     required: Option<()>,
+    /// For circumvention of the orphan rule. Uses the provided type for the optioned variant of the field.
+    /// If `no_convert` is not set the provided type has to implement `OptionedConvert<O>` where `O` is the type of this field in the original type.
+    #[darling(rename = "optioned_type")]
+    optioned_ty: Option<Path>,
 }
 
 /// Returns the attribute for opting-out of `OptionableConvert`-impl generation.
@@ -354,6 +358,20 @@ pub fn derive_optionable(
                             Ok(())
                         }
                     }
+
+                    #[automatically_derived]
+                    impl #impl_generics #crate_name::OptionedConvert<#ty_ident #ty_generics> for #ty_ident_opt #ty_generics #where_clause_impl_optionable_convert {
+                        fn from_optionable(value: #ty_ident #ty_generics) -> Self {
+                            #crate_name::OptionableConvert::into_optioned(value)
+                        }
+
+                        fn try_into_optionable(self) -> Result<#ty_ident #ty_generics, #crate_name::Error> {
+                            #crate_name::OptionableConvert::try_from_optioned(self)
+                        }
+                        fn merge_into(self, other: &mut #ty_ident #ty_generics) -> Result<(), #crate_name::Error> {
+                            #crate_name::OptionableConvert::merge(other, self)
+                        }
+                    }
                 }
             });
             Derived {
@@ -472,6 +490,20 @@ pub fn derive_optionable(
                                 #(#merge_variants),*
                             }
                             Ok(())
+                        }
+                    }
+
+                    #[automatically_derived]
+                    impl #impl_generics #crate_name::OptionedConvert<#ty_ident #ty_generics> for #ty_ident_opt #ty_generics #where_clause_impl_optionable_convert {
+                        fn from_optionable(value: #ty_ident #ty_generics) -> Self {
+                            #crate_name::OptionableConvert::into_optioned(value)
+                        }
+
+                        fn try_into_optionable(self) -> Result<#ty_ident #ty_generics, #crate_name::Error> {
+                            #crate_name::OptionableConvert::try_from_optioned(self)
+                        }
+                        fn merge_into(self, other: &mut #ty_ident #ty_generics) -> Result<(), #crate_name::Error> {
+                            #crate_name::OptionableConvert::merge(other, self)
                         }
                     }
                 })
@@ -601,6 +633,7 @@ fn optioned_fields(
             let colon = ident.as_ref().map(|_| quote! {:});
             Ok::<_, Error>(match handling {
                 FieldHandling::Required | FieldHandling::OptionedOnly => quote! {#forwarded_attrs #vis #ident #colon #ty},
+                FieldHandling::ManualOptioned(ty_opt) => quote! {#forwarded_attrs #vis #ident #colon Option<#ty_opt>},
                 FieldHandling::IsOption => quote! {#forwarded_attrs #serde_attributes #vis #ident #colon #optioned_ty},
                 FieldHandling::Other => quote! {#forwarded_attrs #serde_attributes #vis #ident #colon Option<#optioned_ty>},
             })
@@ -626,6 +659,7 @@ fn into_optioned(
         let crate_name = &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
             (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon #self_selector},
+            (FieldHandling::ManualOptioned(_),_) => quote! {#ident #colon Some(#crate_name::OptionedConvert::from_optionable(#self_selector))},
             (FieldHandling::IsOption, false) => quote! {#ident #colon #crate_name::OptionableConvert::into_optioned(#self_selector)},
             (FieldHandling::Other, true) => quote! {#ident #colon Some(#self_selector)},
             (FieldHandling::Other, false) => quote! {#ident #colon Some(#crate_name::OptionableConvert::into_optioned(#self_selector))},
@@ -652,6 +686,13 @@ fn try_from_optioned(
         let crate_name = &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
             (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon value.#selector},
+            (FieldHandling::ManualOptioned(_),_) => {
+                let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
+                quote! {
+                    #ident #colon #crate_name::OptionedConvert::try_into_optionable(#value_selector.ok_or(#crate_name::Error{ missing_field: #selector_quoted })?
+                    )?
+                }
+            }
             (FieldHandling::IsOption, false) => quote! {
                 #ident #colon #crate_name::OptionableConvert::try_from_optioned(
                     #value_selector
@@ -710,6 +751,11 @@ fn merge_fields(
             let crate_name = &struct_parsed.crate_name;
             match (handling, is_self_resolving_optioned(ty)) {
                 (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#deref_modifier #self_selector = #other_selector;},
+                (FieldHandling::ManualOptioned(_),_) => quote! {
+                    if let Some(other_value)=#other_selector{
+                        #crate_name::OptionedConvert::merge_into(other_value, #self_merge_mut_modifier #self_selector)?;
+                    }
+                },
                 (FieldHandling::IsOption, false) => quote! {
                     #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
                 },
@@ -898,6 +944,21 @@ mod tests {
                             Ok(())
                         }
                     }
+
+                    #[automatically_derived]
+                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
+                        fn from_optionable(value: DeriveExample) -> Self {
+                            ::optionable::OptionableConvert::into_optioned(value)
+                        }
+
+                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                            ::optionable::OptionableConvert::try_from_optioned(self)
+                        }
+
+                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                            ::optionable::OptionableConvert::merge(other, self)
+                        }
+                    }
                 },
             },
             // named struct fields, no convert impl
@@ -935,12 +996,15 @@ mod tests {
                         name: String,
                         #[optionable(required)]
                         pub surname: String,
+                        #[optionable(optioned_type=MyInt)]
+                        pub id: i32,
                     }
                 },
                 output: quote! {
                     struct DeriveExampleOpt {
                         name: Option<String>,
-                        pub surname: String
+                        pub surname: String,
+                        pub id: Option<MyInt>
                     }
 
                     #[automatically_derived]
@@ -958,14 +1022,16 @@ mod tests {
                         fn into_optioned (self) -> DeriveExampleOpt {
                             DeriveExampleOpt  {
                                 name: Some(self.name),
-                                surname: self.surname
+                                surname: self.surname,
+                                id: Some (::optionable::OptionedConvert::from_optionable(self.id))
                             }
                         }
 
                         fn try_from_optioned(value:DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
                             Ok (Self {
                                 name: value.name.ok_or(::optionable::Error { missing_field: "name" })?,
-                                surname: value.surname
+                                surname: value.surname,
+                                id: ::optionable::OptionedConvert::try_into_optionable(value.id.ok_or(::optionable::Error{ missing_field: "id" })?)?
                             })
                         }
 
@@ -974,7 +1040,26 @@ mod tests {
                                 self.name = other_value;
                             }
                             self.surname = other.surname;
+                            if let Some (other_value) = other.id {
+                                ::optionable::OptionedConvert::merge_into(other_value, &mut self.id)?;
+                            }
                             Ok (())
+                        }
+                    }
+
+
+                    #[automatically_derived]
+                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
+                        fn from_optionable(value: DeriveExample) -> Self {
+                            ::optionable::OptionableConvert::into_optioned(value)
+                        }
+
+                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                            ::optionable::OptionableConvert::try_from_optioned(self)
+                        }
+
+                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                            ::optionable::OptionableConvert::merge(other, self)
                         }
                     }
                 },
@@ -1049,6 +1134,22 @@ mod tests {
                             Ok(())
                         }
                     }
+
+
+                    #[automatically_derived]
+                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleAc {
+                        fn from_optionable(value: DeriveExample) -> Self {
+                            ::optionable::OptionableConvert::into_optioned(value)
+                        }
+
+                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                            ::optionable::OptionableConvert::try_from_optioned(self)
+                        }
+
+                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                            ::optionable::OptionableConvert::merge(other, self)
+                        }
+                    }
                 },
             },
             // named struct fields with forwarded derives and Serialize annotations (full path variant)
@@ -1106,6 +1207,21 @@ mod tests {
                             Ok(())
                         }
                     }
+
+                    #[automatically_derived]
+                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleAc {
+                        fn from_optionable(value: DeriveExample) -> Self {
+                            ::optionable::OptionableConvert::into_optioned(value)
+                        }
+
+                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                            ::optionable::OptionableConvert::try_from_optioned(self)
+                        }
+
+                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                            ::optionable::OptionableConvert::merge(other, self)
+                        }
+                    }
                 },
             },
             // unnamed struct fields
@@ -1156,6 +1272,22 @@ mod tests {
                             Ok (())
                         }
                     }
+
+
+                    #[automatically_derived]
+                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
+                        fn from_optionable(value: DeriveExample) -> Self {
+                            ::optionable::OptionableConvert::into_optioned(value)
+                        }
+
+                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                            ::optionable::OptionableConvert::try_from_optioned(self)
+                        }
+
+                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                            ::optionable::OptionableConvert::merge(other, self)
+                        }
+                    }
                 },
             },
             // unnamed struct fields with required
@@ -1201,6 +1333,22 @@ mod tests {
                             }
                             self.1 = other.1;
                             Ok (())
+                        }
+                    }
+
+
+                    #[automatically_derived]
+                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
+                        fn from_optionable(value: DeriveExample) -> Self {
+                            ::optionable::OptionableConvert::into_optioned(value)
+                        }
+
+                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                            ::optionable::OptionableConvert::try_from_optioned(self)
+                        }
+
+                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                            ::optionable::OptionableConvert::merge(other, self)
                         }
                     }
                 },
@@ -1284,6 +1432,27 @@ mod tests {
                             }
                             self.extra=other.extra;
                             Ok(())
+                        }
+                    }
+
+
+                    #[automatically_derived]
+                    impl <'a, T, T2:Serialize, T3> ::optionable::OptionedConvert<DeriveExample<'a, T, T2, T3> > for DeriveExampleOpt<'a, T, T2, T3>
+                        where T: ::optionable::OptionableConvert,
+                              <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
+                              Cow<'a, T2>: ::optionable::OptionableConvert,
+                              <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                    {
+                        fn from_optionable(value: DeriveExample<'a, T, T2, T3>) -> Self {
+                            ::optionable::OptionableConvert::into_optioned(value)
+                        }
+
+                        fn try_into_optionable(self) -> Result<DeriveExample<'a, T, T2, T3>, ::optionable::Error> {
+                            ::optionable::OptionableConvert::try_from_optioned(self)
+                        }
+
+                        fn merge_into(self, other: &mut DeriveExample<'a, T, T2, T3>) -> Result<(), ::optionable::Error> {
+                            ::optionable::OptionableConvert::merge(other, self)
                         }
                     }
                 },
@@ -1395,6 +1564,21 @@ mod tests {
                             Ok(())
                         }
                     }
+
+                    #[automatically_derived]
+                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
+                        fn from_optionable(value: DeriveExample) -> Self {
+                            ::optionable::OptionableConvert::into_optioned(value)
+                        }
+
+                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                            ::optionable::OptionableConvert::try_from_optioned(self)
+                        }
+
+                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                            ::optionable::OptionableConvert::merge(other, self)
+                        }
+                    }
                 },
             },
             TestCase {
@@ -1490,6 +1674,21 @@ mod tests {
                              crate::OptionableConvert::merge(&mut self.surname, other_value)?;
                         }
                         Ok(())
+                    }
+                }
+
+                #[automatically_derived]
+                impl crate::OptionedConvert<crate_prefix::DeriveExample> for DeriveExampleOpt {
+                    fn from_optionable(value: crate_prefix::DeriveExample) -> Self {
+                        crate::OptionableConvert::into_optioned(value)
+                    }
+
+                    fn try_into_optionable(self) -> Result<crate_prefix::DeriveExample, crate::Error> {
+                        crate::OptionableConvert::try_from_optioned(self)
+                    }
+
+                    fn merge_into(self, other: &mut crate_prefix::DeriveExample) -> Result<(), crate::Error> {
+                       crate::OptionableConvert::merge(other, self)
                     }
                 }
             },

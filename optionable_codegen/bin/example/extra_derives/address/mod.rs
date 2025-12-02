@@ -65,3 +65,18 @@ impl ::optionable::OptionableConvert for address::Address {
         Ok(())
     }
 }
+#[automatically_derived]
+impl ::optionable::OptionedConvert<address::Address> for AddressOpt {
+    fn from_optionable(value: address::Address) -> Self {
+        ::optionable::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(self) -> Result<address::Address, ::optionable::Error> {
+        ::optionable::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut address::Address,
+    ) -> Result<(), ::optionable::Error> {
+        ::optionable::OptionableConvert::merge(other, self)
+    }
+}

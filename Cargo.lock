@@ -888,19 +888,6 @@ dependencies = [
 
 [[package]]
 name = "optionable_codegen"
-version = "0.7.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0884208842650918aac5fcf0b47eae076d0cdc45a3507c5c9b3f39513c464c72"
-dependencies = [
- "darling",
- "itertools",
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
-name = "optionable_codegen"
 version = "0.8.1"
 dependencies = [
  "darling",
@@ -918,7 +905,7 @@ dependencies = [
  "assert_cmd",
  "clap",
  "darling",
- "optionable_codegen 0.7.7",
+ "optionable_codegen",
  "prettyplease",
  "proc-macro2",
  "quote",
@@ -931,7 +918,7 @@ name = "optionable_derive"
 version = "0.5.1"
 dependencies = [
  "kube-derive",
- "optionable_codegen 0.8.1",
+ "optionable_codegen",
  "proc-macro2",
  "quote",
  "syn",
@@ -949,6 +936,14 @@ dependencies = [
  "serde-saphyr",
  "serde_json",
  "tokio",
+]
+
+[[package]]
+name = "optionable_orphanrule"
+version = "0.1.0"
+dependencies = [
+ "optionable",
+ "serde_json",
 ]
 
 [[package]]
