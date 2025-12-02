@@ -73,6 +73,31 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList,
+> for APIResourceListAc {
+    fn from_optionable(
+        value: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl k8s_openapi::Resource for APIResourceListAc {
     const API_VERSION: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList as k8s_openapi::Resource>::API_VERSION;
     const GROUP: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList as k8s_openapi::Resource>::GROUP;

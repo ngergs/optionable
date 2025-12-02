@@ -58,3 +58,28 @@ for ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy,
+> for RollingUpdateStatefulSetStrategyAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::apps::v1::RollingUpdateStatefulSetStrategy,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

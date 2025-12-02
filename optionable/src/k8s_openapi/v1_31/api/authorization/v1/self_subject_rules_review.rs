@@ -67,6 +67,31 @@ for ::k8s_openapi::api::authorization::v1::SelfSubjectRulesReview {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::api::authorization::v1::SelfSubjectRulesReview,
+> for SelfSubjectRulesReviewAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::authorization::v1::SelfSubjectRulesReview,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::authorization::v1::SelfSubjectRulesReview,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::authorization::v1::SelfSubjectRulesReview,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl k8s_openapi::Resource for SelfSubjectRulesReviewAc {
     const API_VERSION: &'static str = <::k8s_openapi::api::authorization::v1::SelfSubjectRulesReview as k8s_openapi::Resource>::API_VERSION;
     const GROUP: &'static str = <::k8s_openapi::api::authorization::v1::SelfSubjectRulesReview as k8s_openapi::Resource>::GROUP;

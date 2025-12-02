@@ -61,3 +61,27 @@ for ::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus>
+for ResourceMetricStatusAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::autoscaling::v2::ResourceMetricStatus,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

@@ -3,6 +3,7 @@ use darling::FromMeta;
 use optionable_codegen::CodegenSettings;
 use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
 use proc_macro2::{Ident, Span};
+use quote::ToTokens;
 use std::collections::HashSet;
 use std::default::Default;
 use std::fs::create_dir_all;
@@ -102,11 +103,14 @@ impl CodegenVisitor for Visitor {
         for item in items.iter_mut() {
             match item {
                 Impl(item) => {
-                    if item
-                        .trait_
-                        .as_ref()
-                        .is_some_and(|trait_| trait_.1 == parse_quote!(crate::OptionableConvert))
-                    {
+                    if item.trait_.as_ref().is_some_and(|trait_| {
+                        trait_.1 == parse_quote!(crate::OptionableConvert)
+                            || trait_
+                                .1
+                                .to_token_stream()
+                                .to_string()
+                                .starts_with("crate :: OptionedConvert") // to remove generic arguments
+                    }) {
                         item.attrs
                             .push(parse_quote!(#[cfg(feature="k8s_openapi_convert")]));
                     }

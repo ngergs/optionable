@@ -90,3 +90,28 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSp
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec,
+> for APIServiceSpecAc {
+    fn from_optionable(
+        value: ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

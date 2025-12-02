@@ -53,3 +53,22 @@ impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1::DeviceClaim 
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::resource::v1::DeviceClaim>
+for DeviceClaimAc {
+    fn from_optionable(value: ::k8s_openapi::api::resource::v1::DeviceClaim) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::resource::v1::DeviceClaim, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::resource::v1::DeviceClaim,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

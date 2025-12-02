@@ -59,6 +59,31 @@ for ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
+> for APIServiceAc {
+    fn from_optionable(
+        value: ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl k8s_openapi::Resource for APIServiceAc {
     const API_VERSION: &'static str = <::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService as k8s_openapi::Resource>::API_VERSION;
     const GROUP: &'static str = <::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService as k8s_openapi::Resource>::GROUP;

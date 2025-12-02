@@ -77,6 +77,31 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceClassParameters {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::api::resource::v1alpha2::ResourceClassParameters,
+> for ResourceClassParametersAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::resource::v1alpha2::ResourceClassParameters,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::resource::v1alpha2::ResourceClassParameters,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::resource::v1alpha2::ResourceClassParameters,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl k8s_openapi::Resource for ResourceClassParametersAc {
     const API_VERSION: &'static str = <::k8s_openapi::api::resource::v1alpha2::ResourceClassParameters as k8s_openapi::Resource>::API_VERSION;
     const GROUP: &'static str = <::k8s_openapi::api::resource::v1alpha2::ResourceClassParameters as k8s_openapi::Resource>::GROUP;

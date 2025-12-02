@@ -54,3 +54,28 @@ for ::k8s_openapi::api::certificates::v1beta1::ClusterTrustBundleSpec {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::api::certificates::v1beta1::ClusterTrustBundleSpec,
+> for ClusterTrustBundleSpecAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::certificates::v1beta1::ClusterTrustBundleSpec,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::certificates::v1beta1::ClusterTrustBundleSpec,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::certificates::v1beta1::ClusterTrustBundleSpec,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

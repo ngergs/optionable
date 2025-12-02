@@ -45,3 +45,21 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::ForZone {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::discovery::v1::ForZone> for ForZoneAc {
+    fn from_optionable(value: ::k8s_openapi::api::discovery::v1::ForZone) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::discovery::v1::ForZone, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::discovery::v1::ForZone,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

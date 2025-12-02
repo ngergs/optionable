@@ -88,3 +88,24 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::FlowSchemaSpec {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::flowcontrol::v1beta3::FlowSchemaSpec>
+for FlowSchemaSpecAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::flowcontrol::v1beta3::FlowSchemaSpec,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::flowcontrol::v1beta3::FlowSchemaSpec, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::flowcontrol::v1beta3::FlowSchemaSpec,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

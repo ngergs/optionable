@@ -86,3 +86,28 @@ for ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus,
+> for PodCertificateRequestStatusAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequestStatus,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

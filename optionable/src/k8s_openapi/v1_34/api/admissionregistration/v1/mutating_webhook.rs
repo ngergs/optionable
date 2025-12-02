@@ -188,3 +188,28 @@ for ::k8s_openapi::api::admissionregistration::v1::MutatingWebhook {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::api::admissionregistration::v1::MutatingWebhook,
+> for MutatingWebhookAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::admissionregistration::v1::MutatingWebhook,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::admissionregistration::v1::MutatingWebhook,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::admissionregistration::v1::MutatingWebhook,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

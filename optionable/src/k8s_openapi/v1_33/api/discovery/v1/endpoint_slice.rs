@@ -82,6 +82,25 @@ impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSli
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::discovery::v1::EndpointSlice>
+for EndpointSliceAc {
+    fn from_optionable(value: ::k8s_openapi::api::discovery::v1::EndpointSlice) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::discovery::v1::EndpointSlice, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::discovery::v1::EndpointSlice,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl k8s_openapi::Resource for EndpointSliceAc {
     const API_VERSION: &'static str = <::k8s_openapi::api::discovery::v1::EndpointSlice as k8s_openapi::Resource>::API_VERSION;
     const GROUP: &'static str = <::k8s_openapi::api::discovery::v1::EndpointSlice as k8s_openapi::Resource>::GROUP;

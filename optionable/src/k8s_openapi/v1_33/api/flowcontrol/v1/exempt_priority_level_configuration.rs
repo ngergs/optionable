@@ -63,3 +63,28 @@ for ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration,
+> for ExemptPriorityLevelConfigurationAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::flowcontrol::v1::ExemptPriorityLevelConfiguration,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

@@ -73,3 +73,28 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry,
+> for ManagedFieldsEntryAc {
+    fn from_optionable(
+        value: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

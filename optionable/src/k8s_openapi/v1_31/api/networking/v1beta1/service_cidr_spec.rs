@@ -40,3 +40,24 @@ for ::k8s_openapi::api::networking::v1beta1::ServiceCIDRSpec {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::networking::v1beta1::ServiceCIDRSpec>
+for ServiceCIDRSpecAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::networking::v1beta1::ServiceCIDRSpec,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::networking::v1beta1::ServiceCIDRSpec, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::networking::v1beta1::ServiceCIDRSpec,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

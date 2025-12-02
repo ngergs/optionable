@@ -42,3 +42,24 @@ for ::k8s_openapi::apimachinery::pkg::runtime::RawExtension {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::apimachinery::pkg::runtime::RawExtension>
+for RawExtensionAc {
+    fn from_optionable(
+        value: ::k8s_openapi::apimachinery::pkg::runtime::RawExtension,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::apimachinery::pkg::runtime::RawExtension, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::apimachinery::pkg::runtime::RawExtension,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

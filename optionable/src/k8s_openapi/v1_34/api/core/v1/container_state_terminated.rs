@@ -82,3 +82,24 @@ for ::k8s_openapi::api::core::v1::ContainerStateTerminated {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::core::v1::ContainerStateTerminated>
+for ContainerStateTerminatedAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::core::v1::ContainerStateTerminated,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::core::v1::ContainerStateTerminated, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::core::v1::ContainerStateTerminated,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

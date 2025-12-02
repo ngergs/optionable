@@ -59,3 +59,27 @@ for ::k8s_openapi::api::flowcontrol::v1::ServiceAccountSubject {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::flowcontrol::v1::ServiceAccountSubject>
+for ServiceAccountSubjectAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::flowcontrol::v1::ServiceAccountSubject,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::flowcontrol::v1::ServiceAccountSubject,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::flowcontrol::v1::ServiceAccountSubject,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

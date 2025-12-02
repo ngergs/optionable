@@ -57,6 +57,31 @@ for ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguratio
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguration,
+> for ValidatingWebhookConfigurationAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguration,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguration,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguration,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl k8s_openapi::Resource for ValidatingWebhookConfigurationAc {
     const API_VERSION: &'static str = <::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguration as k8s_openapi::Resource>::API_VERSION;
     const GROUP: &'static str = <::k8s_openapi::api::admissionregistration::v1::ValidatingWebhookConfiguration as k8s_openapi::Resource>::GROUP;

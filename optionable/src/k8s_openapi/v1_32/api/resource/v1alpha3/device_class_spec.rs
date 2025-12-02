@@ -47,3 +47,24 @@ for ::k8s_openapi::api::resource::v1alpha3::DeviceClassSpec {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::resource::v1alpha3::DeviceClassSpec>
+for DeviceClassSpecAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::resource::v1alpha3::DeviceClassSpec,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::resource::v1alpha3::DeviceClassSpec, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::resource::v1alpha3::DeviceClassSpec,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

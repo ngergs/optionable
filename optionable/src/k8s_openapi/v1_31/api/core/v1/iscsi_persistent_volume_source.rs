@@ -144,3 +144,27 @@ for ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource>
+for ISCSIPersistentVolumeSourceAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::core::v1::ISCSIPersistentVolumeSource,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

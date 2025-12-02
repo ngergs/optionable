@@ -81,6 +81,31 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions,
+> for APIVersionsAc {
+    fn from_optionable(
+        value: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl k8s_openapi::Resource for APIVersionsAc {
     const API_VERSION: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions as k8s_openapi::Resource>::API_VERSION;
     const GROUP: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions as k8s_openapi::Resource>::GROUP;

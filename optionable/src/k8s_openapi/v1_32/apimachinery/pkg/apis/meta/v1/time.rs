@@ -46,3 +46,24 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time>
+for TimeAc {
+    fn from_optionable(
+        value: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

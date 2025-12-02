@@ -57,3 +57,24 @@ for ::k8s_openapi::api::resource::v1alpha2::ResourceHandle {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::resource::v1alpha2::ResourceHandle>
+for ResourceHandleAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::resource::v1alpha2::ResourceHandle,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::resource::v1alpha2::ResourceHandle, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::resource::v1alpha2::ResourceHandle,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

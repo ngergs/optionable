@@ -46,3 +46,24 @@ for ::k8s_openapi::api::resource::v1beta2::CELDeviceSelector {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::resource::v1beta2::CELDeviceSelector>
+for CELDeviceSelectorAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::resource::v1beta2::CELDeviceSelector,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::resource::v1beta2::CELDeviceSelector, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::resource::v1beta2::CELDeviceSelector,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

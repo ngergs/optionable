@@ -44,3 +44,22 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::IngressTLS
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::networking::v1::IngressTLS>
+for IngressTLSAc {
+    fn from_optionable(value: ::k8s_openapi::api::networking::v1::IngressTLS) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::networking::v1::IngressTLS, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::networking::v1::IngressTLS,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

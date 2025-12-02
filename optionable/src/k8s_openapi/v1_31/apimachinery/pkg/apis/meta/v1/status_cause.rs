@@ -49,3 +49,28 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusCause {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusCause,
+> for StatusCauseAc {
+    fn from_optionable(
+        value: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusCause,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusCause,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::apimachinery::pkg::apis::meta::v1::StatusCause,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

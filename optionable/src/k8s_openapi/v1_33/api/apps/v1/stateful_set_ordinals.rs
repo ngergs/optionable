@@ -37,3 +37,24 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::StatefulSetOrdin
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::apps::v1::StatefulSetOrdinals>
+for StatefulSetOrdinalsAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::apps::v1::StatefulSetOrdinals,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::apps::v1::StatefulSetOrdinals, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::apps::v1::StatefulSetOrdinals,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

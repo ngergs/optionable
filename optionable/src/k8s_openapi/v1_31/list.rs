@@ -88,6 +88,27 @@ where
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl<T> crate::OptionedConvert<::k8s_openapi::List<T>> for ListAc<T>
+where
+    T: k8s_openapi::ListableResource,
+    std::vec::Vec<T>: crate::OptionableConvert,
+    <std::vec::Vec<
+        T,
+    > as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
+{
+    fn from_optionable(value: ::k8s_openapi::List<T>) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(self) -> Result<::k8s_openapi::List<T>, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(self, other: &mut ::k8s_openapi::List<T>) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl<T> k8s_openapi::Resource for ListAc<T>
 where
     T: k8s_openapi::ListableResource,

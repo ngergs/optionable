@@ -61,3 +61,28 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec 
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec,
+> for StorageVersionMigrationSpecAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::storagemigration::v1alpha1::StorageVersionMigrationSpec,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

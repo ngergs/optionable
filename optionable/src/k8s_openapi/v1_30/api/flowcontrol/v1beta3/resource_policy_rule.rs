@@ -92,3 +92,27 @@ for ::k8s_openapi::api::flowcontrol::v1beta3::ResourcePolicyRule {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::flowcontrol::v1beta3::ResourcePolicyRule>
+for ResourcePolicyRuleAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::flowcontrol::v1beta3::ResourcePolicyRule,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::flowcontrol::v1beta3::ResourcePolicyRule,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::flowcontrol::v1beta3::ResourcePolicyRule,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

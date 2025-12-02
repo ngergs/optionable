@@ -70,6 +70,25 @@ impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::node::v1::RuntimeClass>
+for RuntimeClassAc {
+    fn from_optionable(value: ::k8s_openapi::api::node::v1::RuntimeClass) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::node::v1::RuntimeClass, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::node::v1::RuntimeClass,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl k8s_openapi::Resource for RuntimeClassAc {
     const API_VERSION: &'static str = <::k8s_openapi::api::node::v1::RuntimeClass as k8s_openapi::Resource>::API_VERSION;
     const GROUP: &'static str = <::k8s_openapi::api::node::v1::RuntimeClass as k8s_openapi::Resource>::GROUP;

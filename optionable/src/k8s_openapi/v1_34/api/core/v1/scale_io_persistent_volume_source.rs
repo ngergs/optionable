@@ -125,3 +125,27 @@ for ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource>
+for ScaleIOPersistentVolumeSourceAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

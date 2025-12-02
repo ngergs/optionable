@@ -226,3 +226,34 @@ where
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl<
+    T,
+> crate::OptionedConvert<::k8s_openapi::apimachinery::pkg::apis::meta::v1::WatchEvent<T>>
+for WatchEventAc<T>
+where
+    T: crate::OptionableConvert,
+    <T as crate::Optionable>::Optioned: Sized + Clone + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
+{
+    fn from_optionable(
+        value: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::WatchEvent<T>,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::WatchEvent<T>,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::apimachinery::pkg::apis::meta::v1::WatchEvent<T>,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

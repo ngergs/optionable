@@ -49,3 +49,24 @@ impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::DaemonSetUpdateS
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::apps::v1::DaemonSetUpdateStrategy>
+for DaemonSetUpdateStrategyAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::apps::v1::DaemonSetUpdateStrategy,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::apps::v1::DaemonSetUpdateStrategy, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::apps::v1::DaemonSetUpdateStrategy,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

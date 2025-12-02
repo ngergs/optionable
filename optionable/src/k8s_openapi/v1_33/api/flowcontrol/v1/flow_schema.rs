@@ -57,6 +57,25 @@ impl crate::OptionableConvert for ::k8s_openapi::api::flowcontrol::v1::FlowSchem
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::flowcontrol::v1::FlowSchema>
+for FlowSchemaAc {
+    fn from_optionable(value: ::k8s_openapi::api::flowcontrol::v1::FlowSchema) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::flowcontrol::v1::FlowSchema, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::flowcontrol::v1::FlowSchema,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl k8s_openapi::Resource for FlowSchemaAc {
     const API_VERSION: &'static str = <::k8s_openapi::api::flowcontrol::v1::FlowSchema as k8s_openapi::Resource>::API_VERSION;
     const GROUP: &'static str = <::k8s_openapi::api::flowcontrol::v1::FlowSchema as k8s_openapi::Resource>::GROUP;

@@ -43,3 +43,24 @@ for ::k8s_openapi::api::resource::v1::CapacityRequirements {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::resource::v1::CapacityRequirements>
+for CapacityRequirementsAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::resource::v1::CapacityRequirements,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::resource::v1::CapacityRequirements, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::resource::v1::CapacityRequirements,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

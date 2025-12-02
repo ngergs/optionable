@@ -65,6 +65,25 @@ impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::RoleBinding {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::rbac::v1::RoleBinding>
+for RoleBindingAc {
+    fn from_optionable(value: ::k8s_openapi::api::rbac::v1::RoleBinding) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::rbac::v1::RoleBinding, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::rbac::v1::RoleBinding,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl k8s_openapi::Resource for RoleBindingAc {
     const API_VERSION: &'static str = <::k8s_openapi::api::rbac::v1::RoleBinding as k8s_openapi::Resource>::API_VERSION;
     const GROUP: &'static str = <::k8s_openapi::api::rbac::v1::RoleBinding as k8s_openapi::Resource>::GROUP;

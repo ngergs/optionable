@@ -81,3 +81,28 @@ for ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion,
+> for ServerStorageVersionAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::apiserverinternal::v1alpha1::ServerStorageVersion,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

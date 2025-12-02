@@ -49,3 +49,28 @@ for ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource,
+> for GroupVersionResourceAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::storagemigration::v1alpha1::GroupVersionResource,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

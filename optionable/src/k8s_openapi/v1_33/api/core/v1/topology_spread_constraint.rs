@@ -130,3 +130,24 @@ for ::k8s_openapi::api::core::v1::TopologySpreadConstraint {
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::core::v1::TopologySpreadConstraint>
+for TopologySpreadConstraintAc {
+    fn from_optionable(
+        value: ::k8s_openapi::api::core::v1::TopologySpreadConstraint,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::core::v1::TopologySpreadConstraint, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::core::v1::TopologySpreadConstraint,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

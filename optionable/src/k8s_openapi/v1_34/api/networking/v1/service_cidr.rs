@@ -57,6 +57,25 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1::ServiceCID
         Ok(())
     }
 }
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<::k8s_openapi::api::networking::v1::ServiceCIDR>
+for ServiceCIDRAc {
+    fn from_optionable(value: ::k8s_openapi::api::networking::v1::ServiceCIDR) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<::k8s_openapi::api::networking::v1::ServiceCIDR, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut ::k8s_openapi::api::networking::v1::ServiceCIDR,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
 impl k8s_openapi::Resource for ServiceCIDRAc {
     const API_VERSION: &'static str = <::k8s_openapi::api::networking::v1::ServiceCIDR as k8s_openapi::Resource>::API_VERSION;
     const GROUP: &'static str = <::k8s_openapi::api::networking::v1::ServiceCIDR as k8s_openapi::Resource>::GROUP;
