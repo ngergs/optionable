@@ -68,5 +68,3 @@ mod time;
 #[allow(unused_imports)]
 pub use self::time::TimeAc;
 mod watch_event;
-#[allow(unused_imports)]
-pub use self::watch_event::WatchEventAc;

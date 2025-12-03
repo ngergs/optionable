@@ -22,9 +22,16 @@ use syn::{
 /// and subsequently `visit_output`. Visitor implementation can store state for a given item internally
 /// and use it for the output, no other codegen input item will be called in between.
 pub trait CodegenVisitor: Clone {
+    /// Filters the input. Only entries with `true` are kept.
+    /// Executed before everything else
+    fn filter(&mut self, _: &Item) -> bool {
+        true
+    }
+
     /// Reads the existing input items, executed for all items prior to any other mutations.
     /// Useful to e.g. collect a list of `use ...` entries.
     fn visit_pre_input(&mut self, _: &Item) {}
+
     /// Mutates the input.
     fn visit_input(&mut self, _: &mut Item) {}
     /// Mutates the generated code. Will be called once after code generation.
@@ -64,16 +71,19 @@ pub fn file_codegen<Vis: CodegenVisitor>(
     create_dir_all(output_path)?;
     let content_str = fs::read_to_string(input_file)?;
     let content = syn::parse_file(&content_str)?;
-    content.items.iter().for_each(|item| {
+    let items: Vec<_> = content
+        .items
+        .into_iter()
+        .filter(|el| conf.visitor.filter(el))
+        .collect();
+    for item in &items {
         conf.visitor.visit_pre_input(item);
-    });
+    }
     let input_path = input_file
         .parent()
         .ok_or("current file {input_file} has no parent")?;
-    conf.usage_aliases
-        .append(&mut get_usage_aliases(&content.items)?);
-    let result = content
-        .items
+    conf.usage_aliases.append(&mut get_usage_aliases(&items)?);
+    let result =items
         .into_iter()
         .map(|item| {
             if let Use(item_use) = &item

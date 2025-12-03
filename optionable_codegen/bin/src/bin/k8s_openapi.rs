@@ -8,7 +8,7 @@ use std::collections::HashSet;
 use std::default::Default;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
-use syn::Item::{Enum, Impl, Struct};
+use syn::Item::{Enum, Impl, Struct, Use};
 use syn::{parse_quote, Item, Path, Type};
 
 const K8S_OPENAPI: &str = "k8s_openapi";
@@ -47,6 +47,23 @@ impl Clone for Visitor {
 impl Visitor {}
 
 impl CodegenVisitor for Visitor {
+    fn filter(&mut self, item: &Item) -> bool {
+        // `WatchEvent` is the only externally tagged enum in k8s-openapi and two variations share a tag.
+        // This would require us to implement custom serialization/deserialization.
+        // As there is no obvious use case for an optioned WatchEvent it is omitted for now.
+        // k8s docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#watchevent-v1-meta
+        // k8s-openapi code: https://github.com/Arnavion/k8s-openapi/blob/master/src/v1_34/apimachinery/pkg/apis/meta/v1/watch_event.rs
+        match item {
+            Enum(item) => item.ident != "WatchEvent",
+            Use(item_use) => !item_use
+                .tree
+                .to_token_stream()
+                .to_string()
+                .ends_with("WatchEvent"),
+            _ => true,
+        }
+    }
+
     fn visit_pre_input(&mut self, item: &Item) {
         if let Impl(item) = item
             && let Some(trait_) = &item.trait_
@@ -105,37 +122,7 @@ impl CodegenVisitor for Visitor {
                     }
                 }
                 Enum(item) => {
-                    if item.ident == "WatchEventAc" {
-                        // special case https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#watchevent-v1-meta
-                        item.attrs
-                            .push(parse_quote!(#[serde(tag = "type", content = "object")]));
-                        // map variant names, see serialization here https://github.com/Arnavion/k8s-openapi/blob/master/src/v1_34/apimachinery/pkg/apis/meta/v1/watch_event.rs
-                        for variant in &mut item.variants {
-                            let name = variant.ident.to_string();
-                            if name == "ErrorStatus" {
-                                // special case we can't easily handle (without custom code for this type that likely won't see much usage as an optioned variant)
-                                // the two error types sharing the same tag. So we remove the specialized one.
-                                variant.attrs.push(parse_quote!(#[serde(skip)]));
-                            } else {
-                                let serde_rename = match name.as_str() {
-                                    "Added" => "ADDED",
-                                    "Deleted" => "DELETED",
-                                    "Modified" => "MODIFIED",
-                                    "Bookmark" => "BOOKMARK",
-                                    "ErrorOther" => "ERROR",
-                                    _ => panic!(
-                                        "Unknown variant for WatchEvent handling: {}",
-                                        variant.ident
-                                    ),
-                                };
-                                variant
-                                    .attrs
-                                    .push(parse_quote!(#[serde(rename=#serde_rename)]));
-                            }
-                        }
-                    } else {
-                        item.attrs.push(parse_quote!(#[serde(untagged)]));
-                    }
+                    item.attrs.push(parse_quote!(#[serde(untagged)]));
                 }
                 _ => {}
             }
