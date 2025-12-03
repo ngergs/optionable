@@ -51,10 +51,10 @@ jobs:
           cargo msrv verify --path optionable
           cargo install --locked cargo-deny
           cargo deny check license
-      - name: Setup kind for integration test of k8s types
-        uses: helm/kind-action@v1
       - name: Test orphanrule circumvention (that it compiles)
         run: cd example/orphanrule && cargo run
+      - name: Setup kind for integration test of k8s types
+        uses: helm/kind-action@v1
       - name: Test deployment server-side-apply
         run: |-
           cd example/k8s/
