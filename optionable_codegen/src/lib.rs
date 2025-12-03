@@ -290,6 +290,8 @@ pub fn derive_optionable(
         where_clause_struct_enum: WhereClause,
         /// The `where`-clause for the `Optionable`-impl
         where_clause_impl_optionable: WhereClause,
+        /// The `where`-clause  for the `OptionableConvert` and `OptionedConvert` impl
+        where_clause_impl_optionable_convert: Option<WhereClause>,
         /// The `OptionableConvert` implementation if not configured to be skipped, including the `impl`-wrapper
         impl_optionable_convert: Option<TokenStream>,
     }
@@ -298,6 +300,7 @@ pub fn derive_optionable(
         fields,
         where_clause_struct_enum,
         where_clause_impl_optionable,
+        where_clause_impl_optionable_convert,
         impl_optionable_convert,
     } = match input.data {
         Data::Struct(s) => {
@@ -358,20 +361,6 @@ pub fn derive_optionable(
                             Ok(())
                         }
                     }
-
-                    #[automatically_derived]
-                    impl #impl_generics #crate_name::OptionedConvert<#ty_ident #ty_generics> for #ty_ident_opt #ty_generics #where_clause_impl_optionable_convert {
-                        fn from_optionable(value: #ty_ident #ty_generics) -> Self {
-                            #crate_name::OptionableConvert::into_optioned(value)
-                        }
-
-                        fn try_into_optionable(self) -> Result<#ty_ident #ty_generics, #crate_name::Error> {
-                            #crate_name::OptionableConvert::try_from_optioned(self)
-                        }
-                        fn merge_into(self, other: &mut #ty_ident #ty_generics) -> Result<(), #crate_name::Error> {
-                            #crate_name::OptionableConvert::merge(other, self)
-                        }
-                    }
                 }
             });
             Derived {
@@ -379,6 +368,7 @@ pub fn derive_optionable(
                 fields: quote! {#optioned_fields #unnamed_struct_semicolon},
                 where_clause_struct_enum,
                 where_clause_impl_optionable,
+                where_clause_impl_optionable_convert,
                 impl_optionable_convert,
             }
         }
@@ -492,20 +482,6 @@ pub fn derive_optionable(
                             Ok(())
                         }
                     }
-
-                    #[automatically_derived]
-                    impl #impl_generics #crate_name::OptionedConvert<#ty_ident #ty_generics> for #ty_ident_opt #ty_generics #where_clause_impl_optionable_convert {
-                        fn from_optionable(value: #ty_ident #ty_generics) -> Self {
-                            #crate_name::OptionableConvert::into_optioned(value)
-                        }
-
-                        fn try_into_optionable(self) -> Result<#ty_ident #ty_generics, #crate_name::Error> {
-                            #crate_name::OptionableConvert::try_from_optioned(self)
-                        }
-                        fn merge_into(self, other: &mut #ty_ident #ty_generics) -> Result<(), #crate_name::Error> {
-                            #crate_name::OptionableConvert::merge(other, self)
-                        }
-                    }
                 })
             }).transpose()?;
             Derived {
@@ -513,11 +489,28 @@ pub fn derive_optionable(
                 fields: quote! {{#(#optioned_variants),*}},
                 where_clause_struct_enum,
                 where_clause_impl_optionable,
+                where_clause_impl_optionable_convert,
                 impl_optionable_convert,
             }
         }
         Data::Union(_) => return error("#[derive(Optionable)] not supported for unit structs"),
     };
+    let impl_optioned_convert=attrs.no_convert.is_none().then(||{
+        quote! {
+            #[automatically_derived]
+            impl #impl_generics #crate_name::OptionedConvert<#ty_ident #ty_generics> for #ty_ident_opt #ty_generics #where_clause_impl_optionable_convert {
+                fn from_optionable(value: #ty_ident #ty_generics) -> Self {
+                    #crate_name::OptionableConvert::into_optioned(value)
+                }
+                fn try_into_optionable(self) -> Result<#ty_ident #ty_generics, #crate_name::Error> {
+                    #crate_name::OptionableConvert::try_from_optioned(self)
+                }
+                fn merge_into(self, other: &mut #ty_ident #ty_generics) -> Result<(), #crate_name::Error> {
+                    #crate_name::OptionableConvert::merge(other, self)
+                }
+            }
+        }
+    });
 
     let derive = derive
         .into_iter()
@@ -578,6 +571,7 @@ pub fn derive_optionable(
                 }
 
                 #impl_optionable_convert
+                #impl_optioned_convert
 
                 #k8s_openapi_impl_resource
                 #impl_k8s_metadata
