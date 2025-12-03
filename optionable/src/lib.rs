@@ -245,10 +245,10 @@ pub trait OptionableConvert: Sized + Optionable {
     fn merge(&mut self, other: Self::Optioned) -> Result<(), Error>;
 }
 
-/// Trait to transform from the perspective of the optioned type back to an origin `optionable` type.
-/// `OptionedConvert` is more general than `OptionableConvert` as it allows targeting a `T` which itself
-/// does not implement `Optionable`. This allows to circumvent to some degree orphan rule restrictions
-/// when deriving `Optionable` (see todo attribute in todo)
+/// Trait to transform from the perspective of the optioned type back to an origin [`trait@Optionable`] type.
+/// `OptionedConvert` is more general than [`OptionableConvert`] as it allows targeting a `T` which itself
+/// does not implement [`trait@Optionable`]. This allows to circumvent to some degree orphan rule restrictions
+/// when deriving [`trait@Optionable`] ( see the `optioned_type` helper attribute for the [`derive@Optionable`] derive macro).
 pub trait OptionedConvert<T>: Sized {
     /// Gets an optioned variant with all fields set.
     ///

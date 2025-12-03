@@ -66,7 +66,7 @@ use syn::{parse_quote, DeriveInput, Item, ItemEnum, ItemStruct};
 ///     #[optionable(required)]
 ///     number: u32; // will also be a u32 in the derived `MyStructOpt`.
 ///   }
-/// - **`optioned_type`: For circumvention of the orphan rule. Uses the provided type for the optioned variant of the field.
+/// - **`optioned_type`**: For circumvention of the orphan rule. Uses the provided type for the optioned variant of the field.
 ///   If `no_convert` is not set the provided type has to implement `OptionedConvert<O>` where `O` is the type of this field in the original type.
 ///   ```rust,ignore
 ///   #[derive(optionable)]
