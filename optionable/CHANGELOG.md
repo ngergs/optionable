@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0](https://github.com/ngergs/optionable/compare/optionable-v0.7.0...optionable-v0.8.0) - 2025-12-03
+
+### Fixed
+
+- [**breaking**] no longer generate an optioned type for `WatchEvent` from `k8s-openapi`
+
+### Other
+
+- docs
+
 ## [0.7.0](https://github.com/ngergs/optionable/compare/optionable-v0.6.1...optionable-v0.7.0) - 2025-12-02
 
 ### Added
