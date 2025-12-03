@@ -14,8 +14,8 @@ pub(crate) fn error<S: AsRef<str> + fmt::Display, T>(msg: S) -> syn::Result<T> {
     Err(Error::new(Span::call_site(), msg))
 }
 
-/// Constructs a destructure selector for the given fields, e.g. a `(field_a, field_b)`
-/// for a named enum or `(0,1)` for an unnamed enum.
+/// Constructs a destructure selector for the given fields, e.g. a `{field_a, field_b}`
+/// for a named enum or `(0,1)` for an unnamed struct.
 pub(crate) fn destructure(
     fields: &StructParsed,
     prefix: &TokenStream,

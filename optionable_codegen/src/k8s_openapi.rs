@@ -1,11 +1,11 @@
 use crate::helper::error;
 use crate::parsed_input::FieldHandling::{OptionedOnly, Required};
 use crate::parsed_input::{FieldParsed, StructParsed};
-use crate::{TypeHelperAttributes, TypeHelperAttributesK8sOpenapi, TypeHelperAttributesKube};
+use crate::{TypeHelperAttributesK8sOpenapi, TypeHelperAttributesKube};
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
 use syn::{
-    parse_quote, Attribute, Data, DeriveInput, Error, ImplGenerics, Path, TypeGenerics, WhereClause,
+    parse_quote, Attribute, Data, Error, ImplGenerics, Path, TypeGenerics, WhereClause,
 };
 
 /// We have two useful `Resource` traits and dependent on the user needs we will use one
@@ -17,22 +17,21 @@ pub(crate) enum ResourceType {
 
 /// Validates the resource configuration and returns the resource type.
 pub(crate) fn k8s_resource_type(
-    attrs: &TypeHelperAttributes,
+    attrs_k8s_openapi: Option<&TypeHelperAttributesK8sOpenapi>,
+    attrs_kube: Option<&TypeHelperAttributesKube>,
 ) -> Result<Option<ResourceType>, Error> {
-    if attrs.k8s_openapi.is_some() && attrs.kube.is_some() {
+    if attrs_k8s_openapi.is_some() && attrs_kube.is_some() {
         return error(
             "Conflicting configuration. Only one of the `#[optionable(k8s_openapi)]` or `#[optionable(kube)]` attribute is allowed at once per type.",
         );
     }
-    if attrs
-        .k8s_openapi
+    if attrs_k8s_openapi
         .as_ref()
         .is_some_and(|attr| attr.resource.is_some())
     {
         return Ok(Some(ResourceType::K8sOpenApi));
     }
-    if attrs
-        .kube
+    if attrs_kube
         .as_ref()
         .is_some_and(|attr| attr.resource.is_some())
     {
@@ -42,8 +41,8 @@ pub(crate) fn k8s_resource_type(
 }
 
 /// Additional derives to set for `k8s` types.
-pub(crate) fn k8s_derives(input: &DeriveInput) -> Option<Vec<String>> {
-    match input.data {
+pub(crate) fn k8s_derives(data: &Data) -> Option<Vec<String>> {
+    match data {
         Data::Struct(_) => Some(vec![
             "Clone".to_owned(),
             "std::fmt::Debug".to_owned(),
@@ -160,8 +159,8 @@ fn roundtrip_k8s_openapi_adjust_field_serde() {
 }
 
 /// The field type helper attributes for an optioned `Struct` or `Enum`.
-pub(crate) fn k8s_type_attr(input: &DeriveInput) -> Option<Attribute> {
-    match input.data {
+pub(crate) fn k8s_type_attr(data: &Data) -> Option<Attribute> {
+    match data {
         Data::Struct(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
         Data::Enum(_) => Some(parse_quote!(#[serde(rename_all_fields="camelCase")])),
         Data::Union(_) => None,
@@ -249,10 +248,12 @@ pub(crate) fn k8s_openapi_impl_metadata(
 // false positive depending on the features enabled
 #[allow(unused_variables)]
 #[allow(clippy::unnecessary_wraps)]
-pub(crate) fn error_missing_features(attrs: &TypeHelperAttributes) -> Result<(), Error> {
+pub(crate) fn error_missing_features(
+    attrs_k8s_openapi: Option<&TypeHelperAttributesK8sOpenapi>,
+    attrs_kube: Option<&TypeHelperAttributesKube>,
+) -> Result<(), Error> {
     #[cfg(not(feature = "k8s_openapi"))]
-    if attrs
-        .k8s_openapi
+    if attrs_k8s_openapi
         .as_ref()
         .is_some_and(|attr| attr.resource.is_some())
     {
@@ -261,8 +262,7 @@ pub(crate) fn error_missing_features(attrs: &TypeHelperAttributes) -> Result<(),
         );
     }
     #[cfg(not(feature = "kube"))]
-    if attrs
-        .kube
+    if attrs_kube
         .as_ref()
         .is_some_and(|attr| attr.resource.is_some())
     {

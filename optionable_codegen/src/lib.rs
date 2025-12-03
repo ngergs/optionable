@@ -214,36 +214,29 @@ pub fn derive_optionable(
     input: DeriveInput,
     settings: Option<&CodegenSettings>,
 ) -> syn::Result<TokenStream> {
-    let attrs = TypeHelperAttributes::from_derive_input(&input)?;
-    error_missing_features(&attrs)?;
-    let k8s_resource_type = k8s_resource_type(&attrs)?;
-    let k8s_openapi_attrs = attrs.k8s_openapi.is_some().then(|| k8s_type_attr(&input));
-    let attr_copy_identifier = field_attr_copy_hashmap(attrs.attr_copy, attrs.kube.as_ref());
-
-    let mut derive = attrs
-        .derive
-        .into_iter()
-        .flat_map(|el| {
-            el.iter()
-                .map(|el| el.to_token_stream().to_string())
-                .collect::<Vec<_>>()
-        })
-        .collect::<BTreeSet<_>>();
-    if (attrs.k8s_openapi.is_some() || attrs.kube.is_some())
-        && let Some(k8s_derives) = k8s_derives(&input)
-    {
-        for el in k8s_derives {
-            derive.insert(el);
-        }
-    }
     let settings = settings.map(Cow::Borrowed).unwrap_or_default();
     let crate_name = &settings.optionable_crate_name;
-    let ty_attr_forwarded = forwarded_attributes(&input.attrs, &attr_copy_identifier)?;
-    let vis = input.vis;
+    let TypeHelperAttributes {
+        attr_copy,
+        derive: attr_derive,
+        suffix: attr_suffix,
+        no_convert: attr_no_convert,
+        k8s_openapi: attr_k8s_openapi,
+        kube: attr_kube,
+    } = TypeHelperAttributes::from_derive_input(&input)?;
+    let DeriveInput {
+        attrs,
+        vis,
+        generics,
+        data,
+        ..
+    } = input;
+    error_missing_features(attr_k8s_openapi.as_ref(), attr_kube.as_ref())?;
+
     let ty_ident_opt = {
-        let suffix = attrs.suffix.map_or_else(
+        let suffix = attr_suffix.map_or_else(
             || {
-                if attrs.kube.is_some() || attrs.k8s_openapi.is_some() {
+                if attr_kube.is_some() || attr_k8s_openapi.is_some() {
                     Cow::Borrowed("Ac")
                 } else {
                     Cow::Borrowed("Opt")
@@ -259,7 +252,7 @@ pub fn derive_optionable(
     } else {
         input.ident.into()
     };
-    if let Data::Enum(e) = &input.data
+    if let Data::Enum(e) = &data
         && e.variants
             .iter()
             .all(|el| matches!(el.fields, Fields::Unit))
@@ -268,15 +261,36 @@ pub fn derive_optionable(
         return Ok(impl_optionable_self(
             crate_name,
             &ty_ident,
-            attrs.no_convert.is_some(),
+            attr_no_convert.is_some(),
         ));
     }
 
-    let (impl_generics, ty_generics, _) = input.generics.split_for_impl();
-    let generics_colon = (!input.generics.params.is_empty()).then(|| quote! {::});
+    let k8s_resource_type = k8s_resource_type(attr_k8s_openapi.as_ref(), attr_kube.as_ref())?;
+    let k8s_openapi_attrs = attr_k8s_openapi.is_some().then(|| k8s_type_attr(&data));
+    let attr_copy_identifier = field_attr_copy_hashmap(attr_copy, attr_kube.as_ref());
+    let ty_attr_forwarded = forwarded_attributes(&attrs, &attr_copy_identifier)?;
 
+    let mut derive = attr_derive
+        .into_iter()
+        .flat_map(|el| {
+            el.iter()
+                .map(|el| el.to_token_stream().to_string())
+                .collect::<Vec<_>>()
+        })
+        .collect::<BTreeSet<_>>();
+    if (attr_k8s_openapi.is_some() || attr_kube.is_some())
+        && let Some(k8s_derives) = k8s_derives(&data)
+    {
+        for el in k8s_derives {
+            derive.insert(el);
+        }
+    }
+
+    let vis = vis;
+    let (impl_generics, ty_generics, _) = generics.split_for_impl();
+    let generics_colon = (!generics.params.is_empty()).then(|| quote! {::});
     let skip_optionable_if_serde_serialize =
-        (attrs.k8s_openapi.is_some() // also sets #[derive(Serialize)]
+        (attr_k8s_openapi.is_some() // also sets #[derive(Serialize)]
         || derive.iter().any(|el|is_serialize(el.as_str())))
         .then(|| quote!(#[serde(skip_serializing_if = "Option::is_none")]));
 
@@ -302,7 +316,7 @@ pub fn derive_optionable(
         where_clause_impl_optionable,
         where_clause_impl_optionable_convert,
         impl_optionable_convert,
-    } = match input.data {
+    } = match data {
         Data::Struct(s) => {
             let mut struct_parsed = into_field_handling(
                 crate_name.to_owned(),
@@ -311,8 +325,8 @@ pub fn derive_optionable(
             )?;
             k8s_adjust_fields(
                 &mut struct_parsed,
-                attrs.k8s_openapi.as_ref(),
-                attrs.kube.as_ref(),
+                attr_k8s_openapi.as_ref(),
+                attr_kube.as_ref(),
                 k8s_resource_type.as_ref(),
                 crate_name,
             )?;
@@ -323,9 +337,9 @@ pub fn derive_optionable(
             } = where_clauses(
                 crate_name,
                 settings.input_crate_replacement.as_ref(),
-                &input.generics,
+                &generics,
                 &derive,
-                attrs.no_convert.is_some(),
+                attr_no_convert.is_some(),
                 &struct_parsed.fields,
             )?;
             let unnamed_struct_semicolon =
@@ -336,7 +350,7 @@ pub fn derive_optionable(
                 &attr_copy_identifier,
             )?;
 
-            let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
+            let impl_optionable_convert = attr_no_convert.is_none().then(|| {
                 let into_optioned_fields = into_optioned(&struct_parsed, |selector| quote! { self.#selector });
                 let try_from_optioned_fields =
                     try_from_optioned(&struct_parsed, |selector| quote! { value.#selector });
@@ -388,8 +402,8 @@ pub fn derive_optionable(
                     )?;
                     k8s_adjust_fields(
                         &mut field_handling,
-                        attrs.k8s_openapi.as_ref(),
-                        attrs.kube.as_ref(),
+                        attr_k8s_openapi.as_ref(),
+                        attr_kube.as_ref(),
                         k8s_resource_type.as_ref(),
                         crate_name,
                     )?;
@@ -411,9 +425,9 @@ pub fn derive_optionable(
             } = where_clauses(
                 crate_name,
                 settings.input_crate_replacement.as_ref(),
-                &input.generics,
+                &generics,
                 &derive,
-                attrs.no_convert.is_some(),
+                attr_no_convert.is_some(),
                 all_fields,
             )?;
 
@@ -429,7 +443,7 @@ pub fn derive_optionable(
                 })
                 .collect::<Result<Vec<_>, _>>()?;
 
-            let impl_optionable_convert = attrs.no_convert.is_none().then(|| {
+            let impl_optionable_convert = attr_no_convert.is_none().then(|| {
                 let (into_variants, try_from_variants, merge_variants): (Vec<_>, Vec<_>, Vec<_>) = variants
                     .iter()
                     .map(|(variant, _, struct_parsed)| {
@@ -495,7 +509,7 @@ pub fn derive_optionable(
         }
         Data::Union(_) => return error("#[derive(Optionable)] not supported for unit structs"),
     };
-    let impl_optioned_convert=attrs.no_convert.is_none().then(||{
+    let impl_optioned_convert=attr_no_convert.is_none().then(||{
         quote! {
             #[automatically_derived]
             impl #impl_generics #crate_name::OptionedConvert<#ty_ident #ty_generics> for #ty_ident_opt #ty_generics #where_clause_impl_optionable_convert {
@@ -518,8 +532,7 @@ pub fn derive_optionable(
         .collect::<Result<Vec<_>, _>>()?;
     let derive = (!derive.is_empty()).then(|| quote! {#[derive(#(#derive),*)]});
 
-    let k8s_openapi_impl_resource = attrs
-        .k8s_openapi
+    let k8s_openapi_impl_resource = attr_k8s_openapi
         .as_ref()
         .is_some_and(|attr| attr.resource.is_some())
         .then(|| {
@@ -531,8 +544,7 @@ pub fn derive_optionable(
                 &where_clause_impl_optionable,
             )
         });
-    let impl_k8s_metadata = attrs
-        .k8s_openapi
+    let impl_k8s_metadata = attr_k8s_openapi
         .as_ref()
         .is_some_and(|attr| attr.metadata.is_some())
         .then(|| {
@@ -544,8 +556,7 @@ pub fn derive_optionable(
                 &where_clause_impl_optionable,
             )
         });
-    let kube_derive_resource = attrs
-        .kube
+    let kube_derive_resource = attr_kube
         .is_some_and(|attr| attr.resource.is_some())
         .then(|| {
             quote! {
