@@ -2,6 +2,8 @@ use kube::{Api, Client};
 use optionable::kube::ExtractManagedFields;
 use optionable_k8s_openapi_example::{CustomCrd, FIELD_MANAGER};
 
+// CRD definition is in ../lib.rs
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client: Client = Client::try_default().await?;
