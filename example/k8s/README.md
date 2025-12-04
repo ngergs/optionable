@@ -7,7 +7,7 @@ One main motivation for the `optionable` crate is to support type-safe server-si
 The available API to derive optioned types for Custom Resource Definitions is not ideal and does not allow to configure what
 types to derive for the optioned root type of the custom resource.
 
-With kube v3 the originating design limitations (not being able to set attributes for the derives CRD root type) are resolved,
+With the not yet released kube v3 the originating design limitations (not being able to set attributes for the derives CRD root type) are resolved,
 you can take a look at the [kube branch](https://github.com/ngergs/optionable/tree/kube/example/k8s) for a first impression 
 of the reworked API from `optionable` utilizing this.
 
