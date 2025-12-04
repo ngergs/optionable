@@ -110,7 +110,6 @@ pub trait OptionableConvert: Sized + Optionable {
     fn merge(&mut self, other: Self::Optioned) -> Result<(), Error>;
 }
 
-// sealed, auto-implemented from `OptionableConvert` for every respective `T::Optioned`
 pub trait OptionedConvert<T>
 where
     T: Optionable<Optioned=Self> + OptionableConvert,
