@@ -96,7 +96,7 @@
 //! ## Conversion
 //! Per default also conversion traits for struct/enums with sized fields will be derived.
 //! The relevant traits are [`OptionableConvert`] which is an extension trait for sized-fields only [`trait@Optionable`]
-//! objects. The [`OptionedConvert`] described the way back, i.e. conversion from an partial optioned type
+//! objects. The [`OptionedConvert`] described the way back, i.e. conversion from a partial optioned type
 //! to a full optionable type.
 //! They are (shown here without comments and `where` clauses):
 //! ```rust,ignore
@@ -106,9 +106,7 @@
 //!     fn merge(&mut self, other: Self::Optioned) -> Result<(), Error>;
 //! }
 //!
-//! pub trait OptionedConvert<T>
-//! where
-//!     T: Optionable<Optioned=Self> + OptionableConvert,
+//! pub trait OptionedConvert<T>: Sized
 //! {
 //!     fn from_optionable(value: T) -> Self;
 //!     fn try_into_optionable(self) -> Result<T, Error>;

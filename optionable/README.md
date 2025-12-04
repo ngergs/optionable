@@ -110,9 +110,7 @@ pub trait OptionableConvert: Sized + Optionable {
     fn merge(&mut self, other: Self::Optioned) -> Result<(), Error>;
 }
 
-pub trait OptionedConvert<T>
-where
-    T: Optionable<Optioned=Self> + OptionableConvert,
+pub trait OptionedConvert<T>: Sized
 {
     fn from_optionable(value: T) -> Self;
     fn try_into_optionable(self) -> Result<T, Error>;
