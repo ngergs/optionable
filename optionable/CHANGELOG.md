@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.2](https://github.com/ngergs/optionable/compare/optionable-v0.8.1...optionable-v0.8.2) - 2025-12-07
+
+### Other
+
+- Merge pull request #54 from ngergs/release-plz-2025-12-03T22-34-19Z
+- docs
+
 ## [0.8.1](https://github.com/ngergs/optionable/compare/optionable-v0.8.0...optionable-v0.8.1) - 2025-12-04
 
 ### Other
