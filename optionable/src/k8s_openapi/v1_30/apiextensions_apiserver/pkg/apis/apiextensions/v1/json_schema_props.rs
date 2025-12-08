@@ -8,6 +8,7 @@
 )]
 #[serde(rename_all = "camelCase")]
 pub struct JSONSchemaPropsAc {
+    #[serde(rename = "$ref")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ref_path: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(rename = "$schema")]

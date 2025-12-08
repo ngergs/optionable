@@ -4,9 +4,7 @@ use crate::parsed_input::{FieldParsed, StructParsed};
 use crate::{TypeHelperAttributesK8sOpenapi, TypeHelperAttributesKube};
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
-use syn::{
-    parse_quote, Attribute, Data, Error, ImplGenerics, Path, TypeGenerics, WhereClause,
-};
+use syn::{parse_quote, Attribute, Data, Error, ImplGenerics, Path, TypeGenerics, WhereClause};
 
 /// We have two useful `Resource` traits and dependent on the user needs we will use one
 /// of them for adding the API envelope `apiVersion` and `kind` fields when serializing.
@@ -122,6 +120,7 @@ fn k8s_openapi_serde_rename_revert_special_cases(input: &str) -> Option<&'static
         "pod_ips" => Some("podIPs"),
         "server_address_by_client_cidrs" => Some("serverAddressByClientCIDRs"),
         "target_wwns" => Some("targetWWNs"),
+        "ref_path" => Some("$ref"),
         "schema" => Some("$schema"),
         "as_" => Some("as"),
         "continue_" => Some("continue"),
@@ -143,6 +142,7 @@ fn roundtrip_k8s_openapi_adjust_field_serde() {
         "podIPs",
         "serverAddressByClientCIDRs",
         "targetWWNs",
+        "$ref",
         "$schema",
         "as",
         "continue",
