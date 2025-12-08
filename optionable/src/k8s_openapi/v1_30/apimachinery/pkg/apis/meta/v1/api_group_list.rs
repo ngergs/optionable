@@ -91,3 +91,10 @@ impl k8s_openapi::Resource for APIGroupListAc {
     const URL_PATH_SEGMENT: &'static str = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroupList as k8s_openapi::Resource>::URL_PATH_SEGMENT;
     type Scope = <::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroupList as k8s_openapi::Resource>::Scope;
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_apigrouplistac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroupList,
+    >();
+}

@@ -9,7 +9,7 @@ use std::default::Default;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
 use syn::Item::{Enum, Impl, Struct, Use};
-use syn::{parse_quote, Item, Path, Type};
+use syn::{parse_quote, Fields, Item, Path, Type};
 
 const K8S_OPENAPI: &str = "k8s_openapi";
 
@@ -123,6 +123,18 @@ impl CodegenVisitor for Visitor {
                 }
                 Enum(item) => {
                     item.attrs.push(parse_quote!(#[serde(untagged)]));
+                }
+                Struct(item) => {
+                    // upstream k8s did not follow the usual pattern here (and likely now it's too late to change it)
+                    if item.ident == "DaemonEndpointAc"
+                        && let Fields::Named(fields) = &mut item.fields
+                        && let Some(field) = fields
+                            .named
+                            .iter_mut()
+                            .find(|field| field.ident.as_ref().is_some_and(|id| id == "port"))
+                    {
+                        field.attrs.push(parse_quote!(#[serde(rename = "Port")]));
+                    }
                 }
                 _ => {}
             }

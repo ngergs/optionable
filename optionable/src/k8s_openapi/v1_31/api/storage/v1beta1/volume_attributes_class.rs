@@ -105,3 +105,10 @@ impl k8s_openapi::Metadata for VolumeAttributesClassAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_volumeattributesclassac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::storage::v1beta1::VolumeAttributesClass,
+    >();
+}

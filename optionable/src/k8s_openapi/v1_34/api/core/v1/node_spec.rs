@@ -12,8 +12,10 @@ pub struct NodeSpecAc {
     pub config_source: <Option<
         ::k8s_openapi::api::core::v1::NodeConfigSource,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "externalID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub external_id: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(rename = "podCIDR")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_cidr: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(rename = "podCIDRs")]
@@ -21,6 +23,7 @@ pub struct NodeSpecAc {
     pub pod_cidrs: <Option<
         std::vec::Vec<std::string::String>,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "providerID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provider_id: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]

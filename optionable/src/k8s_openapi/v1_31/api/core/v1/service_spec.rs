@@ -10,6 +10,7 @@
 pub struct ServiceSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allocate_load_balancer_node_ports: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(rename = "clusterIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster_ip: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(rename = "clusterIPs")]
@@ -44,6 +45,7 @@ pub struct ServiceSpecAc {
     pub load_balancer_class: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "loadBalancerIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub load_balancer_ip: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]

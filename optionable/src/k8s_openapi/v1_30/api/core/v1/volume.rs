@@ -36,6 +36,7 @@ pub struct VolumeAc {
     pub csi: <Option<
         ::k8s_openapi::api::core::v1::CSIVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "downwardAPI")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub downward_api: <Option<
         ::k8s_openapi::api::core::v1::DownwardAPIVolumeSource,
@@ -110,6 +111,7 @@ pub struct VolumeAc {
     pub rbd: <Option<
         ::k8s_openapi::api::core::v1::RBDVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "scaleIO")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scale_io: <Option<
         ::k8s_openapi::api::core::v1::ScaleIOVolumeSource,

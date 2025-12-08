@@ -92,3 +92,8 @@ impl k8s_openapi::Metadata for JobAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_jobac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::batch::v1::Job>();
+}

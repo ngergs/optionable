@@ -119,3 +119,10 @@ impl k8s_openapi::Metadata for ResourceClassParametersAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_resourceclassparametersac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::resource::v1alpha2::ResourceClassParameters,
+    >();
+}

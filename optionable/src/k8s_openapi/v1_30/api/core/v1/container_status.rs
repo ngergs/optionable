@@ -15,10 +15,12 @@ pub struct ContainerStatusAc {
             ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
         >,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "containerID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub container_id: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub image: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(rename = "imageID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub image_id: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]

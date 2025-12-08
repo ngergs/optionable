@@ -92,3 +92,8 @@ impl k8s_openapi::Metadata for IngressAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_ingressac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::networking::v1::Ingress>();
+}

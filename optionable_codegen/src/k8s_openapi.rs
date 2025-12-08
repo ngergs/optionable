@@ -4,6 +4,7 @@ use crate::parsed_input::{FieldParsed, StructParsed};
 use crate::{TypeHelperAttributesK8sOpenapi, TypeHelperAttributesKube};
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
+use std::borrow::Cow;
 use syn::{parse_quote, Attribute, Data, Error, ImplGenerics, Path, TypeGenerics, WhereClause};
 
 /// We have two useful `Resource` traits and dependent on the user needs we will use one
@@ -96,8 +97,7 @@ fn k8s_openapi_set_metadata_required(struct_parsed: &mut StructParsed) {
 fn k8s_openapi_adjust_field_serde_renames(struct_parsed: &mut StructParsed) -> Result<(), Error> {
     struct_parsed.fields.iter_mut().try_for_each(|f| {
         if let Some(name) = &f.field.ident
-            && let Some(name_serialized) =
-                k8s_openapi_serde_rename_revert_special_cases(name.to_string().as_ref())
+            && let Some(name_serialized) = k8s_openapi_serde_rename(name.to_string().as_ref())
         {
             f.field
                 .attrs
@@ -107,41 +107,83 @@ fn k8s_openapi_adjust_field_serde_renames(struct_parsed: &mut StructParsed) -> R
     })
 }
 
-/// Reverts special case handling from `k8s_openapi`.
-/// Returns `None` if it is not a special case.
-/// See the [`get_rust_ident`](https://docs.rs/k8s-openapi-codegen-common/latest/k8s_openapi_codegen_common/fn.get_rust_ident.html) used by `k8s_openapi`.
-fn k8s_openapi_serde_rename_revert_special_cases(input: &str) -> Option<&'static str> {
+/// Reverts some special case handling from `k8s_openapi` and also follows the naming schema from upstream k8s.
+/// Testing via the roundtrip test for k8s-openapi serialization (generated for each type via codegen),
+/// Return `Some(..)` and the rename value for special cases and `None` if it is not a special case.
+/// See also the [`get_rust_ident`](https://docs.rs/k8s-openapi-codegen-common/latest/k8s_openapi_codegen_common/fn.get_rust_ident.html) used by `k8s_openapi`.
+#[allow(clippy::missing_panics_doc)] // see discussion below regarding why using `next` and `pop` is safe.
+fn k8s_openapi_serde_rename(input: &str) -> Option<Cow<'static, str>> {
+    const UPPERCASE_WORDS: &[&str; 15] = &[
+        "api", "cidr", "cpu", "fqdn", "id", "io", "ip", "ipc", "pid", "tls", "uid", "uuid", "uri",
+        "url", "wwn",
+    ];
+    const PLURAL_WORDS: &[&str; 6] = &["cidrs", "ids", "ips", "uris", "urls", "wwns"];
     match input {
-        "cluster_ips" => Some("clusterIPs"),
-        "external_ips" => Some("externalIPs"),
-        "host_ips" => Some("hostIPs"),
-        "non_resource_urls" => Some("nonResourceURLs"),
-        "pod_cidrs" => Some("podCIDRs"),
-        "pod_ips" => Some("podIPs"),
-        "server_address_by_client_cidrs" => Some("serverAddressByClientCIDRs"),
-        "target_wwns" => Some("targetWWNs"),
-        "ref_path" => Some("$ref"),
-        "schema" => Some("$schema"),
-        "as_" => Some("as"),
-        "continue_" => Some("continue"),
-        "enum_" => Some("enum"),
-        "ref_" => Some("ref"),
-        "type_" => Some("type"),
-        _ => None,
+        "ref_path" => Some("$ref".into()),
+        "schema" => Some("$schema".into()),
+        "as_" => Some("as".into()),
+        "continue_" => Some("continue".into()),
+        "enum_" => Some("enum".into()),
+        "ref_" => Some("ref".into()),
+        "type_" => Some("type".into()),
+        other => {
+            if !other.split('_').enumerate().any(|(i, el)| {
+                i != 0 && (UPPERCASE_WORDS.contains(&el) || PLURAL_WORDS.contains(&el))
+            }) {
+                return None;
+            }
+            let name: String = other
+                .split('_')
+                .enumerate()
+                .map(|(i, el)| {
+                    // first word stays lowercase
+                    if i == 0 || el.is_empty() {
+                        return Cow::Borrowed(el);
+                    }
+                    if UPPERCASE_WORDS.contains(&el) {
+                        return el.to_uppercase().into();
+                    }
+                    if PLURAL_WORDS.contains(&el) {
+                        // capitalize everything except the last char
+                        let mut chars: Vec<char> = el.chars().collect();
+                        // unwrap on the very first `pop()` is fine here, we checked in the beginning that el isn't empty
+                        let last = chars.pop().unwrap().to_string();
+                        return (chars.into_iter().collect::<String>().to_uppercase() + &last)
+                            .into();
+                    }
+                    // capitalize first char
+                    let mut chars = el.chars();
+                    // unwrap on the very first `next()` is fine here, we checked in the beginning that el isn't empty
+                    (chars.next().unwrap().to_uppercase().to_string() + chars.as_str()).into()
+                })
+                .collect();
+            Some(name.into())
+        }
     }
 }
 
 #[test]
 fn roundtrip_k8s_openapi_adjust_field_serde() {
     const SPECIAL_KEYS: &[&str] = &[
+        "clusterIP",
         "clusterIPs",
+        "diskURI",
+        "externalIP",
         "externalIPs",
+        "hostIP",
         "hostIPs",
+        "nonResourceURL",
         "nonResourceURLs",
+        "pdID",
+        "podCIDR",
         "podCIDRs",
+        "podIP",
         "podIPs",
+        "serverAddressByClientCIDR",
         "serverAddressByClientCIDRs",
+        "targetWWN",
         "targetWWNs",
+        "volumeID",
         "$ref",
         "$schema",
         "as",
@@ -152,9 +194,9 @@ fn roundtrip_k8s_openapi_adjust_field_serde() {
     ];
     for key in SPECIAL_KEYS {
         let rust_ident = k8s_openapi_codegen_common::get_rust_ident(key);
-        let key_roundtrip = k8s_openapi_serde_rename_revert_special_cases(rust_ident.as_ref());
+        let key_roundtrip = k8s_openapi_serde_rename(rust_ident.as_ref());
         assert!(key_roundtrip.is_some());
-        assert_eq!(key.to_owned(), key_roundtrip.unwrap().to_owned());
+        assert_eq!(key.to_owned(), key_roundtrip.unwrap().into_owned());
     }
 }
 

@@ -12,6 +12,7 @@ pub struct AzureDiskVolumeSourceAc {
     pub caching_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub disk_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(rename = "diskURI")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub disk_uri: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]

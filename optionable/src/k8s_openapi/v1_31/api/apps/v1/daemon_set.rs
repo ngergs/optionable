@@ -92,3 +92,8 @@ impl k8s_openapi::Metadata for DaemonSetAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_daemonsetac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::apps::v1::DaemonSet>();
+}

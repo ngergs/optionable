@@ -14,6 +14,7 @@ pub struct CSINodeDriverAc {
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(rename = "nodeID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_id: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]

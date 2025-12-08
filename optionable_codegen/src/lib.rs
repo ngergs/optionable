@@ -291,7 +291,7 @@ pub fn derive_optionable(
     let generics_colon = (!generics.params.is_empty()).then(|| quote! {::});
     let skip_optionable_if_serde_serialize =
         (attr_k8s_openapi.is_some() // also sets #[derive(Serialize)]
-        || derive.iter().any(|el|is_serialize(el.as_str())))
+            || derive.iter().any(|el| is_serialize(el.as_str())))
         .then(|| quote!(#[serde(skip_serializing_if = "Option::is_none")]));
 
     /// Helper to collect the enum/struct specific derived code aspects in a typesafe way
@@ -509,7 +509,7 @@ pub fn derive_optionable(
         }
         Data::Union(_) => return error("#[derive(Optionable)] not supported for unit structs"),
     };
-    let impl_optioned_convert=attr_no_convert.is_none().then(||{
+    let impl_optioned_convert = attr_no_convert.is_none().then(|| {
         quote! {
             #[automatically_derived]
             impl #impl_generics #crate_name::OptionedConvert<#ty_ident #ty_generics> for #ty_ident_opt #ty_generics #where_clause_impl_optionable_convert {
@@ -564,6 +564,26 @@ pub fn derive_optionable(
                 #[resource(inherit = #ty_ident )]
             }
         });
+    let k8s_roundtrip_test = (attr_k8s_openapi.is_some_and(|attr|attr.resource.is_some())
+        && ty_generics.to_token_stream().is_empty()
+        && ty_ident_opt!="CustomResourceDefinitionAc" // causes stackoverflows during the roundtrip tests // todo: investigate
+        && ty_ident_opt!="StorageVersionAc" // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
+        && ty_ident_opt!="DeviceClassAc" // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
+        && ty_ident_opt!="ResourceClaimAc") // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
+        .then(|| {
+            let fn_name = Ident::from_string(
+                &("roundtrip_".to_owned()
+                    + &ty_ident_opt.to_token_stream().to_string().to_lowercase()),
+            )?;
+            Ok::<_, Error>(quote! {
+                #[cfg(test_k8s_openapi_roundtrip)]
+                #[test]
+                fn #fn_name() {
+                   crate::testutil::roundtrip_test::<#ty_ident>();
+                }
+            })
+        })
+        .transpose()?;
     Ok(quote! {
                 #derive
                 #kube_derive_resource
@@ -586,6 +606,8 @@ pub fn derive_optionable(
 
                 #k8s_openapi_impl_resource
                 #impl_k8s_metadata
+
+                #k8s_roundtrip_test
     })
 }
 
@@ -664,7 +686,7 @@ fn into_optioned(
         let crate_name = &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
             (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon #self_selector},
-            (FieldHandling::ManualOptioned(_),_) => quote! {#ident #colon Some(#crate_name::OptionedConvert::from_optionable(#self_selector))},
+            (FieldHandling::ManualOptioned(_), _) => quote! {#ident #colon Some(#crate_name::OptionedConvert::from_optionable(#self_selector))},
             (FieldHandling::IsOption, false) => quote! {#ident #colon #crate_name::OptionableConvert::into_optioned(#self_selector)},
             (FieldHandling::Other, true) => quote! {#ident #colon Some(#self_selector)},
             (FieldHandling::Other, false) => quote! {#ident #colon Some(#crate_name::OptionableConvert::into_optioned(#self_selector))},
@@ -691,7 +713,7 @@ fn try_from_optioned(
         let crate_name = &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
             (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon value.#selector},
-            (FieldHandling::ManualOptioned(_),_) => {
+            (FieldHandling::ManualOptioned(_), _) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 quote! {
                     #ident #colon #crate_name::OptionedConvert::try_into_optionable(#value_selector.ok_or(#crate_name::Error{ missing_field: #selector_quoted })?
@@ -756,7 +778,7 @@ fn merge_fields(
             let crate_name = &struct_parsed.crate_name;
             match (handling, is_self_resolving_optioned(ty)) {
                 (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#deref_modifier #self_selector = #other_selector;},
-                (FieldHandling::ManualOptioned(_),_) => quote! {
+                (FieldHandling::ManualOptioned(_), _) => quote! {
                     if let Some(other_value)=#other_selector{
                         #crate_name::OptionedConvert::merge_into(other_value, #self_merge_mut_modifier #self_selector)?;
                     }
@@ -830,35 +852,35 @@ fn forwarded_attributes(
                     _ => error("Only lists like `#[optionable_attr(Serialize,Deserialize)]` are supported for `optionable_attr`"),
                 };
             }
-            let keys_to_copy=attr_to_copy.get(attr.path());
-            if let Some(keys_to_copy)=keys_to_copy{
+            let keys_to_copy = attr_to_copy.get(attr.path());
+            if let Some(keys_to_copy) = keys_to_copy {
                 // no key restrictions
-                if keys_to_copy.is_empty(){
-                    if attr.path().is_ident("derive")&& let   Meta::List(meta_list)=&attr.meta{
-                        let derives=Punctuated::<Path, Token![,]>::parse_terminated
-                            .parse2(meta_list.tokens.clone())?.into_iter().filter(|el|el.to_token_stream().to_string()!="Optionable"&&el.to_token_stream().to_string()!="optionable::Optionable");
+                if keys_to_copy.is_empty() {
+                    if attr.path().is_ident("derive") && let Meta::List(meta_list) = &attr.meta {
+                        let derives = Punctuated::<Path, Token![,]>::parse_terminated
+                            .parse2(meta_list.tokens.clone())?.into_iter().filter(|el| el.to_token_stream().to_string() != "Optionable" && el.to_token_stream().to_string() != "optionable::Optionable");
                         return Ok(Some(quote! {#[derive(#(#derives,)*)]}));
                     }
                     Ok(Some(attr.to_token_stream()))
-                } else{
-                    match &attr.meta{
+                } else {
+                    match &attr.meta {
                         Meta::Path(_) => Ok(None),
                         Meta::NameValue(meta_name_value) => Ok(keys_to_copy.contains(&meta_name_value.path).then(|| attr.to_token_stream())),
                         Meta::List(meta_list) => {
                             // we support one level of nesting for a Meta::List(Meta::NameValue(..)) setup like it's used by #[serde(rename=...)]
-                            let inner_metas :Vec<TokenStream>= Punctuated::<Meta, Token![,]>::parse_terminated
-                                .parse2(meta_list.tokens.clone())?.into_iter().filter_map(|meta|{
-                                if let Meta::NameValue(meta_name_value)= meta{
-                                    keys_to_copy.contains(&meta_name_value.path).then(|| Ok::<_,Error>(meta_name_value.to_token_stream()))
-                                } else{
+                            let inner_metas: Vec<TokenStream> = Punctuated::<Meta, Token![,]>::parse_terminated
+                                .parse2(meta_list.tokens.clone())?.into_iter().filter_map(|meta| {
+                                if let Meta::NameValue(meta_name_value) = meta {
+                                    keys_to_copy.contains(&meta_name_value.path).then(|| Ok::<_, Error>(meta_name_value.to_token_stream()))
+                                } else {
                                     None
                                 }
-                            }).collect::<Result<_,_>>()?;
+                            }).collect::<Result<_, _>>()?;
                             if inner_metas.is_empty() {
                                 Ok(None)
                             } else {
-                                let attr=Attribute{
-                                    meta: MetaList{
+                                let attr = Attribute {
+                                    meta: MetaList {
                                         path: meta_list.path.clone(),
                                         delimiter: meta_list.delimiter.clone(),
                                         tokens: inner_metas.into_iter().collect(),
@@ -870,11 +892,11 @@ fn forwarded_attributes(
                         }
                     }
                 }
-            } else{
+            } else {
                 Ok(None)
             }
         })
-        .collect::<Result<Vec<_>,_>>()?
+        .collect::<Result<Vec<_>, _>>()?
         .into_iter()
         .flatten()
         .collect::<TokenStream>();

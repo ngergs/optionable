@@ -95,3 +95,10 @@ impl k8s_openapi::Metadata for ServiceCIDRAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_servicecidrac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::networking::v1alpha1::ServiceCIDR,
+    >();
+}

@@ -109,3 +109,10 @@ impl k8s_openapi::Metadata for PodCertificateRequestAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_podcertificaterequestac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::certificates::v1alpha1::PodCertificateRequest,
+    >();
+}

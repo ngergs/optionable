@@ -8,6 +8,7 @@
 )]
 #[serde(rename_all = "camelCase")]
 pub struct HorizontalPodAutoscalerStatusAc {
+    #[serde(rename = "currentCPUUtilizationPercentage")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_cpu_utilization_percentage: <Option<i32> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]

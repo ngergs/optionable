@@ -207,3 +207,8 @@ impl k8s_openapi::Metadata for EventAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_eventac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::events::v1::Event>();
+}

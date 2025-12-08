@@ -106,3 +106,10 @@ impl k8s_openapi::Metadata for PriorityLevelConfigurationAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_prioritylevelconfigurationac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::flowcontrol::v1::PriorityLevelConfiguration,
+    >();
+}

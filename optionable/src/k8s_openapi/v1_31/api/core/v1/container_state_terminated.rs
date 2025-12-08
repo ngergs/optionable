@@ -8,6 +8,7 @@
 )]
 #[serde(rename_all = "camelCase")]
 pub struct ContainerStateTerminatedAc {
+    #[serde(rename = "containerID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub container_id: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]

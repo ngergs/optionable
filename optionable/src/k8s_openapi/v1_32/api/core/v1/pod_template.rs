@@ -86,3 +86,8 @@ impl k8s_openapi::Metadata for PodTemplateAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_podtemplateac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::core::v1::PodTemplate>();
+}

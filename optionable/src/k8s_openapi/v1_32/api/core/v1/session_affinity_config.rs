@@ -8,6 +8,7 @@
 )]
 #[serde(rename_all = "camelCase")]
 pub struct SessionAffinityConfigAc {
+    #[serde(rename = "clientIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub client_ip: <Option<
         ::k8s_openapi::api::core::v1::ClientIPConfig,

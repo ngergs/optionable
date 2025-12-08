@@ -85,3 +85,8 @@ impl k8s_openapi::Metadata for LeaseAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_leaseac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::coordination::v1::Lease>();
+}

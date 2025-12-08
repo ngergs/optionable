@@ -16,6 +16,7 @@ pub struct VolumeProjectionAc {
     pub config_map: <Option<
         ::k8s_openapi::api::core::v1::ConfigMapProjection,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "downwardAPI")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub downward_api: <Option<
         ::k8s_openapi::api::core::v1::DownwardAPIProjection,

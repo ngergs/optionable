@@ -111,3 +111,10 @@ impl k8s_openapi::Metadata for CertificateSigningRequestAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_certificatesigningrequestac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::certificates::v1::CertificateSigningRequest,
+    >();
+}

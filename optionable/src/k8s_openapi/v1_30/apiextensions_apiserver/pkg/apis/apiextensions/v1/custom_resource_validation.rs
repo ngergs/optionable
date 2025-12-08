@@ -8,6 +8,7 @@
 )]
 #[serde(rename_all = "camelCase")]
 pub struct CustomResourceValidationAc {
+    #[serde(rename = "openAPIV3Schema")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub open_api_v3_schema: <Option<
         ::k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,

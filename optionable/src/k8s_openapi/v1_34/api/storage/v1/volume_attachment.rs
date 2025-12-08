@@ -103,3 +103,10 @@ impl k8s_openapi::Metadata for VolumeAttachmentAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_volumeattachmentac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::storage::v1::VolumeAttachment,
+    >();
+}

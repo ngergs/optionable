@@ -10,6 +10,7 @@
 pub struct ContainerPortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub container_port: Option<i32>,
+    #[serde(rename = "hostIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host_ip: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]

@@ -9,6 +9,7 @@
 #[serde(rename_all = "camelCase")]
 pub struct DaemonEndpointAc {
     #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "Port")]
     pub port: Option<i32>,
 }
 #[automatically_derived]

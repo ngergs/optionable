@@ -100,3 +100,10 @@ impl k8s_openapi::Metadata for ResourceClaimTemplateAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_resourceclaimtemplateac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::resource::v1beta2::ResourceClaimTemplate,
+    >();
+}

@@ -10,6 +10,7 @@
 pub struct NodeSystemInfoAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub architecture: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(rename = "bootID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub boot_id: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,7 @@ pub struct NodeSystemInfoAc {
     pub kube_proxy_version: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kubelet_version: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(rename = "machineID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub machine_id: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -32,6 +34,7 @@ pub struct NodeSystemInfoAc {
     pub swap: <Option<
         ::k8s_openapi::api::core::v1::NodeSwapStatus,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "systemUUID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub system_uuid: Option<<std::string::String as crate::Optionable>::Optioned>,
 }

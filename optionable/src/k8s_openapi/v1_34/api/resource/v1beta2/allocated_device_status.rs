@@ -26,6 +26,7 @@ pub struct AllocatedDeviceStatusAc {
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pool: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(rename = "shareID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub share_id: <Option<std::string::String> as crate::Optionable>::Optioned,
 }

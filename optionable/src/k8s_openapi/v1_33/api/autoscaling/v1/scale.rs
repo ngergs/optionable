@@ -92,3 +92,8 @@ impl k8s_openapi::Metadata for ScaleAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_scaleac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::autoscaling::v1::Scale>();
+}

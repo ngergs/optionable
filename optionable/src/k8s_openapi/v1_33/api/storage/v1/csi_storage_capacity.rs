@@ -126,3 +126,10 @@ impl k8s_openapi::Metadata for CSIStorageCapacityAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_csistoragecapacityac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::storage::v1::CSIStorageCapacity,
+    >();
+}

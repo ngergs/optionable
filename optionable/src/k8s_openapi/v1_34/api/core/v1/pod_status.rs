@@ -24,6 +24,7 @@ pub struct PodStatusAc {
     pub extended_resource_claim_status: <Option<
         ::k8s_openapi::api::core::v1::PodExtendedResourceClaimStatus,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "hostIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host_ip: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(rename = "hostIPs")]
@@ -45,6 +46,7 @@ pub struct PodStatusAc {
     pub observed_generation: <Option<i64> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub phase: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(rename = "podIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_ip: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(rename = "podIPs")]

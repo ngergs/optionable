@@ -109,3 +109,10 @@ impl k8s_openapi::Metadata for StatusAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_statusac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status,
+    >();
+}

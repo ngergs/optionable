@@ -111,6 +111,7 @@ pub struct PersistentVolumeSpecAc {
     pub rbd: <Option<
         ::k8s_openapi::api::core::v1::RBDPersistentVolumeSource,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "scaleIO")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scale_io: <Option<
         ::k8s_openapi::api::core::v1::ScaleIOPersistentVolumeSource,

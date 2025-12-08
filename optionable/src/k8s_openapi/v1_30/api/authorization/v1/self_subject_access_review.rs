@@ -111,3 +111,10 @@ impl k8s_openapi::Metadata for SelfSubjectAccessReviewAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_selfsubjectaccessreviewac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::authorization::v1::SelfSubjectAccessReview,
+    >();
+}

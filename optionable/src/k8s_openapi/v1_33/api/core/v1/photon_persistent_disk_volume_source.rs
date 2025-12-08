@@ -10,6 +10,7 @@
 pub struct PhotonPersistentDiskVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(rename = "pdID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pd_id: Option<<std::string::String as crate::Optionable>::Optioned>,
 }

@@ -8,13 +8,13 @@ rust-version = "1.88.0"
 repository = "https://github.com/ngergs/optionable"
 license = "MIT OR Apache-2.0"
 
-[patch.crates-io]
-optionable = { path = "optionable" }
-optionable_derive = { path = "optionable_derive" }
-optionable_codegen = { path = "optionable_codegen" }
-
 # see https://github.com/johnthagen/min-sized-rust
 [profile.release]
 strip = true
 lto = true
 codegen-units = 1
+
+[patch.crates-io]
+optionable = { path = "optionable" }
+optionable_derive = { path = "optionable_derive" }
+optionable_codegen = { path = "optionable_codegen" }

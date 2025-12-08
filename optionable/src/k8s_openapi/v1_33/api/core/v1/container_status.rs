@@ -19,10 +19,12 @@ pub struct ContainerStatusAc {
     pub allocated_resources_status: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ResourceStatus>,
     > as crate::Optionable>::Optioned,
+    #[serde(rename = "containerID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub container_id: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub image: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(rename = "imageID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub image_id: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]

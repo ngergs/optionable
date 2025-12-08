@@ -10,6 +10,7 @@
 pub struct FlockerVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dataset_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(rename = "datasetUUID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dataset_uuid: <Option<std::string::String> as crate::Optionable>::Optioned,
 }

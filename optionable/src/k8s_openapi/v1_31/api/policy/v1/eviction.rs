@@ -87,3 +87,8 @@ impl k8s_openapi::Metadata for EvictionAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_evictionac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::policy::v1::Eviction>();
+}

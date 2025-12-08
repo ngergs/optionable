@@ -99,3 +99,10 @@ impl k8s_openapi::Metadata for ValidatingAdmissionPolicyBindingAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_validatingadmissionpolicybindingac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::admissionregistration::v1alpha1::ValidatingAdmissionPolicyBinding,
+    >();
+}

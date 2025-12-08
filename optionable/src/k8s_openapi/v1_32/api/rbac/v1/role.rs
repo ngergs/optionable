@@ -85,3 +85,8 @@ impl k8s_openapi::Metadata for RoleAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_roleac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::rbac::v1::Role>();
+}

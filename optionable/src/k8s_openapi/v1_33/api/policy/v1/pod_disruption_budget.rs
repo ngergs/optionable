@@ -95,3 +95,10 @@ impl k8s_openapi::Metadata for PodDisruptionBudgetAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_poddisruptionbudgetac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::policy::v1::PodDisruptionBudget,
+    >();
+}

@@ -92,3 +92,10 @@ impl k8s_openapi::Metadata for LeaseCandidateAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_leasecandidateac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::coordination::v1alpha1::LeaseCandidate,
+    >();
+}

@@ -8,6 +8,7 @@
 )]
 #[serde(rename_all = "camelCase")]
 pub struct ServerAddressByClientCIDRAc {
+    #[serde(rename = "clientCIDR")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub client_cidr: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]

@@ -12,6 +12,7 @@ pub struct PodCertificateRequestSpecAc {
     pub max_expiration_seconds: <Option<i32> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(rename = "nodeUID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_uid: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -20,6 +21,7 @@ pub struct PodCertificateRequestSpecAc {
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(rename = "podUID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_uid: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -30,6 +32,7 @@ pub struct PodCertificateRequestSpecAc {
     pub service_account_name: Option<
         <std::string::String as crate::Optionable>::Optioned,
     >,
+    #[serde(rename = "serviceAccountUID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_account_uid: Option<
         <std::string::String as crate::Optionable>::Optioned,

@@ -93,3 +93,8 @@ impl k8s_openapi::Metadata for PersistentVolumeAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_persistentvolumeac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::core::v1::PersistentVolume>();
+}

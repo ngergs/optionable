@@ -201,6 +201,9 @@ pub mod kube;
 #[cfg(feature = "serde_json")]
 mod serde_json;
 
+#[cfg(test_k8s_openapi_roundtrip)]
+mod testutil;
+
 /// Marker trait that associated this type with a corresponding type where potential
 /// inner sub-fields are recursively optional if possible for the given use case of the type.
 /// Implementations of the trait can decide that some fields are also non-optional for the optioned type.

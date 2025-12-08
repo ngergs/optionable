@@ -10,6 +10,7 @@
 pub struct VsphereVirtualDiskVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(rename = "storagePolicyID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_policy_id: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]

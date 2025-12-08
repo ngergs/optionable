@@ -93,3 +93,8 @@ impl k8s_openapi::Metadata for FlowSchemaAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_flowschemaac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::flowcontrol::v1::FlowSchema>();
+}

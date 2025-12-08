@@ -97,3 +97,8 @@ impl k8s_openapi::Metadata for ConfigMapAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_configmapac() {
+    crate::testutil::roundtrip_test::<::k8s_openapi::api::core::v1::ConfigMap>();
+}

@@ -8,6 +8,7 @@
 )]
 #[serde(rename_all = "camelCase")]
 pub struct ServerStorageVersionAc {
+    #[serde(rename = "apiServerID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_server_id: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]

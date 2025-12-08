@@ -12,6 +12,7 @@ pub struct PortworxVolumeSourceAc {
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
+    #[serde(rename = "volumeID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_id: Option<<std::string::String as crate::Optionable>::Optioned>,
 }

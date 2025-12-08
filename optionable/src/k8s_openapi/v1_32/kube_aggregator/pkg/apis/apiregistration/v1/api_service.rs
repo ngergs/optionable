@@ -101,3 +101,10 @@ impl k8s_openapi::Metadata for APIServiceAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_apiserviceac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
+    >();
+}

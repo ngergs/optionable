@@ -99,3 +99,10 @@ impl k8s_openapi::Metadata for MutatingWebhookConfigurationAc {
         &mut self.metadata
     }
 }
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_mutatingwebhookconfigurationac() {
+    crate::testutil::roundtrip_test::<
+        ::k8s_openapi::api::admissionregistration::v1::MutatingWebhookConfiguration,
+    >();
+}

@@ -14,6 +14,7 @@ pub struct APIServiceSpecAc {
     pub group: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group_priority_minimum: Option<i32>,
+    #[serde(rename = "insecureSkipTLSVerify")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub insecure_skip_tls_verify: <Option<bool> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]

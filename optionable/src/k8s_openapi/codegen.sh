@@ -1,8 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-K8S_OPENAPI_VERSION=$(git -C "$1" describe --exact-match --tags)
-echo "The \`v1_*\` folders are generated based on [k8s-openapi](https://github.com/Arnavion/k8s-openapi) ${K8S_OPENAPI_VERSION}" > version.md
+#K8S_OPENAPI_VERSION=$(git -C "$1" describe --exact-match --tags)
+#echo "The \`v1_*\` folders are generated based on [k8s-openapi](https://github.com/Arnavion/k8s-openapi) ${K8S_OPENAPI_VERSION}" > version.md
 
 for v in {30..34}
 do
