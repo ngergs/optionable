@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.2](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.9.1...optionable_codegen-v0.9.2) - 2025-12-08
+
+### Fixed
+
+- special case serde fix for $ref fields
+
 ## [0.9.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.9.0...optionable_codegen-v0.9.1) - 2025-12-04
 
 ### Other
