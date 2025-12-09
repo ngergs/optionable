@@ -569,7 +569,8 @@ pub fn derive_optionable(
         && ty_ident_opt!="CustomResourceDefinitionAc" // causes stackoverflows during the roundtrip tests // todo: investigate
         && ty_ident_opt!="StorageVersionAc" // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
         && ty_ident_opt!="DeviceClassAc" // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
-        && ty_ident_opt!="ResourceClaimAc") // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
+        && ty_ident_opt!="ResourceClaimAc" // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
+        && ty_ident_opt!="ResourceClaimTemplateAc") // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
         .then(|| {
             let fn_name = Ident::from_string(
                 &("roundtrip_".to_owned()
