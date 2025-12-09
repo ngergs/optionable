@@ -201,6 +201,7 @@ pub mod kube;
 #[cfg(feature = "serde_json")]
 mod serde_json;
 
+#[cfg(test)]
 #[cfg(test_k8s_openapi_roundtrip)]
 mod testutil;
 
