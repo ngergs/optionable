@@ -25,11 +25,11 @@ jobs:
       - name: k8s-openapi roundtrip test
         run: |-
           echo 'k8s-openapi = { git = "https://github.com/ngergs/k8s-openapi" }' >> Cargo.toml
-          cargo +nightly test --manifest-path=optionable/Cargo.toml --features k8s_openapi_convert,k8s_openapi_v1_30
-          cargo +nightly test --manifest-path=optionable/Cargo.toml --features k8s_openapi_convert,k8s_openapi_v1_31
-          cargo +nightly test --manifest-path=optionable/Cargo.toml --features k8s_openapi_convert,k8s_openapi_v1_32
-          cargo +nightly test --manifest-path=optionable/Cargo.toml --features k8s_openapi_convert,k8s_openapi_v1_33
-          cargo +nightly test --manifest-path=optionable/Cargo.toml --features k8s_openapi_convert,k8s_openapi_v1_34
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --features k8s-openapi/std,k8s_openapi_convert,k8s_openapi_v1_30
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --features k8s-openapi/std,k8s_openapi_convert,k8s_openapi_v1_31
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --features k8s-openapi/std,k8s_openapi_convert,k8s_openapi_v1_32
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --features k8s-openapi/std,k8s_openapi_convert,k8s_openapi_v1_33
+          cargo +nightly test --manifest-path=optionable/Cargo.toml --features k8s-openapi/std,k8s_openapi_convert,k8s_openapi_v1_34
         env:
           RUSTFLAGS: "--cfg test_k8s_openapi_roundtrip"
   # Release unpublished packages.
