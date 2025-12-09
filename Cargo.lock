@@ -941,7 +941,7 @@ checksum = "d05e27ee213611ffe7d6348b942e8f942b37114c00cc03cec254295a4a17852e"
 
 [[package]]
 name = "optionable"
-version = "0.8.3"
+version = "0.8.4"
 dependencies = [
  "chrono",
  "fake",
@@ -954,7 +954,7 @@ dependencies = [
 
 [[package]]
 name = "optionable_codegen"
-version = "0.9.2"
+version = "0.9.3"
 dependencies = [
  "darling 0.21.3",
  "itertools",
