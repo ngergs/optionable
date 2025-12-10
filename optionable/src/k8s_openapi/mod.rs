@@ -20,16 +20,27 @@ use std::collections::HashMap;
 use std::marker::PhantomData;
 
 mod optionable;
+
 #[cfg(feature = "k8s_openapi_v1_30")]
-pub mod v1_30;
+mod v1_30;
+#[cfg(feature = "k8s_openapi_v1_30")]
+pub use v1_30::*;
 #[cfg(feature = "k8s_openapi_v1_31")]
-pub mod v1_31;
+mod v1_31;
+#[cfg(feature = "k8s_openapi_v1_31")]
+pub use v1_31::*;
 #[cfg(feature = "k8s_openapi_v1_32")]
-pub mod v1_32;
+mod v1_32;
+#[cfg(feature = "k8s_openapi_v1_32")]
+pub use v1_32::*;
 #[cfg(feature = "k8s_openapi_v1_33")]
-pub mod v1_33;
+mod v1_33;
+#[cfg(feature = "k8s_openapi_v1_33")]
+pub use v1_33::*;
 #[cfg(feature = "k8s_openapi_v1_34")]
-pub mod v1_34;
+mod v1_34;
+#[cfg(feature = "k8s_openapi_v1_34")]
+pub use v1_34::*;
 
 /// Serializes a `PhantomData` marker to add the API envelope fields `apiVersion` and `kind`.
 /// Intended use is together with `#[serde(flatten)]` for the marker field.
@@ -81,16 +92,7 @@ pub fn deserialize_api_envelope<'de, D: Deserializer<'de>, R: Resource>(
 
 #[cfg(test)]
 mod test {
-    #[cfg(feature = "k8s_openapi_v1_30")]
-    use crate::k8s_openapi::v1_30::apimachinery::pkg::util::intstr::IntOrStringAc;
-    #[cfg(feature = "k8s_openapi_v1_31")]
-    use crate::k8s_openapi::v1_31::apimachinery::pkg::util::intstr::IntOrStringAc;
-    #[cfg(feature = "k8s_openapi_v1_32")]
-    use crate::k8s_openapi::v1_32::apimachinery::pkg::util::intstr::IntOrStringAc;
-    #[cfg(feature = "k8s_openapi_v1_33")]
-    use crate::k8s_openapi::v1_33::apimachinery::pkg::util::intstr::IntOrStringAc;
-    #[cfg(feature = "k8s_openapi_v1_34")]
-    use crate::k8s_openapi::v1_34::apimachinery::pkg::util::intstr::IntOrStringAc;
+    use crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc;
     use k8s_openapi::api::apps::v1::Deployment;
     use serde::{Deserialize, Serialize};
     use serde_json::json;
