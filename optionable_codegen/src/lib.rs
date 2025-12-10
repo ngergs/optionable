@@ -566,11 +566,14 @@ pub fn derive_optionable(
         });
     let k8s_roundtrip_test = (attr_k8s_openapi.is_some_and(|attr|attr.resource.is_some())
         && ty_generics.to_token_stream().is_empty()
-        && ty_ident_opt!="CustomResourceDefinitionAc" // causes stackoverflows during the roundtrip tests // todo: investigate
-        && ty_ident_opt!="StorageVersionAc" // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
-        && ty_ident_opt!="DeviceClassAc" // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
-        && ty_ident_opt!="ResourceClaimAc" // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
-        && ty_ident_opt!="ResourceClaimTemplateAc") // causes false positive errors due to flattening of effectively nil substructs in the  optioned type
+        // causes stackoverflows during the roundtrip tests, the stackoverflow already happens when trying to generate a `fake CRD`, so doesn't originate from this crate
+        // (we rely on a forked version of k8s-openapi where we just added derives for `fake::Dummy`. Looks like one of the CRD subtypes would need a custom impl to function correctly.
+        && ty_ident_opt!="CustomResourceDefinitionAc"
+        // the cases below cause false positive errors due to flattening of effectively nil substructs in the  optioned type
+        && ty_ident_opt!="StorageVersionAc"
+        && ty_ident_opt!="DeviceClassAc"
+        && ty_ident_opt!="ResourceClaimAc"
+        && ty_ident_opt!="ResourceClaimTemplateAc")
         .then(|| {
             let fn_name = Ident::from_string(
                 &("roundtrip_".to_owned()
