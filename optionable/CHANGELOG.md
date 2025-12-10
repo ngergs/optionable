@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0](https://github.com/ngergs/optionable/compare/optionable-v0.8.4...optionable-v0.9.0) - 2025-12-10
+
+### Added
+
+- support deserialization for QuantityAc from int following upstream
+- [**breaking**] no longer include the version number in the exported path of the optioned k8s-openapi types
+
+### Fixed
+
+- dependency updates
+
+### Other
+
+- run codegen for v0.26.1 (no resulting changes)
+
 ## [0.8.4](https://github.com/ngergs/optionable/compare/optionable-v0.8.3...optionable-v0.8.4) - 2025-12-09
 
 ### Fixed
