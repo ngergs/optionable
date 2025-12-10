@@ -974,20 +974,6 @@ checksum = "d05e27ee213611ffe7d6348b942e8f942b37114c00cc03cec254295a4a17852e"
 
 [[package]]
 name = "optionable"
-version = "0.8.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6074d90a4208f097f828a64761e0fb17f5205d9a9f0c68ec66979298b2b6074a"
-dependencies = [
- "chrono",
- "k8s-openapi",
- "kube",
- "optionable_derive",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "optionable"
 version = "0.9.0"
 dependencies = [
  "chrono",
@@ -1043,7 +1029,7 @@ version = "0.1.0"
 dependencies = [
  "k8s-openapi",
  "kube",
- "optionable 0.8.4",
+ "optionable",
  "schemars",
  "serde",
  "serde-saphyr",
@@ -1055,7 +1041,7 @@ dependencies = [
 name = "optionable_orphanrule"
 version = "0.1.0"
 dependencies = [
- "optionable 0.8.4",
+ "optionable",
  "serde_json",
 ]
 
