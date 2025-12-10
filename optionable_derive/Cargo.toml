@@ -20,8 +20,8 @@ pedantic = "warn"
 proc-macro = true
 
 [dependencies]
-optionable_codegen = "0.9.0"
-syn = { version = "2.0.109", default-features = false }
+optionable_codegen = "0.9.3"
+syn = { version = "2.0.111", default-features = false }
 kube-derive = { version = "2.0.1", default-features = false, optional = true }
 proc-macro2 = { version = "1.0.103", default-features = false, optional = true }
 quote = { version = "1.0.42", default-features = false, optional = true }
