@@ -4,11 +4,15 @@ permissions:
   contents: write
 
 on:
-  workflow_dispatch: { }
+  workflow_dispatch:
+    inputs:
+      release:
+        description: Whether to actually run release-plz
+        type: boolean
+        required: true
 
 jobs:
   k8s-openapi-roundtrip:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.pull_request.merged }}
     name: k8s-openapi roundtrip test
     runs-on: ubuntu-latest
     permissions:
@@ -99,6 +103,7 @@ jobs:
           fi
           cargo run --bin extract_crd
       - name: Run release-plz
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.release }}
         uses: release-plz/action@v0.5
         with:
           command: release
