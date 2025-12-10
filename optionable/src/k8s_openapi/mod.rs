@@ -92,8 +92,10 @@ pub fn deserialize_api_envelope<'de, D: Deserializer<'de>, R: Resource>(
 
 #[cfg(test)]
 mod test {
+    use crate::k8s_openapi::apimachinery::pkg::api::resource::QuantityAc;
     use crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc;
     use k8s_openapi::api::apps::v1::Deployment;
+    use k8s_openapi::apimachinery::pkg::api::resource::Quantity;
     use serde::{Deserialize, Serialize};
     use serde_json::json;
     use std::marker::PhantomData;
@@ -162,6 +164,20 @@ mod test {
             let result: Result<IntOrStringAc, _> =
                 serde_json::from_str(tc.input).map_err(|e| e.to_string());
             assert_eq!(tc.expected, result);
+        }
+    }
+
+    #[test]
+    /// Quantity has a specialized serialization handling that allows to deserialize the
+    /// inner string from a string or an int (serialization is always a string).
+    /// Our optioned type should mimic this.
+    fn quantity_deser() {
+        let datas = vec![json!("42"), json!(42)];
+        for data in datas {
+            let val = serde_json::from_value::<Quantity>(data.clone()).unwrap();
+            assert_eq!(val, Quantity("42".to_owned()));
+            let val_ac = serde_json::from_value::<QuantityAc>(data).unwrap();
+            assert_eq!(val_ac, QuantityAc(Some("42".to_owned())));
         }
     }
 }

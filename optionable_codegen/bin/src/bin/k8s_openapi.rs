@@ -106,6 +106,7 @@ impl CodegenVisitor for Visitor {
     }
 
     fn visit_output(&mut self, items: &mut Vec<Item>) {
+        let mut extra_items = vec![];
         for item in items.iter_mut() {
             match item {
                 Impl(item) => {
@@ -135,10 +136,26 @@ impl CodegenVisitor for Visitor {
                     {
                         field.attrs.push(parse_quote!(#[serde(rename = "Port")]));
                     }
+                    // extra handling to support deserializing Quantity (wrapper around an inner string) from an int following upstream
+                    if item.ident == "QuantityAc" {
+                        item.attrs.push(parse_quote!(#[serde(from = "crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc")]));
+
+                        extra_items.push(parse_quote! {
+                        impl From<crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc> for QuantityAc {
+                            fn from(value: crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc) -> Self {
+                                QuantityAc(match value {
+                                    crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc::Int(i) => i.map(|i| i.to_string()),
+                                    crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc::String(s) => s,
+                                })
+                            }
+                        }
+                    });
+                    }
                 }
                 _ => {}
             }
         }
+        items.append(&mut extra_items);
     }
 }
 
