@@ -38,7 +38,6 @@ jobs:
           RUSTFLAGS: "--cfg test_k8s_openapi_roundtrip"
   # Release unpublished packages.
   release-plz-release:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.pull_request.merged }}
     needs: k8s-openapi-roundtrip
     name: Release-plz release
     runs-on: ubuntu-latest
