@@ -8,7 +8,7 @@ rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 keywords = ["client", "kubernetes", "patch"]
-categories = ["api-bindings", "configuration", "no-std"]
+categories = ["api-bindings", "config", "no-std", "no-std::no-alloc"]
 
 [features]
 default = ["derive", "std"]
