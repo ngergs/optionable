@@ -8,6 +8,7 @@ if [[ $(basename "$PWD") != "testscripts" ]]; then
 fi
 cd ..
 
+cargo audit
 cargo clippy --features std,derive,chrono,serde_json,k8s_openapi_v1_34,kube,kube/derive
 cargo +nightly docs-rs -p optionable
 cargo msrv verify --path optionable_codegen

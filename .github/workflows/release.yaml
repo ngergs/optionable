@@ -51,8 +51,9 @@ jobs:
         uses: dtolnay/install@cargo-docs-rs
       - name: Configure cache
         uses: Swatinem/rust-cache@v2
-      - name: Install cargo-deny and cargo-msrv
+      - name: Install cargo-audit, cargo-deny and cargo-msrv
         run: |-
+          cargo install cargo-audit --locked
           cargo install cargo-msrv --locked
           cargo install --locked cargo-deny
       - name: Pre-release tests
