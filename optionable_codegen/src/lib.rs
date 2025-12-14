@@ -567,7 +567,8 @@ pub fn derive_optionable(
     let k8s_roundtrip_test = (attr_k8s_openapi.is_some_and(|attr|attr.resource.is_some())
         && ty_generics.to_token_stream().is_empty()
         // causes stackoverflows during the roundtrip tests, the stackoverflow already happens when trying to generate a `fake CRD`, so doesn't originate from this crate
-        // (we rely on a forked version of k8s-openapi where we just added derives for `fake::Dummy`. Looks like one of the CRD subtypes would need a custom impl to function correctly.
+        // (we rely on a forked version of k8s-openapi where we just added derives for `fake::Dummy`, but the CRD includes a `JSONSchemaProps` subfield which includes a lot
+        // of other subfields involving `JSONSchemaProps`. Hence, `fake` easily generates a way to complicated and depply nested random structure).
         && ty_ident_opt!="CustomResourceDefinitionAc"
         // the cases below cause false positive errors due to flattening of effectively nil substructs in the  optioned type
         && ty_ident_opt!="StorageVersionAc"
