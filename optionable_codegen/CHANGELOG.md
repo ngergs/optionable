@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.9.4...optionable_codegen-v0.10.0) - 2025-12-14
+
+### Added
+
+- [**breaking**] rework k8s api envelope serialization/deserialization
+
+### Other
+
+- document crd roundtrip issue
+
 ## [0.9.4](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.9.3...optionable_codegen-v0.9.4) - 2025-12-10
 
 ### Added
