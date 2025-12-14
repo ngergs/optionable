@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.1](https://github.com/ngergs/optionable/compare/optionable-v0.9.0...optionable-v0.9.1) - 2025-12-14
+
+### Other
+
+- add keywords and categories for main crate
+
 ## [0.9.0](https://github.com/ngergs/optionable/compare/optionable-v0.8.4...optionable-v0.9.0) - 2025-12-10
 
 ### Added
