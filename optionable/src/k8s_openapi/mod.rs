@@ -84,7 +84,7 @@ pub fn deserialize_api_version<'de, D: Deserializer<'de>, R: Resource>(
 }
 
 /// Deserializes a `PhantomData` marker to verify the API envelope content for `apiVersion`.
-/// Intended to be used with `apiVersion: PhantomData<T>`.
+/// Intended to be used with `kind: PhantomData<T>`.
 ///
 /// # Errors
 /// - If the marker field do not have the expected value specified in the `Resource` wrapped by the `PhantomData`.
