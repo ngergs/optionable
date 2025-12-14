@@ -981,7 +981,7 @@ dependencies = [
  "chrono",
  "k8s-openapi",
  "kube",
- "optionable_derive",
+ "optionable_derive 0.6.2",
  "serde",
  "serde_json",
 ]
@@ -994,7 +994,7 @@ dependencies = [
  "fake",
  "k8s-openapi",
  "kube",
- "optionable_derive",
+ "optionable_derive 0.7.0",
  "serde",
  "serde_json",
 ]
@@ -1042,9 +1042,22 @@ dependencies = [
 [[package]]
 name = "optionable_derive"
 version = "0.6.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0eb5f1831df3f637ef1dafd5ae59f35b6cbeb7631e27e17ac892d2f1e1e8ca0d"
 dependencies = [
  "kube-derive",
  "optionable_codegen 0.9.4",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "optionable_derive"
+version = "0.7.0"
+dependencies = [
+ "kube-derive",
+ "optionable_codegen 0.10.0",
  "proc-macro2",
  "quote",
  "syn",
