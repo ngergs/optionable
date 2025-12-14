@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIGroupListAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub groups: Option<
@@ -15,11 +15,15 @@ pub struct APIGroupListAc {
         > as crate::Optionable>::Optioned,
     >,
     #[serde(
-        flatten,
-        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_envelope"
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
     )]
-    pub phantom: std::marker::PhantomData<Self>,
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -37,7 +41,8 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroupList {
     fn into_optioned(self) -> APIGroupListAc {
         APIGroupListAc {
             groups: Some(crate::OptionableConvert::into_optioned(self.groups)),
-            phantom: Default::default(),
+            api_version: Default::default(),
+            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: APIGroupListAc) -> Result<Self, crate::Error> {

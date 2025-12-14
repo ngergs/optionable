@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodCertificateRequestStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub begin_refresh_at: <Option<

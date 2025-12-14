@@ -67,6 +67,7 @@ pub(crate) struct TypeHelperAttributes {
     k8s_openapi: Option<TypeHelperAttributesK8sOpenapi>,
     /// Adjustments of the derived optioned type for structs that `kube::CustomResource` or respective subfields.
     /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
+    /// - Sets `#[serde(rename_all="camelCase",deny_unknown_fields)]`
     /// - Copy `#[(serde(rename="...")]` and `#[(serde(rename_all="...")]` attributes over to the optioned types.
     kube: Option<TypeHelperAttributesKube>,
 }
@@ -74,6 +75,7 @@ pub(crate) struct TypeHelperAttributes {
 #[derive(FromMeta)]
 /// Adjustments of the derived optioned type for fields that use the `k8s_openapi` serialization replacements.
 /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
+/// -
 /// - Takes the `k8s_openapi` serialization replacements into account for its own serialization.
 pub(crate) struct TypeHelperAttributesK8sOpenapi {
     /// Adjustments of the derived optioned type for `k8s_openapi::Metadata`-implementations.
@@ -708,7 +710,7 @@ fn try_from_optioned(
     struct_parsed: &StructParsed,
     value_selector_fn: impl Fn(&TokenStream) -> TokenStream,
 ) -> TokenStream {
-    let fields_token = struct_parsed.fields.iter().enumerate().map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling })| {
+    let fields_token = struct_parsed.fields.iter().enumerate().filter_map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling })| {
         let colon = ident.as_ref().map(|_| quote! {:});
         let selector = ident.as_ref().map_or_else(|| {
             let i = Literal::usize_unsuffixed(i);
@@ -717,33 +719,33 @@ fn try_from_optioned(
         let value_selector = value_selector_fn(&selector);
         let crate_name = &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
-            (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon value.#selector},
+            (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => Some(quote! {#ident #colon value.#selector}),
             (FieldHandling::ManualOptioned(_), _) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
-                quote! {
+                Some(quote! {
                     #ident #colon #crate_name::OptionedConvert::try_into_optionable(#value_selector.ok_or(#crate_name::Error{ missing_field: #selector_quoted })?
                     )?
-                }
+                })
             }
-            (FieldHandling::IsOption, false) => quote! {
+            (FieldHandling::IsOption, false) => Some(quote! {
                 #ident #colon #crate_name::OptionableConvert::try_from_optioned(
                     #value_selector
                 )?
-            },
+            }),
             (FieldHandling::Other, true) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
-                quote! {
+                Some(quote! {
                     #ident #colon #value_selector.ok_or(#crate_name::Error{ missing_field: #selector_quoted })?
-                }
+                })
             }
             (FieldHandling::Other, false) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
-                quote! {
+                Some(quote! {
                     #ident #colon #crate_name::OptionableConvert::try_from_optioned(#value_selector.ok_or(#crate_name::Error{ missing_field: #selector_quoted })?
                     )?
-                }
+                })
             }
-            (FieldHandling::OptionedOnly, _) => TokenStream::default(),
+            (FieldHandling::OptionedOnly, _) => None,
         }
     });
 
@@ -761,7 +763,7 @@ fn merge_fields(
     other_selector_fn: impl Fn(&TokenStream) -> TokenStream,
     merge_self_mut: bool,
 ) -> TokenStream {
-    let fields_token = struct_parsed.fields.iter().enumerate().map(
+    let fields_token = struct_parsed.fields.iter().enumerate().filter_map(
         |(
              i,
              FieldParsed {
@@ -782,26 +784,26 @@ fn merge_fields(
             let other_selector = other_selector_fn(&selector);
             let crate_name = &struct_parsed.crate_name;
             match (handling, is_self_resolving_optioned(ty)) {
-                (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#deref_modifier #self_selector = #other_selector;},
-                (FieldHandling::ManualOptioned(_), _) => quote! {
+                (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => Some(quote! {#deref_modifier #self_selector = #other_selector;}),
+                (FieldHandling::ManualOptioned(_), _) =>  Some(quote! {
                     if let Some(other_value)=#other_selector{
                         #crate_name::OptionedConvert::merge_into(other_value, #self_merge_mut_modifier #self_selector)?;
                     }
-                },
-                (FieldHandling::IsOption, false) => quote! {
+                }),
+                (FieldHandling::IsOption, false) =>  Some(quote! {
                     #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
-                },
-                (FieldHandling::Other, true) => quote! {
+                }),
+                (FieldHandling::Other, true) =>  Some(quote! {
                     if let Some(other_value)=#other_selector{
                         #deref_modifier #self_selector = other_value;
                     }
-                },
-                (FieldHandling::Other, false) => quote! {
+                }),
+                (FieldHandling::Other, false) =>  Some(quote! {
                     if let Some(other_value)=#other_selector{
                         #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, other_value)?;
                     }
-                },
-                (FieldHandling::OptionedOnly, _) => TokenStream::default(),
+                }),
+                (FieldHandling::OptionedOnly, _) =>None,
             }
         },
     );

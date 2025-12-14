@@ -14,9 +14,7 @@
 
 use k8s_openapi::Resource;
 use serde::de::{Error, Unexpected};
-use serde::ser::SerializeMap;
 use serde::{Deserialize, Deserializer, Serializer};
-use std::collections::HashMap;
 use std::marker::PhantomData;
 
 mod optionable;
@@ -42,50 +40,64 @@ mod v1_34;
 #[cfg(feature = "k8s_openapi_v1_34")]
 pub use v1_34::*;
 
-/// Serializes a `PhantomData` marker to add the API envelope fields `apiVersion` and `kind`.
-/// Intended use is together with `#[serde(flatten)]` for the marker field.
-pub fn serialize_api_envelope<S: Serializer, R: Resource>(
+/// Serializes a `PhantomData` marker to add the API envelope field content for `apiVersion`.
+/// Intended to be used with `apiVersion: PhantomData<T>`.
+///
+/// # Errors
+/// - forwards any serialization errors.
+pub fn serialize_api_version<S: Serializer, R: Resource>(
     _: &PhantomData<R>,
     s: S,
 ) -> Result<S::Ok, S::Error> {
-    let mut map = s.serialize_map(Some(2))?;
-    map.serialize_entry("apiVersion", R::API_VERSION)?;
-    map.serialize_entry("kind", R::KIND)?;
-    map.end()
+    s.serialize_str(R::API_VERSION)
 }
 
-/// Deserializes a `PhantomData` marker to verify the API envelope fields `apiVersion` and `kind`.
-/// Intended use is together with `#[serde(flatten)]` for the marker field.
+/// Serializes a `PhantomData` marker to add the API envelope field content for `kind`.
+/// Intended to be used with `kind: PhantomData<T>`.
 ///
 /// # Errors
-/// - If the marker fields do not have the expected value specified in the `Resource` wrapped by the `PhantomData`.
+/// - forwards any serialization errors.
+pub fn serialize_kind<S: Serializer, R: Resource>(
+    _: &PhantomData<R>,
+    s: S,
+) -> Result<S::Ok, S::Error> {
+    s.serialize_str(R::KIND)
+}
+
+/// Deserializes a `PhantomData` marker to verify the API envelope content for `apiVersion`.
+/// Intended to be used with `apiVersion: PhantomData<T>`.
+///
+/// # Errors
+/// - If the marker field do not have the expected value specified in the `Resource` wrapped by the `PhantomData`.
 /// - Forwards any deserialization errors.
-pub fn deserialize_api_envelope<'de, D: Deserializer<'de>, R: Resource>(
+pub fn deserialize_api_version<'de, D: Deserializer<'de>, R: Resource>(
     d: D,
 ) -> Result<PhantomData<R>, D::Error> {
-    let envelope: HashMap<String, String> = HashMap::deserialize(d)?;
-
-    if let Some(api_version) = envelope.get("apiVersion") {
-        let api_version_expected = R::API_VERSION;
-        if api_version != api_version_expected {
-            return Err(Error::invalid_value(
-                Unexpected::Str(api_version),
-                &format!("apiVersion: {api_version_expected}").as_str(),
-            ));
-        }
-    } else {
-        return Err(Error::missing_field("apiVersion"));
+    let val = String::deserialize(d)?;
+    if val != R::API_VERSION {
+        return Err(Error::invalid_value(
+            Unexpected::Str(&val),
+            &format!("apiVersion: {}", R::API_VERSION).as_str(),
+        ));
     }
-    if let Some(kind) = envelope.get("kind") {
-        let kind_expected = R::KIND;
-        if kind != kind_expected {
-            return Err(Error::invalid_value(
-                Unexpected::Str(kind),
-                &format!("kind: {kind_expected}").as_str(),
-            ));
-        }
-    } else {
-        return Err(Error::missing_field("kind"));
+    Ok(PhantomData)
+}
+
+/// Deserializes a `PhantomData` marker to verify the API envelope content for `apiVersion`.
+/// Intended to be used with `apiVersion: PhantomData<T>`.
+///
+/// # Errors
+/// - If the marker field do not have the expected value specified in the `Resource` wrapped by the `PhantomData`.
+/// - Forwards any deserialization errors.
+pub fn deserialize_kind<'de, D: Deserializer<'de>, R: Resource>(
+    d: D,
+) -> Result<PhantomData<R>, D::Error> {
+    let val = String::deserialize(d)?;
+    if val != R::KIND {
+        return Err(Error::invalid_value(
+            Unexpected::Str(&val),
+            &format!("kind: {}", R::KIND).as_str(),
+        ));
     }
     Ok(PhantomData)
 }
@@ -101,13 +113,18 @@ mod test {
     use std::marker::PhantomData;
 
     #[derive(Serialize, Deserialize, Default, Debug)]
+    #[serde(rename_all = "camelCase")]
     struct ApiEnvelopeDeployment {
-        #[serde(flatten)]
         #[serde(
-            serialize_with = "crate::k8s_openapi::serialize_api_envelope",
-            deserialize_with = "crate::k8s_openapi::deserialize_api_envelope"
+            serialize_with = "crate::k8s_openapi::serialize_api_version",
+            deserialize_with = "crate::k8s_openapi::deserialize_api_version"
         )]
-        phantom: PhantomData<Deployment>,
+        api_version: PhantomData<Deployment>,
+        #[serde(
+            serialize_with = "crate::k8s_openapi::serialize_kind",
+            deserialize_with = "crate::k8s_openapi::deserialize_kind"
+        )]
+        kind: PhantomData<Deployment>,
     }
 
     #[test]

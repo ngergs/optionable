@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AppArmorProfileAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub localhost_profile: <Option<std::string::String> as crate::Optionable>::Optioned,

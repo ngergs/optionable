@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MetricTargetAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub average_utilization: <Option<i32> as crate::Optionable>::Optioned,

@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FieldsV1Ac(
     #[serde(skip_serializing_if = "Option::is_none")]
     pub Option<<::k8s_openapi::serde_json::Value as crate::Optionable>::Optioned>,

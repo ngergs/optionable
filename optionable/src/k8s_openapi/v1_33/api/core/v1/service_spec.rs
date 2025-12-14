@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allocate_load_balancer_node_ports: <Option<bool> as crate::Optionable>::Optioned,

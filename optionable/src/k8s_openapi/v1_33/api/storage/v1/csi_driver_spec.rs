@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CSIDriverSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attach_required: <Option<bool> as crate::Optionable>::Optioned,

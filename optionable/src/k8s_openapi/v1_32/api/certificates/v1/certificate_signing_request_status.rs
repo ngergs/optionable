@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CertificateSigningRequestStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub certificate: <Option<::k8s_openapi::ByteString> as crate::Optionable>::Optioned,

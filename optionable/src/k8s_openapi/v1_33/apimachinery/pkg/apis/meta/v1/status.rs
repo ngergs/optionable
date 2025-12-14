@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub code: <Option<i32> as crate::Optionable>::Optioned,
@@ -22,11 +22,15 @@ pub struct StatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(
-        flatten,
-        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_envelope"
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
     )]
-    pub phantom: std::marker::PhantomData<Self>,
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
@@ -48,7 +52,8 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
             metadata: self.metadata,
             reason: crate::OptionableConvert::into_optioned(self.reason),
             status: crate::OptionableConvert::into_optioned(self.status),
-            phantom: Default::default(),
+            api_version: Default::default(),
+            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: StatusAc) -> Result<Self, crate::Error> {

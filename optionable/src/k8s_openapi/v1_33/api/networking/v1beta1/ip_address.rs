@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IPAddressAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -14,11 +14,15 @@ pub struct IPAddressAc {
         ::k8s_openapi::api::networking::v1beta1::IPAddressSpec,
     > as crate::Optionable>::Optioned,
     #[serde(
-        flatten,
-        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_envelope"
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
     )]
-    pub phantom: std::marker::PhantomData<Self>,
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::networking::v1beta1::IPAddress {
@@ -35,7 +39,8 @@ impl crate::OptionableConvert for ::k8s_openapi::api::networking::v1beta1::IPAdd
         IPAddressAc {
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
-            phantom: Default::default(),
+            api_version: Default::default(),
+            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: IPAddressAc) -> Result<Self, crate::Error> {

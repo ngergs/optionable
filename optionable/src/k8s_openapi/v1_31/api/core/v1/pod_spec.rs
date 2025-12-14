@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub active_deadline_seconds: <Option<i64> as crate::Optionable>::Optioned,

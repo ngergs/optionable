@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeploymentSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub min_ready_seconds: <Option<i32> as crate::Optionable>::Optioned,

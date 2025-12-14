@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodAffinityAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preferred_during_scheduling_ignored_during_execution: <Option<

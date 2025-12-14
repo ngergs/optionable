@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceAccountAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub automount_service_account_token: <Option<bool> as crate::Optionable>::Optioned,
@@ -20,11 +20,15 @@ pub struct ServiceAccountAc {
         std::vec::Vec<::k8s_openapi::api::core::v1::ObjectReference>,
     > as crate::Optionable>::Optioned,
     #[serde(
-        flatten,
-        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_envelope"
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
     )]
-    pub phantom: std::marker::PhantomData<Self>,
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ServiceAccount {
@@ -47,7 +51,8 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
             ),
             metadata: self.metadata,
             secrets: crate::OptionableConvert::into_optioned(self.secrets),
-            phantom: Default::default(),
+            api_version: Default::default(),
+            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: ServiceAccountAc) -> Result<Self, crate::Error> {

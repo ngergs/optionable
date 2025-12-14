@@ -6,7 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PriorityClassAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: <Option<std::string::String> as crate::Optionable>::Optioned,
@@ -18,11 +18,15 @@ pub struct PriorityClassAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<i32>,
     #[serde(
-        flatten,
-        serialize_with = "crate::k8s_openapi::serialize_api_envelope",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_envelope"
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
     )]
-    pub phantom: std::marker::PhantomData<Self>,
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::scheduling::v1::PriorityClass {
@@ -44,7 +48,8 @@ impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityCl
                 self.preemption_policy,
             ),
             value: Some(self.value),
-            phantom: Default::default(),
+            api_version: Default::default(),
+            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: PriorityClassAc) -> Result<Self, crate::Error> {

@@ -1,5 +1,5 @@
 #[derive(Clone, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
-#[serde(rename_all_fields = "camelCase")]
+#[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
 #[serde(untagged)]
 pub enum PatchAc {
     Json(

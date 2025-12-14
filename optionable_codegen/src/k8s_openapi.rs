@@ -5,7 +5,9 @@ use crate::{TypeHelperAttributesK8sOpenapi, TypeHelperAttributesKube};
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
 use std::borrow::Cow;
-use syn::{parse_quote, Attribute, Data, Error, ImplGenerics, Path, TypeGenerics, WhereClause};
+use syn::{
+    parse_quote, Attribute, Data, Error, Field, ImplGenerics, Path, TypeGenerics, WhereClause,
+};
 
 /// We have two useful `Resource` traits and dependent on the user needs we will use one
 /// of them for adding the API envelope `apiVersion` and `kind` fields when serializing.
@@ -203,8 +205,10 @@ fn roundtrip_k8s_openapi_adjust_field_serde() {
 /// The field type helper attributes for an optioned `Struct` or `Enum`.
 pub(crate) fn k8s_type_attr(data: &Data) -> Option<Attribute> {
     match data {
-        Data::Struct(_) => Some(parse_quote!(#[serde(rename_all="camelCase")])),
-        Data::Enum(_) => Some(parse_quote!(#[serde(rename_all_fields="camelCase")])),
+        Data::Struct(_) => Some(parse_quote!(#[serde(rename_all="camelCase",deny_unknown_fields)])),
+        Data::Enum(_) => {
+            Some(parse_quote!(#[serde(rename_all_fields="camelCase",deny_unknown_fields)]))
+        }
         Data::Union(_) => None,
     }
 }
@@ -224,18 +228,34 @@ fn k8s_openapi_field_resource_adjust(
             envelope_serde_path.push_str("::kube");
         }
     }
-    let mut serialize_fn = envelope_serde_path.clone();
-    serialize_fn.push_str("::serialize_api_envelope");
-    let mut deserialize_fn = envelope_serde_path;
-    deserialize_fn.push_str("::deserialize_api_envelope");
-    let field = parse_quote!(
-                   #[optionable_attr(serde(flatten,serialize_with=#serialize_fn,deserialize_with=#deserialize_fn))]
-                   pub phantom: std::marker::PhantomData<Self>
+    let serialize_api_version_fn =
+        with_suffix(envelope_serde_path.clone(), "::serialize_api_version");
+    let serialize_kind_fn = with_suffix(envelope_serde_path.clone(), "::serialize_kind");
+    let deserialize_api_version_fn =
+        with_suffix(envelope_serde_path.clone(), "::deserialize_api_version");
+    let deserialize_kind_fn = with_suffix(envelope_serde_path, "::deserialize_kind");
+    let api_version_field: Field = parse_quote!(
+                   #[optionable_attr(serde(serialize_with=#serialize_api_version_fn,deserialize_with=#deserialize_api_version_fn))]
+                   pub api_version: std::marker::PhantomData<Self>
+    );
+    let kind_field: Field = parse_quote! (
+                   #[optionable_attr(serde(serialize_with=#serialize_kind_fn,deserialize_with=#deserialize_kind_fn))]
+                   pub kind: std::marker::PhantomData<Self>
     );
     struct_parsed.fields.push(FieldParsed {
-        field,
+        field: api_version_field,
         handling: OptionedOnly,
     });
+    struct_parsed.fields.push(FieldParsed {
+        field: kind_field,
+        handling: OptionedOnly,
+    });
+}
+
+/// Adds a suffix to a string. Helper to reduce lines of code in the function above
+fn with_suffix(mut val: String, suffix: &'static str) -> String {
+    val.push_str(suffix);
+    val
 }
 
 /// Derives `k8s_openapi::Resource` for the `T::Optioned` type from the non-optioned type.
