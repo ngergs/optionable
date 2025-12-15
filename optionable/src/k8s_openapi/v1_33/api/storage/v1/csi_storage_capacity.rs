@@ -8,6 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CSIStorageCapacityAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: <Option<
         ::k8s_openapi::apimachinery::pkg::api::resource::Quantity,
@@ -23,16 +33,6 @@ pub struct CSIStorageCapacityAc {
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_class_name: Option<<std::string::String as crate::Optionable>::Optioned>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
-    )]
-    pub api_version: std::marker::PhantomData<Self>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_kind",
-        deserialize_with = "crate::k8s_openapi::deserialize_kind"
-    )]
-    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::CSIStorageCapacity {
@@ -47,6 +47,8 @@ impl crate::Optionable for CSIStorageCapacityAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCapacity {
     fn into_optioned(self) -> CSIStorageCapacityAc {
         CSIStorageCapacityAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             capacity: crate::OptionableConvert::into_optioned(self.capacity),
             maximum_volume_size: crate::OptionableConvert::into_optioned(
                 self.maximum_volume_size,
@@ -56,8 +58,6 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::CSIStorageCap
             storage_class_name: Some(
                 crate::OptionableConvert::into_optioned(self.storage_class_name),
             ),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: CSIStorageCapacityAc) -> Result<Self, crate::Error> {

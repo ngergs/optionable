@@ -8,13 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ControllerRevisionAc {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub data: <Option<
-        ::k8s_openapi::apimachinery::pkg::runtime::RawExtension,
-    > as crate::Optionable>::Optioned,
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub revision: Option<i64>,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -25,6 +18,13 @@ pub struct ControllerRevisionAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub data: <Option<
+        ::k8s_openapi::apimachinery::pkg::runtime::RawExtension,
+    > as crate::Optionable>::Optioned,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub revision: Option<i64>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::apps::v1::ControllerRevision {
@@ -39,11 +39,11 @@ impl crate::Optionable for ControllerRevisionAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::apps::v1::ControllerRevision {
     fn into_optioned(self) -> ControllerRevisionAc {
         ControllerRevisionAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             data: crate::OptionableConvert::into_optioned(self.data),
             metadata: self.metadata,
             revision: Some(self.revision),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: ControllerRevisionAc) -> Result<Self, crate::Error> {

@@ -8,6 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClassParametersAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub filters: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1alpha2::ResourceFilter>,
@@ -21,16 +31,6 @@ pub struct ResourceClassParametersAc {
     pub vendor_parameters: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1alpha2::VendorParameters>,
     > as crate::Optionable>::Optioned,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
-    )]
-    pub api_version: std::marker::PhantomData<Self>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_kind",
-        deserialize_with = "crate::k8s_openapi::deserialize_kind"
-    )]
-    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -47,14 +47,14 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha2::ResourceClassParameters {
     fn into_optioned(self) -> ResourceClassParametersAc {
         ResourceClassParametersAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             filters: crate::OptionableConvert::into_optioned(self.filters),
             generated_from: crate::OptionableConvert::into_optioned(self.generated_from),
             metadata: self.metadata,
             vendor_parameters: crate::OptionableConvert::into_optioned(
                 self.vendor_parameters,
             ),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(

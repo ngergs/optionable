@@ -8,13 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeAttributesClassAc {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub driver_name: Option<<std::string::String as crate::Optionable>::Optioned>,
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub parameters: <Option<
-        std::collections::BTreeMap<std::string::String, std::string::String>,
-    > as crate::Optionable>::Optioned,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -25,6 +18,13 @@ pub struct VolumeAttributesClassAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub driver_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parameters: <Option<
+        std::collections::BTreeMap<std::string::String, std::string::String>,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass {
@@ -40,11 +40,11 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::storage::v1alpha1::VolumeAttributesClass {
     fn into_optioned(self) -> VolumeAttributesClassAc {
         VolumeAttributesClassAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             driver_name: Some(crate::OptionableConvert::into_optioned(self.driver_name)),
             metadata: self.metadata,
             parameters: crate::OptionableConvert::into_optioned(self.parameters),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: VolumeAttributesClassAc) -> Result<Self, crate::Error> {

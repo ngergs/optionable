@@ -242,14 +242,19 @@ fn k8s_openapi_field_resource_adjust(
                    #[optionable_attr(serde(serialize_with=#serialize_kind_fn,deserialize_with=#deserialize_kind_fn))]
                    pub kind: std::marker::PhantomData<Self>
     );
-    struct_parsed.fields.push(FieldParsed {
-        field: api_version_field,
-        handling: OptionedOnly,
-    });
-    struct_parsed.fields.push(FieldParsed {
-        field: kind_field,
-        handling: OptionedOnly,
-    });
+    struct_parsed.fields.splice(
+        0..0,
+        vec![
+            FieldParsed {
+                field: api_version_field,
+                handling: OptionedOnly,
+            },
+            FieldParsed {
+                field: kind_field,
+                handling: OptionedOnly,
+            },
+        ],
+    );
 }
 
 /// Adds a suffix to a string. Helper to reduce lines of code in the function above

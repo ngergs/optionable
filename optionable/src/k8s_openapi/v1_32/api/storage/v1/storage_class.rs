@@ -8,6 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageClassAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allow_volume_expansion: <Option<bool> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,16 +41,6 @@ pub struct StorageClassAc {
     pub volume_binding_mode: <Option<
         std::string::String,
     > as crate::Optionable>::Optioned,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
-    )]
-    pub api_version: std::marker::PhantomData<Self>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_kind",
-        deserialize_with = "crate::k8s_openapi::deserialize_kind"
-    )]
-    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::storage::v1::StorageClass {
@@ -55,6 +55,8 @@ impl crate::Optionable for StorageClassAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass {
     fn into_optioned(self) -> StorageClassAc {
         StorageClassAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             allow_volume_expansion: crate::OptionableConvert::into_optioned(
                 self.allow_volume_expansion,
             ),
@@ -69,8 +71,6 @@ impl crate::OptionableConvert for ::k8s_openapi::api::storage::v1::StorageClass 
             volume_binding_mode: crate::OptionableConvert::into_optioned(
                 self.volume_binding_mode,
             ),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: StorageClassAc) -> Result<Self, crate::Error> {

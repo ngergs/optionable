@@ -8,6 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIVersionsAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
     #[serde(rename = "serverAddressByClientCIDRs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub server_address_by_client_cidrs: Option<
@@ -19,16 +29,6 @@ pub struct APIVersionsAc {
     pub versions: Option<
         <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
     >,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
-    )]
-    pub api_version: std::marker::PhantomData<Self>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_kind",
-        deserialize_with = "crate::k8s_openapi::deserialize_kind"
-    )]
-    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -45,14 +45,14 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIVersions {
     fn into_optioned(self) -> APIVersionsAc {
         APIVersionsAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             server_address_by_client_cidrs: Some(
                 crate::OptionableConvert::into_optioned(
                     self.server_address_by_client_cidrs,
                 ),
             ),
             versions: Some(crate::OptionableConvert::into_optioned(self.versions)),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: APIVersionsAc) -> Result<Self, crate::Error> {

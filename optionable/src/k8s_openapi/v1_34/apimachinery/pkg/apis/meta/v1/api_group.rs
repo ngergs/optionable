@@ -8,6 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIGroupAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,16 +37,6 @@ pub struct APIGroupAc {
             ::k8s_openapi::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery,
         > as crate::Optionable>::Optioned,
     >,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
-    )]
-    pub api_version: std::marker::PhantomData<Self>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_kind",
-        deserialize_with = "crate::k8s_openapi::deserialize_kind"
-    )]
-    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup {
@@ -52,6 +52,8 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup {
     fn into_optioned(self) -> APIGroupAc {
         APIGroupAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             preferred_version: crate::OptionableConvert::into_optioned(
                 self.preferred_version,
@@ -60,8 +62,6 @@ for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIGroup {
                 self.server_address_by_client_cidrs,
             ),
             versions: Some(crate::OptionableConvert::into_optioned(self.versions)),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: APIGroupAc) -> Result<Self, crate::Error> {

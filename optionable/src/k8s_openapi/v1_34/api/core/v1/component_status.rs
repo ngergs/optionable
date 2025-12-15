@@ -8,11 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ComponentStatusAc {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
-        std::vec::Vec<::k8s_openapi::api::core::v1::ComponentCondition>,
-    > as crate::Optionable>::Optioned,
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -23,6 +18,11 @@ pub struct ComponentStatusAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub conditions: <Option<
+        std::vec::Vec<::k8s_openapi::api::core::v1::ComponentCondition>,
+    > as crate::Optionable>::Optioned,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ComponentStatus {
@@ -37,10 +37,10 @@ impl crate::Optionable for ComponentStatusAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ComponentStatus {
     fn into_optioned(self) -> ComponentStatusAc {
         ComponentStatusAc {
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
-            metadata: self.metadata,
             api_version: Default::default(),
             kind: Default::default(),
+            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            metadata: self.metadata,
         }
     }
     fn try_from_optioned(value: ComponentStatusAc) -> Result<Self, crate::Error> {

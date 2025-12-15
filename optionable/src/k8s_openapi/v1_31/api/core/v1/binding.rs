@@ -8,11 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BindingAc {
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target: Option<
-        <::k8s_openapi::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
-    >,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -23,6 +18,11 @@ pub struct BindingAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<
+        <::k8s_openapi::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::Binding {
@@ -37,10 +37,10 @@ impl crate::Optionable for BindingAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::Binding {
     fn into_optioned(self) -> BindingAc {
         BindingAc {
-            metadata: self.metadata,
-            target: Some(crate::OptionableConvert::into_optioned(self.target)),
             api_version: Default::default(),
             kind: Default::default(),
+            metadata: self.metadata,
+            target: Some(crate::OptionableConvert::into_optioned(self.target)),
         }
     }
     fn try_from_optioned(value: BindingAc) -> Result<Self, crate::Error> {

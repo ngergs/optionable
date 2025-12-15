@@ -8,6 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RuntimeClassAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub handler: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -19,16 +29,6 @@ pub struct RuntimeClassAc {
     pub scheduling: <Option<
         ::k8s_openapi::api::node::v1::Scheduling,
     > as crate::Optionable>::Optioned,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
-    )]
-    pub api_version: std::marker::PhantomData<Self>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_kind",
-        deserialize_with = "crate::k8s_openapi::deserialize_kind"
-    )]
-    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::node::v1::RuntimeClass {
@@ -43,12 +43,12 @@ impl crate::Optionable for RuntimeClassAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::node::v1::RuntimeClass {
     fn into_optioned(self) -> RuntimeClassAc {
         RuntimeClassAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             handler: Some(crate::OptionableConvert::into_optioned(self.handler)),
             metadata: self.metadata,
             overhead: crate::OptionableConvert::into_optioned(self.overhead),
             scheduling: crate::OptionableConvert::into_optioned(self.scheduling),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: RuntimeClassAc) -> Result<Self, crate::Error> {

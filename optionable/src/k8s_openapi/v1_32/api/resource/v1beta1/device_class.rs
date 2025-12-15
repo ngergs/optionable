@@ -8,11 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceClassAc {
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub spec: Option<
-        <::k8s_openapi::api::resource::v1beta1::DeviceClassSpec as crate::Optionable>::Optioned,
-    >,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -23,6 +18,11 @@ pub struct DeviceClassAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub spec: Option<
+        <::k8s_openapi::api::resource::v1beta1::DeviceClassSpec as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::resource::v1beta1::DeviceClass {
@@ -37,10 +37,10 @@ impl crate::Optionable for DeviceClassAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::resource::v1beta1::DeviceClass {
     fn into_optioned(self) -> DeviceClassAc {
         DeviceClassAc {
-            metadata: self.metadata,
-            spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             api_version: Default::default(),
             kind: Default::default(),
+            metadata: self.metadata,
+            spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
         }
     }
     fn try_from_optioned(value: DeviceClassAc) -> Result<Self, crate::Error> {

@@ -8,6 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ConfigMapAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub binary_data: <Option<
         std::collections::BTreeMap<std::string::String, ::k8s_openapi::ByteString>,
@@ -19,16 +29,6 @@ pub struct ConfigMapAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub immutable: <Option<bool> as crate::Optionable>::Optioned,
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
-    )]
-    pub api_version: std::marker::PhantomData<Self>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_kind",
-        deserialize_with = "crate::k8s_openapi::deserialize_kind"
-    )]
-    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ConfigMap {
@@ -43,12 +43,12 @@ impl crate::Optionable for ConfigMapAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ConfigMap {
     fn into_optioned(self) -> ConfigMapAc {
         ConfigMapAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             binary_data: crate::OptionableConvert::into_optioned(self.binary_data),
             data: crate::OptionableConvert::into_optioned(self.data),
             immutable: crate::OptionableConvert::into_optioned(self.immutable),
             metadata: self.metadata,
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: ConfigMapAc) -> Result<Self, crate::Error> {

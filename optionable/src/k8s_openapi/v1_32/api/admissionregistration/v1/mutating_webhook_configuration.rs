@@ -8,11 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MutatingWebhookConfigurationAc {
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub webhooks: <Option<
-        std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::MutatingWebhook>,
-    > as crate::Optionable>::Optioned,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -23,6 +18,11 @@ pub struct MutatingWebhookConfigurationAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub webhooks: <Option<
+        std::vec::Vec<::k8s_openapi::api::admissionregistration::v1::MutatingWebhook>,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -39,10 +39,10 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::admissionregistration::v1::MutatingWebhookConfiguration {
     fn into_optioned(self) -> MutatingWebhookConfigurationAc {
         MutatingWebhookConfigurationAc {
-            metadata: self.metadata,
-            webhooks: crate::OptionableConvert::into_optioned(self.webhooks),
             api_version: Default::default(),
             kind: Default::default(),
+            metadata: self.metadata,
+            webhooks: crate::OptionableConvert::into_optioned(self.webhooks),
         }
     }
     fn try_from_optioned(

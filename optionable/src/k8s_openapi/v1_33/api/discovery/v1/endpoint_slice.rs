@@ -8,6 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointSliceAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub address_type: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -21,16 +31,6 @@ pub struct EndpointSliceAc {
     pub ports: <Option<
         std::vec::Vec<::k8s_openapi::api::discovery::v1::EndpointPort>,
     > as crate::Optionable>::Optioned,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
-    )]
-    pub api_version: std::marker::PhantomData<Self>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_kind",
-        deserialize_with = "crate::k8s_openapi::deserialize_kind"
-    )]
-    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::discovery::v1::EndpointSlice {
@@ -45,14 +45,14 @@ impl crate::Optionable for EndpointSliceAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::discovery::v1::EndpointSlice {
     fn into_optioned(self) -> EndpointSliceAc {
         EndpointSliceAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             address_type: Some(
                 crate::OptionableConvert::into_optioned(self.address_type),
             ),
             endpoints: Some(crate::OptionableConvert::into_optioned(self.endpoints)),
             metadata: self.metadata,
             ports: crate::OptionableConvert::into_optioned(self.ports),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: EndpointSliceAc) -> Result<Self, crate::Error> {

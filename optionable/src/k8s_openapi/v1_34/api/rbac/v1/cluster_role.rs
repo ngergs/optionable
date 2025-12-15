@@ -8,15 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ClusterRoleAc {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub aggregation_rule: <Option<
-        ::k8s_openapi::api::rbac::v1::AggregationRule,
-    > as crate::Optionable>::Optioned,
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub rules: <Option<
-        std::vec::Vec<::k8s_openapi::api::rbac::v1::PolicyRule>,
-    > as crate::Optionable>::Optioned,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -27,6 +18,15 @@ pub struct ClusterRoleAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub aggregation_rule: <Option<
+        ::k8s_openapi::api::rbac::v1::AggregationRule,
+    > as crate::Optionable>::Optioned,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rules: <Option<
+        std::vec::Vec<::k8s_openapi::api::rbac::v1::PolicyRule>,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::rbac::v1::ClusterRole {
@@ -41,13 +41,13 @@ impl crate::Optionable for ClusterRoleAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::rbac::v1::ClusterRole {
     fn into_optioned(self) -> ClusterRoleAc {
         ClusterRoleAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             aggregation_rule: crate::OptionableConvert::into_optioned(
                 self.aggregation_rule,
             ),
             metadata: self.metadata,
             rules: crate::OptionableConvert::into_optioned(self.rules),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: ClusterRoleAc) -> Result<Self, crate::Error> {

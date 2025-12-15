@@ -8,15 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PriorityClassAc {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: <Option<std::string::String> as crate::Optionable>::Optioned,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub global_default: <Option<bool> as crate::Optionable>::Optioned,
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preemption_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<i32>,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -27,6 +18,15 @@ pub struct PriorityClassAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub global_default: <Option<bool> as crate::Optionable>::Optioned,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub preemption_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<i32>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::scheduling::v1::PriorityClass {
@@ -41,6 +41,8 @@ impl crate::Optionable for PriorityClassAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityClass {
     fn into_optioned(self) -> PriorityClassAc {
         PriorityClassAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             description: crate::OptionableConvert::into_optioned(self.description),
             global_default: crate::OptionableConvert::into_optioned(self.global_default),
             metadata: self.metadata,
@@ -48,8 +50,6 @@ impl crate::OptionableConvert for ::k8s_openapi::api::scheduling::v1::PriorityCl
                 self.preemption_policy,
             ),
             value: Some(self.value),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: PriorityClassAc) -> Result<Self, crate::Error> {

@@ -8,15 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SubjectAccessReviewAc {
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub spec: Option<
-        <::k8s_openapi::api::authorization::v1::SubjectAccessReviewSpec as crate::Optionable>::Optioned,
-    >,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: <Option<
-        ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus,
-    > as crate::Optionable>::Optioned,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -27,6 +18,15 @@ pub struct SubjectAccessReviewAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub spec: Option<
+        <::k8s_openapi::api::authorization::v1::SubjectAccessReviewSpec as crate::Optionable>::Optioned,
+    >,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: <Option<
+        ::k8s_openapi::api::authorization::v1::SubjectAccessReviewStatus,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::authorization::v1::SubjectAccessReview {
@@ -42,11 +42,11 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::authorization::v1::SubjectAccessReview {
     fn into_optioned(self) -> SubjectAccessReviewAc {
         SubjectAccessReviewAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             metadata: self.metadata,
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
             status: crate::OptionableConvert::into_optioned(self.status),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: SubjectAccessReviewAc) -> Result<Self, crate::Error> {

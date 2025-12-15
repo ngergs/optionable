@@ -8,14 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIResourceListAc {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub group_version: Option<<std::string::String as crate::Optionable>::Optioned>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub resources: Option<
-        <std::vec::Vec<
-            ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResource,
-        > as crate::Optionable>::Optioned,
-    >,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -26,6 +18,14 @@ pub struct APIResourceListAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub group_version: Option<<std::string::String as crate::Optionable>::Optioned>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resources: Option<
+        <std::vec::Vec<
+            ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResource,
+        > as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -42,12 +42,12 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::APIResourceList {
     fn into_optioned(self) -> APIResourceListAc {
         APIResourceListAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             group_version: Some(
                 crate::OptionableConvert::into_optioned(self.group_version),
             ),
             resources: Some(crate::OptionableConvert::into_optioned(self.resources)),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: APIResourceListAc) -> Result<Self, crate::Error> {

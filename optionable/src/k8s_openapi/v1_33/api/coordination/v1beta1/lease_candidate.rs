@@ -8,11 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LeaseCandidateAc {
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub spec: <Option<
-        ::k8s_openapi::api::coordination::v1beta1::LeaseCandidateSpec,
-    > as crate::Optionable>::Optioned,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -23,6 +18,11 @@ pub struct LeaseCandidateAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub spec: <Option<
+        ::k8s_openapi::api::coordination::v1beta1::LeaseCandidateSpec,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::coordination::v1beta1::LeaseCandidate {
@@ -38,10 +38,10 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::coordination::v1beta1::LeaseCandidate {
     fn into_optioned(self) -> LeaseCandidateAc {
         LeaseCandidateAc {
-            metadata: self.metadata,
-            spec: crate::OptionableConvert::into_optioned(self.spec),
             api_version: Default::default(),
             kind: Default::default(),
+            metadata: self.metadata,
+            spec: crate::OptionableConvert::into_optioned(self.spec),
         }
     }
     fn try_from_optioned(value: LeaseCandidateAc) -> Result<Self, crate::Error> {

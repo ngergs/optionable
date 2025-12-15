@@ -16,9 +16,6 @@ where
     > as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
         + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub items: Option<<std::vec::Vec<T> as crate::Optionable>::Optioned>,
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -29,6 +26,9 @@ where
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub items: Option<<std::vec::Vec<T> as crate::Optionable>::Optioned>,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ListMeta,
 }
 #[automatically_derived]
 impl<T> crate::Optionable for ::k8s_openapi::List<T>
@@ -67,10 +67,10 @@ where
 {
     fn into_optioned(self) -> ListAc<T> {
         ListAc::<T> {
-            items: Some(crate::OptionableConvert::into_optioned(self.items)),
-            metadata: self.metadata,
             api_version: Default::default(),
             kind: Default::default(),
+            items: Some(crate::OptionableConvert::into_optioned(self.items)),
+            metadata: self.metadata,
         }
     }
     fn try_from_optioned(value: ListAc<T>) -> Result<Self, crate::Error> {

@@ -8,6 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceAccountAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub automount_service_account_token: <Option<bool> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -19,16 +29,6 @@ pub struct ServiceAccountAc {
     pub secrets: <Option<
         std::vec::Vec<::k8s_openapi::api::core::v1::ObjectReference>,
     > as crate::Optionable>::Optioned,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
-    )]
-    pub api_version: std::marker::PhantomData<Self>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_kind",
-        deserialize_with = "crate::k8s_openapi::deserialize_kind"
-    )]
-    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::core::v1::ServiceAccount {
@@ -43,6 +43,8 @@ impl crate::Optionable for ServiceAccountAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
     fn into_optioned(self) -> ServiceAccountAc {
         ServiceAccountAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             automount_service_account_token: crate::OptionableConvert::into_optioned(
                 self.automount_service_account_token,
             ),
@@ -51,8 +53,6 @@ impl crate::OptionableConvert for ::k8s_openapi::api::core::v1::ServiceAccount {
             ),
             metadata: self.metadata,
             secrets: crate::OptionableConvert::into_optioned(self.secrets),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: ServiceAccountAc) -> Result<Self, crate::Error> {

@@ -8,15 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CronJobAc {
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub spec: <Option<
-        ::k8s_openapi::api::batch::v1::CronJobSpec,
-    > as crate::Optionable>::Optioned,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: <Option<
-        ::k8s_openapi::api::batch::v1::CronJobStatus,
-    > as crate::Optionable>::Optioned,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -27,6 +18,15 @@ pub struct CronJobAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub spec: <Option<
+        ::k8s_openapi::api::batch::v1::CronJobSpec,
+    > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: <Option<
+        ::k8s_openapi::api::batch::v1::CronJobStatus,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::batch::v1::CronJob {
@@ -41,11 +41,11 @@ impl crate::Optionable for CronJobAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::batch::v1::CronJob {
     fn into_optioned(self) -> CronJobAc {
         CronJobAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             metadata: self.metadata,
             spec: crate::OptionableConvert::into_optioned(self.spec),
             status: crate::OptionableConvert::into_optioned(self.status),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: CronJobAc) -> Result<Self, crate::Error> {

@@ -8,6 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatusAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub code: <Option<i32> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -21,16 +31,6 @@ pub struct StatusAc {
     pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: <Option<std::string::String> as crate::Optionable>::Optioned,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
-    )]
-    pub api_version: std::marker::PhantomData<Self>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_kind",
-        deserialize_with = "crate::k8s_openapi::deserialize_kind"
-    )]
-    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
@@ -46,14 +46,14 @@ impl crate::OptionableConvert
 for ::k8s_openapi::apimachinery::pkg::apis::meta::v1::Status {
     fn into_optioned(self) -> StatusAc {
         StatusAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             code: crate::OptionableConvert::into_optioned(self.code),
             details: crate::OptionableConvert::into_optioned(self.details),
             message: crate::OptionableConvert::into_optioned(self.message),
             metadata: self.metadata,
             reason: crate::OptionableConvert::into_optioned(self.reason),
             status: crate::OptionableConvert::into_optioned(self.status),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(value: StatusAc) -> Result<Self, crate::Error> {

@@ -8,11 +8,6 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EvictionAc {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub delete_options: <Option<
-        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions,
-    > as crate::Optionable>::Optioned,
-    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
         deserialize_with = "crate::k8s_openapi::deserialize_api_version"
@@ -23,6 +18,11 @@ pub struct EvictionAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub delete_options: <Option<
+        ::k8s_openapi::apimachinery::pkg::apis::meta::v1::DeleteOptions,
+    > as crate::Optionable>::Optioned,
+    pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
 }
 #[automatically_derived]
 impl crate::Optionable for ::k8s_openapi::api::policy::v1::Eviction {
@@ -37,10 +37,10 @@ impl crate::Optionable for EvictionAc {
 impl crate::OptionableConvert for ::k8s_openapi::api::policy::v1::Eviction {
     fn into_optioned(self) -> EvictionAc {
         EvictionAc {
-            delete_options: crate::OptionableConvert::into_optioned(self.delete_options),
-            metadata: self.metadata,
             api_version: Default::default(),
             kind: Default::default(),
+            delete_options: crate::OptionableConvert::into_optioned(self.delete_options),
+            metadata: self.metadata,
         }
     }
     fn try_from_optioned(value: EvictionAc) -> Result<Self, crate::Error> {

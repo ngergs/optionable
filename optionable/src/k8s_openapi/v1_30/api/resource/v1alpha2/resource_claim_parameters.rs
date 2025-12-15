@@ -8,6 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimParametersAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub driver_requests: <Option<
         std::vec::Vec<::k8s_openapi::api::resource::v1alpha2::DriverRequests>,
@@ -19,16 +29,6 @@ pub struct ResourceClaimParametersAc {
     pub metadata: ::k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub shareable: <Option<bool> as crate::Optionable>::Optioned,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
-    )]
-    pub api_version: std::marker::PhantomData<Self>,
-    #[serde(
-        serialize_with = "crate::k8s_openapi::serialize_kind",
-        deserialize_with = "crate::k8s_openapi::deserialize_kind"
-    )]
-    pub kind: std::marker::PhantomData<Self>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -45,14 +45,14 @@ impl crate::OptionableConvert
 for ::k8s_openapi::api::resource::v1alpha2::ResourceClaimParameters {
     fn into_optioned(self) -> ResourceClaimParametersAc {
         ResourceClaimParametersAc {
+            api_version: Default::default(),
+            kind: Default::default(),
             driver_requests: crate::OptionableConvert::into_optioned(
                 self.driver_requests,
             ),
             generated_from: crate::OptionableConvert::into_optioned(self.generated_from),
             metadata: self.metadata,
             shareable: crate::OptionableConvert::into_optioned(self.shareable),
-            api_version: Default::default(),
-            kind: Default::default(),
         }
     }
     fn try_from_optioned(
