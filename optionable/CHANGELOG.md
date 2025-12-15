@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.2](https://github.com/ngergs/optionable/compare/optionable-v0.10.1...optionable-v0.10.2) - 2025-12-15
+
+### Fixed
+
+- move `api_version` and `kind` fields for kubernetes resource types to the front
+
 ## [0.10.1](https://github.com/ngergs/optionable/compare/optionable-v0.10.0...optionable-v0.10.1) - 2025-12-14
 
 ### Other
