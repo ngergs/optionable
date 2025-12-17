@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.2](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.10.1...optionable_codegen-v0.10.2) - 2025-12-17
+
+### Fixed
+
+- avoid a where-clause clone during codegen
+
+### Other
+
+- simplify where-clause codegen
+
 ## [0.10.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.10.0...optionable_codegen-v0.10.1) - 2025-12-15
 
 ### Fixed
