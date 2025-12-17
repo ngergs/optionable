@@ -61,23 +61,23 @@ pub(crate) fn where_clauses<'a>(
     let optionable_convert_bound = vec![parse_quote!(#crate_name::OptionableConvert)];
     let where_clause_struct_enum_def = where_clause_generalized(
         crate_name,
-        &generic_field_ty,
         where_input.clone(),
+        &generic_field_ty,
         &optionable_bound,
         &bound_optioned,
     );
     let where_clause_impl = where_clause_generalized(
         crate_name,
-        &generic_field_ty,
         where_input.clone(),
+        &generic_field_ty,
         &optionable_bound,
         &bound_optioned,
     );
     let where_clause_impl_convert = (!no_convert).then(|| {
         where_clause_generalized(
             crate_name,
-            &generic_field_ty,
             where_input,
+            &generic_field_ty,
             &optionable_convert_bound,
             &bound_optioned,
         )
@@ -87,24 +87,6 @@ pub(crate) fn where_clauses<'a>(
         impl_optionable: where_clause_impl,
         impl_optionable_convert: where_clause_impl_convert,
     })
-}
-
-/// Internal generalized logic for the where clause
-fn where_clause_generalized(
-    crate_name: &Path,
-    generic_params: &Vec<&Type>,
-    mut where_clause: WhereClause,
-    bound: &[TypeParamBound],
-    bound_optioned: &[TypeParamBound],
-) -> WhereClause {
-    where_clause_add_params(
-        crate_name,
-        &mut where_clause,
-        generic_params,
-        bound,
-        bound_optioned,
-    );
-    where_clause
 }
 
 /// Returns the list of field types that contain any generic parameter.
@@ -162,21 +144,22 @@ fn generic_field_types<'a>(
 /// Adjusts the where clause to add the provided predicate type bounds.
 /// Basically the original where clause with a type bound to the predicate added
 /// for every generic type parameter `params`.
-fn where_clause_add_params(
+fn where_clause_generalized(
     crate_name: &Path,
-    where_clause: &mut WhereClause,
+    mut where_clause: WhereClause,
     params: &Vec<&Type>,
     bounds: &[TypeParamBound],
     bounds_optioned: &[TypeParamBound],
-) {
+) -> WhereClause {
     for ty in params {
-        where_clause_add_predicate(where_clause, ty, bounds);
+        where_clause_add_predicate(&mut where_clause, ty, bounds);
         where_clause_add_predicate(
-            where_clause,
+            &mut where_clause,
             &Type::Path(parse_quote!(<#ty as #crate_name::Optionable>::Optioned)),
             bounds_optioned,
         );
     }
+    where_clause
 }
 
 /// Goes through the list of predicates and appends the new restriction to an already existing
