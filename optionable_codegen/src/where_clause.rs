@@ -4,11 +4,11 @@ use proc_macro2::Ident;
 use std::borrow::Cow;
 use std::collections::{BTreeMap, BTreeSet};
 use syn::punctuated::Punctuated;
-use syn::token::Where;
+use syn::token::{Comma, Where};
 use syn::visit::Visit;
 use syn::{
-    parse_quote, visit, Error, GenericParam, Generics, Path, PathSegment, Type,
-    TypeParamBound, WhereClause, WherePredicate,
+    parse_quote, visit, Error, GenericParam, Path, PathSegment, Type, TypeParamBound,
+    WhereClause, WherePredicate,
 };
 
 pub(crate) struct WhereClauses {
@@ -18,21 +18,18 @@ pub(crate) struct WhereClauses {
 }
 
 pub(crate) fn where_clauses<'a>(
+    where_clause: Option<WhereClause>,
+    generics_params: &Punctuated<GenericParam, Comma>,
     crate_name: &Path,
     input_crate_replacement: Option<&Ident>,
-    generics: &'a Generics,
     derive: &BTreeSet<String>,
     no_convert: bool,
     fields: impl IntoIterator<Item = &'a FieldParsed> + Clone,
 ) -> Result<WhereClauses, Error> {
-    let generic_field_ty = generic_field_types(&generics.params, fields);
-    let mut where_input = generics
-        .where_clause
-        .clone()
-        .unwrap_or_else(|| WhereClause {
-            where_token: Where::default(),
-            predicates: Punctuated::default(),
-        });
+    let mut where_input = where_clause.unwrap_or_else(|| WhereClause {
+        where_token: Where::default(),
+        predicates: Punctuated::default(),
+    });
     if let Some(input_crate_replacement) = input_crate_replacement {
         where_clause_replace_input_crate_name(&mut where_input, input_crate_replacement);
     }
@@ -57,6 +54,8 @@ pub(crate) fn where_clauses<'a>(
                 acc
             },
         );
+
+    let generic_field_ty = generic_field_types(generics_params, fields);
     let optionable_bound = vec![parse_quote!(#crate_name::Optionable)];
     let optionable_convert_bound = vec![parse_quote!(#crate_name::OptionableConvert)];
     let where_clause_struct_enum_def = where_clause_generalized(
@@ -90,10 +89,10 @@ pub(crate) fn where_clauses<'a>(
 }
 
 /// Returns the list of field types that contain any generic parameter.
-fn generic_field_types<'a>(
+fn generic_field_types<'a, 'b>(
     generic_params: impl IntoIterator<Item = &'a GenericParam>,
-    fields: impl IntoIterator<Item = &'a FieldParsed>,
-) -> Vec<&'a Type> {
+    fields: impl IntoIterator<Item = &'b FieldParsed>,
+) -> Vec<&'b Type> {
     struct TypeHasGenerics<'a> {
         generics: &'a BTreeMap<&'a Ident, bool>,
         value: bool,

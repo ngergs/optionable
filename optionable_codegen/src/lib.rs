@@ -32,6 +32,7 @@ use quote::{format_ident, quote, ToTokens};
 use std::borrow::Cow;
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::default::Default;
+use std::mem::take;
 use syn::parse::Parser;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
@@ -229,7 +230,7 @@ pub fn derive_optionable(
     let DeriveInput {
         attrs,
         vis,
-        generics,
+        mut generics,
         data,
         ..
     } = input;
@@ -289,6 +290,8 @@ pub fn derive_optionable(
     }
 
     let vis = vis;
+    // basically split_for_impl, but we move the where clause out instead of just taking a reference
+    let where_clause = take(&mut generics.where_clause);
     let (impl_generics, ty_generics, _) = generics.split_for_impl();
     let generics_colon = (!generics.params.is_empty()).then(|| quote! {::});
     let skip_optionable_if_serde_serialize =
@@ -337,9 +340,10 @@ pub fn derive_optionable(
                 impl_optionable: where_clause_impl_optionable,
                 impl_optionable_convert: where_clause_impl_optionable_convert,
             } = where_clauses(
+                where_clause,
+                &generics.params,
                 crate_name,
                 settings.input_crate_replacement.as_ref(),
-                &generics,
                 &derive,
                 attr_no_convert.is_some(),
                 &struct_parsed.fields,
@@ -425,9 +429,10 @@ pub fn derive_optionable(
                 impl_optionable: where_clause_impl_optionable,
                 impl_optionable_convert: where_clause_impl_optionable_convert,
             } = where_clauses(
+                where_clause,
+                &generics.params,
                 crate_name,
                 settings.input_crate_replacement.as_ref(),
-                &generics,
                 &derive,
                 attr_no_convert.is_some(),
                 all_fields,
