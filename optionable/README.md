@@ -123,6 +123,7 @@ pub trait OptionedConvert<T>: Sized
 - `std`: Default-feature. Adds `Optionable`-implementations for many [std](https://doc.rust-lang.org/std/)-lib types.
 - `alloc`: Adds `Optionable`-implementations for [alloc](https://doc.rust-lang.org/alloc/) types (only useful when not enabling the `std` feature).
 - `chrono`: Derive `Optionable` for types from [chrono](https://docs.rs/chrono/latest/chrono/).
+- `jiff`: Derive `Optionable` for types from [jiff](https://docs.rs/jiff/latest/chrono/).
 - `serde_json`: Derive `Optionable` for [serde_json](https://docs.rs/serde_json/latest/serde_json/)::Value.
 - `k8s_openapi_v1_(30..=34)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types. Only on feature version, e.g. `k8s_openapi_v1_34` may be enabled at once.
 - `k8s_openapi_convert`: Adds `OptionableConvert`-implementations for all optioned [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types specified by the `k8s_openapi_v1_(30..=34)` feature.
