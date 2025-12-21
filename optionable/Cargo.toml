@@ -1,6 +1,6 @@
 [package]
 name = "optionable"
-version = "0.10.3"
+version = "0.11.0"
 description = "Derive macro (and associated marker trait) to derive nested structs/enums with all subfields being optional (e.g. for patches or Kubernetes server side apply)."
 readme = "README.md"
 edition.workspace = true
@@ -35,7 +35,7 @@ pedantic = "warn"
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(test_k8s_openapi_roundtrip)'] }
 
 [dependencies]
-optionable_derive = { version = "0.7.0", optional = true }
+optionable_derive = { version = "0.8.0", optional = true }
 chrono04 = { package = "chrono", version = "0.4.42", default-features = false, optional = true }
 jiff02 = { package = "jiff", version = "0.2.16", default-features = false, optional = true }
 serde = { version = "1.0.228", default-features = false, optional = true }
