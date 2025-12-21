@@ -1,7 +1,7 @@
 use k8s_openapi::api::apps::v1::Deployment;
 use kube::api::{ObjectMeta, Patch, PatchParams};
 use kube::{Api, Client};
-use optionable::k8s_openapi::api::apps::v1::{DeploymentAc, DeploymentSpecAc};
+use optionable::k8s_openapi026::api::apps::v1::{DeploymentAc, DeploymentSpecAc};
 use optionable_k8s_openapi_example::FIELD_MANAGER;
 
 #[tokio::main]

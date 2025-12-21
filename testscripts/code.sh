@@ -7,12 +7,12 @@ if [[ $(basename "$PWD") != "testscripts" ]]; then
 fi
 cd ..
 
-cargo  test --manifest-path=optionable/Cargo.toml --features derive,kube,kube/derive,k8s-openapi/v1_34
-cargo  test --manifest-path=optionable/Cargo.toml --no-default-features --features derive,chrono,jiff,serde_json
-cargo  test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono,jiff,serde_json
-cargo  test --manifest-path=optionable/Cargo.toml --no-default-features --features alloc,derive,chrono,jiff,serde_json
-cargo  test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_30,kube,k8s_openapi_convert,kube/derive
-cargo  test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_31,kube,k8s_openapi_convert,kube/derive
-cargo  test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_32,kube,k8s_openapi_convert,kube/derive
-cargo  test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_33,kube,k8s_openapi_convert,kube/derive
-cargo  test --workspace --exclude optionable_k8s_openapi_example --features k8s_openapi_v1_34,kube,k8s_openapi_convert,kube/derive
+cargo  test --manifest-path=optionable/Cargo.toml --features derive,kube,kube/derive,k8s-openapi026/v1_34
+cargo  test --manifest-path=optionable/Cargo.toml --no-default-features --features derive,chrono04,jiff02,serde_json
+cargo  test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono04,jiff02,serde_json
+cargo  test --manifest-path=optionable/Cargo.toml --no-default-features --features alloc,derive,chrono04,jiff02,serde_json
+cargo  test --workspace --exclude optionable_k8s_example --features k8s_openapi026_v1_30,kube,k8s_openapi_convert,kube/derive
+cargo  test --workspace --exclude optionable_k8s_example --features k8s_openapi026_v1_31,kube,k8s_openapi_convert,kube/derive
+cargo  test --workspace --exclude optionable_k8s_example --features k8s_openapi026_v1_32,kube,k8s_openapi_convert,kube/derive
+cargo  test --workspace --exclude optionable_k8s_example --features k8s_openapi026_v1_33,kube,k8s_openapi_convert,kube/derive
+cargo  test --workspace --exclude optionable_k8s_example --features k8s_openapi026_v1_34,kube,k8s_openapi_convert,kube/derive

@@ -117,12 +117,12 @@
 //! - `derive`: Default-feature, re-exports the [`derive@Optionable`] derive macro.
 //! - `std`: Default-feature. Adds `Optionable`-implementations for many [std](https://doc.rust-lang.org/std/)-lib types.
 //! - `alloc`: Adds `Optionable`-implementations for [alloc](https://doc.rust-lang.org/alloc/) types (only useful when not enabling the `std` feature).
-//! - `chrono`: Derive [`trait@Optionable`] for types from [chrono](https://docs.rs/chrono/latest/chrono/).
-//! - `jiff`: Derive `Optionable` for types from [jiff](https://docs.rs/jiff/latest/chrono/).
 //! - `serde_json`: Derive [`trait@Optionable`] for [serde_json](https://docs.rs/serde_json/latest/serde_json/)`::Value`.
-//! - `k8s_openapi_v1_(30..=34)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types. Only on feature version, e.g. `k8s_openapi_v1_34` may be enabled at once.
-//! - `k8s_openapi_convert`: Adds `OptionableConvert`-implementations for all optioned [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types specified by the `k8s_openapi_v1_(30..=34)` feature.
-//! - `kube`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) `CustomResource`. Also includes [`extract`](kube::ExtractManagedFields)-functionality for server-side apply.
+//! - `chrono04`: Derive [`trait@Optionable`] for types from [chrono](https://docs.rs/chrono/latest/chrono/) v0.4.
+//! - `jiff02`: Derive `Optionable` for types from [jiff](https://docs.rs/jiff/latest/chrono/) v0.2.
+//! - `k8s_openapi026_v1_(30..=34)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) v0.26 types. Only one feature version, e.g. `k8s_openapi026_v1_34` may be enabled at once.
+//! - `k8s_openapi_convert`: Adds `OptionableConvert`-implementations for all optioned [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types specified by the `k8s_openapi026_v1_(30..=34)` feature.
+//! - `kube`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) `CustomResource`. Also includes [`extract`](kube::ExtractManagedFields)-functionality for server-side apply. Will replaced with a versioned `kube3` after kube v3 has been released.
 //!
 //! # Limitations
 //!
@@ -186,18 +186,18 @@ pub use optionable_derive::Optionable;
 
 mod optionable;
 
-#[cfg(feature = "chrono")]
-mod chrono;
-#[cfg(feature = "jiff")]
-mod jiff;
+#[cfg(feature = "chrono04")]
+mod chrono04;
+#[cfg(feature = "jiff02")]
+mod jiff02;
 #[cfg(any(
-    feature = "k8s_openapi_v1_30",
-    feature = "k8s_openapi_v1_31",
-    feature = "k8s_openapi_v1_32",
-    feature = "k8s_openapi_v1_33",
-    feature = "k8s_openapi_v1_34"
+    feature = "k8s_openapi026_v1_30",
+    feature = "k8s_openapi026_v1_31",
+    feature = "k8s_openapi026_v1_32",
+    feature = "k8s_openapi026_v1_33",
+    feature = "k8s_openapi026_v1_34"
 ))]
-pub mod k8s_openapi;
+pub mod k8s_openapi026;
 #[cfg(feature = "kube")]
 pub mod kube;
 #[cfg(feature = "serde_json")]

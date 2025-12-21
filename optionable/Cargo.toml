@@ -15,16 +15,18 @@ default = ["derive", "std"]
 alloc = []
 std = []
 derive = ["dep:optionable_derive"]
-chrono = ["dep:chrono"]
-jiff = ["dep:jiff"]
+chrono04 = ["dep:chrono04"]
+jiff02 = ["dep:jiff02"]
 serde_json = ["dep:serde_json"]
-k8s_openapi_v1_30 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_30", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
-k8s_openapi_v1_31 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_31", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
-k8s_openapi_v1_32 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_32", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
-k8s_openapi_v1_33 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_33", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
-k8s_openapi_v1_34 = ["dep:k8s-openapi", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi/v1_34", "serde/derive", "serde/std", "serde_json", "std", "chrono"]
-k8s_openapi_convert = []
+# kube will get a versioned feature once we are at kube v3 as we have a breaking change for that already prepared on the `kube` branch that utilizes new possibilities for the derives
 kube = ["dep:kube", "dep:serde", "serde_json", "optionable_derive/kube"]
+# k8s openapi and kubernetes versions (i.e. 026_v_1_30 means k8s-openapi v0.26 with the kubernetes feature version v1.30)
+k8s_openapi026_v1_30 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_30", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
+k8s_openapi026_v1_31 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_31", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
+k8s_openapi026_v1_32 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_32", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
+k8s_openapi026_v1_33 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_33", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
+k8s_openapi026_v1_34 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_34", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
+k8s_openapi_convert = []
 
 [lints.clippy]
 pedantic = "warn"
@@ -34,11 +36,11 @@ unexpected_cfgs = { level = "warn", check-cfg = ['cfg(test_k8s_openapi_roundtrip
 
 [dependencies]
 optionable_derive = { version = "0.7.0", optional = true }
-chrono = { version = "0.4.42", default-features = false, optional = true }
-jiff = { version = "0.2.16", default-features = false, optional = true }
+chrono04 = { package = "chrono", version = "0.4.42", default-features = false, optional = true }
+jiff02 = { package = "jiff", version = "0.2.16", default-features = false, optional = true }
 serde = { version = "1.0.228", default-features = false, optional = true }
 serde_json = { version = "1.0.145", default-features = false, optional = true }
-k8s-openapi = { version = "0.26.1", default-features = false, optional = true }
+k8s-openapi026 = { package = "k8s-openapi", version = "0.26.1", default-features = false, optional = true }
 kube = { version = "2.0.1", default-features = false, optional = true }
 
 [dev-dependencies]
@@ -47,10 +49,8 @@ serde = { version = "1.0.228", default-features = false, features = ["derive"] }
 serde_json = { version = "1.0.145", default-features = false, features = ["alloc"] }
 
 [package.metadata.docs.rs]
-# to be able to document feature dependent settings, see https://users.rust-lang.org/t/how-to-document-optional-features-in-api-docs/64577/3
-# disabled till chrono and kube are compatible to it to have `kube` in docs
-# rustdoc-args = ["--cfg", "docsrs"]
+rustdoc-args = ["--cfg", "docsrs"]
 # std needed for serde_json
-# specific k8s_openapi version needed for kube
-features = ["alloc", "derive", "kube", "std", "serde_json", "serde_json/std", "k8s-openapi/v1_34"]
+# specific k8s_openapi026 version needed for kube
+features = ["alloc", "chrono04", "derive", "jiff02", "kube", "std", "serde_json", "serde_json/std", "k8s-openapi026/v1_34"]
 all-features = false

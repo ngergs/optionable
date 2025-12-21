@@ -68,7 +68,7 @@ macro_rules! impl_optional_self {
         })*
     };
 }
-#[cfg(any(feature = "chrono", feature = "serde_json"))]
+#[cfg(any(feature = "chrono04", feature = "jiff02", feature = "serde_json"))]
 pub(crate) use impl_optional_self;
 
 /// Only implements `Optionable`, not `OptionableConvert`

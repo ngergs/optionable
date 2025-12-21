@@ -16,8 +16,8 @@ trap cleanup EXIT
 echo 'k8s-openapi = { git = "https://github.com/ngergs/k8s-openapi" }' >> Cargo.toml
 export RUSTFLAGS="--cfg test_k8s_openapi_roundtrip"
 
-cargo test --manifest-path=optionable/Cargo.toml --features k8s-openapi/std,k8s_openapi_convert,k8s_openapi_v1_30
-cargo test --manifest-path=optionable/Cargo.toml --features k8s-openapi/std,k8s_openapi_convert,k8s_openapi_v1_31
-cargo test --manifest-path=optionable/Cargo.toml --features k8s-openapi/std,k8s_openapi_convert,k8s_openapi_v1_32
-cargo test --manifest-path=optionable/Cargo.toml --features k8s-openapi/std,k8s_openapi_convert,k8s_openapi_v1_33
-cargo test --manifest-path=optionable/Cargo.toml --features k8s-openapi/std,k8s_openapi_convert,k8s_openapi_v1_34
+cargo test --manifest-path=optionable/Cargo.toml --features k8s-openapi026/std,k8s_openapi_convert,k8s_openapi026_v1_30
+cargo test --manifest-path=optionable/Cargo.toml --features k8s-openapi026/std,k8s_openapi_convert,k8s_openapi026_v1_31
+cargo test --manifest-path=optionable/Cargo.toml --features k8s-openapi026/std,k8s_openapi_convert,k8s_openapi026_v1_32
+cargo test --manifest-path=optionable/Cargo.toml --features k8s-openapi026/std,k8s_openapi_convert,k8s_openapi026_v1_33
+cargo test --manifest-path=optionable/Cargo.toml --features k8s-openapi026/std,k8s_openapi_convert,k8s_openapi026_v1_34

@@ -1,0 +1,69 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct IngressBackendAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resource: <Option<
+        ::k8s_openapi026::api::core::v1::TypedLocalObjectReference,
+    > as crate::Optionable>::Optioned,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub service: <Option<
+        ::k8s_openapi026::api::networking::v1::IngressServiceBackend,
+    > as crate::Optionable>::Optioned,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi026::api::networking::v1::IngressBackend {
+    type Optioned = IngressBackendAc;
+}
+#[automatically_derived]
+impl crate::Optionable for IngressBackendAc {
+    type Optioned = IngressBackendAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi026::api::networking::v1::IngressBackend {
+    fn into_optioned(self) -> IngressBackendAc {
+        IngressBackendAc {
+            resource: crate::OptionableConvert::into_optioned(self.resource),
+            service: crate::OptionableConvert::into_optioned(self.service),
+        }
+    }
+    fn try_from_optioned(value: IngressBackendAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            resource: crate::OptionableConvert::try_from_optioned(value.resource)?,
+            service: crate::OptionableConvert::try_from_optioned(value.service)?,
+        })
+    }
+    fn merge(&mut self, other: IngressBackendAc) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
+        crate::OptionableConvert::merge(&mut self.service, other.service)?;
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi026::api::networking::v1::IngressBackend>
+for IngressBackendAc {
+    fn from_optionable(
+        value: k8s_openapi026::api::networking::v1::IngressBackend,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi026::api::networking::v1::IngressBackend, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi026::api::networking::v1::IngressBackend,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

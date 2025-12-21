@@ -204,18 +204,18 @@ fn filter_metadata(item: &mut Value) {
 }
 
 #[cfg(any(
-    feature = "k8s_openapi_v1_30",
-    feature = "k8s_openapi_v1_31",
-    feature = "k8s_openapi_v1_32",
-    feature = "k8s_openapi_v1_33",
-    feature = "k8s_openapi_v1_34"
+    feature = "k8s_openapi026_v1_30",
+    feature = "k8s_openapi026_v1_31",
+    feature = "k8s_openapi026_v1_32",
+    feature = "k8s_openapi026_v1_33",
+    feature = "k8s_openapi026_v1_34"
 ))]
 #[cfg(test)]
 mod test {
     use crate::kube::ExtractManagedFields;
-    use k8s_openapi::api::apps::v1::{Deployment, DeploymentSpec};
-    use k8s_openapi::api::core::v1::{Container, PodSpec, PodTemplateSpec};
-    use k8s_openapi::apimachinery::pkg::apis::meta::v1::{
+    use k8s_openapi026::api::apps::v1::{Deployment, DeploymentSpec};
+    use k8s_openapi026::api::core::v1::{Container, PodSpec, PodTemplateSpec};
+    use k8s_openapi026::apimachinery::pkg::apis::meta::v1::{
         FieldsV1, ManagedFieldsEntry, ObjectMeta,
     };
     use serde::{Deserialize, Serialize};

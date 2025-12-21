@@ -329,6 +329,7 @@ pub fn derive_optionable(
                 settings.input_crate_replacement.as_ref(),
             )?;
             k8s_adjust_fields(
+                settings.input_crate_replacement.as_ref(),
                 &mut struct_parsed,
                 attr_k8s_openapi.as_ref(),
                 attr_kube.as_ref(),
@@ -407,6 +408,7 @@ pub fn derive_optionable(
                         settings.input_crate_replacement.as_ref(),
                     )?;
                     k8s_adjust_fields(
+                        settings.input_crate_replacement.as_ref(),
                         &mut field_handling,
                         attr_k8s_openapi.as_ref(),
                         attr_kube.as_ref(),
@@ -544,6 +546,7 @@ pub fn derive_optionable(
         .is_some_and(|attr| attr.resource.is_some())
         .then(|| {
             k8s_openapi_impl_resource(
+                settings.input_crate_replacement.as_ref(),
                 &ty_ident,
                 &ty_ident_opt,
                 &impl_generics,
@@ -556,6 +559,7 @@ pub fn derive_optionable(
         .is_some_and(|attr| attr.metadata.is_some())
         .then(|| {
             k8s_openapi_impl_metadata(
+                settings.input_crate_replacement.as_ref(),
                 &ty_ident,
                 &ty_ident_opt,
                 &impl_generics,

@@ -65,6 +65,7 @@ pub(crate) fn k8s_derives(data: &Data) -> Option<Vec<String>> {
 
 /// Adjust the struct fields according to the `Kubernetes` use case.
 pub(crate) fn k8s_adjust_fields(
+    input_crate: Option<&Ident>,
     struct_parsed: &mut StructParsed,
     attr_k8s_openapi: Option<&TypeHelperAttributesK8sOpenapi>,
     attr_kube: Option<&TypeHelperAttributesKube>,
@@ -80,7 +81,12 @@ pub(crate) fn k8s_adjust_fields(
         k8s_openapi_set_metadata_required(struct_parsed);
     }
     if let Some(k8s_resource_type) = &resource_type {
-        k8s_openapi_field_resource_adjust(struct_parsed, k8s_resource_type, crate_name);
+        k8s_openapi_field_resource_adjust(
+            input_crate,
+            struct_parsed,
+            k8s_resource_type,
+            crate_name,
+        );
     }
     Ok(())
 }
@@ -215,6 +221,7 @@ pub(crate) fn k8s_type_attr(data: &Data) -> Option<Attribute> {
 
 /// Adjust the parsed struct for the `k8s_openapi::Resource` requirements.
 fn k8s_openapi_field_resource_adjust(
+    input_crate: Option<&Ident>,
     struct_parsed: &mut StructParsed,
     resource_type: &ResourceType,
     crate_name: &Path,
@@ -222,7 +229,8 @@ fn k8s_openapi_field_resource_adjust(
     let mut envelope_serde_path = crate_name.to_token_stream().to_string();
     match resource_type {
         ResourceType::K8sOpenApi => {
-            envelope_serde_path.push_str("::k8s_openapi");
+            envelope_serde_path.push_str("::");
+            envelope_serde_path.push_str(input_crate.to_token_stream().to_string().as_str());
         }
         ResourceType::Kube => {
             envelope_serde_path.push_str("::kube");
@@ -266,6 +274,7 @@ fn with_suffix(mut val: String, suffix: &'static str) -> String {
 /// Derives `k8s_openapi::Resource` for the `T::Optioned` type from the non-optioned type.
 /// It has to be ensured that the given `T` implements `k8s_openapi::Resource`.
 pub(crate) fn k8s_openapi_impl_resource(
+    input_crate: Option<&Ident>,
     ty_ident: &Path,
     ty_ident_opt: &Ident,
     impl_generics: &ImplGenerics,
@@ -273,14 +282,14 @@ pub(crate) fn k8s_openapi_impl_resource(
     where_clause_impl_optionable: &WhereClause,
 ) -> TokenStream {
     quote!(
-        impl #impl_generics k8s_openapi::Resource for #ty_ident_opt #ty_generics #where_clause_impl_optionable {
-            const API_VERSION: &'static str = <#ty_ident #ty_generics as k8s_openapi::Resource>::API_VERSION;
-            const GROUP: &'static str = <#ty_ident #ty_generics as k8s_openapi::Resource>::GROUP;
-            const KIND: &'static str = <#ty_ident #ty_generics as k8s_openapi::Resource>::KIND;
-            const VERSION: &'static str = <#ty_ident #ty_generics as k8s_openapi::Resource>::VERSION;
+        impl #impl_generics #input_crate::Resource for #ty_ident_opt #ty_generics #where_clause_impl_optionable {
+            const API_VERSION: &'static str = <#ty_ident #ty_generics as #input_crate::Resource>::API_VERSION;
+            const GROUP: &'static str = <#ty_ident #ty_generics as #input_crate::Resource>::GROUP;
+            const KIND: &'static str = <#ty_ident #ty_generics as #input_crate::Resource>::KIND;
+            const VERSION: &'static str = <#ty_ident #ty_generics as #input_crate::Resource>::VERSION;
             const URL_PATH_SEGMENT: &'static str =
-               <#ty_ident #ty_generics as k8s_openapi::Resource>::URL_PATH_SEGMENT;
-            type Scope = <#ty_ident #ty_generics as k8s_openapi::Resource>::Scope;
+               <#ty_ident #ty_generics as #input_crate::Resource>::URL_PATH_SEGMENT;
+            type Scope = <#ty_ident #ty_generics as #input_crate::Resource>::Scope;
         }
     )
 }
@@ -288,6 +297,7 @@ pub(crate) fn k8s_openapi_impl_resource(
 /// Derives `k8s_openapi::Metadata` for the `T::Optioned` type from the non-optioned type.
 /// It has to be ensured that the given `T` implements `k8s_openapi::Metadata`.
 pub(crate) fn k8s_openapi_impl_metadata(
+    input_crate: Option<&Ident>,
     ty_ident: &Path,
     ty_ident_opt: &Ident,
     impl_generics: &ImplGenerics,
@@ -295,14 +305,14 @@ pub(crate) fn k8s_openapi_impl_metadata(
     where_clause_impl_optionable: &WhereClause,
 ) -> TokenStream {
     quote!(
-        impl #impl_generics k8s_openapi::Metadata for #ty_ident_opt #ty_generics #where_clause_impl_optionable {
-            type Ty = <#ty_ident #ty_generics as k8s_openapi::Metadata>::Ty;
+        impl #impl_generics #input_crate::Metadata for #ty_ident_opt #ty_generics #where_clause_impl_optionable {
+            type Ty = <#ty_ident #ty_generics as #input_crate::Metadata>::Ty;
 
-            fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+            fn metadata(&self) -> &<Self as #input_crate::Metadata>::Ty {
                 &self.metadata
             }
 
-            fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+            fn metadata_mut(&mut self) -> &mut <Self as #input_crate::Metadata>::Ty {
                 &mut self.metadata
             }
         }

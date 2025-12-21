@@ -11,8 +11,6 @@ use std::path::PathBuf;
 use syn::Item::{Enum, Impl, Struct, Use};
 use syn::{parse_quote, Fields, Item, Path, Type};
 
-const K8S_OPENAPI: &str = "k8s_openapi";
-
 /// Generates `Optionable` and `OptionableConvert` implementation for structs/enums in
 /// the referenced `input_file` and all included internal modules recursively.
 #[derive(Parser, Debug)]
@@ -22,13 +20,17 @@ struct Args {
     input_file: PathBuf,
     /// Output directory
     output_dir: PathBuf,
+    /// package name for the generated package, e.g. `k8s-openapi026`
+    #[arg(long, value_name = "package-name")]
+    package_name: String,
 }
 
-#[derive(Default)]
 /// Visitor for the `k8s-openapi` optionable codegen.
 struct Visitor {
     /// The type suffix for the optioned type. Here this is fixed to "Ac".
     optioned_suffix: &'static str,
+    /// The type suffix for the optioned type. Here this is fixed to "Ac".
+    package_name: Ident,
     /// Additional attributes that should be added to input structs/enums.
     has_resource_impl: HashSet<Ident>,
     has_metadata_impl: HashSet<Ident>,
@@ -38,13 +40,13 @@ impl Clone for Visitor {
     fn clone(&self) -> Self {
         Self {
             optioned_suffix: self.optioned_suffix,
+            package_name: self.package_name.clone(),
             // we want to reset all other fields when entering a new module
-            ..Default::default()
+            has_resource_impl: HashSet::new(),
+            has_metadata_impl: HashSet::new(),
         }
     }
 }
-
-impl Visitor {}
 
 impl CodegenVisitor for Visitor {
     fn filter(&mut self, item: &Item) -> bool {
@@ -106,6 +108,7 @@ impl CodegenVisitor for Visitor {
     }
 
     fn visit_output(&mut self, items: &mut Vec<Item>) {
+        let package_name = &self.package_name;
         let mut extra_items = vec![];
         for item in items.iter_mut() {
             match item {
@@ -138,14 +141,18 @@ impl CodegenVisitor for Visitor {
                     }
                     // extra handling to support deserializing Quantity (wrapper around an inner string) from an int following upstream
                     if item.ident == "QuantityAc" {
-                        item.attrs.push(parse_quote!(#[serde(from = "crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc")]));
+                        let serde_from = format!(
+                            "crate::{package_name}::apimachinery::pkg::util::intstr::IntOrStringAc"
+                        );
+                        item.attrs.push(parse_quote!(#[serde(from = #serde_from)]));
 
                         extra_items.push(parse_quote! {
-                        impl From<crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc> for QuantityAc {
-                            fn from(value: crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc) -> Self {
+                            //todo
+                        impl From<crate::#package_name::apimachinery::pkg::util::intstr::IntOrStringAc> for QuantityAc {
+                            fn from(value: crate::#package_name::apimachinery::pkg::util::intstr::IntOrStringAc) -> Self {
                                 QuantityAc(match value {
-                                    crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc::Int(i) => i.map(|i| i.to_string()),
-                                    crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc::String(s) => s,
+                                    crate::#package_name::apimachinery::pkg::util::intstr::IntOrStringAc::Int(i) => i.map(|i| i.to_string()),
+                                    crate::#package_name::apimachinery::pkg::util::intstr::IntOrStringAc::String(s) => s,
                                 })
                             }
                         }
@@ -162,10 +169,11 @@ impl CodegenVisitor for Visitor {
 /// Dedicated binary target for the purpose of codegen for `k8s-openapi`.
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
+    let package_name_ident = Ident::new(&args.package_name, Span::call_site());
     let codegen_settings = CodegenSettings {
         optionable_crate_name: Path::from_string("crate")?,
-        ty_prefix: Some(Path::from_string(&format!("::{K8S_OPENAPI}"))?),
-        input_crate_replacement: Some(Ident::new(K8S_OPENAPI, Span::call_site())),
+        ty_prefix: Some(Path::from_string(&args.package_name)?),
+        input_crate_replacement: Some(package_name_ident.clone()),
     };
     create_dir_all(&args.output_dir)?;
     let optioned_suffix = "Ac";
@@ -175,7 +183,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         CodegenConfig {
             visitor: Visitor {
                 optioned_suffix,
-                ..Default::default()
+                package_name: package_name_ident,
+                has_resource_impl: HashSet::default(),
+                has_metadata_impl: HashSet::default(),
             },
             optioned_suffix,
             settings: codegen_settings,
