@@ -1,6 +1,6 @@
 use kube::{Api, Client};
 use optionable::kube::ExtractManagedFields;
-use optionable_k8s_openapi_example::{CustomCrd, FIELD_MANAGER};
+use optionable_k8s_example::{CustomCrd, FIELD_MANAGER};
 
 // CRD definition is in ../lib.rs
 

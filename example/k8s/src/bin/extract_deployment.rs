@@ -1,7 +1,7 @@
 use k8s_openapi::api::apps::v1::Deployment;
 use kube::{Api, Client};
 use optionable::kube::ExtractManagedFields;
-use optionable_k8s_openapi_example::FIELD_MANAGER;
+use optionable_k8s_example::FIELD_MANAGER;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {

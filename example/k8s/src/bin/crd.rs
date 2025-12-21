@@ -1,5 +1,5 @@
 use kube::CustomResourceExt;
-use optionable_k8s_openapi_example::CustomCrd;
+use optionable_k8s_example::CustomCrd;
 
 // CRD definition is in ../lib.rs
 

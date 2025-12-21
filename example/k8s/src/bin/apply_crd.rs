@@ -1,6 +1,6 @@
 use kube::api::{ObjectMeta, Patch, PatchParams};
 use kube::{Api, Client};
-use optionable_k8s_openapi_example::{
+use optionable_k8s_example::{
     CustomCrd, CustomCrdAc, CustomCrdSpecAc, CustomCrdSpecTemplateAc, CustomCrdSpecTemplateType,
     FIELD_MANAGER,
 };
