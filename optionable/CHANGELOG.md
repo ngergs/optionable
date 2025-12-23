@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.1](https://github.com/ngergs/optionable/compare/optionable-v0.11.0...optionable-v0.11.1) - 2025-12-23
+
+### Added
+
+- add type-level `option-wrap` derive argument
+
 ## [0.10.3](https://github.com/ngergs/optionable/compare/optionable-v0.10.2...optionable-v0.10.3) - 2025-12-17
 
 ### Added
