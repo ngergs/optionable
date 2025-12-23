@@ -87,3 +87,19 @@ fn derive_generic_advanced_types() {
         tuple: Some((Some(2), Some("a".to_owned()), Some(-1))),
     };
 }
+
+/// Check that the derive macro works for unsized generics as long as they are covered by something
+/// that makes the field where they are used sized
+#[test]
+fn derive_unsized_generic_convert() {
+    #[allow(dead_code)]
+    #[derive(Optionable)]
+    #[optionable(derive(Clone))]
+    struct DeriveExample<T: ?Sized + ToOwned> {
+        el: Box<T>,
+    }
+
+    let _ = DeriveExampleOpt::<&str> {
+        el: Some(Box::new("hello")),
+    };
+}

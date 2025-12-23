@@ -47,6 +47,13 @@ use syn::{parse_quote, DeriveInput, Item, ItemEnum, ItemStruct};
 ///   #[optionable(no_convert)]
 ///   struct MyStruct{}
 ///   ```
+/// - **`option_wrap`**: Whether to wrap a field that is already an `Option<T>` inside an outer `Option<Option<T>>` for the optioned type.
+///   Useful for struct patching but not helpful once serializing to e.g. JSON is involved. Defaults to `false`.
+///   ```rust,ignore
+///   #[derive(optionable)]
+///   #[optionable(option_wrap=true)]
+///   struct MyStruct{}
+///   ```
 /// - **`suffix`**: The name of the generated optioned struct/enum will be `<original><suffix>` with suffix
 ///   defaulting to `"Opt"`. The suffix value can be adjusted via e.g. `#[optionable(suffix="Ac")]`.
 ///   ```rust,ignore

@@ -250,18 +250,30 @@ fn derive_generic_advanced_types_no_convert() {
     }
 }
 
-/// Check that the derive macro works for unsized generics as long as they are covered by something
-/// that makes the field where they are used sized
+/// Just that we don't add an outer `Option` for an already optional field
 #[test]
-fn derive_unsized_generic_convert() {
+fn derive_option_field() {
     #[allow(dead_code)]
     #[derive(Optionable)]
-    #[optionable(derive(Clone))]
-    struct DeriveExample<T: ?Sized + ToOwned> {
-        el: Box<T>,
+    #[optionable(no_convert)]
+    struct DeriveExample<'a> {
+        el: Option<&'a str>,
     }
 
-    let _ = DeriveExample::<&str> {
-        el: Box::new("hello"),
+    let _ = DeriveExampleOpt { el: Some("a") };
+}
+
+/// Just that we add an outer `Option` for an already optional field if `option_wrap` is set.
+#[test]
+fn derive_option_wrap_field() {
+    #[allow(dead_code)]
+    #[derive(Optionable)]
+    #[optionable(option_wrap = true, no_convert)]
+    struct DeriveExample<'a> {
+        el: Option<&'a str>,
+    }
+
+    let _ = DeriveExampleOpt {
+        el: Some(Some("a")),
     };
 }

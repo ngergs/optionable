@@ -62,6 +62,10 @@ pub(crate) struct TypeHelperAttributes {
     suffix: Option<LitStr>,
     /// Skip generating `OptionableConvert` impl
     no_convert: Option<()>,
+    /// Whether to wrap a field that is already an `Option<T>` inside an outer `Option<Option<T>>` for the optioned type.
+    /// Useful for struct patching but not helpful once serializing to e.g. JSON is involved. Defaults to `false`.
+    #[darling(default)]
+    option_wrap: bool,
     /// Adjustments of the derived optioned type for fields that use the `k8s_openapi` serialization replacements.
     /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
     /// - Takes the `k8s_openapi` serialization replacements into account for its own serialization.
@@ -107,6 +111,18 @@ pub(crate) struct TypeHelperAttributesKube {
 pub struct FieldAttributeToCopy {
     pub attr: Path,
     pub key: Option<Path>,
+}
+
+#[derive(FromAttributes)]
+#[darling(attributes(optionable))]
+/// Helper attributes on the type definition level (attached to the `struct` or `enum` itself).
+struct FieldHelperAttributes {
+    /// Given field won't be optioned, it will also be required for the derived optioned type.
+    required: Option<()>,
+    /// For circumvention of the orphan rule. Uses the provided type for the optioned variant of the field.
+    /// If `no_convert` is not set the provided type has to implement `OptionedConvert<O>` where `O` is the type of this field in the original type.
+    #[darling(rename = "optioned_type")]
+    optioned_ty: Option<Path>,
 }
 
 #[derive(FromDeriveInput, Debug, Clone)]
@@ -175,18 +191,6 @@ impl Default for CodegenSettings {
     }
 }
 
-#[derive(FromAttributes)]
-#[darling(attributes(optionable))]
-/// Helper attributes on the type definition level (attached to the `struct` or `enum` itself).
-struct FieldHelperAttributes {
-    /// Given field won't be optioned, it will also be required for the derived optioned type.
-    required: Option<()>,
-    /// For circumvention of the orphan rule. Uses the provided type for the optioned variant of the field.
-    /// If `no_convert` is not set the provided type has to implement `OptionedConvert<O>` where `O` is the type of this field in the original type.
-    #[darling(rename = "optioned_type")]
-    optioned_ty: Option<Path>,
-}
-
 /// Returns the attribute for opting-out of `OptionableConvert`-impl generation.
 #[must_use]
 pub fn attribute_no_convert() -> Attribute {
@@ -224,6 +228,7 @@ pub fn derive_optionable(
         derive: attr_derive,
         suffix: attr_suffix,
         no_convert: attr_no_convert,
+        option_wrap: attr_option_wrap,
         k8s_openapi: attr_k8s_openapi,
         kube: attr_kube,
     } = TypeHelperAttributes::from_derive_input(&input)?;
@@ -327,6 +332,7 @@ pub fn derive_optionable(
                 crate_name.to_owned(),
                 s.fields,
                 settings.input_crate_replacement.as_ref(),
+                attr_option_wrap,
             )?;
             k8s_adjust_fields(
                 settings.input_crate_replacement.as_ref(),
@@ -406,6 +412,7 @@ pub fn derive_optionable(
                         crate_name.to_owned(),
                         v.fields,
                         settings.input_crate_replacement.as_ref(),
+                        attr_option_wrap,
                     )?;
                     k8s_adjust_fields(
                         settings.input_crate_replacement.as_ref(),
@@ -1171,6 +1178,97 @@ mod tests {
                                 self.name =  other_value;
                             }
                             ::optionable::OptionableConvert::merge(&mut self.middle_name, other.middle_name)?;
+                            if let Some(other_value) = other.surname {
+                                self.surname =  other_value;
+                            }
+                            Ok(())
+                        }
+                    }
+
+
+                    #[automatically_derived]
+                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleAc {
+                        fn from_optionable(value: DeriveExample) -> Self {
+                            ::optionable::OptionableConvert::into_optioned(value)
+                        }
+
+                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                            ::optionable::OptionableConvert::try_from_optioned(self)
+                        }
+
+                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                            ::optionable::OptionableConvert::merge(other, self)
+                        }
+                    }
+                },
+            },
+            // named struct fields with forwarded derives and Serialize annotations
+            TestCase {
+                input: quote! {
+                    #[derive(Optionable)]
+                    #[optionable(derive(Deserialize,Serialize,Default),suffix="Ac")]
+                    #[optionable(attr_copy(attr=serde,key=rename))]
+                    #[optionable(option_wrap=true)]
+                    #[optionable_attr(serde(rename_all_fields = "camelCase", deny_unknown_fields))]
+                    #[optionable_attr(serde(default))]
+                    struct DeriveExample {
+                        #[optionable_attr(serde(rename = "firstName"))]
+                        name: String,
+                        #[serde(rename="middle__name")]
+                        middle_name: Option<String>,
+                        surname: String,
+                    }
+                },
+                output: quote! {
+                    #[derive(Default, Deserialize, Serialize)]
+                    #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
+                    #[serde(default)]
+                    struct DeriveExampleAc {
+                        #[serde(rename = "firstName")]
+                        #[serde(skip_serializing_if = "Option::is_none")]
+                        name: Option<String>,
+                        #[serde(rename = "middle__name")]
+                        #[serde(skip_serializing_if = "Option::is_none")]
+                        middle_name: Option< <Option<String> as ::optionable::Optionable>::Optioned>,
+                        #[serde(skip_serializing_if = "Option::is_none")]
+                        surname: Option<String>
+                    }
+
+                    #[automatically_derived]
+                    impl ::optionable::Optionable for DeriveExample {
+                        type Optioned = DeriveExampleAc;
+                    }
+
+                    #[automatically_derived]
+                    impl ::optionable::Optionable for DeriveExampleAc {
+                        type Optioned = DeriveExampleAc;
+                    }
+
+                    #[automatically_derived]
+                    impl ::optionable::OptionableConvert for DeriveExample {
+                        fn into_optioned (self) -> DeriveExampleAc {
+                            DeriveExampleAc  {
+                                name: Some(self.name),
+                                middle_name: Some(::optionable::OptionableConvert::into_optioned(self.middle_name)),
+                                surname: Some(self.surname)
+                            }
+                        }
+
+                        fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::Error> {
+                            Ok(Self{
+                                name: value.name.ok_or(::optionable::Error { missing_field: "name"})?,
+                                middle_name: ::optionable::OptionableConvert::try_from_optioned(value.middle_name.ok_or(::optionable::Error{ missing_field : "middle_name" })?)?,
+                                surname: value.surname.ok_or(::optionable::Error { missing_field: "surname"})?
+                            })
+                        }
+
+                        fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
+                            if let Some(other_value) = other.name {
+                                self.name =  other_value;
+                            }
+                            if let Some(other_value) = other.middle_name {
+                                ::optionable::OptionableConvert::merge(&mut self.middle_name, other_value)?;
+                            }
                             if let Some(other_value) = other.surname {
                                 self.surname =  other_value;
                             }
