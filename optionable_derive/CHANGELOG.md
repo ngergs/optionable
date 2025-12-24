@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0](https://github.com/ngergs/optionable/compare/optionable_derive-v0.8.1...optionable_derive-v0.9.0) - 2025-12-24
+
+### Fixed
+
+- [**breaking**] use same attribute style for option_wrap as for other configs
+
 ## [0.8.1](https://github.com/ngergs/optionable/compare/optionable_derive-v0.8.0...optionable_derive-v0.8.1) - 2025-12-23
 
 ### Added
