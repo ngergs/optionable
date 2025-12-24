@@ -62,10 +62,9 @@ pub(crate) struct TypeHelperAttributes {
     suffix: Option<LitStr>,
     /// Skip generating `OptionableConvert` impl
     no_convert: Option<()>,
-    /// Whether to wrap a field that is already an `Option<T>` inside an outer `Option<Option<T>>` for the optioned type.
-    /// Useful for struct patching but not helpful once serializing to e.g. JSON is involved. Defaults to `false`.
-    #[darling(default)]
-    option_wrap: bool,
+    /// Wrap a field that is already an `Option<T>` inside an outer `Option<Option<T>>` for the optioned type.
+    /// Useful for struct patching but not helpful once serializing to e.g. JSON is involved.
+    option_wrap: Option<()>,
     /// Adjustments of the derived optioned type for fields that use the `k8s_openapi` serialization replacements.
     /// - Derives for the optioned type `Clone, Debug, PartialEq, Serialize, Deserialize` and additionally for Structs `Default`.
     /// - Takes the `k8s_openapi` serialization replacements into account for its own serialization.
@@ -1208,7 +1207,7 @@ mod tests {
                     #[derive(Optionable)]
                     #[optionable(derive(Deserialize,Serialize,Default),suffix="Ac")]
                     #[optionable(attr_copy(attr=serde,key=rename))]
-                    #[optionable(option_wrap=true)]
+                    #[optionable(option_wrap)]
                     #[optionable_attr(serde(rename_all_fields = "camelCase", deny_unknown_fields))]
                     #[optionable_attr(serde(default))]
                     struct DeriveExample {

@@ -48,7 +48,7 @@ pub(crate) fn into_field_handling(
     crate_name: Path,
     fields: Fields,
     input_crate_replacement: Option<&Ident>,
-    option_wrap: bool,
+    option_wrap: Option<()>,
 ) -> Result<StructParsed, Error> {
     let struct_named = match &fields {
         Fields::Named(_) => StructType::Named,
@@ -75,7 +75,7 @@ pub(crate) fn into_field_handling(
                 Required
             } else if let Some(ty)=attrs.optioned_ty {
                 ManualOptioned(ty)
-            } else if (!option_wrap) && is_option(&field.ty) {
+            } else if option_wrap.is_none() && is_option(&field.ty) {
                 IsOption
             } else {
                 Other

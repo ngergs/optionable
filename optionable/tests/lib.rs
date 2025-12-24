@@ -268,7 +268,7 @@ fn derive_option_field() {
 fn derive_option_wrap_field() {
     #[allow(dead_code)]
     #[derive(Optionable)]
-    #[optionable(option_wrap = true, no_convert)]
+    #[optionable(option_wrap, no_convert)]
     struct DeriveExample<'a> {
         el: Option<&'a str>,
     }
