@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.0](https://github.com/ngergs/optionable/compare/optionable-v0.11.2...optionable-v0.12.0) - 2025-12-24
+
+### Fixed
+
+- [**breaking**] use same attribute style for option_wrap as for other configs
+
 ## [0.11.2](https://github.com/ngergs/optionable/compare/optionable-v0.11.1...optionable-v0.11.2) - 2025-12-23
 
 ### Fixed
