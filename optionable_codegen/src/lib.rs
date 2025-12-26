@@ -309,21 +309,18 @@ pub fn derive_optionable(
         enum_struct: TokenStream,
         /// The generated fields, including wrapping brackets
         fields: TokenStream,
-        /// The `where`-clause for the `struct_enum` definition
-        where_clause_struct_enum: WhereClause,
         /// The `where`-clause for the `Optionable`-impl
-        where_clause_impl_optionable: WhereClause,
+        where_clause_optionable: WhereClause,
         /// The `where`-clause  for the `OptionableConvert` and `OptionedConvert` impl
-        where_clause_impl_optionable_convert: Option<WhereClause>,
+        where_clause_optionable_convert: Option<WhereClause>,
         /// The `OptionableConvert` implementation if not configured to be skipped, including the `impl`-wrapper
         impl_optionable_convert: Option<TokenStream>,
     }
     let Derived {
         enum_struct,
         fields,
-        where_clause_struct_enum,
-        where_clause_impl_optionable,
-        where_clause_impl_optionable_convert,
+        where_clause_optionable,
+        where_clause_optionable_convert,
         impl_optionable_convert,
     } = match data {
         Data::Struct(s) => {
@@ -342,9 +339,8 @@ pub fn derive_optionable(
                 crate_name,
             )?;
             let WhereClauses {
-                struct_enum_def: where_clause_struct_enum,
-                impl_optionable: where_clause_impl_optionable,
-                impl_optionable_convert: where_clause_impl_optionable_convert,
+                optionable: where_clause_optionable,
+                optionable_convert: where_clause_optionable_convert,
             } = where_clauses(
                 where_clause,
                 &generics.params,
@@ -373,7 +369,7 @@ pub fn derive_optionable(
                     true);
                 quote! {
                     #[automatically_derived]
-                    impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_impl_optionable_convert{
+                    impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_optionable_convert{
                         fn into_optioned(self) -> #ty_ident_opt #ty_generics {
                             #ty_ident_opt #generics_colon #ty_generics #into_optioned_fields
                         }
@@ -392,9 +388,8 @@ pub fn derive_optionable(
             Derived {
                 enum_struct: quote! {struct},
                 fields: quote! {#optioned_fields #unnamed_struct_semicolon},
-                where_clause_struct_enum,
-                where_clause_impl_optionable,
-                where_clause_impl_optionable_convert,
+                where_clause_optionable: where_clause_optionable,
+                where_clause_optionable_convert: where_clause_optionable_convert,
                 impl_optionable_convert,
             }
         }
@@ -433,9 +428,8 @@ pub fn derive_optionable(
                 .flat_map(|(_, _, fields)| &fields.fields)
                 .collect::<Vec<_>>();
             let WhereClauses {
-                struct_enum_def: where_clause_struct_enum,
-                impl_optionable: where_clause_impl_optionable,
-                impl_optionable_convert: where_clause_impl_optionable_convert,
+                optionable: where_clause_optionable,
+                optionable_convert: where_clause_optionable_convert,
             } = where_clauses(
                 where_clause,
                 &generics.params,
@@ -491,7 +485,7 @@ pub fn derive_optionable(
                     .into_iter().multiunzip();
                 Ok::<_, Error>(quote! {
                     #[automatically_derived]
-                    impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_impl_optionable_convert {
+                    impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_optionable_convert {
                         fn into_optioned(self) -> #ty_ident_opt #ty_generics {
                             match self {
                                 #(#into_variants),*
@@ -516,9 +510,8 @@ pub fn derive_optionable(
             Derived {
                 enum_struct: quote! {enum},
                 fields: quote! {{#(#optioned_variants),*}},
-                where_clause_struct_enum,
-                where_clause_impl_optionable,
-                where_clause_impl_optionable_convert,
+                where_clause_optionable: where_clause_optionable,
+                where_clause_optionable_convert: where_clause_optionable_convert,
                 impl_optionable_convert,
             }
         }
@@ -527,7 +520,7 @@ pub fn derive_optionable(
     let impl_optioned_convert = attr_no_convert.is_none().then(|| {
         quote! {
             #[automatically_derived]
-            impl #impl_generics #crate_name::OptionedConvert<#ty_ident #ty_generics> for #ty_ident_opt #ty_generics #where_clause_impl_optionable_convert {
+            impl #impl_generics #crate_name::OptionedConvert<#ty_ident #ty_generics> for #ty_ident_opt #ty_generics #where_clause_optionable_convert {
                 fn from_optionable(value: #ty_ident #ty_generics) -> Self {
                     #crate_name::OptionableConvert::into_optioned(value)
                 }
@@ -557,7 +550,7 @@ pub fn derive_optionable(
                 &ty_ident_opt,
                 &impl_generics,
                 &ty_generics,
-                &where_clause_impl_optionable,
+                &where_clause_optionable,
             )
         });
     let impl_k8s_metadata = attr_k8s_openapi
@@ -570,7 +563,7 @@ pub fn derive_optionable(
                 &ty_ident_opt,
                 &impl_generics,
                 &ty_generics,
-                &where_clause_impl_optionable,
+                &where_clause_optionable,
             )
         });
     let kube_derive_resource = attr_kube
@@ -611,15 +604,15 @@ pub fn derive_optionable(
                 #kube_derive_resource
                 #ty_attr_forwarded
                 #k8s_openapi_attrs
-                #vis #enum_struct #ty_ident_opt #impl_generics #where_clause_struct_enum #fields
+                #vis #enum_struct #ty_ident_opt #impl_generics #where_clause_optionable #fields
 
                 #[automatically_derived]
-                impl #impl_generics #crate_name::Optionable for #ty_ident #ty_generics #where_clause_impl_optionable {
+                impl #impl_generics #crate_name::Optionable for #ty_ident #ty_generics #where_clause_optionable {
                     type Optioned = #ty_ident_opt #ty_generics;
                 }
 
                 #[automatically_derived]
-                impl #impl_generics #crate_name::Optionable for #ty_ident_opt #ty_generics #where_clause_impl_optionable {
+                impl #impl_generics #crate_name::Optionable for #ty_ident_opt #ty_generics #where_clause_optionable {
                     type Optioned = #ty_ident_opt #ty_generics;
                 }
 

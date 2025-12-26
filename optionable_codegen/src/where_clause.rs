@@ -12,9 +12,8 @@ use syn::{
 };
 
 pub(crate) struct WhereClauses {
-    pub struct_enum_def: WhereClause,
-    pub impl_optionable: WhereClause,
-    pub impl_optionable_convert: Option<WhereClause>,
+    pub optionable: WhereClause,
+    pub optionable_convert: Option<WhereClause>,
 }
 
 pub(crate) fn where_clauses<'a>(
@@ -58,21 +57,14 @@ pub(crate) fn where_clauses<'a>(
     let generic_field_ty = generic_field_types(generics_params, fields);
     let optionable_bound = vec![parse_quote!(#crate_name::Optionable)];
     let optionable_convert_bound = vec![parse_quote!(#crate_name::OptionableConvert)];
-    let where_clause_struct_enum_def = where_clause_generalized(
+    let where_clause = where_clause_generalized(
         crate_name,
         where_input.clone(),
         &generic_field_ty,
         &optionable_bound,
         &bound_optioned,
     );
-    let where_clause_impl = where_clause_generalized(
-        crate_name,
-        where_input.clone(),
-        &generic_field_ty,
-        &optionable_bound,
-        &bound_optioned,
-    );
-    let where_clause_impl_convert = (!no_convert).then(|| {
+    let where_clause_convert = (!no_convert).then(|| {
         where_clause_generalized(
             crate_name,
             where_input,
@@ -82,9 +74,8 @@ pub(crate) fn where_clauses<'a>(
         )
     });
     Ok(WhereClauses {
-        struct_enum_def: where_clause_struct_enum_def,
-        impl_optionable: where_clause_impl,
-        impl_optionable_convert: where_clause_impl_convert,
+        optionable: where_clause,
+        optionable_convert: where_clause_convert,
     })
 }
 
