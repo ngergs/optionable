@@ -2,8 +2,8 @@ extern crate core;
 
 use darling::FromMeta;
 use optionable_codegen::CodegenSettings;
-use proc_macro2::{Ident, Span};
-use quote::ToTokens;
+use proc_macro2::Span;
+use quote::{format_ident, ToTokens};
 use std::fs::create_dir_all;
 use std::mem::take;
 use std::path::Path;
@@ -94,9 +94,7 @@ pub fn file_codegen<Vis: CodegenVisitor>(
                 let mut item_use = item_use.clone();
                 let leaf = get_use_tree_leaf_mut(&mut item_use.tree)?;
                 if let UseTree::Name(name) = leaf {
-                    let mut name_string = name.ident.to_string();
-                    name_string.push_str(conf.optioned_suffix);
-                    name.ident = Ident::from_string(&name_string)?;
+                    name.ident = format_ident!("{}{}",name.ident,conf.optioned_suffix);
                 } else {
                     return Err(Error::new(Span::call_site(), format!("unsupported use tree leaf note, only supports plain `Name`, got {leaf:?}")).into());
                 }
@@ -132,7 +130,7 @@ pub fn file_codegen<Vis: CodegenVisitor>(
                         // we found a match, replace the ty_prefix with the reduced version
                         ty_prefix.segments = ty_prefix_tail
                             .rev()
-                            .map(std::borrow::ToOwned::to_owned)
+                            .map(ToOwned::to_owned)
                             .collect();
                     }
                 }
