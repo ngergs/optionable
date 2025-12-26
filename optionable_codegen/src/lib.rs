@@ -388,8 +388,8 @@ pub fn derive_optionable(
             Derived {
                 enum_struct: quote! {struct},
                 fields: quote! {#optioned_fields #unnamed_struct_semicolon},
-                where_clause_optionable: where_clause_optionable,
-                where_clause_optionable_convert: where_clause_optionable_convert,
+                where_clause_optionable,
+                where_clause_optionable_convert,
                 impl_optionable_convert,
             }
         }
@@ -510,8 +510,8 @@ pub fn derive_optionable(
             Derived {
                 enum_struct: quote! {enum},
                 fields: quote! {{#(#optioned_variants),*}},
-                where_clause_optionable: where_clause_optionable,
-                where_clause_optionable_convert: where_clause_optionable_convert,
+                where_clause_optionable,
+                where_clause_optionable_convert,
                 impl_optionable_convert,
             }
         }
