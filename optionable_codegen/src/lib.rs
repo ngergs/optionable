@@ -251,7 +251,7 @@ pub fn derive_optionable(
             },
             |s| Cow::Owned(s.value()),
         );
-        Ident::new(&(input.ident.to_string() + &suffix), input.ident.span())
+        format_ident!("{}{suffix}", &input.ident)
     };
     let ty_ident = if let Some(mut ty_prefix) = settings.ty_prefix.clone() {
         ty_prefix.segments.push(input.ident.into());
@@ -586,10 +586,10 @@ pub fn derive_optionable(
         && ty_ident_opt!="ResourceClaimAc"
         && ty_ident_opt!="ResourceClaimTemplateAc")
         .then(|| {
-            let fn_name = Ident::from_string(
-                &("roundtrip_".to_owned()
-                    + &ty_ident_opt.to_token_stream().to_string().to_lowercase()),
-            )?;
+            let fn_name = format_ident!(
+                "roundtrip_{}",
+                ty_ident_opt.to_token_stream().to_string().to_lowercase()
+            );
             Ok::<_, Error>(quote! {
                 #[cfg(test_k8s_openapi_roundtrip)]
                 #[test]
