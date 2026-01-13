@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodCertificateRequestAc {
     #[serde(
-        serialize_with = "crate::k8s_openapi026::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi026::deserialize_api_version"
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
     )]
     pub api_version: std::marker::PhantomData<Self>,
     #[serde(
-        serialize_with = "crate::k8s_openapi026::serialize_kind",
-        deserialize_with = "crate::k8s_openapi026::deserialize_kind"
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
     pub metadata: ::k8s_openapi026::apimachinery::pkg::apis::meta::v1::ObjectMeta,

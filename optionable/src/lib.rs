@@ -190,6 +190,7 @@ mod optionable;
 mod chrono04;
 #[cfg(feature = "jiff02")]
 mod jiff02;
+
 #[cfg(any(
     feature = "k8s_openapi026_v1_30",
     feature = "k8s_openapi026_v1_31",
@@ -197,7 +198,8 @@ mod jiff02;
     feature = "k8s_openapi026_v1_33",
     feature = "k8s_openapi026_v1_34"
 ))]
-pub mod k8s_openapi026;
+#[path = "k8s_openapi026/mod.rs"]
+pub mod k8s_openapi;
 
 #[cfg(any(
     feature = "k8s_openapi027_v1_31",
@@ -206,7 +208,9 @@ pub mod k8s_openapi026;
     feature = "k8s_openapi027_v1_34",
     feature = "k8s_openapi027_v1_35"
 ))]
-pub mod k8s_openapi027;
+#[path = "k8s_openapi027/mod.rs"]
+pub mod k8s_openapi;
+
 #[cfg(feature = "kube")]
 pub mod kube;
 #[cfg(feature = "serde_json")]

@@ -4,8 +4,8 @@ use crate::parsed_input::{FieldParsed, StructParsed};
 use crate::{TypeHelperAttributesK8sOpenapi, TypeHelperAttributesKube};
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
-use std::collections::BTreeSet;
 use std::borrow::Cow;
+use std::collections::BTreeSet;
 use syn::{
     parse_quote, Attribute, Data, Error, Field, ImplGenerics, Path, TypeGenerics, WhereClause,
 };
@@ -70,7 +70,6 @@ pub(crate) fn k8s_openapi_derives(data: &Data) -> Option<Vec<String>> {
 
 /// Adjust the struct fields according to the `Kubernetes` use case.
 pub(crate) fn k8s_adjust_fields(
-    input_crate: Option<&Ident>,
     struct_parsed: &mut StructParsed,
     attr_k8s_openapi: Option<&TypeHelperAttributesK8sOpenapi>,
     attr_kube: Option<&TypeHelperAttributesKube>,
@@ -86,7 +85,7 @@ pub(crate) fn k8s_adjust_fields(
         k8s_openapi_set_metadata_required(struct_parsed);
     }
     if let Some(k8s_resource_type) = &resource_type {
-        k8s_openapi_field_resource_add_api_envelope( input_crate,struct_parsed, k8s_resource_type, crate_name);
+        k8s_openapi_field_resource_add_api_envelope(struct_parsed, k8s_resource_type, crate_name);
     }
     Ok(())
 }
@@ -224,7 +223,6 @@ pub(crate) fn k8s_type_attr(data: &Data) -> Option<Attribute> {
 /// envelope from the `k8s_openapi::Metadata` or `kube::Resource` information.
 /// Also, validation for deserialization is added.
 fn k8s_openapi_field_resource_add_api_envelope(
-    input_crate: Option<&Ident>,
     struct_parsed: &mut StructParsed,
     resource_type: &ResourceType,
     crate_name: &Path,
@@ -232,8 +230,7 @@ fn k8s_openapi_field_resource_add_api_envelope(
     let mut envelope_serde_path = crate_name.to_token_stream().to_string();
     match resource_type {
         ResourceType::K8sOpenApi => {
-            envelope_serde_path.push_str("::");
-            envelope_serde_path.push_str(input_crate.to_token_stream().to_string().as_str());
+            envelope_serde_path.push_str("::k8s_openapi");
         }
         ResourceType::Kube => {
             envelope_serde_path.push_str("::kube");

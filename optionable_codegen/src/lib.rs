@@ -334,7 +334,6 @@ pub fn derive_optionable(
                 attr_option_wrap,
             )?;
             k8s_adjust_fields(
-                settings.input_crate_replacement.as_ref(),
                 &mut struct_parsed,
                 attr_k8s_openapi.as_ref(),
                 attr_kube.as_ref(),
@@ -412,7 +411,6 @@ pub fn derive_optionable(
                         attr_option_wrap,
                     )?;
                     k8s_adjust_fields(
-                        settings.input_crate_replacement.as_ref(),
                         &mut field_handling,
                         attr_k8s_openapi.as_ref(),
                         attr_kube.as_ref(),

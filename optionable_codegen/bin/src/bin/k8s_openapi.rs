@@ -29,8 +29,6 @@ struct Args {
 struct Visitor {
     /// The type suffix for the optioned type. Here this is fixed to "Ac".
     optioned_suffix: &'static str,
-    /// The type suffix for the optioned type. Here this is fixed to "Ac".
-    package_name: Ident,
     /// Additional attributes that should be added to input structs/enums.
     has_resource_impl: HashSet<Ident>,
     has_metadata_impl: HashSet<Ident>,
@@ -40,7 +38,6 @@ impl Clone for Visitor {
     fn clone(&self) -> Self {
         Self {
             optioned_suffix: self.optioned_suffix,
-            package_name: self.package_name.clone(),
             // we want to reset all other fields when entering a new module
             has_resource_impl: HashSet::new(),
             has_metadata_impl: HashSet::new(),
@@ -108,7 +105,6 @@ impl CodegenVisitor for Visitor {
     }
 
     fn visit_output(&mut self, items: &mut Vec<Item>) {
-        let package_name = &self.package_name;
         let mut extra_items = vec![];
         for item in items.iter_mut() {
             match item {
@@ -141,18 +137,14 @@ impl CodegenVisitor for Visitor {
                     }
                     // extra handling to support deserializing Quantity (wrapper around an inner string) from an int following upstream
                     if item.ident == "QuantityAc" {
-                        let serde_from = format!(
-                            "crate::{package_name}::apimachinery::pkg::util::intstr::IntOrStringAc"
-                        );
-                        item.attrs.push(parse_quote!(#[serde(from = #serde_from)]));
+                        item.attrs.push(parse_quote!(#[serde(from = "crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc")]));
 
                         extra_items.push(parse_quote! {
-                            //todo
-                        impl From<crate::#package_name::apimachinery::pkg::util::intstr::IntOrStringAc> for QuantityAc {
-                            fn from(value: crate::#package_name::apimachinery::pkg::util::intstr::IntOrStringAc) -> Self {
+                        impl From<crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc> for QuantityAc {
+                            fn from(value: crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc) -> Self {
                                 QuantityAc(match value {
-                                    crate::#package_name::apimachinery::pkg::util::intstr::IntOrStringAc::Int(i) => i.map(|i| i.to_string()),
-                                    crate::#package_name::apimachinery::pkg::util::intstr::IntOrStringAc::String(s) => s,
+                                    crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc::Int(i) => i.map(|i| i.to_string()),
+                                    crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc::String(s) => s,
                                 })
                             }
                         }
@@ -183,7 +175,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         CodegenConfig {
             visitor: Visitor {
                 optioned_suffix,
-                package_name: package_name_ident,
                 has_resource_impl: HashSet::default(),
                 has_metadata_impl: HashSet::default(),
             },

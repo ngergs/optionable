@@ -7,7 +7,7 @@
     std::fmt::Debug
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
-#[serde(from = "crate::k8s_openapi026::apimachinery::pkg::util::intstr::IntOrStringAc")]
+#[serde(from = "crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc")]
 pub struct QuantityAc(
     #[serde(skip_serializing_if = "Option::is_none")]
     pub Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -67,17 +67,17 @@ for QuantityAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
-impl From<crate::k8s_openapi026::apimachinery::pkg::util::intstr::IntOrStringAc>
+impl From<crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc>
 for QuantityAc {
     fn from(
-        value: crate::k8s_openapi026::apimachinery::pkg::util::intstr::IntOrStringAc,
+        value: crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc,
     ) -> Self {
         QuantityAc(
             match value {
-                crate::k8s_openapi026::apimachinery::pkg::util::intstr::IntOrStringAc::Int(
+                crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc::Int(
                     i,
                 ) => i.map(|i| i.to_string()),
-                crate::k8s_openapi026::apimachinery::pkg::util::intstr::IntOrStringAc::String(
+                crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc::String(
                     s,
                 ) => s,
             },

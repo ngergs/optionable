@@ -104,8 +104,8 @@ pub fn deserialize_kind<'de, D: Deserializer<'de>, R: Resource>(
 
 #[cfg(test)]
 mod test {
-    use crate::k8s_openapi026::apimachinery::pkg::api::resource::QuantityAc;
-    use crate::k8s_openapi026::apimachinery::pkg::util::intstr::IntOrStringAc;
+    use crate::k8s_openapi::apimachinery::pkg::api::resource::QuantityAc;
+    use crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc;
     use k8s_openapi026::api::apps::v1::Deployment;
     use k8s_openapi026::apimachinery::pkg::api::resource::Quantity;
     use serde::{Deserialize, Serialize};
@@ -116,13 +116,13 @@ mod test {
     #[serde(rename_all = "camelCase")]
     struct ApiEnvelopeDeployment {
         #[serde(
-            serialize_with = "crate::k8s_openapi026::serialize_api_version",
-            deserialize_with = "crate::k8s_openapi026::deserialize_api_version"
+            serialize_with = "crate::k8s_openapi::serialize_api_version",
+            deserialize_with = "crate::k8s_openapi::deserialize_api_version"
         )]
         api_version: PhantomData<Deployment>,
         #[serde(
-            serialize_with = "crate::k8s_openapi026::serialize_kind",
-            deserialize_with = "crate::k8s_openapi026::deserialize_kind"
+            serialize_with = "crate::k8s_openapi::serialize_kind",
+            deserialize_with = "crate::k8s_openapi::deserialize_kind"
         )]
         kind: PhantomData<Deployment>,
     }

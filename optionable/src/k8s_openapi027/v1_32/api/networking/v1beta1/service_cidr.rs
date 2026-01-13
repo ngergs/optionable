@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceCIDRAc {
     #[serde(
-        serialize_with = "crate::k8s_openapi027::serialize_api_version",
-        deserialize_with = "crate::k8s_openapi027::deserialize_api_version"
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
     )]
     pub api_version: std::marker::PhantomData<Self>,
     #[serde(
-        serialize_with = "crate::k8s_openapi027::serialize_kind",
-        deserialize_with = "crate::k8s_openapi027::deserialize_kind"
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
