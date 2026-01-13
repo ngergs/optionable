@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.1](https://github.com/ngergs/optionable/compare/optionable-v0.12.0...optionable-v0.12.1) - 2026-01-13
+
+### Added
+
+- k8s-openapi v0.27 support
+
 ## [0.12.0](https://github.com/ngergs/optionable/compare/optionable-v0.11.2...optionable-v0.12.0) - 2025-12-24
 
 ### Fixed
