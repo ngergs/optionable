@@ -838,10 +838,10 @@ dependencies = [
 [[package]]
 name = "k8s-openapi"
 version = "0.27.0"
-source = "git+https://github.com/ngergs/k8s-openapi?tag=v0.27.0#1a16bb26ebc02870501d86ff94c14d13c3e69123"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "05a6d6f3611ad1d21732adbd7a2e921f598af6c92d71ae6e2620da4b67ee1f0d"
 dependencies = [
  "base64",
- "fake",
  "jiff",
  "serde",
  "serde_json",
@@ -1009,7 +1009,7 @@ checksum = "d05e27ee213611ffe7d6348b942e8f942b37114c00cc03cec254295a4a17852e"
 
 [[package]]
 name = "optionable"
-version = "0.12.0"
+version = "0.12.1"
 dependencies = [
  "chrono",
  "fake",
@@ -1024,7 +1024,7 @@ dependencies = [
 
 [[package]]
 name = "optionable_codegen"
-version = "0.12.0"
+version = "0.12.1"
 dependencies = [
  "darling 0.23.0",
  "itertools",
