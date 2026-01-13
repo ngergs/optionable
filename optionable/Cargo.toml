@@ -54,6 +54,7 @@ fake = { version = "4.4.0", default-features = false, features = ["chrono", "der
 serde = { version = "1.0.228", default-features = false, features = ["derive"] }
 serde_json = { version = "1.0.145", default-features = false, features = ["alloc"] }
 schemars = { version = "1.1.0", default-features = false, features = ["derive"] }
+kube = { version = "3.0.0", features = ["derive"] }
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
