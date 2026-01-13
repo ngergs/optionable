@@ -14,6 +14,9 @@ on:
 jobs:
   k8s-openapi-roundtrip:
     name: k8s-openapi roundtrip test
+    strategy:
+      matrix:
+        k8s_openapi_version: [ v0.26, v0.27 ]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -27,7 +30,7 @@ jobs:
       - name: Configure cache
         uses: Swatinem/rust-cache@v2
       - name: k8s-openapi roundtrip test
-        run: ./k8s_openapi_roundtrip.sh
+        run: ./k8s_openapi_roundtrip_${{ matrix.k8s_openapi_version }}.sh
         working-directory: testscripts
   release-plz-release:
     needs: k8s-openapi-roundtrip

@@ -1,0 +1,65 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct PodIPAc {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip: Option<<std::string::String as crate::Optionable>::Optioned>,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi027::api::core::v1::PodIP {
+    type Optioned = PodIPAc;
+}
+#[automatically_derived]
+impl crate::Optionable for PodIPAc {
+    type Optioned = PodIPAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodIP {
+    fn into_optioned(self) -> PodIPAc {
+        PodIPAc {
+            ip: Some(crate::OptionableConvert::into_optioned(self.ip)),
+        }
+    }
+    fn try_from_optioned(value: PodIPAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            ip: crate::OptionableConvert::try_from_optioned(
+                value
+                    .ip
+                    .ok_or(crate::Error {
+                        missing_field: "ip",
+                    })?,
+            )?,
+        })
+    }
+    fn merge(&mut self, other: PodIPAc) -> Result<(), crate::Error> {
+        if let Some(other_value) = other.ip {
+            crate::OptionableConvert::merge(&mut self.ip, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodIP> for PodIPAc {
+    fn from_optionable(value: k8s_openapi027::api::core::v1::PodIP) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi027::api::core::v1::PodIP, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi027::api::core::v1::PodIP,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}

@@ -18,3 +18,4 @@ codegen-units = 1
 optionable = { path = "optionable" }
 optionable_derive = { path = "optionable_derive" }
 optionable_codegen = { path = "optionable_codegen" }
+k8s-openapi = { git = "https://github.com/ngergs/k8s-openapi", tag="v0.27.0" }
