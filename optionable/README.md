@@ -24,17 +24,12 @@ for the CRD use case and the [examples](https://github.com/ngergs/optionable/tre
 
 ## Deriving optional structs/enums
 
-The core utility of this library is to provide an [
-`Optionable`](https://docs.rs/optionable/latest/optionable/derive.Optionable.html) derive macro that derives such an
-optioned type
-and implements the corresponding [`Optionable`](https://docs.rs/optionable/latest/optionable/trait.Optionable.html)
-trait (see below for details).
+The core utility of this library is to provide an [`Optionable`](https://docs.rs/optionable/latest/optionable/derive.Optionable.html) derive macro that derives such an
+optioned type and implements the corresponding [`Optionable`](https://docs.rs/optionable/latest/optionable/trait.Optionable.html) trait (see below for details).
 It supports nested structures, enums as well as various container types.
 
-The general logic is the same as for other rust derives. If you want to use the [
-`Optionable`](https://docs.rs/optionable/latest/optionable/derive.Optionable.html) derive macro for a struct/enum
-every type used for a field needs to also have implemented the corresponding [
-`Optionable`](https://docs.rs/optionable/latest/optionable/trait.Optionable.html) trait:
+The general logic is the same as for other rust derives. If you want to use the [`Optionable`](https://docs.rs/optionable/latest/optionable/derive.Optionable.html) derive macro for a struct/enum
+every type used for a field needs to also have implemented the corresponding [`Optionable`](https://docs.rs/optionable/latest/optionable/trait.Optionable.html) trait:
 
 ```rust
 #[derive(Optionable)]
@@ -127,23 +122,17 @@ pub trait OptionedConvert<T>: Sized
 
 ## Crate features
 
-- `derive`: Default-feature, re-exports the [
-  `Optionable`](https://docs.rs/optionable/latest/optionable/derive.Optionable.html) derive macro.
+- `derive`: Default-feature, re-exports the [`Optionable`](https://docs.rs/optionable/latest/optionable/derive.Optionable.html) derive macro.
 - `std`: Default-feature. Adds `Optionable`-implementations for many [std](https://doc.rust-lang.org/std/)-lib types.
-- `alloc`: Adds `Optionable`-implementations for [alloc](https://doc.rust-lang.org/alloc/) types (only useful when not
-  enabling the `std` feature).
+- `alloc`: Adds `Optionable`-implementations for [alloc](https://doc.rust-lang.org/alloc/) types (only useful when not enabling the `std` feature).
 - `serde_json`: Derive [`trait@Optionable`] for [serde_json](https://docs.rs/serde_json/latest/serde_json/)`::Value`.
 - `chrono04`: Derive [`trait@Optionable`] for types from [chrono](https://docs.rs/chrono/latest/chrono/) v0.4.
 - `jiff02`: Derive `Optionable` for types from [jiff](https://docs.rs/jiff/latest/chrono/) v0.2.
-- `k8s_openapi026_v1_(30..=34)`: Adds `Optionable`-implementations for
-  all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) v0.26 types. Only one feature version, e.g.
-  `k8s_openapi026_v1_34` may be enabled at once.
-- `k8s_openapi_convert`: Adds `OptionableConvert`-implementations for all
-  optioned [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types specified by the
-  `k8s_openapi026_v1_(30..=34)` feature.
-- `kube`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) `CustomResource`. Also includes [
-  `extract`](kube::ExtractManagedFields)-functionality for server-side apply. Will replaced with a versioned `kube3`
-  after kube v3 has been released.
+- `k8s_openapi(026..=027)_v1_(30..=34)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) v0.26 types. 
+   Only one feature version, e.g. `k8s_openapi027_v1_35` may be enabled at once.
+- `k8s_openapi_convert`: Adds `OptionableConvert`-implementations for all optioned [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types specified by the `k8s_openapi(026..=027)_v1_(30..=34)` feature.
+- `kube`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) `CustomResource`. Also includes [`extract`](kube::ExtractManagedFields)-functionality for server-side apply.
+  Will be replaced with a versioned `kube3` after kube v3 has been released.
 
 ## Limitations
 
@@ -153,8 +142,7 @@ Due to the orphan rule the usage of the library becomes cumbersome if one has a 
 crate-external types.
 
 If just have a few types from external crates don't have an `Optionable` impl
-the [example/orphanrule](example/orphanrule)
-illustrates how to circumvent this limitation.
+the [example/orphanrule](example/orphanrule) illustrates how to circumvent this limitation.
 
 For well-established libraries adding corresponding `impl` to this crate (feature-gated) would be a worthwhile approach.
 
@@ -165,10 +153,8 @@ Due to the use of associated types some IDE-hints do not fully resolve the assoc
 when using wrong types the associated types are resolved.
 
 For the derived `Optioned`-structs/enums a related issue is that other derive macros for those derived types won't see
-the resolved
-associated types. Therefore, corresponding type bounds have to be added(done by the [
-`Optionable`](https://docs.rs/optionable/latest/optionable/derive.Optionable.html) derive macro) to the `Optioned`
--structs/enums:
+the resolved associated types. Therefore, corresponding type bounds have to be added(done by the [
+`Optionable`](https://docs.rs/optionable/latest/optionable/derive.Optionable.html) derive macro) to the `Optioned`-structs/enums:
 
 ```rust
 #[derive(Optionable)]
@@ -194,8 +180,7 @@ where
 
 One crate with similar scope is [optional_struct](https://crates.io/crates/optional_struct).
 It focuses specifically on structs (not enums) and offers a more manual approach, especially in respect to nested
-sub-struct,
-providing many fine-grained configuration options.
+sub-struct, providing many fine-grained configuration options.
 
 Another crate is [struct-patch](https://crates.io/crates/struct-patch).
 It focuses on patching structs (not enums), especially from serde inputs. Nesting is supported with manual helper
@@ -209,5 +194,4 @@ the [Apache License, Version 2.0](LICENSE-APACHE) at your option.
 ### Contributing
 
 Any contributor has to agree to have their contribution also dual-licensed under the MIT as well as Apache-2.0 license
-as
-specified above in the `License` subsection.
+as specified above in the `License` subsection.

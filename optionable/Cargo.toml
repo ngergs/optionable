@@ -26,6 +26,11 @@ k8s_openapi026_v1_31 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8
 k8s_openapi026_v1_32 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_32", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
 k8s_openapi026_v1_33 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_33", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
 k8s_openapi026_v1_34 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_34", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
+k8s_openapi027_v1_31 = ["dep:k8s-openapi027", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi027/v1_31", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
+k8s_openapi027_v1_32 = ["dep:k8s-openapi027", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi027/v1_32", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
+k8s_openapi027_v1_33 = ["dep:k8s-openapi027", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi027/v1_33", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
+k8s_openapi027_v1_34 = ["dep:k8s-openapi027", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi027/v1_34", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
+k8s_openapi027_v1_35 = ["dep:k8s-openapi027", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi027/v1_35", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
 k8s_openapi_convert = []
 
 [lints.clippy]
@@ -41,6 +46,7 @@ jiff02 = { package = "jiff", version = "0.2.16", default-features = false, optio
 serde = { version = "1.0.228", default-features = false, optional = true }
 serde_json = { version = "1.0.145", default-features = false, optional = true }
 k8s-openapi026 = { package = "k8s-openapi", version = "0.26.1", default-features = false, optional = true }
+k8s-openapi027 = { package = "k8s-openapi", version = "0.27.0", default-features = false, optional = true }
 kube = { version = "2.0.1", default-features = false, optional = true }
 
 [dev-dependencies]
