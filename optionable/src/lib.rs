@@ -121,7 +121,7 @@
 //! - `chrono04`: Derive [`trait@Optionable`] for types from [chrono](https://docs.rs/chrono/latest/chrono/) v0.4.
 //! - `jiff02`: Derive `Optionable` for types from [jiff](https://docs.rs/jiff/latest/chrono/) v0.2.
 //! - `k8s_openapi027_v1_(31..=35)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) v0.27 types. Only one feature version, e.g. `k8s_openapi027_v1_35` may be enabled at once.
-//! - `k8s_openapi_convert`: Adds `OptionableConvert`-implementations for all optioned [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types specified by the `k8s_openapi027_v1_(30..=34)` feature.
+//! - `k8s_openapi_convert`: Adds `OptionableConvert`-implementations for all optioned [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types specified by the `k8s_openapi027_v1_(31..=35)` feature.
 //! - `kube`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) `CustomResource`. Also includes [`extract`](kube3::ExtractManagedFields)-functionality for server-side apply. Will replaced with a versioned `kube3` after kube v3 has been released.
 //!
 //! # Limitations
