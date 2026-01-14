@@ -1,12 +1,12 @@
-#![cfg(feature = "kube")]
+#![cfg(feature = "kube3")]
 
 //! This test only work when the `kube/derive` feature is enabled.
 //! This has to be done manually as adding it as a dev dependency would pollute
 //! the dependencies for other tests (done e.g. in the `/testscripts` setup).
 
 use k8s_openapi027::apimachinery::pkg::apis::meta::v1::{FieldsV1, ManagedFieldsEntry, ObjectMeta};
-use kube::CustomResource;
-use optionable::kube::ExtractManagedFields;
+use kube3::CustomResource;
+use optionable::kube3::ExtractManagedFields;
 use optionable::{Optionable, OptionableConvert, OptionedConvert};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
@@ -29,7 +29,7 @@ macro_rules! with_common_derives {
 with_common_derives! {
     #[derive(CustomResource)]
     #[kube(
-        crates(k8s_openapi = "::k8s_openapi027"),
+        crates(kube_core="::kube3::core", k8s_openapi = "::k8s_openapi027"),
         group = "example.localhost",
         version = "v1",
         kind = "CustomCrd",
@@ -39,7 +39,7 @@ with_common_derives! {
         derive = "PartialEq",
         // Instruct `optionable` to derive the traits and specialized handling for the root type. Detailed docs are here:
         // https://docs.rs/optionable/latest/optionable/derive.Optionable.html
-        attr = "optionable(kube(resource, k8s_openapi_crate=\"::k8s_openapi027\"), derive(Clone, Debug, Default, Deserialize, Serialize, PartialEq))",
+        attr = "optionable(kube(resource, kube_crate=::kube3, k8s_openapi_crate=::k8s_openapi027), derive(Clone, Debug, Default, Deserialize, Serialize, PartialEq))",
     )]
     pub struct CustomCrdSpec {
         pub msg: String,

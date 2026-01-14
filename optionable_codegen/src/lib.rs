@@ -102,7 +102,9 @@ pub(crate) struct TypeHelperAttributesKube {
     /// - Derives `kube::Resource` for the optioned type.
     resource: Option<()>,
     /// Internal. k8s-openapi crate name, used to forward it to `kube` when deriving the custom resource root `Resource` impl..
-    k8s_openapi_crate: Option<String>,
+    k8s_openapi_crate: Option<Path>,
+    /// Internal. kube crate name, used to forward it to `kube` when deriving the custom resource root `Resource` impl..
+    kube_crate: Option<Path>,
 }
 
 #[derive(FromMeta)]
@@ -216,6 +218,9 @@ pub fn attribute_derives(derives: &PathList) -> Attribute {
 /// # Errors
 /// - on misplaced helper attributes
 /// - internal implementation errors
+///
+/// # Panics
+/// - If the `kube.kube_crate` value (internal use only) does not contain a valid path
 #[allow(clippy::too_many_lines)]
 #[allow(clippy::items_after_statements)]
 pub fn derive_optionable(
@@ -569,18 +574,17 @@ pub fn derive_optionable(
         });
     let kube_derive_resource = attr_kube.map(|attr| {
         attr.resource?;
-        if let Some(k8s_openapi_crate) = attr.k8s_openapi_crate {
+        let kube_crate=attr.kube_crate.map(|kube_crate|kube_crate.to_token_stream().to_string());
+        // unwrapping here is ok as `kube_crate` is an internal attribute (and this is codegen, so no runtime error)
+        let kube_resource =
+            Path::from_string(&format!("{}::Resource", kube_crate.as_deref().unwrap_or("::kube"))).unwrap();
+        let kube_crate =kube_crate.map(|mut kube_crate| {kube_crate.push_str("::core");kube_crate}).into_iter();
+        let k8s_openapi_crate=attr.k8s_openapi_crate.map(|k8s_openapi_crate| k8s_openapi_crate.to_token_stream().to_string()).into_iter();
             Some(quote! {
-                #[derive(kube::Resource)]
-                #[resource(inherit = #ty_ident,crates(k8s_openapi=#k8s_openapi_crate))]
+                #[derive(#kube_resource)]
+                #[resource(inherit = #ty_ident, crates(#(kube_core=#kube_crate,)* #(k8s_openapi=#k8s_openapi_crate,)*))]
             })
-        } else {
-            Some(quote! {
-                #[derive(kube::Resource)]
-                #[resource(inherit = #ty_ident)]
-            })
-        }
-    });
+        });
     let k8s_roundtrip_test = (attr_k8s_openapi.is_some_and(|attr|attr.resource.is_some())
         && ty_generics.to_token_stream().is_empty()
         // causes stackoverflows during the roundtrip tests, the stackoverflow already happens when trying to generate a `fake CRD`, so doesn't originate from this crate

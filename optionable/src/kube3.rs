@@ -1,7 +1,7 @@
 //! Tooling to help deriving optioned types for `kube::CustomResource`.
 
 use crate::Optionable;
-use kube::Resource;
+use kube3::Resource;
 use serde::de::{DeserializeOwned, Error, Unexpected};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Value;
@@ -170,7 +170,7 @@ fn filter_metadata(item: &mut Value) {
 ))]
 #[cfg(test)]
 mod test {
-    use crate::kube::ExtractManagedFields;
+    use crate::kube3::ExtractManagedFields;
     use k8s_openapi026::api::apps::v1::{Deployment, DeploymentSpec};
     use k8s_openapi026::api::core::v1::{Container, PodSpec, PodTemplateSpec};
     use k8s_openapi026::apimachinery::pkg::apis::meta::v1::{

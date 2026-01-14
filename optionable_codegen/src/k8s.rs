@@ -233,7 +233,7 @@ fn k8s_openapi_field_resource_add_api_envelope(
             envelope_serde_path.push_str("::k8s_openapi");
         }
         ResourceType::Kube => {
-            envelope_serde_path.push_str("::kube");
+            envelope_serde_path.push_str("::kube3");
         }
     }
     let serialize_api_version_fn =

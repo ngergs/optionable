@@ -11,7 +11,7 @@
 //! from [k8s-openapi](https://crates.io/crates/k8s-openapi). It also provides tooling to derive optioned variants for
 //! `kube::CustomResource` implementations.
 //!
-//! For detailed documentation, see the documentation in [`kube`] for the CRD use case and the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
+//! For detailed documentation, see the documentation in [`kube3`] for the CRD use case and the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
 //!
 //! # Deriving optional structs/enums
 //!
@@ -122,7 +122,7 @@
 //! - `jiff02`: Derive `Optionable` for types from [jiff](https://docs.rs/jiff/latest/chrono/) v0.2.
 //! - `k8s_openapi(026..=027)_v1_(30..=34)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) v0.26 types. Only one feature version, e.g. `k8s_openapi027_v1_35` may be enabled at once.
 //! - `k8s_openapi_convert`: Adds `OptionableConvert`-implementations for all optioned [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types specified by the `k8s_openapi(026..=027)_v1_(30..=34)` feature.
-//! - `kube`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) `CustomResource`. Also includes [`extract`](kube::ExtractManagedFields)-functionality for server-side apply. Will replaced with a versioned `kube3` after kube v3 has been released.
+//! - `kube`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) `CustomResource`. Also includes [`extract`](kube3::ExtractManagedFields)-functionality for server-side apply. Will replaced with a versioned `kube3` after kube v3 has been released.
 //!
 //! # Limitations
 //!
@@ -211,8 +211,8 @@ pub mod k8s_openapi;
 #[path = "k8s_openapi027/mod.rs"]
 pub mod k8s_openapi;
 
-#[cfg(feature = "kube")]
-pub mod kube;
+#[cfg(feature = "kube3")]
+pub mod kube3;
 #[cfg(feature = "serde_json")]
 mod serde_json;
 
