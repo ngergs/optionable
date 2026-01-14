@@ -20,7 +20,7 @@ struct Args {
     input_file: PathBuf,
     /// Output directory
     output_dir: PathBuf,
-    /// package name for the generated package, e.g. `k8s-openapi026`
+    /// package name for the generated package, e.g. `k8s-openapi027`
     #[arg(long, value_name = "package-name")]
     package_name: String,
 }

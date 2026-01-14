@@ -162,18 +162,18 @@ fn filter_metadata(item: &mut Value) {
 }
 
 #[cfg(any(
-    feature = "k8s_openapi026_v1_30",
-    feature = "k8s_openapi026_v1_31",
-    feature = "k8s_openapi026_v1_32",
-    feature = "k8s_openapi026_v1_33",
-    feature = "k8s_openapi026_v1_34"
+    feature = "k8s_openapi027_v1_31",
+    feature = "k8s_openapi027_v1_32",
+    feature = "k8s_openapi027_v1_33",
+    feature = "k8s_openapi027_v1_34",
+    feature = "k8s_openapi027_v1_35"
 ))]
 #[cfg(test)]
 mod test {
     use crate::kube3::ExtractManagedFields;
-    use k8s_openapi026::api::apps::v1::{Deployment, DeploymentSpec};
-    use k8s_openapi026::api::core::v1::{Container, PodSpec, PodTemplateSpec};
-    use k8s_openapi026::apimachinery::pkg::apis::meta::v1::{
+    use k8s_openapi027::api::apps::v1::{Deployment, DeploymentSpec};
+    use k8s_openapi027::api::core::v1::{Container, PodSpec, PodTemplateSpec};
+    use k8s_openapi027::apimachinery::pkg::apis::meta::v1::{
         FieldsV1, ManagedFieldsEntry, ObjectMeta,
     };
     use serde::{Deserialize, Serialize};
@@ -184,13 +184,13 @@ mod test {
     #[serde(rename_all = "camelCase")]
     struct ApiEnvelopeDeployment {
         #[serde(
-            serialize_with = "crate::kube::serialize_api_version",
-            deserialize_with = "crate::kube::deserialize_api_version"
+            serialize_with = "crate::kube3::serialize_api_version",
+            deserialize_with = "crate::kube3::deserialize_api_version"
         )]
         api_version: PhantomData<Deployment>,
         #[serde(
-            serialize_with = "crate::kube::serialize_kind",
-            deserialize_with = "crate::kube::deserialize_kind"
+            serialize_with = "crate::kube3::serialize_kind",
+            deserialize_with = "crate::kube3::deserialize_kind"
         )]
         kind: PhantomData<Deployment>,
     }

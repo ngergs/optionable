@@ -19,12 +19,7 @@ chrono04 = ["dep:chrono04"]
 jiff02 = ["dep:jiff02"]
 serde_json = ["dep:serde_json"]
 kube3 = ["dep:kube3", "dep:serde", "serde_json", "optionable_derive/kube"]
-# k8s openapi and kubernetes versions (i.e. 026_v_1_30 means k8s-openapi v0.26 with the kubernetes feature version v1.30)
-k8s_openapi026_v1_30 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_30", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
-k8s_openapi026_v1_31 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_31", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
-k8s_openapi026_v1_32 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_32", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
-k8s_openapi026_v1_33 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_33", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
-k8s_openapi026_v1_34 = ["dep:k8s-openapi026", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi026/v1_34", "serde/derive", "serde/std", "serde_json", "std", "chrono04"]
+# k8s openapi and kubernetes versions (i.e. 027_v_1_35 means k8s-openapi v0.27 with the kubernetes feature version v1.35)
 k8s_openapi027_v1_31 = ["dep:k8s-openapi027", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi027/v1_31", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
 k8s_openapi027_v1_32 = ["dep:k8s-openapi027", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi027/v1_32", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
 k8s_openapi027_v1_33 = ["dep:k8s-openapi027", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi027/v1_33", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]

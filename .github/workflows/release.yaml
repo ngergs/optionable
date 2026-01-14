@@ -16,7 +16,7 @@ jobs:
     name: k8s-openapi roundtrip test
     strategy:
       matrix:
-        k8s_openapi_version: [ v0.26, v0.27 ]
+        k8s_openapi_version: [ v0.27 ]
     runs-on: ubuntu-latest
     permissions:
       contents: write
