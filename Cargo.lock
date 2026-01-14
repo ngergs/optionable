@@ -274,16 +274,6 @@ dependencies = [
 
 [[package]]
 name = "darling"
-version = "0.21.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9cdf337090841a411e2a7f3deb9187445851f91b309c0c0a29e05f74a00a48c0"
-dependencies = [
- "darling_core 0.21.3",
- "darling_macro 0.21.3",
-]
-
-[[package]]
-name = "darling"
 version = "0.23.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "25ae13da2f202d56bd7f91c25fba009e7717a1e4a1cc98a76d844b65ae912e9d"
@@ -307,20 +297,6 @@ dependencies = [
 
 [[package]]
 name = "darling_core"
-version = "0.21.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1247195ecd7e3c85f83c8d2a366e4210d588e802133e1e355180a9870b517ea4"
-dependencies = [
- "fnv",
- "ident_case",
- "proc-macro2",
- "quote",
- "strsim",
- "syn",
-]
-
-[[package]]
-name = "darling_core"
 version = "0.23.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9865a50f7c335f53564bb694ef660825eb8610e0a53d3e11bf1b0d3df31e03b0"
@@ -339,17 +315,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fc34b93ccb385b40dc71c6fceac4b2ad23662c7eeb248cf10d529b7e055b6ead"
 dependencies = [
  "darling_core 0.20.11",
- "quote",
- "syn",
-]
-
-[[package]]
-name = "darling_macro"
-version = "0.21.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d38308df82d1080de0afee5d069fa14b0326a88c14f15c5ccda35b4a6c414c81"
-dependencies = [
- "darling_core 0.21.3",
  "quote",
  "syn",
 ]
@@ -923,20 +888,6 @@ dependencies = [
 
 [[package]]
 name = "kube-derive"
-version = "2.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "03dee8252be137772a6ab3508b81cd797dee62ee771112a2453bc85cbbe150d2"
-dependencies = [
- "darling 0.21.3",
- "proc-macro2",
- "quote",
- "serde",
- "serde_json",
- "syn",
-]
-
-[[package]]
-name = "kube-derive"
 version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "599c09721efcccc0e6a26e93df28c587da60ff5e099c657626fff2af0ae4cbb8"
@@ -1033,23 +984,10 @@ dependencies = [
  "k8s-openapi 0.26.1",
  "k8s-openapi 0.27.0",
  "kube",
- "optionable_derive 0.9.0",
+ "optionable_derive",
  "schemars",
  "serde",
  "serde_json",
-]
-
-[[package]]
-name = "optionable_codegen"
-version = "0.12.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "50dc5904a07a065486f35e3d0e3f18e1b3594f040f2fed422e58fd3a8e8f6ed4"
-dependencies = [
- "darling 0.23.0",
- "itertools",
- "proc-macro2",
- "quote",
- "syn",
 ]
 
 [[package]]
@@ -1071,7 +1009,7 @@ dependencies = [
  "assert_cmd",
  "clap",
  "darling 0.23.0",
- "optionable_codegen 0.12.1",
+ "optionable_codegen",
  "prettyplease",
  "proc-macro2",
  "quote",
@@ -1081,23 +1019,10 @@ dependencies = [
 
 [[package]]
 name = "optionable_derive"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fa327ed19d2f7956ef4a56be544cf3834e88ea8a49a5b878bd3119a3bb3ebadf"
-dependencies = [
- "kube-derive 2.0.1",
- "optionable_codegen 0.12.1",
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
-name = "optionable_derive"
 version = "0.10.0"
 dependencies = [
- "kube-derive 3.0.0",
- "optionable_codegen 0.12.1",
+ "kube-derive",
+ "optionable_codegen",
  "proc-macro2",
  "quote",
  "syn",
