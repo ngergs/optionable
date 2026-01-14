@@ -53,5 +53,5 @@ schemars = { version = "1.2.0", default-features = false, features = ["derive"] 
 rustdoc-args = ["--cfg", "docsrs"]
 # std needed for serde_json
 # specific k8s_openapi026 version needed for kube
-features = ["alloc", "chrono04", "derive", "jiff02", "kube", "std", "serde_json", "serde_json/std", "k8s-openapi026/v1_34"]
+features = ["alloc", "chrono04", "derive", "jiff02", "kube3", "std", "serde_json", "serde_json/std", "k8s-openapi027/v1_35"]
 all-features = false
