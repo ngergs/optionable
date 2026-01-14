@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.0](https://github.com/ngergs/optionable/compare/optionable-v0.12.1...optionable-v0.13.0) - 2026-01-14
+
+### Added
+
+- [**breaking**] drop k8s-openapi v0.26 support
+- use kube3 as feature and package path identifier for the kube v3 support
+- [**breaking**] rework kube derive tooling
+
+### Fixed
+
+- dependency updates
+- [**breaking**] remove k8s-openapi version from package path
+
+### Other
+
+- clippy and docs.rs adjustment
+- adjust test setup for kube
+- kube v3 test adjustment
+
 ## [0.12.1](https://github.com/ngergs/optionable/compare/optionable-v0.12.0...optionable-v0.12.1) - 2026-01-13
 
 ### Added

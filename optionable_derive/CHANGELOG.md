@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0](https://github.com/ngergs/optionable/compare/optionable_derive-v0.9.0...optionable_derive-v0.10.0) - 2026-01-14
+
+### Added
+
+- [**breaking**] rework kube derive tooling
+
+### Fixed
+
+- dependency updates
+
 ## [0.9.0](https://github.com/ngergs/optionable/compare/optionable_derive-v0.8.1...optionable_derive-v0.9.0) - 2025-12-24
 
 ### Fixed
