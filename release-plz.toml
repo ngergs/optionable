@@ -1,0 +1,6 @@
+[workspace]
+allow_dirty = false
+changelog_update = true
+dependencies_update = false
+publish_allow_dirty = false
+semver_check = true
