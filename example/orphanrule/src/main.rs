@@ -42,5 +42,5 @@ fn main() {
         val,
         OptionableConvert::try_from_optioned(val_opt.clone()).unwrap()
     );
-    assert_eq!(val.clone().into_optioned(), val_opt);
+    assert_eq!(val.into_optioned(), val_opt);
 }
