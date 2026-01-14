@@ -17,14 +17,14 @@ kube = []
 pedantic = "warn"
 
 [dependencies]
-quote = "1.0.42"
-syn = { version = "2.0.111", default-features = false, features = ["proc-macro", "derive", "visit"] }
-proc-macro2 = "1.0.103"
+quote = "1.0.43"
+syn = { version = "2.0.114", default-features = false, features = ["proc-macro", "derive", "visit"] }
+proc-macro2 = "1.0.105"
 darling = { version = "0.23.0", default-features = false }
 itertools = "0.14.0"
 
 [dev-dependencies]
-k8s-openapi-codegen-common = "0.26.1"
+k8s-openapi-codegen-common = "0.27.0"
 
 [package.metadata.docs.rs]
 # to be able to document feature dependent settings, see https://users.rust-lang.org/t/how-to-document-optional-features-in-api-docs/64577/3
