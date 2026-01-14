@@ -1,5 +1,9 @@
 #![cfg(feature = "kube")]
 
+//! This test only work when the `kube/derive` feature is enabled.
+//! This has to be done manually as adding it as a dev dependency would pollute
+//! the dependencies for other tests (done e.g. in the `/testscripts` setup).
+
 use k8s_openapi027::apimachinery::pkg::apis::meta::v1::{FieldsV1, ManagedFieldsEntry, ObjectMeta};
 use kube::CustomResource;
 use optionable::kube::ExtractManagedFields;
