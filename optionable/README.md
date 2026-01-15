@@ -19,7 +19,7 @@ from [k8s-openapi](https://crates.io/crates/k8s-openapi). It also provides tooli
 `kube::CustomResource` implementations.
 
 For detailed documentation, see the documentation
-in [kube module](https://docs.rs/optionable/latest/optionable/kube/index.html)
+in [kube3 module](https://docs.rs/optionable/latest/optionable/kube3/index.html)
 for the CRD use case and the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
 
 ## Deriving optional structs/enums
@@ -143,7 +143,7 @@ crate-external types.
 If just have a few types from external crates don't have an `Optionable` impl
 the [example/orphanrule](example/orphanrule) illustrates how to circumvent this limitation.
 
-For well-established libraries adding corresponding `impl` to this crate (feature-gated) would be a worthwhile approach.
+For well-established libraries adding corresponding `impﬀkﬀl` to this crate (feature-gated) would be a worthwhile approach.
 
 ### Resolving associated types
 
