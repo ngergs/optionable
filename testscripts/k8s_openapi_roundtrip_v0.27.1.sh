@@ -13,7 +13,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-echo 'k8s-openapi = { git = "https://github.com/ngergs/k8s-openapi", tag="v0.27.0" }' >> Cargo.toml
+echo 'k8s-openapi = { git = "https://github.com/ngergs/k8s-openapi", tag="v0.27.1" }' >> Cargo.toml
 export RUSTFLAGS="--cfg test_k8s_openapi_roundtrip"
 
 cargo test --manifest-path=optionable/Cargo.toml --features k8s-openapi027/std,k8s_openapi_convert,k8s_openapi027_v1_31
