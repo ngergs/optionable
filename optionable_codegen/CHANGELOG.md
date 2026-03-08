@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.13.0...optionable_codegen-v0.13.1) - 2026-03-08
+
+### Fixed
+
+- dependency updates
+
 ## [0.13.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.12.1...optionable_codegen-v0.13.0) - 2026-01-14
 
 ### Added
