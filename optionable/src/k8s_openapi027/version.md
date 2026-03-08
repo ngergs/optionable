@@ -1,1 +1,1 @@
-The `v1_*` folders are generated based on [k8s-openapi](https://github.com/Arnavion/k8s-openapi) v0.27.0
+The `v1_*` folders are generated based on [k8s-openapi](https://github.com/Arnavion/k8s-openapi) v0.27.1
