@@ -18,7 +18,7 @@ mod where_clause;
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s::{
     error_missing_features, k8s_adjust_fields, k8s_openapi_derives, k8s_openapi_impl_metadata,
-    k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr,
+    k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr, ResourceType,
 };
 use crate::parsed_input::{
     into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
@@ -37,8 +37,9 @@ use syn::parse::Parser;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::{
-    parse_quote, Attribute, Data, DeriveInput, Error, Field, Fields, LitStr, Meta, MetaList, Path, Token,
-    Type, TypePath, WhereClause,
+    parse_quote, Attribute, Data, DataEnum, DataStruct, DeriveInput, Error, Field, Fields,
+    Generics, ImplGenerics, LitStr, Meta, MetaList, Path, Token, Type, TypeGenerics, TypePath,
+    WhereClause,
 };
 
 const HELPER_IDENT: &str = "optionable";
@@ -213,6 +214,57 @@ pub fn attribute_derives(derives: &PathList) -> Attribute {
     parse_quote!(#[optionable(derive(#(#derives),*))])
 }
 
+/// Collects the derived output for struct and enum data processing.
+struct Derived {
+    /// Either the `enum` or `struct` keyword
+    enum_struct: TokenStream,
+    /// The generated fields, including wrapping brackets
+    fields: TokenStream,
+    /// The `where`-clause for the `Optionable`-impl
+    where_clause_optionable: WhereClause,
+    /// The `where`-clause for the `OptionableConvert` and `OptionedConvert` impl
+    where_clause_optionable_convert: Option<WhereClause>,
+    /// The `OptionableConvert` implementation if not configured to be skipped, including the `impl`-wrapper
+    impl_optionable_convert: Option<TokenStream>,
+}
+
+/// Bundles common parameters shared between struct and enum data processing.
+struct DataProcessingContext<'a> {
+    /// Name of the `optionable` crate to use in generated code (e.g. `::optionable` or `crate`).
+    crate_name: &'a Path,
+    /// Replacement for the `crate` keyword in the input type, used when generating code inside the optionable crate itself.
+    input_crate_replacement: Option<&'a Ident>,
+    /// When set, wraps `Option<T>` fields in an extra `Option` layer, yielding `Option<Option<T>>` in the optioned type.
+    attr_option_wrap: Option<()>,
+    /// When set, skips generating the `OptionableConvert` and `OptionedConvert` impls.
+    attr_no_convert: Option<()>,
+    /// Maps attribute paths to the subset of their keys that should be forwarded to the optioned type.
+    /// An empty key-set means all keys of that attribute are forwarded.
+    attr_copy_identifier: HashMap<Path, HashSet<Path>>,
+    /// k8s-openapi-specific adjustments: additional derives, serde handling, and optional `Metadata`/`Resource` impls.
+    attr_k8s_openapi: Option<&'a TypeHelperAttributesK8sOpenapi>,
+    /// kube-specific adjustments: additional derives, serde handling, and optional `Resource` impl.
+    attr_kube: Option<&'a TypeHelperAttributesKube>,
+    /// Which k8s `Resource` trait variant to use for the API-envelope fields, if any.
+    k8s_resource_type: Option<ResourceType>,
+    /// Generics of the input type (where-clause already removed via `take`).
+    generics: &'a Generics,
+    /// Impl-position generics derived from `generics` (e.g. `<'a, T: Trait>`).
+    impl_generics: &'a ImplGenerics<'a>,
+    /// Type-position generics derived from `generics` (e.g. `<'a, T, T2>`).
+    ty_generics: &'a TypeGenerics<'a>,
+    /// Where clause from the generics
+    where_clause: Option<WhereClause>,
+    /// Derive macros to add to the optioned type, as stringified paths.
+    derive: &'a BTreeSet<String>,
+    /// `#[serde(skip_serializing_if = "Option::is_none")]` token stream, present when the optioned type derives `Serialize`.
+    skip_serde_if: Option<TokenStream>,
+    /// Path to the original type (potentially prefixed), used in generated `impl` blocks.
+    ty_ident: &'a Path,
+    /// Identifier of the generated optioned type (e.g. `MyStructOpt`).
+    ty_ident_opt: &'a Ident,
+}
+
 /// Derives the `Optionable`-trait from the main `optionable`-library.
 ///
 /// # Errors
@@ -221,8 +273,6 @@ pub fn attribute_derives(derives: &PathList) -> Attribute {
 ///
 /// # Panics
 /// - If the `kube.kube_crate` value (internal use only) does not contain a valid path
-#[allow(clippy::too_many_lines)]
-#[allow(clippy::items_after_statements)]
 pub fn derive_optionable(
     input: DeriveInput,
     settings: Option<&CodegenSettings>,
@@ -241,9 +291,9 @@ pub fn derive_optionable(
     let DeriveInput {
         attrs,
         vis,
+        ident,
         mut generics,
         data,
-        ..
     } = input;
     error_missing_features(attr_k8s_openapi.as_ref(), attr_kube.as_ref())?;
 
@@ -258,13 +308,13 @@ pub fn derive_optionable(
             },
             |s| Cow::Owned(s.value()),
         );
-        format_ident!("{}{suffix}", &input.ident)
+        format_ident!("{}{suffix}", &ident)
     };
     let ty_ident = if let Some(mut ty_prefix) = settings.ty_prefix.clone() {
-        ty_prefix.segments.push(input.ident.into());
+        ty_prefix.segments.push(ident.into());
         ty_prefix
     } else {
-        input.ident.into()
+        ident.into()
     };
     if let Data::Enum(e) = &data
         && e.variants
@@ -300,30 +350,32 @@ pub fn derive_optionable(
     let k8s_openapi_attrs = attr_k8s_openapi.is_some().then(|| k8s_type_attr(&data));
     let attr_copy_identifier = field_attr_copy_hashmap(attr_copy, attr_kube.as_ref());
     let ty_attr_forwarded = forwarded_attributes(&attrs, &attr_copy_identifier)?;
+    let skip_serde_if = (attr_k8s_openapi.is_some() // also sets #[derive(Serialize)]
+        || derive.iter().any(|el| is_serialize(el.as_str())))
+    .then(|| quote!(#[serde(skip_serializing_if = "Option::is_none")]));
 
-    let vis = vis;
     // basically split_for_impl, but we move the where clause out instead of just taking a reference
     let where_clause = take(&mut generics.where_clause);
     let (impl_generics, ty_generics, _) = generics.split_for_impl();
-    let generics_colon = (!generics.params.is_empty()).then(|| quote! {::});
-    let skip_optionable_if_serde_serialize =
-        (attr_k8s_openapi.is_some() // also sets #[derive(Serialize)]
-            || derive.iter().any(|el| is_serialize(el.as_str())))
-        .then(|| quote!(#[serde(skip_serializing_if = "Option::is_none")]));
 
-    /// Helper to collect the enum/struct specific derived code aspects in a typesafe way
-    struct Derived {
-        /// Either `enum` or `struct`
-        enum_struct: TokenStream,
-        /// The generated fields, including wrapping brackets
-        fields: TokenStream,
-        /// The `where`-clause for the `Optionable`-impl
-        where_clause_optionable: WhereClause,
-        /// The `where`-clause  for the `OptionableConvert` and `OptionedConvert` impl
-        where_clause_optionable_convert: Option<WhereClause>,
-        /// The `OptionableConvert` implementation if not configured to be skipped, including the `impl`-wrapper
-        impl_optionable_convert: Option<TokenStream>,
-    }
+    let ctx = DataProcessingContext {
+        crate_name,
+        input_crate_replacement: settings.input_crate_replacement.as_ref(),
+        attr_option_wrap,
+        attr_no_convert,
+        attr_copy_identifier,
+        attr_k8s_openapi: attr_k8s_openapi.as_ref(),
+        attr_kube: attr_kube.as_ref(),
+        k8s_resource_type,
+        generics: &generics,
+        impl_generics: &impl_generics,
+        ty_generics: &ty_generics,
+        where_clause,
+        derive: &derive,
+        skip_serde_if,
+        ty_ident: &ty_ident,
+        ty_ident_opt: &ty_ident_opt,
+    };
     let Derived {
         enum_struct,
         fields,
@@ -331,198 +383,11 @@ pub fn derive_optionable(
         where_clause_optionable_convert,
         impl_optionable_convert,
     } = match data {
-        Data::Struct(s) => {
-            let mut struct_parsed = into_field_handling(
-                crate_name.to_owned(),
-                s.fields,
-                settings.input_crate_replacement.as_ref(),
-                attr_option_wrap,
-            )?;
-            k8s_adjust_fields(
-                &mut struct_parsed,
-                attr_k8s_openapi.as_ref(),
-                attr_kube.as_ref(),
-                k8s_resource_type.as_ref(),
-                crate_name,
-            )?;
-            let WhereClauses {
-                optionable: where_clause_optionable,
-                optionable_convert: where_clause_optionable_convert,
-            } = where_clauses(
-                where_clause,
-                &generics.params,
-                crate_name,
-                settings.input_crate_replacement.as_ref(),
-                &derive,
-                attr_no_convert.is_some(),
-                &struct_parsed.fields,
-            )?;
-            let unnamed_struct_semicolon =
-                (struct_parsed.struct_type == StructType::Unnamed).then(|| quote!(;));
-            let optioned_fields = optioned_fields(
-                &struct_parsed,
-                skip_optionable_if_serde_serialize.as_ref(),
-                &attr_copy_identifier,
-            )?;
-
-            let impl_optionable_convert = attr_no_convert.is_none().then(|| {
-                let into_optioned_fields = into_optioned(&struct_parsed, |selector| quote! { self.#selector });
-                let try_from_optioned_fields =
-                    try_from_optioned(&struct_parsed, |selector| quote! { value.#selector });
-                let merge_fields = merge_fields(
-                    &struct_parsed,
-                    |selector| quote! { self.#selector },
-                    |selector| quote! { other.#selector },
-                    true);
-                quote! {
-                    #[automatically_derived]
-                    impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_optionable_convert{
-                        fn into_optioned(self) -> #ty_ident_opt #ty_generics {
-                            #ty_ident_opt #generics_colon #ty_generics #into_optioned_fields
-                        }
-
-                        fn try_from_optioned(value: #ty_ident_opt #ty_generics) -> Result<Self, #crate_name::Error>{
-                            Ok(Self #try_from_optioned_fields)
-                        }
-
-                        fn merge(&mut self, other: #ty_ident_opt #ty_generics) -> Result<(), #crate_name::Error>{
-                            #merge_fields
-                            Ok(())
-                        }
-                    }
-                }
-            });
-            Derived {
-                enum_struct: quote! {struct},
-                fields: quote! {#optioned_fields #unnamed_struct_semicolon},
-                where_clause_optionable,
-                where_clause_optionable_convert,
-                impl_optionable_convert,
-            }
-        }
-        Data::Enum(e) => {
-            let self_prefix = quote! {self_};
-            let other_prefix = quote! {other_};
-
-            let variants = e
-                .variants
-                .into_iter()
-                .map(|v| {
-                    error_on_helper_attributes(&v.attrs, ERR_MSG_HELPER_ATTR_ENUM_VARIANTS)?;
-                    let mut field_handling = into_field_handling(
-                        crate_name.to_owned(),
-                        v.fields,
-                        settings.input_crate_replacement.as_ref(),
-                        attr_option_wrap,
-                    )?;
-                    k8s_adjust_fields(
-                        &mut field_handling,
-                        attr_k8s_openapi.as_ref(),
-                        attr_kube.as_ref(),
-                        k8s_resource_type.as_ref(),
-                        crate_name,
-                    )?;
-                    Ok::<_, Error>((
-                        v.ident,
-                        forwarded_attributes(&v.attrs, &attr_copy_identifier)?,
-                        field_handling,
-                    ))
-                })
-                .collect::<Result<Vec<_>, _>>()?;
-            let all_fields = variants
-                .iter()
-                .flat_map(|(_, _, fields)| &fields.fields)
-                .collect::<Vec<_>>();
-            let WhereClauses {
-                optionable: where_clause_optionable,
-                optionable_convert: where_clause_optionable_convert,
-            } = where_clauses(
-                where_clause,
-                &generics.params,
-                crate_name,
-                settings.input_crate_replacement.as_ref(),
-                &derive,
-                attr_no_convert.is_some(),
-                all_fields,
-            )?;
-
-            let optioned_variants = variants
-                .iter()
-                .map(|(variant, forward_attrs, f)| {
-                    let fields = optioned_fields(
-                        f,
-                        skip_optionable_if_serde_serialize.as_ref(),
-                        &attr_copy_identifier,
-                    )?;
-                    Ok::<_, Error>(quote!( #forward_attrs #variant #fields ))
-                })
-                .collect::<Result<Vec<_>, _>>()?;
-
-            let impl_optionable_convert = attr_no_convert.is_none().then(|| {
-                let (into_variants, try_from_variants, merge_variants): (Vec<_>, Vec<_>, Vec<_>) = variants
-                    .iter()
-                    .map(|(variant, _, struct_parsed)| {
-                        let fields_into = into_optioned(struct_parsed, |selector| {
-                            format_ident!("{self_prefix}{selector}").to_token_stream()
-                        });
-                        let fields_try_from = try_from_optioned
-                            (struct_parsed, |selector| {
-                                format_ident!("{other_prefix}{selector}").to_token_stream()
-                            });
-                        let fields_merge = merge_fields(struct_parsed,
-                                                        |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
-                                                        |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
-                                                        false);
-                        let self_destructure = destructure(struct_parsed, &self_prefix)?;
-                        let other_destructure = destructure(struct_parsed, &other_prefix)?;
-                        Ok::<_, Error>((
-                            quote!( Self::#variant #self_destructure => #ty_ident_opt::#variant #fields_into ),
-                            quote!( #ty_ident_opt::#variant #other_destructure => Self::#variant #fields_try_from ),
-                            quote!( #ty_ident_opt::#variant #other_destructure => {
-                                if let Self::#variant #self_destructure = self {
-                                    #fields_merge
-                                } else {
-                                    *self = Self::try_from_optioned(#ty_ident_opt::#variant #other_destructure)?;
-                                }
-                            })
-                        ))
-                    })
-                    .collect::<Result<Vec<_>, _>>()?
-                    .into_iter().multiunzip();
-                Ok::<_, Error>(quote! {
-                    #[automatically_derived]
-                    impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_optionable_convert {
-                        fn into_optioned(self) -> #ty_ident_opt #ty_generics {
-                            match self {
-                                #(#into_variants),*
-                            }
-                        }
-
-                        fn try_from_optioned(other: #ty_ident_opt #ty_generics)->Result<Self,#crate_name::Error>{
-                            Ok(match other{
-                                #(#try_from_variants),*
-                            })
-                        }
-
-                        fn merge(&mut self, other: #ty_ident_opt #ty_generics) -> Result<(), #crate_name::Error>{
-                            match other{
-                                #(#merge_variants),*
-                            }
-                            Ok(())
-                        }
-                    }
-                })
-            }).transpose()?;
-            Derived {
-                enum_struct: quote! {enum},
-                fields: quote! {{#(#optioned_variants),*}},
-                where_clause_optionable,
-                where_clause_optionable_convert,
-                impl_optionable_convert,
-            }
-        }
+        Data::Struct(s) => process_struct_data(ctx, s)?,
+        Data::Enum(e) => process_enum_data(ctx, e)?,
         Data::Union(_) => return error("#[derive(Optionable)] not supported for unit structs"),
     };
+
     let impl_optioned_convert = attr_no_convert.is_none().then(|| {
         quote! {
             #[automatically_derived]
@@ -666,6 +531,219 @@ fn impl_optionable_self(crate_name: &Path, ty_ident: &Path, no_convert: bool) ->
 
         #convert_impl
     }
+}
+
+/// Processes a `Data::Struct` into the `Derived` output.
+fn process_struct_data(
+    ctx: DataProcessingContext<'_>,
+    data_struct: DataStruct,
+) -> syn::Result<Derived> {
+    let impl_generics = ctx.impl_generics;
+    let ty_generics = ctx.ty_generics;
+    let generics_colon = (!ctx.generics.params.is_empty()).then(|| quote! {::});
+    let mut struct_parsed = into_field_handling(
+        ctx.crate_name.to_owned(),
+        data_struct.fields,
+        ctx.input_crate_replacement,
+        ctx.attr_option_wrap,
+    )?;
+    k8s_adjust_fields(
+        &mut struct_parsed,
+        ctx.attr_k8s_openapi,
+        ctx.attr_kube,
+        ctx.k8s_resource_type.as_ref(),
+        ctx.crate_name,
+    )?;
+    let WhereClauses {
+        optionable: where_clause_optionable,
+        optionable_convert: where_clause_optionable_convert,
+    } = where_clauses(
+        ctx.where_clause,
+        &ctx.generics.params,
+        ctx.crate_name,
+        ctx.input_crate_replacement,
+        ctx.derive,
+        ctx.attr_no_convert.is_some(),
+        &struct_parsed.fields,
+    )?;
+    let unnamed_struct_semicolon =
+        (struct_parsed.struct_type == StructType::Unnamed).then(|| quote!(;));
+    let optioned_fields = optioned_fields(
+        &struct_parsed,
+        ctx.skip_serde_if.as_ref(),
+        &ctx.attr_copy_identifier,
+    )?;
+
+    let crate_name = ctx.crate_name;
+    let ty_ident = ctx.ty_ident;
+    let ty_ident_opt = ctx.ty_ident_opt;
+    let impl_optionable_convert = ctx.attr_no_convert.is_none().then(|| {
+        let into_optioned_fields =
+            into_optioned(&struct_parsed, |selector| quote! { self.#selector });
+        let try_from_optioned_fields =
+            try_from_optioned(&struct_parsed, |selector| quote! { value.#selector });
+        let merge_fields = merge_fields(
+            &struct_parsed,
+            |selector| quote! { self.#selector },
+            |selector| quote! { other.#selector },
+            true,
+        );
+        quote! {
+            #[automatically_derived]
+            impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_optionable_convert {
+                fn into_optioned(self) -> #ty_ident_opt #ty_generics {
+                    #ty_ident_opt #generics_colon #ty_generics #into_optioned_fields
+                }
+
+                fn try_from_optioned(value: #ty_ident_opt #ty_generics) -> Result<Self, #crate_name::Error> {
+                    Ok(Self #try_from_optioned_fields)
+                }
+
+                fn merge(&mut self, other: #ty_ident_opt #ty_generics) -> Result<(), #crate_name::Error> {
+                    #merge_fields
+                    Ok(())
+                }
+            }
+        }
+    });
+    Ok(Derived {
+        enum_struct: quote! {struct},
+        fields: quote! {#optioned_fields #unnamed_struct_semicolon},
+        where_clause_optionable,
+        where_clause_optionable_convert,
+        impl_optionable_convert,
+    })
+}
+
+/// Processes a `Data::Enum` into the `Derived` output.
+fn process_enum_data(ctx: DataProcessingContext<'_>, data_enum: DataEnum) -> syn::Result<Derived> {
+    let self_prefix = quote! {self_};
+    let other_prefix = quote! {other_};
+    let impl_generics = ctx.impl_generics;
+    let ty_generics = ctx.ty_generics;
+    let crate_name = ctx.crate_name;
+    let ty_ident = ctx.ty_ident;
+    let ty_ident_opt = ctx.ty_ident_opt;
+
+    let variants = data_enum
+        .variants
+        .into_iter()
+        .map(|v| {
+            error_on_helper_attributes(&v.attrs, ERR_MSG_HELPER_ATTR_ENUM_VARIANTS)?;
+            let mut field_handling = into_field_handling(
+                ctx.crate_name.to_owned(),
+                v.fields,
+                ctx.input_crate_replacement,
+                ctx.attr_option_wrap,
+            )?;
+            k8s_adjust_fields(
+                &mut field_handling,
+                ctx.attr_k8s_openapi,
+                ctx.attr_kube,
+                ctx.k8s_resource_type.as_ref(),
+                ctx.crate_name,
+            )?;
+            Ok::<_, Error>((
+                v.ident,
+                forwarded_attributes(&v.attrs, &ctx.attr_copy_identifier)?,
+                field_handling,
+            ))
+        })
+        .collect::<Result<Vec<_>, _>>()?;
+    let all_fields = variants
+        .iter()
+        .flat_map(|(_, _, fields)| &fields.fields)
+        .collect::<Vec<_>>();
+    let WhereClauses {
+        optionable: where_clause_optionable,
+        optionable_convert: where_clause_optionable_convert,
+    } = where_clauses(
+        ctx.where_clause,
+        &ctx.generics.params,
+        ctx.crate_name,
+        ctx.input_crate_replacement,
+        ctx.derive,
+        ctx.attr_no_convert.is_some(),
+        all_fields,
+    )?;
+
+    let optioned_variants = variants
+        .iter()
+        .map(|(variant, forward_attrs, f)| {
+            let fields = optioned_fields(f, ctx.skip_serde_if.as_ref(), &ctx.attr_copy_identifier)?;
+            Ok::<_, Error>(quote!( #forward_attrs #variant #fields ))
+        })
+        .collect::<Result<Vec<_>, _>>()?;
+
+    let impl_optionable_convert = ctx
+        .attr_no_convert
+        .is_none()
+        .then(|| {
+            let (into_variants, try_from_variants, merge_variants): (Vec<_>, Vec<_>, Vec<_>) =
+                variants
+                    .iter()
+                    .map(|(variant, _, struct_parsed)| {
+                        let fields_into = into_optioned(struct_parsed, |selector| {
+                            format_ident!("{self_prefix}{selector}").to_token_stream()
+                        });
+                        let fields_try_from = try_from_optioned(struct_parsed, |selector| {
+                            format_ident!("{other_prefix}{selector}").to_token_stream()
+                        });
+                        let fields_merge = merge_fields(
+                            struct_parsed,
+                            |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
+                            |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
+                            false,
+                        );
+                        let self_destructure = destructure(struct_parsed, &self_prefix)?;
+                        let other_destructure = destructure(struct_parsed, &other_prefix)?;
+                        Ok::<_, Error>((
+                            quote!( Self::#variant #self_destructure => #ty_ident_opt::#variant #fields_into ),
+                            quote!( #ty_ident_opt::#variant #other_destructure => Self::#variant #fields_try_from ),
+                            quote!( #ty_ident_opt::#variant #other_destructure => {
+                                if let Self::#variant #self_destructure = self {
+                                    #fields_merge
+                                } else {
+                                    *self = Self::try_from_optioned(#ty_ident_opt::#variant #other_destructure)?;
+                                }
+                            }),
+                        ))
+                    })
+                    .collect::<Result<Vec<_>, _>>()?
+                    .into_iter()
+                    .multiunzip();
+            Ok::<_, Error>(quote! {
+                #[automatically_derived]
+                impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_optionable_convert {
+                    fn into_optioned(self) -> #ty_ident_opt #ty_generics {
+                        match self {
+                            #(#into_variants),*
+                        }
+                    }
+
+                    fn try_from_optioned(other: #ty_ident_opt #ty_generics) -> Result<Self, #crate_name::Error> {
+                        Ok(match other {
+                            #(#try_from_variants),*
+                        })
+                    }
+
+                    fn merge(&mut self, other: #ty_ident_opt #ty_generics) -> Result<(), #crate_name::Error> {
+                        match other {
+                            #(#merge_variants),*
+                        }
+                        Ok(())
+                    }
+                }
+            })
+        })
+        .transpose()?;
+    Ok(Derived {
+        enum_struct: quote! {enum},
+        fields: quote! {{#(#optioned_variants),*}},
+        where_clause_optionable,
+        where_clause_optionable_convert,
+        impl_optionable_convert,
+    })
 }
 
 /// Returns a tokenstream for the optioned fields and potential convert implementation of the optioned object (struct/enum variants).
