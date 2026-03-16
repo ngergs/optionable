@@ -933,29 +933,26 @@ fn forwarded_attributes(
 mod tests {
     use crate::{derive_optionable, CodegenSettings};
     use darling::FromMeta;
-    use proc_macro2::TokenStream;
     use quote::quote;
     use syn::{parse_quote, Path};
 
-    struct TestCase {
-        input: TokenStream,
-        output: TokenStream,
+    fn assert_optionable(input: proc_macro2::TokenStream, expected: proc_macro2::TokenStream) {
+        let parsed = syn::parse2(input).unwrap();
+        let output = derive_optionable(parsed, None).unwrap();
+        assert_eq!(expected.to_string(), output.to_string());
     }
 
     #[test]
-    #[allow(clippy::too_many_lines)]
-    fn test_optionable() {
-        let tcs = vec![
-            // named struct fields
-            TestCase {
-                input: quote! {
+    fn test_named_struct_fields() {
+        assert_optionable(
+            quote! {
                     #[derive(Optionable)]
                     struct DeriveExample {
                         name: String,
                         pub surname: String,
                     }
                 },
-                output: quote! {
+            quote! {
                     struct DeriveExampleOpt {
                         name: Option<String>,
                         pub surname: Option<String>
@@ -1013,10 +1010,13 @@ mod tests {
                         }
                     }
                 },
-            },
-            // named struct fields, no convert impl
-            TestCase {
-                input: quote! {
+        );
+    }
+
+    #[test]
+    fn test_named_struct_no_convert() {
+        assert_optionable(
+            quote! {
                     #[derive(Optionable)]
                     #[optionable(no_convert)]
                     struct DeriveExample {
@@ -1024,7 +1024,7 @@ mod tests {
                         pub surname: String,
                     }
                 },
-                output: quote! {
+            quote! {
                     struct DeriveExampleOpt {
                         name: Option<String>,
                         pub surname: Option<String>
@@ -1040,10 +1040,13 @@ mod tests {
                         type Optioned = DeriveExampleOpt;
                     }
                 },
-            },
-            // named struct fields with required fields
-            TestCase {
-                input: quote! {
+        );
+    }
+
+    #[test]
+    fn test_named_struct_required_fields() {
+        assert_optionable(
+            quote! {
                     #[derive(Optionable)]
                     struct DeriveExample {
                         name: String,
@@ -1053,7 +1056,7 @@ mod tests {
                         pub id: i32,
                     }
                 },
-                output: quote! {
+            quote! {
                     struct DeriveExampleOpt {
                         name: Option<String>,
                         pub surname: String,
@@ -1116,10 +1119,13 @@ mod tests {
                         }
                     }
                 },
-            },
-            // named struct fields with forwarded derives and Serialize annotations
-            TestCase {
-                input: quote! {
+        );
+    }
+
+    #[test]
+    fn test_named_struct_serde_attrs() {
+        assert_optionable(
+            quote! {
                     #[derive(Optionable)]
                     #[optionable(derive(Deserialize,Serialize,Default),suffix="Ac")]
                     #[optionable(attr_copy(attr=serde,key=rename))]
@@ -1133,7 +1139,7 @@ mod tests {
                         surname: String,
                     }
                 },
-                output: quote! {
+            quote! {
                     #[derive(Default, Deserialize, Serialize)]
                     #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
                     #[serde(default)]
@@ -1204,10 +1210,13 @@ mod tests {
                         }
                     }
                 },
-            },
-            // named struct fields with forwarded derives and Serialize annotations
-            TestCase {
-                input: quote! {
+        );
+    }
+
+    #[test]
+    fn test_named_struct_option_wrap() {
+        assert_optionable(
+            quote! {
                     #[derive(Optionable)]
                     #[optionable(derive(Deserialize,Serialize,Default),suffix="Ac")]
                     #[optionable(attr_copy(attr=serde,key=rename))]
@@ -1222,7 +1231,7 @@ mod tests {
                         surname: String,
                     }
                 },
-                output: quote! {
+            quote! {
                     #[derive(Default, Deserialize, Serialize)]
                     #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
                     #[serde(default)]
@@ -1295,10 +1304,13 @@ mod tests {
                         }
                     }
                 },
-            },
-            // named struct fields with forwarded derives and Serialize annotations (full path variant)
-            TestCase {
-                input: quote! {
+        );
+    }
+
+    #[test]
+    fn test_named_struct_serde_full_path() {
+        assert_optionable(
+            quote! {
                     #[derive(Optionable)]
                     #[optionable(derive(serde::Deserialize,serde::Serialize),suffix="Ac")]
                     struct DeriveExample {
@@ -1306,7 +1318,7 @@ mod tests {
                         surname: String,
                     }
                 },
-                output: quote! {
+            quote! {
                     #[derive(serde::Deserialize, serde::Serialize)]
                     struct DeriveExampleAc {
                         #[serde(skip_serializing_if = "Option::is_none")]
@@ -1367,14 +1379,17 @@ mod tests {
                         }
                     }
                 },
-            },
-            // unnamed struct fields
-            TestCase {
-                input: quote! {
+        );
+    }
+
+    #[test]
+    fn test_unnamed_struct_fields() {
+        assert_optionable(
+            quote! {
                     #[derive(Optionable)]
                     struct DeriveExample(pub String, i32);
                 },
-                output: quote! {
+            quote! {
                     struct DeriveExampleOpt(
                         pub Option<String>,
                         Option<i32>
@@ -1433,14 +1448,17 @@ mod tests {
                         }
                     }
                 },
-            },
-            // unnamed struct fields with required
-            TestCase {
-                input: quote! {
+        );
+    }
+
+    #[test]
+    fn test_unnamed_struct_required() {
+        assert_optionable(
+            quote! {
                     #[derive(Optionable)]
                     struct DeriveExample(pub String, #[optionable(required)] i32);
                 },
-                output: quote! {
+            quote! {
                     struct DeriveExampleOpt(
                         pub Option<String>,
                         i32
@@ -1496,10 +1514,13 @@ mod tests {
                         }
                     }
                 },
-            },
-            // named struct fields with generics
-            TestCase {
-                input: quote! {
+        );
+    }
+
+    #[test]
+    fn test_named_struct_generics() {
+        assert_optionable(
+            quote! {
                     #[derive(Optionable)]
                     #[optionable(derive(Serialize, Deserialize))]
                     struct DeriveExample<'a, T, T2: Serialize, T3> {
@@ -1509,7 +1530,7 @@ mod tests {
                         extra: T3,
                     }
                 },
-                output: quote! {
+            quote! {
                     #[derive (Deserialize, Serialize)]
                     struct DeriveExampleOpt<'a, T, T2: Serialize, T3>
                         where T: ::optionable::Optionable,
@@ -1600,9 +1621,13 @@ mod tests {
                         }
                     }
                 },
-            },
-            TestCase {
-                input: quote! {
+        );
+    }
+
+    #[test]
+    fn test_enum_mixed_variants() {
+        assert_optionable(
+            quote! {
                     #[derive(Optionable)]
                     enum DeriveExample {
                         Unit,
@@ -1611,7 +1636,7 @@ mod tests {
                         Address2(String,u32),
                     }
                 },
-                output: quote! {
+            quote! {
                     enum DeriveExampleOpt {
                         Unit,
                         Plain( Option<String> ),
@@ -1724,9 +1749,13 @@ mod tests {
                         }
                     }
                 },
-            },
-            TestCase {
-                input: quote! {
+        );
+    }
+
+    #[test]
+    fn test_enum_unit_variants() {
+        assert_optionable(
+            quote! {
                     #[derive(Optionable)]
                     enum DeriveExample {
                         Unit,
@@ -1734,7 +1763,7 @@ mod tests {
                         Unit3
                     }
                 },
-                output: quote! {
+            quote! {
                     #[automatically_derived]
                     impl ::optionable::Optionable for DeriveExample {
                         type Optioned = Self;
@@ -1756,29 +1785,20 @@ mod tests {
                         }
                     }
                 },
-            },
-        ];
-        for tc in tcs {
-            let input = syn::parse2(tc.input).unwrap();
-            let output = derive_optionable(input, None).unwrap();
-            println!("{output}");
-            assert_eq!(tc.output.to_string(), output.to_string());
-        }
+        );
     }
 
     #[test]
-    #[allow(clippy::too_many_lines)]
     /// Tests of the crate replacement settings available via codegen settings only
     fn test_crate_replacement() {
-        let tcs = vec![TestCase {
-            input: quote! {
+        let input = quote! {
                 #[derive(Optionable)]
                 struct DeriveExample {
                     name: crate::Name,
                     pub surname: Box<crate::SurName>,
                 }
-            },
-            output: quote! {
+        };
+        let expected = quote! {
                 struct DeriveExampleOpt {
                     name: Option< <::testcrate::Name as crate::Optionable>::Optioned>,
                     pub surname: Option< <Box<::testcrate::SurName> as crate::Optionable>::Optioned>
@@ -1835,20 +1855,17 @@ mod tests {
                        crate::OptionableConvert::merge(other, self)
                     }
                 }
-            },
-        }];
-        for tc in tcs {
-            let input = syn::parse2(tc.input).unwrap();
-            let output = derive_optionable(
-                input,
-                Some(&CodegenSettings {
-                    ty_prefix: Some(Path::from_string("crate_prefix").unwrap()),
-                    optionable_crate_name: Path::from_string("crate").unwrap(),
-                    input_crate_replacement: Some(parse_quote!(testcrate)),
-                }),
-            )
-            .unwrap();
-            assert_eq!(tc.output.to_string(), output.to_string());
-        }
+        };
+        let parsed = syn::parse2(input).unwrap();
+        let output = derive_optionable(
+            parsed,
+            Some(&CodegenSettings {
+                ty_prefix: Some(Path::from_string("crate_prefix").unwrap()),
+                optionable_crate_name: Path::from_string("crate").unwrap(),
+                input_crate_replacement: Some(parse_quote!(testcrate)),
+            }),
+        )
+        .unwrap();
+        assert_eq!(expected.to_string(), output.to_string());
     }
 }
