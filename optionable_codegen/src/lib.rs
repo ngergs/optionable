@@ -1024,70 +1024,70 @@ mod tests {
     fn test_named_struct_fields() {
         assert_optionable(
             quote! {
-                    #[derive(Optionable)]
-                    struct DeriveExample {
-                        name: String,
-                        pub surname: String,
-                    }
-                },
+                #[derive(Optionable)]
+                struct DeriveExample {
+                    name: String,
+                    pub surname: String,
+                }
+            },
             quote! {
-                    struct DeriveExampleOpt {
-                        name: Option<String>,
-                        pub surname: Option<String>
-                    }
+                struct DeriveExampleOpt {
+                    name: Option<String>,
+                    pub surname: Option<String>
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExample {
-                        type Optioned = DeriveExampleOpt;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExample {
+                    type Optioned = DeriveExampleOpt;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExampleOpt {
-                        type Optioned = DeriveExampleOpt;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExampleOpt {
+                    type Optioned = DeriveExampleOpt;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::OptionableConvert for DeriveExample {
-                        fn into_optioned (self) -> DeriveExampleOpt {
-                            DeriveExampleOpt  {
-                                name: Some(self.name),
-                                surname:Some(self.surname)
-                            }
-                        }
-
-                        fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
-                            Ok(Self{
-                                name: value.name.ok_or(::optionable::Error { missing_field: "name" })?,
-                                surname: value.surname.ok_or(::optionable::Error { missing_field: "surname" })?
-                            })
-                        }
-
-                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
-                            if let Some(other_value) = other.name {
-                                self.name = other_value;
-                            }
-                            if let Some(other_value) = other.surname {
-                                self.surname = other_value;
-                            }
-                            Ok(())
+                #[automatically_derived]
+                impl ::optionable::OptionableConvert for DeriveExample {
+                    fn into_optioned (self) -> DeriveExampleOpt {
+                        DeriveExampleOpt  {
+                            name: Some(self.name),
+                            surname:Some(self.surname)
                         }
                     }
 
-                    #[automatically_derived]
-                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
-                        fn from_optionable(value: DeriveExample) -> Self {
-                            ::optionable::OptionableConvert::into_optioned(value)
-                        }
-
-                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
-                            ::optionable::OptionableConvert::try_from_optioned(self)
-                        }
-
-                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
-                            ::optionable::OptionableConvert::merge(other, self)
-                        }
+                    fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
+                        Ok(Self{
+                            name: value.name.ok_or(::optionable::Error { missing_field: "name" })?,
+                            surname: value.surname.ok_or(::optionable::Error { missing_field: "surname" })?
+                        })
                     }
-                },
+
+                    fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
+                        if let Some(other_value) = other.name {
+                            self.name = other_value;
+                        }
+                        if let Some(other_value) = other.surname {
+                            self.surname = other_value;
+                        }
+                        Ok(())
+                    }
+                }
+
+                #[automatically_derived]
+                impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
+                    fn from_optionable(value: DeriveExample) -> Self {
+                        ::optionable::OptionableConvert::into_optioned(value)
+                    }
+
+                    fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                        ::optionable::OptionableConvert::try_from_optioned(self)
+                    }
+
+                    fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                        ::optionable::OptionableConvert::merge(other, self)
+                    }
+                }
+            },
         );
     }
 
@@ -1095,29 +1095,29 @@ mod tests {
     fn test_named_struct_no_convert() {
         assert_optionable(
             quote! {
-                    #[derive(Optionable)]
-                    #[optionable(no_convert)]
-                    struct DeriveExample {
-                        name: String,
-                        pub surname: String,
-                    }
-                },
+                #[derive(Optionable)]
+                #[optionable(no_convert)]
+                struct DeriveExample {
+                    name: String,
+                    pub surname: String,
+                }
+            },
             quote! {
-                    struct DeriveExampleOpt {
-                        name: Option<String>,
-                        pub surname: Option<String>
-                    }
+                struct DeriveExampleOpt {
+                    name: Option<String>,
+                    pub surname: Option<String>
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExample {
-                        type Optioned = DeriveExampleOpt;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExample {
+                    type Optioned = DeriveExampleOpt;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExampleOpt {
-                        type Optioned = DeriveExampleOpt;
-                    }
-                },
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExampleOpt {
+                    type Optioned = DeriveExampleOpt;
+                }
+            },
         );
     }
 
@@ -1125,78 +1125,78 @@ mod tests {
     fn test_named_struct_required_fields() {
         assert_optionable(
             quote! {
-                    #[derive(Optionable)]
-                    struct DeriveExample {
-                        name: String,
-                        #[optionable(required)]
-                        pub surname: String,
-                        #[optionable(optioned_type=MyInt)]
-                        pub id: i32,
-                    }
-                },
+                #[derive(Optionable)]
+                struct DeriveExample {
+                    name: String,
+                    #[optionable(required)]
+                    pub surname: String,
+                    #[optionable(optioned_type=MyInt)]
+                    pub id: i32,
+                }
+            },
             quote! {
-                    struct DeriveExampleOpt {
-                        name: Option<String>,
-                        pub surname: String,
-                        pub id: Option<MyInt>
-                    }
+                struct DeriveExampleOpt {
+                    name: Option<String>,
+                    pub surname: String,
+                    pub id: Option<MyInt>
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExample {
-                        type Optioned = DeriveExampleOpt;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExample {
+                    type Optioned = DeriveExampleOpt;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExampleOpt {
-                        type Optioned = DeriveExampleOpt;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExampleOpt {
+                    type Optioned = DeriveExampleOpt;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::OptionableConvert for DeriveExample {
-                        fn into_optioned (self) -> DeriveExampleOpt {
-                            DeriveExampleOpt  {
-                                name: Some(self.name),
-                                surname: self.surname,
-                                id: Some (::optionable::OptionedConvert::from_optionable(self.id))
-                            }
-                        }
-
-                        fn try_from_optioned(value:DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
-                            Ok (Self {
-                                name: value.name.ok_or(::optionable::Error { missing_field: "name" })?,
-                                surname: value.surname,
-                                id: ::optionable::OptionedConvert::try_into_optionable(value.id.ok_or(::optionable::Error{ missing_field: "id" })?)?
-                            })
-                        }
-
-                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
-                            if let Some(other_value) = other.name {
-                                self.name = other_value;
-                            }
-                            self.surname = other.surname;
-                            if let Some (other_value) = other.id {
-                                ::optionable::OptionedConvert::merge_into(other_value, &mut self.id)?;
-                            }
-                            Ok (())
+                #[automatically_derived]
+                impl ::optionable::OptionableConvert for DeriveExample {
+                    fn into_optioned (self) -> DeriveExampleOpt {
+                        DeriveExampleOpt  {
+                            name: Some(self.name),
+                            surname: self.surname,
+                            id: Some (::optionable::OptionedConvert::from_optionable(self.id))
                         }
                     }
 
-
-                    #[automatically_derived]
-                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
-                        fn from_optionable(value: DeriveExample) -> Self {
-                            ::optionable::OptionableConvert::into_optioned(value)
-                        }
-
-                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
-                            ::optionable::OptionableConvert::try_from_optioned(self)
-                        }
-
-                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
-                            ::optionable::OptionableConvert::merge(other, self)
-                        }
+                    fn try_from_optioned(value:DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
+                        Ok (Self {
+                            name: value.name.ok_or(::optionable::Error { missing_field: "name" })?,
+                            surname: value.surname,
+                            id: ::optionable::OptionedConvert::try_into_optionable(value.id.ok_or(::optionable::Error{ missing_field: "id" })?)?
+                        })
                     }
-                },
+
+                    fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
+                        if let Some(other_value) = other.name {
+                            self.name = other_value;
+                        }
+                        self.surname = other.surname;
+                        if let Some (other_value) = other.id {
+                            ::optionable::OptionedConvert::merge_into(other_value, &mut self.id)?;
+                        }
+                        Ok (())
+                    }
+                }
+
+
+                #[automatically_derived]
+                impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
+                    fn from_optionable(value: DeriveExample) -> Self {
+                        ::optionable::OptionableConvert::into_optioned(value)
+                    }
+
+                    fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                        ::optionable::OptionableConvert::try_from_optioned(self)
+                    }
+
+                    fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                        ::optionable::OptionableConvert::merge(other, self)
+                    }
+                }
+            },
         );
     }
 
@@ -1204,90 +1204,90 @@ mod tests {
     fn test_named_struct_serde_attrs() {
         assert_optionable(
             quote! {
-                    #[derive(Optionable)]
-                    #[optionable(derive(Deserialize,Serialize,Default),suffix="Ac")]
-                    #[optionable(attr_copy(attr=serde,key=rename))]
-                    #[optionable_attr(serde(rename_all_fields = "camelCase", deny_unknown_fields))]
-                    #[optionable_attr(serde(default))]
-                    struct DeriveExample {
-                        #[optionable_attr(serde(rename = "firstName"))]
-                        name: String,
-                        #[serde(rename="middle__name")]
-                        middle_name: Option<String>,
-                        surname: String,
-                    }
-                },
+                #[derive(Optionable)]
+                #[optionable(derive(Deserialize,Serialize,Default),suffix="Ac")]
+                #[optionable(attr_copy(attr=serde,key=rename))]
+                #[optionable_attr(serde(rename_all_fields = "camelCase", deny_unknown_fields))]
+                #[optionable_attr(serde(default))]
+                struct DeriveExample {
+                    #[optionable_attr(serde(rename = "firstName"))]
+                    name: String,
+                    #[serde(rename="middle__name")]
+                    middle_name: Option<String>,
+                    surname: String,
+                }
+            },
             quote! {
-                    #[derive(Default, Deserialize, Serialize)]
-                    #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
-                    #[serde(default)]
-                    struct DeriveExampleAc {
-                        #[serde(rename = "firstName")]
-                        #[serde(skip_serializing_if = "Option::is_none")]
-                        name: Option<String>,
-                        #[serde(rename = "middle__name")]
-                        #[serde(skip_serializing_if = "Option::is_none")]
-                        middle_name: <Option<String> as ::optionable::Optionable>::Optioned,
-                        #[serde(skip_serializing_if = "Option::is_none")]
-                        surname: Option<String>
-                    }
+                #[derive(Default, Deserialize, Serialize)]
+                #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
+                #[serde(default)]
+                struct DeriveExampleAc {
+                    #[serde(rename = "firstName")]
+                    #[serde(skip_serializing_if = "Option::is_none")]
+                    name: Option<String>,
+                    #[serde(rename = "middle__name")]
+                    #[serde(skip_serializing_if = "Option::is_none")]
+                    middle_name: <Option<String> as ::optionable::Optionable>::Optioned,
+                    #[serde(skip_serializing_if = "Option::is_none")]
+                    surname: Option<String>
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExample {
-                        type Optioned = DeriveExampleAc;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExample {
+                    type Optioned = DeriveExampleAc;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExampleAc {
-                        type Optioned = DeriveExampleAc;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExampleAc {
+                    type Optioned = DeriveExampleAc;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::OptionableConvert for DeriveExample {
-                        fn into_optioned (self) -> DeriveExampleAc {
-                            DeriveExampleAc  {
-                                name: Some(self.name),
-                                middle_name: ::optionable::OptionableConvert::into_optioned(self.middle_name),
-                                surname: Some(self.surname)
-                            }
-                        }
-
-                        fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::Error> {
-                            Ok(Self{
-                                name: value.name.ok_or(::optionable::Error { missing_field: "name"})?,
-                                middle_name: ::optionable::OptionableConvert::try_from_optioned(value.middle_name)?,
-                                surname: value.surname.ok_or(::optionable::Error { missing_field: "surname"})?
-                            })
-                        }
-
-                        fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
-                            if let Some(other_value) = other.name {
-                                self.name =  other_value;
-                            }
-                            ::optionable::OptionableConvert::merge(&mut self.middle_name, other.middle_name)?;
-                            if let Some(other_value) = other.surname {
-                                self.surname =  other_value;
-                            }
-                            Ok(())
+                #[automatically_derived]
+                impl ::optionable::OptionableConvert for DeriveExample {
+                    fn into_optioned (self) -> DeriveExampleAc {
+                        DeriveExampleAc  {
+                            name: Some(self.name),
+                            middle_name: ::optionable::OptionableConvert::into_optioned(self.middle_name),
+                            surname: Some(self.surname)
                         }
                     }
 
-
-                    #[automatically_derived]
-                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleAc {
-                        fn from_optionable(value: DeriveExample) -> Self {
-                            ::optionable::OptionableConvert::into_optioned(value)
-                        }
-
-                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
-                            ::optionable::OptionableConvert::try_from_optioned(self)
-                        }
-
-                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
-                            ::optionable::OptionableConvert::merge(other, self)
-                        }
+                    fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::Error> {
+                        Ok(Self{
+                            name: value.name.ok_or(::optionable::Error { missing_field: "name"})?,
+                            middle_name: ::optionable::OptionableConvert::try_from_optioned(value.middle_name)?,
+                            surname: value.surname.ok_or(::optionable::Error { missing_field: "surname"})?
+                        })
                     }
-                },
+
+                    fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
+                        if let Some(other_value) = other.name {
+                            self.name =  other_value;
+                        }
+                        ::optionable::OptionableConvert::merge(&mut self.middle_name, other.middle_name)?;
+                        if let Some(other_value) = other.surname {
+                            self.surname =  other_value;
+                        }
+                        Ok(())
+                    }
+                }
+
+
+                #[automatically_derived]
+                impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleAc {
+                    fn from_optionable(value: DeriveExample) -> Self {
+                        ::optionable::OptionableConvert::into_optioned(value)
+                    }
+
+                    fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                        ::optionable::OptionableConvert::try_from_optioned(self)
+                    }
+
+                    fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                        ::optionable::OptionableConvert::merge(other, self)
+                    }
+                }
+            },
         );
     }
 
@@ -1295,93 +1295,93 @@ mod tests {
     fn test_named_struct_option_wrap() {
         assert_optionable(
             quote! {
-                    #[derive(Optionable)]
-                    #[optionable(derive(Deserialize,Serialize,Default),suffix="Ac")]
-                    #[optionable(attr_copy(attr=serde,key=rename))]
-                    #[optionable(option_wrap)]
-                    #[optionable_attr(serde(rename_all_fields = "camelCase", deny_unknown_fields))]
-                    #[optionable_attr(serde(default))]
-                    struct DeriveExample {
-                        #[optionable_attr(serde(rename = "firstName"))]
-                        name: String,
-                        #[serde(rename="middle__name")]
-                        middle_name: Option<String>,
-                        surname: String,
-                    }
-                },
+                #[derive(Optionable)]
+                #[optionable(derive(Deserialize,Serialize,Default),suffix="Ac")]
+                #[optionable(attr_copy(attr=serde,key=rename))]
+                #[optionable(option_wrap)]
+                #[optionable_attr(serde(rename_all_fields = "camelCase", deny_unknown_fields))]
+                #[optionable_attr(serde(default))]
+                struct DeriveExample {
+                    #[optionable_attr(serde(rename = "firstName"))]
+                    name: String,
+                    #[serde(rename="middle__name")]
+                    middle_name: Option<String>,
+                    surname: String,
+                }
+            },
             quote! {
-                    #[derive(Default, Deserialize, Serialize)]
-                    #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
-                    #[serde(default)]
-                    struct DeriveExampleAc {
-                        #[serde(rename = "firstName")]
-                        #[serde(skip_serializing_if = "Option::is_none")]
-                        name: Option<String>,
-                        #[serde(rename = "middle__name")]
-                        #[serde(skip_serializing_if = "Option::is_none")]
-                        middle_name: Option< <Option<String> as ::optionable::Optionable>::Optioned>,
-                        #[serde(skip_serializing_if = "Option::is_none")]
-                        surname: Option<String>
-                    }
+                #[derive(Default, Deserialize, Serialize)]
+                #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
+                #[serde(default)]
+                struct DeriveExampleAc {
+                    #[serde(rename = "firstName")]
+                    #[serde(skip_serializing_if = "Option::is_none")]
+                    name: Option<String>,
+                    #[serde(rename = "middle__name")]
+                    #[serde(skip_serializing_if = "Option::is_none")]
+                    middle_name: Option< <Option<String> as ::optionable::Optionable>::Optioned>,
+                    #[serde(skip_serializing_if = "Option::is_none")]
+                    surname: Option<String>
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExample {
-                        type Optioned = DeriveExampleAc;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExample {
+                    type Optioned = DeriveExampleAc;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExampleAc {
-                        type Optioned = DeriveExampleAc;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExampleAc {
+                    type Optioned = DeriveExampleAc;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::OptionableConvert for DeriveExample {
-                        fn into_optioned (self) -> DeriveExampleAc {
-                            DeriveExampleAc  {
-                                name: Some(self.name),
-                                middle_name: Some(::optionable::OptionableConvert::into_optioned(self.middle_name)),
-                                surname: Some(self.surname)
-                            }
-                        }
-
-                        fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::Error> {
-                            Ok(Self{
-                                name: value.name.ok_or(::optionable::Error { missing_field: "name"})?,
-                                middle_name: ::optionable::OptionableConvert::try_from_optioned(value.middle_name.ok_or(::optionable::Error{ missing_field : "middle_name" })?)?,
-                                surname: value.surname.ok_or(::optionable::Error { missing_field: "surname"})?
-                            })
-                        }
-
-                        fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
-                            if let Some(other_value) = other.name {
-                                self.name =  other_value;
-                            }
-                            if let Some(other_value) = other.middle_name {
-                                ::optionable::OptionableConvert::merge(&mut self.middle_name, other_value)?;
-                            }
-                            if let Some(other_value) = other.surname {
-                                self.surname =  other_value;
-                            }
-                            Ok(())
+                #[automatically_derived]
+                impl ::optionable::OptionableConvert for DeriveExample {
+                    fn into_optioned (self) -> DeriveExampleAc {
+                        DeriveExampleAc  {
+                            name: Some(self.name),
+                            middle_name: Some(::optionable::OptionableConvert::into_optioned(self.middle_name)),
+                            surname: Some(self.surname)
                         }
                     }
 
-
-                    #[automatically_derived]
-                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleAc {
-                        fn from_optionable(value: DeriveExample) -> Self {
-                            ::optionable::OptionableConvert::into_optioned(value)
-                        }
-
-                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
-                            ::optionable::OptionableConvert::try_from_optioned(self)
-                        }
-
-                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
-                            ::optionable::OptionableConvert::merge(other, self)
-                        }
+                    fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::Error> {
+                        Ok(Self{
+                            name: value.name.ok_or(::optionable::Error { missing_field: "name"})?,
+                            middle_name: ::optionable::OptionableConvert::try_from_optioned(value.middle_name.ok_or(::optionable::Error{ missing_field : "middle_name" })?)?,
+                            surname: value.surname.ok_or(::optionable::Error { missing_field: "surname"})?
+                        })
                     }
-                },
+
+                    fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
+                        if let Some(other_value) = other.name {
+                            self.name =  other_value;
+                        }
+                        if let Some(other_value) = other.middle_name {
+                            ::optionable::OptionableConvert::merge(&mut self.middle_name, other_value)?;
+                        }
+                        if let Some(other_value) = other.surname {
+                            self.surname =  other_value;
+                        }
+                        Ok(())
+                    }
+                }
+
+
+                #[automatically_derived]
+                impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleAc {
+                    fn from_optionable(value: DeriveExample) -> Self {
+                        ::optionable::OptionableConvert::into_optioned(value)
+                    }
+
+                    fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                        ::optionable::OptionableConvert::try_from_optioned(self)
+                    }
+
+                    fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                        ::optionable::OptionableConvert::merge(other, self)
+                    }
+                }
+            },
         );
     }
 
@@ -1389,74 +1389,74 @@ mod tests {
     fn test_named_struct_serde_full_path() {
         assert_optionable(
             quote! {
-                    #[derive(Optionable)]
-                    #[optionable(derive(serde::Deserialize,serde::Serialize),suffix="Ac")]
-                    struct DeriveExample {
-                        name: String,
-                        surname: String,
-                    }
-                },
+                #[derive(Optionable)]
+                #[optionable(derive(serde::Deserialize,serde::Serialize),suffix="Ac")]
+                struct DeriveExample {
+                    name: String,
+                    surname: String,
+                }
+            },
             quote! {
-                    #[derive(serde::Deserialize, serde::Serialize)]
-                    struct DeriveExampleAc {
-                        #[serde(skip_serializing_if = "Option::is_none")]
-                        name: Option<String>,
-                        #[serde(skip_serializing_if = "Option::is_none")]
-                        surname: Option<String>
-                    }
+                #[derive(serde::Deserialize, serde::Serialize)]
+                struct DeriveExampleAc {
+                    #[serde(skip_serializing_if = "Option::is_none")]
+                    name: Option<String>,
+                    #[serde(skip_serializing_if = "Option::is_none")]
+                    surname: Option<String>
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExample {
-                        type Optioned = DeriveExampleAc;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExample {
+                    type Optioned = DeriveExampleAc;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExampleAc {
-                        type Optioned = DeriveExampleAc;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExampleAc {
+                    type Optioned = DeriveExampleAc;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::OptionableConvert for DeriveExample {
-                        fn into_optioned (self) -> DeriveExampleAc {
-                            DeriveExampleAc {
-                                name: Some(self.name),
-                                surname: Some(self.surname)
-                            }
-                        }
-
-                        fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::Error> {
-                             Ok(Self{
-                                name: value.name.ok_or(::optionable::Error{ missing_field: "name"})?,
-                                surname: value.surname.ok_or(::optionable::Error{ missing_field: "surname"})?
-                            })
-                        }
-
-                        fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
-                            if let Some(other_value) = other.name {
-                                self.name = other_value;
-                            }
-                            if let Some(other_value) = other.surname {
-                                self.surname = other_value;
-                            }
-                            Ok(())
+                #[automatically_derived]
+                impl ::optionable::OptionableConvert for DeriveExample {
+                    fn into_optioned (self) -> DeriveExampleAc {
+                        DeriveExampleAc {
+                            name: Some(self.name),
+                            surname: Some(self.surname)
                         }
                     }
 
-                    #[automatically_derived]
-                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleAc {
-                        fn from_optionable(value: DeriveExample) -> Self {
-                            ::optionable::OptionableConvert::into_optioned(value)
-                        }
-
-                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
-                            ::optionable::OptionableConvert::try_from_optioned(self)
-                        }
-
-                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
-                            ::optionable::OptionableConvert::merge(other, self)
-                        }
+                    fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::Error> {
+                         Ok(Self{
+                            name: value.name.ok_or(::optionable::Error{ missing_field: "name"})?,
+                            surname: value.surname.ok_or(::optionable::Error{ missing_field: "surname"})?
+                        })
                     }
-                },
+
+                    fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
+                        if let Some(other_value) = other.name {
+                            self.name = other_value;
+                        }
+                        if let Some(other_value) = other.surname {
+                            self.surname = other_value;
+                        }
+                        Ok(())
+                    }
+                }
+
+                #[automatically_derived]
+                impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleAc {
+                    fn from_optionable(value: DeriveExample) -> Self {
+                        ::optionable::OptionableConvert::into_optioned(value)
+                    }
+
+                    fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                        ::optionable::OptionableConvert::try_from_optioned(self)
+                    }
+
+                    fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                        ::optionable::OptionableConvert::merge(other, self)
+                    }
+                }
+            },
         );
     }
 
@@ -1464,68 +1464,68 @@ mod tests {
     fn test_unnamed_struct_fields() {
         assert_optionable(
             quote! {
-                    #[derive(Optionable)]
-                    struct DeriveExample(pub String, i32);
-                },
+                #[derive(Optionable)]
+                struct DeriveExample(pub String, i32);
+            },
             quote! {
-                    struct DeriveExampleOpt(
-                        pub Option<String>,
-                        Option<i32>
-                    );
+                struct DeriveExampleOpt(
+                    pub Option<String>,
+                    Option<i32>
+                );
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExample {
-                        type Optioned = DeriveExampleOpt;
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExample {
+                    type Optioned = DeriveExampleOpt;
+                }
+
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExampleOpt {
+                    type Optioned = DeriveExampleOpt;
+                }
+
+                #[automatically_derived]
+                impl ::optionable::OptionableConvert for DeriveExample {
+                    fn into_optioned (self) -> DeriveExampleOpt {
+                        DeriveExampleOpt (
+                            Some(self.0),
+                            Some(self.1)
+                        )
                     }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExampleOpt {
-                        type Optioned = DeriveExampleOpt;
+                     fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
+                        Ok(Self(
+                            value.0.ok_or(::optionable::Error { missing_field:"0" })?,
+                            value.1.ok_or(::optionable::Error { missing_field: "1" })?
+                        ))
                     }
 
-                    #[automatically_derived]
-                    impl ::optionable::OptionableConvert for DeriveExample {
-                        fn into_optioned (self) -> DeriveExampleOpt {
-                            DeriveExampleOpt (
-                                Some(self.0),
-                                Some(self.1)
-                            )
+                    fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
+                        if let Some(other_value) = other.0 {
+                            self.0 = other_value;
                         }
+                        if let Some (other_value) = other.1 {
+                            self.1 = other_value;
+                        }
+                        Ok (())
+                    }
+                }
 
-                         fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
-                            Ok(Self(
-                                value.0.ok_or(::optionable::Error { missing_field:"0" })?,
-                                value.1.ok_or(::optionable::Error { missing_field: "1" })?
-                            ))
-                        }
 
-                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
-                            if let Some(other_value) = other.0 {
-                                self.0 = other_value;
-                            }
-                            if let Some (other_value) = other.1 {
-                                self.1 = other_value;
-                            }
-                            Ok (())
-                        }
+                #[automatically_derived]
+                impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
+                    fn from_optionable(value: DeriveExample) -> Self {
+                        ::optionable::OptionableConvert::into_optioned(value)
                     }
 
-
-                    #[automatically_derived]
-                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
-                        fn from_optionable(value: DeriveExample) -> Self {
-                            ::optionable::OptionableConvert::into_optioned(value)
-                        }
-
-                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
-                            ::optionable::OptionableConvert::try_from_optioned(self)
-                        }
-
-                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
-                            ::optionable::OptionableConvert::merge(other, self)
-                        }
+                    fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                        ::optionable::OptionableConvert::try_from_optioned(self)
                     }
-                },
+
+                    fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                        ::optionable::OptionableConvert::merge(other, self)
+                    }
+                }
+            },
         );
     }
 
@@ -1533,65 +1533,65 @@ mod tests {
     fn test_unnamed_struct_required() {
         assert_optionable(
             quote! {
-                    #[derive(Optionable)]
-                    struct DeriveExample(pub String, #[optionable(required)] i32);
-                },
+                #[derive(Optionable)]
+                struct DeriveExample(pub String, #[optionable(required)] i32);
+            },
             quote! {
-                    struct DeriveExampleOpt(
-                        pub Option<String>,
-                        i32
-                    );
+                struct DeriveExampleOpt(
+                    pub Option<String>,
+                    i32
+                );
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExample {
-                        type Optioned = DeriveExampleOpt;
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExample {
+                    type Optioned = DeriveExampleOpt;
+                }
+
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExampleOpt {
+                    type Optioned = DeriveExampleOpt;
+                }
+
+                # [automatically_derived]
+                impl ::optionable::OptionableConvert for DeriveExample {
+                    fn into_optioned (self) -> DeriveExampleOpt {
+                        DeriveExampleOpt (
+                            Some(self.0),
+                            self.1
+                        )
                     }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExampleOpt {
-                        type Optioned = DeriveExampleOpt;
+                     fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
+                        Ok(Self(
+                            value.0.ok_or(::optionable::Error { missing_field: "0" })?,
+                            value.1))
                     }
 
-                    # [automatically_derived]
-                    impl ::optionable::OptionableConvert for DeriveExample {
-                        fn into_optioned (self) -> DeriveExampleOpt {
-                            DeriveExampleOpt (
-                                Some(self.0),
-                                self.1
-                            )
+                    fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
+                        if let Some(other_value) = other.0 {
+                            self.0 = other_value;
                         }
+                        self.1 = other.1;
+                        Ok (())
+                    }
+                }
 
-                         fn try_from_optioned(value: DeriveExampleOpt ) -> Result <Self, ::optionable::Error> {
-                            Ok(Self(
-                                value.0.ok_or(::optionable::Error { missing_field: "0" })?,
-                                value.1))
-                        }
 
-                        fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
-                            if let Some(other_value) = other.0 {
-                                self.0 = other_value;
-                            }
-                            self.1 = other.1;
-                            Ok (())
-                        }
+                #[automatically_derived]
+                impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
+                    fn from_optionable(value: DeriveExample) -> Self {
+                        ::optionable::OptionableConvert::into_optioned(value)
                     }
 
-
-                    #[automatically_derived]
-                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
-                        fn from_optionable(value: DeriveExample) -> Self {
-                            ::optionable::OptionableConvert::into_optioned(value)
-                        }
-
-                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
-                            ::optionable::OptionableConvert::try_from_optioned(self)
-                        }
-
-                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
-                            ::optionable::OptionableConvert::merge(other, self)
-                        }
+                    fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                        ::optionable::OptionableConvert::try_from_optioned(self)
                     }
-                },
+
+                    fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                        ::optionable::OptionableConvert::merge(other, self)
+                    }
+                }
+            },
         );
     }
 
@@ -1599,106 +1599,106 @@ mod tests {
     fn test_named_struct_generics() {
         assert_optionable(
             quote! {
-                    #[derive(Optionable)]
-                    #[optionable(derive(Serialize, Deserialize))]
-                    struct DeriveExample<'a, T, T2: Serialize, T3> {
-                        output: T,
-                        input: Cow<'a, T2>,
-                        #[optionable(required)]
-                        extra: T3,
-                    }
-                },
+                #[derive(Optionable)]
+                #[optionable(derive(Serialize, Deserialize))]
+                struct DeriveExample<'a, T, T2: Serialize, T3> {
+                    output: T,
+                    input: Cow<'a, T2>,
+                    #[optionable(required)]
+                    extra: T3,
+                }
+            },
             quote! {
-                    #[derive (Deserialize, Serialize)]
-                    struct DeriveExampleOpt<'a, T, T2: Serialize, T3>
-                        where T: ::optionable::Optionable,
-                              <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                              Cow<'a ,T2>: ::optionable::Optionable,
-                              <Cow<'a,T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
-                    {
-                        #[serde(skip_serializing_if="Option::is_none")]
-                        output: Option< <T as ::optionable::Optionable>::Optioned>,
-                        #[serde(skip_serializing_if="Option::is_none")]
-                        input: Option< <Cow<'a, T2> as ::optionable::Optionable>::Optioned>,
-                        extra: T3
-                    }
+                #[derive (Deserialize, Serialize)]
+                struct DeriveExampleOpt<'a, T, T2: Serialize, T3>
+                    where T: ::optionable::Optionable,
+                          <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
+                          Cow<'a ,T2>: ::optionable::Optionable,
+                          <Cow<'a,T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                {
+                    #[serde(skip_serializing_if="Option::is_none")]
+                    output: Option< <T as ::optionable::Optionable>::Optioned>,
+                    #[serde(skip_serializing_if="Option::is_none")]
+                    input: Option< <Cow<'a, T2> as ::optionable::Optionable>::Optioned>,
+                    extra: T3
+                }
 
-                    #[automatically_derived]
-                    impl<'a, T, T2: Serialize, T3> ::optionable::Optionable for DeriveExample<'a, T, T2, T3>
-                        where T: ::optionable::Optionable,
-                              <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                              Cow<'a, T2>: ::optionable::Optionable,
-                              <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
-                    {
-                        type Optioned = DeriveExampleOpt<'a, T,T2,T3>;
-                    }
+                #[automatically_derived]
+                impl<'a, T, T2: Serialize, T3> ::optionable::Optionable for DeriveExample<'a, T, T2, T3>
+                    where T: ::optionable::Optionable,
+                          <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
+                          Cow<'a, T2>: ::optionable::Optionable,
+                          <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                {
+                    type Optioned = DeriveExampleOpt<'a, T,T2,T3>;
+                }
 
-                    #[automatically_derived]
-                    impl<'a, T, T2: Serialize, T3> ::optionable::Optionable for DeriveExampleOpt<'a ,T, T2, T3>
-                        where T: ::optionable::Optionable,
-                              <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                              Cow<'a, T2>: ::optionable::Optionable,
-                              <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
-                    {
-                        type Optioned = DeriveExampleOpt<'a, T, T2, T3>;
-                    }
+                #[automatically_derived]
+                impl<'a, T, T2: Serialize, T3> ::optionable::Optionable for DeriveExampleOpt<'a ,T, T2, T3>
+                    where T: ::optionable::Optionable,
+                          <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
+                          Cow<'a, T2>: ::optionable::Optionable,
+                          <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                {
+                    type Optioned = DeriveExampleOpt<'a, T, T2, T3>;
+                }
 
-                    #[automatically_derived]
-                    impl <'a, T, T2:Serialize, T3> ::optionable::OptionableConvert for DeriveExample<'a, T, T2, T3>
-                        where T: ::optionable::OptionableConvert,
-                              <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                              Cow<'a, T2>: ::optionable::OptionableConvert,
-                              <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
-                    {
-                        fn into_optioned (self) -> DeriveExampleOpt<'a, T, T2, T3> {
-                            DeriveExampleOpt::<'a, T, T2, T3> {
-                                output: Some(::optionable::OptionableConvert::into_optioned(self.output)),
-                                input: Some(::optionable::OptionableConvert::into_optioned(self.input)),
-                                extra: self.extra
-                            }
-                        }
-
-                         fn try_from_optioned(value: DeriveExampleOpt<'a, T, T2, T3> ) -> Result <Self, ::optionable::Error> {
-                             Ok(Self{
-                                output: ::optionable::OptionableConvert::try_from_optioned(value.output.ok_or(::optionable::Error { missing_field: "output" })?)?,
-                                input: ::optionable::OptionableConvert::try_from_optioned(value.input.ok_or(::optionable::Error { missing_field: "input" })?)?,
-                                extra: value.extra
-                            })
-                        }
-
-                        fn merge(&mut self, other: DeriveExampleOpt<'a, T, T2, T3> ) -> Result<(), ::optionable::Error> {
-                            if let Some(other_value) = other.output {
-                                ::optionable::OptionableConvert::merge(&mut self.output, other_value)?;
-                            }
-                            if let Some(other_value) = other.input {
-                                ::optionable::OptionableConvert::merge(&mut self.input, other_value)?;
-                            }
-                            self.extra=other.extra;
-                            Ok(())
+                #[automatically_derived]
+                impl <'a, T, T2:Serialize, T3> ::optionable::OptionableConvert for DeriveExample<'a, T, T2, T3>
+                    where T: ::optionable::OptionableConvert,
+                          <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
+                          Cow<'a, T2>: ::optionable::OptionableConvert,
+                          <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                {
+                    fn into_optioned (self) -> DeriveExampleOpt<'a, T, T2, T3> {
+                        DeriveExampleOpt::<'a, T, T2, T3> {
+                            output: Some(::optionable::OptionableConvert::into_optioned(self.output)),
+                            input: Some(::optionable::OptionableConvert::into_optioned(self.input)),
+                            extra: self.extra
                         }
                     }
 
-
-                    #[automatically_derived]
-                    impl <'a, T, T2:Serialize, T3> ::optionable::OptionedConvert<DeriveExample<'a, T, T2, T3> > for DeriveExampleOpt<'a, T, T2, T3>
-                        where T: ::optionable::OptionableConvert,
-                              <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                              Cow<'a, T2>: ::optionable::OptionableConvert,
-                              <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
-                    {
-                        fn from_optionable(value: DeriveExample<'a, T, T2, T3>) -> Self {
-                            ::optionable::OptionableConvert::into_optioned(value)
-                        }
-
-                        fn try_into_optionable(self) -> Result<DeriveExample<'a, T, T2, T3>, ::optionable::Error> {
-                            ::optionable::OptionableConvert::try_from_optioned(self)
-                        }
-
-                        fn merge_into(self, other: &mut DeriveExample<'a, T, T2, T3>) -> Result<(), ::optionable::Error> {
-                            ::optionable::OptionableConvert::merge(other, self)
-                        }
+                     fn try_from_optioned(value: DeriveExampleOpt<'a, T, T2, T3> ) -> Result <Self, ::optionable::Error> {
+                         Ok(Self{
+                            output: ::optionable::OptionableConvert::try_from_optioned(value.output.ok_or(::optionable::Error { missing_field: "output" })?)?,
+                            input: ::optionable::OptionableConvert::try_from_optioned(value.input.ok_or(::optionable::Error { missing_field: "input" })?)?,
+                            extra: value.extra
+                        })
                     }
-                },
+
+                    fn merge(&mut self, other: DeriveExampleOpt<'a, T, T2, T3> ) -> Result<(), ::optionable::Error> {
+                        if let Some(other_value) = other.output {
+                            ::optionable::OptionableConvert::merge(&mut self.output, other_value)?;
+                        }
+                        if let Some(other_value) = other.input {
+                            ::optionable::OptionableConvert::merge(&mut self.input, other_value)?;
+                        }
+                        self.extra=other.extra;
+                        Ok(())
+                    }
+                }
+
+
+                #[automatically_derived]
+                impl <'a, T, T2:Serialize, T3> ::optionable::OptionedConvert<DeriveExample<'a, T, T2, T3> > for DeriveExampleOpt<'a, T, T2, T3>
+                    where T: ::optionable::OptionableConvert,
+                          <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
+                          Cow<'a, T2>: ::optionable::OptionableConvert,
+                          <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                {
+                    fn from_optionable(value: DeriveExample<'a, T, T2, T3>) -> Self {
+                        ::optionable::OptionableConvert::into_optioned(value)
+                    }
+
+                    fn try_into_optionable(self) -> Result<DeriveExample<'a, T, T2, T3>, ::optionable::Error> {
+                        ::optionable::OptionableConvert::try_from_optioned(self)
+                    }
+
+                    fn merge_into(self, other: &mut DeriveExample<'a, T, T2, T3>) -> Result<(), ::optionable::Error> {
+                        ::optionable::OptionableConvert::merge(other, self)
+                    }
+                }
+            },
         );
     }
 
@@ -1706,127 +1706,127 @@ mod tests {
     fn test_enum_mixed_variants() {
         assert_optionable(
             quote! {
-                    #[derive(Optionable)]
-                    enum DeriveExample {
-                        Unit,
-                        Plain(String),
-                        Address{street: String, number: u32},
-                        Address2(String,u32),
-                    }
-                },
+                #[derive(Optionable)]
+                enum DeriveExample {
+                    Unit,
+                    Plain(String),
+                    Address{street: String, number: u32},
+                    Address2(String,u32),
+                }
+            },
             quote! {
-                    enum DeriveExampleOpt {
-                        Unit,
-                        Plain( Option<String> ),
-                        Address{ street: Option<String>, number:Option<u32> },
-                        Address2( Option<String>, Option<u32> )
-                    }
+                enum DeriveExampleOpt {
+                    Unit,
+                    Plain( Option<String> ),
+                    Address{ street: Option<String>, number:Option<u32> },
+                    Address2( Option<String>, Option<u32> )
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExample {
-                        type Optioned = DeriveExampleOpt;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExample {
+                    type Optioned = DeriveExampleOpt;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExampleOpt {
-                        type Optioned = DeriveExampleOpt;
-                    }
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExampleOpt {
+                    type Optioned = DeriveExampleOpt;
+                }
 
-                    #[automatically_derived]
-                    impl ::optionable::OptionableConvert for DeriveExample {
-                        fn into_optioned (self) -> DeriveExampleOpt {
-                            match self{
-                                Self::Unit => DeriveExampleOpt::Unit,
-                                Self::Plain(self_0) => DeriveExampleOpt::Plain(
-                                    Some(self_0)
-                                ),
-                                Self::Address{street: self_street, number: self_number} => DeriveExampleOpt::Address{
-                                    street: Some(self_street),
-                                    number: Some(self_number)
-                                },
-                                Self::Address2(self_0, self_1) => DeriveExampleOpt::Address2(
-                                    Some(self_0),
-                                    Some(self_1)
-                                )
-                            }
+                #[automatically_derived]
+                impl ::optionable::OptionableConvert for DeriveExample {
+                    fn into_optioned (self) -> DeriveExampleOpt {
+                        match self{
+                            Self::Unit => DeriveExampleOpt::Unit,
+                            Self::Plain(self_0) => DeriveExampleOpt::Plain(
+                                Some(self_0)
+                            ),
+                            Self::Address{street: self_street, number: self_number} => DeriveExampleOpt::Address{
+                                street: Some(self_street),
+                                number: Some(self_number)
+                            },
+                            Self::Address2(self_0, self_1) => DeriveExampleOpt::Address2(
+                                Some(self_0),
+                                Some(self_1)
+                            )
                         }
+                    }
 
-                         fn try_from_optioned(other: DeriveExampleOpt) -> Result <Self, ::optionable::Error> {
-                            Ok (match other {
-                                DeriveExampleOpt::Unit => Self::Unit,
-                                DeriveExampleOpt::Plain(other_0) => Self::Plain(
-                                    other_0.ok_or(::optionable::Error { missing_field: "0" })?
-                                ),
-                                DeriveExampleOpt::Address{street: other_street, number: other_number} => Self::Address{
-                                    street: other_street.ok_or(::optionable::Error { missing_field: "street" })?,
-                                    number: other_number.ok_or(::optionable::Error { missing_field: "number" })?
-                                },
-                                DeriveExampleOpt::Address2(other_0, other_1) => Self::Address2(
-                                    other_0.ok_or(::optionable::Error { missing_field: "0"})?,
-                                    other_1.ok_or(::optionable::Error { missing_field: "1"})?)
-                            })
-                        }
+                     fn try_from_optioned(other: DeriveExampleOpt) -> Result <Self, ::optionable::Error> {
+                        Ok (match other {
+                            DeriveExampleOpt::Unit => Self::Unit,
+                            DeriveExampleOpt::Plain(other_0) => Self::Plain(
+                                other_0.ok_or(::optionable::Error { missing_field: "0" })?
+                            ),
+                            DeriveExampleOpt::Address{street: other_street, number: other_number} => Self::Address{
+                                street: other_street.ok_or(::optionable::Error { missing_field: "street" })?,
+                                number: other_number.ok_or(::optionable::Error { missing_field: "number" })?
+                            },
+                            DeriveExampleOpt::Address2(other_0, other_1) => Self::Address2(
+                                other_0.ok_or(::optionable::Error { missing_field: "0"})?,
+                                other_1.ok_or(::optionable::Error { missing_field: "1"})?)
+                        })
+                    }
 
-                        fn merge(&mut self, other: DeriveExampleOpt) -> Result<(), ::optionable::Error> {
-                            match other {
-                                DeriveExampleOpt::Unit => {
-                                    if let Self::Unit = self {} else {
-                                        *self = Self::try_from_optioned(DeriveExampleOpt::Unit)?;
+                    fn merge(&mut self, other: DeriveExampleOpt) -> Result<(), ::optionable::Error> {
+                        match other {
+                            DeriveExampleOpt::Unit => {
+                                if let Self::Unit = self {} else {
+                                    *self = Self::try_from_optioned(DeriveExampleOpt::Unit)?;
+                                }
+                            },
+                            DeriveExampleOpt::Plain(other_0) => {
+                                if let Self::Plain(self_0) = self{
+                                    if let Some(other_value) = other_0 {
+                                        *self_0 = other_value;
                                     }
-                                },
-                                DeriveExampleOpt::Plain(other_0) => {
-                                    if let Self::Plain(self_0) = self{
-                                        if let Some(other_value) = other_0 {
-                                            *self_0 = other_value;
-                                        }
-                                    } else {
-                                        *self = Self::try_from_optioned(DeriveExampleOpt::Plain(other_0))?;
+                                } else {
+                                    *self = Self::try_from_optioned(DeriveExampleOpt::Plain(other_0))?;
+                                }
+                            },
+                            DeriveExampleOpt::Address{street: other_street, number: other_number} => {
+                                if let Self::Address{street: self_street, number: self_number}  = self{
+                                    if let Some(other_value) = other_street {
+                                        *self_street = other_value;
                                     }
-                                },
-                                DeriveExampleOpt::Address{street: other_street, number: other_number} => {
-                                    if let Self::Address{street: self_street, number: self_number}  = self{
-                                        if let Some(other_value) = other_street {
-                                            *self_street = other_value;
-                                        }
-                                        if let Some(other_value) = other_number {
-                                            *self_number = other_value;
-                                        }
-                                    } else {
-                                        *self = Self::try_from_optioned(DeriveExampleOpt::Address{street: other_street, number: other_number})?;
+                                    if let Some(other_value) = other_number {
+                                        *self_number = other_value;
                                     }
-                                },
-                                DeriveExampleOpt::Address2(other_0, other_1) => {
-                                    if let Self::Address2(self_0, self_1) = self{
-                                        if let Some(other_value) = other_0 {
-                                            *self_0 = other_value;
-                                        }
-                                        if let Some(other_value) = other_1 {
-                                            *self_1 = other_value;
-                                        }
-                                    } else {
-                                        *self = Self::try_from_optioned(DeriveExampleOpt::Address2(other_0, other_1))?;
+                                } else {
+                                    *self = Self::try_from_optioned(DeriveExampleOpt::Address{street: other_street, number: other_number})?;
+                                }
+                            },
+                            DeriveExampleOpt::Address2(other_0, other_1) => {
+                                if let Self::Address2(self_0, self_1) = self{
+                                    if let Some(other_value) = other_0 {
+                                        *self_0 = other_value;
                                     }
+                                    if let Some(other_value) = other_1 {
+                                        *self_1 = other_value;
+                                    }
+                                } else {
+                                    *self = Self::try_from_optioned(DeriveExampleOpt::Address2(other_0, other_1))?;
                                 }
                             }
-                            Ok(())
                         }
+                        Ok(())
+                    }
+                }
+
+                #[automatically_derived]
+                impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
+                    fn from_optionable(value: DeriveExample) -> Self {
+                        ::optionable::OptionableConvert::into_optioned(value)
                     }
 
-                    #[automatically_derived]
-                    impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
-                        fn from_optionable(value: DeriveExample) -> Self {
-                            ::optionable::OptionableConvert::into_optioned(value)
-                        }
-
-                        fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
-                            ::optionable::OptionableConvert::try_from_optioned(self)
-                        }
-
-                        fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
-                            ::optionable::OptionableConvert::merge(other, self)
-                        }
+                    fn try_into_optionable(self) -> Result<DeriveExample, ::optionable::Error> {
+                        ::optionable::OptionableConvert::try_from_optioned(self)
                     }
-                },
+
+                    fn merge_into(self, other: &mut DeriveExample) -> Result<(), ::optionable::Error> {
+                        ::optionable::OptionableConvert::merge(other, self)
+                    }
+                }
+            },
         );
     }
 
@@ -1834,35 +1834,35 @@ mod tests {
     fn test_enum_unit_variants() {
         assert_optionable(
             quote! {
-                    #[derive(Optionable)]
-                    enum DeriveExample {
-                        Unit,
-                        Unit2,
-                        Unit3
-                    }
-                },
+                #[derive(Optionable)]
+                enum DeriveExample {
+                    Unit,
+                    Unit2,
+                    Unit3
+                }
+            },
             quote! {
-                    #[automatically_derived]
-                    impl ::optionable::Optionable for DeriveExample {
-                        type Optioned = Self;
+                #[automatically_derived]
+                impl ::optionable::Optionable for DeriveExample {
+                    type Optioned = Self;
+                }
+
+                #[automatically_derived]
+                impl ::optionable::OptionableConvert for DeriveExample {
+                    fn into_optioned(self) -> DeriveExample{
+                        self
                     }
 
-                    #[automatically_derived]
-                    impl ::optionable::OptionableConvert for DeriveExample {
-                        fn into_optioned(self) -> DeriveExample{
-                            self
-                        }
-
-                        fn try_from_optioned(value: Self::Optioned) -> Result <Self , ::optionable::Error> {
-                            Ok (value)
-                        }
-
-                        fn merge (&mut self , other: Self::Optioned) -> Result <() , ::optionable::Error> {
-                            *self = other;
-                            Ok(())
-                        }
+                    fn try_from_optioned(value: Self::Optioned) -> Result <Self , ::optionable::Error> {
+                        Ok (value)
                     }
-                },
+
+                    fn merge (&mut self , other: Self::Optioned) -> Result <() , ::optionable::Error> {
+                        *self = other;
+                        Ok(())
+                    }
+                }
+            },
         );
     }
 
