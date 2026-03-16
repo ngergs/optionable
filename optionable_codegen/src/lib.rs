@@ -273,6 +273,7 @@ struct DataProcessingContext<'a> {
 ///
 /// # Panics
 /// - If the `kube.kube_crate` value (internal use only) does not contain a valid path
+#[allow(clippy::too_many_lines)]
 pub fn derive_optionable(
     input: DeriveInput,
     settings: Option<&CodegenSettings>,
@@ -534,6 +535,7 @@ fn impl_optionable_self(crate_name: &Path, ty_ident: &Path, no_convert: bool) ->
 }
 
 /// Processes a `Data::Struct` into the `Derived` output.
+#[allow(clippy::too_many_lines)]
 fn process_struct_data(
     ctx: DataProcessingContext<'_>,
     data_struct: DataStruct,
@@ -616,6 +618,7 @@ fn process_struct_data(
 }
 
 /// Processes a `Data::Enum` into the `Derived` output.
+#[allow(clippy::too_many_lines)]
 fn process_enum_data(ctx: DataProcessingContext<'_>, data_enum: DataEnum) -> syn::Result<Derived> {
     let self_prefix = quote! {self_};
     let other_prefix = quote! {other_};
