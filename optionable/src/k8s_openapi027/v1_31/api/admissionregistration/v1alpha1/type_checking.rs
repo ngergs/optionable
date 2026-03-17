@@ -1,23 +1,13 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TypeCheckingAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expression_warnings: <Option<
-        std::vec::Vec<
-            ::k8s_openapi027::api::admissionregistration::v1alpha1::ExpressionWarning,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::admissionregistration::v1alpha1::ExpressionWarning>,
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::admissionregistration::v1alpha1::TypeChecking {
+impl crate::Optionable for k8s_openapi027::api::admissionregistration::v1alpha1::TypeChecking {
     type Optioned = TypeCheckingAc;
 }
 #[automatically_derived]
@@ -27,12 +17,11 @@ impl crate::Optionable for TypeCheckingAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::admissionregistration::v1alpha1::TypeChecking {
+    for k8s_openapi027::api::admissionregistration::v1alpha1::TypeChecking
+{
     fn into_optioned(self) -> TypeCheckingAc {
         TypeCheckingAc {
-            expression_warnings: crate::OptionableConvert::into_optioned(
-                self.expression_warnings,
-            ),
+            expression_warnings: crate::OptionableConvert::into_optioned(self.expression_warnings),
         }
     }
     fn try_from_optioned(value: TypeCheckingAc) -> Result<Self, crate::Error> {
@@ -43,18 +32,15 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::TypeChecking {
         })
     }
     fn merge(&mut self, other: TypeCheckingAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.expression_warnings,
-            other.expression_warnings,
-        )?;
+        crate::OptionableConvert::merge(&mut self.expression_warnings, other.expression_warnings)?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::admissionregistration::v1alpha1::TypeChecking,
-> for TypeCheckingAc {
+impl crate::OptionedConvert<k8s_openapi027::api::admissionregistration::v1alpha1::TypeChecking>
+    for TypeCheckingAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::admissionregistration::v1alpha1::TypeChecking,
     ) -> Self {
@@ -62,10 +48,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::admissionregistration::v1alpha1::TypeChecking,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::admissionregistration::v1alpha1::TypeChecking, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

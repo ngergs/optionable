@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ConfigMapKeySelectorAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -35,20 +28,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapKeySel
     }
     fn try_from_optioned(value: ConfigMapKeySelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            key: crate::OptionableConvert::try_from_optioned(
-                value
-                    .key
-                    .ok_or(crate::Error {
-                        missing_field: "key",
-                    })?,
-            )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            key: crate::OptionableConvert::try_from_optioned(value.key.ok_or(crate::Error {
+                missing_field: "key",
+            })?)?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
             optional: crate::OptionableConvert::try_from_optioned(value.optional)?,
         })
     }
@@ -66,10 +51,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapKeySel
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ConfigMapKeySelector>
-for ConfigMapKeySelectorAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::ConfigMapKeySelector,
-    ) -> Self {
+    for ConfigMapKeySelectorAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::ConfigMapKeySelector) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

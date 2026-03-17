@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NFSVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -35,21 +28,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NFSVolumeSource
     }
     fn try_from_optioned(value: NFSVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            path: crate::OptionableConvert::try_from_optioned(
-                value
-                    .path
-                    .ok_or(crate::Error {
-                        missing_field: "path",
-                    })?,
-            )?,
+            path: crate::OptionableConvert::try_from_optioned(value.path.ok_or(crate::Error {
+                missing_field: "path",
+            })?)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
-            server: crate::OptionableConvert::try_from_optioned(
-                value
-                    .server
-                    .ok_or(crate::Error {
-                        missing_field: "server",
-                    })?,
-            )?,
+            server: crate::OptionableConvert::try_from_optioned(value.server.ok_or(
+                crate::Error {
+                    missing_field: "server",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: NFSVolumeSourceAc) -> Result<(), crate::Error> {
@@ -65,8 +52,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NFSVolumeSource
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NFSVolumeSource>
-for NFSVolumeSourceAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NFSVolumeSource> for NFSVolumeSourceAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::NFSVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

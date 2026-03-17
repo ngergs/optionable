@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HTTPHeaderAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -32,20 +25,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HTTPHeader {
     }
     fn try_from_optioned(value: HTTPHeaderAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
-            value: crate::OptionableConvert::try_from_optioned(
-                value
-                    .value
-                    .ok_or(crate::Error {
-                        missing_field: "value",
-                    })?,
-            )?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
+            value: crate::OptionableConvert::try_from_optioned(value.value.ok_or(
+                crate::Error {
+                    missing_field: "value",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: HTTPHeaderAc) -> Result<(), crate::Error> {

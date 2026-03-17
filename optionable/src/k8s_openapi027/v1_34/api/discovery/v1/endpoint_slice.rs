@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointSliceAc {
     #[serde(
@@ -47,9 +40,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointSl
         EndpointSliceAc {
             api_version: Default::default(),
             kind: Default::default(),
-            address_type: Some(
-                crate::OptionableConvert::into_optioned(self.address_type),
-            ),
+            address_type: Some(crate::OptionableConvert::into_optioned(self.address_type)),
             endpoints: Some(crate::OptionableConvert::into_optioned(self.endpoints)),
             metadata: self.metadata,
             ports: crate::OptionableConvert::into_optioned(self.ports),
@@ -57,20 +48,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointSl
     }
     fn try_from_optioned(value: EndpointSliceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            address_type: crate::OptionableConvert::try_from_optioned(
-                value
-                    .address_type
-                    .ok_or(crate::Error {
-                        missing_field: "address_type",
-                    })?,
-            )?,
-            endpoints: crate::OptionableConvert::try_from_optioned(
-                value
-                    .endpoints
-                    .ok_or(crate::Error {
-                        missing_field: "endpoints",
-                    })?,
-            )?,
+            address_type: crate::OptionableConvert::try_from_optioned(value.address_type.ok_or(
+                crate::Error {
+                    missing_field: "address_type",
+                },
+            )?)?,
+            endpoints: crate::OptionableConvert::try_from_optioned(value.endpoints.ok_or(
+                crate::Error {
+                    missing_field: "endpoints",
+                },
+            )?)?,
             metadata: value.metadata,
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
         })
@@ -89,11 +76,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointSl
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::discovery::v1::EndpointSlice>
-for EndpointSliceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::discovery::v1::EndpointSlice,
-    ) -> Self {
+impl crate::OptionedConvert<k8s_openapi027::api::discovery::v1::EndpointSlice> for EndpointSliceAc {
+    fn from_optionable(value: k8s_openapi027::api::discovery::v1::EndpointSlice) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
@@ -110,11 +94,15 @@ for EndpointSliceAc {
 }
 impl k8s_openapi027::Resource for EndpointSliceAc {
     const API_VERSION: &'static str = <k8s_openapi027::api::discovery::v1::EndpointSlice as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::discovery::v1::EndpointSlice as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::discovery::v1::EndpointSlice as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::discovery::v1::EndpointSlice as k8s_openapi027::Resource>::VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::discovery::v1::EndpointSlice as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::discovery::v1::EndpointSlice as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::discovery::v1::EndpointSlice as k8s_openapi027::Resource>::VERSION;
     const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::discovery::v1::EndpointSlice as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
-    type Scope = <k8s_openapi027::api::discovery::v1::EndpointSlice as k8s_openapi027::Resource>::Scope;
+    type Scope =
+        <k8s_openapi027::api::discovery::v1::EndpointSlice as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for EndpointSliceAc {
     type Ty = <k8s_openapi027::api::discovery::v1::EndpointSlice as k8s_openapi027::Metadata>::Ty;
@@ -128,7 +116,5 @@ impl k8s_openapi027::Metadata for EndpointSliceAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_endpointsliceac() {
-    crate::testutil::roundtrip_test::<
-        k8s_openapi027::api::discovery::v1::EndpointSlice,
-    >();
+    crate::testutil::roundtrip_test::<k8s_openapi027::api::discovery::v1::EndpointSlice>();
 }

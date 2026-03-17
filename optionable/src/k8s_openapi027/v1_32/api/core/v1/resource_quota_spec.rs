@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceQuotaSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -16,13 +9,10 @@ pub struct ResourceQuotaSpecAc {
         >,
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope_selector: <Option<
-        ::k8s_openapi027::api::core::v1::ScopeSelector,
-    > as crate::Optionable>::Optioned,
+    pub scope_selector:
+        <Option<::k8s_openapi027::api::core::v1::ScopeSelector> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scopes: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub scopes: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ResourceQuotaSpec {
@@ -45,9 +35,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceQuotaSp
     fn try_from_optioned(value: ResourceQuotaSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hard: crate::OptionableConvert::try_from_optioned(value.hard)?,
-            scope_selector: crate::OptionableConvert::try_from_optioned(
-                value.scope_selector,
-            )?,
+            scope_selector: crate::OptionableConvert::try_from_optioned(value.scope_selector)?,
             scopes: crate::OptionableConvert::try_from_optioned(value.scopes)?,
         })
     }
@@ -61,7 +49,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceQuotaSp
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ResourceQuotaSpec>
-for ResourceQuotaSpecAc {
+    for ResourceQuotaSpecAc
+{
     fn from_optionable(value: k8s_openapi027::api::core::v1::ResourceQuotaSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

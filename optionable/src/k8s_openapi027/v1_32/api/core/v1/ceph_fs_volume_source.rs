@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CephFSVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -48,13 +41,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::CephFSVolumeSou
     }
     fn try_from_optioned(value: CephFSVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            monitors: crate::OptionableConvert::try_from_optioned(
-                value
-                    .monitors
-                    .ok_or(crate::Error {
-                        missing_field: "monitors",
-                    })?,
-            )?,
+            monitors: crate::OptionableConvert::try_from_optioned(value.monitors.ok_or(
+                crate::Error {
+                    missing_field: "monitors",
+                },
+            )?)?,
             path: crate::OptionableConvert::try_from_optioned(value.path)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
             secret_file: crate::OptionableConvert::try_from_optioned(value.secret_file)?,
@@ -77,10 +68,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::CephFSVolumeSou
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::CephFSVolumeSource>
-for CephFSVolumeSourceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::CephFSVolumeSource,
-    ) -> Self {
+    for CephFSVolumeSourceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::CephFSVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

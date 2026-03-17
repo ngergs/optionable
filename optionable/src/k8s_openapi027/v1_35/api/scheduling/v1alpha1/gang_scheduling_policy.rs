@@ -1,19 +1,11 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GangSchedulingPolicyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub min_count: Option<i32>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy {
+impl crate::Optionable for k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy {
     type Optioned = GangSchedulingPolicyAc;
 }
 #[automatically_derived]
@@ -22,8 +14,7 @@ impl crate::Optionable for GangSchedulingPolicyAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy {
+impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy {
     fn into_optioned(self) -> GangSchedulingPolicyAc {
         GangSchedulingPolicyAc {
             min_count: Some(self.min_count),
@@ -31,11 +22,9 @@ for k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy {
     }
     fn try_from_optioned(value: GangSchedulingPolicyAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            min_count: value
-                .min_count
-                .ok_or(crate::Error {
-                    missing_field: "min_count",
-                })?,
+            min_count: value.min_count.ok_or(crate::Error {
+                missing_field: "min_count",
+            })?,
         })
     }
     fn merge(&mut self, other: GangSchedulingPolicyAc) -> Result<(), crate::Error> {
@@ -47,9 +36,9 @@ for k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy,
-> for GangSchedulingPolicyAc {
+impl crate::OptionedConvert<k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy>
+    for GangSchedulingPolicyAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy,
     ) -> Self {
@@ -57,10 +46,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

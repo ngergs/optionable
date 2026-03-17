@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressClassAc {
     #[serde(
@@ -57,11 +50,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressCl
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::IngressClass>
-for IngressClassAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::networking::v1::IngressClass,
-    ) -> Self {
+impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::IngressClass> for IngressClassAc {
+    fn from_optionable(value: k8s_openapi027::api::networking::v1::IngressClass) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
@@ -78,11 +68,15 @@ for IngressClassAc {
 }
 impl k8s_openapi027::Resource for IngressClassAc {
     const API_VERSION: &'static str = <k8s_openapi027::api::networking::v1::IngressClass as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::networking::v1::IngressClass as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::networking::v1::IngressClass as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::networking::v1::IngressClass as k8s_openapi027::Resource>::VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::networking::v1::IngressClass as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::networking::v1::IngressClass as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::networking::v1::IngressClass as k8s_openapi027::Resource>::VERSION;
     const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::networking::v1::IngressClass as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
-    type Scope = <k8s_openapi027::api::networking::v1::IngressClass as k8s_openapi027::Resource>::Scope;
+    type Scope =
+        <k8s_openapi027::api::networking::v1::IngressClass as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for IngressClassAc {
     type Ty = <k8s_openapi027::api::networking::v1::IngressClass as k8s_openapi027::Metadata>::Ty;
@@ -96,7 +90,5 @@ impl k8s_openapi027::Metadata for IngressClassAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_ingressclassac() {
-    crate::testutil::roundtrip_test::<
-        k8s_openapi027::api::networking::v1::IngressClass,
-    >();
+    crate::testutil::roundtrip_test::<k8s_openapi027::api::networking::v1::IngressClass>();
 }

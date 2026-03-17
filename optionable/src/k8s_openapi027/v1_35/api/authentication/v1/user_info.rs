@@ -1,24 +1,12 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct UserInfoAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub extra: <Option<
-        std::collections::BTreeMap<
-            std::string::String,
-            std::vec::Vec<std::string::String>,
-        >,
+        std::collections::BTreeMap<std::string::String, std::vec::Vec<std::string::String>>,
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub groups: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub groups: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -61,11 +49,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::authentication::v1::UserI
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::authentication::v1::UserInfo>
-for UserInfoAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::authentication::v1::UserInfo,
-    ) -> Self {
+impl crate::OptionedConvert<k8s_openapi027::api::authentication::v1::UserInfo> for UserInfoAc {
+    fn from_optionable(value: k8s_openapi027::api::authentication::v1::UserInfo) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

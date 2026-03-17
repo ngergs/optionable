@@ -1,31 +1,16 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourcePolicyRuleAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub api_groups: Option<
-        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
-    >,
+    pub api_groups: Option<<std::vec::Vec<std::string::String> as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster_scope: <Option<bool> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub namespaces: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub namespaces: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resources: Option<
-        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
-    >,
+    pub resources: Option<<std::vec::Vec<std::string::String> as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub verbs: Option<
-        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
-    >,
+    pub verbs: Option<<std::vec::Vec<std::string::String> as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule {
@@ -37,8 +22,7 @@ impl crate::Optionable for ResourcePolicyRuleAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule {
+impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule {
     fn into_optioned(self) -> ResourcePolicyRuleAc {
         ResourcePolicyRuleAc {
             api_groups: Some(crate::OptionableConvert::into_optioned(self.api_groups)),
@@ -50,31 +34,23 @@ for k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule {
     }
     fn try_from_optioned(value: ResourcePolicyRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            api_groups: crate::OptionableConvert::try_from_optioned(
-                value
-                    .api_groups
-                    .ok_or(crate::Error {
-                        missing_field: "api_groups",
-                    })?,
-            )?,
-            cluster_scope: crate::OptionableConvert::try_from_optioned(
-                value.cluster_scope,
-            )?,
+            api_groups: crate::OptionableConvert::try_from_optioned(value.api_groups.ok_or(
+                crate::Error {
+                    missing_field: "api_groups",
+                },
+            )?)?,
+            cluster_scope: crate::OptionableConvert::try_from_optioned(value.cluster_scope)?,
             namespaces: crate::OptionableConvert::try_from_optioned(value.namespaces)?,
-            resources: crate::OptionableConvert::try_from_optioned(
-                value
-                    .resources
-                    .ok_or(crate::Error {
-                        missing_field: "resources",
-                    })?,
-            )?,
-            verbs: crate::OptionableConvert::try_from_optioned(
-                value
-                    .verbs
-                    .ok_or(crate::Error {
-                        missing_field: "verbs",
-                    })?,
-            )?,
+            resources: crate::OptionableConvert::try_from_optioned(value.resources.ok_or(
+                crate::Error {
+                    missing_field: "resources",
+                },
+            )?)?,
+            verbs: crate::OptionableConvert::try_from_optioned(value.verbs.ok_or(
+                crate::Error {
+                    missing_field: "verbs",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: ResourcePolicyRuleAc) -> Result<(), crate::Error> {
@@ -95,10 +71,9 @@ for k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule>
-for ResourcePolicyRuleAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule,
-    ) -> Self {
+    for ResourcePolicyRuleAc
+{
+    fn from_optionable(value: k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

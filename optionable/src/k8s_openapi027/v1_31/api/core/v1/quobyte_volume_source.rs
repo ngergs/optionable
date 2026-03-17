@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct QuobyteVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -46,22 +39,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::QuobyteVolumeSo
         Ok(Self {
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
-            registry: crate::OptionableConvert::try_from_optioned(
-                value
-                    .registry
-                    .ok_or(crate::Error {
-                        missing_field: "registry",
-                    })?,
-            )?,
+            registry: crate::OptionableConvert::try_from_optioned(value.registry.ok_or(
+                crate::Error {
+                    missing_field: "registry",
+                },
+            )?)?,
             tenant: crate::OptionableConvert::try_from_optioned(value.tenant)?,
             user: crate::OptionableConvert::try_from_optioned(value.user)?,
-            volume: crate::OptionableConvert::try_from_optioned(
-                value
-                    .volume
-                    .ok_or(crate::Error {
-                        missing_field: "volume",
-                    })?,
-            )?,
+            volume: crate::OptionableConvert::try_from_optioned(value.volume.ok_or(
+                crate::Error {
+                    missing_field: "volume",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: QuobyteVolumeSourceAc) -> Result<(), crate::Error> {
@@ -81,10 +70,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::QuobyteVolumeSo
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::QuobyteVolumeSource>
-for QuobyteVolumeSourceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::QuobyteVolumeSource,
-    ) -> Self {
+    for QuobyteVolumeSourceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::QuobyteVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

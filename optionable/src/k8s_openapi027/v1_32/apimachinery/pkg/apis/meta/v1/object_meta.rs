@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ObjectMetaAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -58,8 +51,7 @@ pub struct ObjectMetaAc {
     pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
+impl crate::Optionable for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
     type Optioned = ObjectMetaAc;
 }
 #[automatically_derived]
@@ -68,20 +60,15 @@ impl crate::Optionable for ObjectMetaAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
+impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
     fn into_optioned(self) -> ObjectMetaAc {
         ObjectMetaAc {
             annotations: crate::OptionableConvert::into_optioned(self.annotations),
-            creation_timestamp: crate::OptionableConvert::into_optioned(
-                self.creation_timestamp,
-            ),
+            creation_timestamp: crate::OptionableConvert::into_optioned(self.creation_timestamp),
             deletion_grace_period_seconds: crate::OptionableConvert::into_optioned(
                 self.deletion_grace_period_seconds,
             ),
-            deletion_timestamp: crate::OptionableConvert::into_optioned(
-                self.deletion_timestamp,
-            ),
+            deletion_timestamp: crate::OptionableConvert::into_optioned(self.deletion_timestamp),
             finalizers: crate::OptionableConvert::into_optioned(self.finalizers),
             generate_name: crate::OptionableConvert::into_optioned(self.generate_name),
             generation: crate::OptionableConvert::into_optioned(self.generation),
@@ -89,12 +76,8 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
             managed_fields: crate::OptionableConvert::into_optioned(self.managed_fields),
             name: crate::OptionableConvert::into_optioned(self.name),
             namespace: crate::OptionableConvert::into_optioned(self.namespace),
-            owner_references: crate::OptionableConvert::into_optioned(
-                self.owner_references,
-            ),
-            resource_version: crate::OptionableConvert::into_optioned(
-                self.resource_version,
-            ),
+            owner_references: crate::OptionableConvert::into_optioned(self.owner_references),
+            resource_version: crate::OptionableConvert::into_optioned(self.resource_version),
             self_link: crate::OptionableConvert::into_optioned(self.self_link),
             uid: crate::OptionableConvert::into_optioned(self.uid),
         }
@@ -112,40 +95,26 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
                 value.deletion_timestamp,
             )?,
             finalizers: crate::OptionableConvert::try_from_optioned(value.finalizers)?,
-            generate_name: crate::OptionableConvert::try_from_optioned(
-                value.generate_name,
-            )?,
+            generate_name: crate::OptionableConvert::try_from_optioned(value.generate_name)?,
             generation: crate::OptionableConvert::try_from_optioned(value.generation)?,
             labels: crate::OptionableConvert::try_from_optioned(value.labels)?,
-            managed_fields: crate::OptionableConvert::try_from_optioned(
-                value.managed_fields,
-            )?,
+            managed_fields: crate::OptionableConvert::try_from_optioned(value.managed_fields)?,
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
             namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
-            owner_references: crate::OptionableConvert::try_from_optioned(
-                value.owner_references,
-            )?,
-            resource_version: crate::OptionableConvert::try_from_optioned(
-                value.resource_version,
-            )?,
+            owner_references: crate::OptionableConvert::try_from_optioned(value.owner_references)?,
+            resource_version: crate::OptionableConvert::try_from_optioned(value.resource_version)?,
             self_link: crate::OptionableConvert::try_from_optioned(value.self_link)?,
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
     fn merge(&mut self, other: ObjectMetaAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.annotations, other.annotations)?;
-        crate::OptionableConvert::merge(
-            &mut self.creation_timestamp,
-            other.creation_timestamp,
-        )?;
+        crate::OptionableConvert::merge(&mut self.creation_timestamp, other.creation_timestamp)?;
         crate::OptionableConvert::merge(
             &mut self.deletion_grace_period_seconds,
             other.deletion_grace_period_seconds,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.deletion_timestamp,
-            other.deletion_timestamp,
-        )?;
+        crate::OptionableConvert::merge(&mut self.deletion_timestamp, other.deletion_timestamp)?;
         crate::OptionableConvert::merge(&mut self.finalizers, other.finalizers)?;
         crate::OptionableConvert::merge(&mut self.generate_name, other.generate_name)?;
         crate::OptionableConvert::merge(&mut self.generation, other.generation)?;
@@ -153,14 +122,8 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
         crate::OptionableConvert::merge(&mut self.managed_fields, other.managed_fields)?;
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
-        crate::OptionableConvert::merge(
-            &mut self.owner_references,
-            other.owner_references,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.resource_version,
-            other.resource_version,
-        )?;
+        crate::OptionableConvert::merge(&mut self.owner_references, other.owner_references)?;
+        crate::OptionableConvert::merge(&mut self.resource_version, other.resource_version)?;
         crate::OptionableConvert::merge(&mut self.self_link, other.self_link)?;
         crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
         Ok(())
@@ -168,9 +131,9 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-> for ObjectMetaAc {
+impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta>
+    for ObjectMetaAc
+{
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     ) -> Self {
@@ -178,10 +141,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

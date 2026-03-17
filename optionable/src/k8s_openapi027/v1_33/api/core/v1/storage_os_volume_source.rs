@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageOSVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -38,9 +31,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::StorageOSVolume
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
             secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
             volume_name: crate::OptionableConvert::into_optioned(self.volume_name),
-            volume_namespace: crate::OptionableConvert::into_optioned(
-                self.volume_namespace,
-            ),
+            volume_namespace: crate::OptionableConvert::into_optioned(self.volume_namespace),
         }
     }
     fn try_from_optioned(value: StorageOSVolumeSourceAc) -> Result<Self, crate::Error> {
@@ -49,9 +40,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::StorageOSVolume
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
             secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
             volume_name: crate::OptionableConvert::try_from_optioned(value.volume_name)?,
-            volume_namespace: crate::OptionableConvert::try_from_optioned(
-                value.volume_namespace,
-            )?,
+            volume_namespace: crate::OptionableConvert::try_from_optioned(value.volume_namespace)?,
         })
     }
     fn merge(&mut self, other: StorageOSVolumeSourceAc) -> Result<(), crate::Error> {
@@ -59,20 +48,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::StorageOSVolume
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
         crate::OptionableConvert::merge(&mut self.volume_name, other.volume_name)?;
-        crate::OptionableConvert::merge(
-            &mut self.volume_namespace,
-            other.volume_namespace,
-        )?;
+        crate::OptionableConvert::merge(&mut self.volume_namespace, other.volume_namespace)?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::StorageOSVolumeSource>
-for StorageOSVolumeSourceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::StorageOSVolumeSource,
-    ) -> Self {
+    for StorageOSVolumeSourceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::StorageOSVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

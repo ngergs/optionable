@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceRequestAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -33,33 +26,22 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceReque
     fn into_optioned(self) -> DeviceRequestAc {
         DeviceRequestAc {
             exactly: crate::OptionableConvert::into_optioned(self.exactly),
-            first_available: crate::OptionableConvert::into_optioned(
-                self.first_available,
-            ),
+            first_available: crate::OptionableConvert::into_optioned(self.first_available),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
     fn try_from_optioned(value: DeviceRequestAc) -> Result<Self, crate::Error> {
         Ok(Self {
             exactly: crate::OptionableConvert::try_from_optioned(value.exactly)?,
-            first_available: crate::OptionableConvert::try_from_optioned(
-                value.first_available,
-            )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            first_available: crate::OptionableConvert::try_from_optioned(value.first_available)?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
         })
     }
     fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.exactly, other.exactly)?;
-        crate::OptionableConvert::merge(
-            &mut self.first_available,
-            other.first_available,
-        )?;
+        crate::OptionableConvert::merge(&mut self.first_available, other.first_available)?;
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
@@ -68,8 +50,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceReque
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::resource::v1::DeviceRequest>
-for DeviceRequestAc {
+impl crate::OptionedConvert<k8s_openapi027::api::resource::v1::DeviceRequest> for DeviceRequestAc {
     fn from_optionable(value: k8s_openapi027::api::resource::v1::DeviceRequest) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

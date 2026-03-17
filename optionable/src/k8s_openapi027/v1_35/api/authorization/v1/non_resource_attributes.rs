@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NonResourceAttributesAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -14,8 +7,7 @@ pub struct NonResourceAttributesAc {
     pub verb: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::authorization::v1::NonResourceAttributes {
+impl crate::Optionable for k8s_openapi027::api::authorization::v1::NonResourceAttributes {
     type Optioned = NonResourceAttributesAc;
 }
 #[automatically_derived]
@@ -24,8 +16,7 @@ impl crate::Optionable for NonResourceAttributesAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::authorization::v1::NonResourceAttributes {
+impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::NonResourceAttributes {
     fn into_optioned(self) -> NonResourceAttributesAc {
         NonResourceAttributesAc {
             path: crate::OptionableConvert::into_optioned(self.path),
@@ -46,9 +37,9 @@ for k8s_openapi027::api::authorization::v1::NonResourceAttributes {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::authorization::v1::NonResourceAttributes,
-> for NonResourceAttributesAc {
+impl crate::OptionedConvert<k8s_openapi027::api::authorization::v1::NonResourceAttributes>
+    for NonResourceAttributesAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::authorization::v1::NonResourceAttributes,
     ) -> Self {
@@ -56,10 +47,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::authorization::v1::NonResourceAttributes,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::authorization::v1::NonResourceAttributes, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

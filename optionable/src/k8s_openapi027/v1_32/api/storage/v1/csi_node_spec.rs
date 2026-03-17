@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CSINodeSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -33,13 +26,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSINodeSpec 
     }
     fn try_from_optioned(value: CSINodeSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            drivers: crate::OptionableConvert::try_from_optioned(
-                value
-                    .drivers
-                    .ok_or(crate::Error {
-                        missing_field: "drivers",
-                    })?,
-            )?,
+            drivers: crate::OptionableConvert::try_from_optioned(value.drivers.ok_or(
+                crate::Error {
+                    missing_field: "drivers",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: CSINodeSpecAc) -> Result<(), crate::Error> {
@@ -51,8 +42,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSINodeSpec 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::storage::v1::CSINodeSpec>
-for CSINodeSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::storage::v1::CSINodeSpec> for CSINodeSpecAc {
     fn from_optionable(value: k8s_openapi027::api::storage::v1::CSINodeSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

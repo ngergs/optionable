@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointPortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -38,15 +31,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointPort {
     }
     fn try_from_optioned(value: EndpointPortAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            app_protocol: crate::OptionableConvert::try_from_optioned(
-                value.app_protocol,
-            )?,
+            app_protocol: crate::OptionableConvert::try_from_optioned(value.app_protocol)?,
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
-            port: value
-                .port
-                .ok_or(crate::Error {
-                    missing_field: "port",
-                })?,
+            port: value.port.ok_or(crate::Error {
+                missing_field: "port",
+            })?,
             protocol: crate::OptionableConvert::try_from_optioned(value.protocol)?,
         })
     }
@@ -62,8 +51,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointPort {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::EndpointPort>
-for EndpointPortAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::EndpointPort> for EndpointPortAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::EndpointPort) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

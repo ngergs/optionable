@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSelectorTermAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -30,9 +23,7 @@ impl crate::Optionable for NodeSelectorTermAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSelectorTerm {
     fn into_optioned(self) -> NodeSelectorTermAc {
         NodeSelectorTermAc {
-            match_expressions: crate::OptionableConvert::into_optioned(
-                self.match_expressions,
-            ),
+            match_expressions: crate::OptionableConvert::into_optioned(self.match_expressions),
             match_fields: crate::OptionableConvert::into_optioned(self.match_fields),
         }
     }
@@ -41,16 +32,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSelectorTer
             match_expressions: crate::OptionableConvert::try_from_optioned(
                 value.match_expressions,
             )?,
-            match_fields: crate::OptionableConvert::try_from_optioned(
-                value.match_fields,
-            )?,
+            match_fields: crate::OptionableConvert::try_from_optioned(value.match_fields)?,
         })
     }
     fn merge(&mut self, other: NodeSelectorTermAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.match_expressions,
-            other.match_expressions,
-        )?;
+        crate::OptionableConvert::merge(&mut self.match_expressions, other.match_expressions)?;
         crate::OptionableConvert::merge(&mut self.match_fields, other.match_fields)?;
         Ok(())
     }
@@ -58,7 +44,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSelectorTer
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSelectorTerm>
-for NodeSelectorTermAc {
+    for NodeSelectorTermAc
+{
     fn from_optionable(value: k8s_openapi027::api::core::v1::NodeSelectorTerm) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

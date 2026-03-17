@@ -3,14 +3,14 @@ extern crate core;
 use darling::FromMeta;
 use optionable_codegen::CodegenSettings;
 use proc_macro2::Span;
-use quote::{format_ident, ToTokens};
+use quote::{ToTokens, format_ident};
 use std::fs::create_dir_all;
 use std::mem::take;
 use std::path::Path;
 use std::{fs, io};
 use syn::Item::{Enum, Mod, Struct, Use};
 use syn::{
-    parse_quote, DeriveInput, Error, Item, ItemEnum, ItemStruct, Token, UseTree, Visibility,
+    DeriveInput, Error, Item, ItemEnum, ItemStruct, Token, UseTree, Visibility, parse_quote,
 };
 
 /// Used for callback actions when encountering specific elements.

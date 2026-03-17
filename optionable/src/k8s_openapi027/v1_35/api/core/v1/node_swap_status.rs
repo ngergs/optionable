@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSwapStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -39,8 +32,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSwapStatus 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSwapStatus>
-for NodeSwapStatusAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSwapStatus> for NodeSwapStatusAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::NodeSwapStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

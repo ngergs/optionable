@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ObjectReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -41,9 +34,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ObjectReference
             kind: crate::OptionableConvert::into_optioned(self.kind),
             name: crate::OptionableConvert::into_optioned(self.name),
             namespace: crate::OptionableConvert::into_optioned(self.namespace),
-            resource_version: crate::OptionableConvert::into_optioned(
-                self.resource_version,
-            ),
+            resource_version: crate::OptionableConvert::into_optioned(self.resource_version),
             uid: crate::OptionableConvert::into_optioned(self.uid),
         }
     }
@@ -54,9 +45,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ObjectReference
             kind: crate::OptionableConvert::try_from_optioned(value.kind)?,
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
             namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
-            resource_version: crate::OptionableConvert::try_from_optioned(
-                value.resource_version,
-            )?,
+            resource_version: crate::OptionableConvert::try_from_optioned(value.resource_version)?,
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
@@ -66,18 +55,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ObjectReference
         crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
         crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
-        crate::OptionableConvert::merge(
-            &mut self.resource_version,
-            other.resource_version,
-        )?;
+        crate::OptionableConvert::merge(&mut self.resource_version, other.resource_version)?;
         crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ObjectReference>
-for ObjectReferenceAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ObjectReference> for ObjectReferenceAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::ObjectReference) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

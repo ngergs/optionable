@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FlowSchemaConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -32,8 +25,7 @@ impl crate::Optionable for FlowSchemaConditionAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition {
+impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition {
     fn into_optioned(self) -> FlowSchemaConditionAc {
         FlowSchemaConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
@@ -71,18 +63,14 @@ for k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition>
-for FlowSchemaConditionAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition,
-    ) -> Self {
+    for FlowSchemaConditionAc
+{
+    fn from_optionable(value: k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

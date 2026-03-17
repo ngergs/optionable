@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceAccountTokenProjectionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -25,43 +18,28 @@ impl crate::Optionable for ServiceAccountTokenProjectionAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::core::v1::ServiceAccountTokenProjection {
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceAccountTokenProjection {
     fn into_optioned(self) -> ServiceAccountTokenProjectionAc {
         ServiceAccountTokenProjectionAc {
             audience: crate::OptionableConvert::into_optioned(self.audience),
-            expiration_seconds: crate::OptionableConvert::into_optioned(
-                self.expiration_seconds,
-            ),
+            expiration_seconds: crate::OptionableConvert::into_optioned(self.expiration_seconds),
             path: Some(crate::OptionableConvert::into_optioned(self.path)),
         }
     }
-    fn try_from_optioned(
-        value: ServiceAccountTokenProjectionAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: ServiceAccountTokenProjectionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             audience: crate::OptionableConvert::try_from_optioned(value.audience)?,
             expiration_seconds: crate::OptionableConvert::try_from_optioned(
                 value.expiration_seconds,
             )?,
-            path: crate::OptionableConvert::try_from_optioned(
-                value
-                    .path
-                    .ok_or(crate::Error {
-                        missing_field: "path",
-                    })?,
-            )?,
+            path: crate::OptionableConvert::try_from_optioned(value.path.ok_or(crate::Error {
+                missing_field: "path",
+            })?)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ServiceAccountTokenProjectionAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: ServiceAccountTokenProjectionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.audience, other.audience)?;
-        crate::OptionableConvert::merge(
-            &mut self.expiration_seconds,
-            other.expiration_seconds,
-        )?;
+        crate::OptionableConvert::merge(&mut self.expiration_seconds, other.expiration_seconds)?;
         if let Some(other_value) = other.path {
             crate::OptionableConvert::merge(&mut self.path, other_value)?;
         }
@@ -71,7 +49,8 @@ for k8s_openapi027::api::core::v1::ServiceAccountTokenProjection {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ServiceAccountTokenProjection>
-for ServiceAccountTokenProjectionAc {
+    for ServiceAccountTokenProjectionAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::core::v1::ServiceAccountTokenProjection,
     ) -> Self {
@@ -79,10 +58,7 @@ for ServiceAccountTokenProjectionAc {
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::core::v1::ServiceAccountTokenProjection,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::core::v1::ServiceAccountTokenProjection, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct OwnerReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -22,8 +15,7 @@ pub struct OwnerReferenceAc {
     pub uid: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
+impl crate::Optionable for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
     type Optioned = OwnerReferenceAc;
 }
 #[automatically_derived]
@@ -33,7 +25,8 @@ impl crate::Optionable for OwnerReferenceAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
+    for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference
+{
     fn into_optioned(self) -> OwnerReferenceAc {
         OwnerReferenceAc {
             api_version: Some(crate::OptionableConvert::into_optioned(self.api_version)),
@@ -48,38 +41,24 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
     }
     fn try_from_optioned(value: OwnerReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            api_version: crate::OptionableConvert::try_from_optioned(
-                value
-                    .api_version
-                    .ok_or(crate::Error {
-                        missing_field: "api_version",
-                    })?,
-            )?,
+            api_version: crate::OptionableConvert::try_from_optioned(value.api_version.ok_or(
+                crate::Error {
+                    missing_field: "api_version",
+                },
+            )?)?,
             block_owner_deletion: crate::OptionableConvert::try_from_optioned(
                 value.block_owner_deletion,
             )?,
             controller: crate::OptionableConvert::try_from_optioned(value.controller)?,
-            kind: crate::OptionableConvert::try_from_optioned(
-                value
-                    .kind
-                    .ok_or(crate::Error {
-                        missing_field: "kind",
-                    })?,
-            )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
-            uid: crate::OptionableConvert::try_from_optioned(
-                value
-                    .uid
-                    .ok_or(crate::Error {
-                        missing_field: "uid",
-                    })?,
-            )?,
+            kind: crate::OptionableConvert::try_from_optioned(value.kind.ok_or(crate::Error {
+                missing_field: "kind",
+            })?)?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
+            uid: crate::OptionableConvert::try_from_optioned(value.uid.ok_or(crate::Error {
+                missing_field: "uid",
+            })?)?,
         })
     }
     fn merge(&mut self, other: OwnerReferenceAc) -> Result<(), crate::Error> {
@@ -105,9 +84,9 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference,
-> for OwnerReferenceAc {
+impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference>
+    for OwnerReferenceAc
+{
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference,
     ) -> Self {
@@ -115,10 +94,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

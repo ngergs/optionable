@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerPortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -42,11 +35,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerPort {
     }
     fn try_from_optioned(value: ContainerPortAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            container_port: value
-                .container_port
-                .ok_or(crate::Error {
-                    missing_field: "container_port",
-                })?,
+            container_port: value.container_port.ok_or(crate::Error {
+                missing_field: "container_port",
+            })?,
             host_ip: crate::OptionableConvert::try_from_optioned(value.host_ip)?,
             host_port: crate::OptionableConvert::try_from_optioned(value.host_port)?,
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
@@ -66,8 +57,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerPort {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ContainerPort>
-for ContainerPortAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ContainerPort> for ContainerPortAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::ContainerPort) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

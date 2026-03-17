@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerResizePolicyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -26,29 +19,21 @@ impl crate::Optionable for ContainerResizePolicyAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerResizePolicy {
     fn into_optioned(self) -> ContainerResizePolicyAc {
         ContainerResizePolicyAc {
-            resource_name: Some(
-                crate::OptionableConvert::into_optioned(self.resource_name),
-            ),
-            restart_policy: Some(
-                crate::OptionableConvert::into_optioned(self.restart_policy),
-            ),
+            resource_name: Some(crate::OptionableConvert::into_optioned(self.resource_name)),
+            restart_policy: Some(crate::OptionableConvert::into_optioned(self.restart_policy)),
         }
     }
     fn try_from_optioned(value: ContainerResizePolicyAc) -> Result<Self, crate::Error> {
         Ok(Self {
             resource_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .resource_name
-                    .ok_or(crate::Error {
-                        missing_field: "resource_name",
-                    })?,
+                value.resource_name.ok_or(crate::Error {
+                    missing_field: "resource_name",
+                })?,
             )?,
             restart_policy: crate::OptionableConvert::try_from_optioned(
-                value
-                    .restart_policy
-                    .ok_or(crate::Error {
-                        missing_field: "restart_policy",
-                    })?,
+                value.restart_policy.ok_or(crate::Error {
+                    missing_field: "restart_policy",
+                })?,
             )?,
         })
     }
@@ -65,10 +50,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerResize
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ContainerResizePolicy>
-for ContainerResizePolicyAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::ContainerResizePolicy,
-    ) -> Self {
+    for ContainerResizePolicyAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::ContainerResizePolicy) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

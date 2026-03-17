@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -37,9 +30,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceStatus {
     fn try_from_optioned(value: ServiceStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
-            load_balancer: crate::OptionableConvert::try_from_optioned(
-                value.load_balancer,
-            )?,
+            load_balancer: crate::OptionableConvert::try_from_optioned(value.load_balancer)?,
         })
     }
     fn merge(&mut self, other: ServiceStatusAc) -> Result<(), crate::Error> {
@@ -50,8 +41,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceStatus {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ServiceStatus>
-for ServiceStatusAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ServiceStatus> for ServiceStatusAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::ServiceStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

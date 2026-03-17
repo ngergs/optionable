@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerAc {
     #[serde(
@@ -29,8 +22,7 @@ pub struct HorizontalPodAutoscalerAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler {
+impl crate::Optionable for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler {
     type Optioned = HorizontalPodAutoscalerAc;
 }
 #[automatically_derived]
@@ -39,8 +31,7 @@ impl crate::Optionable for HorizontalPodAutoscalerAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler {
+impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler {
     fn into_optioned(self) -> HorizontalPodAutoscalerAc {
         HorizontalPodAutoscalerAc {
             api_version: Default::default(),
@@ -50,9 +41,7 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler {
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
-    fn try_from_optioned(
-        value: HorizontalPodAutoscalerAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: HorizontalPodAutoscalerAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
@@ -68,9 +57,9 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler,
-> for HorizontalPodAutoscalerAc {
+impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler>
+    for HorizontalPodAutoscalerAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler,
     ) -> Self {
@@ -78,10 +67,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -111,7 +97,6 @@ impl k8s_openapi027::Metadata for HorizontalPodAutoscalerAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_horizontalpodautoscalerac() {
-    crate::testutil::roundtrip_test::<
-        k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler,
-    >();
+    crate::testutil::roundtrip_test::<k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscaler>(
+    );
 }

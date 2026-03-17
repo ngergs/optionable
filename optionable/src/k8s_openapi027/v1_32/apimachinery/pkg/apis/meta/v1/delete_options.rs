@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeleteOptionsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -32,8 +25,7 @@ pub struct DeleteOptionsAc {
     pub propagation_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
+impl crate::Optionable for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
     type Optioned = DeleteOptionsAc;
 }
 #[automatically_derived]
@@ -42,8 +34,7 @@ impl crate::Optionable for DeleteOptionsAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
+impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
     fn into_optioned(self) -> DeleteOptionsAc {
         DeleteOptionsAc {
             api_version: crate::OptionableConvert::into_optioned(self.api_version),
@@ -51,17 +42,14 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
             grace_period_seconds: crate::OptionableConvert::into_optioned(
                 self.grace_period_seconds,
             ),
-            ignore_store_read_error_with_cluster_breaking_potential: crate::OptionableConvert::into_optioned(
-                self.ignore_store_read_error_with_cluster_breaking_potential,
-            ),
+            ignore_store_read_error_with_cluster_breaking_potential:
+                crate::OptionableConvert::into_optioned(
+                    self.ignore_store_read_error_with_cluster_breaking_potential,
+                ),
             kind: crate::OptionableConvert::into_optioned(self.kind),
-            orphan_dependents: crate::OptionableConvert::into_optioned(
-                self.orphan_dependents,
-            ),
+            orphan_dependents: crate::OptionableConvert::into_optioned(self.orphan_dependents),
             preconditions: crate::OptionableConvert::into_optioned(self.preconditions),
-            propagation_policy: crate::OptionableConvert::into_optioned(
-                self.propagation_policy,
-            ),
+            propagation_policy: crate::OptionableConvert::into_optioned(self.propagation_policy),
         }
     }
     fn try_from_optioned(value: DeleteOptionsAc) -> Result<Self, crate::Error> {
@@ -71,16 +59,15 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
             grace_period_seconds: crate::OptionableConvert::try_from_optioned(
                 value.grace_period_seconds,
             )?,
-            ignore_store_read_error_with_cluster_breaking_potential: crate::OptionableConvert::try_from_optioned(
-                value.ignore_store_read_error_with_cluster_breaking_potential,
-            )?,
+            ignore_store_read_error_with_cluster_breaking_potential:
+                crate::OptionableConvert::try_from_optioned(
+                    value.ignore_store_read_error_with_cluster_breaking_potential,
+                )?,
             kind: crate::OptionableConvert::try_from_optioned(value.kind)?,
             orphan_dependents: crate::OptionableConvert::try_from_optioned(
                 value.orphan_dependents,
             )?,
-            preconditions: crate::OptionableConvert::try_from_optioned(
-                value.preconditions,
-            )?,
+            preconditions: crate::OptionableConvert::try_from_optioned(value.preconditions)?,
             propagation_policy: crate::OptionableConvert::try_from_optioned(
                 value.propagation_policy,
             )?,
@@ -98,23 +85,17 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
             other.ignore_store_read_error_with_cluster_breaking_potential,
         )?;
         crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
-        crate::OptionableConvert::merge(
-            &mut self.orphan_dependents,
-            other.orphan_dependents,
-        )?;
+        crate::OptionableConvert::merge(&mut self.orphan_dependents, other.orphan_dependents)?;
         crate::OptionableConvert::merge(&mut self.preconditions, other.preconditions)?;
-        crate::OptionableConvert::merge(
-            &mut self.propagation_policy,
-            other.propagation_policy,
-        )?;
+        crate::OptionableConvert::merge(&mut self.propagation_policy, other.propagation_policy)?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions,
-> for DeleteOptionsAc {
+impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions>
+    for DeleteOptionsAc
+{
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions,
     ) -> Self {
@@ -122,10 +103,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

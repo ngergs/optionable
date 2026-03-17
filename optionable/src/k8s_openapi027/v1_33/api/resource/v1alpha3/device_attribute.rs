@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceAttributeAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,8 +20,7 @@ impl crate::Optionable for DeviceAttributeAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::resource::v1alpha3::DeviceAttribute {
+impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::DeviceAttribute {
     fn into_optioned(self) -> DeviceAttributeAc {
         DeviceAttributeAc {
             bool: crate::OptionableConvert::into_optioned(self.bool),
@@ -56,10 +48,9 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceAttribute {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::DeviceAttribute>
-for DeviceAttributeAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::resource::v1alpha3::DeviceAttribute,
-    ) -> Self {
+    for DeviceAttributeAc
+{
+    fn from_optionable(value: k8s_openapi027::api::resource::v1alpha3::DeviceAttribute) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

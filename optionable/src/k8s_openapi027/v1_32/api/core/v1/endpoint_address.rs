@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointAddressAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -15,9 +8,8 @@ pub struct EndpointAddressAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_name: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_ref: <Option<
-        ::k8s_openapi027::api::core::v1::ObjectReference,
-    > as crate::Optionable>::Optioned,
+    pub target_ref:
+        <Option<::k8s_openapi027::api::core::v1::ObjectReference> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::EndpointAddress {
@@ -41,13 +33,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointAddress
     fn try_from_optioned(value: EndpointAddressAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
-            ip: crate::OptionableConvert::try_from_optioned(
-                value
-                    .ip
-                    .ok_or(crate::Error {
-                        missing_field: "ip",
-                    })?,
-            )?,
+            ip: crate::OptionableConvert::try_from_optioned(value.ip.ok_or(crate::Error {
+                missing_field: "ip",
+            })?)?,
             node_name: crate::OptionableConvert::try_from_optioned(value.node_name)?,
             target_ref: crate::OptionableConvert::try_from_optioned(value.target_ref)?,
         })
@@ -64,8 +52,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointAddress
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::EndpointAddress>
-for EndpointAddressAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::EndpointAddress> for EndpointAddressAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::EndpointAddress) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

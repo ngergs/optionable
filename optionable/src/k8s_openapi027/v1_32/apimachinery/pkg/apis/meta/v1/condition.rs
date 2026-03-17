@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -34,17 +27,14 @@ impl crate::Optionable for ConditionAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition {
+impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition {
     fn into_optioned(self) -> ConditionAc {
         ConditionAc {
-            last_transition_time: Some(
-                crate::OptionableConvert::into_optioned(self.last_transition_time),
-            ),
+            last_transition_time: Some(crate::OptionableConvert::into_optioned(
+                self.last_transition_time,
+            )),
             message: Some(crate::OptionableConvert::into_optioned(self.message)),
-            observed_generation: crate::OptionableConvert::into_optioned(
-                self.observed_generation,
-            ),
+            observed_generation: crate::OptionableConvert::into_optioned(self.observed_generation),
             reason: Some(crate::OptionableConvert::into_optioned(self.reason)),
             status: Some(crate::OptionableConvert::into_optioned(self.status)),
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
@@ -53,59 +43,43 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition {
     fn try_from_optioned(value: ConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
-                value
-                    .last_transition_time
-                    .ok_or(crate::Error {
-                        missing_field: "last_transition_time",
-                    })?,
+                value.last_transition_time.ok_or(crate::Error {
+                    missing_field: "last_transition_time",
+                })?,
             )?,
-            message: crate::OptionableConvert::try_from_optioned(
-                value
-                    .message
-                    .ok_or(crate::Error {
-                        missing_field: "message",
-                    })?,
-            )?,
+            message: crate::OptionableConvert::try_from_optioned(value.message.ok_or(
+                crate::Error {
+                    missing_field: "message",
+                },
+            )?)?,
             observed_generation: crate::OptionableConvert::try_from_optioned(
                 value.observed_generation,
             )?,
-            reason: crate::OptionableConvert::try_from_optioned(
-                value
-                    .reason
-                    .ok_or(crate::Error {
-                        missing_field: "reason",
-                    })?,
-            )?,
-            status: crate::OptionableConvert::try_from_optioned(
-                value
-                    .status
-                    .ok_or(crate::Error {
-                        missing_field: "status",
-                    })?,
-            )?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            reason: crate::OptionableConvert::try_from_optioned(value.reason.ok_or(
+                crate::Error {
+                    missing_field: "reason",
+                },
+            )?)?,
+            status: crate::OptionableConvert::try_from_optioned(value.status.ok_or(
+                crate::Error {
+                    missing_field: "status",
+                },
+            )?)?,
+            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
+                crate::Error {
+                    missing_field: "type_",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: ConditionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.last_transition_time {
-            crate::OptionableConvert::merge(
-                &mut self.last_transition_time,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.last_transition_time, other_value)?;
         }
         if let Some(other_value) = other.message {
             crate::OptionableConvert::merge(&mut self.message, other_value)?;
         }
-        crate::OptionableConvert::merge(
-            &mut self.observed_generation,
-            other.observed_generation,
-        )?;
+        crate::OptionableConvert::merge(&mut self.observed_generation, other.observed_generation)?;
         if let Some(other_value) = other.reason {
             crate::OptionableConvert::merge(&mut self.reason, other_value)?;
         }
@@ -121,7 +95,8 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>
-for ConditionAc {
+    for ConditionAc
+{
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition,
     ) -> Self {
@@ -129,10 +104,7 @@ for ConditionAc {
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

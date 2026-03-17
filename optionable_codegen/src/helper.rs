@@ -1,8 +1,8 @@
 //! Collections of crate-internal functions that do not hold much interesting logic
 //! but help with the codegen.
 
-use crate::parsed_input::{StructParsed, StructType};
 use crate::HELPER_IDENT;
+use crate::parsed_input::{StructParsed, StructType};
 use proc_macro2::{Ident, Span, TokenStream};
 use quote::{format_ident, quote};
 use std::fmt;

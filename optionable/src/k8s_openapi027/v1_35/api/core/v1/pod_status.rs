@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -93,13 +86,9 @@ impl crate::Optionable for PodStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodStatus {
     fn into_optioned(self) -> PodStatusAc {
         PodStatusAc {
-            allocated_resources: crate::OptionableConvert::into_optioned(
-                self.allocated_resources,
-            ),
+            allocated_resources: crate::OptionableConvert::into_optioned(self.allocated_resources),
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
-            container_statuses: crate::OptionableConvert::into_optioned(
-                self.container_statuses,
-            ),
+            container_statuses: crate::OptionableConvert::into_optioned(self.container_statuses),
             ephemeral_container_statuses: crate::OptionableConvert::into_optioned(
                 self.ephemeral_container_statuses,
             ),
@@ -112,12 +101,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodStatus {
                 self.init_container_statuses,
             ),
             message: crate::OptionableConvert::into_optioned(self.message),
-            nominated_node_name: crate::OptionableConvert::into_optioned(
-                self.nominated_node_name,
-            ),
-            observed_generation: crate::OptionableConvert::into_optioned(
-                self.observed_generation,
-            ),
+            nominated_node_name: crate::OptionableConvert::into_optioned(self.nominated_node_name),
+            observed_generation: crate::OptionableConvert::into_optioned(self.observed_generation),
             phase: crate::OptionableConvert::into_optioned(self.phase),
             pod_ip: crate::OptionableConvert::into_optioned(self.pod_ip),
             pod_ips: crate::OptionableConvert::into_optioned(self.pod_ips),
@@ -172,15 +157,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodStatus {
         })
     }
     fn merge(&mut self, other: PodStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.allocated_resources,
-            other.allocated_resources,
-        )?;
+        crate::OptionableConvert::merge(&mut self.allocated_resources, other.allocated_resources)?;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        crate::OptionableConvert::merge(
-            &mut self.container_statuses,
-            other.container_statuses,
-        )?;
+        crate::OptionableConvert::merge(&mut self.container_statuses, other.container_statuses)?;
         crate::OptionableConvert::merge(
             &mut self.ephemeral_container_statuses,
             other.ephemeral_container_statuses,
@@ -196,14 +175,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodStatus {
             other.init_container_statuses,
         )?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;
-        crate::OptionableConvert::merge(
-            &mut self.nominated_node_name,
-            other.nominated_node_name,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.observed_generation,
-            other.observed_generation,
-        )?;
+        crate::OptionableConvert::merge(&mut self.nominated_node_name, other.nominated_node_name)?;
+        crate::OptionableConvert::merge(&mut self.observed_generation, other.observed_generation)?;
         crate::OptionableConvert::merge(&mut self.phase, other.phase)?;
         crate::OptionableConvert::merge(&mut self.pod_ip, other.pod_ip)?;
         crate::OptionableConvert::merge(&mut self.pod_ips, other.pod_ips)?;
@@ -225,9 +198,7 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodStatus> for PodSta
     fn from_optionable(value: k8s_openapi027::api::core::v1::PodStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(
-        self,
-    ) -> Result<k8s_openapi027::api::core::v1::PodStatus, crate::Error> {
+    fn try_into_optionable(self) -> Result<k8s_openapi027::api::core::v1::PodStatus, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

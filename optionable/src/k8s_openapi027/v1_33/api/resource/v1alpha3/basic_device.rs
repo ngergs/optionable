@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BasicDeviceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -57,9 +50,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Basic
             all_nodes: crate::OptionableConvert::into_optioned(self.all_nodes),
             attributes: crate::OptionableConvert::into_optioned(self.attributes),
             capacity: crate::OptionableConvert::into_optioned(self.capacity),
-            consumes_counters: crate::OptionableConvert::into_optioned(
-                self.consumes_counters,
-            ),
+            consumes_counters: crate::OptionableConvert::into_optioned(self.consumes_counters),
             node_name: crate::OptionableConvert::into_optioned(self.node_name),
             node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
             taints: crate::OptionableConvert::into_optioned(self.taints),
@@ -74,9 +65,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Basic
                 value.consumes_counters,
             )?,
             node_name: crate::OptionableConvert::try_from_optioned(value.node_name)?,
-            node_selector: crate::OptionableConvert::try_from_optioned(
-                value.node_selector,
-            )?,
+            node_selector: crate::OptionableConvert::try_from_optioned(value.node_selector)?,
             taints: crate::OptionableConvert::try_from_optioned(value.taints)?,
         })
     }
@@ -84,10 +73,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Basic
         crate::OptionableConvert::merge(&mut self.all_nodes, other.all_nodes)?;
         crate::OptionableConvert::merge(&mut self.attributes, other.attributes)?;
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
-        crate::OptionableConvert::merge(
-            &mut self.consumes_counters,
-            other.consumes_counters,
-        )?;
+        crate::OptionableConvert::merge(&mut self.consumes_counters, other.consumes_counters)?;
         crate::OptionableConvert::merge(&mut self.node_name, other.node_name)?;
         crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
         crate::OptionableConvert::merge(&mut self.taints, other.taints)?;
@@ -97,10 +83,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Basic
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::BasicDevice>
-for BasicDeviceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::resource::v1alpha3::BasicDevice,
-    ) -> Self {
+    for BasicDeviceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::resource::v1alpha3::BasicDevice) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MutatingAdmissionPolicyBindingAc {
     #[serde(
@@ -26,7 +19,8 @@ pub struct MutatingAdmissionPolicyBindingAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBinding {
+    for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBinding
+{
     type Optioned = MutatingAdmissionPolicyBindingAc;
 }
 #[automatically_derived]
@@ -36,7 +30,8 @@ impl crate::Optionable for MutatingAdmissionPolicyBindingAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBinding {
+    for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBinding
+{
     fn into_optioned(self) -> MutatingAdmissionPolicyBindingAc {
         MutatingAdmissionPolicyBindingAc {
             api_version: Default::default(),
@@ -45,18 +40,13 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
             spec: crate::OptionableConvert::into_optioned(self.spec),
         }
     }
-    fn try_from_optioned(
-        value: MutatingAdmissionPolicyBindingAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: MutatingAdmissionPolicyBindingAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: MutatingAdmissionPolicyBindingAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: MutatingAdmissionPolicyBindingAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         Ok(())
@@ -64,9 +54,11 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBinding,
-> for MutatingAdmissionPolicyBindingAc {
+impl
+    crate::OptionedConvert<
+        k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBinding,
+    > for MutatingAdmissionPolicyBindingAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBinding,
     ) -> Self {

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SecretVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -40,9 +33,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretVolumeSou
     }
     fn try_from_optioned(value: SecretVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            default_mode: crate::OptionableConvert::try_from_optioned(
-                value.default_mode,
-            )?,
+            default_mode: crate::OptionableConvert::try_from_optioned(value.default_mode)?,
             items: crate::OptionableConvert::try_from_optioned(value.items)?,
             optional: crate::OptionableConvert::try_from_optioned(value.optional)?,
             secret_name: crate::OptionableConvert::try_from_optioned(value.secret_name)?,
@@ -59,10 +50,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretVolumeSou
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::SecretVolumeSource>
-for SecretVolumeSourceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::SecretVolumeSource,
-    ) -> Self {
+    for SecretVolumeSourceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::SecretVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

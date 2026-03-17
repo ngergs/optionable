@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeAttachmentSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,13 +20,10 @@ impl crate::Optionable for VolumeAttachmentSourceAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::storage::v1::VolumeAttachmentSource {
+impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::VolumeAttachmentSource {
     fn into_optioned(self) -> VolumeAttachmentSourceAc {
         VolumeAttachmentSourceAc {
-            inline_volume_spec: crate::OptionableConvert::into_optioned(
-                self.inline_volume_spec,
-            ),
+            inline_volume_spec: crate::OptionableConvert::into_optioned(self.inline_volume_spec),
             persistent_volume_name: crate::OptionableConvert::into_optioned(
                 self.persistent_volume_name,
             ),
@@ -50,10 +40,7 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentSource {
         })
     }
     fn merge(&mut self, other: VolumeAttachmentSourceAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.inline_volume_spec,
-            other.inline_volume_spec,
-        )?;
+        crate::OptionableConvert::merge(&mut self.inline_volume_spec, other.inline_volume_spec)?;
         crate::OptionableConvert::merge(
             &mut self.persistent_volume_name,
             other.persistent_volume_name,
@@ -64,10 +51,9 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentSource {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::storage::v1::VolumeAttachmentSource>
-for VolumeAttachmentSourceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::storage::v1::VolumeAttachmentSource,
-    ) -> Self {
+    for VolumeAttachmentSourceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::storage::v1::VolumeAttachmentSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

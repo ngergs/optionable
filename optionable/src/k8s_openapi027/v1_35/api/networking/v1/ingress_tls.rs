@@ -1,17 +1,8 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressTLSAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub hosts: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub hosts: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret_name: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
@@ -46,8 +37,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressTL
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::IngressTLS>
-for IngressTLSAc {
+impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::IngressTLS> for IngressTLSAc {
     fn from_optionable(value: k8s_openapi027::api::networking::v1::IngressTLS) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

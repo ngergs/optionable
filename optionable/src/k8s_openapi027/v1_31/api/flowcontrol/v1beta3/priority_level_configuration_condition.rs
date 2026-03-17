@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PriorityLevelConfigurationConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -24,7 +17,8 @@ pub struct PriorityLevelConfigurationConditionAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-for k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationCondition {
+    for k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationCondition
+{
     type Optioned = PriorityLevelConfigurationConditionAc;
 }
 #[automatically_derived]
@@ -34,7 +28,8 @@ impl crate::Optionable for PriorityLevelConfigurationConditionAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationCondition {
+    for k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationCondition
+{
     fn into_optioned(self) -> PriorityLevelConfigurationConditionAc {
         PriorityLevelConfigurationConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
@@ -59,10 +54,7 @@ for k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationConditi
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PriorityLevelConfigurationConditionAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: PriorityLevelConfigurationConditionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,
             other.last_transition_time,
@@ -76,9 +68,11 @@ for k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationConditi
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationCondition,
-> for PriorityLevelConfigurationConditionAc {
+impl
+    crate::OptionedConvert<
+        k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationCondition,
+    > for PriorityLevelConfigurationConditionAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationCondition,
     ) -> Self {

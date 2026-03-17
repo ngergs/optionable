@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeploymentSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -44,9 +37,7 @@ impl crate::Optionable for DeploymentSpecAc {
 impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentSpec {
     fn into_optioned(self) -> DeploymentSpecAc {
         DeploymentSpecAc {
-            min_ready_seconds: crate::OptionableConvert::into_optioned(
-                self.min_ready_seconds,
-            ),
+            min_ready_seconds: crate::OptionableConvert::into_optioned(self.min_ready_seconds),
             paused: crate::OptionableConvert::into_optioned(self.paused),
             progress_deadline_seconds: crate::OptionableConvert::into_optioned(
                 self.progress_deadline_seconds,
@@ -73,28 +64,21 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentSpec 
             revision_history_limit: crate::OptionableConvert::try_from_optioned(
                 value.revision_history_limit,
             )?,
-            selector: crate::OptionableConvert::try_from_optioned(
-                value
-                    .selector
-                    .ok_or(crate::Error {
-                        missing_field: "selector",
-                    })?,
-            )?,
+            selector: crate::OptionableConvert::try_from_optioned(value.selector.ok_or(
+                crate::Error {
+                    missing_field: "selector",
+                },
+            )?)?,
             strategy: crate::OptionableConvert::try_from_optioned(value.strategy)?,
-            template: crate::OptionableConvert::try_from_optioned(
-                value
-                    .template
-                    .ok_or(crate::Error {
-                        missing_field: "template",
-                    })?,
-            )?,
+            template: crate::OptionableConvert::try_from_optioned(value.template.ok_or(
+                crate::Error {
+                    missing_field: "template",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: DeploymentSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.min_ready_seconds,
-            other.min_ready_seconds,
-        )?;
+        crate::OptionableConvert::merge(&mut self.min_ready_seconds, other.min_ready_seconds)?;
         crate::OptionableConvert::merge(&mut self.paused, other.paused)?;
         crate::OptionableConvert::merge(
             &mut self.progress_deadline_seconds,
@@ -117,8 +101,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentSpec 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::DeploymentSpec>
-for DeploymentSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::DeploymentSpec> for DeploymentSpecAc {
     fn from_optionable(value: k8s_openapi027::api::apps::v1::DeploymentSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

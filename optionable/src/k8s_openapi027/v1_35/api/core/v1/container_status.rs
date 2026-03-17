@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -71,9 +64,7 @@ impl crate::Optionable for ContainerStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus {
     fn into_optioned(self) -> ContainerStatusAc {
         ContainerStatusAc {
-            allocated_resources: crate::OptionableConvert::into_optioned(
-                self.allocated_resources,
-            ),
+            allocated_resources: crate::OptionableConvert::into_optioned(self.allocated_resources),
             allocated_resources_status: crate::OptionableConvert::into_optioned(
                 self.allocated_resources_status,
             ),
@@ -100,56 +91,37 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
             allocated_resources_status: crate::OptionableConvert::try_from_optioned(
                 value.allocated_resources_status,
             )?,
-            container_id: crate::OptionableConvert::try_from_optioned(
-                value.container_id,
-            )?,
-            image: crate::OptionableConvert::try_from_optioned(
-                value
-                    .image
-                    .ok_or(crate::Error {
-                        missing_field: "image",
-                    })?,
-            )?,
-            image_id: crate::OptionableConvert::try_from_optioned(
-                value
-                    .image_id
-                    .ok_or(crate::Error {
-                        missing_field: "image_id",
-                    })?,
-            )?,
+            container_id: crate::OptionableConvert::try_from_optioned(value.container_id)?,
+            image: crate::OptionableConvert::try_from_optioned(value.image.ok_or(
+                crate::Error {
+                    missing_field: "image",
+                },
+            )?)?,
+            image_id: crate::OptionableConvert::try_from_optioned(value.image_id.ok_or(
+                crate::Error {
+                    missing_field: "image_id",
+                },
+            )?)?,
             last_state: crate::OptionableConvert::try_from_optioned(value.last_state)?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
-            ready: value
-                .ready
-                .ok_or(crate::Error {
-                    missing_field: "ready",
-                })?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
+            ready: value.ready.ok_or(crate::Error {
+                missing_field: "ready",
+            })?,
             resources: crate::OptionableConvert::try_from_optioned(value.resources)?,
-            restart_count: value
-                .restart_count
-                .ok_or(crate::Error {
-                    missing_field: "restart_count",
-                })?,
+            restart_count: value.restart_count.ok_or(crate::Error {
+                missing_field: "restart_count",
+            })?,
             started: crate::OptionableConvert::try_from_optioned(value.started)?,
             state: crate::OptionableConvert::try_from_optioned(value.state)?,
             stop_signal: crate::OptionableConvert::try_from_optioned(value.stop_signal)?,
             user: crate::OptionableConvert::try_from_optioned(value.user)?,
-            volume_mounts: crate::OptionableConvert::try_from_optioned(
-                value.volume_mounts,
-            )?,
+            volume_mounts: crate::OptionableConvert::try_from_optioned(value.volume_mounts)?,
         })
     }
     fn merge(&mut self, other: ContainerStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.allocated_resources,
-            other.allocated_resources,
-        )?;
+        crate::OptionableConvert::merge(&mut self.allocated_resources, other.allocated_resources)?;
         crate::OptionableConvert::merge(
             &mut self.allocated_resources_status,
             other.allocated_resources_status,
@@ -182,8 +154,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ContainerStatus>
-for ContainerStatusAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ContainerStatus> for ContainerStatusAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::ContainerStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

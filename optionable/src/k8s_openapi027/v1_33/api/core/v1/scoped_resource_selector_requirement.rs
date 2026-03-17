@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ScopedResourceSelectorRequirementAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -13,13 +6,10 @@ pub struct ScopedResourceSelectorRequirementAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub values: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub values: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement {
+impl crate::Optionable for k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement {
     type Optioned = ScopedResourceSelectorRequirementAc;
 }
 #[automatically_derived]
@@ -28,8 +18,7 @@ impl crate::Optionable for ScopedResourceSelectorRequirementAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement {
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement {
     fn into_optioned(self) -> ScopedResourceSelectorRequirementAc {
         ScopedResourceSelectorRequirementAc {
             operator: Some(crate::OptionableConvert::into_optioned(self.operator)),
@@ -37,31 +26,22 @@ for k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement {
             values: crate::OptionableConvert::into_optioned(self.values),
         }
     }
-    fn try_from_optioned(
-        value: ScopedResourceSelectorRequirementAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: ScopedResourceSelectorRequirementAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            operator: crate::OptionableConvert::try_from_optioned(
-                value
-                    .operator
-                    .ok_or(crate::Error {
-                        missing_field: "operator",
-                    })?,
-            )?,
-            scope_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .scope_name
-                    .ok_or(crate::Error {
-                        missing_field: "scope_name",
-                    })?,
-            )?,
+            operator: crate::OptionableConvert::try_from_optioned(value.operator.ok_or(
+                crate::Error {
+                    missing_field: "operator",
+                },
+            )?)?,
+            scope_name: crate::OptionableConvert::try_from_optioned(value.scope_name.ok_or(
+                crate::Error {
+                    missing_field: "scope_name",
+                },
+            )?)?,
             values: crate::OptionableConvert::try_from_optioned(value.values)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ScopedResourceSelectorRequirementAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: ScopedResourceSelectorRequirementAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.operator {
             crate::OptionableConvert::merge(&mut self.operator, other_value)?;
         }
@@ -74,9 +54,9 @@ for k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement,
-> for ScopedResourceSelectorRequirementAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement>
+    for ScopedResourceSelectorRequirementAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement,
     ) -> Self {
@@ -84,10 +64,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

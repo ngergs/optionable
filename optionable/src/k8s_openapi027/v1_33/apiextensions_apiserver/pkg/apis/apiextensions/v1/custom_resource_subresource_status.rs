@@ -1,15 +1,8 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceSubresourceStatusAc(
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub Option<<::k8s_openapi027::serde_json::Value as crate::Optionable>::Optioned>,
+    pub  Option<<::k8s_openapi027::serde_json::Value as crate::Optionable>::Optioned>,
 );
 #[automatically_derived]
 impl crate::Optionable

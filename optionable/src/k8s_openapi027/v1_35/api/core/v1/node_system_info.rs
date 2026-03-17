@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSystemInfoAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -14,9 +7,7 @@ pub struct NodeSystemInfoAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub boot_id: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub container_runtime_version: Option<
-        <std::string::String as crate::Optionable>::Optioned,
-    >,
+    pub container_runtime_version: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kernel_version: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,9 +22,8 @@ pub struct NodeSystemInfoAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub os_image: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub swap: <Option<
-        ::k8s_openapi027::api::core::v1::NodeSwapStatus,
-    > as crate::Optionable>::Optioned,
+    pub swap:
+        <Option<::k8s_openapi027::api::core::v1::NodeSwapStatus> as crate::Optionable>::Optioned,
     #[serde(rename = "systemUUID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub system_uuid: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -51,26 +41,22 @@ impl crate::Optionable for NodeSystemInfoAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSystemInfo {
     fn into_optioned(self) -> NodeSystemInfoAc {
         NodeSystemInfoAc {
-            architecture: Some(
-                crate::OptionableConvert::into_optioned(self.architecture),
-            ),
+            architecture: Some(crate::OptionableConvert::into_optioned(self.architecture)),
             boot_id: Some(crate::OptionableConvert::into_optioned(self.boot_id)),
-            container_runtime_version: Some(
-                crate::OptionableConvert::into_optioned(self.container_runtime_version),
-            ),
-            kernel_version: Some(
-                crate::OptionableConvert::into_optioned(self.kernel_version),
-            ),
-            kube_proxy_version: Some(
-                crate::OptionableConvert::into_optioned(self.kube_proxy_version),
-            ),
-            kubelet_version: Some(
-                crate::OptionableConvert::into_optioned(self.kubelet_version),
-            ),
+            container_runtime_version: Some(crate::OptionableConvert::into_optioned(
+                self.container_runtime_version,
+            )),
+            kernel_version: Some(crate::OptionableConvert::into_optioned(self.kernel_version)),
+            kube_proxy_version: Some(crate::OptionableConvert::into_optioned(
+                self.kube_proxy_version,
+            )),
+            kubelet_version: Some(crate::OptionableConvert::into_optioned(
+                self.kubelet_version,
+            )),
             machine_id: Some(crate::OptionableConvert::into_optioned(self.machine_id)),
-            operating_system: Some(
-                crate::OptionableConvert::into_optioned(self.operating_system),
-            ),
+            operating_system: Some(crate::OptionableConvert::into_optioned(
+                self.operating_system,
+            )),
             os_image: Some(crate::OptionableConvert::into_optioned(self.os_image)),
             swap: crate::OptionableConvert::into_optioned(self.swap),
             system_uuid: Some(crate::OptionableConvert::into_optioned(self.system_uuid)),
@@ -78,77 +64,57 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSystemInfo 
     }
     fn try_from_optioned(value: NodeSystemInfoAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            architecture: crate::OptionableConvert::try_from_optioned(
-                value
-                    .architecture
-                    .ok_or(crate::Error {
-                        missing_field: "architecture",
-                    })?,
-            )?,
-            boot_id: crate::OptionableConvert::try_from_optioned(
-                value
-                    .boot_id
-                    .ok_or(crate::Error {
-                        missing_field: "boot_id",
-                    })?,
-            )?,
+            architecture: crate::OptionableConvert::try_from_optioned(value.architecture.ok_or(
+                crate::Error {
+                    missing_field: "architecture",
+                },
+            )?)?,
+            boot_id: crate::OptionableConvert::try_from_optioned(value.boot_id.ok_or(
+                crate::Error {
+                    missing_field: "boot_id",
+                },
+            )?)?,
             container_runtime_version: crate::OptionableConvert::try_from_optioned(
-                value
-                    .container_runtime_version
-                    .ok_or(crate::Error {
-                        missing_field: "container_runtime_version",
-                    })?,
+                value.container_runtime_version.ok_or(crate::Error {
+                    missing_field: "container_runtime_version",
+                })?,
             )?,
             kernel_version: crate::OptionableConvert::try_from_optioned(
-                value
-                    .kernel_version
-                    .ok_or(crate::Error {
-                        missing_field: "kernel_version",
-                    })?,
+                value.kernel_version.ok_or(crate::Error {
+                    missing_field: "kernel_version",
+                })?,
             )?,
             kube_proxy_version: crate::OptionableConvert::try_from_optioned(
-                value
-                    .kube_proxy_version
-                    .ok_or(crate::Error {
-                        missing_field: "kube_proxy_version",
-                    })?,
+                value.kube_proxy_version.ok_or(crate::Error {
+                    missing_field: "kube_proxy_version",
+                })?,
             )?,
             kubelet_version: crate::OptionableConvert::try_from_optioned(
-                value
-                    .kubelet_version
-                    .ok_or(crate::Error {
-                        missing_field: "kubelet_version",
-                    })?,
+                value.kubelet_version.ok_or(crate::Error {
+                    missing_field: "kubelet_version",
+                })?,
             )?,
-            machine_id: crate::OptionableConvert::try_from_optioned(
-                value
-                    .machine_id
-                    .ok_or(crate::Error {
-                        missing_field: "machine_id",
-                    })?,
-            )?,
+            machine_id: crate::OptionableConvert::try_from_optioned(value.machine_id.ok_or(
+                crate::Error {
+                    missing_field: "machine_id",
+                },
+            )?)?,
             operating_system: crate::OptionableConvert::try_from_optioned(
-                value
-                    .operating_system
-                    .ok_or(crate::Error {
-                        missing_field: "operating_system",
-                    })?,
+                value.operating_system.ok_or(crate::Error {
+                    missing_field: "operating_system",
+                })?,
             )?,
-            os_image: crate::OptionableConvert::try_from_optioned(
-                value
-                    .os_image
-                    .ok_or(crate::Error {
-                        missing_field: "os_image",
-                    })?,
-            )?,
+            os_image: crate::OptionableConvert::try_from_optioned(value.os_image.ok_or(
+                crate::Error {
+                    missing_field: "os_image",
+                },
+            )?)?,
             swap: crate::OptionableConvert::try_from_optioned(value.swap)?,
-            system_uuid: crate::OptionableConvert::try_from_optioned(
-                value
-                    .system_uuid
-                    .ok_or(crate::Error {
-                        missing_field: "system_uuid",
-                    })?,
-            )?,
+            system_uuid: crate::OptionableConvert::try_from_optioned(value.system_uuid.ok_or(
+                crate::Error {
+                    missing_field: "system_uuid",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: NodeSystemInfoAc) -> Result<(), crate::Error> {
@@ -159,10 +125,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSystemInfo 
             crate::OptionableConvert::merge(&mut self.boot_id, other_value)?;
         }
         if let Some(other_value) = other.container_runtime_version {
-            crate::OptionableConvert::merge(
-                &mut self.container_runtime_version,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.container_runtime_version, other_value)?;
         }
         if let Some(other_value) = other.kernel_version {
             crate::OptionableConvert::merge(&mut self.kernel_version, other_value)?;
@@ -191,8 +154,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSystemInfo 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSystemInfo>
-for NodeSystemInfoAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSystemInfo> for NodeSystemInfoAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::NodeSystemInfo) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

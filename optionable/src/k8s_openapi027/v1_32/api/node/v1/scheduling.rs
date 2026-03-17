@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SchedulingAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -36,9 +29,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::node::v1::Scheduling {
     }
     fn try_from_optioned(value: SchedulingAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            node_selector: crate::OptionableConvert::try_from_optioned(
-                value.node_selector,
-            )?,
+            node_selector: crate::OptionableConvert::try_from_optioned(value.node_selector)?,
             tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
         })
     }

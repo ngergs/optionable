@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RollingUpdateStatefulSetStrategyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -16,8 +9,7 @@ pub struct RollingUpdateStatefulSetStrategyAc {
     pub partition: <Option<i32> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy {
+impl crate::Optionable for k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy {
     type Optioned = RollingUpdateStatefulSetStrategyAc;
 }
 #[automatically_derived]
@@ -26,43 +18,30 @@ impl crate::Optionable for RollingUpdateStatefulSetStrategyAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy {
+impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy {
     fn into_optioned(self) -> RollingUpdateStatefulSetStrategyAc {
         RollingUpdateStatefulSetStrategyAc {
-            max_unavailable: crate::OptionableConvert::into_optioned(
-                self.max_unavailable,
-            ),
+            max_unavailable: crate::OptionableConvert::into_optioned(self.max_unavailable),
             partition: crate::OptionableConvert::into_optioned(self.partition),
         }
     }
-    fn try_from_optioned(
-        value: RollingUpdateStatefulSetStrategyAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: RollingUpdateStatefulSetStrategyAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            max_unavailable: crate::OptionableConvert::try_from_optioned(
-                value.max_unavailable,
-            )?,
+            max_unavailable: crate::OptionableConvert::try_from_optioned(value.max_unavailable)?,
             partition: crate::OptionableConvert::try_from_optioned(value.partition)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: RollingUpdateStatefulSetStrategyAc,
-    ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.max_unavailable,
-            other.max_unavailable,
-        )?;
+    fn merge(&mut self, other: RollingUpdateStatefulSetStrategyAc) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(&mut self.max_unavailable, other.max_unavailable)?;
         crate::OptionableConvert::merge(&mut self.partition, other.partition)?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy,
-> for RollingUpdateStatefulSetStrategyAc {
+impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy>
+    for RollingUpdateStatefulSetStrategyAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy,
     ) -> Self {
@@ -70,10 +49,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

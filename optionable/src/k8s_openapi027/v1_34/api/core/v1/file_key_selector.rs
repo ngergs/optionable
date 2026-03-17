@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FileKeySelectorAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -38,28 +31,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FileKeySelector
     }
     fn try_from_optioned(value: FileKeySelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            key: crate::OptionableConvert::try_from_optioned(
-                value
-                    .key
-                    .ok_or(crate::Error {
-                        missing_field: "key",
-                    })?,
-            )?,
+            key: crate::OptionableConvert::try_from_optioned(value.key.ok_or(crate::Error {
+                missing_field: "key",
+            })?)?,
             optional: crate::OptionableConvert::try_from_optioned(value.optional)?,
-            path: crate::OptionableConvert::try_from_optioned(
-                value
-                    .path
-                    .ok_or(crate::Error {
-                        missing_field: "path",
-                    })?,
-            )?,
-            volume_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .volume_name
-                    .ok_or(crate::Error {
-                        missing_field: "volume_name",
-                    })?,
-            )?,
+            path: crate::OptionableConvert::try_from_optioned(value.path.ok_or(crate::Error {
+                missing_field: "path",
+            })?)?,
+            volume_name: crate::OptionableConvert::try_from_optioned(value.volume_name.ok_or(
+                crate::Error {
+                    missing_field: "volume_name",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: FileKeySelectorAc) -> Result<(), crate::Error> {
@@ -78,8 +61,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FileKeySelector
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::FileKeySelector>
-for FileKeySelectorAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::FileKeySelector> for FileKeySelectorAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::FileKeySelector) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

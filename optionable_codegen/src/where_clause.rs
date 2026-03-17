@@ -7,8 +7,8 @@ use syn::punctuated::Punctuated;
 use syn::token::{Comma, Where};
 use syn::visit::Visit;
 use syn::{
-    parse_quote, visit, Error, GenericParam, Path, PathSegment, Type, TypeParamBound,
-    WhereClause, WherePredicate,
+    Error, GenericParam, Path, PathSegment, Type, TypeParamBound, WhereClause, WherePredicate,
+    parse_quote, visit,
 };
 
 pub(crate) struct WhereClauses {

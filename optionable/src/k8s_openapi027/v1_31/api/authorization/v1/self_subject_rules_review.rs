@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelfSubjectRulesReviewAc {
     #[serde(
@@ -29,8 +22,7 @@ pub struct SelfSubjectRulesReviewAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview {
+impl crate::Optionable for k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview {
     type Optioned = SelfSubjectRulesReviewAc;
 }
 #[automatically_derived]
@@ -39,8 +31,7 @@ impl crate::Optionable for SelfSubjectRulesReviewAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview {
+impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview {
     fn into_optioned(self) -> SelfSubjectRulesReviewAc {
         SelfSubjectRulesReviewAc {
             api_version: Default::default(),
@@ -53,13 +44,9 @@ for k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview {
     fn try_from_optioned(value: SelfSubjectRulesReviewAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            spec: crate::OptionableConvert::try_from_optioned(
-                value
-                    .spec
-                    .ok_or(crate::Error {
-                        missing_field: "spec",
-                    })?,
-            )?,
+            spec: crate::OptionableConvert::try_from_optioned(value.spec.ok_or(crate::Error {
+                missing_field: "spec",
+            })?)?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
@@ -74,9 +61,9 @@ for k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview,
-> for SelfSubjectRulesReviewAc {
+impl crate::OptionedConvert<k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview>
+    for SelfSubjectRulesReviewAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview,
     ) -> Self {
@@ -84,10 +71,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -117,7 +101,6 @@ impl k8s_openapi027::Metadata for SelfSubjectRulesReviewAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_selfsubjectrulesreviewac() {
-    crate::testutil::roundtrip_test::<
-        k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview,
-    >();
+    crate::testutil::roundtrip_test::<k8s_openapi027::api::authorization::v1::SelfSubjectRulesReview>(
+    );
 }

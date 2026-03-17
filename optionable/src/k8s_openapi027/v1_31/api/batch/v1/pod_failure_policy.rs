@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodFailurePolicyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -33,13 +26,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::PodFailurePoli
     }
     fn try_from_optioned(value: PodFailurePolicyAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            rules: crate::OptionableConvert::try_from_optioned(
-                value
-                    .rules
-                    .ok_or(crate::Error {
-                        missing_field: "rules",
-                    })?,
-            )?,
+            rules: crate::OptionableConvert::try_from_optioned(value.rules.ok_or(
+                crate::Error {
+                    missing_field: "rules",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: PodFailurePolicyAc) -> Result<(), crate::Error> {
@@ -52,7 +43,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::PodFailurePoli
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::PodFailurePolicy>
-for PodFailurePolicyAc {
+    for PodFailurePolicyAc
+{
     fn from_optionable(value: k8s_openapi027::api::batch::v1::PodFailurePolicy) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

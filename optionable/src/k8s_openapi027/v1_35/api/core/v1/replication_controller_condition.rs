@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ReplicationControllerConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -23,8 +16,7 @@ pub struct ReplicationControllerConditionAc {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::core::v1::ReplicationControllerCondition {
+impl crate::Optionable for k8s_openapi027::api::core::v1::ReplicationControllerCondition {
     type Optioned = ReplicationControllerConditionAc;
 }
 #[automatically_derived]
@@ -33,8 +25,7 @@ impl crate::Optionable for ReplicationControllerConditionAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::core::v1::ReplicationControllerCondition {
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ReplicationControllerCondition {
     fn into_optioned(self) -> ReplicationControllerConditionAc {
         ReplicationControllerConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
@@ -46,35 +37,26 @@ for k8s_openapi027::api::core::v1::ReplicationControllerCondition {
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(
-        value: ReplicationControllerConditionAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: ReplicationControllerConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value.last_transition_time,
             )?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
-            status: crate::OptionableConvert::try_from_optioned(
-                value
-                    .status
-                    .ok_or(crate::Error {
-                        missing_field: "status",
-                    })?,
-            )?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            status: crate::OptionableConvert::try_from_optioned(value.status.ok_or(
+                crate::Error {
+                    missing_field: "status",
+                },
+            )?)?,
+            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
+                crate::Error {
+                    missing_field: "type_",
+                },
+            )?)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: ReplicationControllerConditionAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: ReplicationControllerConditionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,
             other.last_transition_time,
@@ -92,9 +74,9 @@ for k8s_openapi027::api::core::v1::ReplicationControllerCondition {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::core::v1::ReplicationControllerCondition,
-> for ReplicationControllerConditionAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ReplicationControllerCondition>
+    for ReplicationControllerConditionAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::core::v1::ReplicationControllerCondition,
     ) -> Self {
@@ -102,10 +84,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::core::v1::ReplicationControllerCondition,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::core::v1::ReplicationControllerCondition, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

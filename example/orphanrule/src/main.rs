@@ -5,7 +5,7 @@
 // been disabled for this example though.
 
 use optionable::{Error, Optionable, OptionableConvert, OptionedConvert};
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 
 #[derive(Optionable, PartialEq, Debug, Clone)]
 #[optionable(derive(PartialEq, Debug, Clone))]

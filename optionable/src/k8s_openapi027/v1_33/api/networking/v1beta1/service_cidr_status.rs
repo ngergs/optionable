@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceCIDRStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -23,8 +16,7 @@ impl crate::Optionable for ServiceCIDRStatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::networking::v1beta1::ServiceCIDRStatus {
+impl crate::OptionableConvert for k8s_openapi027::api::networking::v1beta1::ServiceCIDRStatus {
     fn into_optioned(self) -> ServiceCIDRStatusAc {
         ServiceCIDRStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
@@ -43,18 +35,14 @@ for k8s_openapi027::api::networking::v1beta1::ServiceCIDRStatus {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1beta1::ServiceCIDRStatus>
-for ServiceCIDRStatusAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::networking::v1beta1::ServiceCIDRStatus,
-    ) -> Self {
+    for ServiceCIDRStatusAc
+{
+    fn from_optionable(value: k8s_openapi027::api::networking::v1beta1::ServiceCIDRStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::networking::v1beta1::ServiceCIDRStatus,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::networking::v1beta1::ServiceCIDRStatus, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

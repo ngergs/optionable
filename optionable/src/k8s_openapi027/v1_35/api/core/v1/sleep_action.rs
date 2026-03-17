@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SleepActionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -29,11 +22,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SleepAction {
     }
     fn try_from_optioned(value: SleepActionAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            seconds: value
-                .seconds
-                .ok_or(crate::Error {
-                    missing_field: "seconds",
-                })?,
+            seconds: value.seconds.ok_or(crate::Error {
+                missing_field: "seconds",
+            })?,
         })
     }
     fn merge(&mut self, other: SleepActionAc) -> Result<(), crate::Error> {
@@ -45,8 +36,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SleepAction {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::SleepAction>
-for SleepActionAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::SleepAction> for SleepActionAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::SleepAction) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

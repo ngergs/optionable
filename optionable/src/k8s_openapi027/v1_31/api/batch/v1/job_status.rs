@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct JobStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -53,12 +46,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobStatus {
     fn into_optioned(self) -> JobStatusAc {
         JobStatusAc {
             active: crate::OptionableConvert::into_optioned(self.active),
-            completed_indexes: crate::OptionableConvert::into_optioned(
-                self.completed_indexes,
-            ),
-            completion_time: crate::OptionableConvert::into_optioned(
-                self.completion_time,
-            ),
+            completed_indexes: crate::OptionableConvert::into_optioned(self.completed_indexes),
+            completion_time: crate::OptionableConvert::into_optioned(self.completion_time),
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             failed: crate::OptionableConvert::into_optioned(self.failed),
             failed_indexes: crate::OptionableConvert::into_optioned(self.failed_indexes),
@@ -77,14 +66,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobStatus {
             completed_indexes: crate::OptionableConvert::try_from_optioned(
                 value.completed_indexes,
             )?,
-            completion_time: crate::OptionableConvert::try_from_optioned(
-                value.completion_time,
-            )?,
+            completion_time: crate::OptionableConvert::try_from_optioned(value.completion_time)?,
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             failed: crate::OptionableConvert::try_from_optioned(value.failed)?,
-            failed_indexes: crate::OptionableConvert::try_from_optioned(
-                value.failed_indexes,
-            )?,
+            failed_indexes: crate::OptionableConvert::try_from_optioned(value.failed_indexes)?,
             ready: crate::OptionableConvert::try_from_optioned(value.ready)?,
             start_time: crate::OptionableConvert::try_from_optioned(value.start_time)?,
             succeeded: crate::OptionableConvert::try_from_optioned(value.succeeded)?,
@@ -96,14 +81,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobStatus {
     }
     fn merge(&mut self, other: JobStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.active, other.active)?;
-        crate::OptionableConvert::merge(
-            &mut self.completed_indexes,
-            other.completed_indexes,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.completion_time,
-            other.completion_time,
-        )?;
+        crate::OptionableConvert::merge(&mut self.completed_indexes, other.completed_indexes)?;
+        crate::OptionableConvert::merge(&mut self.completion_time, other.completion_time)?;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(&mut self.failed, other.failed)?;
         crate::OptionableConvert::merge(&mut self.failed_indexes, other.failed_indexes)?;

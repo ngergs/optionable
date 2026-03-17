@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ReplicationControllerAc {
     #[serde(
@@ -65,10 +58,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ReplicationCont
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ReplicationController>
-for ReplicationControllerAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::ReplicationController,
-    ) -> Self {
+    for ReplicationControllerAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::ReplicationController) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
@@ -85,14 +77,19 @@ for ReplicationControllerAc {
 }
 impl k8s_openapi027::Resource for ReplicationControllerAc {
     const API_VERSION: &'static str = <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Resource>::VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Resource>::VERSION;
     const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
-    type Scope = <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Resource>::Scope;
+    type Scope =
+        <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for ReplicationControllerAc {
-    type Ty = <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Metadata>::Ty;
+    type Ty =
+        <k8s_openapi027::api::core::v1::ReplicationController as k8s_openapi027::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi027::Metadata>::Ty {
         &self.metadata
     }
@@ -103,7 +100,5 @@ impl k8s_openapi027::Metadata for ReplicationControllerAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_replicationcontrollerac() {
-    crate::testutil::roundtrip_test::<
-        k8s_openapi027::api::core::v1::ReplicationController,
-    >();
+    crate::testutil::roundtrip_test::<k8s_openapi027::api::core::v1::ReplicationController>();
 }

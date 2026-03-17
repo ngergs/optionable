@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimTemplateSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -18,8 +11,7 @@ pub struct ResourceClaimTemplateSpecAc {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::resource::v1beta2::ResourceClaimTemplateSpec {
+impl crate::Optionable for k8s_openapi027::api::resource::v1beta2::ResourceClaimTemplateSpec {
     type Optioned = ResourceClaimTemplateSpecAc;
 }
 #[automatically_derived]
@@ -29,25 +21,20 @@ impl crate::Optionable for ResourceClaimTemplateSpecAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::resource::v1beta2::ResourceClaimTemplateSpec {
+    for k8s_openapi027::api::resource::v1beta2::ResourceClaimTemplateSpec
+{
     fn into_optioned(self) -> ResourceClaimTemplateSpecAc {
         ResourceClaimTemplateSpecAc {
             metadata: crate::OptionableConvert::into_optioned(self.metadata),
             spec: Some(crate::OptionableConvert::into_optioned(self.spec)),
         }
     }
-    fn try_from_optioned(
-        value: ResourceClaimTemplateSpecAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: ResourceClaimTemplateSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: crate::OptionableConvert::try_from_optioned(value.metadata)?,
-            spec: crate::OptionableConvert::try_from_optioned(
-                value
-                    .spec
-                    .ok_or(crate::Error {
-                        missing_field: "spec",
-                    })?,
-            )?,
+            spec: crate::OptionableConvert::try_from_optioned(value.spec.ok_or(crate::Error {
+                missing_field: "spec",
+            })?)?,
         })
     }
     fn merge(&mut self, other: ResourceClaimTemplateSpecAc) -> Result<(), crate::Error> {
@@ -60,9 +47,9 @@ for k8s_openapi027::api::resource::v1beta2::ResourceClaimTemplateSpec {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::resource::v1beta2::ResourceClaimTemplateSpec,
-> for ResourceClaimTemplateSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta2::ResourceClaimTemplateSpec>
+    for ResourceClaimTemplateSpecAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1beta2::ResourceClaimTemplateSpec,
     ) -> Self {
@@ -70,10 +57,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::resource::v1beta2::ResourceClaimTemplateSpec,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::resource::v1beta2::ResourceClaimTemplateSpec, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

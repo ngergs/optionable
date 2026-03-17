@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ParentReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -39,21 +32,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::ParentRef
     fn try_from_optioned(value: ParentReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
             namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
-            resource: crate::OptionableConvert::try_from_optioned(
-                value
-                    .resource
-                    .ok_or(crate::Error {
-                        missing_field: "resource",
-                    })?,
-            )?,
+            resource: crate::OptionableConvert::try_from_optioned(value.resource.ok_or(
+                crate::Error {
+                    missing_field: "resource",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: ParentReferenceAc) -> Result<(), crate::Error> {
@@ -71,10 +58,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::ParentRef
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::ParentReference>
-for ParentReferenceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::networking::v1::ParentReference,
-    ) -> Self {
+    for ParentReferenceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::networking::v1::ParentReference) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ScaleIOVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -46,9 +39,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ScaleIOVolumeSo
         ScaleIOVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             gateway: Some(crate::OptionableConvert::into_optioned(self.gateway)),
-            protection_domain: crate::OptionableConvert::into_optioned(
-                self.protection_domain,
-            ),
+            protection_domain: crate::OptionableConvert::into_optioned(self.protection_domain),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
             secret_ref: Some(crate::OptionableConvert::into_optioned(self.secret_ref)),
             ssl_enabled: crate::OptionableConvert::into_optioned(self.ssl_enabled),
@@ -61,38 +52,28 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ScaleIOVolumeSo
     fn try_from_optioned(value: ScaleIOVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
-            gateway: crate::OptionableConvert::try_from_optioned(
-                value
-                    .gateway
-                    .ok_or(crate::Error {
-                        missing_field: "gateway",
-                    })?,
-            )?,
+            gateway: crate::OptionableConvert::try_from_optioned(value.gateway.ok_or(
+                crate::Error {
+                    missing_field: "gateway",
+                },
+            )?)?,
             protection_domain: crate::OptionableConvert::try_from_optioned(
                 value.protection_domain,
             )?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
-            secret_ref: crate::OptionableConvert::try_from_optioned(
-                value
-                    .secret_ref
-                    .ok_or(crate::Error {
-                        missing_field: "secret_ref",
-                    })?,
-            )?,
+            secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref.ok_or(
+                crate::Error {
+                    missing_field: "secret_ref",
+                },
+            )?)?,
             ssl_enabled: crate::OptionableConvert::try_from_optioned(value.ssl_enabled)?,
-            storage_mode: crate::OptionableConvert::try_from_optioned(
-                value.storage_mode,
-            )?,
-            storage_pool: crate::OptionableConvert::try_from_optioned(
-                value.storage_pool,
-            )?,
-            system: crate::OptionableConvert::try_from_optioned(
-                value
-                    .system
-                    .ok_or(crate::Error {
-                        missing_field: "system",
-                    })?,
-            )?,
+            storage_mode: crate::OptionableConvert::try_from_optioned(value.storage_mode)?,
+            storage_pool: crate::OptionableConvert::try_from_optioned(value.storage_pool)?,
+            system: crate::OptionableConvert::try_from_optioned(value.system.ok_or(
+                crate::Error {
+                    missing_field: "system",
+                },
+            )?)?,
             volume_name: crate::OptionableConvert::try_from_optioned(value.volume_name)?,
         })
     }
@@ -101,10 +82,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ScaleIOVolumeSo
         if let Some(other_value) = other.gateway {
             crate::OptionableConvert::merge(&mut self.gateway, other_value)?;
         }
-        crate::OptionableConvert::merge(
-            &mut self.protection_domain,
-            other.protection_domain,
-        )?;
+        crate::OptionableConvert::merge(&mut self.protection_domain, other.protection_domain)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         if let Some(other_value) = other.secret_ref {
             crate::OptionableConvert::merge(&mut self.secret_ref, other_value)?;
@@ -122,10 +100,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ScaleIOVolumeSo
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ScaleIOVolumeSource>
-for ScaleIOVolumeSourceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::ScaleIOVolumeSource,
-    ) -> Self {
+    for ScaleIOVolumeSourceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::ScaleIOVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

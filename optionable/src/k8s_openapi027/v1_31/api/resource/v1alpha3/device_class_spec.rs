@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceClassSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -33,8 +26,7 @@ impl crate::Optionable for DeviceClassSpecAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec {
+impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec {
     fn into_optioned(self) -> DeviceClassSpecAc {
         DeviceClassSpecAc {
             config: crate::OptionableConvert::into_optioned(self.config),
@@ -46,9 +38,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec {
         Ok(Self {
             config: crate::OptionableConvert::try_from_optioned(value.config)?,
             selectors: crate::OptionableConvert::try_from_optioned(value.selectors)?,
-            suitable_nodes: crate::OptionableConvert::try_from_optioned(
-                value.suitable_nodes,
-            )?,
+            suitable_nodes: crate::OptionableConvert::try_from_optioned(value.suitable_nodes)?,
         })
     }
     fn merge(&mut self, other: DeviceClassSpecAc) -> Result<(), crate::Error> {
@@ -61,10 +51,9 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec>
-for DeviceClassSpecAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec,
-    ) -> Self {
+    for DeviceClassSpecAc
+{
+    fn from_optionable(value: k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

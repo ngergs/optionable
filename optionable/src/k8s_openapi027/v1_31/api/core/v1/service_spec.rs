@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -106,15 +99,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
                 self.internal_traffic_policy,
             ),
             ip_families: crate::OptionableConvert::into_optioned(self.ip_families),
-            ip_family_policy: crate::OptionableConvert::into_optioned(
-                self.ip_family_policy,
-            ),
-            load_balancer_class: crate::OptionableConvert::into_optioned(
-                self.load_balancer_class,
-            ),
-            load_balancer_ip: crate::OptionableConvert::into_optioned(
-                self.load_balancer_ip,
-            ),
+            ip_family_policy: crate::OptionableConvert::into_optioned(self.ip_family_policy),
+            load_balancer_class: crate::OptionableConvert::into_optioned(self.load_balancer_class),
+            load_balancer_ip: crate::OptionableConvert::into_optioned(self.load_balancer_ip),
             load_balancer_source_ranges: crate::OptionableConvert::into_optioned(
                 self.load_balancer_source_ranges,
             ),
@@ -123,9 +110,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
                 self.publish_not_ready_addresses,
             ),
             selector: crate::OptionableConvert::into_optioned(self.selector),
-            session_affinity: crate::OptionableConvert::into_optioned(
-                self.session_affinity,
-            ),
+            session_affinity: crate::OptionableConvert::into_optioned(self.session_affinity),
             session_affinity_config: crate::OptionableConvert::into_optioned(
                 self.session_affinity_config,
             ),
@@ -142,12 +127,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
             )?,
             cluster_ip: crate::OptionableConvert::try_from_optioned(value.cluster_ip)?,
             cluster_ips: crate::OptionableConvert::try_from_optioned(value.cluster_ips)?,
-            external_ips: crate::OptionableConvert::try_from_optioned(
-                value.external_ips,
-            )?,
-            external_name: crate::OptionableConvert::try_from_optioned(
-                value.external_name,
-            )?,
+            external_ips: crate::OptionableConvert::try_from_optioned(value.external_ips)?,
+            external_name: crate::OptionableConvert::try_from_optioned(value.external_name)?,
             external_traffic_policy: crate::OptionableConvert::try_from_optioned(
                 value.external_traffic_policy,
             )?,
@@ -158,15 +139,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
                 value.internal_traffic_policy,
             )?,
             ip_families: crate::OptionableConvert::try_from_optioned(value.ip_families)?,
-            ip_family_policy: crate::OptionableConvert::try_from_optioned(
-                value.ip_family_policy,
-            )?,
+            ip_family_policy: crate::OptionableConvert::try_from_optioned(value.ip_family_policy)?,
             load_balancer_class: crate::OptionableConvert::try_from_optioned(
                 value.load_balancer_class,
             )?,
-            load_balancer_ip: crate::OptionableConvert::try_from_optioned(
-                value.load_balancer_ip,
-            )?,
+            load_balancer_ip: crate::OptionableConvert::try_from_optioned(value.load_balancer_ip)?,
             load_balancer_source_ranges: crate::OptionableConvert::try_from_optioned(
                 value.load_balancer_source_ranges,
             )?,
@@ -175,9 +152,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
                 value.publish_not_ready_addresses,
             )?,
             selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
-            session_affinity: crate::OptionableConvert::try_from_optioned(
-                value.session_affinity,
-            )?,
+            session_affinity: crate::OptionableConvert::try_from_optioned(value.session_affinity)?,
             session_affinity_config: crate::OptionableConvert::try_from_optioned(
                 value.session_affinity_config,
             )?,
@@ -209,18 +184,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
             other.internal_traffic_policy,
         )?;
         crate::OptionableConvert::merge(&mut self.ip_families, other.ip_families)?;
-        crate::OptionableConvert::merge(
-            &mut self.ip_family_policy,
-            other.ip_family_policy,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.load_balancer_class,
-            other.load_balancer_class,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.load_balancer_ip,
-            other.load_balancer_ip,
-        )?;
+        crate::OptionableConvert::merge(&mut self.ip_family_policy, other.ip_family_policy)?;
+        crate::OptionableConvert::merge(&mut self.load_balancer_class, other.load_balancer_class)?;
+        crate::OptionableConvert::merge(&mut self.load_balancer_ip, other.load_balancer_ip)?;
         crate::OptionableConvert::merge(
             &mut self.load_balancer_source_ranges,
             other.load_balancer_source_ranges,
@@ -231,10 +197,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
             other.publish_not_ready_addresses,
         )?;
         crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
-        crate::OptionableConvert::merge(
-            &mut self.session_affinity,
-            other.session_affinity,
-        )?;
+        crate::OptionableConvert::merge(&mut self.session_affinity, other.session_affinity)?;
         crate::OptionableConvert::merge(
             &mut self.session_affinity_config,
             other.session_affinity_config,
@@ -249,8 +212,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ServiceSpec>
-for ServiceSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ServiceSpec> for ServiceSpecAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::ServiceSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

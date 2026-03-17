@@ -1,7 +1,7 @@
 use clap::Parser;
 use darling::FromMeta;
-use optionable_codegen::{attribute_derives, attribute_no_convert, CodegenSettings};
-use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
+use optionable_codegen::{CodegenSettings, attribute_derives, attribute_no_convert};
+use optionable_codegen_cli::{CodegenConfig, CodegenVisitor, file_codegen};
 use proc_macro2::Span;
 use std::fs::create_dir_all;
 use std::path::PathBuf;

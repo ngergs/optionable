@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ExpressionWarningAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -14,8 +7,7 @@ pub struct ExpressionWarningAc {
     pub warning: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning {
+impl crate::Optionable for k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning {
     type Optioned = ExpressionWarningAc;
 }
 #[automatically_derived]
@@ -25,7 +17,8 @@ impl crate::Optionable for ExpressionWarningAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning {
+    for k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning
+{
     fn into_optioned(self) -> ExpressionWarningAc {
         ExpressionWarningAc {
             field_ref: Some(crate::OptionableConvert::into_optioned(self.field_ref)),
@@ -34,20 +27,16 @@ for k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning {
     }
     fn try_from_optioned(value: ExpressionWarningAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            field_ref: crate::OptionableConvert::try_from_optioned(
-                value
-                    .field_ref
-                    .ok_or(crate::Error {
-                        missing_field: "field_ref",
-                    })?,
-            )?,
-            warning: crate::OptionableConvert::try_from_optioned(
-                value
-                    .warning
-                    .ok_or(crate::Error {
-                        missing_field: "warning",
-                    })?,
-            )?,
+            field_ref: crate::OptionableConvert::try_from_optioned(value.field_ref.ok_or(
+                crate::Error {
+                    missing_field: "field_ref",
+                },
+            )?)?,
+            warning: crate::OptionableConvert::try_from_optioned(value.warning.ok_or(
+                crate::Error {
+                    missing_field: "warning",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: ExpressionWarningAc) -> Result<(), crate::Error> {
@@ -62,9 +51,9 @@ for k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning,
-> for ExpressionWarningAc {
+impl crate::OptionedConvert<k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning>
+    for ExpressionWarningAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning,
     ) -> Self {
@@ -72,10 +61,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

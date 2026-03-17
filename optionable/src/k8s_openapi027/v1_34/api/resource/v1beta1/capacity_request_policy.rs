@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CapacityRequestPolicyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -22,8 +15,7 @@ pub struct CapacityRequestPolicyAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy {
+impl crate::Optionable for k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy {
     type Optioned = CapacityRequestPolicyAc;
 }
 #[automatically_derived]
@@ -32,8 +24,7 @@ impl crate::Optionable for CapacityRequestPolicyAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy {
+impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy {
     fn into_optioned(self) -> CapacityRequestPolicyAc {
         CapacityRequestPolicyAc {
             default: crate::OptionableConvert::into_optioned(self.default),
@@ -45,9 +36,7 @@ for k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy {
         Ok(Self {
             default: crate::OptionableConvert::try_from_optioned(value.default)?,
             valid_range: crate::OptionableConvert::try_from_optioned(value.valid_range)?,
-            valid_values: crate::OptionableConvert::try_from_optioned(
-                value.valid_values,
-            )?,
+            valid_values: crate::OptionableConvert::try_from_optioned(value.valid_values)?,
         })
     }
     fn merge(&mut self, other: CapacityRequestPolicyAc) -> Result<(), crate::Error> {
@@ -59,9 +48,9 @@ for k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy,
-> for CapacityRequestPolicyAc {
+impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy>
+    for CapacityRequestPolicyAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy,
     ) -> Self {
@@ -69,10 +58,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

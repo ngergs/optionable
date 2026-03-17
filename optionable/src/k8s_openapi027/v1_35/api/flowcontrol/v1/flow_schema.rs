@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FlowSchemaAc {
     #[serde(
@@ -64,8 +57,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::FlowSche
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::flowcontrol::v1::FlowSchema>
-for FlowSchemaAc {
+impl crate::OptionedConvert<k8s_openapi027::api::flowcontrol::v1::FlowSchema> for FlowSchemaAc {
     fn from_optionable(value: k8s_openapi027::api::flowcontrol::v1::FlowSchema) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
@@ -82,12 +74,17 @@ for FlowSchemaAc {
     }
 }
 impl k8s_openapi027::Resource for FlowSchemaAc {
-    const API_VERSION: &'static str = <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Resource>::VERSION;
+    const API_VERSION: &'static str =
+        <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Resource>::VERSION;
     const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
-    type Scope = <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Resource>::Scope;
+    type Scope =
+        <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for FlowSchemaAc {
     type Ty = <k8s_openapi027::api::flowcontrol::v1::FlowSchema as k8s_openapi027::Metadata>::Ty;
@@ -101,7 +98,5 @@ impl k8s_openapi027::Metadata for FlowSchemaAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_flowschemaac() {
-    crate::testutil::roundtrip_test::<
-        k8s_openapi027::api::flowcontrol::v1::FlowSchema,
-    >();
+    crate::testutil::roundtrip_test::<k8s_openapi027::api::flowcontrol::v1::FlowSchema>();
 }

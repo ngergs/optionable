@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CSIDriverAc {
     #[serde(
@@ -20,9 +13,8 @@ pub struct CSIDriverAc {
     pub kind: std::marker::PhantomData<Self>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub spec: Option<
-        <::k8s_openapi027::api::storage::v1::CSIDriverSpec as crate::Optionable>::Optioned,
-    >,
+    pub spec:
+        Option<<::k8s_openapi027::api::storage::v1::CSIDriverSpec as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::storage::v1::CSIDriver {
@@ -46,13 +38,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIDriver {
     fn try_from_optioned(value: CSIDriverAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            spec: crate::OptionableConvert::try_from_optioned(
-                value
-                    .spec
-                    .ok_or(crate::Error {
-                        missing_field: "spec",
-                    })?,
-            )?,
+            spec: crate::OptionableConvert::try_from_optioned(value.spec.ok_or(crate::Error {
+                missing_field: "spec",
+            })?)?,
         })
     }
     fn merge(&mut self, other: CSIDriverAc) -> Result<(), crate::Error> {
@@ -65,8 +53,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIDriver {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::storage::v1::CSIDriver>
-for CSIDriverAc {
+impl crate::OptionedConvert<k8s_openapi027::api::storage::v1::CSIDriver> for CSIDriverAc {
     fn from_optionable(value: k8s_openapi027::api::storage::v1::CSIDriver) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
@@ -83,11 +70,16 @@ for CSIDriverAc {
     }
 }
 impl k8s_openapi027::Resource for CSIDriverAc {
-    const API_VERSION: &'static str = <k8s_openapi027::api::storage::v1::CSIDriver as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::storage::v1::CSIDriver as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::storage::v1::CSIDriver as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::storage::v1::CSIDriver as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::storage::v1::CSIDriver as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str =
+        <k8s_openapi027::api::storage::v1::CSIDriver as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::storage::v1::CSIDriver as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::storage::v1::CSIDriver as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::storage::v1::CSIDriver as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str =
+        <k8s_openapi027::api::storage::v1::CSIDriver as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::storage::v1::CSIDriver as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for CSIDriverAc {

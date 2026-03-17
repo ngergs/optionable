@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FlockerVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -33,12 +26,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FlockerVolumeSo
     }
     fn try_from_optioned(value: FlockerVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            dataset_name: crate::OptionableConvert::try_from_optioned(
-                value.dataset_name,
-            )?,
-            dataset_uuid: crate::OptionableConvert::try_from_optioned(
-                value.dataset_uuid,
-            )?,
+            dataset_name: crate::OptionableConvert::try_from_optioned(value.dataset_name)?,
+            dataset_uuid: crate::OptionableConvert::try_from_optioned(value.dataset_uuid)?,
         })
     }
     fn merge(&mut self, other: FlockerVolumeSourceAc) -> Result<(), crate::Error> {
@@ -50,10 +39,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FlockerVolumeSo
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::FlockerVolumeSource>
-for FlockerVolumeSourceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::FlockerVolumeSource,
-    ) -> Self {
+    for FlockerVolumeSourceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::FlockerVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

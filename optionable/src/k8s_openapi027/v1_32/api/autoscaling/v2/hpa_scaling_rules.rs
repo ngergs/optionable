@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HPAScalingRulesAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -40,9 +33,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::HPAScali
     fn try_from_optioned(value: HPAScalingRulesAc) -> Result<Self, crate::Error> {
         Ok(Self {
             policies: crate::OptionableConvert::try_from_optioned(value.policies)?,
-            select_policy: crate::OptionableConvert::try_from_optioned(
-                value.select_policy,
-            )?,
+            select_policy: crate::OptionableConvert::try_from_optioned(value.select_policy)?,
             stabilization_window_seconds: crate::OptionableConvert::try_from_optioned(
                 value.stabilization_window_seconds,
             )?,
@@ -61,10 +52,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::HPAScali
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::HPAScalingRules>
-for HPAScalingRulesAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::autoscaling::v2::HPAScalingRules,
-    ) -> Self {
+    for HPAScalingRulesAc
+{
+    fn from_optionable(value: k8s_openapi027::api::autoscaling::v2::HPAScalingRules) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

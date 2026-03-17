@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HPAScalingPolicyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -26,8 +19,7 @@ impl crate::Optionable for HPAScalingPolicyAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::autoscaling::v2::HPAScalingPolicy {
+impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::HPAScalingPolicy {
     fn into_optioned(self) -> HPAScalingPolicyAc {
         HPAScalingPolicyAc {
             period_seconds: Some(self.period_seconds),
@@ -37,23 +29,17 @@ for k8s_openapi027::api::autoscaling::v2::HPAScalingPolicy {
     }
     fn try_from_optioned(value: HPAScalingPolicyAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            period_seconds: value
-                .period_seconds
-                .ok_or(crate::Error {
-                    missing_field: "period_seconds",
-                })?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
-            value: value
-                .value
-                .ok_or(crate::Error {
-                    missing_field: "value",
-                })?,
+            period_seconds: value.period_seconds.ok_or(crate::Error {
+                missing_field: "period_seconds",
+            })?,
+            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
+                crate::Error {
+                    missing_field: "type_",
+                },
+            )?)?,
+            value: value.value.ok_or(crate::Error {
+                missing_field: "value",
+            })?,
         })
     }
     fn merge(&mut self, other: HPAScalingPolicyAc) -> Result<(), crate::Error> {
@@ -72,10 +58,9 @@ for k8s_openapi027::api::autoscaling::v2::HPAScalingPolicy {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::HPAScalingPolicy>
-for HPAScalingPolicyAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::autoscaling::v2::HPAScalingPolicy,
-    ) -> Self {
+    for HPAScalingPolicyAc
+{
+    fn from_optionable(value: k8s_openapi027::api::autoscaling::v2::HPAScalingPolicy) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

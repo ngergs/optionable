@@ -1,22 +1,12 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NonResourcePolicyRuleAc {
     #[serde(rename = "nonResourceURLs")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub non_resource_urls: Option<
-        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
-    >,
+    pub non_resource_urls:
+        Option<<std::vec::Vec<std::string::String> as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub verbs: Option<
-        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
-    >,
+    pub verbs: Option<<std::vec::Vec<std::string::String> as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule {
@@ -28,32 +18,27 @@ impl crate::Optionable for NonResourcePolicyRuleAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule {
+impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule {
     fn into_optioned(self) -> NonResourcePolicyRuleAc {
         NonResourcePolicyRuleAc {
-            non_resource_urls: Some(
-                crate::OptionableConvert::into_optioned(self.non_resource_urls),
-            ),
+            non_resource_urls: Some(crate::OptionableConvert::into_optioned(
+                self.non_resource_urls,
+            )),
             verbs: Some(crate::OptionableConvert::into_optioned(self.verbs)),
         }
     }
     fn try_from_optioned(value: NonResourcePolicyRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             non_resource_urls: crate::OptionableConvert::try_from_optioned(
-                value
-                    .non_resource_urls
-                    .ok_or(crate::Error {
-                        missing_field: "non_resource_urls",
-                    })?,
+                value.non_resource_urls.ok_or(crate::Error {
+                    missing_field: "non_resource_urls",
+                })?,
             )?,
-            verbs: crate::OptionableConvert::try_from_optioned(
-                value
-                    .verbs
-                    .ok_or(crate::Error {
-                        missing_field: "verbs",
-                    })?,
-            )?,
+            verbs: crate::OptionableConvert::try_from_optioned(value.verbs.ok_or(
+                crate::Error {
+                    missing_field: "verbs",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: NonResourcePolicyRuleAc) -> Result<(), crate::Error> {
@@ -69,18 +54,14 @@ for k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule>
-for NonResourcePolicyRuleAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule,
-    ) -> Self {
+    for NonResourcePolicyRuleAc
+{
+    fn from_optionable(value: k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

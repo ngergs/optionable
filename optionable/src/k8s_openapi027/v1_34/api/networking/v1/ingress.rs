@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressAc {
     #[serde(
@@ -81,10 +74,14 @@ impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::Ingress> for In
     }
 }
 impl k8s_openapi027::Resource for IngressAc {
-    const API_VERSION: &'static str = <k8s_openapi027::api::networking::v1::Ingress as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::networking::v1::Ingress as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::networking::v1::Ingress as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::networking::v1::Ingress as k8s_openapi027::Resource>::VERSION;
+    const API_VERSION: &'static str =
+        <k8s_openapi027::api::networking::v1::Ingress as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::networking::v1::Ingress as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::networking::v1::Ingress as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::networking::v1::Ingress as k8s_openapi027::Resource>::VERSION;
     const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::networking::v1::Ingress as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::networking::v1::Ingress as k8s_openapi027::Resource>::Scope;
 }

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CounterAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,13 +24,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Count
     }
     fn try_from_optioned(value: CounterAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            value: crate::OptionableConvert::try_from_optioned(
-                value
-                    .value
-                    .ok_or(crate::Error {
-                        missing_field: "value",
-                    })?,
-            )?,
+            value: crate::OptionableConvert::try_from_optioned(value.value.ok_or(
+                crate::Error {
+                    missing_field: "value",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: CounterAc) -> Result<(), crate::Error> {
@@ -49,8 +40,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Count
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::Counter>
-for CounterAc {
+impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::Counter> for CounterAc {
     fn from_optionable(value: k8s_openapi027::api::resource::v1alpha3::Counter) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

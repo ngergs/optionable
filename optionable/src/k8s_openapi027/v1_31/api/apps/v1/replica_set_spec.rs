@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ReplicaSetSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -34,9 +27,7 @@ impl crate::Optionable for ReplicaSetSpecAc {
 impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ReplicaSetSpec {
     fn into_optioned(self) -> ReplicaSetSpecAc {
         ReplicaSetSpecAc {
-            min_ready_seconds: crate::OptionableConvert::into_optioned(
-                self.min_ready_seconds,
-            ),
+            min_ready_seconds: crate::OptionableConvert::into_optioned(self.min_ready_seconds),
             replicas: crate::OptionableConvert::into_optioned(self.replicas),
             selector: Some(crate::OptionableConvert::into_optioned(self.selector)),
             template: crate::OptionableConvert::into_optioned(self.template),
@@ -48,21 +39,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ReplicaSetSpec 
                 value.min_ready_seconds,
             )?,
             replicas: crate::OptionableConvert::try_from_optioned(value.replicas)?,
-            selector: crate::OptionableConvert::try_from_optioned(
-                value
-                    .selector
-                    .ok_or(crate::Error {
-                        missing_field: "selector",
-                    })?,
-            )?,
+            selector: crate::OptionableConvert::try_from_optioned(value.selector.ok_or(
+                crate::Error {
+                    missing_field: "selector",
+                },
+            )?)?,
             template: crate::OptionableConvert::try_from_optioned(value.template)?,
         })
     }
     fn merge(&mut self, other: ReplicaSetSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.min_ready_seconds,
-            other.min_ready_seconds,
-        )?;
+        crate::OptionableConvert::merge(&mut self.min_ready_seconds, other.min_ready_seconds)?;
         crate::OptionableConvert::merge(&mut self.replicas, other.replicas)?;
         if let Some(other_value) = other.selector {
             crate::OptionableConvert::merge(&mut self.selector, other_value)?;
@@ -73,8 +59,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ReplicaSetSpec 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::ReplicaSetSpec>
-for ReplicaSetSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::ReplicaSetSpec> for ReplicaSetSpecAc {
     fn from_optionable(value: k8s_openapi027::api::apps::v1::ReplicaSetSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointSubsetAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -35,9 +28,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointSubset 
     fn into_optioned(self) -> EndpointSubsetAc {
         EndpointSubsetAc {
             addresses: crate::OptionableConvert::into_optioned(self.addresses),
-            not_ready_addresses: crate::OptionableConvert::into_optioned(
-                self.not_ready_addresses,
-            ),
+            not_ready_addresses: crate::OptionableConvert::into_optioned(self.not_ready_addresses),
             ports: crate::OptionableConvert::into_optioned(self.ports),
         }
     }
@@ -52,18 +43,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointSubset 
     }
     fn merge(&mut self, other: EndpointSubsetAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.addresses, other.addresses)?;
-        crate::OptionableConvert::merge(
-            &mut self.not_ready_addresses,
-            other.not_ready_addresses,
-        )?;
+        crate::OptionableConvert::merge(&mut self.not_ready_addresses, other.not_ready_addresses)?;
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::EndpointSubset>
-for EndpointSubsetAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::EndpointSubset> for EndpointSubsetAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::EndpointSubset) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SecretEnvSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -32,13 +25,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretEnvSource
     }
     fn try_from_optioned(value: SecretEnvSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
             optional: crate::OptionableConvert::try_from_optioned(value.optional)?,
         })
     }
@@ -52,8 +41,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretEnvSource
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::SecretEnvSource>
-for SecretEnvSourceAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::SecretEnvSource> for SecretEnvSourceAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::SecretEnvSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

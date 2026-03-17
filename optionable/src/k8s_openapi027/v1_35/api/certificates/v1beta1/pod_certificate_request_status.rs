@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodCertificateRequestStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -28,8 +21,7 @@ pub struct PodCertificateRequestStatusAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
+impl crate::Optionable for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
     type Optioned = PodCertificateRequestStatusAc;
 }
 #[automatically_derived]
@@ -39,27 +31,20 @@ impl crate::Optionable for PodCertificateRequestStatusAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
+    for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus
+{
     fn into_optioned(self) -> PodCertificateRequestStatusAc {
         PodCertificateRequestStatusAc {
-            begin_refresh_at: crate::OptionableConvert::into_optioned(
-                self.begin_refresh_at,
-            ),
-            certificate_chain: crate::OptionableConvert::into_optioned(
-                self.certificate_chain,
-            ),
+            begin_refresh_at: crate::OptionableConvert::into_optioned(self.begin_refresh_at),
+            certificate_chain: crate::OptionableConvert::into_optioned(self.certificate_chain),
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             not_after: crate::OptionableConvert::into_optioned(self.not_after),
             not_before: crate::OptionableConvert::into_optioned(self.not_before),
         }
     }
-    fn try_from_optioned(
-        value: PodCertificateRequestStatusAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: PodCertificateRequestStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            begin_refresh_at: crate::OptionableConvert::try_from_optioned(
-                value.begin_refresh_at,
-            )?,
+            begin_refresh_at: crate::OptionableConvert::try_from_optioned(value.begin_refresh_at)?,
             certificate_chain: crate::OptionableConvert::try_from_optioned(
                 value.certificate_chain,
             )?,
@@ -68,18 +53,9 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
             not_before: crate::OptionableConvert::try_from_optioned(value.not_before)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PodCertificateRequestStatusAc,
-    ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.begin_refresh_at,
-            other.begin_refresh_at,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.certificate_chain,
-            other.certificate_chain,
-        )?;
+    fn merge(&mut self, other: PodCertificateRequestStatusAc) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(&mut self.begin_refresh_at, other.begin_refresh_at)?;
+        crate::OptionableConvert::merge(&mut self.certificate_chain, other.certificate_chain)?;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(&mut self.not_after, other.not_after)?;
         crate::OptionableConvert::merge(&mut self.not_before, other.not_before)?;
@@ -88,9 +64,9 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus,
-> for PodCertificateRequestStatusAc {
+impl crate::OptionedConvert<k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus>
+    for PodCertificateRequestStatusAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus,
     ) -> Self {
@@ -98,10 +74,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

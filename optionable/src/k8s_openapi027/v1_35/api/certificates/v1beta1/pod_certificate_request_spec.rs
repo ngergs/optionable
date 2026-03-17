@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodCertificateRequestSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -16,27 +9,19 @@ pub struct PodCertificateRequestSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_uid: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pkix_public_key: Option<
-        <::k8s_openapi027::ByteString as crate::Optionable>::Optioned,
-    >,
+    pub pkix_public_key: Option<<::k8s_openapi027::ByteString as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(rename = "podUID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_uid: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub proof_of_possession: Option<
-        <::k8s_openapi027::ByteString as crate::Optionable>::Optioned,
-    >,
+    pub proof_of_possession: Option<<::k8s_openapi027::ByteString as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_account_name: Option<
-        <std::string::String as crate::Optionable>::Optioned,
-    >,
+    pub service_account_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(rename = "serviceAccountUID")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_account_uid: Option<
-        <std::string::String as crate::Optionable>::Optioned,
-    >,
+    pub service_account_uid: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub signer_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -45,8 +30,7 @@ pub struct PodCertificateRequestSpecAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
+impl crate::Optionable for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
     type Optioned = PodCertificateRequestSpecAc;
 }
 #[automatically_derived]
@@ -56,7 +40,8 @@ impl crate::Optionable for PodCertificateRequestSpecAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
+    for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec
+{
     fn into_optioned(self) -> PodCertificateRequestSpecAc {
         PodCertificateRequestSpecAc {
             max_expiration_seconds: crate::OptionableConvert::into_optioned(
@@ -64,96 +49,76 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
             ),
             node_name: Some(crate::OptionableConvert::into_optioned(self.node_name)),
             node_uid: Some(crate::OptionableConvert::into_optioned(self.node_uid)),
-            pkix_public_key: Some(
-                crate::OptionableConvert::into_optioned(self.pkix_public_key),
-            ),
+            pkix_public_key: Some(crate::OptionableConvert::into_optioned(
+                self.pkix_public_key,
+            )),
             pod_name: Some(crate::OptionableConvert::into_optioned(self.pod_name)),
             pod_uid: Some(crate::OptionableConvert::into_optioned(self.pod_uid)),
-            proof_of_possession: Some(
-                crate::OptionableConvert::into_optioned(self.proof_of_possession),
-            ),
-            service_account_name: Some(
-                crate::OptionableConvert::into_optioned(self.service_account_name),
-            ),
-            service_account_uid: Some(
-                crate::OptionableConvert::into_optioned(self.service_account_uid),
-            ),
+            proof_of_possession: Some(crate::OptionableConvert::into_optioned(
+                self.proof_of_possession,
+            )),
+            service_account_name: Some(crate::OptionableConvert::into_optioned(
+                self.service_account_name,
+            )),
+            service_account_uid: Some(crate::OptionableConvert::into_optioned(
+                self.service_account_uid,
+            )),
             signer_name: Some(crate::OptionableConvert::into_optioned(self.signer_name)),
             unverified_user_annotations: crate::OptionableConvert::into_optioned(
                 self.unverified_user_annotations,
             ),
         }
     }
-    fn try_from_optioned(
-        value: PodCertificateRequestSpecAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: PodCertificateRequestSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             max_expiration_seconds: crate::OptionableConvert::try_from_optioned(
                 value.max_expiration_seconds,
             )?,
-            node_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .node_name
-                    .ok_or(crate::Error {
-                        missing_field: "node_name",
-                    })?,
-            )?,
-            node_uid: crate::OptionableConvert::try_from_optioned(
-                value
-                    .node_uid
-                    .ok_or(crate::Error {
-                        missing_field: "node_uid",
-                    })?,
-            )?,
+            node_name: crate::OptionableConvert::try_from_optioned(value.node_name.ok_or(
+                crate::Error {
+                    missing_field: "node_name",
+                },
+            )?)?,
+            node_uid: crate::OptionableConvert::try_from_optioned(value.node_uid.ok_or(
+                crate::Error {
+                    missing_field: "node_uid",
+                },
+            )?)?,
             pkix_public_key: crate::OptionableConvert::try_from_optioned(
-                value
-                    .pkix_public_key
-                    .ok_or(crate::Error {
-                        missing_field: "pkix_public_key",
-                    })?,
+                value.pkix_public_key.ok_or(crate::Error {
+                    missing_field: "pkix_public_key",
+                })?,
             )?,
-            pod_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .pod_name
-                    .ok_or(crate::Error {
-                        missing_field: "pod_name",
-                    })?,
-            )?,
-            pod_uid: crate::OptionableConvert::try_from_optioned(
-                value
-                    .pod_uid
-                    .ok_or(crate::Error {
-                        missing_field: "pod_uid",
-                    })?,
-            )?,
+            pod_name: crate::OptionableConvert::try_from_optioned(value.pod_name.ok_or(
+                crate::Error {
+                    missing_field: "pod_name",
+                },
+            )?)?,
+            pod_uid: crate::OptionableConvert::try_from_optioned(value.pod_uid.ok_or(
+                crate::Error {
+                    missing_field: "pod_uid",
+                },
+            )?)?,
             proof_of_possession: crate::OptionableConvert::try_from_optioned(
-                value
-                    .proof_of_possession
-                    .ok_or(crate::Error {
-                        missing_field: "proof_of_possession",
-                    })?,
+                value.proof_of_possession.ok_or(crate::Error {
+                    missing_field: "proof_of_possession",
+                })?,
             )?,
             service_account_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .service_account_name
-                    .ok_or(crate::Error {
-                        missing_field: "service_account_name",
-                    })?,
+                value.service_account_name.ok_or(crate::Error {
+                    missing_field: "service_account_name",
+                })?,
             )?,
             service_account_uid: crate::OptionableConvert::try_from_optioned(
-                value
-                    .service_account_uid
-                    .ok_or(crate::Error {
-                        missing_field: "service_account_uid",
-                    })?,
+                value.service_account_uid.ok_or(crate::Error {
+                    missing_field: "service_account_uid",
+                })?,
             )?,
-            signer_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .signer_name
-                    .ok_or(crate::Error {
-                        missing_field: "signer_name",
-                    })?,
-            )?,
+            signer_name: crate::OptionableConvert::try_from_optioned(value.signer_name.ok_or(
+                crate::Error {
+                    missing_field: "signer_name",
+                },
+            )?)?,
             unverified_user_annotations: crate::OptionableConvert::try_from_optioned(
                 value.unverified_user_annotations,
             )?,
@@ -183,10 +148,7 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
             crate::OptionableConvert::merge(&mut self.proof_of_possession, other_value)?;
         }
         if let Some(other_value) = other.service_account_name {
-            crate::OptionableConvert::merge(
-                &mut self.service_account_name,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.service_account_name, other_value)?;
         }
         if let Some(other_value) = other.service_account_uid {
             crate::OptionableConvert::merge(&mut self.service_account_uid, other_value)?;
@@ -203,9 +165,9 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec,
-> for PodCertificateRequestSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec>
+    for PodCertificateRequestSpecAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec,
     ) -> Self {
@@ -213,10 +175,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

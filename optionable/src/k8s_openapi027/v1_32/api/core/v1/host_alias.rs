@@ -1,17 +1,8 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HostAliasAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub hostnames: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub hostnames: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ip: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
@@ -35,13 +26,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HostAlias {
     fn try_from_optioned(value: HostAliasAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hostnames: crate::OptionableConvert::try_from_optioned(value.hostnames)?,
-            ip: crate::OptionableConvert::try_from_optioned(
-                value
-                    .ip
-                    .ok_or(crate::Error {
-                        missing_field: "ip",
-                    })?,
-            )?,
+            ip: crate::OptionableConvert::try_from_optioned(value.ip.ok_or(crate::Error {
+                missing_field: "ip",
+            })?)?,
         })
     }
     fn merge(&mut self, other: HostAliasAc) -> Result<(), crate::Error> {
@@ -58,9 +45,7 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::HostAlias> for HostAl
     fn from_optionable(value: k8s_openapi027::api::core::v1::HostAlias) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(
-        self,
-    ) -> Result<k8s_openapi027::api::core::v1::HostAlias, crate::Error> {
+    fn try_into_optionable(self) -> Result<k8s_openapi027::api::core::v1::HostAlias, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

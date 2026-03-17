@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourcePoolAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -35,23 +28,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Resour
     }
     fn try_from_optioned(value: ResourcePoolAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            generation: value
-                .generation
-                .ok_or(crate::Error {
-                    missing_field: "generation",
-                })?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
-            resource_slice_count: value
-                .resource_slice_count
-                .ok_or(crate::Error {
-                    missing_field: "resource_slice_count",
-                })?,
+            generation: value.generation.ok_or(crate::Error {
+                missing_field: "generation",
+            })?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
+            resource_slice_count: value.resource_slice_count.ok_or(crate::Error {
+                missing_field: "resource_slice_count",
+            })?,
         })
     }
     fn merge(&mut self, other: ResourcePoolAc) -> Result<(), crate::Error> {
@@ -70,10 +55,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Resour
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta1::ResourcePool>
-for ResourcePoolAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::resource::v1beta1::ResourcePool,
-    ) -> Self {
+    for ResourcePoolAc
+{
+    fn from_optionable(value: k8s_openapi027::api::resource::v1beta1::ResourcePool) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

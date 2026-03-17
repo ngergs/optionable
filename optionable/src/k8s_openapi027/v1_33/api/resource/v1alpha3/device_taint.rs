@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceTaintAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -40,20 +33,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Devic
     }
     fn try_from_optioned(value: DeviceTaintAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            effect: crate::OptionableConvert::try_from_optioned(
-                value
-                    .effect
-                    .ok_or(crate::Error {
-                        missing_field: "effect",
-                    })?,
-            )?,
-            key: crate::OptionableConvert::try_from_optioned(
-                value
-                    .key
-                    .ok_or(crate::Error {
-                        missing_field: "key",
-                    })?,
-            )?,
+            effect: crate::OptionableConvert::try_from_optioned(value.effect.ok_or(
+                crate::Error {
+                    missing_field: "effect",
+                },
+            )?)?,
+            key: crate::OptionableConvert::try_from_optioned(value.key.ok_or(crate::Error {
+                missing_field: "key",
+            })?)?,
             time_added: crate::OptionableConvert::try_from_optioned(value.time_added)?,
             value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
@@ -73,10 +60,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Devic
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::DeviceTaint>
-for DeviceTaintAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::resource::v1alpha3::DeviceTaint,
-    ) -> Self {
+    for DeviceTaintAc
+{
+    fn from_optionable(value: k8s_openapi027::api::resource::v1alpha3::DeviceTaint) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

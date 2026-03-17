@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceTaintRuleAc {
     #[serde(
@@ -34,8 +27,7 @@ impl crate::Optionable for DeviceTaintRuleAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule {
+impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule {
     fn into_optioned(self) -> DeviceTaintRuleAc {
         DeviceTaintRuleAc {
             api_version: Default::default(),
@@ -47,13 +39,9 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule {
     fn try_from_optioned(value: DeviceTaintRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            spec: crate::OptionableConvert::try_from_optioned(
-                value
-                    .spec
-                    .ok_or(crate::Error {
-                        missing_field: "spec",
-                    })?,
-            )?,
+            spec: crate::OptionableConvert::try_from_optioned(value.spec.ok_or(crate::Error {
+                missing_field: "spec",
+            })?)?,
         })
     }
     fn merge(&mut self, other: DeviceTaintRuleAc) -> Result<(), crate::Error> {
@@ -67,10 +55,9 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule>
-for DeviceTaintRuleAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule,
-    ) -> Self {
+    for DeviceTaintRuleAc
+{
+    fn from_optionable(value: k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
@@ -94,7 +81,8 @@ impl k8s_openapi027::Resource for DeviceTaintRuleAc {
     type Scope = <k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for DeviceTaintRuleAc {
-    type Ty = <k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule as k8s_openapi027::Metadata>::Ty;
+    type Ty =
+        <k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule as k8s_openapi027::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi027::Metadata>::Ty {
         &self.metadata
     }
@@ -105,7 +93,5 @@ impl k8s_openapi027::Metadata for DeviceTaintRuleAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_devicetaintruleac() {
-    crate::testutil::roundtrip_test::<
-        k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule,
-    >();
+    crate::testutil::roundtrip_test::<k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule>();
 }

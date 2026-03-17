@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PersistentVolumeClaimStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -55,17 +48,14 @@ impl crate::Optionable for PersistentVolumeClaimStatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus {
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus {
     fn into_optioned(self) -> PersistentVolumeClaimStatusAc {
         PersistentVolumeClaimStatusAc {
             access_modes: crate::OptionableConvert::into_optioned(self.access_modes),
             allocated_resource_statuses: crate::OptionableConvert::into_optioned(
                 self.allocated_resource_statuses,
             ),
-            allocated_resources: crate::OptionableConvert::into_optioned(
-                self.allocated_resources,
-            ),
+            allocated_resources: crate::OptionableConvert::into_optioned(self.allocated_resources),
             capacity: crate::OptionableConvert::into_optioned(self.capacity),
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             current_volume_attributes_class_name: crate::OptionableConvert::into_optioned(
@@ -77,13 +67,9 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus {
             phase: crate::OptionableConvert::into_optioned(self.phase),
         }
     }
-    fn try_from_optioned(
-        value: PersistentVolumeClaimStatusAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: PersistentVolumeClaimStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            access_modes: crate::OptionableConvert::try_from_optioned(
-                value.access_modes,
-            )?,
+            access_modes: crate::OptionableConvert::try_from_optioned(value.access_modes)?,
             allocated_resource_statuses: crate::OptionableConvert::try_from_optioned(
                 value.allocated_resource_statuses,
             )?,
@@ -101,19 +87,13 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus {
             phase: crate::OptionableConvert::try_from_optioned(value.phase)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PersistentVolumeClaimStatusAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: PersistentVolumeClaimStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.access_modes, other.access_modes)?;
         crate::OptionableConvert::merge(
             &mut self.allocated_resource_statuses,
             other.allocated_resource_statuses,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.allocated_resources,
-            other.allocated_resources,
-        )?;
+        crate::OptionableConvert::merge(&mut self.allocated_resources, other.allocated_resources)?;
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(
@@ -131,18 +111,14 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus>
-for PersistentVolumeClaimStatusAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus,
-    ) -> Self {
+    for PersistentVolumeClaimStatusAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

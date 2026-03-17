@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PersistentVolumeClaimConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,8 +20,7 @@ pub struct PersistentVolumeClaimConditionAc {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition {
+impl crate::Optionable for k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition {
     type Optioned = PersistentVolumeClaimConditionAc;
 }
 #[automatically_derived]
@@ -37,13 +29,10 @@ impl crate::Optionable for PersistentVolumeClaimConditionAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition {
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition {
     fn into_optioned(self) -> PersistentVolumeClaimConditionAc {
         PersistentVolumeClaimConditionAc {
-            last_probe_time: crate::OptionableConvert::into_optioned(
-                self.last_probe_time,
-            ),
+            last_probe_time: crate::OptionableConvert::into_optioned(self.last_probe_time),
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -53,42 +42,28 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition {
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(
-        value: PersistentVolumeClaimConditionAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: PersistentVolumeClaimConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            last_probe_time: crate::OptionableConvert::try_from_optioned(
-                value.last_probe_time,
-            )?,
+            last_probe_time: crate::OptionableConvert::try_from_optioned(value.last_probe_time)?,
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value.last_transition_time,
             )?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
-            status: crate::OptionableConvert::try_from_optioned(
-                value
-                    .status
-                    .ok_or(crate::Error {
-                        missing_field: "status",
-                    })?,
-            )?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            status: crate::OptionableConvert::try_from_optioned(value.status.ok_or(
+                crate::Error {
+                    missing_field: "status",
+                },
+            )?)?,
+            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
+                crate::Error {
+                    missing_field: "type_",
+                },
+            )?)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PersistentVolumeClaimConditionAc,
-    ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.last_probe_time,
-            other.last_probe_time,
-        )?;
+    fn merge(&mut self, other: PersistentVolumeClaimConditionAc) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(&mut self.last_probe_time, other.last_probe_time)?;
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,
             other.last_transition_time,
@@ -106,9 +81,9 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition,
-> for PersistentVolumeClaimConditionAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition>
+    for PersistentVolumeClaimConditionAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition,
     ) -> Self {
@@ -116,10 +91,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -57,17 +50,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSpec {
     }
     fn try_from_optioned(value: NodeSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            config_source: crate::OptionableConvert::try_from_optioned(
-                value.config_source,
-            )?,
+            config_source: crate::OptionableConvert::try_from_optioned(value.config_source)?,
             external_id: crate::OptionableConvert::try_from_optioned(value.external_id)?,
             pod_cidr: crate::OptionableConvert::try_from_optioned(value.pod_cidr)?,
             pod_cidrs: crate::OptionableConvert::try_from_optioned(value.pod_cidrs)?,
             provider_id: crate::OptionableConvert::try_from_optioned(value.provider_id)?,
             taints: crate::OptionableConvert::try_from_optioned(value.taints)?,
-            unschedulable: crate::OptionableConvert::try_from_optioned(
-                value.unschedulable,
-            )?,
+            unschedulable: crate::OptionableConvert::try_from_optioned(value.unschedulable)?,
         })
     }
     fn merge(&mut self, other: NodeSpecAc) -> Result<(), crate::Error> {
@@ -87,9 +76,7 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSpec> for NodeSpe
     fn from_optionable(value: k8s_openapi027::api::core::v1::NodeSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(
-        self,
-    ) -> Result<k8s_openapi027::api::core::v1::NodeSpec, crate::Error> {
+    fn try_into_optionable(self) -> Result<k8s_openapi027::api::core::v1::NodeSpec, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

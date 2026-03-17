@@ -1,7 +1,7 @@
 use crate::{OptionableConvert, OptionedConvert};
 use fake::{Dummy, Fake, Faker};
-use serde::de::DeserializeOwned;
 use serde::Serialize;
+use serde::de::DeserializeOwned;
 use std::fmt::Debug;
 
 #[allow(unused)]

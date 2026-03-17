@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CrossVersionObjectReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -16,8 +9,7 @@ pub struct CrossVersionObjectReferenceAc {
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference {
+impl crate::Optionable for k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference {
     type Optioned = CrossVersionObjectReferenceAc;
 }
 #[automatically_derived]
@@ -27,7 +19,8 @@ impl crate::Optionable for CrossVersionObjectReferenceAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference {
+    for k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference
+{
     fn into_optioned(self) -> CrossVersionObjectReferenceAc {
         CrossVersionObjectReferenceAc {
             api_version: crate::OptionableConvert::into_optioned(self.api_version),
@@ -35,31 +28,18 @@ for k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
         }
     }
-    fn try_from_optioned(
-        value: CrossVersionObjectReferenceAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: CrossVersionObjectReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
-            kind: crate::OptionableConvert::try_from_optioned(
-                value
-                    .kind
-                    .ok_or(crate::Error {
-                        missing_field: "kind",
-                    })?,
-            )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            kind: crate::OptionableConvert::try_from_optioned(value.kind.ok_or(crate::Error {
+                missing_field: "kind",
+            })?)?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CrossVersionObjectReferenceAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: CrossVersionObjectReferenceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         if let Some(other_value) = other.kind {
             crate::OptionableConvert::merge(&mut self.kind, other_value)?;
@@ -72,9 +52,9 @@ for k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference,
-> for CrossVersionObjectReferenceAc {
+impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference>
+    for CrossVersionObjectReferenceAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference,
     ) -> Self {
@@ -82,10 +62,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

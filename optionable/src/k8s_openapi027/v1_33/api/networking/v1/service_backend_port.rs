@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceBackendPortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -23,8 +16,7 @@ impl crate::Optionable for ServiceBackendPortAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::networking::v1::ServiceBackendPort {
+impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::ServiceBackendPort {
     fn into_optioned(self) -> ServiceBackendPortAc {
         ServiceBackendPortAc {
             name: crate::OptionableConvert::into_optioned(self.name),
@@ -46,10 +38,9 @@ for k8s_openapi027::api::networking::v1::ServiceBackendPort {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::ServiceBackendPort>
-for ServiceBackendPortAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::networking::v1::ServiceBackendPort,
-    ) -> Self {
+    for ServiceBackendPortAc
+{
+    fn from_optionable(value: k8s_openapi027::api::networking::v1::ServiceBackendPort) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

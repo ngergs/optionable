@@ -1,17 +1,8 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerImageAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub names: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub names: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub size_bytes: <Option<i64> as crate::Optionable>::Optioned,
 }
@@ -46,8 +37,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerImage 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ContainerImage>
-for ContainerImageAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ContainerImage> for ContainerImageAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::ContainerImage) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

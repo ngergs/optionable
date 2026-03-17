@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MetricStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -45,9 +38,7 @@ impl crate::Optionable for MetricStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricStatus {
     fn into_optioned(self) -> MetricStatusAc {
         MetricStatusAc {
-            container_resource: crate::OptionableConvert::into_optioned(
-                self.container_resource,
-            ),
+            container_resource: crate::OptionableConvert::into_optioned(self.container_resource),
             external: crate::OptionableConvert::into_optioned(self.external),
             object: crate::OptionableConvert::into_optioned(self.object),
             pods: crate::OptionableConvert::into_optioned(self.pods),
@@ -64,20 +55,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricSt
             object: crate::OptionableConvert::try_from_optioned(value.object)?,
             pods: crate::OptionableConvert::try_from_optioned(value.pods)?,
             resource: crate::OptionableConvert::try_from_optioned(value.resource)?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
+                crate::Error {
+                    missing_field: "type_",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: MetricStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.container_resource,
-            other.container_resource,
-        )?;
+        crate::OptionableConvert::merge(&mut self.container_resource, other.container_resource)?;
         crate::OptionableConvert::merge(&mut self.external, other.external)?;
         crate::OptionableConvert::merge(&mut self.object, other.object)?;
         crate::OptionableConvert::merge(&mut self.pods, other.pods)?;
@@ -90,11 +76,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricSt
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::MetricStatus>
-for MetricStatusAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::autoscaling::v2::MetricStatus,
-    ) -> Self {
+impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::MetricStatus> for MetricStatusAc {
+    fn from_optionable(value: k8s_openapi027::api::autoscaling::v2::MetricStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

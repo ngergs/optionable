@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GroupVersionForDiscoveryAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -15,7 +8,8 @@ pub struct GroupVersionForDiscoveryAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery {
+    for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery
+{
     type Optioned = GroupVersionForDiscoveryAc;
 }
 #[automatically_derived]
@@ -25,33 +19,26 @@ impl crate::Optionable for GroupVersionForDiscoveryAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery {
+    for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery
+{
     fn into_optioned(self) -> GroupVersionForDiscoveryAc {
         GroupVersionForDiscoveryAc {
-            group_version: Some(
-                crate::OptionableConvert::into_optioned(self.group_version),
-            ),
+            group_version: Some(crate::OptionableConvert::into_optioned(self.group_version)),
             version: Some(crate::OptionableConvert::into_optioned(self.version)),
         }
     }
-    fn try_from_optioned(
-        value: GroupVersionForDiscoveryAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: GroupVersionForDiscoveryAc) -> Result<Self, crate::Error> {
         Ok(Self {
             group_version: crate::OptionableConvert::try_from_optioned(
-                value
-                    .group_version
-                    .ok_or(crate::Error {
-                        missing_field: "group_version",
-                    })?,
+                value.group_version.ok_or(crate::Error {
+                    missing_field: "group_version",
+                })?,
             )?,
-            version: crate::OptionableConvert::try_from_optioned(
-                value
-                    .version
-                    .ok_or(crate::Error {
-                        missing_field: "version",
-                    })?,
-            )?,
+            version: crate::OptionableConvert::try_from_optioned(value.version.ok_or(
+                crate::Error {
+                    missing_field: "version",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: GroupVersionForDiscoveryAc) -> Result<(), crate::Error> {
@@ -66,9 +53,11 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery,
-> for GroupVersionForDiscoveryAc {
+impl
+    crate::OptionedConvert<
+        k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery,
+    > for GroupVersionForDiscoveryAc
+{
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery,
     ) -> Self {

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BindingAc {
     #[serde(
@@ -20,9 +13,8 @@ pub struct BindingAc {
     pub kind: std::marker::PhantomData<Self>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub target: Option<
-        <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
-    >,
+    pub target:
+        Option<<::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::Binding {
@@ -46,13 +38,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Binding {
     fn try_from_optioned(value: BindingAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            target: crate::OptionableConvert::try_from_optioned(
-                value
-                    .target
-                    .ok_or(crate::Error {
-                        missing_field: "target",
-                    })?,
-            )?,
+            target: crate::OptionableConvert::try_from_optioned(value.target.ok_or(
+                crate::Error {
+                    missing_field: "target",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: BindingAc) -> Result<(), crate::Error> {
@@ -69,9 +59,7 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Binding> for BindingA
     fn from_optionable(value: k8s_openapi027::api::core::v1::Binding) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(
-        self,
-    ) -> Result<k8s_openapi027::api::core::v1::Binding, crate::Error> {
+    fn try_into_optionable(self) -> Result<k8s_openapi027::api::core::v1::Binding, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -82,11 +70,16 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Binding> for BindingA
     }
 }
 impl k8s_openapi027::Resource for BindingAc {
-    const API_VERSION: &'static str = <k8s_openapi027::api::core::v1::Binding as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::core::v1::Binding as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::core::v1::Binding as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::core::v1::Binding as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::core::v1::Binding as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str =
+        <k8s_openapi027::api::core::v1::Binding as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::core::v1::Binding as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::core::v1::Binding as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::core::v1::Binding as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str =
+        <k8s_openapi027::api::core::v1::Binding as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::core::v1::Binding as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for BindingAc {

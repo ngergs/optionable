@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatefulSetAc {
     #[serde(
@@ -20,13 +13,11 @@ pub struct StatefulSetAc {
     pub kind: std::marker::PhantomData<Self>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub spec: <Option<
-        ::k8s_openapi027::api::apps::v1::StatefulSetSpec,
-    > as crate::Optionable>::Optioned,
+    pub spec:
+        <Option<::k8s_openapi027::api::apps::v1::StatefulSetSpec> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: <Option<
-        ::k8s_openapi027::api::apps::v1::StatefulSetStatus,
-    > as crate::Optionable>::Optioned,
+    pub status:
+        <Option<::k8s_openapi027::api::apps::v1::StatefulSetStatus> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::apps::v1::StatefulSet {
@@ -64,8 +55,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSet {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::StatefulSet>
-for StatefulSetAc {
+impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::StatefulSet> for StatefulSetAc {
     fn from_optionable(value: k8s_openapi027::api::apps::v1::StatefulSet) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
@@ -82,11 +72,16 @@ for StatefulSetAc {
     }
 }
 impl k8s_openapi027::Resource for StatefulSetAc {
-    const API_VERSION: &'static str = <k8s_openapi027::api::apps::v1::StatefulSet as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::apps::v1::StatefulSet as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::apps::v1::StatefulSet as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::apps::v1::StatefulSet as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::apps::v1::StatefulSet as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str =
+        <k8s_openapi027::api::apps::v1::StatefulSet as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::apps::v1::StatefulSet as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::apps::v1::StatefulSet as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::apps::v1::StatefulSet as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str =
+        <k8s_openapi027::api::apps::v1::StatefulSet as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::apps::v1::StatefulSet as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for StatefulSetAc {

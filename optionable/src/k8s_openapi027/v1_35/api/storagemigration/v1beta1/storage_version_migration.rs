@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionMigrationAc {
     #[serde(
@@ -29,8 +22,7 @@ pub struct StorageVersionMigrationAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigration {
+impl crate::Optionable for k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigration {
     type Optioned = StorageVersionMigrationAc;
 }
 #[automatically_derived]
@@ -40,7 +32,8 @@ impl crate::Optionable for StorageVersionMigrationAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigration {
+    for k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigration
+{
     fn into_optioned(self) -> StorageVersionMigrationAc {
         StorageVersionMigrationAc {
             api_version: Default::default(),
@@ -50,9 +43,7 @@ for k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigration {
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
-    fn try_from_optioned(
-        value: StorageVersionMigrationAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: StorageVersionMigrationAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
@@ -68,9 +59,9 @@ for k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigration {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigration,
-> for StorageVersionMigrationAc {
+impl crate::OptionedConvert<k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigration>
+    for StorageVersionMigrationAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigration,
     ) -> Self {
@@ -78,10 +69,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigration,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigration, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

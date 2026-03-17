@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct InfoAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,13 +20,9 @@ pub struct InfoAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub major: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub min_compatibility_major: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub min_compatibility_major: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub min_compatibility_minor: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub min_compatibility_minor: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub minor: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -54,16 +43,10 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::version::In
         InfoAc {
             build_date: Some(crate::OptionableConvert::into_optioned(self.build_date)),
             compiler: Some(crate::OptionableConvert::into_optioned(self.compiler)),
-            emulation_major: crate::OptionableConvert::into_optioned(
-                self.emulation_major,
-            ),
-            emulation_minor: crate::OptionableConvert::into_optioned(
-                self.emulation_minor,
-            ),
+            emulation_major: crate::OptionableConvert::into_optioned(self.emulation_major),
+            emulation_minor: crate::OptionableConvert::into_optioned(self.emulation_minor),
             git_commit: Some(crate::OptionableConvert::into_optioned(self.git_commit)),
-            git_tree_state: Some(
-                crate::OptionableConvert::into_optioned(self.git_tree_state),
-            ),
+            git_tree_state: Some(crate::OptionableConvert::into_optioned(self.git_tree_state)),
             git_version: Some(crate::OptionableConvert::into_optioned(self.git_version)),
             go_version: Some(crate::OptionableConvert::into_optioned(self.go_version)),
             major: Some(crate::OptionableConvert::into_optioned(self.major)),
@@ -79,81 +62,59 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::version::In
     }
     fn try_from_optioned(value: InfoAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            build_date: crate::OptionableConvert::try_from_optioned(
-                value
-                    .build_date
-                    .ok_or(crate::Error {
-                        missing_field: "build_date",
-                    })?,
-            )?,
-            compiler: crate::OptionableConvert::try_from_optioned(
-                value
-                    .compiler
-                    .ok_or(crate::Error {
-                        missing_field: "compiler",
-                    })?,
-            )?,
-            emulation_major: crate::OptionableConvert::try_from_optioned(
-                value.emulation_major,
-            )?,
-            emulation_minor: crate::OptionableConvert::try_from_optioned(
-                value.emulation_minor,
-            )?,
-            git_commit: crate::OptionableConvert::try_from_optioned(
-                value
-                    .git_commit
-                    .ok_or(crate::Error {
-                        missing_field: "git_commit",
-                    })?,
-            )?,
+            build_date: crate::OptionableConvert::try_from_optioned(value.build_date.ok_or(
+                crate::Error {
+                    missing_field: "build_date",
+                },
+            )?)?,
+            compiler: crate::OptionableConvert::try_from_optioned(value.compiler.ok_or(
+                crate::Error {
+                    missing_field: "compiler",
+                },
+            )?)?,
+            emulation_major: crate::OptionableConvert::try_from_optioned(value.emulation_major)?,
+            emulation_minor: crate::OptionableConvert::try_from_optioned(value.emulation_minor)?,
+            git_commit: crate::OptionableConvert::try_from_optioned(value.git_commit.ok_or(
+                crate::Error {
+                    missing_field: "git_commit",
+                },
+            )?)?,
             git_tree_state: crate::OptionableConvert::try_from_optioned(
-                value
-                    .git_tree_state
-                    .ok_or(crate::Error {
-                        missing_field: "git_tree_state",
-                    })?,
+                value.git_tree_state.ok_or(crate::Error {
+                    missing_field: "git_tree_state",
+                })?,
             )?,
-            git_version: crate::OptionableConvert::try_from_optioned(
-                value
-                    .git_version
-                    .ok_or(crate::Error {
-                        missing_field: "git_version",
-                    })?,
-            )?,
-            go_version: crate::OptionableConvert::try_from_optioned(
-                value
-                    .go_version
-                    .ok_or(crate::Error {
-                        missing_field: "go_version",
-                    })?,
-            )?,
-            major: crate::OptionableConvert::try_from_optioned(
-                value
-                    .major
-                    .ok_or(crate::Error {
-                        missing_field: "major",
-                    })?,
-            )?,
+            git_version: crate::OptionableConvert::try_from_optioned(value.git_version.ok_or(
+                crate::Error {
+                    missing_field: "git_version",
+                },
+            )?)?,
+            go_version: crate::OptionableConvert::try_from_optioned(value.go_version.ok_or(
+                crate::Error {
+                    missing_field: "go_version",
+                },
+            )?)?,
+            major: crate::OptionableConvert::try_from_optioned(value.major.ok_or(
+                crate::Error {
+                    missing_field: "major",
+                },
+            )?)?,
             min_compatibility_major: crate::OptionableConvert::try_from_optioned(
                 value.min_compatibility_major,
             )?,
             min_compatibility_minor: crate::OptionableConvert::try_from_optioned(
                 value.min_compatibility_minor,
             )?,
-            minor: crate::OptionableConvert::try_from_optioned(
-                value
-                    .minor
-                    .ok_or(crate::Error {
-                        missing_field: "minor",
-                    })?,
-            )?,
-            platform: crate::OptionableConvert::try_from_optioned(
-                value
-                    .platform
-                    .ok_or(crate::Error {
-                        missing_field: "platform",
-                    })?,
-            )?,
+            minor: crate::OptionableConvert::try_from_optioned(value.minor.ok_or(
+                crate::Error {
+                    missing_field: "minor",
+                },
+            )?)?,
+            platform: crate::OptionableConvert::try_from_optioned(value.platform.ok_or(
+                crate::Error {
+                    missing_field: "platform",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: InfoAc) -> Result<(), crate::Error> {
@@ -163,14 +124,8 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::version::In
         if let Some(other_value) = other.compiler {
             crate::OptionableConvert::merge(&mut self.compiler, other_value)?;
         }
-        crate::OptionableConvert::merge(
-            &mut self.emulation_major,
-            other.emulation_major,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.emulation_minor,
-            other.emulation_minor,
-        )?;
+        crate::OptionableConvert::merge(&mut self.emulation_major, other.emulation_major)?;
+        crate::OptionableConvert::merge(&mut self.emulation_minor, other.emulation_minor)?;
         if let Some(other_value) = other.git_commit {
             crate::OptionableConvert::merge(&mut self.git_commit, other_value)?;
         }
@@ -205,8 +160,7 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::version::In
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::version::Info>
-for InfoAc {
+impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::version::Info> for InfoAc {
     fn from_optionable(value: k8s_openapi027::apimachinery::pkg::version::Info) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

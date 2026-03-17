@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CounterSetAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -37,20 +30,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::CounterSet 
     }
     fn try_from_optioned(value: CounterSetAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            counters: crate::OptionableConvert::try_from_optioned(
-                value
-                    .counters
-                    .ok_or(crate::Error {
-                        missing_field: "counters",
-                    })?,
-            )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            counters: crate::OptionableConvert::try_from_optioned(value.counters.ok_or(
+                crate::Error {
+                    missing_field: "counters",
+                },
+            )?)?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
         })
     }
     fn merge(&mut self, other: CounterSetAc) -> Result<(), crate::Error> {
@@ -65,8 +52,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::CounterSet 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::resource::v1::CounterSet>
-for CounterSetAc {
+impl crate::OptionedConvert<k8s_openapi027::api::resource::v1::CounterSet> for CounterSetAc {
     fn from_optionable(value: k8s_openapi027::api::resource::v1::CounterSet) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

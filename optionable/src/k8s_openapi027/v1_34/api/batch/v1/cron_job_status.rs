@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CronJobStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -35,9 +28,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobStatus 
     fn into_optioned(self) -> CronJobStatusAc {
         CronJobStatusAc {
             active: crate::OptionableConvert::into_optioned(self.active),
-            last_schedule_time: crate::OptionableConvert::into_optioned(
-                self.last_schedule_time,
-            ),
+            last_schedule_time: crate::OptionableConvert::into_optioned(self.last_schedule_time),
             last_successful_time: crate::OptionableConvert::into_optioned(
                 self.last_successful_time,
             ),
@@ -56,10 +47,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobStatus 
     }
     fn merge(&mut self, other: CronJobStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.active, other.active)?;
-        crate::OptionableConvert::merge(
-            &mut self.last_schedule_time,
-            other.last_schedule_time,
-        )?;
+        crate::OptionableConvert::merge(&mut self.last_schedule_time, other.last_schedule_time)?;
         crate::OptionableConvert::merge(
             &mut self.last_successful_time,
             other.last_successful_time,
@@ -69,8 +57,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobStatus 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::CronJobStatus>
-for CronJobStatusAc {
+impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::CronJobStatus> for CronJobStatusAc {
     fn from_optionable(value: k8s_openapi027::api::batch::v1::CronJobStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

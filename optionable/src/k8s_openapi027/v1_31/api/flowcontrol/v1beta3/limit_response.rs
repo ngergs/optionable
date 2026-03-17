@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LimitResponseAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -26,8 +19,7 @@ impl crate::Optionable for LimitResponseAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::flowcontrol::v1beta3::LimitResponse {
+impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1beta3::LimitResponse {
     fn into_optioned(self) -> LimitResponseAc {
         LimitResponseAc {
             queuing: crate::OptionableConvert::into_optioned(self.queuing),
@@ -37,13 +29,11 @@ for k8s_openapi027::api::flowcontrol::v1beta3::LimitResponse {
     fn try_from_optioned(value: LimitResponseAc) -> Result<Self, crate::Error> {
         Ok(Self {
             queuing: crate::OptionableConvert::try_from_optioned(value.queuing)?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
+                crate::Error {
+                    missing_field: "type_",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: LimitResponseAc) -> Result<(), crate::Error> {
@@ -57,10 +47,9 @@ for k8s_openapi027::api::flowcontrol::v1beta3::LimitResponse {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::flowcontrol::v1beta3::LimitResponse>
-for LimitResponseAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::flowcontrol::v1beta3::LimitResponse,
-    ) -> Self {
+    for LimitResponseAc
+{
+    fn from_optionable(value: k8s_openapi027::api::flowcontrol::v1beta3::LimitResponse) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

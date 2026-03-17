@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceFieldSelectorAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -37,17 +30,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceFieldSe
     }
     fn try_from_optioned(value: ResourceFieldSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            container_name: crate::OptionableConvert::try_from_optioned(
-                value.container_name,
-            )?,
+            container_name: crate::OptionableConvert::try_from_optioned(value.container_name)?,
             divisor: crate::OptionableConvert::try_from_optioned(value.divisor)?,
-            resource: crate::OptionableConvert::try_from_optioned(
-                value
-                    .resource
-                    .ok_or(crate::Error {
-                        missing_field: "resource",
-                    })?,
-            )?,
+            resource: crate::OptionableConvert::try_from_optioned(value.resource.ok_or(
+                crate::Error {
+                    missing_field: "resource",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: ResourceFieldSelectorAc) -> Result<(), crate::Error> {
@@ -62,10 +51,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceFieldSe
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ResourceFieldSelector>
-for ResourceFieldSelectorAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::ResourceFieldSelector,
-    ) -> Self {
+    for ResourceFieldSelectorAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::ResourceFieldSelector) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatusCauseAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -16,8 +9,7 @@ pub struct StatusCauseAc {
     pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause {
+impl crate::Optionable for k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause {
     type Optioned = StatusCauseAc;
 }
 #[automatically_derived]
@@ -26,8 +18,7 @@ impl crate::Optionable for StatusCauseAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause {
+impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause {
     fn into_optioned(self) -> StatusCauseAc {
         StatusCauseAc {
             field: crate::OptionableConvert::into_optioned(self.field),
@@ -51,9 +42,9 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause,
-> for StatusCauseAc {
+impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause>
+    for StatusCauseAc
+{
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause,
     ) -> Self {
@@ -61,10 +52,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

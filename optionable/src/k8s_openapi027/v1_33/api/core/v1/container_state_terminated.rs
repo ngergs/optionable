@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerStateTerminatedAc {
     #[serde(rename = "containerID")]
@@ -38,8 +31,7 @@ impl crate::Optionable for ContainerStateTerminatedAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::core::v1::ContainerStateTerminated {
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStateTerminated {
     fn into_optioned(self) -> ContainerStateTerminatedAc {
         ContainerStateTerminatedAc {
             container_id: crate::OptionableConvert::into_optioned(self.container_id),
@@ -51,18 +43,12 @@ for k8s_openapi027::api::core::v1::ContainerStateTerminated {
             started_at: crate::OptionableConvert::into_optioned(self.started_at),
         }
     }
-    fn try_from_optioned(
-        value: ContainerStateTerminatedAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: ContainerStateTerminatedAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            container_id: crate::OptionableConvert::try_from_optioned(
-                value.container_id,
-            )?,
-            exit_code: value
-                .exit_code
-                .ok_or(crate::Error {
-                    missing_field: "exit_code",
-                })?,
+            container_id: crate::OptionableConvert::try_from_optioned(value.container_id)?,
+            exit_code: value.exit_code.ok_or(crate::Error {
+                missing_field: "exit_code",
+            })?,
             finished_at: crate::OptionableConvert::try_from_optioned(value.finished_at)?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
@@ -86,10 +72,9 @@ for k8s_openapi027::api::core::v1::ContainerStateTerminated {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ContainerStateTerminated>
-for ContainerStateTerminatedAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::ContainerStateTerminated,
-    ) -> Self {
+    for ContainerStateTerminatedAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::ContainerStateTerminated) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

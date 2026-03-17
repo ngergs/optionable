@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ScopeSelectorAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -26,9 +19,7 @@ impl crate::Optionable for ScopeSelectorAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ScopeSelector {
     fn into_optioned(self) -> ScopeSelectorAc {
         ScopeSelectorAc {
-            match_expressions: crate::OptionableConvert::into_optioned(
-                self.match_expressions,
-            ),
+            match_expressions: crate::OptionableConvert::into_optioned(self.match_expressions),
         }
     }
     fn try_from_optioned(value: ScopeSelectorAc) -> Result<Self, crate::Error> {
@@ -39,17 +30,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ScopeSelector {
         })
     }
     fn merge(&mut self, other: ScopeSelectorAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.match_expressions,
-            other.match_expressions,
-        )?;
+        crate::OptionableConvert::merge(&mut self.match_expressions, other.match_expressions)?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ScopeSelector>
-for ScopeSelectorAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ScopeSelector> for ScopeSelectorAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::ScopeSelector) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

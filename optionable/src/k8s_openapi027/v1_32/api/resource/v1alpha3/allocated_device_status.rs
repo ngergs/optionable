@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AllocatedDeviceStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -28,8 +21,7 @@ pub struct AllocatedDeviceStatusAc {
     pub pool: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus {
+impl crate::Optionable for k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus {
     type Optioned = AllocatedDeviceStatusAc;
 }
 #[automatically_derived]
@@ -38,8 +30,7 @@ impl crate::Optionable for AllocatedDeviceStatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus {
+impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus {
     fn into_optioned(self) -> AllocatedDeviceStatusAc {
         AllocatedDeviceStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
@@ -54,30 +45,20 @@ for k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
-            device: crate::OptionableConvert::try_from_optioned(
-                value
-                    .device
-                    .ok_or(crate::Error {
-                        missing_field: "device",
-                    })?,
-            )?,
-            driver: crate::OptionableConvert::try_from_optioned(
-                value
-                    .driver
-                    .ok_or(crate::Error {
-                        missing_field: "driver",
-                    })?,
-            )?,
-            network_data: crate::OptionableConvert::try_from_optioned(
-                value.network_data,
-            )?,
-            pool: crate::OptionableConvert::try_from_optioned(
-                value
-                    .pool
-                    .ok_or(crate::Error {
-                        missing_field: "pool",
-                    })?,
-            )?,
+            device: crate::OptionableConvert::try_from_optioned(value.device.ok_or(
+                crate::Error {
+                    missing_field: "device",
+                },
+            )?)?,
+            driver: crate::OptionableConvert::try_from_optioned(value.driver.ok_or(
+                crate::Error {
+                    missing_field: "driver",
+                },
+            )?)?,
+            network_data: crate::OptionableConvert::try_from_optioned(value.network_data)?,
+            pool: crate::OptionableConvert::try_from_optioned(value.pool.ok_or(crate::Error {
+                missing_field: "pool",
+            })?)?,
         })
     }
     fn merge(&mut self, other: AllocatedDeviceStatusAc) -> Result<(), crate::Error> {
@@ -98,9 +79,9 @@ for k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus,
-> for AllocatedDeviceStatusAc {
+impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus>
+    for AllocatedDeviceStatusAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus,
     ) -> Self {
@@ -108,10 +89,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

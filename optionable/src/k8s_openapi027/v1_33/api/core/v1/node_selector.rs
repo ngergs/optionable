@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSelectorAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -28,19 +21,17 @@ impl crate::Optionable for NodeSelectorAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSelector {
     fn into_optioned(self) -> NodeSelectorAc {
         NodeSelectorAc {
-            node_selector_terms: Some(
-                crate::OptionableConvert::into_optioned(self.node_selector_terms),
-            ),
+            node_selector_terms: Some(crate::OptionableConvert::into_optioned(
+                self.node_selector_terms,
+            )),
         }
     }
     fn try_from_optioned(value: NodeSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             node_selector_terms: crate::OptionableConvert::try_from_optioned(
-                value
-                    .node_selector_terms
-                    .ok_or(crate::Error {
-                        missing_field: "node_selector_terms",
-                    })?,
+                value.node_selector_terms.ok_or(crate::Error {
+                    missing_field: "node_selector_terms",
+                })?,
             )?,
         })
     }
@@ -53,8 +44,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSelector {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSelector>
-for NodeSelectorAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSelector> for NodeSelectorAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::NodeSelector) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

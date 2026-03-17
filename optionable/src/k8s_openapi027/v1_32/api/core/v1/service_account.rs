@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceAccountAc {
     #[serde(
@@ -48,9 +41,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceAccount 
             automount_service_account_token: crate::OptionableConvert::into_optioned(
                 self.automount_service_account_token,
             ),
-            image_pull_secrets: crate::OptionableConvert::into_optioned(
-                self.image_pull_secrets,
-            ),
+            image_pull_secrets: crate::OptionableConvert::into_optioned(self.image_pull_secrets),
             metadata: self.metadata,
             secrets: crate::OptionableConvert::into_optioned(self.secrets),
         }
@@ -72,10 +63,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceAccount 
             &mut self.automount_service_account_token,
             other.automount_service_account_token,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.image_pull_secrets,
-            other.image_pull_secrets,
-        )?;
+        crate::OptionableConvert::merge(&mut self.image_pull_secrets, other.image_pull_secrets)?;
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.secrets, other.secrets)?;
         Ok(())
@@ -83,8 +71,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceAccount 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ServiceAccount>
-for ServiceAccountAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ServiceAccount> for ServiceAccountAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::ServiceAccount) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
@@ -101,10 +88,14 @@ for ServiceAccountAc {
     }
 }
 impl k8s_openapi027::Resource for ServiceAccountAc {
-    const API_VERSION: &'static str = <k8s_openapi027::api::core::v1::ServiceAccount as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::core::v1::ServiceAccount as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::core::v1::ServiceAccount as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::core::v1::ServiceAccount as k8s_openapi027::Resource>::VERSION;
+    const API_VERSION: &'static str =
+        <k8s_openapi027::api::core::v1::ServiceAccount as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::core::v1::ServiceAccount as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::core::v1::ServiceAccount as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::core::v1::ServiceAccount as k8s_openapi027::Resource>::VERSION;
     const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::core::v1::ServiceAccount as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::core::v1::ServiceAccount as k8s_openapi027::Resource>::Scope;
 }

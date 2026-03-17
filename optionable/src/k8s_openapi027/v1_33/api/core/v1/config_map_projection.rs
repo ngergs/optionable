@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ConfigMapProjectionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -38,13 +31,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapProjec
     fn try_from_optioned(value: ConfigMapProjectionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             items: crate::OptionableConvert::try_from_optioned(value.items)?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
             optional: crate::OptionableConvert::try_from_optioned(value.optional)?,
         })
     }
@@ -60,10 +49,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapProjec
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ConfigMapProjection>
-for ConfigMapProjectionAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::ConfigMapProjection,
-    ) -> Self {
+    for ConfigMapProjectionAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::ConfigMapProjection) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

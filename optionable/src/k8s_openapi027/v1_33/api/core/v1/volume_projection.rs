@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeProjectionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -60,9 +53,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeProjectio
                 value.cluster_trust_bundle,
             )?,
             config_map: crate::OptionableConvert::try_from_optioned(value.config_map)?,
-            downward_api: crate::OptionableConvert::try_from_optioned(
-                value.downward_api,
-            )?,
+            downward_api: crate::OptionableConvert::try_from_optioned(value.downward_api)?,
             secret: crate::OptionableConvert::try_from_optioned(value.secret)?,
             service_account_token: crate::OptionableConvert::try_from_optioned(
                 value.service_account_token,
@@ -87,7 +78,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeProjectio
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::VolumeProjection>
-for VolumeProjectionAc {
+    for VolumeProjectionAc
+{
     fn from_optionable(value: k8s_openapi027::api::core::v1::VolumeProjection) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

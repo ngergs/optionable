@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LocalObjectReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -29,13 +22,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LocalObjectRefe
     }
     fn try_from_optioned(value: LocalObjectReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
         })
     }
     fn merge(&mut self, other: LocalObjectReferenceAc) -> Result<(), crate::Error> {
@@ -48,10 +37,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LocalObjectRefe
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::LocalObjectReference>
-for LocalObjectReferenceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::LocalObjectReference,
-    ) -> Self {
+    for LocalObjectReferenceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::LocalObjectReference) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -30,8 +23,7 @@ pub struct HorizontalPodAutoscalerStatusAc {
     pub observed_generation: <Option<i64> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
+impl crate::Optionable for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
     type Optioned = HorizontalPodAutoscalerStatusAc;
 }
 #[automatically_derived]
@@ -41,81 +33,49 @@ impl crate::Optionable for HorizontalPodAutoscalerStatusAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
+    for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus
+{
     fn into_optioned(self) -> HorizontalPodAutoscalerStatusAc {
         HorizontalPodAutoscalerStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
-            current_metrics: crate::OptionableConvert::into_optioned(
-                self.current_metrics,
-            ),
-            current_replicas: crate::OptionableConvert::into_optioned(
-                self.current_replicas,
-            ),
+            current_metrics: crate::OptionableConvert::into_optioned(self.current_metrics),
+            current_replicas: crate::OptionableConvert::into_optioned(self.current_replicas),
             desired_replicas: Some(self.desired_replicas),
-            last_scale_time: crate::OptionableConvert::into_optioned(
-                self.last_scale_time,
-            ),
-            observed_generation: crate::OptionableConvert::into_optioned(
-                self.observed_generation,
-            ),
+            last_scale_time: crate::OptionableConvert::into_optioned(self.last_scale_time),
+            observed_generation: crate::OptionableConvert::into_optioned(self.observed_generation),
         }
     }
-    fn try_from_optioned(
-        value: HorizontalPodAutoscalerStatusAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: HorizontalPodAutoscalerStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
-            current_metrics: crate::OptionableConvert::try_from_optioned(
-                value.current_metrics,
-            )?,
-            current_replicas: crate::OptionableConvert::try_from_optioned(
-                value.current_replicas,
-            )?,
-            desired_replicas: value
-                .desired_replicas
-                .ok_or(crate::Error {
-                    missing_field: "desired_replicas",
-                })?,
-            last_scale_time: crate::OptionableConvert::try_from_optioned(
-                value.last_scale_time,
-            )?,
+            current_metrics: crate::OptionableConvert::try_from_optioned(value.current_metrics)?,
+            current_replicas: crate::OptionableConvert::try_from_optioned(value.current_replicas)?,
+            desired_replicas: value.desired_replicas.ok_or(crate::Error {
+                missing_field: "desired_replicas",
+            })?,
+            last_scale_time: crate::OptionableConvert::try_from_optioned(value.last_scale_time)?,
             observed_generation: crate::OptionableConvert::try_from_optioned(
                 value.observed_generation,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: HorizontalPodAutoscalerStatusAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: HorizontalPodAutoscalerStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        crate::OptionableConvert::merge(
-            &mut self.current_metrics,
-            other.current_metrics,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.current_replicas,
-            other.current_replicas,
-        )?;
+        crate::OptionableConvert::merge(&mut self.current_metrics, other.current_metrics)?;
+        crate::OptionableConvert::merge(&mut self.current_replicas, other.current_replicas)?;
         if let Some(other_value) = other.desired_replicas {
             self.desired_replicas = other_value;
         }
-        crate::OptionableConvert::merge(
-            &mut self.last_scale_time,
-            other.last_scale_time,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.observed_generation,
-            other.observed_generation,
-        )?;
+        crate::OptionableConvert::merge(&mut self.last_scale_time, other.last_scale_time)?;
+        crate::OptionableConvert::merge(&mut self.observed_generation, other.observed_generation)?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus,
-> for HorizontalPodAutoscalerStatusAc {
+impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus>
+    for HorizontalPodAutoscalerStatusAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus,
     ) -> Self {
@@ -123,10 +83,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

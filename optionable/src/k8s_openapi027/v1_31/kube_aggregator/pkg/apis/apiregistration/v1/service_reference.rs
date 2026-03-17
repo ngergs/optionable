@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -17,7 +10,8 @@ pub struct ServiceReferenceAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference {
+    for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference
+{
     type Optioned = ServiceReferenceAc;
 }
 #[automatically_derived]
@@ -27,7 +21,8 @@ impl crate::Optionable for ServiceReferenceAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference {
+    for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference
+{
     fn into_optioned(self) -> ServiceReferenceAc {
         ServiceReferenceAc {
             name: crate::OptionableConvert::into_optioned(self.name),
@@ -51,9 +46,11 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::ServiceRefe
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference,
-> for ServiceReferenceAc {
+impl
+    crate::OptionedConvert<
+        k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference,
+    > for ServiceReferenceAc
+{
     fn from_optionable(
         value: k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::ServiceReference,
     ) -> Self {

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelfSubjectReviewAc {
     #[serde(
@@ -25,8 +18,7 @@ pub struct SelfSubjectReviewAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::authentication::v1beta1::SelfSubjectReview {
+impl crate::Optionable for k8s_openapi027::api::authentication::v1beta1::SelfSubjectReview {
     type Optioned = SelfSubjectReviewAc;
 }
 #[automatically_derived]
@@ -35,8 +27,7 @@ impl crate::Optionable for SelfSubjectReviewAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::authentication::v1beta1::SelfSubjectReview {
+impl crate::OptionableConvert for k8s_openapi027::api::authentication::v1beta1::SelfSubjectReview {
     fn into_optioned(self) -> SelfSubjectReviewAc {
         SelfSubjectReviewAc {
             api_version: Default::default(),
@@ -59,9 +50,9 @@ for k8s_openapi027::api::authentication::v1beta1::SelfSubjectReview {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::authentication::v1beta1::SelfSubjectReview,
-> for SelfSubjectReviewAc {
+impl crate::OptionedConvert<k8s_openapi027::api::authentication::v1beta1::SelfSubjectReview>
+    for SelfSubjectReviewAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::authentication::v1beta1::SelfSubjectReview,
     ) -> Self {
@@ -69,10 +60,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::authentication::v1beta1::SelfSubjectReview,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::authentication::v1beta1::SelfSubjectReview, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

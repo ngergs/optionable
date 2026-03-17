@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FieldSelectorAttributesAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -18,8 +11,7 @@ pub struct FieldSelectorAttributesAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::authorization::v1::FieldSelectorAttributes {
+impl crate::Optionable for k8s_openapi027::api::authorization::v1::FieldSelectorAttributes {
     type Optioned = FieldSelectorAttributesAc;
 }
 #[automatically_derived]
@@ -28,24 +20,17 @@ impl crate::Optionable for FieldSelectorAttributesAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::authorization::v1::FieldSelectorAttributes {
+impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::FieldSelectorAttributes {
     fn into_optioned(self) -> FieldSelectorAttributesAc {
         FieldSelectorAttributesAc {
             raw_selector: crate::OptionableConvert::into_optioned(self.raw_selector),
             requirements: crate::OptionableConvert::into_optioned(self.requirements),
         }
     }
-    fn try_from_optioned(
-        value: FieldSelectorAttributesAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: FieldSelectorAttributesAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            raw_selector: crate::OptionableConvert::try_from_optioned(
-                value.raw_selector,
-            )?,
-            requirements: crate::OptionableConvert::try_from_optioned(
-                value.requirements,
-            )?,
+            raw_selector: crate::OptionableConvert::try_from_optioned(value.raw_selector)?,
+            requirements: crate::OptionableConvert::try_from_optioned(value.requirements)?,
         })
     }
     fn merge(&mut self, other: FieldSelectorAttributesAc) -> Result<(), crate::Error> {
@@ -56,9 +41,9 @@ for k8s_openapi027::api::authorization::v1::FieldSelectorAttributes {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::authorization::v1::FieldSelectorAttributes,
-> for FieldSelectorAttributesAc {
+impl crate::OptionedConvert<k8s_openapi027::api::authorization::v1::FieldSelectorAttributes>
+    for FieldSelectorAttributesAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::authorization::v1::FieldSelectorAttributes,
     ) -> Self {
@@ -66,10 +51,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::authorization::v1::FieldSelectorAttributes,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::authorization::v1::FieldSelectorAttributes, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

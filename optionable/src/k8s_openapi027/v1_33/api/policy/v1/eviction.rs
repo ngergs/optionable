@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EvictionAc {
     #[serde(
@@ -45,9 +38,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::policy::v1::Eviction {
     }
     fn try_from_optioned(value: EvictionAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            delete_options: crate::OptionableConvert::try_from_optioned(
-                value.delete_options,
-            )?,
+            delete_options: crate::OptionableConvert::try_from_optioned(value.delete_options)?,
             metadata: value.metadata,
         })
     }
@@ -76,11 +67,16 @@ impl crate::OptionedConvert<k8s_openapi027::api::policy::v1::Eviction> for Evict
     }
 }
 impl k8s_openapi027::Resource for EvictionAc {
-    const API_VERSION: &'static str = <k8s_openapi027::api::policy::v1::Eviction as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::policy::v1::Eviction as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::policy::v1::Eviction as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::policy::v1::Eviction as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::policy::v1::Eviction as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str =
+        <k8s_openapi027::api::policy::v1::Eviction as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::policy::v1::Eviction as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::policy::v1::Eviction as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::policy::v1::Eviction as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str =
+        <k8s_openapi027::api::policy::v1::Eviction as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::policy::v1::Eviction as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for EvictionAc {

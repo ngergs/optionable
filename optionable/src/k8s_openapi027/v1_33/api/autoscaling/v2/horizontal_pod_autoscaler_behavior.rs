@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerBehaviorAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -18,8 +11,7 @@ pub struct HorizontalPodAutoscalerBehaviorAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerBehavior {
+impl crate::Optionable for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerBehavior {
     type Optioned = HorizontalPodAutoscalerBehaviorAc;
 }
 #[automatically_derived]
@@ -29,25 +21,21 @@ impl crate::Optionable for HorizontalPodAutoscalerBehaviorAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerBehavior {
+    for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerBehavior
+{
     fn into_optioned(self) -> HorizontalPodAutoscalerBehaviorAc {
         HorizontalPodAutoscalerBehaviorAc {
             scale_down: crate::OptionableConvert::into_optioned(self.scale_down),
             scale_up: crate::OptionableConvert::into_optioned(self.scale_up),
         }
     }
-    fn try_from_optioned(
-        value: HorizontalPodAutoscalerBehaviorAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: HorizontalPodAutoscalerBehaviorAc) -> Result<Self, crate::Error> {
         Ok(Self {
             scale_down: crate::OptionableConvert::try_from_optioned(value.scale_down)?,
             scale_up: crate::OptionableConvert::try_from_optioned(value.scale_up)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: HorizontalPodAutoscalerBehaviorAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: HorizontalPodAutoscalerBehaviorAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.scale_down, other.scale_down)?;
         crate::OptionableConvert::merge(&mut self.scale_up, other.scale_up)?;
         Ok(())
@@ -55,9 +43,9 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerBehavior {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerBehavior,
-> for HorizontalPodAutoscalerBehaviorAc {
+impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerBehavior>
+    for HorizontalPodAutoscalerBehaviorAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerBehavior,
     ) -> Self {
@@ -65,10 +53,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerBehavior,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerBehavior, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

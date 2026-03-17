@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CinderPersistentVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -13,9 +6,8 @@ pub struct CinderPersistentVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret_ref: <Option<
-        ::k8s_openapi027::api::core::v1::SecretReference,
-    > as crate::Optionable>::Optioned,
+    pub secret_ref:
+        <Option<::k8s_openapi027::api::core::v1::SecretReference> as crate::Optionable>::Optioned,
     #[serde(rename = "volumeID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_id: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -30,8 +22,7 @@ impl crate::Optionable for CinderPersistentVolumeSourceAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::core::v1::CinderPersistentVolumeSource {
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::CinderPersistentVolumeSource {
     fn into_optioned(self) -> CinderPersistentVolumeSourceAc {
         CinderPersistentVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
@@ -40,26 +31,19 @@ for k8s_openapi027::api::core::v1::CinderPersistentVolumeSource {
             volume_id: Some(crate::OptionableConvert::into_optioned(self.volume_id)),
         }
     }
-    fn try_from_optioned(
-        value: CinderPersistentVolumeSourceAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: CinderPersistentVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
             secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
-            volume_id: crate::OptionableConvert::try_from_optioned(
-                value
-                    .volume_id
-                    .ok_or(crate::Error {
-                        missing_field: "volume_id",
-                    })?,
-            )?,
+            volume_id: crate::OptionableConvert::try_from_optioned(value.volume_id.ok_or(
+                crate::Error {
+                    missing_field: "volume_id",
+                },
+            )?)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CinderPersistentVolumeSourceAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: CinderPersistentVolumeSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
@@ -72,18 +56,14 @@ for k8s_openapi027::api::core::v1::CinderPersistentVolumeSource {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::CinderPersistentVolumeSource>
-for CinderPersistentVolumeSourceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::CinderPersistentVolumeSource,
-    ) -> Self {
+    for CinderPersistentVolumeSourceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::CinderPersistentVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::core::v1::CinderPersistentVolumeSource,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::core::v1::CinderPersistentVolumeSource, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

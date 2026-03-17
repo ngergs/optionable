@@ -5,9 +5,7 @@ pub enum PatchAc {
     Json(
         #[serde(skip_serializing_if = "Option::is_none")]
         Option<
-            <std::vec::Vec<
-                ::k8s_openapi027::serde_json::Value,
-            > as crate::Optionable>::Optioned,
+            <std::vec::Vec<::k8s_openapi027::serde_json::Value> as crate::Optionable>::Optioned,
         >,
     ),
     Merge(
@@ -29,8 +27,7 @@ impl crate::Optionable for PatchAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Patch {
+impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Patch {
     fn into_optioned(self) -> PatchAc {
         match self {
             Self::Json(self_0) => {
@@ -40,38 +37,24 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Patch {
                 PatchAc::Merge(Some(crate::OptionableConvert::into_optioned(self_0)))
             }
             Self::StrategicMerge(self_0) => {
-                PatchAc::StrategicMerge(
-                    Some(crate::OptionableConvert::into_optioned(self_0)),
-                )
+                PatchAc::StrategicMerge(Some(crate::OptionableConvert::into_optioned(self_0)))
             }
         }
     }
     fn try_from_optioned(other: PatchAc) -> Result<Self, crate::Error> {
-        Ok(
-            match other {
-                PatchAc::Json(other_0) => {
-                    Self::Json(
-                        crate::OptionableConvert::try_from_optioned(
-                            other_0.ok_or(crate::Error { missing_field: "0" })?,
-                        )?,
-                    )
-                }
-                PatchAc::Merge(other_0) => {
-                    Self::Merge(
-                        crate::OptionableConvert::try_from_optioned(
-                            other_0.ok_or(crate::Error { missing_field: "0" })?,
-                        )?,
-                    )
-                }
-                PatchAc::StrategicMerge(other_0) => {
-                    Self::StrategicMerge(
-                        crate::OptionableConvert::try_from_optioned(
-                            other_0.ok_or(crate::Error { missing_field: "0" })?,
-                        )?,
-                    )
-                }
-            },
-        )
+        Ok(match other {
+            PatchAc::Json(other_0) => Self::Json(crate::OptionableConvert::try_from_optioned(
+                other_0.ok_or(crate::Error { missing_field: "0" })?,
+            )?),
+            PatchAc::Merge(other_0) => Self::Merge(crate::OptionableConvert::try_from_optioned(
+                other_0.ok_or(crate::Error { missing_field: "0" })?,
+            )?),
+            PatchAc::StrategicMerge(other_0) => {
+                Self::StrategicMerge(crate::OptionableConvert::try_from_optioned(
+                    other_0.ok_or(crate::Error { missing_field: "0" })?,
+                )?)
+            }
+        })
     }
     fn merge(&mut self, other: PatchAc) -> Result<(), crate::Error> {
         match other {
@@ -108,11 +91,8 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Patch {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::Patch>
-for PatchAc {
-    fn from_optionable(
-        value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::Patch,
-    ) -> Self {
+impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::Patch> for PatchAc {
+    fn from_optionable(value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::Patch) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LinuxContainerUserAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -29,37 +22,28 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LinuxContainerU
     fn into_optioned(self) -> LinuxContainerUserAc {
         LinuxContainerUserAc {
             gid: Some(self.gid),
-            supplemental_groups: crate::OptionableConvert::into_optioned(
-                self.supplemental_groups,
-            ),
+            supplemental_groups: crate::OptionableConvert::into_optioned(self.supplemental_groups),
             uid: Some(self.uid),
         }
     }
     fn try_from_optioned(value: LinuxContainerUserAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            gid: value
-                .gid
-                .ok_or(crate::Error {
-                    missing_field: "gid",
-                })?,
+            gid: value.gid.ok_or(crate::Error {
+                missing_field: "gid",
+            })?,
             supplemental_groups: crate::OptionableConvert::try_from_optioned(
                 value.supplemental_groups,
             )?,
-            uid: value
-                .uid
-                .ok_or(crate::Error {
-                    missing_field: "uid",
-                })?,
+            uid: value.uid.ok_or(crate::Error {
+                missing_field: "uid",
+            })?,
         })
     }
     fn merge(&mut self, other: LinuxContainerUserAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.gid {
             self.gid = other_value;
         }
-        crate::OptionableConvert::merge(
-            &mut self.supplemental_groups,
-            other.supplemental_groups,
-        )?;
+        crate::OptionableConvert::merge(&mut self.supplemental_groups, other.supplemental_groups)?;
         if let Some(other_value) = other.uid {
             self.uid = other_value;
         }
@@ -69,10 +53,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LinuxContainerU
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::LinuxContainerUser>
-for LinuxContainerUserAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::LinuxContainerUser,
-    ) -> Self {
+    for LinuxContainerUserAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::LinuxContainerUser) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

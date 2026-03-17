@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointsAc {
     #[serde(
@@ -61,9 +54,7 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Endpoints> for Endpoi
     fn from_optionable(value: k8s_openapi027::api::core::v1::Endpoints) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(
-        self,
-    ) -> Result<k8s_openapi027::api::core::v1::Endpoints, crate::Error> {
+    fn try_into_optionable(self) -> Result<k8s_openapi027::api::core::v1::Endpoints, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -74,11 +65,16 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Endpoints> for Endpoi
     }
 }
 impl k8s_openapi027::Resource for EndpointsAc {
-    const API_VERSION: &'static str = <k8s_openapi027::api::core::v1::Endpoints as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::core::v1::Endpoints as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::core::v1::Endpoints as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::core::v1::Endpoints as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::core::v1::Endpoints as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str =
+        <k8s_openapi027::api::core::v1::Endpoints as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::core::v1::Endpoints as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::core::v1::Endpoints as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::core::v1::Endpoints as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str =
+        <k8s_openapi027::api::core::v1::Endpoints as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::core::v1::Endpoints as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for EndpointsAc {

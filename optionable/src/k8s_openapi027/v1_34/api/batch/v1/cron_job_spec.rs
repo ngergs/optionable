@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CronJobSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -13,9 +6,8 @@ pub struct CronJobSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub failed_jobs_history_limit: <Option<i32> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub job_template: Option<
-        <::k8s_openapi027::api::batch::v1::JobTemplateSpec as crate::Optionable>::Optioned,
-    >,
+    pub job_template:
+        Option<<::k8s_openapi027::api::batch::v1::JobTemplateSpec as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub schedule: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -40,15 +32,11 @@ impl crate::Optionable for CronJobSpecAc {
 impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobSpec {
     fn into_optioned(self) -> CronJobSpecAc {
         CronJobSpecAc {
-            concurrency_policy: crate::OptionableConvert::into_optioned(
-                self.concurrency_policy,
-            ),
+            concurrency_policy: crate::OptionableConvert::into_optioned(self.concurrency_policy),
             failed_jobs_history_limit: crate::OptionableConvert::into_optioned(
                 self.failed_jobs_history_limit,
             ),
-            job_template: Some(
-                crate::OptionableConvert::into_optioned(self.job_template),
-            ),
+            job_template: Some(crate::OptionableConvert::into_optioned(self.job_template)),
             schedule: Some(crate::OptionableConvert::into_optioned(self.schedule)),
             starting_deadline_seconds: crate::OptionableConvert::into_optioned(
                 self.starting_deadline_seconds,
@@ -68,20 +56,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobSpec {
             failed_jobs_history_limit: crate::OptionableConvert::try_from_optioned(
                 value.failed_jobs_history_limit,
             )?,
-            job_template: crate::OptionableConvert::try_from_optioned(
-                value
-                    .job_template
-                    .ok_or(crate::Error {
-                        missing_field: "job_template",
-                    })?,
-            )?,
-            schedule: crate::OptionableConvert::try_from_optioned(
-                value
-                    .schedule
-                    .ok_or(crate::Error {
-                        missing_field: "schedule",
-                    })?,
-            )?,
+            job_template: crate::OptionableConvert::try_from_optioned(value.job_template.ok_or(
+                crate::Error {
+                    missing_field: "job_template",
+                },
+            )?)?,
+            schedule: crate::OptionableConvert::try_from_optioned(value.schedule.ok_or(
+                crate::Error {
+                    missing_field: "schedule",
+                },
+            )?)?,
             starting_deadline_seconds: crate::OptionableConvert::try_from_optioned(
                 value.starting_deadline_seconds,
             )?,
@@ -93,10 +77,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobSpec {
         })
     }
     fn merge(&mut self, other: CronJobSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.concurrency_policy,
-            other.concurrency_policy,
-        )?;
+        crate::OptionableConvert::merge(&mut self.concurrency_policy, other.concurrency_policy)?;
         crate::OptionableConvert::merge(
             &mut self.failed_jobs_history_limit,
             other.failed_jobs_history_limit,
@@ -122,8 +103,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobSpec {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::CronJobSpec>
-for CronJobSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::CronJobSpec> for CronJobSpecAc {
     fn from_optionable(value: k8s_openapi027::api::batch::v1::CronJobSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TokenReviewStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,8 +24,7 @@ impl crate::Optionable for TokenReviewStatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::authentication::v1::TokenReviewStatus {
+impl crate::OptionableConvert for k8s_openapi027::api::authentication::v1::TokenReviewStatus {
     fn into_optioned(self) -> TokenReviewStatusAc {
         TokenReviewStatusAc {
             audiences: crate::OptionableConvert::into_optioned(self.audiences),
@@ -44,9 +36,7 @@ for k8s_openapi027::api::authentication::v1::TokenReviewStatus {
     fn try_from_optioned(value: TokenReviewStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             audiences: crate::OptionableConvert::try_from_optioned(value.audiences)?,
-            authenticated: crate::OptionableConvert::try_from_optioned(
-                value.authenticated,
-            )?,
+            authenticated: crate::OptionableConvert::try_from_optioned(value.authenticated)?,
             error: crate::OptionableConvert::try_from_optioned(value.error)?,
             user: crate::OptionableConvert::try_from_optioned(value.user)?,
         })
@@ -62,18 +52,14 @@ for k8s_openapi027::api::authentication::v1::TokenReviewStatus {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::authentication::v1::TokenReviewStatus>
-for TokenReviewStatusAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::authentication::v1::TokenReviewStatus,
-    ) -> Self {
+    for TokenReviewStatusAc
+{
+    fn from_optionable(value: k8s_openapi027::api::authentication::v1::TokenReviewStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::authentication::v1::TokenReviewStatus,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::authentication::v1::TokenReviewStatus, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

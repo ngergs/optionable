@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RBDVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -55,21 +48,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::RBDVolumeSource
     fn try_from_optioned(value: RBDVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
-            image: crate::OptionableConvert::try_from_optioned(
-                value
-                    .image
-                    .ok_or(crate::Error {
-                        missing_field: "image",
-                    })?,
-            )?,
+            image: crate::OptionableConvert::try_from_optioned(value.image.ok_or(
+                crate::Error {
+                    missing_field: "image",
+                },
+            )?)?,
             keyring: crate::OptionableConvert::try_from_optioned(value.keyring)?,
-            monitors: crate::OptionableConvert::try_from_optioned(
-                value
-                    .monitors
-                    .ok_or(crate::Error {
-                        missing_field: "monitors",
-                    })?,
-            )?,
+            monitors: crate::OptionableConvert::try_from_optioned(value.monitors.ok_or(
+                crate::Error {
+                    missing_field: "monitors",
+                },
+            )?)?,
             pool: crate::OptionableConvert::try_from_optioned(value.pool)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
             secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
@@ -94,8 +83,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::RBDVolumeSource
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::RBDVolumeSource>
-for RBDVolumeSourceAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::RBDVolumeSource> for RBDVolumeSourceAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::RBDVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

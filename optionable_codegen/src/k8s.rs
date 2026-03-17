@@ -3,11 +3,11 @@ use crate::parsed_input::FieldHandling::{OptionedOnly, Required};
 use crate::parsed_input::{FieldParsed, StructParsed};
 use crate::{TypeHelperAttributesK8sOpenapi, TypeHelperAttributesKube};
 use proc_macro2::{Ident, TokenStream};
-use quote::{quote, ToTokens};
+use quote::{ToTokens, quote};
 use std::borrow::Cow;
 use std::collections::BTreeSet;
 use syn::{
-    parse_quote, Attribute, Data, Error, Field, ImplGenerics, Path, TypeGenerics, WhereClause,
+    Attribute, Data, Error, Field, ImplGenerics, Path, TypeGenerics, WhereClause, parse_quote,
 };
 
 /// We have two useful `Resource` traits and dependent on the user needs we will use one

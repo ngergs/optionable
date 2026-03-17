@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ISCSIVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -48,25 +41,17 @@ impl crate::Optionable for ISCSIVolumeSourceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ISCSIVolumeSource {
     fn into_optioned(self) -> ISCSIVolumeSourceAc {
         ISCSIVolumeSourceAc {
-            chap_auth_discovery: crate::OptionableConvert::into_optioned(
-                self.chap_auth_discovery,
-            ),
-            chap_auth_session: crate::OptionableConvert::into_optioned(
-                self.chap_auth_session,
-            ),
+            chap_auth_discovery: crate::OptionableConvert::into_optioned(self.chap_auth_discovery),
+            chap_auth_session: crate::OptionableConvert::into_optioned(self.chap_auth_session),
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             initiator_name: crate::OptionableConvert::into_optioned(self.initiator_name),
             iqn: Some(crate::OptionableConvert::into_optioned(self.iqn)),
-            iscsi_interface: crate::OptionableConvert::into_optioned(
-                self.iscsi_interface,
-            ),
+            iscsi_interface: crate::OptionableConvert::into_optioned(self.iscsi_interface),
             lun: Some(self.lun),
             portals: crate::OptionableConvert::into_optioned(self.portals),
             read_only: crate::OptionableConvert::into_optioned(self.read_only),
             secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
-            target_portal: Some(
-                crate::OptionableConvert::into_optioned(self.target_portal),
-            ),
+            target_portal: Some(crate::OptionableConvert::into_optioned(self.target_portal)),
         }
     }
     fn try_from_optioned(value: ISCSIVolumeSourceAc) -> Result<Self, crate::Error> {
@@ -78,54 +63,33 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ISCSIVolumeSour
                 value.chap_auth_session,
             )?,
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
-            initiator_name: crate::OptionableConvert::try_from_optioned(
-                value.initiator_name,
-            )?,
-            iqn: crate::OptionableConvert::try_from_optioned(
-                value
-                    .iqn
-                    .ok_or(crate::Error {
-                        missing_field: "iqn",
-                    })?,
-            )?,
-            iscsi_interface: crate::OptionableConvert::try_from_optioned(
-                value.iscsi_interface,
-            )?,
-            lun: value
-                .lun
-                .ok_or(crate::Error {
-                    missing_field: "lun",
-                })?,
+            initiator_name: crate::OptionableConvert::try_from_optioned(value.initiator_name)?,
+            iqn: crate::OptionableConvert::try_from_optioned(value.iqn.ok_or(crate::Error {
+                missing_field: "iqn",
+            })?)?,
+            iscsi_interface: crate::OptionableConvert::try_from_optioned(value.iscsi_interface)?,
+            lun: value.lun.ok_or(crate::Error {
+                missing_field: "lun",
+            })?,
             portals: crate::OptionableConvert::try_from_optioned(value.portals)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
             secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
             target_portal: crate::OptionableConvert::try_from_optioned(
-                value
-                    .target_portal
-                    .ok_or(crate::Error {
-                        missing_field: "target_portal",
-                    })?,
+                value.target_portal.ok_or(crate::Error {
+                    missing_field: "target_portal",
+                })?,
             )?,
         })
     }
     fn merge(&mut self, other: ISCSIVolumeSourceAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.chap_auth_discovery,
-            other.chap_auth_discovery,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.chap_auth_session,
-            other.chap_auth_session,
-        )?;
+        crate::OptionableConvert::merge(&mut self.chap_auth_discovery, other.chap_auth_discovery)?;
+        crate::OptionableConvert::merge(&mut self.chap_auth_session, other.chap_auth_session)?;
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.initiator_name, other.initiator_name)?;
         if let Some(other_value) = other.iqn {
             crate::OptionableConvert::merge(&mut self.iqn, other_value)?;
         }
-        crate::OptionableConvert::merge(
-            &mut self.iscsi_interface,
-            other.iscsi_interface,
-        )?;
+        crate::OptionableConvert::merge(&mut self.iscsi_interface, other.iscsi_interface)?;
         if let Some(other_value) = other.lun {
             self.lun = other_value;
         }
@@ -141,7 +105,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ISCSIVolumeSour
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ISCSIVolumeSource>
-for ISCSIVolumeSourceAc {
+    for ISCSIVolumeSourceAc
+{
     fn from_optionable(value: k8s_openapi027::api::core::v1::ISCSIVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeAttributesClassAc {
     #[serde(
@@ -27,8 +20,7 @@ pub struct VolumeAttributesClassAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass {
+impl crate::Optionable for k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass {
     type Optioned = VolumeAttributesClassAc;
 }
 #[automatically_derived]
@@ -37,8 +29,7 @@ impl crate::Optionable for VolumeAttributesClassAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass {
+impl crate::OptionableConvert for k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass {
     fn into_optioned(self) -> VolumeAttributesClassAc {
         VolumeAttributesClassAc {
             api_version: Default::default(),
@@ -50,13 +41,11 @@ for k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass {
     }
     fn try_from_optioned(value: VolumeAttributesClassAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            driver_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .driver_name
-                    .ok_or(crate::Error {
-                        missing_field: "driver_name",
-                    })?,
-            )?,
+            driver_name: crate::OptionableConvert::try_from_optioned(value.driver_name.ok_or(
+                crate::Error {
+                    missing_field: "driver_name",
+                },
+            )?)?,
             metadata: value.metadata,
             parameters: crate::OptionableConvert::try_from_optioned(value.parameters)?,
         })
@@ -72,9 +61,9 @@ for k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass,
-> for VolumeAttributesClassAc {
+impl crate::OptionedConvert<k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass>
+    for VolumeAttributesClassAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass,
     ) -> Self {
@@ -82,10 +71,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -115,7 +101,6 @@ impl k8s_openapi027::Metadata for VolumeAttributesClassAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_volumeattributesclassac() {
-    crate::testutil::roundtrip_test::<
-        k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass,
-    >();
+    crate::testutil::roundtrip_test::<k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass>(
+    );
 }

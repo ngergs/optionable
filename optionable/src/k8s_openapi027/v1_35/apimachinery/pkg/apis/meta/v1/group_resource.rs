@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GroupResourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -14,8 +7,7 @@ pub struct GroupResourceAc {
     pub resource: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource {
+impl crate::Optionable for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource {
     type Optioned = GroupResourceAc;
 }
 #[automatically_derived]
@@ -24,8 +16,7 @@ impl crate::Optionable for GroupResourceAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource {
+impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource {
     fn into_optioned(self) -> GroupResourceAc {
         GroupResourceAc {
             group: Some(crate::OptionableConvert::into_optioned(self.group)),
@@ -34,20 +25,16 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource {
     }
     fn try_from_optioned(value: GroupResourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            group: crate::OptionableConvert::try_from_optioned(
-                value
-                    .group
-                    .ok_or(crate::Error {
-                        missing_field: "group",
-                    })?,
-            )?,
-            resource: crate::OptionableConvert::try_from_optioned(
-                value
-                    .resource
-                    .ok_or(crate::Error {
-                        missing_field: "resource",
-                    })?,
-            )?,
+            group: crate::OptionableConvert::try_from_optioned(value.group.ok_or(
+                crate::Error {
+                    missing_field: "group",
+                },
+            )?)?,
+            resource: crate::OptionableConvert::try_from_optioned(value.resource.ok_or(
+                crate::Error {
+                    missing_field: "resource",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: GroupResourceAc) -> Result<(), crate::Error> {
@@ -62,9 +49,9 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource,
-> for GroupResourceAc {
+impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource>
+    for GroupResourceAc
+{
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource,
     ) -> Self {
@@ -72,10 +59,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceCapacityAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,8 +20,7 @@ impl crate::Optionable for DeviceCapacityAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::resource::v1beta1::DeviceCapacity {
+impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::DeviceCapacity {
     fn into_optioned(self) -> DeviceCapacityAc {
         DeviceCapacityAc {
             request_policy: crate::OptionableConvert::into_optioned(self.request_policy),
@@ -37,16 +29,12 @@ for k8s_openapi027::api::resource::v1beta1::DeviceCapacity {
     }
     fn try_from_optioned(value: DeviceCapacityAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            request_policy: crate::OptionableConvert::try_from_optioned(
-                value.request_policy,
-            )?,
-            value: crate::OptionableConvert::try_from_optioned(
-                value
-                    .value
-                    .ok_or(crate::Error {
-                        missing_field: "value",
-                    })?,
-            )?,
+            request_policy: crate::OptionableConvert::try_from_optioned(value.request_policy)?,
+            value: crate::OptionableConvert::try_from_optioned(value.value.ok_or(
+                crate::Error {
+                    missing_field: "value",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: DeviceCapacityAc) -> Result<(), crate::Error> {
@@ -60,10 +48,9 @@ for k8s_openapi027::api::resource::v1beta1::DeviceCapacity {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta1::DeviceCapacity>
-for DeviceCapacityAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::resource::v1beta1::DeviceCapacity,
-    ) -> Self {
+    for DeviceCapacityAc
+{
+    fn from_optionable(value: k8s_openapi027::api::resource::v1beta1::DeviceCapacity) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

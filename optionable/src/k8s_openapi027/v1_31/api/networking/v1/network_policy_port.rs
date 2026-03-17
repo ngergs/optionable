@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkPolicyPortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,8 +20,7 @@ impl crate::Optionable for NetworkPolicyPortAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::networking::v1::NetworkPolicyPort {
+impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::NetworkPolicyPort {
     fn into_optioned(self) -> NetworkPolicyPortAc {
         NetworkPolicyPortAc {
             end_port: crate::OptionableConvert::into_optioned(self.end_port),
@@ -53,10 +45,9 @@ for k8s_openapi027::api::networking::v1::NetworkPolicyPort {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::NetworkPolicyPort>
-for NetworkPolicyPortAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::networking::v1::NetworkPolicyPort,
-    ) -> Self {
+    for NetworkPolicyPortAc
+{
+    fn from_optionable(value: k8s_openapi027::api::networking::v1::NetworkPolicyPort) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

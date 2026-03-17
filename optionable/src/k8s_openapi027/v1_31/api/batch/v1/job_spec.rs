@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct JobSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -71,21 +64,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
             backoff_limit_per_index: crate::OptionableConvert::into_optioned(
                 self.backoff_limit_per_index,
             ),
-            completion_mode: crate::OptionableConvert::into_optioned(
-                self.completion_mode,
-            ),
+            completion_mode: crate::OptionableConvert::into_optioned(self.completion_mode),
             completions: crate::OptionableConvert::into_optioned(self.completions),
             managed_by: crate::OptionableConvert::into_optioned(self.managed_by),
-            manual_selector: crate::OptionableConvert::into_optioned(
-                self.manual_selector,
-            ),
-            max_failed_indexes: crate::OptionableConvert::into_optioned(
-                self.max_failed_indexes,
-            ),
+            manual_selector: crate::OptionableConvert::into_optioned(self.manual_selector),
+            max_failed_indexes: crate::OptionableConvert::into_optioned(self.max_failed_indexes),
             parallelism: crate::OptionableConvert::into_optioned(self.parallelism),
-            pod_failure_policy: crate::OptionableConvert::into_optioned(
-                self.pod_failure_policy,
-            ),
+            pod_failure_policy: crate::OptionableConvert::into_optioned(self.pod_failure_policy),
             pod_replacement_policy: crate::OptionableConvert::into_optioned(
                 self.pod_replacement_policy,
             ),
@@ -103,20 +88,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
             active_deadline_seconds: crate::OptionableConvert::try_from_optioned(
                 value.active_deadline_seconds,
             )?,
-            backoff_limit: crate::OptionableConvert::try_from_optioned(
-                value.backoff_limit,
-            )?,
+            backoff_limit: crate::OptionableConvert::try_from_optioned(value.backoff_limit)?,
             backoff_limit_per_index: crate::OptionableConvert::try_from_optioned(
                 value.backoff_limit_per_index,
             )?,
-            completion_mode: crate::OptionableConvert::try_from_optioned(
-                value.completion_mode,
-            )?,
+            completion_mode: crate::OptionableConvert::try_from_optioned(value.completion_mode)?,
             completions: crate::OptionableConvert::try_from_optioned(value.completions)?,
             managed_by: crate::OptionableConvert::try_from_optioned(value.managed_by)?,
-            manual_selector: crate::OptionableConvert::try_from_optioned(
-                value.manual_selector,
-            )?,
+            manual_selector: crate::OptionableConvert::try_from_optioned(value.manual_selector)?,
             max_failed_indexes: crate::OptionableConvert::try_from_optioned(
                 value.max_failed_indexes,
             )?,
@@ -128,17 +107,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
                 value.pod_replacement_policy,
             )?,
             selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
-            success_policy: crate::OptionableConvert::try_from_optioned(
-                value.success_policy,
-            )?,
+            success_policy: crate::OptionableConvert::try_from_optioned(value.success_policy)?,
             suspend: crate::OptionableConvert::try_from_optioned(value.suspend)?,
-            template: crate::OptionableConvert::try_from_optioned(
-                value
-                    .template
-                    .ok_or(crate::Error {
-                        missing_field: "template",
-                    })?,
-            )?,
+            template: crate::OptionableConvert::try_from_optioned(value.template.ok_or(
+                crate::Error {
+                    missing_field: "template",
+                },
+            )?)?,
             ttl_seconds_after_finished: crate::OptionableConvert::try_from_optioned(
                 value.ttl_seconds_after_finished,
             )?,
@@ -154,25 +129,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
             &mut self.backoff_limit_per_index,
             other.backoff_limit_per_index,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.completion_mode,
-            other.completion_mode,
-        )?;
+        crate::OptionableConvert::merge(&mut self.completion_mode, other.completion_mode)?;
         crate::OptionableConvert::merge(&mut self.completions, other.completions)?;
         crate::OptionableConvert::merge(&mut self.managed_by, other.managed_by)?;
-        crate::OptionableConvert::merge(
-            &mut self.manual_selector,
-            other.manual_selector,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.max_failed_indexes,
-            other.max_failed_indexes,
-        )?;
+        crate::OptionableConvert::merge(&mut self.manual_selector, other.manual_selector)?;
+        crate::OptionableConvert::merge(&mut self.max_failed_indexes, other.max_failed_indexes)?;
         crate::OptionableConvert::merge(&mut self.parallelism, other.parallelism)?;
-        crate::OptionableConvert::merge(
-            &mut self.pod_failure_policy,
-            other.pod_failure_policy,
-        )?;
+        crate::OptionableConvert::merge(&mut self.pod_failure_policy, other.pod_failure_policy)?;
         crate::OptionableConvert::merge(
             &mut self.pod_replacement_policy,
             other.pod_replacement_policy,
@@ -196,9 +159,7 @@ impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::JobSpec> for JobSpec
     fn from_optionable(value: k8s_openapi027::api::batch::v1::JobSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(
-        self,
-    ) -> Result<k8s_openapi027::api::batch::v1::JobSpec, crate::Error> {
+    fn try_into_optionable(self) -> Result<k8s_openapi027::api::batch::v1::JobSpec, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

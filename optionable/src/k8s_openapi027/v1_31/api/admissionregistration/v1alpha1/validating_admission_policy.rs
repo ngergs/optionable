@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ValidatingAdmissionPolicyAc {
     #[serde(
@@ -30,7 +23,8 @@ pub struct ValidatingAdmissionPolicyAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPolicy {
+    for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPolicy
+{
     type Optioned = ValidatingAdmissionPolicyAc;
 }
 #[automatically_derived]
@@ -40,7 +34,8 @@ impl crate::Optionable for ValidatingAdmissionPolicyAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPolicy {
+    for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPolicy
+{
     fn into_optioned(self) -> ValidatingAdmissionPolicyAc {
         ValidatingAdmissionPolicyAc {
             api_version: Default::default(),
@@ -50,9 +45,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
-    fn try_from_optioned(
-        value: ValidatingAdmissionPolicyAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: ValidatingAdmissionPolicyAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
@@ -68,9 +61,11 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPolicy,
-> for ValidatingAdmissionPolicyAc {
+impl
+    crate::OptionedConvert<
+        k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPolicy,
+    > for ValidatingAdmissionPolicyAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPolicy,
     ) -> Self {

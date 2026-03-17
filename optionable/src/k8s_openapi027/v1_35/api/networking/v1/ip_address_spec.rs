@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IPAddressSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,13 +24,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IPAddress
     }
     fn try_from_optioned(value: IPAddressSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            parent_ref: crate::OptionableConvert::try_from_optioned(
-                value
-                    .parent_ref
-                    .ok_or(crate::Error {
-                        missing_field: "parent_ref",
-                    })?,
-            )?,
+            parent_ref: crate::OptionableConvert::try_from_optioned(value.parent_ref.ok_or(
+                crate::Error {
+                    missing_field: "parent_ref",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: IPAddressSpecAc) -> Result<(), crate::Error> {
@@ -50,10 +41,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IPAddress
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::IPAddressSpec>
-for IPAddressSpecAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::networking::v1::IPAddressSpec,
-    ) -> Self {
+    for IPAddressSpecAc
+{
+    fn from_optionable(value: k8s_openapi027::api::networking::v1::IPAddressSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

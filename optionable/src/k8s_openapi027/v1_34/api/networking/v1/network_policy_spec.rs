@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkPolicySpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -35,8 +28,7 @@ impl crate::Optionable for NetworkPolicySpecAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::networking::v1::NetworkPolicySpec {
+impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::NetworkPolicySpec {
     fn into_optioned(self) -> NetworkPolicySpecAc {
         NetworkPolicySpecAc {
             egress: crate::OptionableConvert::into_optioned(self.egress),
@@ -49,12 +41,8 @@ for k8s_openapi027::api::networking::v1::NetworkPolicySpec {
         Ok(Self {
             egress: crate::OptionableConvert::try_from_optioned(value.egress)?,
             ingress: crate::OptionableConvert::try_from_optioned(value.ingress)?,
-            pod_selector: crate::OptionableConvert::try_from_optioned(
-                value.pod_selector,
-            )?,
-            policy_types: crate::OptionableConvert::try_from_optioned(
-                value.policy_types,
-            )?,
+            pod_selector: crate::OptionableConvert::try_from_optioned(value.pod_selector)?,
+            policy_types: crate::OptionableConvert::try_from_optioned(value.policy_types)?,
         })
     }
     fn merge(&mut self, other: NetworkPolicySpecAc) -> Result<(), crate::Error> {
@@ -68,10 +56,9 @@ for k8s_openapi027::api::networking::v1::NetworkPolicySpec {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::NetworkPolicySpec>
-for NetworkPolicySpecAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::networking::v1::NetworkPolicySpec,
-    ) -> Self {
+    for NetworkPolicySpecAc
+{
+    fn from_optionable(value: k8s_openapi027::api::networking::v1::NetworkPolicySpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

@@ -1,17 +1,8 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CephFSPersistentVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub monitors: Option<
-        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
-    >,
+    pub monitors: Option<<std::vec::Vec<std::string::String> as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub path: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -19,9 +10,8 @@ pub struct CephFSPersistentVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret_file: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret_ref: <Option<
-        ::k8s_openapi027::api::core::v1::SecretReference,
-    > as crate::Optionable>::Optioned,
+    pub secret_ref:
+        <Option<::k8s_openapi027::api::core::v1::SecretReference> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
@@ -35,8 +25,7 @@ impl crate::Optionable for CephFSPersistentVolumeSourceAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource {
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource {
     fn into_optioned(self) -> CephFSPersistentVolumeSourceAc {
         CephFSPersistentVolumeSourceAc {
             monitors: Some(crate::OptionableConvert::into_optioned(self.monitors)),
@@ -47,17 +36,13 @@ for k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource {
             user: crate::OptionableConvert::into_optioned(self.user),
         }
     }
-    fn try_from_optioned(
-        value: CephFSPersistentVolumeSourceAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: CephFSPersistentVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            monitors: crate::OptionableConvert::try_from_optioned(
-                value
-                    .monitors
-                    .ok_or(crate::Error {
-                        missing_field: "monitors",
-                    })?,
-            )?,
+            monitors: crate::OptionableConvert::try_from_optioned(value.monitors.ok_or(
+                crate::Error {
+                    missing_field: "monitors",
+                },
+            )?)?,
             path: crate::OptionableConvert::try_from_optioned(value.path)?,
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
             secret_file: crate::OptionableConvert::try_from_optioned(value.secret_file)?,
@@ -65,10 +50,7 @@ for k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource {
             user: crate::OptionableConvert::try_from_optioned(value.user)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: CephFSPersistentVolumeSourceAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: CephFSPersistentVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.monitors {
             crate::OptionableConvert::merge(&mut self.monitors, other_value)?;
         }
@@ -83,18 +65,14 @@ for k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource>
-for CephFSPersistentVolumeSourceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource,
-    ) -> Self {
+    for CephFSPersistentVolumeSourceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

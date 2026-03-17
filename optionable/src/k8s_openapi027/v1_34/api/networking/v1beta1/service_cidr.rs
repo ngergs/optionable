@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceCIDRAc {
     #[serde(
@@ -65,10 +58,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1beta1::Serv
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1beta1::ServiceCIDR>
-for ServiceCIDRAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::networking::v1beta1::ServiceCIDR,
-    ) -> Self {
+    for ServiceCIDRAc
+{
+    fn from_optionable(value: k8s_openapi027::api::networking::v1beta1::ServiceCIDR) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
@@ -85,14 +77,18 @@ for ServiceCIDRAc {
 }
 impl k8s_openapi027::Resource for ServiceCIDRAc {
     const API_VERSION: &'static str = <k8s_openapi027::api::networking::v1beta1::ServiceCIDR as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::networking::v1beta1::ServiceCIDR as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::networking::v1beta1::ServiceCIDR as k8s_openapi027::Resource>::KIND;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::networking::v1beta1::ServiceCIDR as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::networking::v1beta1::ServiceCIDR as k8s_openapi027::Resource>::KIND;
     const VERSION: &'static str = <k8s_openapi027::api::networking::v1beta1::ServiceCIDR as k8s_openapi027::Resource>::VERSION;
     const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::networking::v1beta1::ServiceCIDR as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
-    type Scope = <k8s_openapi027::api::networking::v1beta1::ServiceCIDR as k8s_openapi027::Resource>::Scope;
+    type Scope =
+        <k8s_openapi027::api::networking::v1beta1::ServiceCIDR as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for ServiceCIDRAc {
-    type Ty = <k8s_openapi027::api::networking::v1beta1::ServiceCIDR as k8s_openapi027::Metadata>::Ty;
+    type Ty =
+        <k8s_openapi027::api::networking::v1beta1::ServiceCIDR as k8s_openapi027::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi027::Metadata>::Ty {
         &self.metadata
     }
@@ -103,7 +99,5 @@ impl k8s_openapi027::Metadata for ServiceCIDRAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_servicecidrac() {
-    crate::testutil::roundtrip_test::<
-        k8s_openapi027::api::networking::v1beta1::ServiceCIDR,
-    >();
+    crate::testutil::roundtrip_test::<k8s_openapi027::api::networking::v1beta1::ServiceCIDR>();
 }

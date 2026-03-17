@@ -1,7 +1,7 @@
 use clap::Parser;
 use darling::FromMeta;
 use optionable_codegen::CodegenSettings;
-use optionable_codegen_cli::{file_codegen, CodegenConfig, CodegenVisitor};
+use optionable_codegen_cli::{CodegenConfig, CodegenVisitor, file_codegen};
 use proc_macro2::{Ident, Span};
 use quote::ToTokens;
 use std::collections::HashSet;
@@ -9,7 +9,7 @@ use std::default::Default;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
 use syn::Item::{Enum, Impl, Struct, Use};
-use syn::{parse_quote, Fields, Item, Path, Type};
+use syn::{Fields, Item, Path, Type, parse_quote};
 
 /// Generates `Optionable` and `OptionableConvert` implementation for structs/enums in
 /// the referenced `input_file` and all included internal modules recursively.

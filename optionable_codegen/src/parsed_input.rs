@@ -1,6 +1,6 @@
+use crate::FieldHelperAttributes;
 use crate::helper::{error, is_option, type_path_replace_crate};
 use crate::parsed_input::FieldHandling::{IsOption, ManualOptioned, Other, Required};
-use crate::FieldHelperAttributes;
 use darling::FromAttributes;
 use proc_macro2::Ident;
 use std::iter;

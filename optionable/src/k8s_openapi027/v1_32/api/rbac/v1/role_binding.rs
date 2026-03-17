@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RoleBindingAc {
     #[serde(
@@ -51,13 +44,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::RoleBinding {
     fn try_from_optioned(value: RoleBindingAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            role_ref: crate::OptionableConvert::try_from_optioned(
-                value
-                    .role_ref
-                    .ok_or(crate::Error {
-                        missing_field: "role_ref",
-                    })?,
-            )?,
+            role_ref: crate::OptionableConvert::try_from_optioned(value.role_ref.ok_or(
+                crate::Error {
+                    missing_field: "role_ref",
+                },
+            )?)?,
             subjects: crate::OptionableConvert::try_from_optioned(value.subjects)?,
         })
     }
@@ -72,8 +63,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::RoleBinding {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::rbac::v1::RoleBinding>
-for RoleBindingAc {
+impl crate::OptionedConvert<k8s_openapi027::api::rbac::v1::RoleBinding> for RoleBindingAc {
     fn from_optionable(value: k8s_openapi027::api::rbac::v1::RoleBinding) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
@@ -90,11 +80,16 @@ for RoleBindingAc {
     }
 }
 impl k8s_openapi027::Resource for RoleBindingAc {
-    const API_VERSION: &'static str = <k8s_openapi027::api::rbac::v1::RoleBinding as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::api::rbac::v1::RoleBinding as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::api::rbac::v1::RoleBinding as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::api::rbac::v1::RoleBinding as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::rbac::v1::RoleBinding as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str =
+        <k8s_openapi027::api::rbac::v1::RoleBinding as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str =
+        <k8s_openapi027::api::rbac::v1::RoleBinding as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str =
+        <k8s_openapi027::api::rbac::v1::RoleBinding as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str =
+        <k8s_openapi027::api::rbac::v1::RoleBinding as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str =
+        <k8s_openapi027::api::rbac::v1::RoleBinding as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::rbac::v1::RoleBinding as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for RoleBindingAc {

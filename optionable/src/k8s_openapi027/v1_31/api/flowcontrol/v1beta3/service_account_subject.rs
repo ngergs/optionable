@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceAccountSubjectAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -14,8 +7,7 @@ pub struct ServiceAccountSubjectAc {
     pub namespace: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject {
+impl crate::Optionable for k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject {
     type Optioned = ServiceAccountSubjectAc;
 }
 #[automatically_derived]
@@ -24,8 +16,7 @@ impl crate::Optionable for ServiceAccountSubjectAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject {
+impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject {
     fn into_optioned(self) -> ServiceAccountSubjectAc {
         ServiceAccountSubjectAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
@@ -34,20 +25,14 @@ for k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject {
     }
     fn try_from_optioned(value: ServiceAccountSubjectAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
-            namespace: crate::OptionableConvert::try_from_optioned(
-                value
-                    .namespace
-                    .ok_or(crate::Error {
-                        missing_field: "namespace",
-                    })?,
-            )?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
+            namespace: crate::OptionableConvert::try_from_optioned(value.namespace.ok_or(
+                crate::Error {
+                    missing_field: "namespace",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: ServiceAccountSubjectAc) -> Result<(), crate::Error> {
@@ -62,9 +47,9 @@ for k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject,
-> for ServiceAccountSubjectAc {
+impl crate::OptionedConvert<k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject>
+    for ServiceAccountSubjectAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject,
     ) -> Self {
@@ -72,10 +57,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

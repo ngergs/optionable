@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -71,17 +64,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::Device {
                 self.allow_multiple_allocations,
             ),
             attributes: crate::OptionableConvert::into_optioned(self.attributes),
-            binding_conditions: crate::OptionableConvert::into_optioned(
-                self.binding_conditions,
-            ),
+            binding_conditions: crate::OptionableConvert::into_optioned(self.binding_conditions),
             binding_failure_conditions: crate::OptionableConvert::into_optioned(
                 self.binding_failure_conditions,
             ),
             binds_to_node: crate::OptionableConvert::into_optioned(self.binds_to_node),
             capacity: crate::OptionableConvert::into_optioned(self.capacity),
-            consumes_counters: crate::OptionableConvert::into_optioned(
-                self.consumes_counters,
-            ),
+            consumes_counters: crate::OptionableConvert::into_optioned(self.consumes_counters),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             node_name: crate::OptionableConvert::into_optioned(self.node_name),
             node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
@@ -101,24 +90,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::Device {
             binding_failure_conditions: crate::OptionableConvert::try_from_optioned(
                 value.binding_failure_conditions,
             )?,
-            binds_to_node: crate::OptionableConvert::try_from_optioned(
-                value.binds_to_node,
-            )?,
+            binds_to_node: crate::OptionableConvert::try_from_optioned(value.binds_to_node)?,
             capacity: crate::OptionableConvert::try_from_optioned(value.capacity)?,
             consumes_counters: crate::OptionableConvert::try_from_optioned(
                 value.consumes_counters,
             )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
             node_name: crate::OptionableConvert::try_from_optioned(value.node_name)?,
-            node_selector: crate::OptionableConvert::try_from_optioned(
-                value.node_selector,
-            )?,
+            node_selector: crate::OptionableConvert::try_from_optioned(value.node_selector)?,
             taints: crate::OptionableConvert::try_from_optioned(value.taints)?,
         })
     }
@@ -129,20 +110,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::Device {
             other.allow_multiple_allocations,
         )?;
         crate::OptionableConvert::merge(&mut self.attributes, other.attributes)?;
-        crate::OptionableConvert::merge(
-            &mut self.binding_conditions,
-            other.binding_conditions,
-        )?;
+        crate::OptionableConvert::merge(&mut self.binding_conditions, other.binding_conditions)?;
         crate::OptionableConvert::merge(
             &mut self.binding_failure_conditions,
             other.binding_failure_conditions,
         )?;
         crate::OptionableConvert::merge(&mut self.binds_to_node, other.binds_to_node)?;
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
-        crate::OptionableConvert::merge(
-            &mut self.consumes_counters,
-            other.consumes_counters,
-        )?;
+        crate::OptionableConvert::merge(&mut self.consumes_counters, other.consumes_counters)?;
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }

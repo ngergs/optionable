@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -19,7 +12,8 @@ pub struct ServiceReferenceAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference {
+    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference
+{
     type Optioned = ServiceReferenceAc;
 }
 #[automatically_derived]
@@ -29,7 +23,8 @@ impl crate::Optionable for ServiceReferenceAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference {
+    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference
+{
     fn into_optioned(self) -> ServiceReferenceAc {
         ServiceReferenceAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
@@ -40,20 +35,14 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Servi
     }
     fn try_from_optioned(value: ServiceReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
-            namespace: crate::OptionableConvert::try_from_optioned(
-                value
-                    .namespace
-                    .ok_or(crate::Error {
-                        missing_field: "namespace",
-                    })?,
-            )?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
+            namespace: crate::OptionableConvert::try_from_optioned(value.namespace.ok_or(
+                crate::Error {
+                    missing_field: "namespace",
+                },
+            )?)?,
             path: crate::OptionableConvert::try_from_optioned(value.path)?,
             port: crate::OptionableConvert::try_from_optioned(value.port)?,
         })
@@ -72,9 +61,11 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Servi
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference,
-> for ServiceReferenceAc {
+impl
+    crate::OptionedConvert<
+        k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference,
+    > for ServiceReferenceAc
+{
     fn from_optionable(
         value: k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ServiceReference,
     ) -> Self {

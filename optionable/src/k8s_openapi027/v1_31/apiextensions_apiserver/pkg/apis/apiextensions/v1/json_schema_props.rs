@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct JSONSchemaPropsAc {
     #[serde(rename = "$ref")]
@@ -169,7 +162,8 @@ pub struct JSONSchemaPropsAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps {
+    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps
+{
     type Optioned = JSONSchemaPropsAc;
 }
 #[automatically_derived]
@@ -179,14 +173,13 @@ impl crate::Optionable for JSONSchemaPropsAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps {
+    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps
+{
     fn into_optioned(self) -> JSONSchemaPropsAc {
         JSONSchemaPropsAc {
             ref_path: crate::OptionableConvert::into_optioned(self.ref_path),
             schema: crate::OptionableConvert::into_optioned(self.schema),
-            additional_items: crate::OptionableConvert::into_optioned(
-                self.additional_items,
-            ),
+            additional_items: crate::OptionableConvert::into_optioned(self.additional_items),
             additional_properties: crate::OptionableConvert::into_optioned(
                 self.additional_properties,
             ),
@@ -198,12 +191,8 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
             description: crate::OptionableConvert::into_optioned(self.description),
             enum_: crate::OptionableConvert::into_optioned(self.enum_),
             example: crate::OptionableConvert::into_optioned(self.example),
-            exclusive_maximum: crate::OptionableConvert::into_optioned(
-                self.exclusive_maximum,
-            ),
-            exclusive_minimum: crate::OptionableConvert::into_optioned(
-                self.exclusive_minimum,
-            ),
+            exclusive_maximum: crate::OptionableConvert::into_optioned(self.exclusive_maximum),
+            exclusive_minimum: crate::OptionableConvert::into_optioned(self.exclusive_minimum),
             external_docs: crate::OptionableConvert::into_optioned(self.external_docs),
             format: crate::OptionableConvert::into_optioned(self.format),
             id: crate::OptionableConvert::into_optioned(self.id),
@@ -221,9 +210,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
             nullable: crate::OptionableConvert::into_optioned(self.nullable),
             one_of: crate::OptionableConvert::into_optioned(self.one_of),
             pattern: crate::OptionableConvert::into_optioned(self.pattern),
-            pattern_properties: crate::OptionableConvert::into_optioned(
-                self.pattern_properties,
-            ),
+            pattern_properties: crate::OptionableConvert::into_optioned(self.pattern_properties),
             properties: crate::OptionableConvert::into_optioned(self.properties),
             required: crate::OptionableConvert::into_optioned(self.required),
             title: crate::OptionableConvert::into_optioned(self.title),
@@ -256,9 +243,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         Ok(Self {
             ref_path: crate::OptionableConvert::try_from_optioned(value.ref_path)?,
             schema: crate::OptionableConvert::try_from_optioned(value.schema)?,
-            additional_items: crate::OptionableConvert::try_from_optioned(
-                value.additional_items,
-            )?,
+            additional_items: crate::OptionableConvert::try_from_optioned(value.additional_items)?,
             additional_properties: crate::OptionableConvert::try_from_optioned(
                 value.additional_properties,
             )?,
@@ -266,9 +251,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
             any_of: crate::OptionableConvert::try_from_optioned(value.any_of)?,
             default: crate::OptionableConvert::try_from_optioned(value.default)?,
             definitions: crate::OptionableConvert::try_from_optioned(value.definitions)?,
-            dependencies: crate::OptionableConvert::try_from_optioned(
-                value.dependencies,
-            )?,
+            dependencies: crate::OptionableConvert::try_from_optioned(value.dependencies)?,
             description: crate::OptionableConvert::try_from_optioned(value.description)?,
             enum_: crate::OptionableConvert::try_from_optioned(value.enum_)?,
             example: crate::OptionableConvert::try_from_optioned(value.example)?,
@@ -278,23 +261,17 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
             exclusive_minimum: crate::OptionableConvert::try_from_optioned(
                 value.exclusive_minimum,
             )?,
-            external_docs: crate::OptionableConvert::try_from_optioned(
-                value.external_docs,
-            )?,
+            external_docs: crate::OptionableConvert::try_from_optioned(value.external_docs)?,
             format: crate::OptionableConvert::try_from_optioned(value.format)?,
             id: crate::OptionableConvert::try_from_optioned(value.id)?,
             items: crate::OptionableConvert::try_from_optioned(value.items)?,
             max_items: crate::OptionableConvert::try_from_optioned(value.max_items)?,
             max_length: crate::OptionableConvert::try_from_optioned(value.max_length)?,
-            max_properties: crate::OptionableConvert::try_from_optioned(
-                value.max_properties,
-            )?,
+            max_properties: crate::OptionableConvert::try_from_optioned(value.max_properties)?,
             maximum: crate::OptionableConvert::try_from_optioned(value.maximum)?,
             min_items: crate::OptionableConvert::try_from_optioned(value.min_items)?,
             min_length: crate::OptionableConvert::try_from_optioned(value.min_length)?,
-            min_properties: crate::OptionableConvert::try_from_optioned(
-                value.min_properties,
-            )?,
+            min_properties: crate::OptionableConvert::try_from_optioned(value.min_properties)?,
             minimum: crate::OptionableConvert::try_from_optioned(value.minimum)?,
             multiple_of: crate::OptionableConvert::try_from_optioned(value.multiple_of)?,
             not: crate::OptionableConvert::try_from_optioned(value.not)?,
@@ -308,9 +285,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
             required: crate::OptionableConvert::try_from_optioned(value.required)?,
             title: crate::OptionableConvert::try_from_optioned(value.title)?,
             type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
-            unique_items: crate::OptionableConvert::try_from_optioned(
-                value.unique_items,
-            )?,
+            unique_items: crate::OptionableConvert::try_from_optioned(value.unique_items)?,
             x_kubernetes_embedded_resource: crate::OptionableConvert::try_from_optioned(
                 value.x_kubernetes_embedded_resource,
             )?,
@@ -337,10 +312,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
     fn merge(&mut self, other: JSONSchemaPropsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.ref_path, other.ref_path)?;
         crate::OptionableConvert::merge(&mut self.schema, other.schema)?;
-        crate::OptionableConvert::merge(
-            &mut self.additional_items,
-            other.additional_items,
-        )?;
+        crate::OptionableConvert::merge(&mut self.additional_items, other.additional_items)?;
         crate::OptionableConvert::merge(
             &mut self.additional_properties,
             other.additional_properties,
@@ -353,14 +325,8 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         crate::OptionableConvert::merge(&mut self.description, other.description)?;
         crate::OptionableConvert::merge(&mut self.enum_, other.enum_)?;
         crate::OptionableConvert::merge(&mut self.example, other.example)?;
-        crate::OptionableConvert::merge(
-            &mut self.exclusive_maximum,
-            other.exclusive_maximum,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.exclusive_minimum,
-            other.exclusive_minimum,
-        )?;
+        crate::OptionableConvert::merge(&mut self.exclusive_maximum, other.exclusive_maximum)?;
+        crate::OptionableConvert::merge(&mut self.exclusive_minimum, other.exclusive_minimum)?;
         crate::OptionableConvert::merge(&mut self.external_docs, other.external_docs)?;
         crate::OptionableConvert::merge(&mut self.format, other.format)?;
         crate::OptionableConvert::merge(&mut self.id, other.id)?;
@@ -378,10 +344,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         crate::OptionableConvert::merge(&mut self.nullable, other.nullable)?;
         crate::OptionableConvert::merge(&mut self.one_of, other.one_of)?;
         crate::OptionableConvert::merge(&mut self.pattern, other.pattern)?;
-        crate::OptionableConvert::merge(
-            &mut self.pattern_properties,
-            other.pattern_properties,
-        )?;
+        crate::OptionableConvert::merge(&mut self.pattern_properties, other.pattern_properties)?;
         crate::OptionableConvert::merge(&mut self.properties, other.properties)?;
         crate::OptionableConvert::merge(&mut self.required, other.required)?;
         crate::OptionableConvert::merge(&mut self.title, other.title)?;
@@ -420,9 +383,11 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
-> for JSONSchemaPropsAc {
+impl
+    crate::OptionedConvert<
+        k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
+    > for JSONSchemaPropsAc
+{
     fn from_optionable(
         value: k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
     ) -> Self {

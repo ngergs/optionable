@@ -1,23 +1,14 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceRequestAllocationResultAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub admin_access: <Option<bool> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub binding_conditions: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub binding_conditions:
+        <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub binding_failure_conditions: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub binding_failure_conditions:
+        <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub consumed_capacity: <Option<
         std::collections::BTreeMap<
@@ -42,8 +33,7 @@ pub struct DeviceRequestAllocationResultAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult {
+impl crate::Optionable for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult {
     type Optioned = DeviceRequestAllocationResultAc;
 }
 #[automatically_derived]
@@ -53,19 +43,16 @@ impl crate::Optionable for DeviceRequestAllocationResultAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult {
+    for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult
+{
     fn into_optioned(self) -> DeviceRequestAllocationResultAc {
         DeviceRequestAllocationResultAc {
             admin_access: crate::OptionableConvert::into_optioned(self.admin_access),
-            binding_conditions: crate::OptionableConvert::into_optioned(
-                self.binding_conditions,
-            ),
+            binding_conditions: crate::OptionableConvert::into_optioned(self.binding_conditions),
             binding_failure_conditions: crate::OptionableConvert::into_optioned(
                 self.binding_failure_conditions,
             ),
-            consumed_capacity: crate::OptionableConvert::into_optioned(
-                self.consumed_capacity,
-            ),
+            consumed_capacity: crate::OptionableConvert::into_optioned(self.consumed_capacity),
             device: Some(crate::OptionableConvert::into_optioned(self.device)),
             driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
             pool: Some(crate::OptionableConvert::into_optioned(self.pool)),
@@ -74,13 +61,9 @@ for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult {
             tolerations: crate::OptionableConvert::into_optioned(self.tolerations),
         }
     }
-    fn try_from_optioned(
-        value: DeviceRequestAllocationResultAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: DeviceRequestAllocationResultAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            admin_access: crate::OptionableConvert::try_from_optioned(
-                value.admin_access,
-            )?,
+            admin_access: crate::OptionableConvert::try_from_optioned(value.admin_access)?,
             binding_conditions: crate::OptionableConvert::try_from_optioned(
                 value.binding_conditions,
             )?,
@@ -90,55 +73,36 @@ for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult {
             consumed_capacity: crate::OptionableConvert::try_from_optioned(
                 value.consumed_capacity,
             )?,
-            device: crate::OptionableConvert::try_from_optioned(
-                value
-                    .device
-                    .ok_or(crate::Error {
-                        missing_field: "device",
-                    })?,
-            )?,
-            driver: crate::OptionableConvert::try_from_optioned(
-                value
-                    .driver
-                    .ok_or(crate::Error {
-                        missing_field: "driver",
-                    })?,
-            )?,
-            pool: crate::OptionableConvert::try_from_optioned(
-                value
-                    .pool
-                    .ok_or(crate::Error {
-                        missing_field: "pool",
-                    })?,
-            )?,
-            request: crate::OptionableConvert::try_from_optioned(
-                value
-                    .request
-                    .ok_or(crate::Error {
-                        missing_field: "request",
-                    })?,
-            )?,
+            device: crate::OptionableConvert::try_from_optioned(value.device.ok_or(
+                crate::Error {
+                    missing_field: "device",
+                },
+            )?)?,
+            driver: crate::OptionableConvert::try_from_optioned(value.driver.ok_or(
+                crate::Error {
+                    missing_field: "driver",
+                },
+            )?)?,
+            pool: crate::OptionableConvert::try_from_optioned(value.pool.ok_or(crate::Error {
+                missing_field: "pool",
+            })?)?,
+            request: crate::OptionableConvert::try_from_optioned(value.request.ok_or(
+                crate::Error {
+                    missing_field: "request",
+                },
+            )?)?,
             share_id: crate::OptionableConvert::try_from_optioned(value.share_id)?,
             tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
         })
     }
-    fn merge(
-        &mut self,
-        other: DeviceRequestAllocationResultAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: DeviceRequestAllocationResultAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
-        crate::OptionableConvert::merge(
-            &mut self.binding_conditions,
-            other.binding_conditions,
-        )?;
+        crate::OptionableConvert::merge(&mut self.binding_conditions, other.binding_conditions)?;
         crate::OptionableConvert::merge(
             &mut self.binding_failure_conditions,
             other.binding_failure_conditions,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.consumed_capacity,
-            other.consumed_capacity,
-        )?;
+        crate::OptionableConvert::merge(&mut self.consumed_capacity, other.consumed_capacity)?;
         if let Some(other_value) = other.device {
             crate::OptionableConvert::merge(&mut self.device, other_value)?;
         }
@@ -158,9 +122,9 @@ for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult,
-> for DeviceRequestAllocationResultAc {
+impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult>
+    for DeviceRequestAllocationResultAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult,
     ) -> Self {
@@ -168,10 +132,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

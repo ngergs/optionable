@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkPolicyPeerAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,14 +24,11 @@ impl crate::Optionable for NetworkPolicyPeerAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::networking::v1::NetworkPolicyPeer {
+impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::NetworkPolicyPeer {
     fn into_optioned(self) -> NetworkPolicyPeerAc {
         NetworkPolicyPeerAc {
             ip_block: crate::OptionableConvert::into_optioned(self.ip_block),
-            namespace_selector: crate::OptionableConvert::into_optioned(
-                self.namespace_selector,
-            ),
+            namespace_selector: crate::OptionableConvert::into_optioned(self.namespace_selector),
             pod_selector: crate::OptionableConvert::into_optioned(self.pod_selector),
         }
     }
@@ -48,17 +38,12 @@ for k8s_openapi027::api::networking::v1::NetworkPolicyPeer {
             namespace_selector: crate::OptionableConvert::try_from_optioned(
                 value.namespace_selector,
             )?,
-            pod_selector: crate::OptionableConvert::try_from_optioned(
-                value.pod_selector,
-            )?,
+            pod_selector: crate::OptionableConvert::try_from_optioned(value.pod_selector)?,
         })
     }
     fn merge(&mut self, other: NetworkPolicyPeerAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.ip_block, other.ip_block)?;
-        crate::OptionableConvert::merge(
-            &mut self.namespace_selector,
-            other.namespace_selector,
-        )?;
+        crate::OptionableConvert::merge(&mut self.namespace_selector, other.namespace_selector)?;
         crate::OptionableConvert::merge(&mut self.pod_selector, other.pod_selector)?;
         Ok(())
     }
@@ -66,10 +51,9 @@ for k8s_openapi027::api::networking::v1::NetworkPolicyPeer {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::NetworkPolicyPeer>
-for NetworkPolicyPeerAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::networking::v1::NetworkPolicyPeer,
-    ) -> Self {
+    for NetworkPolicyPeerAc
+{
+    fn from_optionable(value: k8s_openapi027::api::networking::v1::NetworkPolicyPeer) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

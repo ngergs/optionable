@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DaemonEndpointAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -30,11 +23,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::DaemonEndpoint 
     }
     fn try_from_optioned(value: DaemonEndpointAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            port: value
-                .port
-                .ok_or(crate::Error {
-                    missing_field: "port",
-                })?,
+            port: value.port.ok_or(crate::Error {
+                missing_field: "port",
+            })?,
         })
     }
     fn merge(&mut self, other: DaemonEndpointAc) -> Result<(), crate::Error> {
@@ -46,8 +37,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::DaemonEndpoint 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::DaemonEndpoint>
-for DaemonEndpointAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::DaemonEndpoint> for DaemonEndpointAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::DaemonEndpoint) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

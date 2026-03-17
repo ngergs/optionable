@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AzureFileVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -36,20 +29,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AzureFileVolume
     fn try_from_optioned(value: AzureFileVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
-            secret_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .secret_name
-                    .ok_or(crate::Error {
-                        missing_field: "secret_name",
-                    })?,
-            )?,
-            share_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .share_name
-                    .ok_or(crate::Error {
-                        missing_field: "share_name",
-                    })?,
-            )?,
+            secret_name: crate::OptionableConvert::try_from_optioned(value.secret_name.ok_or(
+                crate::Error {
+                    missing_field: "secret_name",
+                },
+            )?)?,
+            share_name: crate::OptionableConvert::try_from_optioned(value.share_name.ok_or(
+                crate::Error {
+                    missing_field: "share_name",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: AzureFileVolumeSourceAc) -> Result<(), crate::Error> {
@@ -66,10 +55,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AzureFileVolume
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::AzureFileVolumeSource>
-for AzureFileVolumeSourceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::AzureFileVolumeSource,
-    ) -> Self {
+    for AzureFileVolumeSourceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::AzureFileVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

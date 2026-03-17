@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RollingUpdateDaemonSetAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,35 +24,27 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::RollingUpdateDa
     fn into_optioned(self) -> RollingUpdateDaemonSetAc {
         RollingUpdateDaemonSetAc {
             max_surge: crate::OptionableConvert::into_optioned(self.max_surge),
-            max_unavailable: crate::OptionableConvert::into_optioned(
-                self.max_unavailable,
-            ),
+            max_unavailable: crate::OptionableConvert::into_optioned(self.max_unavailable),
         }
     }
     fn try_from_optioned(value: RollingUpdateDaemonSetAc) -> Result<Self, crate::Error> {
         Ok(Self {
             max_surge: crate::OptionableConvert::try_from_optioned(value.max_surge)?,
-            max_unavailable: crate::OptionableConvert::try_from_optioned(
-                value.max_unavailable,
-            )?,
+            max_unavailable: crate::OptionableConvert::try_from_optioned(value.max_unavailable)?,
         })
     }
     fn merge(&mut self, other: RollingUpdateDaemonSetAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.max_surge, other.max_surge)?;
-        crate::OptionableConvert::merge(
-            &mut self.max_unavailable,
-            other.max_unavailable,
-        )?;
+        crate::OptionableConvert::merge(&mut self.max_unavailable, other.max_unavailable)?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::RollingUpdateDaemonSet>
-for RollingUpdateDaemonSetAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::apps::v1::RollingUpdateDaemonSet,
-    ) -> Self {
+    for RollingUpdateDaemonSetAc
+{
+    fn from_optionable(value: k8s_openapi027::api::apps::v1::RollingUpdateDaemonSet) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

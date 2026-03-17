@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -178,47 +171,25 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             host_pid: crate::OptionableConvert::into_optioned(self.host_pid),
             host_users: crate::OptionableConvert::into_optioned(self.host_users),
             hostname: crate::OptionableConvert::into_optioned(self.hostname),
-            hostname_override: crate::OptionableConvert::into_optioned(
-                self.hostname_override,
-            ),
-            image_pull_secrets: crate::OptionableConvert::into_optioned(
-                self.image_pull_secrets,
-            ),
-            init_containers: crate::OptionableConvert::into_optioned(
-                self.init_containers,
-            ),
+            hostname_override: crate::OptionableConvert::into_optioned(self.hostname_override),
+            image_pull_secrets: crate::OptionableConvert::into_optioned(self.image_pull_secrets),
+            init_containers: crate::OptionableConvert::into_optioned(self.init_containers),
             node_name: crate::OptionableConvert::into_optioned(self.node_name),
             node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
             os: crate::OptionableConvert::into_optioned(self.os),
             overhead: crate::OptionableConvert::into_optioned(self.overhead),
-            preemption_policy: crate::OptionableConvert::into_optioned(
-                self.preemption_policy,
-            ),
+            preemption_policy: crate::OptionableConvert::into_optioned(self.preemption_policy),
             priority: crate::OptionableConvert::into_optioned(self.priority),
-            priority_class_name: crate::OptionableConvert::into_optioned(
-                self.priority_class_name,
-            ),
-            readiness_gates: crate::OptionableConvert::into_optioned(
-                self.readiness_gates,
-            ),
-            resource_claims: crate::OptionableConvert::into_optioned(
-                self.resource_claims,
-            ),
+            priority_class_name: crate::OptionableConvert::into_optioned(self.priority_class_name),
+            readiness_gates: crate::OptionableConvert::into_optioned(self.readiness_gates),
+            resource_claims: crate::OptionableConvert::into_optioned(self.resource_claims),
             resources: crate::OptionableConvert::into_optioned(self.resources),
             restart_policy: crate::OptionableConvert::into_optioned(self.restart_policy),
-            runtime_class_name: crate::OptionableConvert::into_optioned(
-                self.runtime_class_name,
-            ),
+            runtime_class_name: crate::OptionableConvert::into_optioned(self.runtime_class_name),
             scheduler_name: crate::OptionableConvert::into_optioned(self.scheduler_name),
-            scheduling_gates: crate::OptionableConvert::into_optioned(
-                self.scheduling_gates,
-            ),
-            security_context: crate::OptionableConvert::into_optioned(
-                self.security_context,
-            ),
-            service_account: crate::OptionableConvert::into_optioned(
-                self.service_account,
-            ),
+            scheduling_gates: crate::OptionableConvert::into_optioned(self.scheduling_gates),
+            security_context: crate::OptionableConvert::into_optioned(self.security_context),
+            service_account: crate::OptionableConvert::into_optioned(self.service_account),
             service_account_name: crate::OptionableConvert::into_optioned(
                 self.service_account_name,
             ),
@@ -249,13 +220,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             automount_service_account_token: crate::OptionableConvert::try_from_optioned(
                 value.automount_service_account_token,
             )?,
-            containers: crate::OptionableConvert::try_from_optioned(
-                value
-                    .containers
-                    .ok_or(crate::Error {
-                        missing_field: "containers",
-                    })?,
-            )?,
+            containers: crate::OptionableConvert::try_from_optioned(value.containers.ok_or(
+                crate::Error {
+                    missing_field: "containers",
+                },
+            )?)?,
             dns_config: crate::OptionableConvert::try_from_optioned(value.dns_config)?,
             dns_policy: crate::OptionableConvert::try_from_optioned(value.dns_policy)?,
             enable_service_links: crate::OptionableConvert::try_from_optioned(
@@ -264,13 +233,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             ephemeral_containers: crate::OptionableConvert::try_from_optioned(
                 value.ephemeral_containers,
             )?,
-            host_aliases: crate::OptionableConvert::try_from_optioned(
-                value.host_aliases,
-            )?,
+            host_aliases: crate::OptionableConvert::try_from_optioned(value.host_aliases)?,
             host_ipc: crate::OptionableConvert::try_from_optioned(value.host_ipc)?,
-            host_network: crate::OptionableConvert::try_from_optioned(
-                value.host_network,
-            )?,
+            host_network: crate::OptionableConvert::try_from_optioned(value.host_network)?,
             host_pid: crate::OptionableConvert::try_from_optioned(value.host_pid)?,
             host_users: crate::OptionableConvert::try_from_optioned(value.host_users)?,
             hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
@@ -280,13 +245,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             image_pull_secrets: crate::OptionableConvert::try_from_optioned(
                 value.image_pull_secrets,
             )?,
-            init_containers: crate::OptionableConvert::try_from_optioned(
-                value.init_containers,
-            )?,
+            init_containers: crate::OptionableConvert::try_from_optioned(value.init_containers)?,
             node_name: crate::OptionableConvert::try_from_optioned(value.node_name)?,
-            node_selector: crate::OptionableConvert::try_from_optioned(
-                value.node_selector,
-            )?,
+            node_selector: crate::OptionableConvert::try_from_optioned(value.node_selector)?,
             os: crate::OptionableConvert::try_from_optioned(value.os)?,
             overhead: crate::OptionableConvert::try_from_optioned(value.overhead)?,
             preemption_policy: crate::OptionableConvert::try_from_optioned(
@@ -296,31 +257,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             priority_class_name: crate::OptionableConvert::try_from_optioned(
                 value.priority_class_name,
             )?,
-            readiness_gates: crate::OptionableConvert::try_from_optioned(
-                value.readiness_gates,
-            )?,
-            resource_claims: crate::OptionableConvert::try_from_optioned(
-                value.resource_claims,
-            )?,
+            readiness_gates: crate::OptionableConvert::try_from_optioned(value.readiness_gates)?,
+            resource_claims: crate::OptionableConvert::try_from_optioned(value.resource_claims)?,
             resources: crate::OptionableConvert::try_from_optioned(value.resources)?,
-            restart_policy: crate::OptionableConvert::try_from_optioned(
-                value.restart_policy,
-            )?,
+            restart_policy: crate::OptionableConvert::try_from_optioned(value.restart_policy)?,
             runtime_class_name: crate::OptionableConvert::try_from_optioned(
                 value.runtime_class_name,
             )?,
-            scheduler_name: crate::OptionableConvert::try_from_optioned(
-                value.scheduler_name,
-            )?,
-            scheduling_gates: crate::OptionableConvert::try_from_optioned(
-                value.scheduling_gates,
-            )?,
-            security_context: crate::OptionableConvert::try_from_optioned(
-                value.security_context,
-            )?,
-            service_account: crate::OptionableConvert::try_from_optioned(
-                value.service_account,
-            )?,
+            scheduler_name: crate::OptionableConvert::try_from_optioned(value.scheduler_name)?,
+            scheduling_gates: crate::OptionableConvert::try_from_optioned(value.scheduling_gates)?,
+            security_context: crate::OptionableConvert::try_from_optioned(value.security_context)?,
+            service_account: crate::OptionableConvert::try_from_optioned(value.service_account)?,
             service_account_name: crate::OptionableConvert::try_from_optioned(
                 value.service_account_name,
             )?,
@@ -339,9 +286,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
                 value.topology_spread_constraints,
             )?,
             volumes: crate::OptionableConvert::try_from_optioned(value.volumes)?,
-            workload_ref: crate::OptionableConvert::try_from_optioned(
-                value.workload_ref,
-            )?,
+            workload_ref: crate::OptionableConvert::try_from_optioned(value.workload_ref)?,
         })
     }
     fn merge(&mut self, other: PodSpecAc) -> Result<(), crate::Error> {
@@ -373,58 +318,25 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
         crate::OptionableConvert::merge(&mut self.host_pid, other.host_pid)?;
         crate::OptionableConvert::merge(&mut self.host_users, other.host_users)?;
         crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
-        crate::OptionableConvert::merge(
-            &mut self.hostname_override,
-            other.hostname_override,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.image_pull_secrets,
-            other.image_pull_secrets,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.init_containers,
-            other.init_containers,
-        )?;
+        crate::OptionableConvert::merge(&mut self.hostname_override, other.hostname_override)?;
+        crate::OptionableConvert::merge(&mut self.image_pull_secrets, other.image_pull_secrets)?;
+        crate::OptionableConvert::merge(&mut self.init_containers, other.init_containers)?;
         crate::OptionableConvert::merge(&mut self.node_name, other.node_name)?;
         crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
         crate::OptionableConvert::merge(&mut self.os, other.os)?;
         crate::OptionableConvert::merge(&mut self.overhead, other.overhead)?;
-        crate::OptionableConvert::merge(
-            &mut self.preemption_policy,
-            other.preemption_policy,
-        )?;
+        crate::OptionableConvert::merge(&mut self.preemption_policy, other.preemption_policy)?;
         crate::OptionableConvert::merge(&mut self.priority, other.priority)?;
-        crate::OptionableConvert::merge(
-            &mut self.priority_class_name,
-            other.priority_class_name,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.readiness_gates,
-            other.readiness_gates,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.resource_claims,
-            other.resource_claims,
-        )?;
+        crate::OptionableConvert::merge(&mut self.priority_class_name, other.priority_class_name)?;
+        crate::OptionableConvert::merge(&mut self.readiness_gates, other.readiness_gates)?;
+        crate::OptionableConvert::merge(&mut self.resource_claims, other.resource_claims)?;
         crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
         crate::OptionableConvert::merge(&mut self.restart_policy, other.restart_policy)?;
-        crate::OptionableConvert::merge(
-            &mut self.runtime_class_name,
-            other.runtime_class_name,
-        )?;
+        crate::OptionableConvert::merge(&mut self.runtime_class_name, other.runtime_class_name)?;
         crate::OptionableConvert::merge(&mut self.scheduler_name, other.scheduler_name)?;
-        crate::OptionableConvert::merge(
-            &mut self.scheduling_gates,
-            other.scheduling_gates,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.security_context,
-            other.security_context,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.service_account,
-            other.service_account,
-        )?;
+        crate::OptionableConvert::merge(&mut self.scheduling_gates, other.scheduling_gates)?;
+        crate::OptionableConvert::merge(&mut self.security_context, other.security_context)?;
+        crate::OptionableConvert::merge(&mut self.service_account, other.service_account)?;
         crate::OptionableConvert::merge(
             &mut self.service_account_name,
             other.service_account_name,
@@ -458,9 +370,7 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodSpec> for PodSpecA
     fn from_optionable(value: k8s_openapi027::api::core::v1::PodSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(
-        self,
-    ) -> Result<k8s_openapi027::api::core::v1::PodSpec, crate::Error> {
+    fn try_into_optionable(self) -> Result<k8s_openapi027::api::core::v1::PodSpec, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

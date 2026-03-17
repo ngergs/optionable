@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FlowSchemaSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -35,21 +28,16 @@ impl crate::Optionable for FlowSchemaSpecAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec {
+impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec {
     fn into_optioned(self) -> FlowSchemaSpecAc {
         FlowSchemaSpecAc {
             distinguisher_method: crate::OptionableConvert::into_optioned(
                 self.distinguisher_method,
             ),
-            matching_precedence: crate::OptionableConvert::into_optioned(
-                self.matching_precedence,
-            ),
-            priority_level_configuration: Some(
-                crate::OptionableConvert::into_optioned(
-                    self.priority_level_configuration,
-                ),
-            ),
+            matching_precedence: crate::OptionableConvert::into_optioned(self.matching_precedence),
+            priority_level_configuration: Some(crate::OptionableConvert::into_optioned(
+                self.priority_level_configuration,
+            )),
             rules: crate::OptionableConvert::into_optioned(self.rules),
         }
     }
@@ -62,11 +50,9 @@ for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec {
                 value.matching_precedence,
             )?,
             priority_level_configuration: crate::OptionableConvert::try_from_optioned(
-                value
-                    .priority_level_configuration
-                    .ok_or(crate::Error {
-                        missing_field: "priority_level_configuration",
-                    })?,
+                value.priority_level_configuration.ok_or(crate::Error {
+                    missing_field: "priority_level_configuration",
+                })?,
             )?,
             rules: crate::OptionableConvert::try_from_optioned(value.rules)?,
         })
@@ -76,15 +62,9 @@ for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec {
             &mut self.distinguisher_method,
             other.distinguisher_method,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.matching_precedence,
-            other.matching_precedence,
-        )?;
+        crate::OptionableConvert::merge(&mut self.matching_precedence, other.matching_precedence)?;
         if let Some(other_value) = other.priority_level_configuration {
-            crate::OptionableConvert::merge(
-                &mut self.priority_level_configuration,
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.priority_level_configuration, other_value)?;
         }
         crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
         Ok(())
@@ -93,18 +73,14 @@ for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec>
-for FlowSchemaSpecAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec,
-    ) -> Self {
+    for FlowSchemaSpecAc
+{
+    fn from_optionable(value: k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

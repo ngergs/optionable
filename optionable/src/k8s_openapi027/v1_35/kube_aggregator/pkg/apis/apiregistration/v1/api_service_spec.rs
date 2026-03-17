@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIServiceSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -28,7 +21,8 @@ pub struct APIServiceSpecAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec {
+    for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec
+{
     type Optioned = APIServiceSpecAc;
 }
 #[automatically_derived]
@@ -38,7 +32,8 @@ impl crate::Optionable for APIServiceSpecAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec {
+    for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec
+{
     fn into_optioned(self) -> APIServiceSpecAc {
         APIServiceSpecAc {
             ca_bundle: crate::OptionableConvert::into_optioned(self.ca_bundle),
@@ -56,21 +51,17 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceS
         Ok(Self {
             ca_bundle: crate::OptionableConvert::try_from_optioned(value.ca_bundle)?,
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
-            group_priority_minimum: value
-                .group_priority_minimum
-                .ok_or(crate::Error {
-                    missing_field: "group_priority_minimum",
-                })?,
+            group_priority_minimum: value.group_priority_minimum.ok_or(crate::Error {
+                missing_field: "group_priority_minimum",
+            })?,
             insecure_skip_tls_verify: crate::OptionableConvert::try_from_optioned(
                 value.insecure_skip_tls_verify,
             )?,
             service: crate::OptionableConvert::try_from_optioned(value.service)?,
             version: crate::OptionableConvert::try_from_optioned(value.version)?,
-            version_priority: value
-                .version_priority
-                .ok_or(crate::Error {
-                    missing_field: "version_priority",
-                })?,
+            version_priority: value.version_priority.ok_or(crate::Error {
+                missing_field: "version_priority",
+            })?,
         })
     }
     fn merge(&mut self, other: APIServiceSpecAc) -> Result<(), crate::Error> {
@@ -93,9 +84,11 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceS
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec,
-> for APIServiceSpecAc {
+impl
+    crate::OptionedConvert<
+        k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec,
+    > for APIServiceSpecAc
+{
     fn from_optionable(
         value: k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec,
     ) -> Self {

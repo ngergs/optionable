@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FCVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -16,13 +9,9 @@ pub struct FCVolumeSourceAc {
     pub read_only: <Option<bool> as crate::Optionable>::Optioned,
     #[serde(rename = "targetWWNs")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_wwns: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub target_wwns: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub wwids: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub wwids: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::FCVolumeSource {
@@ -64,8 +53,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FCVolumeSource 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::FCVolumeSource>
-for FCVolumeSourceAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::FCVolumeSource> for FCVolumeSourceAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::FCVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

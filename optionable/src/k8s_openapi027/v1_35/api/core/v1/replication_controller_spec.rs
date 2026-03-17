@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ReplicationControllerSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,21 +24,16 @@ impl crate::Optionable for ReplicationControllerSpecAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::core::v1::ReplicationControllerSpec {
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ReplicationControllerSpec {
     fn into_optioned(self) -> ReplicationControllerSpecAc {
         ReplicationControllerSpecAc {
-            min_ready_seconds: crate::OptionableConvert::into_optioned(
-                self.min_ready_seconds,
-            ),
+            min_ready_seconds: crate::OptionableConvert::into_optioned(self.min_ready_seconds),
             replicas: crate::OptionableConvert::into_optioned(self.replicas),
             selector: crate::OptionableConvert::into_optioned(self.selector),
             template: crate::OptionableConvert::into_optioned(self.template),
         }
     }
-    fn try_from_optioned(
-        value: ReplicationControllerSpecAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: ReplicationControllerSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             min_ready_seconds: crate::OptionableConvert::try_from_optioned(
                 value.min_ready_seconds,
@@ -56,10 +44,7 @@ for k8s_openapi027::api::core::v1::ReplicationControllerSpec {
         })
     }
     fn merge(&mut self, other: ReplicationControllerSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.min_ready_seconds,
-            other.min_ready_seconds,
-        )?;
+        crate::OptionableConvert::merge(&mut self.min_ready_seconds, other.min_ready_seconds)?;
         crate::OptionableConvert::merge(&mut self.replicas, other.replicas)?;
         crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
         crate::OptionableConvert::merge(&mut self.template, other.template)?;
@@ -69,10 +54,9 @@ for k8s_openapi027::api::core::v1::ReplicationControllerSpec {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ReplicationControllerSpec>
-for ReplicationControllerSpecAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::ReplicationControllerSpec,
-    ) -> Self {
+    for ReplicationControllerSpecAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::ReplicationControllerSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

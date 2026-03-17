@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TopologySpreadConstraintAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -41,45 +34,30 @@ impl crate::Optionable for TopologySpreadConstraintAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
     fn into_optioned(self) -> TopologySpreadConstraintAc {
         TopologySpreadConstraintAc {
             label_selector: crate::OptionableConvert::into_optioned(self.label_selector),
-            match_label_keys: crate::OptionableConvert::into_optioned(
-                self.match_label_keys,
-            ),
+            match_label_keys: crate::OptionableConvert::into_optioned(self.match_label_keys),
             max_skew: Some(self.max_skew),
             min_domains: crate::OptionableConvert::into_optioned(self.min_domains),
             node_affinity_policy: crate::OptionableConvert::into_optioned(
                 self.node_affinity_policy,
             ),
-            node_taints_policy: crate::OptionableConvert::into_optioned(
-                self.node_taints_policy,
-            ),
-            topology_key: Some(
-                crate::OptionableConvert::into_optioned(self.topology_key),
-            ),
-            when_unsatisfiable: Some(
-                crate::OptionableConvert::into_optioned(self.when_unsatisfiable),
-            ),
+            node_taints_policy: crate::OptionableConvert::into_optioned(self.node_taints_policy),
+            topology_key: Some(crate::OptionableConvert::into_optioned(self.topology_key)),
+            when_unsatisfiable: Some(crate::OptionableConvert::into_optioned(
+                self.when_unsatisfiable,
+            )),
         }
     }
-    fn try_from_optioned(
-        value: TopologySpreadConstraintAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: TopologySpreadConstraintAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            label_selector: crate::OptionableConvert::try_from_optioned(
-                value.label_selector,
-            )?,
-            match_label_keys: crate::OptionableConvert::try_from_optioned(
-                value.match_label_keys,
-            )?,
-            max_skew: value
-                .max_skew
-                .ok_or(crate::Error {
-                    missing_field: "max_skew",
-                })?,
+            label_selector: crate::OptionableConvert::try_from_optioned(value.label_selector)?,
+            match_label_keys: crate::OptionableConvert::try_from_optioned(value.match_label_keys)?,
+            max_skew: value.max_skew.ok_or(crate::Error {
+                missing_field: "max_skew",
+            })?,
             min_domains: crate::OptionableConvert::try_from_optioned(value.min_domains)?,
             node_affinity_policy: crate::OptionableConvert::try_from_optioned(
                 value.node_affinity_policy,
@@ -87,28 +65,21 @@ for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
             node_taints_policy: crate::OptionableConvert::try_from_optioned(
                 value.node_taints_policy,
             )?,
-            topology_key: crate::OptionableConvert::try_from_optioned(
-                value
-                    .topology_key
-                    .ok_or(crate::Error {
-                        missing_field: "topology_key",
-                    })?,
-            )?,
+            topology_key: crate::OptionableConvert::try_from_optioned(value.topology_key.ok_or(
+                crate::Error {
+                    missing_field: "topology_key",
+                },
+            )?)?,
             when_unsatisfiable: crate::OptionableConvert::try_from_optioned(
-                value
-                    .when_unsatisfiable
-                    .ok_or(crate::Error {
-                        missing_field: "when_unsatisfiable",
-                    })?,
+                value.when_unsatisfiable.ok_or(crate::Error {
+                    missing_field: "when_unsatisfiable",
+                })?,
             )?,
         })
     }
     fn merge(&mut self, other: TopologySpreadConstraintAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
-        crate::OptionableConvert::merge(
-            &mut self.match_label_keys,
-            other.match_label_keys,
-        )?;
+        crate::OptionableConvert::merge(&mut self.match_label_keys, other.match_label_keys)?;
         if let Some(other_value) = other.max_skew {
             self.max_skew = other_value;
         }
@@ -117,10 +88,7 @@ for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
             &mut self.node_affinity_policy,
             other.node_affinity_policy,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.node_taints_policy,
-            other.node_taints_policy,
-        )?;
+        crate::OptionableConvert::merge(&mut self.node_taints_policy, other.node_taints_policy)?;
         if let Some(other_value) = other.topology_key {
             crate::OptionableConvert::merge(&mut self.topology_key, other_value)?;
         }
@@ -133,10 +101,9 @@ for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::TopologySpreadConstraint>
-for TopologySpreadConstraintAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::TopologySpreadConstraint,
-    ) -> Self {
+    for TopologySpreadConstraintAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::TopologySpreadConstraint) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

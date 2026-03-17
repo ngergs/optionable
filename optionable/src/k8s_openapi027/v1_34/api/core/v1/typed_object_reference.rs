@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TypedObjectReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -39,20 +32,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TypedObjectRefe
     fn try_from_optioned(value: TypedObjectReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_group: crate::OptionableConvert::try_from_optioned(value.api_group)?,
-            kind: crate::OptionableConvert::try_from_optioned(
-                value
-                    .kind
-                    .ok_or(crate::Error {
-                        missing_field: "kind",
-                    })?,
-            )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            kind: crate::OptionableConvert::try_from_optioned(value.kind.ok_or(crate::Error {
+                missing_field: "kind",
+            })?)?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
             namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
         })
     }
@@ -71,10 +56,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TypedObjectRefe
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::TypedObjectReference>
-for TypedObjectReferenceAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::TypedObjectReference,
-    ) -> Self {
+    for TypedObjectReferenceAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::TypedObjectReference) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

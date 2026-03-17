@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodExtendedResourceClaimStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -20,8 +13,7 @@ pub struct PodExtendedResourceClaimStatusAc {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus {
+impl crate::Optionable for k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus {
     type Optioned = PodExtendedResourceClaimStatusAc;
 }
 #[automatically_derived]
@@ -30,42 +22,32 @@ impl crate::Optionable for PodExtendedResourceClaimStatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus {
+impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus {
     fn into_optioned(self) -> PodExtendedResourceClaimStatusAc {
         PodExtendedResourceClaimStatusAc {
-            request_mappings: Some(
-                crate::OptionableConvert::into_optioned(self.request_mappings),
-            ),
-            resource_claim_name: Some(
-                crate::OptionableConvert::into_optioned(self.resource_claim_name),
-            ),
+            request_mappings: Some(crate::OptionableConvert::into_optioned(
+                self.request_mappings,
+            )),
+            resource_claim_name: Some(crate::OptionableConvert::into_optioned(
+                self.resource_claim_name,
+            )),
         }
     }
-    fn try_from_optioned(
-        value: PodExtendedResourceClaimStatusAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: PodExtendedResourceClaimStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             request_mappings: crate::OptionableConvert::try_from_optioned(
-                value
-                    .request_mappings
-                    .ok_or(crate::Error {
-                        missing_field: "request_mappings",
-                    })?,
+                value.request_mappings.ok_or(crate::Error {
+                    missing_field: "request_mappings",
+                })?,
             )?,
             resource_claim_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .resource_claim_name
-                    .ok_or(crate::Error {
-                        missing_field: "resource_claim_name",
-                    })?,
+                value.resource_claim_name.ok_or(crate::Error {
+                    missing_field: "resource_claim_name",
+                })?,
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: PodExtendedResourceClaimStatusAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: PodExtendedResourceClaimStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.request_mappings {
             crate::OptionableConvert::merge(&mut self.request_mappings, other_value)?;
         }
@@ -77,9 +59,9 @@ for k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus,
-> for PodExtendedResourceClaimStatusAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus>
+    for PodExtendedResourceClaimStatusAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus,
     ) -> Self {
@@ -87,10 +69,7 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

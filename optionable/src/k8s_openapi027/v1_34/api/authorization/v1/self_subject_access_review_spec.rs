@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelfSubjectAccessReviewSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -18,8 +11,7 @@ pub struct SelfSubjectAccessReviewSpecAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec {
+impl crate::Optionable for k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec {
     type Optioned = SelfSubjectAccessReviewSpecAc;
 }
 #[automatically_derived]
@@ -29,20 +21,17 @@ impl crate::Optionable for SelfSubjectAccessReviewSpecAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec {
+    for k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec
+{
     fn into_optioned(self) -> SelfSubjectAccessReviewSpecAc {
         SelfSubjectAccessReviewSpecAc {
             non_resource_attributes: crate::OptionableConvert::into_optioned(
                 self.non_resource_attributes,
             ),
-            resource_attributes: crate::OptionableConvert::into_optioned(
-                self.resource_attributes,
-            ),
+            resource_attributes: crate::OptionableConvert::into_optioned(self.resource_attributes),
         }
     }
-    fn try_from_optioned(
-        value: SelfSubjectAccessReviewSpecAc,
-    ) -> Result<Self, crate::Error> {
+    fn try_from_optioned(value: SelfSubjectAccessReviewSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             non_resource_attributes: crate::OptionableConvert::try_from_optioned(
                 value.non_resource_attributes,
@@ -52,26 +41,20 @@ for k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec {
             )?,
         })
     }
-    fn merge(
-        &mut self,
-        other: SelfSubjectAccessReviewSpecAc,
-    ) -> Result<(), crate::Error> {
+    fn merge(&mut self, other: SelfSubjectAccessReviewSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.non_resource_attributes,
             other.non_resource_attributes,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.resource_attributes,
-            other.resource_attributes,
-        )?;
+        crate::OptionableConvert::merge(&mut self.resource_attributes, other.resource_attributes)?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec,
-> for SelfSubjectAccessReviewSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec>
+    for SelfSubjectAccessReviewSpecAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec,
     ) -> Self {
@@ -79,10 +62,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

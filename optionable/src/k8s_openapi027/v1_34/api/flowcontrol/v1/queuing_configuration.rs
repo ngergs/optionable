@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct QueuingConfigurationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -25,14 +18,11 @@ impl crate::Optionable for QueuingConfigurationAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::flowcontrol::v1::QueuingConfiguration {
+impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::QueuingConfiguration {
     fn into_optioned(self) -> QueuingConfigurationAc {
         QueuingConfigurationAc {
             hand_size: crate::OptionableConvert::into_optioned(self.hand_size),
-            queue_length_limit: crate::OptionableConvert::into_optioned(
-                self.queue_length_limit,
-            ),
+            queue_length_limit: crate::OptionableConvert::into_optioned(self.queue_length_limit),
             queues: crate::OptionableConvert::into_optioned(self.queues),
         }
     }
@@ -47,10 +37,7 @@ for k8s_openapi027::api::flowcontrol::v1::QueuingConfiguration {
     }
     fn merge(&mut self, other: QueuingConfigurationAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hand_size, other.hand_size)?;
-        crate::OptionableConvert::merge(
-            &mut self.queue_length_limit,
-            other.queue_length_limit,
-        )?;
+        crate::OptionableConvert::merge(&mut self.queue_length_limit, other.queue_length_limit)?;
         crate::OptionableConvert::merge(&mut self.queues, other.queues)?;
         Ok(())
     }
@@ -58,18 +45,14 @@ for k8s_openapi027::api::flowcontrol::v1::QueuingConfiguration {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::flowcontrol::v1::QueuingConfiguration>
-for QueuingConfigurationAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::flowcontrol::v1::QueuingConfiguration,
-    ) -> Self {
+    for QueuingConfigurationAc
+{
+    fn from_optionable(value: k8s_openapi027::api::flowcontrol::v1::QueuingConfiguration) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::flowcontrol::v1::QueuingConfiguration,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::flowcontrol::v1::QueuingConfiguration, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

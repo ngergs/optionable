@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EphemeralContainerAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -115,25 +108,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EphemeralContai
             env: crate::OptionableConvert::into_optioned(self.env),
             env_from: crate::OptionableConvert::into_optioned(self.env_from),
             image: crate::OptionableConvert::into_optioned(self.image),
-            image_pull_policy: crate::OptionableConvert::into_optioned(
-                self.image_pull_policy,
-            ),
+            image_pull_policy: crate::OptionableConvert::into_optioned(self.image_pull_policy),
             lifecycle: crate::OptionableConvert::into_optioned(self.lifecycle),
             liveness_probe: crate::OptionableConvert::into_optioned(self.liveness_probe),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             ports: crate::OptionableConvert::into_optioned(self.ports),
-            readiness_probe: crate::OptionableConvert::into_optioned(
-                self.readiness_probe,
-            ),
+            readiness_probe: crate::OptionableConvert::into_optioned(self.readiness_probe),
             resize_policy: crate::OptionableConvert::into_optioned(self.resize_policy),
             resources: crate::OptionableConvert::into_optioned(self.resources),
             restart_policy: crate::OptionableConvert::into_optioned(self.restart_policy),
             restart_policy_rules: crate::OptionableConvert::into_optioned(
                 self.restart_policy_rules,
             ),
-            security_context: crate::OptionableConvert::into_optioned(
-                self.security_context,
-            ),
+            security_context: crate::OptionableConvert::into_optioned(self.security_context),
             startup_probe: crate::OptionableConvert::into_optioned(self.startup_probe),
             stdin: crate::OptionableConvert::into_optioned(self.stdin),
             stdin_once: crate::OptionableConvert::into_optioned(self.stdin_once),
@@ -163,36 +150,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EphemeralContai
                 value.image_pull_policy,
             )?,
             lifecycle: crate::OptionableConvert::try_from_optioned(value.lifecycle)?,
-            liveness_probe: crate::OptionableConvert::try_from_optioned(
-                value.liveness_probe,
-            )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            liveness_probe: crate::OptionableConvert::try_from_optioned(value.liveness_probe)?,
+            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
+                missing_field: "name",
+            })?)?,
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
-            readiness_probe: crate::OptionableConvert::try_from_optioned(
-                value.readiness_probe,
-            )?,
-            resize_policy: crate::OptionableConvert::try_from_optioned(
-                value.resize_policy,
-            )?,
+            readiness_probe: crate::OptionableConvert::try_from_optioned(value.readiness_probe)?,
+            resize_policy: crate::OptionableConvert::try_from_optioned(value.resize_policy)?,
             resources: crate::OptionableConvert::try_from_optioned(value.resources)?,
-            restart_policy: crate::OptionableConvert::try_from_optioned(
-                value.restart_policy,
-            )?,
+            restart_policy: crate::OptionableConvert::try_from_optioned(value.restart_policy)?,
             restart_policy_rules: crate::OptionableConvert::try_from_optioned(
                 value.restart_policy_rules,
             )?,
-            security_context: crate::OptionableConvert::try_from_optioned(
-                value.security_context,
-            )?,
-            startup_probe: crate::OptionableConvert::try_from_optioned(
-                value.startup_probe,
-            )?,
+            security_context: crate::OptionableConvert::try_from_optioned(value.security_context)?,
+            startup_probe: crate::OptionableConvert::try_from_optioned(value.startup_probe)?,
             stdin: crate::OptionableConvert::try_from_optioned(value.stdin)?,
             stdin_once: crate::OptionableConvert::try_from_optioned(value.stdin_once)?,
             target_container_name: crate::OptionableConvert::try_from_optioned(
@@ -205,12 +176,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EphemeralContai
                 value.termination_message_policy,
             )?,
             tty: crate::OptionableConvert::try_from_optioned(value.tty)?,
-            volume_devices: crate::OptionableConvert::try_from_optioned(
-                value.volume_devices,
-            )?,
-            volume_mounts: crate::OptionableConvert::try_from_optioned(
-                value.volume_mounts,
-            )?,
+            volume_devices: crate::OptionableConvert::try_from_optioned(value.volume_devices)?,
+            volume_mounts: crate::OptionableConvert::try_from_optioned(value.volume_mounts)?,
             working_dir: crate::OptionableConvert::try_from_optioned(value.working_dir)?,
         })
     }
@@ -220,20 +187,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EphemeralContai
         crate::OptionableConvert::merge(&mut self.env, other.env)?;
         crate::OptionableConvert::merge(&mut self.env_from, other.env_from)?;
         crate::OptionableConvert::merge(&mut self.image, other.image)?;
-        crate::OptionableConvert::merge(
-            &mut self.image_pull_policy,
-            other.image_pull_policy,
-        )?;
+        crate::OptionableConvert::merge(&mut self.image_pull_policy, other.image_pull_policy)?;
         crate::OptionableConvert::merge(&mut self.lifecycle, other.lifecycle)?;
         crate::OptionableConvert::merge(&mut self.liveness_probe, other.liveness_probe)?;
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
-        crate::OptionableConvert::merge(
-            &mut self.readiness_probe,
-            other.readiness_probe,
-        )?;
+        crate::OptionableConvert::merge(&mut self.readiness_probe, other.readiness_probe)?;
         crate::OptionableConvert::merge(&mut self.resize_policy, other.resize_policy)?;
         crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
         crate::OptionableConvert::merge(&mut self.restart_policy, other.restart_policy)?;
@@ -241,10 +202,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EphemeralContai
             &mut self.restart_policy_rules,
             other.restart_policy_rules,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.security_context,
-            other.security_context,
-        )?;
+        crate::OptionableConvert::merge(&mut self.security_context, other.security_context)?;
         crate::OptionableConvert::merge(&mut self.startup_probe, other.startup_probe)?;
         crate::OptionableConvert::merge(&mut self.stdin, other.stdin)?;
         crate::OptionableConvert::merge(&mut self.stdin_once, other.stdin_once)?;
@@ -270,10 +228,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EphemeralContai
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::EphemeralContainer>
-for EphemeralContainerAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::core::v1::EphemeralContainer,
-    ) -> Self {
+    for EphemeralContainerAc
+{
+    fn from_optionable(value: k8s_openapi027::api::core::v1::EphemeralContainer) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

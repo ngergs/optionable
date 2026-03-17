@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatusAc {
     #[serde(
@@ -42,8 +35,7 @@ impl crate::Optionable for StatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status {
+impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status {
     fn into_optioned(self) -> StatusAc {
         StatusAc {
             api_version: Default::default(),
@@ -79,18 +71,14 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status>
-for StatusAc {
-    fn from_optionable(
-        value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status,
-    ) -> Self {
+    for StatusAc
+{
+    fn from_optionable(value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -109,7 +97,8 @@ impl k8s_openapi027::Resource for StatusAc {
     type Scope = <k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for StatusAc {
-    type Ty = <k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status as k8s_openapi027::Metadata>::Ty;
+    type Ty =
+        <k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status as k8s_openapi027::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi027::Metadata>::Ty {
         &self.metadata
     }
@@ -120,7 +109,5 @@ impl k8s_openapi027::Metadata for StatusAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_statusac() {
-    crate::testutil::roundtrip_test::<
-        k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status,
-    >();
+    crate::testutil::roundtrip_test::<k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status>();
 }

@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct WorkloadSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -29,8 +22,7 @@ impl crate::Optionable for WorkloadSpecAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::scheduling::v1alpha1::WorkloadSpec {
+impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1alpha1::WorkloadSpec {
     fn into_optioned(self) -> WorkloadSpecAc {
         WorkloadSpecAc {
             controller_ref: crate::OptionableConvert::into_optioned(self.controller_ref),
@@ -39,16 +31,12 @@ for k8s_openapi027::api::scheduling::v1alpha1::WorkloadSpec {
     }
     fn try_from_optioned(value: WorkloadSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            controller_ref: crate::OptionableConvert::try_from_optioned(
-                value.controller_ref,
-            )?,
-            pod_groups: crate::OptionableConvert::try_from_optioned(
-                value
-                    .pod_groups
-                    .ok_or(crate::Error {
-                        missing_field: "pod_groups",
-                    })?,
-            )?,
+            controller_ref: crate::OptionableConvert::try_from_optioned(value.controller_ref)?,
+            pod_groups: crate::OptionableConvert::try_from_optioned(value.pod_groups.ok_or(
+                crate::Error {
+                    missing_field: "pod_groups",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: WorkloadSpecAc) -> Result<(), crate::Error> {
@@ -62,10 +50,9 @@ for k8s_openapi027::api::scheduling::v1alpha1::WorkloadSpec {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::scheduling::v1alpha1::WorkloadSpec>
-for WorkloadSpecAc {
-    fn from_optionable(
-        value: k8s_openapi027::api::scheduling::v1alpha1::WorkloadSpec,
-    ) -> Self {
+    for WorkloadSpecAc
+{
+    fn from_optionable(value: k8s_openapi027::api::scheduling::v1alpha1::WorkloadSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

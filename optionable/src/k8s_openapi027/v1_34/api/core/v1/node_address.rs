@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeAddressAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -33,20 +26,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeAddress {
     }
     fn try_from_optioned(value: NodeAddressAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            address: crate::OptionableConvert::try_from_optioned(
-                value
-                    .address
-                    .ok_or(crate::Error {
-                        missing_field: "address",
-                    })?,
-            )?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            address: crate::OptionableConvert::try_from_optioned(value.address.ok_or(
+                crate::Error {
+                    missing_field: "address",
+                },
+            )?)?,
+            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
+                crate::Error {
+                    missing_field: "type_",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: NodeAddressAc) -> Result<(), crate::Error> {
@@ -61,8 +50,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeAddress {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeAddress>
-for NodeAddressAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeAddress> for NodeAddressAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::NodeAddress) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

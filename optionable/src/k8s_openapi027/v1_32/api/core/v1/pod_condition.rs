@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -39,9 +32,7 @@ impl crate::Optionable for PodConditionAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodCondition {
     fn into_optioned(self) -> PodConditionAc {
         PodConditionAc {
-            last_probe_time: crate::OptionableConvert::into_optioned(
-                self.last_probe_time,
-            ),
+            last_probe_time: crate::OptionableConvert::into_optioned(self.last_probe_time),
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -53,35 +44,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodCondition {
     }
     fn try_from_optioned(value: PodConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            last_probe_time: crate::OptionableConvert::try_from_optioned(
-                value.last_probe_time,
-            )?,
+            last_probe_time: crate::OptionableConvert::try_from_optioned(value.last_probe_time)?,
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value.last_transition_time,
             )?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
-            status: crate::OptionableConvert::try_from_optioned(
-                value
-                    .status
-                    .ok_or(crate::Error {
-                        missing_field: "status",
-                    })?,
-            )?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            status: crate::OptionableConvert::try_from_optioned(value.status.ok_or(
+                crate::Error {
+                    missing_field: "status",
+                },
+            )?)?,
+            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
+                crate::Error {
+                    missing_field: "type_",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: PodConditionAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.last_probe_time,
-            other.last_probe_time,
-        )?;
+        crate::OptionableConvert::merge(&mut self.last_probe_time, other.last_probe_time)?;
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,
             other.last_transition_time,
@@ -99,8 +81,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodCondition {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodCondition>
-for PodConditionAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodCondition> for PodConditionAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::PodCondition) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

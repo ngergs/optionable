@@ -1,21 +1,12 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LifecycleAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub post_start: <Option<
-        ::k8s_openapi027::api::core::v1::LifecycleHandler,
-    > as crate::Optionable>::Optioned,
+    pub post_start:
+        <Option<::k8s_openapi027::api::core::v1::LifecycleHandler> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pre_stop: <Option<
-        ::k8s_openapi027::api::core::v1::LifecycleHandler,
-    > as crate::Optionable>::Optioned,
+    pub pre_stop:
+        <Option<::k8s_openapi027::api::core::v1::LifecycleHandler> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::Lifecycle {
@@ -52,9 +43,7 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Lifecycle> for Lifecy
     fn from_optionable(value: k8s_openapi027::api::core::v1::Lifecycle) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(
-        self,
-    ) -> Result<k8s_openapi027::api::core::v1::Lifecycle, crate::Error> {
+    fn try_into_optionable(self) -> Result<k8s_openapi027::api::core::v1::Lifecycle, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

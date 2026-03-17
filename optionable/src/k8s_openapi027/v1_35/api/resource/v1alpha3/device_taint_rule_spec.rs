@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceTaintRuleSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,35 +20,25 @@ impl crate::Optionable for DeviceTaintRuleSpecAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert
-for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec {
+impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec {
     fn into_optioned(self) -> DeviceTaintRuleSpecAc {
         DeviceTaintRuleSpecAc {
-            device_selector: crate::OptionableConvert::into_optioned(
-                self.device_selector,
-            ),
+            device_selector: crate::OptionableConvert::into_optioned(self.device_selector),
             taint: Some(crate::OptionableConvert::into_optioned(self.taint)),
         }
     }
     fn try_from_optioned(value: DeviceTaintRuleSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            device_selector: crate::OptionableConvert::try_from_optioned(
-                value.device_selector,
-            )?,
-            taint: crate::OptionableConvert::try_from_optioned(
-                value
-                    .taint
-                    .ok_or(crate::Error {
-                        missing_field: "taint",
-                    })?,
-            )?,
+            device_selector: crate::OptionableConvert::try_from_optioned(value.device_selector)?,
+            taint: crate::OptionableConvert::try_from_optioned(value.taint.ok_or(
+                crate::Error {
+                    missing_field: "taint",
+                },
+            )?)?,
         })
     }
     fn merge(&mut self, other: DeviceTaintRuleSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.device_selector,
-            other.device_selector,
-        )?;
+        crate::OptionableConvert::merge(&mut self.device_selector, other.device_selector)?;
         if let Some(other_value) = other.taint {
             crate::OptionableConvert::merge(&mut self.taint, other_value)?;
         }
@@ -65,7 +48,8 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec>
-for DeviceTaintRuleSpecAc {
+    for DeviceTaintRuleSpecAc
+{
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec,
     ) -> Self {
@@ -73,10 +57,7 @@ for DeviceTaintRuleSpecAc {
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

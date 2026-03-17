@@ -1,11 +1,4 @@
-#[derive(
-    Clone,
-    Default,
-    PartialEq,
-    serde::Deserialize,
-    serde::Serialize,
-    std::fmt::Debug
-)]
+#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ManagedFieldsEntryAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -28,8 +21,7 @@ pub struct ManagedFieldsEntryAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
+impl crate::Optionable for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
     type Optioned = ManagedFieldsEntryAc;
 }
 #[automatically_derived]
@@ -39,7 +31,8 @@ impl crate::Optionable for ManagedFieldsEntryAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
+    for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry
+{
     fn into_optioned(self) -> ManagedFieldsEntryAc {
         ManagedFieldsEntryAc {
             api_version: crate::OptionableConvert::into_optioned(self.api_version),
@@ -75,9 +68,9 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<
-    k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry,
-> for ManagedFieldsEntryAc {
+impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry>
+    for ManagedFieldsEntryAc
+{
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry,
     ) -> Self {
@@ -85,10 +78,8 @@ impl crate::OptionedConvert<
     }
     fn try_into_optionable(
         self,
-    ) -> Result<
-        k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry,
-        crate::Error,
-    > {
+    ) -> Result<k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry, crate::Error>
+    {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
