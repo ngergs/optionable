@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.3](https://github.com/ngergs/optionable/compare/optionable-v0.13.2...optionable-v0.13.3) - 2026-03-19
+
+### Fixed
+
+- kube3:ExtractManagedFields did delete and retain map fields
+
+### Other
+
+- cargo fmt
+
 ## [0.13.2](https://github.com/ngergs/optionable/compare/optionable-v0.13.1...optionable-v0.13.2) - 2026-03-08
 
 ### Fixed

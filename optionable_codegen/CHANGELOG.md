@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.2](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.13.1...optionable_codegen-v0.13.2) - 2026-03-19
+
+### Other
+
+- cargo fmt
+- clippy
+- fmt
+- split codegen derive  function up a bit
+- split codegen tests into individual functions for better failure reporting
+
 ## [0.13.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.13.0...optionable_codegen-v0.13.1) - 2026-03-08
 
 ### Fixed
