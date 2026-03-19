@@ -4,8 +4,8 @@ use crate::Optionable;
 use kube3::Resource;
 use serde::de::{DeserializeOwned, Error, Unexpected};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
-use serde_json::Value;
-use std::collections::HashMap;
+use serde_json::{Map, Value};
+use std::collections::HashSet;
 use std::marker::PhantomData;
 use std::mem::take;
 
@@ -115,9 +115,10 @@ where
             });
             if let Some(managed_fields) = managed_fields
                 && let Some(fields) = &managed_fields.fields_v1
+                && let Value::Object(fields_v) = &fields.0
             {
                 let mut data_json = serde_json::to_value(self)?;
-                filter_json_value(&mut data_json, &fields.0, true);
+                filter_json_value(&mut data_json, &fields_v, true);
                 Ok(Some(serde_json::from_value::<T::Optioned>(data_json)?))
             } else {
                 Ok(None)
@@ -132,22 +133,24 @@ where
 /// Used by the Kubernetes server-side-apply `extract` implementations.
 /// Has special handling for the `metadata` root entry whose `name`, `namespace` and `generateName` fields are copied over.
 /// Also copies over `apiVersion` and `kind` root entries.
-fn filter_json_value(item: &mut Value, filter: &Value, is_root: bool) {
-    if let (Value::Object(item), Value::Object(filter)) = (item, filter) {
-        let allowed_fields: HashMap<_, _> = filter
-            .iter()
-            .filter_map(|(k, v)| k.strip_prefix("f:").map(|s| (s, v)))
-            .collect();
+fn filter_json_value(item: &mut Value, filter: &Map<String, Value>, is_root: bool) {
+    if filter.is_empty() {
+        // empty filter means keep all values below this node
+        return;
+    }
+    if let Value::Object(item) = item {
+        let allowed_fields: HashSet<_> =
+            filter.keys().filter_map(|k| k.strip_prefix("f:")).collect();
 
         item.retain(|k, _| {
-            allowed_fields.contains_key(k.as_str())
+            allowed_fields.contains(k.as_str())
                 || (is_root && (k == "apiVersion" || k == "kind" || k == "metadata"))
         });
         if is_root && let Some(meta) = item.get_mut("metadata") {
             filter_metadata(meta);
         }
         for (k, v) in item.iter_mut() {
-            if let Some(filter_v) = filter.get(&format!("f:{k}")) {
+            if let Some(Value::Object(filter_v)) = filter.get(&format!("f:{k}")) {
                 filter_json_value(v, filter_v, false);
             }
         }
@@ -265,5 +268,51 @@ mod test {
             deployment_extract.spec.as_ref().unwrap().replicas.unwrap()
         );
         assert_eq!(None, deployment_extract.spec.unwrap().template);
+    }
+
+    #[test]
+    fn extract_deployment_wrapping_owner() {
+        let field_manager = "rust-manager";
+        let managed_fields: Value = json!({"apiVersion":"apps/v1","kind":"Deployment","f:spec":{}});
+
+        let deployment = Deployment {
+            metadata: ObjectMeta {
+                name: Some("my_name".to_owned()),
+                namespace: Some("my_namespace".to_owned()),
+                managed_fields: Some(vec![ManagedFieldsEntry {
+                    fields_type: Some("FieldsV1".to_owned()),
+                    fields_v1: Some(FieldsV1(managed_fields)),
+                    manager: Some(field_manager.to_owned()),
+                    ..Default::default()
+                }]),
+                ..Default::default()
+            },
+            spec: Some(DeploymentSpec {
+                replicas: Some(2),
+                template: PodTemplateSpec {
+                    spec: Some(PodSpec {
+                        containers: vec![Container {
+                            name: "test".to_owned(),
+                            ..Default::default()
+                        }],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                },
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        let deployment_extract = deployment.clone().extract(field_manager).unwrap().unwrap();
+        assert_eq!(deployment.metadata.name, deployment_extract.metadata.name);
+        assert_eq!(
+            deployment.metadata.namespace,
+            deployment_extract.metadata.namespace
+        );
+        assert_eq!(
+            deployment.spec.unwrap().replicas.unwrap(),
+            deployment_extract.spec.as_ref().unwrap().replicas.unwrap()
+        );
+        assert_ne!(None, deployment_extract.spec.unwrap().template);
     }
 }
