@@ -118,7 +118,7 @@ where
                 && let Value::Object(fields_v) = &fields.0
             {
                 let mut data_json = serde_json::to_value(self)?;
-                filter_json_value(&mut data_json, &fields_v, true, false)?;
+                filter_json_value(&mut data_json, fields_v, true, false)?;
                 Ok(Some(serde_json::from_value::<T::Optioned>(data_json)?))
             } else {
                 Ok(None)
@@ -134,6 +134,7 @@ where
 /// Has special handling for the `metadata` root entry whose `name`, `namespace` and `generateName` fields are copied over.
 /// Also copies over `apiVersion` and `kind` root entries.
 // Format of managed fields is described here: http://kubernetes.io/docs/reference/kubernetes-api/common-definitions/object-meta/#System
+#[allow(clippy::too_many_lines)] // just 110 lines and there is not much point in splitting it up
 fn filter_json_value(
     item: &mut Value,
     filter: &Map<String, Value>,
@@ -148,8 +149,7 @@ fn filter_json_value(
         Value::Object(map) => {
             if let Some(unsupported) = filter
                 .keys()
-                .filter(|k| !(k.as_str() == "." || k.starts_with("f:")))
-                .next()
+                .find(|k| !(k.as_str() == "." || k.starts_with("f:")))
             {
                 return Err(serde_json::Error::custom(format!(
                     "Unsupported field manager entry for map entry. This is a bug: `{unsupported}`"
@@ -186,16 +186,12 @@ fn filter_json_value(
             retain_err?;
         }
         Value::Array(slice) => {
-            if let Some(unsupported) = filter
-                .keys()
-                .filter(|k| {
-                    !(k.as_str() == "."
-                        || k.starts_with("i:")
-                        || k.starts_with("k:")
-                        || k.starts_with("v:"))
-                })
-                .next()
-            {
+            if let Some(unsupported) = filter.keys().find(|k| {
+                !(k.as_str() == "."
+                    || k.starts_with("i:")
+                    || k.starts_with("k:")
+                    || k.starts_with("v:"))
+            }) {
                 return Err(serde_json::Error::custom(format!(
                     "Unsupported field manager entry for map entry. This is a bug: `{unsupported}`"
                 )));
@@ -246,7 +242,7 @@ fn filter_json_value(
                     }
                 }
                 // allowed_values
-                if let filter_v @ Some(_) = allowed_values.get(&v) {
+                if let filter_v @ Some(_) = allowed_values.get(v) {
                     filter = filter_v;
                 }
                 index += 1;
@@ -404,7 +400,7 @@ mod test {
             ..Default::default()
         };
         let deployment_extract = deployment.clone().extract(field_manager);
-        assert_eq!(true, deployment_extract.is_err());
+        assert!(deployment_extract.is_err());
         assert_eq!(
             "Unsupported field manager entry for map entry. This is a bug: `i:0`",
             deployment_extract.unwrap_err().to_string()
