@@ -146,6 +146,15 @@ fn filter_json_value(
     }
     match item {
         Value::Object(map) => {
+            if let Some(unsupported) = filter
+                .keys()
+                .filter(|k| !(k.as_str() == "." || k.starts_with("f:")))
+                .next()
+            {
+                return Err(serde_json::Error::custom(format!(
+                    "Unsupported field manager entry for map entry. This is a bug: `{unsupported}`"
+                )));
+            }
             let allowed_fields: BTreeMap<_, _> = filter
                 .iter()
                 .filter_map(|(k, v)| k.strip_prefix("f:").map(|k| (k, v)))
@@ -176,6 +185,20 @@ fn filter_json_value(
             retain_err?;
         }
         Value::Array(slice) => {
+            if let Some(unsupported) = filter
+                .keys()
+                .filter(|k| {
+                    !(k.as_str() == "."
+                        || k.starts_with("i:")
+                        || k.starts_with("k:")
+                        || k.starts_with("v:"))
+                })
+                .next()
+            {
+                return Err(serde_json::Error::custom(format!(
+                    "Unsupported field manager entry for map entry. This is a bug: `{unsupported}`"
+                )));
+            }
             let allowed_index = filter
                 .iter()
                 .filter_map(|(k, v)| k.strip_prefix("i:").map(|k| (k, v)))
@@ -302,9 +325,10 @@ mod test {
     }
 
     #[test]
-    fn extract_deployment() {
+    fn extract_deployment_err_unsupported_filter() {
         let field_manager = "rust-manager";
-        let managed_fields: Value = json!({"apiVersion":"apps/v1","kind":"Deployment","f:metadata":{"f:labels":{"f:hello2":{}}},"f:spec":{"f:replicas": {}}});
+        let managed_fields: Value =
+            json!({"f:metadata":{"f:labels":{"f:hello2":{}}},"f:spec":{"f:replicas": {}}});
 
         let deployment = Deployment {
             metadata: ObjectMeta {
@@ -359,9 +383,37 @@ mod test {
     }
 
     #[test]
+    fn extract_deployment() {
+        let field_manager = "rust-manager";
+        let managed_fields: Value =
+            json!({"f:metadata":{"i:0":{"f:hello2":{}}},"f:spec":{"f:replicas": {}}});
+
+        let deployment = Deployment {
+            metadata: ObjectMeta {
+                name: Some("my_name".to_owned()),
+                namespace: Some("my_namespace".to_owned()),
+                managed_fields: Some(vec![ManagedFieldsEntry {
+                    fields_type: Some("FieldsV1".to_owned()),
+                    fields_v1: Some(FieldsV1(managed_fields)),
+                    manager: Some(field_manager.to_owned()),
+                    ..Default::default()
+                }]),
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+        let deployment_extract = deployment.clone().extract(field_manager);
+        assert_eq!(true, deployment_extract.is_err());
+        assert_eq!(
+            "Unsupported field manager entry for map entry. This is a bug: `i:0`",
+            deployment_extract.unwrap_err().to_string()
+        );
+    }
+
+    #[test]
     fn extract_deployment_wrapping_owner() {
         let field_manager = "rust-manager";
-        let managed_fields: Value = json!({"apiVersion":"apps/v1","kind":"Deployment","f:spec":{}});
+        let managed_fields: Value = json!({"f:spec":{}});
 
         let deployment = Deployment {
             metadata: ObjectMeta {
@@ -405,7 +457,10 @@ mod test {
     }
 
     /// Internal helper function to pass in various managed fields that should select the second container
-    fn test_extract_deployment_slice_2nd_container(managed_fields: Value) {
+    fn test_extract_deployment_slice_2nd_container(
+        managed_fields: Value,
+        should_rm_image_pull_policy: bool,
+    ) {
         let field_manager = "rust-manager";
         let deployment = Deployment {
             metadata: ObjectMeta {
@@ -472,27 +527,49 @@ mod test {
             .as_ref()
             .unwrap();
         assert_eq!(1, containers.iter().len());
-        assert_eq!(
-            ContainerAc {
-                name: Some("test2".to_owned()),
-                image: Some("test2".to_owned()),
-                ..Default::default()
-            },
-            containers[0]
-        );
+        if should_rm_image_pull_policy {
+            assert_eq!(
+                ContainerAc {
+                    name: Some("test2".to_owned()),
+                    image: Some("test2".to_owned()),
+                    ..Default::default()
+                },
+                containers[0]
+            );
+        } else {
+            assert_eq!(
+                ContainerAc {
+                    name: Some("test2".to_owned()),
+                    image: Some("test2".to_owned()),
+                    image_pull_policy: Some("always".to_owned()),
+                    ..Default::default()
+                },
+                containers[0]
+            );
+        }
     }
 
     #[test]
     fn extract_deployment_slice_index() {
         test_extract_deployment_slice_2nd_container(
-            json!({"apiVersion":"apps/v1","kind":"Deployment","f:spec":{"f:template":{"f:spec":{"f:containers":{"i:1":{"f:name":{},"f:image":{}}}}}}}),
+            json!({"f:spec":{"f:template":{"f:spec":{"f:containers":{"i:1":{"f:name":{},"f:image":{}}}}}}}),
+            true,
         );
     }
 
     #[test]
     fn extract_deployment_slice_key() {
         test_extract_deployment_slice_2nd_container(
-            json!({"apiVersion":"apps/v1","kind":"Deployment","f:spec":{"f:template":{"f:spec":{"f:containers":{"k:{\"name\":\"test2\"}":{"f:name":{},"f:image":{}}}}}}}),
+            json!({"f:spec":{"f:template":{"f:spec":{"f:containers":{"k:{\"name\":\"test2\"}":{"f:name":{},"f:image":{}}}}}}}),
+            true,
+        );
+    }
+
+    #[test]
+    fn extract_deployment_value() {
+        test_extract_deployment_slice_2nd_container(
+            json!({"f:spec":{"f:template":{"f:spec":{"f:containers":{"v:{\"name\":\"test2\",\"image\":\"test2\",\"imagePullPolicy\":\"always\"}":{}}}}}}),
+            false,
         );
     }
 }
