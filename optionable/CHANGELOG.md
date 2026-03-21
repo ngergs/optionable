@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.5](https://github.com/ngergs/optionable/compare/optionable-v0.13.4...optionable-v0.13.5) - 2026-03-21
+
+### Fixed
+
+- ExtractManagedFields should filter metadata to minimum entries if not explicitly managed by the respective field manager
+- dependency updates
+- ExtractManagedFields should error on unsupported field manager entries
+
 ## [0.13.4](https://github.com/ngergs/optionable/compare/optionable-v0.13.3...optionable-v0.13.4) - 2026-03-21
 
 ### Added
