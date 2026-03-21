@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.4](https://github.com/ngergs/optionable/compare/optionable-v0.13.3...optionable-v0.13.4) - 2026-03-21
+
+### Added
+
+- cover whole managed fields spec for `kube3:ExtractManagedFields`
+
+### Fixed
+
+- dependency updates
+
 ## [0.13.3](https://github.com/ngergs/optionable/compare/optionable-v0.13.2...optionable-v0.13.3) - 2026-03-19
 
 ### Fixed
