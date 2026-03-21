@@ -18,14 +18,14 @@ kube = ["optionable_codegen/kube"]
 pedantic = "warn"
 
 [dependencies]
-optionable_codegen = "0.13.0"
+optionable_codegen = "0.13.2"
 quote = "1.0.45"
 syn = { version = "2.0.117", default-features = false, features = ["proc-macro", "derive", "visit"] }
 proc-macro2 = "1.0.106"
 darling = { version = "0.23.0", default-features = false }
-clap = { version = "4.5.60", features = ["derive"] }
+clap = { version = "4.6.0", features = ["derive"] }
 prettyplease = "0.2.37"
 
 [dev-dependencies]
-assert_cmd = "2.1.2"
-tempfile = "3.26.0"
+assert_cmd = "2.2.0"
+tempfile = "3.27.0"
