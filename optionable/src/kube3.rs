@@ -167,12 +167,13 @@ fn filter_json_value(
                     return false;
                 }
                 let filter = allowed_fields.get(k.as_str());
-                if filter.is_none() {
+                let is_kv_metadata = is_root && k == "metadata";
+                if filter.is_none() && !is_kv_metadata {
+                    // if we don't have a filter kv_metadata should still be filtered by this logic here in the next recursion step
                     return (is_root && (k == "apiVersion" || k == "kind" || k == "metadata"))
                         || (is_metadata
                             && (k == "name" || k == "generateName" || k == "namespace"));
                 }
-                let is_kv_metadata = is_root && k == "metadata";
                 retain_err = if let Some(Value::Object(filter_v)) = &filter {
                     filter_json_value(v, filter_v, false, is_kv_metadata)
                 } else if is_kv_metadata {
