@@ -9,6 +9,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let deployment_api: Api<Deployment> = Api::default_namespaced(client);
     let deployment = deployment_api.get("test").await?;
     let deployment_owned_fields = deployment.extract(FIELD_MANAGER)?;
-    println!("{deployment_owned_fields:#?}");
+    println!("{}", serde_saphyr::to_string(&deployment_owned_fields)?);
     Ok(())
 }

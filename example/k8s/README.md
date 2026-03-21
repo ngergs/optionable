@@ -39,7 +39,18 @@ The resulting output will be:
   fieldsType: FieldsV1
   fieldsV1:
     f:spec:
-      f:replicas: {}
+      f:metadata:
+        f:labels:
+          f:hello2: {}
+      f:spec:
+        f:replicas: {}
+        f:template:
+          f:spec:
+            f:containers:
+              k:{"name":"app"}:
+                .: {}
+                f:imagePullPolicy: {}
+                f:name: {}
   manager: rust-manager
   operation: Apply
 - <other entries from kubectl and other manager interacting with the deployment>

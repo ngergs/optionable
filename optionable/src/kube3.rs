@@ -5,7 +5,7 @@ use kube3::Resource;
 use serde::de::{DeserializeOwned, Error, Unexpected};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::{Map, Value};
-use std::collections::HashSet;
+use std::collections::{BTreeMap, HashMap};
 use std::marker::PhantomData;
 use std::mem::take;
 
@@ -79,7 +79,7 @@ trait ExtractManagedFieldsSealed {}
 #[allow(private_bounds)]
 pub trait ExtractManagedFields: ExtractManagedFieldsSealed + Optionable<Optioned: Sized> {
     /// Extracts the fields from the Resource `T` which are owned by the `field_manager`.
-    /// The `metadata` entry is emptied except `name`, `namespace` and `generateName`.
+    /// The `metadata` entries for `name`, `namespace` and `generateName` are always kept.
     /// Returns `Ok(None)` is no fields at all are owned.
     ///
     /// # Errors
@@ -118,7 +118,7 @@ where
                 && let Value::Object(fields_v) = &fields.0
             {
                 let mut data_json = serde_json::to_value(self)?;
-                filter_json_value(&mut data_json, &fields_v, true);
+                filter_json_value(&mut data_json, &fields_v, true, false)?;
                 Ok(Some(serde_json::from_value::<T::Optioned>(data_json)?))
             } else {
                 Ok(None)
@@ -133,35 +133,111 @@ where
 /// Used by the Kubernetes server-side-apply `extract` implementations.
 /// Has special handling for the `metadata` root entry whose `name`, `namespace` and `generateName` fields are copied over.
 /// Also copies over `apiVersion` and `kind` root entries.
-fn filter_json_value(item: &mut Value, filter: &Map<String, Value>, is_root: bool) {
-    if filter.is_empty() {
-        // empty filter means keep all values below this node
-        return;
+// Format of managed fields is described here: http://kubernetes.io/docs/reference/kubernetes-api/common-definitions/object-meta/#System
+fn filter_json_value(
+    item: &mut Value,
+    filter: &Map<String, Value>,
+    is_root: bool,
+    is_metadata: bool,
+) -> Result<(), serde_json::Error> {
+    if filter.is_empty() && !is_metadata {
+        // empty filter means keep all values below this node except for metadata
+        return Ok(());
     }
-    if let Value::Object(item) = item {
-        let allowed_fields: HashSet<_> =
-            filter.keys().filter_map(|k| k.strip_prefix("f:")).collect();
+    match item {
+        Value::Object(map) => {
+            let allowed_fields: BTreeMap<_, _> = filter
+                .iter()
+                .filter_map(|(k, v)| k.strip_prefix("f:").map(|k| (k, v)))
+                .collect();
 
-        item.retain(|k, _| {
-            allowed_fields.contains(k.as_str())
-                || (is_root && (k == "apiVersion" || k == "kind" || k == "metadata"))
-        });
-        if is_root && let Some(meta) = item.get_mut("metadata") {
-            filter_metadata(meta);
+            let mut retain_err = Ok(());
+            map.retain(|k, v| {
+                if retain_err.is_err() {
+                    // short-circuit if we encountered err
+                    return false;
+                }
+                let filter = allowed_fields.get(k.as_str());
+                if filter.is_none() {
+                    return (is_root && (k == "apiVersion" || k == "kind" || k == "metadata"))
+                        || (is_metadata
+                            && (k == "name" || k == "generateName" || k == "namespace"));
+                }
+                let is_kv_metadata = is_root && k == "metadata";
+                retain_err = if let Some(Value::Object(filter_v)) = &filter {
+                    filter_json_value(v, filter_v, false, is_kv_metadata)
+                } else if is_kv_metadata {
+                    filter_json_value(v, &Map::new(), false, is_kv_metadata)
+                } else {
+                    Ok(())
+                };
+                true
+            });
+            retain_err?;
         }
-        for (k, v) in item.iter_mut() {
-            if let Some(Value::Object(filter_v)) = filter.get(&format!("f:{k}")) {
-                filter_json_value(v, filter_v, false);
-            }
-        }
-    }
-}
+        Value::Array(slice) => {
+            let allowed_index = filter
+                .iter()
+                .filter_map(|(k, v)| k.strip_prefix("i:").map(|k| (k, v)))
+                .map(|(k, v)| {
+                    Ok((
+                        k.parse::<i32>()
+                            .map_err(|e| serde_json::Error::custom(e.to_string()))?,
+                        v,
+                    ))
+                })
+                .collect::<Result<BTreeMap<_, _>, _>>()?;
+            let allowed_keys = filter
+                .iter()
+                .filter_map(|(k, v)| k.strip_prefix("k:").map(|k| (k, v)))
+                .map(|(k, v)| Ok((serde_json::from_str(k)?, v)))
+                .collect::<Result<Vec<(Value, _)>, _>>()?;
+            let allowed_values = filter
+                .iter()
+                .filter_map(|(k, v)| k.strip_prefix("v:").map(|k| (k, v)))
+                .map(|(k, v)| Ok((serde_json::from_str(k)?, v)))
+                .collect::<Result<HashMap<Value, _>, _>>()?;
 
-/// Only retains the fields `name`, `namespace` and `generateName`.
-fn filter_metadata(item: &mut Value) {
-    if let Value::Object(item) = item {
-        item.retain(|k, _| k == "name" || k == "namespace" || k == "generateName");
+            let mut retain_err = Ok(());
+            let mut index = 0;
+            slice.retain_mut(|v| {
+                if retain_err.is_err() {
+                    // short-circuit if we encountered err
+                    return false;
+                }
+                let mut filter = None;
+                // allowed_index
+                if let filter_v @ Some(_) = allowed_index.get(&index) {
+                    filter = filter_v;
+                }
+                // allowed_keys
+                'outer: for (allowed_key, filter_v) in &allowed_keys {
+                    if let Value::Object(allowed_key) = allowed_key {
+                        for (allowed_k, allowed_v) in allowed_key {
+                            if v.get(allowed_k) != Some(allowed_v) {
+                                continue 'outer;
+                            }
+                        }
+                        filter = Some(filter_v);
+                    }
+                }
+                // allowed_values
+                if let filter_v @ Some(_) = allowed_values.get(&v) {
+                    filter = filter_v;
+                }
+                index += 1;
+                if let Some(Value::Object(filter_v)) = filter {
+                    retain_err = filter_json_value(v, filter_v, false, false);
+                    true
+                } else {
+                    false
+                }
+            });
+            retain_err?;
+        }
+        _ => {}
     }
+    Ok(())
 }
 
 #[cfg(any(
@@ -173,6 +249,7 @@ fn filter_metadata(item: &mut Value) {
 ))]
 #[cfg(test)]
 mod test {
+    use crate::k8s_openapi::api::core::v1::ContainerAc;
     use crate::kube3::ExtractManagedFields;
     use k8s_openapi027::api::apps::v1::{Deployment, DeploymentSpec};
     use k8s_openapi027::api::core::v1::{Container, PodSpec, PodTemplateSpec};
@@ -181,6 +258,7 @@ mod test {
     };
     use serde::{Deserialize, Serialize};
     use serde_json::{Value, json};
+    use std::collections::BTreeMap;
     use std::marker::PhantomData;
 
     #[derive(Serialize, Deserialize, Default, Debug)]
@@ -226,13 +304,16 @@ mod test {
     #[test]
     fn extract_deployment() {
         let field_manager = "rust-manager";
-        let managed_fields: Value =
-            json!({"apiVersion":"apps/v1","kind":"Deployment","f:spec":{"f:replicas": {}}});
+        let managed_fields: Value = json!({"apiVersion":"apps/v1","kind":"Deployment","f:metadata":{"f:labels":{"f:hello2":{}}},"f:spec":{"f:replicas": {}}});
 
         let deployment = Deployment {
             metadata: ObjectMeta {
                 name: Some("my_name".to_owned()),
                 namespace: Some("my_namespace".to_owned()),
+                labels: Some(BTreeMap::from([
+                    ("hello".to_owned(), "world".to_owned()), // not owned, should be removed
+                    ("hello2".to_owned(), "world2".to_owned()),
+                ])),
                 managed_fields: Some(vec![ManagedFieldsEntry {
                     fields_type: Some("FieldsV1".to_owned()),
                     fields_v1: Some(FieldsV1(managed_fields)),
@@ -262,6 +343,13 @@ mod test {
         assert_eq!(
             deployment.metadata.namespace,
             deployment_extract.metadata.namespace
+        );
+        let labels = deployment.metadata.labels.as_ref().unwrap();
+        let labels_extract = deployment_extract.metadata.labels.as_ref().unwrap();
+        assert_eq!(None, labels_extract.get("hello"));
+        assert_eq!(
+            labels.get("hello2").unwrap(),
+            labels_extract.get("hello2").unwrap()
         );
         assert_eq!(
             deployment.spec.unwrap().replicas.unwrap(),
@@ -314,5 +402,97 @@ mod test {
             deployment_extract.spec.as_ref().unwrap().replicas.unwrap()
         );
         assert_ne!(None, deployment_extract.spec.unwrap().template);
+    }
+
+    /// Internal helper function to pass in various managed fields that should select the second container
+    fn test_extract_deployment_slice_2nd_container(managed_fields: Value) {
+        let field_manager = "rust-manager";
+        let deployment = Deployment {
+            metadata: ObjectMeta {
+                name: Some("my_name".to_owned()),
+                namespace: Some("my_namespace".to_owned()),
+                managed_fields: Some(vec![ManagedFieldsEntry {
+                    fields_type: Some("FieldsV1".to_owned()),
+                    fields_v1: Some(FieldsV1(managed_fields)),
+                    manager: Some(field_manager.to_owned()),
+                    ..Default::default()
+                }]),
+                ..Default::default()
+            },
+            spec: Some(DeploymentSpec {
+                replicas: Some(2),
+                template: PodTemplateSpec {
+                    spec: Some(PodSpec {
+                        containers: vec![
+                            Container {
+                                name: "test1".to_owned(),
+                                image: Some("test1".to_owned()),
+                                image_pull_policy: Some("always".to_owned()), // unowned field, should be removed
+                                ..Default::default()
+                            },
+                            Container {
+                                name: "test2".to_owned(),
+                                image: Some("test2".to_owned()),
+                                image_pull_policy: Some("always".to_owned()), // unowned field, should be removed
+                                ..Default::default()
+                            },
+                            Container {
+                                name: "test3".to_owned(),
+                                image: Some("test3".to_owned()),
+                                image_pull_policy: Some("always".to_owned()), // unowned field, should be removed
+                                ..Default::default()
+                            },
+                        ],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                },
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        let deployment_extract = deployment.clone().extract(field_manager).unwrap().unwrap();
+        assert_eq!(deployment.metadata.name, deployment_extract.metadata.name);
+        assert_eq!(
+            deployment.metadata.namespace,
+            deployment_extract.metadata.namespace
+        );
+        assert_eq!(None, deployment_extract.spec.as_ref().unwrap().replicas);
+        let containers = &deployment_extract
+            .spec
+            .as_ref()
+            .unwrap()
+            .template
+            .as_ref()
+            .unwrap()
+            .spec
+            .as_ref()
+            .unwrap()
+            .containers
+            .as_ref()
+            .unwrap();
+        assert_eq!(1, containers.iter().len());
+        assert_eq!(
+            ContainerAc {
+                name: Some("test2".to_owned()),
+                image: Some("test2".to_owned()),
+                ..Default::default()
+            },
+            containers[0]
+        );
+    }
+
+    #[test]
+    fn extract_deployment_slice_index() {
+        test_extract_deployment_slice_2nd_container(
+            json!({"apiVersion":"apps/v1","kind":"Deployment","f:spec":{"f:template":{"f:spec":{"f:containers":{"i:1":{"f:name":{},"f:image":{}}}}}}}),
+        );
+    }
+
+    #[test]
+    fn extract_deployment_slice_key() {
+        test_extract_deployment_slice_2nd_container(
+            json!({"apiVersion":"apps/v1","kind":"Deployment","f:spec":{"f:template":{"f:spec":{"f:containers":{"k:{\"name\":\"test2\"}":{"f:name":{},"f:image":{}}}}}}}),
+        );
     }
 }
