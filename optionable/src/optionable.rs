@@ -400,7 +400,11 @@ macro_rules! inner_impl_convert_map {
 
         fn merge(&mut self, other: $t) -> Result<(), Error> {
             other.into_iter().try_for_each(|(k, v)| {
-                self.insert(k, T::try_from_optioned(v)?);
+                if let Some(self_el) = self.get_mut(&k) {
+                    self_el.merge(v)?;
+                } else {
+                    self.insert(k, T::try_from_optioned(v)?);
+                }
                 Ok(())
             })
         }
