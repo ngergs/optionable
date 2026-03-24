@@ -317,11 +317,7 @@ where
     }
 
     fn merge(&mut self, other: Self::Optioned) -> Result<(), Error> {
-        let mut self_owned = self.clone().into_owned();
-        let other_owned = other.into_owned();
-        self_owned.merge(other_owned)?;
-        *self = Cow::Owned(self_owned);
-        Ok(())
+        self.to_mut().merge(other.into_owned())
     }
 }
 
@@ -667,12 +663,20 @@ mod tests {
     #[cfg(any(feature = "alloc", feature = "std"))]
     /// Check that `Cow` implements optionable.
     fn cow() {
+        use crate::OptionableConvert;
+
         let a = Cow::Owned("hello".to_owned());
         let _: <Cow<String> as Optionable>::Optioned = a;
         let b: Cow<String> = Cow::Borrowed(&a);
         let _: <Cow<String> as Optionable>::Optioned = b;
         let c: Cow<str> = Cow::Borrowed("hello");
         let _: <Cow<str> as Optionable>::Optioned = c;
+
+        // check that merging with a borrowed cow works
+        let mut a: Cow<String> = Cow::Owned("hello2".to_owned());
+        a.merge(b.clone()).unwrap();
+        assert_eq!(a.as_str(), b.as_str());
+        assert_eq!(a.as_str(), "hello");
     }
 
     #[test]
