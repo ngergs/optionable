@@ -10,7 +10,6 @@ macro_rules! import_std_or_alloc {
 use crate::{Error, Optionable, OptionableConvert};
 use core::cell::{Cell, RefCell};
 #[cfg(any(feature = "alloc", feature = "std"))]
-use core::fmt::Debug;
 import_std_or_alloc!(boxed::{Box});
 import_std_or_alloc!(borrow::{Cow, ToOwned});
 import_std_or_alloc!(vec::{Vec});
@@ -26,6 +25,7 @@ use std::hash::{BuildHasher, Hash};
 use std::path::{Path, PathBuf};
 import_std_or_alloc!(rc::{Rc, Weak as RcWeak});
 import_std_or_alloc!(sync::{Arc, Weak as ArcWeak});
+use core::mem::MaybeUninit;
 #[cfg(feature = "std")]
 use std::sync::{Mutex, RwLock};
 #[cfg(feature = "std")]
@@ -238,10 +238,8 @@ where
     type Optioned = [T::Optioned; N];
 }
 
-#[cfg(any(feature = "alloc", feature = "std"))]
 impl<T: OptionableConvert, const N: usize> OptionableConvert for [T; N]
 where
-    T: Debug,
     T::Optioned: Sized,
 {
     fn into_optioned(self) -> Self::Optioned {
@@ -249,13 +247,20 @@ where
     }
 
     fn try_from_optioned(value: Self::Optioned) -> Result<Self, Error> {
-        // unwrapping here is safe as it just would error if we would not produce N outputs from N inputs
-        Ok(value
-            .into_iter()
-            .map(T::try_from_optioned)
-            .collect::<Result<Vec<_>, _>>()?
-            .try_into()
-            .unwrap())
+        let mut result = MaybeUninit::<[T; N]>::uninit();
+        unsafe {
+            // unsafe due to `MaybeUninit`. We are not allowed to read the unintialized elements but writing them is the intention of this type.
+            // So just writing to `(*result)[i]` is fine.
+            let result = result.as_mut_ptr();
+            for (i, el) in value.into_iter().enumerate() {
+                (*result)[i] = T::try_from_optioned(el)?;
+            }
+        }
+        unsafe {
+            // unsafe as we have to ensure that all elements are initialized. As the `Self` array has length `N` and the `Optioned` array has also length `N`
+            // and we initialized all elements prior this is ok.
+            Ok(result.assume_init())
+        }
     }
 
     fn merge(&mut self, other: Self::Optioned) -> Result<(), Error> {
@@ -608,7 +613,7 @@ impl_tuple!(
 
 #[cfg(test)]
 mod tests {
-    use crate::Optionable;
+    use crate::{Optionable, OptionableConvert};
     #[cfg(all(feature = "alloc", not(feature = "std")))]
     use alloc::vec;
     #[cfg(feature = "std")]
@@ -647,8 +652,12 @@ mod tests {
     #[test]
     /// Check that an array implements optionable.
     fn array() {
-        let a = [1, 2, 3];
+        let mut a = [1, 2, 3];
         let _: <[i32; 3] as Optionable>::Optioned = a;
+
+        let b = [4, 5, 6];
+        a.merge(b).unwrap();
+        assert_eq!(a, [4, 5, 6]);
     }
 
     #[test]
