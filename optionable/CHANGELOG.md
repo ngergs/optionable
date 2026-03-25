@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.6](https://github.com/ngergs/optionable/compare/optionable-v0.13.5...optionable-v0.13.6) - 2026-03-24
+
+### Added
+
+- implement Optionable and OptionableConvert for [T;N] without alloc/std dependency
+
+### Fixed
+
+- merge existing entries for maps
+- avoid allocation for merge of owned cow
+
+### Other
+
+- clippy
+
 ## [0.13.5](https://github.com/ngergs/optionable/compare/optionable-v0.13.4...optionable-v0.13.5) - 2026-03-21
 
 ### Fixed
