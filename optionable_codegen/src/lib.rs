@@ -37,9 +37,9 @@ use syn::parse::Parser;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::{
-    Attribute, Data, DataEnum, DataStruct, DeriveInput, Error, Field, Fields, GenericArgument,
-    Generics, ImplGenerics, LitStr, Meta, MetaList, Path, PathArguments, Token, Type, TypeGenerics,
-    TypePath, WhereClause, parse_quote,
+    AttrStyle, Attribute, Data, DataEnum, DataStruct, DeriveInput, Error, Field, Fields,
+    GenericArgument, Generics, ImplGenerics, LitStr, Meta, MetaList, Path, PathArguments, Token,
+    Type, TypeGenerics, TypePath, WhereClause, parse_quote,
 };
 
 const HELPER_IDENT: &str = "optionable";
@@ -1103,6 +1103,13 @@ fn forwarded_attributes(
     let forward_attrs = attrs
         .iter()
         .map(|attr| {
+            if matches!(attr.style,AttrStyle::Inner(_)){
+                return Ok(None)
+            }
+            if attr.path().is_ident("doc"){
+                // preserve comments, see syn docs https://docs.rs/syn/latest/syn/struct.Attribute.html
+                return Ok(Some(attr.to_token_stream()))
+            }
             if attr.path().is_ident(HELPER_ATTR_IDENT) {
                 return match &attr.meta {
                     Meta::List(MetaList { tokens, .. }) => Ok(Some(quote!(#[#tokens]))),
@@ -2106,6 +2113,9 @@ mod tests {
             }),
         )
         .unwrap();
-        assert_eq!(normalize_token_str(expected.to_string()), normalize_token_str(output.to_string()));
+        assert_eq!(
+            normalize_token_str(expected.to_string()),
+            normalize_token_str(output.to_string())
+        );
     }
 }
