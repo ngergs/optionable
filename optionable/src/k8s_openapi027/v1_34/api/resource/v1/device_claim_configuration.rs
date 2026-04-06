@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceClaimConfigurationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -20,14 +27,17 @@ impl crate::Optionable for DeviceClaimConfigurationAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceClaimConfiguration {
+impl crate::OptionableConvert
+for k8s_openapi027::api::resource::v1::DeviceClaimConfiguration {
     fn into_optioned(self) -> DeviceClaimConfigurationAc {
         DeviceClaimConfigurationAc {
             opaque: crate::OptionableConvert::into_optioned(self.opaque),
             requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
-    fn try_from_optioned(value: DeviceClaimConfigurationAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: DeviceClaimConfigurationAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             opaque: crate::OptionableConvert::try_from_optioned(value.opaque)?,
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
@@ -42,14 +52,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceClaim
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1::DeviceClaimConfiguration>
-    for DeviceClaimConfigurationAc
-{
-    fn from_optionable(value: k8s_openapi027::api::resource::v1::DeviceClaimConfiguration) -> Self {
+for DeviceClaimConfigurationAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::resource::v1::DeviceClaimConfiguration,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::resource::v1::DeviceClaimConfiguration, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::resource::v1::DeviceClaimConfiguration,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

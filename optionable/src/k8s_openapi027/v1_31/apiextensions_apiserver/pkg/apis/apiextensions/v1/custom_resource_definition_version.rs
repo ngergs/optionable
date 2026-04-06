@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceDefinitionVersionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -8,7 +15,7 @@ pub struct CustomResourceDefinitionVersionAc {
         >,
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub deprecated: <Option<bool> as crate::Optionable>::Optioned,
+    pub deprecated: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub deprecation_warning: <Option<
         std::string::String,
@@ -53,7 +60,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             additional_printer_columns: crate::OptionableConvert::into_optioned(
                 self.additional_printer_columns,
             ),
-            deprecated: crate::OptionableConvert::into_optioned(self.deprecated),
+            deprecated: self.deprecated,
             deprecation_warning: crate::OptionableConvert::into_optioned(
                 self.deprecation_warning,
             ),
@@ -74,7 +81,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             additional_printer_columns: crate::OptionableConvert::try_from_optioned(
                 value.additional_printer_columns,
             )?,
-            deprecated: crate::OptionableConvert::try_from_optioned(value.deprecated)?,
+            deprecated: value.deprecated,
             deprecation_warning: crate::OptionableConvert::try_from_optioned(
                 value.deprecation_warning,
             )?,
@@ -112,7 +119,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             &mut self.additional_printer_columns,
             other.additional_printer_columns,
         )?;
-        crate::OptionableConvert::merge(&mut self.deprecated, other.deprecated)?;
+        self.deprecated = other.deprecated;
         crate::OptionableConvert::merge(
             &mut self.deprecation_warning,
             other.deprecation_warning,

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodCertificateRequestAc {
     #[serde(
@@ -22,7 +29,8 @@ pub struct PodCertificateRequestAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequest {
+impl crate::Optionable
+for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequest {
     type Optioned = PodCertificateRequestAc;
 }
 #[automatically_derived]
@@ -32,8 +40,7 @@ impl crate::Optionable for PodCertificateRequestAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequest
-{
+for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequest {
     fn into_optioned(self) -> PodCertificateRequestAc {
         PodCertificateRequestAc {
             api_version: Default::default(),
@@ -46,9 +53,13 @@ impl crate::OptionableConvert
     fn try_from_optioned(value: PodCertificateRequestAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            spec: crate::OptionableConvert::try_from_optioned(value.spec.ok_or(crate::Error {
-                missing_field: "spec",
-            })?)?,
+            spec: crate::OptionableConvert::try_from_optioned(
+                value
+                    .spec
+                    .ok_or(crate::Error {
+                        missing_field: "spec",
+                    })?,
+            )?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
@@ -63,9 +74,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::certificates::v1beta1::PodCertificateRequest>
-    for PodCertificateRequestAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::certificates::v1beta1::PodCertificateRequest,
+> for PodCertificateRequestAc {
     fn from_optionable(
         value: k8s_openapi027::api::certificates::v1beta1::PodCertificateRequest,
     ) -> Self {
@@ -73,8 +84,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::certificates::v1beta1::PodCerti
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::certificates::v1beta1::PodCertificateRequest, crate::Error>
-    {
+    ) -> Result<
+        k8s_openapi027::api::certificates::v1beta1::PodCertificateRequest,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

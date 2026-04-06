@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodFailurePolicyOnPodConditionsPatternAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -8,7 +15,8 @@ pub struct PodFailurePolicyOnPodConditionsPatternAc {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
+impl crate::Optionable
+for k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
     type Optioned = PodFailurePolicyOnPodConditionsPatternAc;
 }
 #[automatically_derived]
@@ -18,8 +26,7 @@ impl crate::Optionable for PodFailurePolicyOnPodConditionsPatternAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern
-{
+for k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
     fn into_optioned(self) -> PodFailurePolicyOnPodConditionsPatternAc {
         PodFailurePolicyOnPodConditionsPatternAc {
             status: crate::OptionableConvert::into_optioned(self.status),
@@ -31,11 +38,13 @@ impl crate::OptionableConvert
     ) -> Result<Self, crate::Error> {
         Ok(Self {
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
-            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
-                crate::Error {
-                    missing_field: "type_",
-                },
-            )?)?,
+            type_: crate::OptionableConvert::try_from_optioned(
+                value
+                    .type_
+                    .ok_or(crate::Error {
+                        missing_field: "type_",
+                    })?,
+            )?,
         })
     }
     fn merge(
@@ -51,9 +60,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern>
-    for PodFailurePolicyOnPodConditionsPatternAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern,
+> for PodFailurePolicyOnPodConditionsPatternAc {
     fn from_optionable(
         value: k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern,
     ) -> Self {
@@ -61,8 +70,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::PodFailurePolicyOnPo
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern, crate::Error>
-    {
+    ) -> Result<
+        k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

@@ -1,8 +1,15 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceSliceSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub all_nodes: <Option<bool> as crate::Optionable>::Optioned,
+    pub all_nodes: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub devices: <Option<
         std::vec::Vec<::k8s_openapi027::api::resource::v1beta1::Device>,
@@ -30,10 +37,11 @@ impl crate::Optionable for ResourceSliceSpecAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec {
+impl crate::OptionableConvert
+for k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec {
     fn into_optioned(self) -> ResourceSliceSpecAc {
         ResourceSliceSpecAc {
-            all_nodes: crate::OptionableConvert::into_optioned(self.all_nodes),
+            all_nodes: self.all_nodes,
             devices: crate::OptionableConvert::into_optioned(self.devices),
             driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
             node_name: crate::OptionableConvert::into_optioned(self.node_name),
@@ -43,22 +51,30 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Resour
     }
     fn try_from_optioned(value: ResourceSliceSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            all_nodes: crate::OptionableConvert::try_from_optioned(value.all_nodes)?,
+            all_nodes: value.all_nodes,
             devices: crate::OptionableConvert::try_from_optioned(value.devices)?,
-            driver: crate::OptionableConvert::try_from_optioned(value.driver.ok_or(
-                crate::Error {
-                    missing_field: "driver",
-                },
-            )?)?,
+            driver: crate::OptionableConvert::try_from_optioned(
+                value
+                    .driver
+                    .ok_or(crate::Error {
+                        missing_field: "driver",
+                    })?,
+            )?,
             node_name: crate::OptionableConvert::try_from_optioned(value.node_name)?,
-            node_selector: crate::OptionableConvert::try_from_optioned(value.node_selector)?,
-            pool: crate::OptionableConvert::try_from_optioned(value.pool.ok_or(crate::Error {
-                missing_field: "pool",
-            })?)?,
+            node_selector: crate::OptionableConvert::try_from_optioned(
+                value.node_selector,
+            )?,
+            pool: crate::OptionableConvert::try_from_optioned(
+                value
+                    .pool
+                    .ok_or(crate::Error {
+                        missing_field: "pool",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: ResourceSliceSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.all_nodes, other.all_nodes)?;
+        self.all_nodes = other.all_nodes;
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
         if let Some(other_value) = other.driver {
             crate::OptionableConvert::merge(&mut self.driver, other_value)?;
@@ -74,14 +90,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Resour
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec>
-    for ResourceSliceSpecAc
-{
-    fn from_optionable(value: k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec) -> Self {
+for ResourceSliceSpecAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

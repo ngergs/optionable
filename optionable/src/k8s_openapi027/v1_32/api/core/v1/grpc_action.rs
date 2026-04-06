@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GRPCActionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -25,9 +32,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::GRPCAction {
     }
     fn try_from_optioned(value: GRPCActionAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            port: value.port.ok_or(crate::Error {
-                missing_field: "port",
-            })?,
+            port: value
+                .port
+                .ok_or(crate::Error {
+                    missing_field: "port",
+                })?,
             service: crate::OptionableConvert::try_from_optioned(value.service)?,
         })
     }

@@ -1,11 +1,19 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ModifyVolumeStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_volume_attributes_class_name:
-        <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub target_volume_attributes_class_name: <Option<
+        std::string::String,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ModifyVolumeStatus {
@@ -28,11 +36,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ModifyVolumeSta
     }
     fn try_from_optioned(value: ModifyVolumeStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            status: crate::OptionableConvert::try_from_optioned(value.status.ok_or(
-                crate::Error {
-                    missing_field: "status",
-                },
-            )?)?,
+            status: crate::OptionableConvert::try_from_optioned(
+                value
+                    .status
+                    .ok_or(crate::Error {
+                        missing_field: "status",
+                    })?,
+            )?,
             target_volume_attributes_class_name: crate::OptionableConvert::try_from_optioned(
                 value.target_volume_attributes_class_name,
             )?,
@@ -52,9 +62,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ModifyVolumeSta
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ModifyVolumeStatus>
-    for ModifyVolumeStatusAc
-{
-    fn from_optionable(value: k8s_openapi027::api::core::v1::ModifyVolumeStatus) -> Self {
+for ModifyVolumeStatusAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::core::v1::ModifyVolumeStatus,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

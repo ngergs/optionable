@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServerAddressByClientCIDRAc {
     #[serde(rename = "clientCIDR")]
@@ -9,8 +16,7 @@ pub struct ServerAddressByClientCIDRAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-    for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR
-{
+for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR {
     type Optioned = ServerAddressByClientCIDRAc;
 }
 #[automatically_derived]
@@ -20,25 +26,32 @@ impl crate::Optionable for ServerAddressByClientCIDRAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR
-{
+for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR {
     fn into_optioned(self) -> ServerAddressByClientCIDRAc {
         ServerAddressByClientCIDRAc {
             client_cidr: Some(crate::OptionableConvert::into_optioned(self.client_cidr)),
-            server_address: Some(crate::OptionableConvert::into_optioned(self.server_address)),
+            server_address: Some(
+                crate::OptionableConvert::into_optioned(self.server_address),
+            ),
         }
     }
-    fn try_from_optioned(value: ServerAddressByClientCIDRAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: ServerAddressByClientCIDRAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
-            client_cidr: crate::OptionableConvert::try_from_optioned(value.client_cidr.ok_or(
-                crate::Error {
-                    missing_field: "client_cidr",
-                },
-            )?)?,
+            client_cidr: crate::OptionableConvert::try_from_optioned(
+                value
+                    .client_cidr
+                    .ok_or(crate::Error {
+                        missing_field: "client_cidr",
+                    })?,
+            )?,
             server_address: crate::OptionableConvert::try_from_optioned(
-                value.server_address.ok_or(crate::Error {
-                    missing_field: "server_address",
-                })?,
+                value
+                    .server_address
+                    .ok_or(crate::Error {
+                        missing_field: "server_address",
+                    })?,
             )?,
         })
     }
@@ -54,11 +67,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl
-    crate::OptionedConvert<
-        k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR,
-    > for ServerAddressByClientCIDRAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR,
+> for ServerAddressByClientCIDRAc {
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR,
     ) -> Self {

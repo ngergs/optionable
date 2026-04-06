@@ -14,8 +14,7 @@ pub enum JSONSchemaPropsOrBoolAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrBool
-{
+for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrBool {
     type Optioned = JSONSchemaPropsOrBoolAc;
 }
 #[automatically_derived]
@@ -25,27 +24,32 @@ impl crate::Optionable for JSONSchemaPropsOrBoolAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrBool
-{
+for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrBool {
     fn into_optioned(self) -> JSONSchemaPropsOrBoolAc {
         match self {
-            Self::Schema(self_0) => JSONSchemaPropsOrBoolAc::Schema(Some(
-                crate::OptionableConvert::into_optioned(self_0),
-            )),
+            Self::Schema(self_0) => {
+                JSONSchemaPropsOrBoolAc::Schema(
+                    Some(crate::OptionableConvert::into_optioned(self_0)),
+                )
+            }
             Self::Bool(self_0) => JSONSchemaPropsOrBoolAc::Bool(Some(self_0)),
         }
     }
     fn try_from_optioned(other: JSONSchemaPropsOrBoolAc) -> Result<Self, crate::Error> {
-        Ok(match other {
-            JSONSchemaPropsOrBoolAc::Schema(other_0) => {
-                Self::Schema(crate::OptionableConvert::try_from_optioned(
-                    other_0.ok_or(crate::Error { missing_field: "0" })?,
-                )?)
-            }
-            JSONSchemaPropsOrBoolAc::Bool(other_0) => {
-                Self::Bool(other_0.ok_or(crate::Error { missing_field: "0" })?)
-            }
-        })
+        Ok(
+            match other {
+                JSONSchemaPropsOrBoolAc::Schema(other_0) => {
+                    Self::Schema(
+                        crate::OptionableConvert::try_from_optioned(
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
+                        )?,
+                    )
+                }
+                JSONSchemaPropsOrBoolAc::Bool(other_0) => {
+                    Self::Bool(other_0.ok_or(crate::Error { missing_field: "0" })?)
+                }
+            },
+        )
     }
     fn merge(&mut self, other: JSONSchemaPropsOrBoolAc) -> Result<(), crate::Error> {
         match other {
@@ -55,7 +59,9 @@ impl crate::OptionableConvert
                         crate::OptionableConvert::merge(self_0, other_value)?;
                     }
                 } else {
-                    *self = Self::try_from_optioned(JSONSchemaPropsOrBoolAc::Schema(other_0))?;
+                    *self = Self::try_from_optioned(
+                        JSONSchemaPropsOrBoolAc::Schema(other_0),
+                    )?;
                 }
             }
             JSONSchemaPropsOrBoolAc::Bool(other_0) => {
@@ -64,7 +70,9 @@ impl crate::OptionableConvert
                         *self_0 = other_value;
                     }
                 } else {
-                    *self = Self::try_from_optioned(JSONSchemaPropsOrBoolAc::Bool(other_0))?;
+                    *self = Self::try_from_optioned(
+                        JSONSchemaPropsOrBoolAc::Bool(other_0),
+                    )?;
                 }
             }
         }

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6,7 +13,7 @@ pub struct ResourceClaimStatusAc {
         ::k8s_openapi027::api::resource::v1alpha3::AllocationResult,
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub deallocation_requested: <Option<bool> as crate::Optionable>::Optioned,
+    pub deallocation_requested: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reserved_for: <Option<
         std::vec::Vec<
@@ -24,31 +31,27 @@ impl crate::Optionable for ResourceClaimStatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::ResourceClaimStatus {
+impl crate::OptionableConvert
+for k8s_openapi027::api::resource::v1alpha3::ResourceClaimStatus {
     fn into_optioned(self) -> ResourceClaimStatusAc {
         ResourceClaimStatusAc {
             allocation: crate::OptionableConvert::into_optioned(self.allocation),
-            deallocation_requested: crate::OptionableConvert::into_optioned(
-                self.deallocation_requested,
-            ),
+            deallocation_requested: self.deallocation_requested,
             reserved_for: crate::OptionableConvert::into_optioned(self.reserved_for),
         }
     }
     fn try_from_optioned(value: ResourceClaimStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allocation: crate::OptionableConvert::try_from_optioned(value.allocation)?,
-            deallocation_requested: crate::OptionableConvert::try_from_optioned(
-                value.deallocation_requested,
+            deallocation_requested: value.deallocation_requested,
+            reserved_for: crate::OptionableConvert::try_from_optioned(
+                value.reserved_for,
             )?,
-            reserved_for: crate::OptionableConvert::try_from_optioned(value.reserved_for)?,
         })
     }
     fn merge(&mut self, other: ResourceClaimStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.allocation, other.allocation)?;
-        crate::OptionableConvert::merge(
-            &mut self.deallocation_requested,
-            other.deallocation_requested,
-        )?;
+        self.deallocation_requested = other.deallocation_requested;
         crate::OptionableConvert::merge(&mut self.reserved_for, other.reserved_for)?;
         Ok(())
     }
@@ -56,8 +59,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Resou
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::ResourceClaimStatus>
-    for ResourceClaimStatusAc
-{
+for ResourceClaimStatusAc {
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1alpha3::ResourceClaimStatus,
     ) -> Self {
@@ -65,7 +67,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::ResourceCla
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::resource::v1alpha3::ResourceClaimStatus, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::resource::v1alpha3::ResourceClaimStatus,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

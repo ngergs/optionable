@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CertificateSigningRequestConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -21,8 +28,7 @@ pub struct CertificateSigningRequestConditionAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-    for k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition
-{
+for k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition {
     type Optioned = CertificateSigningRequestConditionAc;
 }
 #[automatically_derived]
@@ -32,14 +38,15 @@ impl crate::Optionable for CertificateSigningRequestConditionAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition
-{
+for k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition {
     fn into_optioned(self) -> CertificateSigningRequestConditionAc {
         CertificateSigningRequestConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
-            last_update_time: crate::OptionableConvert::into_optioned(self.last_update_time),
+            last_update_time: crate::OptionableConvert::into_optioned(
+                self.last_update_time,
+            ),
             message: crate::OptionableConvert::into_optioned(self.message),
             reason: crate::OptionableConvert::into_optioned(self.reason),
             status: Some(crate::OptionableConvert::into_optioned(self.status)),
@@ -53,27 +60,39 @@ impl crate::OptionableConvert
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value.last_transition_time,
             )?,
-            last_update_time: crate::OptionableConvert::try_from_optioned(value.last_update_time)?,
+            last_update_time: crate::OptionableConvert::try_from_optioned(
+                value.last_update_time,
+            )?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
-            status: crate::OptionableConvert::try_from_optioned(value.status.ok_or(
-                crate::Error {
-                    missing_field: "status",
-                },
-            )?)?,
-            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
-                crate::Error {
-                    missing_field: "type_",
-                },
-            )?)?,
+            status: crate::OptionableConvert::try_from_optioned(
+                value
+                    .status
+                    .ok_or(crate::Error {
+                        missing_field: "status",
+                    })?,
+            )?,
+            type_: crate::OptionableConvert::try_from_optioned(
+                value
+                    .type_
+                    .ok_or(crate::Error {
+                        missing_field: "type_",
+                    })?,
+            )?,
         })
     }
-    fn merge(&mut self, other: CertificateSigningRequestConditionAc) -> Result<(), crate::Error> {
+    fn merge(
+        &mut self,
+        other: CertificateSigningRequestConditionAc,
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,
             other.last_transition_time,
         )?;
-        crate::OptionableConvert::merge(&mut self.last_update_time, other.last_update_time)?;
+        crate::OptionableConvert::merge(
+            &mut self.last_update_time,
+            other.last_update_time,
+        )?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;
         crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         if let Some(other_value) = other.status {
@@ -87,11 +106,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl
-    crate::OptionedConvert<
-        k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition,
-    > for CertificateSigningRequestConditionAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition,
+> for CertificateSigningRequestConditionAc {
     fn from_optionable(
         value: k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition,
     ) -> Self {

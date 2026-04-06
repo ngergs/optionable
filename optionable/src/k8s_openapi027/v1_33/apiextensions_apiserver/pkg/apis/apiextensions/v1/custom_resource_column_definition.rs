@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceColumnDefinitionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -10,7 +17,7 @@ pub struct CustomResourceColumnDefinitionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub priority: <Option<i32> as crate::Optionable>::Optioned,
+    pub priority: Option<i32>,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
@@ -34,7 +41,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             format: crate::OptionableConvert::into_optioned(self.format),
             json_path: Some(crate::OptionableConvert::into_optioned(self.json_path)),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
-            priority: crate::OptionableConvert::into_optioned(self.priority),
+            priority: self.priority,
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
@@ -58,7 +65,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
                         missing_field: "name",
                     })?,
             )?,
-            priority: crate::OptionableConvert::try_from_optioned(value.priority)?,
+            priority: value.priority,
             type_: crate::OptionableConvert::try_from_optioned(
                 value
                     .type_
@@ -80,7 +87,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
-        crate::OptionableConvert::merge(&mut self.priority, other.priority)?;
+        self.priority = other.priority;
         if let Some(other_value) = other.type_ {
             crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }

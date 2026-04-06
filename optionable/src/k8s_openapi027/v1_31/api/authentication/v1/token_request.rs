@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TokenRequestAc {
     #[serde(
@@ -44,9 +51,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::authentication::v1::Token
     fn try_from_optioned(value: TokenRequestAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            spec: crate::OptionableConvert::try_from_optioned(value.spec.ok_or(crate::Error {
-                missing_field: "spec",
-            })?)?,
+            spec: crate::OptionableConvert::try_from_optioned(
+                value
+                    .spec
+                    .ok_or(crate::Error {
+                        missing_field: "spec",
+                    })?,
+            )?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
@@ -62,9 +73,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::authentication::v1::Token
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::authentication::v1::TokenRequest>
-    for TokenRequestAc
-{
-    fn from_optionable(value: k8s_openapi027::api::authentication::v1::TokenRequest) -> Self {
+for TokenRequestAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::authentication::v1::TokenRequest,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
@@ -81,18 +93,14 @@ impl crate::OptionedConvert<k8s_openapi027::api::authentication::v1::TokenReques
 }
 impl k8s_openapi027::Resource for TokenRequestAc {
     const API_VERSION: &'static str = <k8s_openapi027::api::authentication::v1::TokenRequest as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str =
-        <k8s_openapi027::api::authentication::v1::TokenRequest as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str =
-        <k8s_openapi027::api::authentication::v1::TokenRequest as k8s_openapi027::Resource>::KIND;
+    const GROUP: &'static str = <k8s_openapi027::api::authentication::v1::TokenRequest as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi027::api::authentication::v1::TokenRequest as k8s_openapi027::Resource>::KIND;
     const VERSION: &'static str = <k8s_openapi027::api::authentication::v1::TokenRequest as k8s_openapi027::Resource>::VERSION;
     const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::authentication::v1::TokenRequest as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
-    type Scope =
-        <k8s_openapi027::api::authentication::v1::TokenRequest as k8s_openapi027::Resource>::Scope;
+    type Scope = <k8s_openapi027::api::authentication::v1::TokenRequest as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for TokenRequestAc {
-    type Ty =
-        <k8s_openapi027::api::authentication::v1::TokenRequest as k8s_openapi027::Metadata>::Ty;
+    type Ty = <k8s_openapi027::api::authentication::v1::TokenRequest as k8s_openapi027::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi027::Metadata>::Ty {
         &self.metadata
     }
@@ -103,5 +111,7 @@ impl k8s_openapi027::Metadata for TokenRequestAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_tokenrequestac() {
-    crate::testutil::roundtrip_test::<k8s_openapi027::api::authentication::v1::TokenRequest>();
+    crate::testutil::roundtrip_test::<
+        k8s_openapi027::api::authentication::v1::TokenRequest,
+    >();
 }

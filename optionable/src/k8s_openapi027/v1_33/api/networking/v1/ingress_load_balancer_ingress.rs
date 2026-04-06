@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressLoadBalancerIngressAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -11,7 +18,8 @@ pub struct IngressLoadBalancerIngressAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress {
+impl crate::Optionable
+for k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress {
     type Optioned = IngressLoadBalancerIngressAc;
 }
 #[automatically_derived]
@@ -20,7 +28,8 @@ impl crate::Optionable for IngressLoadBalancerIngressAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress {
+impl crate::OptionableConvert
+for k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress {
     fn into_optioned(self) -> IngressLoadBalancerIngressAc {
         IngressLoadBalancerIngressAc {
             hostname: crate::OptionableConvert::into_optioned(self.hostname),
@@ -28,14 +37,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressLo
             ports: crate::OptionableConvert::into_optioned(self.ports),
         }
     }
-    fn try_from_optioned(value: IngressLoadBalancerIngressAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: IngressLoadBalancerIngressAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
             ip: crate::OptionableConvert::try_from_optioned(value.ip)?,
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
         })
     }
-    fn merge(&mut self, other: IngressLoadBalancerIngressAc) -> Result<(), crate::Error> {
+    fn merge(
+        &mut self,
+        other: IngressLoadBalancerIngressAc,
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
         crate::OptionableConvert::merge(&mut self.ip, other.ip)?;
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
@@ -44,9 +58,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressLo
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress>
-    for IngressLoadBalancerIngressAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress,
+> for IngressLoadBalancerIngressAc {
     fn from_optionable(
         value: k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress,
     ) -> Self {
@@ -54,7 +68,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::IngressLoadBala
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

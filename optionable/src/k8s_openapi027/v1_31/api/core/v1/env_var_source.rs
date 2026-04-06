@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EnvVarSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,9 +38,13 @@ impl crate::Optionable for EnvVarSourceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvVarSource {
     fn into_optioned(self) -> EnvVarSourceAc {
         EnvVarSourceAc {
-            config_map_key_ref: crate::OptionableConvert::into_optioned(self.config_map_key_ref),
+            config_map_key_ref: crate::OptionableConvert::into_optioned(
+                self.config_map_key_ref,
+            ),
             field_ref: crate::OptionableConvert::into_optioned(self.field_ref),
-            resource_field_ref: crate::OptionableConvert::into_optioned(self.resource_field_ref),
+            resource_field_ref: crate::OptionableConvert::into_optioned(
+                self.resource_field_ref,
+            ),
             secret_key_ref: crate::OptionableConvert::into_optioned(self.secret_key_ref),
         }
     }
@@ -46,20 +57,29 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvVarSource {
             resource_field_ref: crate::OptionableConvert::try_from_optioned(
                 value.resource_field_ref,
             )?,
-            secret_key_ref: crate::OptionableConvert::try_from_optioned(value.secret_key_ref)?,
+            secret_key_ref: crate::OptionableConvert::try_from_optioned(
+                value.secret_key_ref,
+            )?,
         })
     }
     fn merge(&mut self, other: EnvVarSourceAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.config_map_key_ref, other.config_map_key_ref)?;
+        crate::OptionableConvert::merge(
+            &mut self.config_map_key_ref,
+            other.config_map_key_ref,
+        )?;
         crate::OptionableConvert::merge(&mut self.field_ref, other.field_ref)?;
-        crate::OptionableConvert::merge(&mut self.resource_field_ref, other.resource_field_ref)?;
+        crate::OptionableConvert::merge(
+            &mut self.resource_field_ref,
+            other.resource_field_ref,
+        )?;
         crate::OptionableConvert::merge(&mut self.secret_key_ref, other.secret_key_ref)?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::EnvVarSource> for EnvVarSourceAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::EnvVarSource>
+for EnvVarSourceAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::EnvVarSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

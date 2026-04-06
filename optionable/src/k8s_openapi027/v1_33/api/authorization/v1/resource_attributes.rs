@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceAttributesAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -34,7 +41,8 @@ impl crate::Optionable for ResourceAttributesAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::ResourceAttributes {
+impl crate::OptionableConvert
+for k8s_openapi027::api::authorization::v1::ResourceAttributes {
     fn into_optioned(self) -> ResourceAttributesAc {
         ResourceAttributesAc {
             field_selector: crate::OptionableConvert::into_optioned(self.field_selector),
@@ -50,9 +58,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::Resour
     }
     fn try_from_optioned(value: ResourceAttributesAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            field_selector: crate::OptionableConvert::try_from_optioned(value.field_selector)?,
+            field_selector: crate::OptionableConvert::try_from_optioned(
+                value.field_selector,
+            )?,
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
-            label_selector: crate::OptionableConvert::try_from_optioned(value.label_selector)?,
+            label_selector: crate::OptionableConvert::try_from_optioned(
+                value.label_selector,
+            )?,
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
             namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
             resource: crate::OptionableConvert::try_from_optioned(value.resource)?,
@@ -77,14 +89,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::Resour
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::authorization::v1::ResourceAttributes>
-    for ResourceAttributesAc
-{
-    fn from_optionable(value: k8s_openapi027::api::authorization::v1::ResourceAttributes) -> Self {
+for ResourceAttributesAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::authorization::v1::ResourceAttributes,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::authorization::v1::ResourceAttributes, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::authorization::v1::ResourceAttributes,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

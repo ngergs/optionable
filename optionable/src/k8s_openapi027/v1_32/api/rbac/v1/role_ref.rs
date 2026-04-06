@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RoleRefAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -28,17 +35,27 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::RoleRef {
     }
     fn try_from_optioned(value: RoleRefAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            api_group: crate::OptionableConvert::try_from_optioned(value.api_group.ok_or(
-                crate::Error {
-                    missing_field: "api_group",
-                },
-            )?)?,
-            kind: crate::OptionableConvert::try_from_optioned(value.kind.ok_or(crate::Error {
-                missing_field: "kind",
-            })?)?,
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
+            api_group: crate::OptionableConvert::try_from_optioned(
+                value
+                    .api_group
+                    .ok_or(crate::Error {
+                        missing_field: "api_group",
+                    })?,
+            )?,
+            kind: crate::OptionableConvert::try_from_optioned(
+                value
+                    .kind
+                    .ok_or(crate::Error {
+                        missing_field: "kind",
+                    })?,
+            )?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: RoleRefAc) -> Result<(), crate::Error> {
@@ -60,7 +77,9 @@ impl crate::OptionedConvert<k8s_openapi027::api::rbac::v1::RoleRef> for RoleRefA
     fn from_optionable(value: k8s_openapi027::api::rbac::v1::RoleRef) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(self) -> Result<k8s_openapi027::api::rbac::v1::RoleRef, crate::Error> {
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi027::api::rbac::v1::RoleRef, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

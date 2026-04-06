@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -16,7 +23,8 @@ pub struct HorizontalPodAutoscalerConditionAc {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
+impl crate::Optionable
+for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
     type Optioned = HorizontalPodAutoscalerConditionAc;
 }
 #[automatically_derived]
@@ -26,8 +34,7 @@ impl crate::Optionable for HorizontalPodAutoscalerConditionAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition
-{
+for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
     fn into_optioned(self) -> HorizontalPodAutoscalerConditionAc {
         HorizontalPodAutoscalerConditionAc {
             last_transition_time: crate::OptionableConvert::into_optioned(
@@ -39,26 +46,35 @@ impl crate::OptionableConvert
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(value: HorizontalPodAutoscalerConditionAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: HorizontalPodAutoscalerConditionAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value.last_transition_time,
             )?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
-            status: crate::OptionableConvert::try_from_optioned(value.status.ok_or(
-                crate::Error {
-                    missing_field: "status",
-                },
-            )?)?,
-            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
-                crate::Error {
-                    missing_field: "type_",
-                },
-            )?)?,
+            status: crate::OptionableConvert::try_from_optioned(
+                value
+                    .status
+                    .ok_or(crate::Error {
+                        missing_field: "status",
+                    })?,
+            )?,
+            type_: crate::OptionableConvert::try_from_optioned(
+                value
+                    .type_
+                    .ok_or(crate::Error {
+                        missing_field: "type_",
+                    })?,
+            )?,
         })
     }
-    fn merge(&mut self, other: HorizontalPodAutoscalerConditionAc) -> Result<(), crate::Error> {
+    fn merge(
+        &mut self,
+        other: HorizontalPodAutoscalerConditionAc,
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,
             other.last_transition_time,
@@ -76,9 +92,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition>
-    for HorizontalPodAutoscalerConditionAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition,
+> for HorizontalPodAutoscalerConditionAc {
     fn from_optionable(
         value: k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition,
     ) -> Self {
@@ -86,8 +102,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::HorizontalPodA
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition, crate::Error>
-    {
+    ) -> Result<
+        k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

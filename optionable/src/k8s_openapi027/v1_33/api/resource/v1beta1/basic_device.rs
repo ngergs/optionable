@@ -1,8 +1,15 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BasicDeviceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub all_nodes: <Option<bool> as crate::Optionable>::Optioned,
+    pub all_nodes: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attributes: <Option<
         std::collections::BTreeMap<
@@ -45,10 +52,12 @@ impl crate::Optionable for BasicDeviceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::BasicDevice {
     fn into_optioned(self) -> BasicDeviceAc {
         BasicDeviceAc {
-            all_nodes: crate::OptionableConvert::into_optioned(self.all_nodes),
+            all_nodes: self.all_nodes,
             attributes: crate::OptionableConvert::into_optioned(self.attributes),
             capacity: crate::OptionableConvert::into_optioned(self.capacity),
-            consumes_counters: crate::OptionableConvert::into_optioned(self.consumes_counters),
+            consumes_counters: crate::OptionableConvert::into_optioned(
+                self.consumes_counters,
+            ),
             node_name: crate::OptionableConvert::into_optioned(self.node_name),
             node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
             taints: crate::OptionableConvert::into_optioned(self.taints),
@@ -56,22 +65,27 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::BasicD
     }
     fn try_from_optioned(value: BasicDeviceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            all_nodes: crate::OptionableConvert::try_from_optioned(value.all_nodes)?,
+            all_nodes: value.all_nodes,
             attributes: crate::OptionableConvert::try_from_optioned(value.attributes)?,
             capacity: crate::OptionableConvert::try_from_optioned(value.capacity)?,
             consumes_counters: crate::OptionableConvert::try_from_optioned(
                 value.consumes_counters,
             )?,
             node_name: crate::OptionableConvert::try_from_optioned(value.node_name)?,
-            node_selector: crate::OptionableConvert::try_from_optioned(value.node_selector)?,
+            node_selector: crate::OptionableConvert::try_from_optioned(
+                value.node_selector,
+            )?,
             taints: crate::OptionableConvert::try_from_optioned(value.taints)?,
         })
     }
     fn merge(&mut self, other: BasicDeviceAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.all_nodes, other.all_nodes)?;
+        self.all_nodes = other.all_nodes;
         crate::OptionableConvert::merge(&mut self.attributes, other.attributes)?;
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
-        crate::OptionableConvert::merge(&mut self.consumes_counters, other.consumes_counters)?;
+        crate::OptionableConvert::merge(
+            &mut self.consumes_counters,
+            other.consumes_counters,
+        )?;
         crate::OptionableConvert::merge(&mut self.node_name, other.node_name)?;
         crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
         crate::OptionableConvert::merge(&mut self.taints, other.taints)?;
@@ -80,8 +94,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::BasicD
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta1::BasicDevice> for BasicDeviceAc {
-    fn from_optionable(value: k8s_openapi027::api::resource::v1beta1::BasicDevice) -> Self {
+impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta1::BasicDevice>
+for BasicDeviceAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::resource::v1beta1::BasicDevice,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -29,15 +36,21 @@ impl crate::Optionable for IngressSpecAc {
 impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressSpec {
     fn into_optioned(self) -> IngressSpecAc {
         IngressSpecAc {
-            default_backend: crate::OptionableConvert::into_optioned(self.default_backend),
-            ingress_class_name: crate::OptionableConvert::into_optioned(self.ingress_class_name),
+            default_backend: crate::OptionableConvert::into_optioned(
+                self.default_backend,
+            ),
+            ingress_class_name: crate::OptionableConvert::into_optioned(
+                self.ingress_class_name,
+            ),
             rules: crate::OptionableConvert::into_optioned(self.rules),
             tls: crate::OptionableConvert::into_optioned(self.tls),
         }
     }
     fn try_from_optioned(value: IngressSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            default_backend: crate::OptionableConvert::try_from_optioned(value.default_backend)?,
+            default_backend: crate::OptionableConvert::try_from_optioned(
+                value.default_backend,
+            )?,
             ingress_class_name: crate::OptionableConvert::try_from_optioned(
                 value.ingress_class_name,
             )?,
@@ -46,8 +59,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressSp
         })
     }
     fn merge(&mut self, other: IngressSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.default_backend, other.default_backend)?;
-        crate::OptionableConvert::merge(&mut self.ingress_class_name, other.ingress_class_name)?;
+        crate::OptionableConvert::merge(
+            &mut self.default_backend,
+            other.default_backend,
+        )?;
+        crate::OptionableConvert::merge(
+            &mut self.ingress_class_name,
+            other.ingress_class_name,
+        )?;
         crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
         crate::OptionableConvert::merge(&mut self.tls, other.tls)?;
         Ok(())
@@ -55,7 +74,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressSp
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::IngressSpec> for IngressSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::IngressSpec>
+for IngressSpecAc {
     fn from_optionable(value: k8s_openapi027::api::networking::v1::IngressSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

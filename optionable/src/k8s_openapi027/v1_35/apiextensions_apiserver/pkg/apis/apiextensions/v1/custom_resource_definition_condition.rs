@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceDefinitionConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -8,7 +15,7 @@ pub struct CustomResourceDefinitionConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub observed_generation: <Option<i64> as crate::Optionable>::Optioned,
+    pub observed_generation: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -36,9 +43,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
                 self.last_transition_time,
             ),
             message: crate::OptionableConvert::into_optioned(self.message),
-            observed_generation: crate::OptionableConvert::into_optioned(
-                self.observed_generation,
-            ),
+            observed_generation: self.observed_generation,
             reason: crate::OptionableConvert::into_optioned(self.reason),
             status: Some(crate::OptionableConvert::into_optioned(self.status)),
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
@@ -52,9 +57,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
                 value.last_transition_time,
             )?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
-            observed_generation: crate::OptionableConvert::try_from_optioned(
-                value.observed_generation,
-            )?,
+            observed_generation: value.observed_generation,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
             status: crate::OptionableConvert::try_from_optioned(
                 value
@@ -81,10 +84,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             other.last_transition_time,
         )?;
         crate::OptionableConvert::merge(&mut self.message, other.message)?;
-        crate::OptionableConvert::merge(
-            &mut self.observed_generation,
-            other.observed_generation,
-        )?;
+        self.observed_generation = other.observed_generation;
         crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         if let Some(other_value) = other.status {
             crate::OptionableConvert::merge(&mut self.status, other_value)?;

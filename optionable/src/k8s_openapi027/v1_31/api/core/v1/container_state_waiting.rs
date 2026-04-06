@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerStateWaitingAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -38,9 +45,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStateW
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ContainerStateWaiting>
-    for ContainerStateWaitingAc
-{
-    fn from_optionable(value: k8s_openapi027::api::core::v1::ContainerStateWaiting) -> Self {
+for ContainerStateWaitingAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::core::v1::ContainerStateWaiting,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

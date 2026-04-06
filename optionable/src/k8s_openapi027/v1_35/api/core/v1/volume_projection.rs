@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeProjectionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -45,7 +52,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeProjectio
             ),
             config_map: crate::OptionableConvert::into_optioned(self.config_map),
             downward_api: crate::OptionableConvert::into_optioned(self.downward_api),
-            pod_certificate: crate::OptionableConvert::into_optioned(self.pod_certificate),
+            pod_certificate: crate::OptionableConvert::into_optioned(
+                self.pod_certificate,
+            ),
             secret: crate::OptionableConvert::into_optioned(self.secret),
             service_account_token: crate::OptionableConvert::into_optioned(
                 self.service_account_token,
@@ -58,8 +67,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeProjectio
                 value.cluster_trust_bundle,
             )?,
             config_map: crate::OptionableConvert::try_from_optioned(value.config_map)?,
-            downward_api: crate::OptionableConvert::try_from_optioned(value.downward_api)?,
-            pod_certificate: crate::OptionableConvert::try_from_optioned(value.pod_certificate)?,
+            downward_api: crate::OptionableConvert::try_from_optioned(
+                value.downward_api,
+            )?,
+            pod_certificate: crate::OptionableConvert::try_from_optioned(
+                value.pod_certificate,
+            )?,
             secret: crate::OptionableConvert::try_from_optioned(value.secret)?,
             service_account_token: crate::OptionableConvert::try_from_optioned(
                 value.service_account_token,
@@ -73,7 +86,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeProjectio
         )?;
         crate::OptionableConvert::merge(&mut self.config_map, other.config_map)?;
         crate::OptionableConvert::merge(&mut self.downward_api, other.downward_api)?;
-        crate::OptionableConvert::merge(&mut self.pod_certificate, other.pod_certificate)?;
+        crate::OptionableConvert::merge(
+            &mut self.pod_certificate,
+            other.pod_certificate,
+        )?;
         crate::OptionableConvert::merge(&mut self.secret, other.secret)?;
         crate::OptionableConvert::merge(
             &mut self.service_account_token,
@@ -85,8 +101,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeProjectio
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::VolumeProjection>
-    for VolumeProjectionAc
-{
+for VolumeProjectionAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::VolumeProjection) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

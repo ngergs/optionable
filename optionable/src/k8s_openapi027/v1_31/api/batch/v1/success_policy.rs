@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SuccessPolicyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -26,11 +33,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::SuccessPolicy 
     }
     fn try_from_optioned(value: SuccessPolicyAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            rules: crate::OptionableConvert::try_from_optioned(value.rules.ok_or(
-                crate::Error {
-                    missing_field: "rules",
-                },
-            )?)?,
+            rules: crate::OptionableConvert::try_from_optioned(
+                value
+                    .rules
+                    .ok_or(crate::Error {
+                        missing_field: "rules",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: SuccessPolicyAc) -> Result<(), crate::Error> {
@@ -42,7 +51,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::SuccessPolicy 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::SuccessPolicy> for SuccessPolicyAc {
+impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::SuccessPolicy>
+for SuccessPolicyAc {
     fn from_optionable(value: k8s_openapi027::api::batch::v1::SuccessPolicy) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

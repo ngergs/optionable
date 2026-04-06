@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GitRepoVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -29,11 +36,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::GitRepoVolumeSo
     fn try_from_optioned(value: GitRepoVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             directory: crate::OptionableConvert::try_from_optioned(value.directory)?,
-            repository: crate::OptionableConvert::try_from_optioned(value.repository.ok_or(
-                crate::Error {
-                    missing_field: "repository",
-                },
-            )?)?,
+            repository: crate::OptionableConvert::try_from_optioned(
+                value
+                    .repository
+                    .ok_or(crate::Error {
+                        missing_field: "repository",
+                    })?,
+            )?,
             revision: crate::OptionableConvert::try_from_optioned(value.revision)?,
         })
     }
@@ -49,9 +58,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::GitRepoVolumeSo
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::GitRepoVolumeSource>
-    for GitRepoVolumeSourceAc
-{
-    fn from_optionable(value: k8s_openapi027::api::core::v1::GitRepoVolumeSource) -> Self {
+for GitRepoVolumeSourceAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::core::v1::GitRepoVolumeSource,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

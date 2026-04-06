@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ValidatingWebhookConfigurationAc {
     #[serde(
@@ -14,13 +21,14 @@ pub struct ValidatingWebhookConfigurationAc {
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub webhooks: <Option<
-        std::vec::Vec<::k8s_openapi027::api::admissionregistration::v1::ValidatingWebhook>,
+        std::vec::Vec<
+            ::k8s_openapi027::api::admissionregistration::v1::ValidatingWebhook,
+        >,
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable
-    for k8s_openapi027::api::admissionregistration::v1::ValidatingWebhookConfiguration
-{
+for k8s_openapi027::api::admissionregistration::v1::ValidatingWebhookConfiguration {
     type Optioned = ValidatingWebhookConfigurationAc;
 }
 #[automatically_derived]
@@ -30,8 +38,7 @@ impl crate::Optionable for ValidatingWebhookConfigurationAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::api::admissionregistration::v1::ValidatingWebhookConfiguration
-{
+for k8s_openapi027::api::admissionregistration::v1::ValidatingWebhookConfiguration {
     fn into_optioned(self) -> ValidatingWebhookConfigurationAc {
         ValidatingWebhookConfigurationAc {
             api_version: Default::default(),
@@ -40,13 +47,18 @@ impl crate::OptionableConvert
             webhooks: crate::OptionableConvert::into_optioned(self.webhooks),
         }
     }
-    fn try_from_optioned(value: ValidatingWebhookConfigurationAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: ValidatingWebhookConfigurationAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
             webhooks: crate::OptionableConvert::try_from_optioned(value.webhooks)?,
         })
     }
-    fn merge(&mut self, other: ValidatingWebhookConfigurationAc) -> Result<(), crate::Error> {
+    fn merge(
+        &mut self,
+        other: ValidatingWebhookConfigurationAc,
+    ) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.webhooks, other.webhooks)?;
         Ok(())
@@ -54,11 +66,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl
-    crate::OptionedConvert<
-        k8s_openapi027::api::admissionregistration::v1::ValidatingWebhookConfiguration,
-    > for ValidatingWebhookConfigurationAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::admissionregistration::v1::ValidatingWebhookConfiguration,
+> for ValidatingWebhookConfigurationAc {
     fn from_optionable(
         value: k8s_openapi027::api::admissionregistration::v1::ValidatingWebhookConfiguration,
     ) -> Self {

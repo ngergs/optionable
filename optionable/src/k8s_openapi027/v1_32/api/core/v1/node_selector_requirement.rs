@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSelectorRequirementAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6,7 +13,9 @@ pub struct NodeSelectorRequirementAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub operator: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub values: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub values: <Option<
+        std::vec::Vec<std::string::String>,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::NodeSelectorRequirement {
@@ -18,7 +27,8 @@ impl crate::Optionable for NodeSelectorRequirementAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSelectorRequirement {
+impl crate::OptionableConvert
+for k8s_openapi027::api::core::v1::NodeSelectorRequirement {
     fn into_optioned(self) -> NodeSelectorRequirementAc {
         NodeSelectorRequirementAc {
             key: Some(crate::OptionableConvert::into_optioned(self.key)),
@@ -26,16 +36,24 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSelectorReq
             values: crate::OptionableConvert::into_optioned(self.values),
         }
     }
-    fn try_from_optioned(value: NodeSelectorRequirementAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: NodeSelectorRequirementAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
-            key: crate::OptionableConvert::try_from_optioned(value.key.ok_or(crate::Error {
-                missing_field: "key",
-            })?)?,
-            operator: crate::OptionableConvert::try_from_optioned(value.operator.ok_or(
-                crate::Error {
-                    missing_field: "operator",
-                },
-            )?)?,
+            key: crate::OptionableConvert::try_from_optioned(
+                value
+                    .key
+                    .ok_or(crate::Error {
+                        missing_field: "key",
+                    })?,
+            )?,
+            operator: crate::OptionableConvert::try_from_optioned(
+                value
+                    .operator
+                    .ok_or(crate::Error {
+                        missing_field: "operator",
+                    })?,
+            )?,
             values: crate::OptionableConvert::try_from_optioned(value.values)?,
         })
     }
@@ -53,9 +71,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSelectorReq
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSelectorRequirement>
-    for NodeSelectorRequirementAc
-{
-    fn from_optionable(value: k8s_openapi027::api::core::v1::NodeSelectorRequirement) -> Self {
+for NodeSelectorRequirementAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::core::v1::NodeSelectorRequirement,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

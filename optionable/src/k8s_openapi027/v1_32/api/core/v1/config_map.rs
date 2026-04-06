@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ConfigMapAc {
     #[serde(
@@ -20,7 +27,7 @@ pub struct ConfigMapAc {
         std::collections::BTreeMap<std::string::String, std::string::String>,
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub immutable: <Option<bool> as crate::Optionable>::Optioned,
+    pub immutable: Option<bool>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
 }
 #[automatically_derived]
@@ -40,7 +47,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMap {
             kind: Default::default(),
             binary_data: crate::OptionableConvert::into_optioned(self.binary_data),
             data: crate::OptionableConvert::into_optioned(self.data),
-            immutable: crate::OptionableConvert::into_optioned(self.immutable),
+            immutable: self.immutable,
             metadata: self.metadata,
         }
     }
@@ -48,14 +55,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMap {
         Ok(Self {
             binary_data: crate::OptionableConvert::try_from_optioned(value.binary_data)?,
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
-            immutable: crate::OptionableConvert::try_from_optioned(value.immutable)?,
+            immutable: value.immutable,
             metadata: value.metadata,
         })
     }
     fn merge(&mut self, other: ConfigMapAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.binary_data, other.binary_data)?;
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
-        crate::OptionableConvert::merge(&mut self.immutable, other.immutable)?;
+        self.immutable = other.immutable;
         self.metadata = other.metadata;
         Ok(())
     }
@@ -66,7 +73,9 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ConfigMap> for Config
     fn from_optionable(value: k8s_openapi027::api::core::v1::ConfigMap) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(self) -> Result<k8s_openapi027::api::core::v1::ConfigMap, crate::Error> {
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi027::api::core::v1::ConfigMap, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -77,16 +86,11 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ConfigMap> for Config
     }
 }
 impl k8s_openapi027::Resource for ConfigMapAc {
-    const API_VERSION: &'static str =
-        <k8s_openapi027::api::core::v1::ConfigMap as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str =
-        <k8s_openapi027::api::core::v1::ConfigMap as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str =
-        <k8s_openapi027::api::core::v1::ConfigMap as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str =
-        <k8s_openapi027::api::core::v1::ConfigMap as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str =
-        <k8s_openapi027::api::core::v1::ConfigMap as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str = <k8s_openapi027::api::core::v1::ConfigMap as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi027::api::core::v1::ConfigMap as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi027::api::core::v1::ConfigMap as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi027::api::core::v1::ConfigMap as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::core::v1::ConfigMap as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::core::v1::ConfigMap as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for ConfigMapAc {

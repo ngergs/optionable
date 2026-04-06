@@ -18,26 +18,33 @@ impl crate::Optionable for IntOrStringAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString {
+impl crate::OptionableConvert
+for k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString {
     fn into_optioned(self) -> IntOrStringAc {
         match self {
             Self::Int(self_0) => IntOrStringAc::Int(Some(self_0)),
             Self::String(self_0) => {
-                IntOrStringAc::String(Some(crate::OptionableConvert::into_optioned(self_0)))
+                IntOrStringAc::String(
+                    Some(crate::OptionableConvert::into_optioned(self_0)),
+                )
             }
         }
     }
     fn try_from_optioned(other: IntOrStringAc) -> Result<Self, crate::Error> {
-        Ok(match other {
-            IntOrStringAc::Int(other_0) => {
-                Self::Int(other_0.ok_or(crate::Error { missing_field: "0" })?)
-            }
-            IntOrStringAc::String(other_0) => {
-                Self::String(crate::OptionableConvert::try_from_optioned(
-                    other_0.ok_or(crate::Error { missing_field: "0" })?,
-                )?)
-            }
-        })
+        Ok(
+            match other {
+                IntOrStringAc::Int(other_0) => {
+                    Self::Int(other_0.ok_or(crate::Error { missing_field: "0" })?)
+                }
+                IntOrStringAc::String(other_0) => {
+                    Self::String(
+                        crate::OptionableConvert::try_from_optioned(
+                            other_0.ok_or(crate::Error { missing_field: "0" })?,
+                        )?,
+                    )
+                }
+            },
+        )
     }
     fn merge(&mut self, other: IntOrStringAc) -> Result<(), crate::Error> {
         match other {
@@ -66,8 +73,7 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::util::intst
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString>
-    for IntOrStringAc
-{
+for IntOrStringAc {
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString,
     ) -> Self {
@@ -75,7 +81,10 @@ impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::util::intstr::Int
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

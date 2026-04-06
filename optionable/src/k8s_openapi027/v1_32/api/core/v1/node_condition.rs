@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -32,7 +39,9 @@ impl crate::Optionable for NodeConditionAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeCondition {
     fn into_optioned(self) -> NodeConditionAc {
         NodeConditionAc {
-            last_heartbeat_time: crate::OptionableConvert::into_optioned(self.last_heartbeat_time),
+            last_heartbeat_time: crate::OptionableConvert::into_optioned(
+                self.last_heartbeat_time,
+            ),
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
@@ -52,20 +61,27 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeCondition {
             )?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
-            status: crate::OptionableConvert::try_from_optioned(value.status.ok_or(
-                crate::Error {
-                    missing_field: "status",
-                },
-            )?)?,
-            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
-                crate::Error {
-                    missing_field: "type_",
-                },
-            )?)?,
+            status: crate::OptionableConvert::try_from_optioned(
+                value
+                    .status
+                    .ok_or(crate::Error {
+                        missing_field: "status",
+                    })?,
+            )?,
+            type_: crate::OptionableConvert::try_from_optioned(
+                value
+                    .type_
+                    .ok_or(crate::Error {
+                        missing_field: "type_",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: NodeConditionAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.last_heartbeat_time, other.last_heartbeat_time)?;
+        crate::OptionableConvert::merge(
+            &mut self.last_heartbeat_time,
+            other.last_heartbeat_time,
+        )?;
         crate::OptionableConvert::merge(
             &mut self.last_transition_time,
             other.last_transition_time,
@@ -83,7 +99,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeCondition {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeCondition> for NodeConditionAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeCondition>
+for NodeConditionAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::NodeCondition) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

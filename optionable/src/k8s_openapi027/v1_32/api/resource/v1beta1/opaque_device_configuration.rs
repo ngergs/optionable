@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct OpaqueDeviceConfigurationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -9,7 +16,8 @@ pub struct OpaqueDeviceConfigurationAc {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration {
+impl crate::Optionable
+for k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration {
     type Optioned = OpaqueDeviceConfigurationAc;
 }
 #[automatically_derived]
@@ -19,26 +27,31 @@ impl crate::Optionable for OpaqueDeviceConfigurationAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration
-{
+for k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration {
     fn into_optioned(self) -> OpaqueDeviceConfigurationAc {
         OpaqueDeviceConfigurationAc {
             driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
             parameters: Some(crate::OptionableConvert::into_optioned(self.parameters)),
         }
     }
-    fn try_from_optioned(value: OpaqueDeviceConfigurationAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: OpaqueDeviceConfigurationAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
-            driver: crate::OptionableConvert::try_from_optioned(value.driver.ok_or(
-                crate::Error {
-                    missing_field: "driver",
-                },
-            )?)?,
-            parameters: crate::OptionableConvert::try_from_optioned(value.parameters.ok_or(
-                crate::Error {
-                    missing_field: "parameters",
-                },
-            )?)?,
+            driver: crate::OptionableConvert::try_from_optioned(
+                value
+                    .driver
+                    .ok_or(crate::Error {
+                        missing_field: "driver",
+                    })?,
+            )?,
+            parameters: crate::OptionableConvert::try_from_optioned(
+                value
+                    .parameters
+                    .ok_or(crate::Error {
+                        missing_field: "parameters",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: OpaqueDeviceConfigurationAc) -> Result<(), crate::Error> {
@@ -53,9 +66,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration>
-    for OpaqueDeviceConfigurationAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration,
+> for OpaqueDeviceConfigurationAc {
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration,
     ) -> Self {
@@ -63,8 +76,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta1::OpaqueDevice
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration, crate::Error>
-    {
+    ) -> Result<
+        k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeAttachmentSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -20,7 +27,8 @@ impl crate::Optionable for VolumeAttachmentSpecAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::VolumeAttachmentSpec {
+impl crate::OptionableConvert
+for k8s_openapi027::api::storage::v1::VolumeAttachmentSpec {
     fn into_optioned(self) -> VolumeAttachmentSpecAc {
         VolumeAttachmentSpecAc {
             attacher: Some(crate::OptionableConvert::into_optioned(self.attacher)),
@@ -30,21 +38,27 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::VolumeAttach
     }
     fn try_from_optioned(value: VolumeAttachmentSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            attacher: crate::OptionableConvert::try_from_optioned(value.attacher.ok_or(
-                crate::Error {
-                    missing_field: "attacher",
-                },
-            )?)?,
-            node_name: crate::OptionableConvert::try_from_optioned(value.node_name.ok_or(
-                crate::Error {
-                    missing_field: "node_name",
-                },
-            )?)?,
-            source: crate::OptionableConvert::try_from_optioned(value.source.ok_or(
-                crate::Error {
-                    missing_field: "source",
-                },
-            )?)?,
+            attacher: crate::OptionableConvert::try_from_optioned(
+                value
+                    .attacher
+                    .ok_or(crate::Error {
+                        missing_field: "attacher",
+                    })?,
+            )?,
+            node_name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .node_name
+                    .ok_or(crate::Error {
+                        missing_field: "node_name",
+                    })?,
+            )?,
+            source: crate::OptionableConvert::try_from_optioned(
+                value
+                    .source
+                    .ok_or(crate::Error {
+                        missing_field: "source",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: VolumeAttachmentSpecAc) -> Result<(), crate::Error> {
@@ -63,9 +77,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::VolumeAttach
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::storage::v1::VolumeAttachmentSpec>
-    for VolumeAttachmentSpecAc
-{
-    fn from_optionable(value: k8s_openapi027::api::storage::v1::VolumeAttachmentSpec) -> Self {
+for VolumeAttachmentSpecAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::storage::v1::VolumeAttachmentSpec,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

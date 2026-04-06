@@ -1,8 +1,15 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SecurityContextAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub allow_privilege_escalation: <Option<bool> as crate::Optionable>::Optioned,
+    pub allow_privilege_escalation: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub app_armor_profile: <Option<
         ::k8s_openapi027::api::core::v1::AppArmorProfile,
@@ -12,17 +19,17 @@ pub struct SecurityContextAc {
         ::k8s_openapi027::api::core::v1::Capabilities,
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub privileged: <Option<bool> as crate::Optionable>::Optioned,
+    pub privileged: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub proc_mount: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub read_only_root_filesystem: <Option<bool> as crate::Optionable>::Optioned,
+    pub read_only_root_filesystem: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub run_as_group: <Option<i64> as crate::Optionable>::Optioned,
+    pub run_as_group: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub run_as_non_root: <Option<bool> as crate::Optionable>::Optioned,
+    pub run_as_non_root: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub run_as_user: <Option<i64> as crate::Optionable>::Optioned,
+    pub run_as_user: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub se_linux_options: <Option<
         ::k8s_openapi027::api::core::v1::SELinuxOptions,
@@ -49,71 +56,86 @@ impl crate::Optionable for SecurityContextAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecurityContext {
     fn into_optioned(self) -> SecurityContextAc {
         SecurityContextAc {
-            allow_privilege_escalation: crate::OptionableConvert::into_optioned(
-                self.allow_privilege_escalation,
+            allow_privilege_escalation: self.allow_privilege_escalation,
+            app_armor_profile: crate::OptionableConvert::into_optioned(
+                self.app_armor_profile,
             ),
-            app_armor_profile: crate::OptionableConvert::into_optioned(self.app_armor_profile),
             capabilities: crate::OptionableConvert::into_optioned(self.capabilities),
-            privileged: crate::OptionableConvert::into_optioned(self.privileged),
+            privileged: self.privileged,
             proc_mount: crate::OptionableConvert::into_optioned(self.proc_mount),
-            read_only_root_filesystem: crate::OptionableConvert::into_optioned(
-                self.read_only_root_filesystem,
+            read_only_root_filesystem: self.read_only_root_filesystem,
+            run_as_group: self.run_as_group,
+            run_as_non_root: self.run_as_non_root,
+            run_as_user: self.run_as_user,
+            se_linux_options: crate::OptionableConvert::into_optioned(
+                self.se_linux_options,
             ),
-            run_as_group: crate::OptionableConvert::into_optioned(self.run_as_group),
-            run_as_non_root: crate::OptionableConvert::into_optioned(self.run_as_non_root),
-            run_as_user: crate::OptionableConvert::into_optioned(self.run_as_user),
-            se_linux_options: crate::OptionableConvert::into_optioned(self.se_linux_options),
-            seccomp_profile: crate::OptionableConvert::into_optioned(self.seccomp_profile),
-            windows_options: crate::OptionableConvert::into_optioned(self.windows_options),
+            seccomp_profile: crate::OptionableConvert::into_optioned(
+                self.seccomp_profile,
+            ),
+            windows_options: crate::OptionableConvert::into_optioned(
+                self.windows_options,
+            ),
         }
     }
     fn try_from_optioned(value: SecurityContextAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            allow_privilege_escalation: crate::OptionableConvert::try_from_optioned(
-                value.allow_privilege_escalation,
-            )?,
+            allow_privilege_escalation: value.allow_privilege_escalation,
             app_armor_profile: crate::OptionableConvert::try_from_optioned(
                 value.app_armor_profile,
             )?,
-            capabilities: crate::OptionableConvert::try_from_optioned(value.capabilities)?,
-            privileged: crate::OptionableConvert::try_from_optioned(value.privileged)?,
-            proc_mount: crate::OptionableConvert::try_from_optioned(value.proc_mount)?,
-            read_only_root_filesystem: crate::OptionableConvert::try_from_optioned(
-                value.read_only_root_filesystem,
+            capabilities: crate::OptionableConvert::try_from_optioned(
+                value.capabilities,
             )?,
-            run_as_group: crate::OptionableConvert::try_from_optioned(value.run_as_group)?,
-            run_as_non_root: crate::OptionableConvert::try_from_optioned(value.run_as_non_root)?,
-            run_as_user: crate::OptionableConvert::try_from_optioned(value.run_as_user)?,
-            se_linux_options: crate::OptionableConvert::try_from_optioned(value.se_linux_options)?,
-            seccomp_profile: crate::OptionableConvert::try_from_optioned(value.seccomp_profile)?,
-            windows_options: crate::OptionableConvert::try_from_optioned(value.windows_options)?,
+            privileged: value.privileged,
+            proc_mount: crate::OptionableConvert::try_from_optioned(value.proc_mount)?,
+            read_only_root_filesystem: value.read_only_root_filesystem,
+            run_as_group: value.run_as_group,
+            run_as_non_root: value.run_as_non_root,
+            run_as_user: value.run_as_user,
+            se_linux_options: crate::OptionableConvert::try_from_optioned(
+                value.se_linux_options,
+            )?,
+            seccomp_profile: crate::OptionableConvert::try_from_optioned(
+                value.seccomp_profile,
+            )?,
+            windows_options: crate::OptionableConvert::try_from_optioned(
+                value.windows_options,
+            )?,
         })
     }
     fn merge(&mut self, other: SecurityContextAc) -> Result<(), crate::Error> {
+        self.allow_privilege_escalation = other.allow_privilege_escalation;
         crate::OptionableConvert::merge(
-            &mut self.allow_privilege_escalation,
-            other.allow_privilege_escalation,
+            &mut self.app_armor_profile,
+            other.app_armor_profile,
         )?;
-        crate::OptionableConvert::merge(&mut self.app_armor_profile, other.app_armor_profile)?;
         crate::OptionableConvert::merge(&mut self.capabilities, other.capabilities)?;
-        crate::OptionableConvert::merge(&mut self.privileged, other.privileged)?;
+        self.privileged = other.privileged;
         crate::OptionableConvert::merge(&mut self.proc_mount, other.proc_mount)?;
+        self.read_only_root_filesystem = other.read_only_root_filesystem;
+        self.run_as_group = other.run_as_group;
+        self.run_as_non_root = other.run_as_non_root;
+        self.run_as_user = other.run_as_user;
         crate::OptionableConvert::merge(
-            &mut self.read_only_root_filesystem,
-            other.read_only_root_filesystem,
+            &mut self.se_linux_options,
+            other.se_linux_options,
         )?;
-        crate::OptionableConvert::merge(&mut self.run_as_group, other.run_as_group)?;
-        crate::OptionableConvert::merge(&mut self.run_as_non_root, other.run_as_non_root)?;
-        crate::OptionableConvert::merge(&mut self.run_as_user, other.run_as_user)?;
-        crate::OptionableConvert::merge(&mut self.se_linux_options, other.se_linux_options)?;
-        crate::OptionableConvert::merge(&mut self.seccomp_profile, other.seccomp_profile)?;
-        crate::OptionableConvert::merge(&mut self.windows_options, other.windows_options)?;
+        crate::OptionableConvert::merge(
+            &mut self.seccomp_profile,
+            other.seccomp_profile,
+        )?;
+        crate::OptionableConvert::merge(
+            &mut self.windows_options,
+            other.windows_options,
+        )?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::SecurityContext> for SecurityContextAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::SecurityContext>
+for SecurityContextAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::SecurityContext) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

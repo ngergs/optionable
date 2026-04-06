@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IPAddressAc {
     #[serde(
@@ -50,8 +57,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1beta1::IPAd
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::networking::v1beta1::IPAddress> for IPAddressAc {
-    fn from_optionable(value: k8s_openapi027::api::networking::v1beta1::IPAddress) -> Self {
+impl crate::OptionedConvert<k8s_openapi027::api::networking::v1beta1::IPAddress>
+for IPAddressAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::networking::v1beta1::IPAddress,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
@@ -68,15 +78,11 @@ impl crate::OptionedConvert<k8s_openapi027::api::networking::v1beta1::IPAddress>
 }
 impl k8s_openapi027::Resource for IPAddressAc {
     const API_VERSION: &'static str = <k8s_openapi027::api::networking::v1beta1::IPAddress as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str =
-        <k8s_openapi027::api::networking::v1beta1::IPAddress as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str =
-        <k8s_openapi027::api::networking::v1beta1::IPAddress as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str =
-        <k8s_openapi027::api::networking::v1beta1::IPAddress as k8s_openapi027::Resource>::VERSION;
+    const GROUP: &'static str = <k8s_openapi027::api::networking::v1beta1::IPAddress as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi027::api::networking::v1beta1::IPAddress as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi027::api::networking::v1beta1::IPAddress as k8s_openapi027::Resource>::VERSION;
     const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::networking::v1beta1::IPAddress as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
-    type Scope =
-        <k8s_openapi027::api::networking::v1beta1::IPAddress as k8s_openapi027::Resource>::Scope;
+    type Scope = <k8s_openapi027::api::networking::v1beta1::IPAddress as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for IPAddressAc {
     type Ty = <k8s_openapi027::api::networking::v1beta1::IPAddress as k8s_openapi027::Metadata>::Ty;
@@ -90,5 +96,7 @@ impl k8s_openapi027::Metadata for IPAddressAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_ipaddressac() {
-    crate::testutil::roundtrip_test::<k8s_openapi027::api::networking::v1beta1::IPAddress>();
+    crate::testutil::roundtrip_test::<
+        k8s_openapi027::api::networking::v1beta1::IPAddress,
+    >();
 }

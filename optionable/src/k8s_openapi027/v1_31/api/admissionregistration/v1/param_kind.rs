@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ParamKindAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -16,7 +23,8 @@ impl crate::Optionable for ParamKindAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::admissionregistration::v1::ParamKind {
+impl crate::OptionableConvert
+for k8s_openapi027::api::admissionregistration::v1::ParamKind {
     fn into_optioned(self) -> ParamKindAc {
         ParamKindAc {
             api_version: crate::OptionableConvert::into_optioned(self.api_version),
@@ -38,14 +46,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::admissionregistration::v1
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::admissionregistration::v1::ParamKind>
-    for ParamKindAc
-{
-    fn from_optionable(value: k8s_openapi027::api::admissionregistration::v1::ParamKind) -> Self {
+for ParamKindAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::admissionregistration::v1::ParamKind,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::admissionregistration::v1::ParamKind, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::admissionregistration::v1::ParamKind,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

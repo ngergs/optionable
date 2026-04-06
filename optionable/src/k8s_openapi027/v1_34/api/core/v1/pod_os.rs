@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodOSAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -22,9 +29,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodOS {
     }
     fn try_from_optioned(value: PodOSAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: PodOSAc) -> Result<(), crate::Error> {
@@ -40,7 +51,9 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodOS> for PodOSAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::PodOS) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(self) -> Result<k8s_openapi027::api::core::v1::PodOS, crate::Error> {
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi027::api::core::v1::PodOS, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

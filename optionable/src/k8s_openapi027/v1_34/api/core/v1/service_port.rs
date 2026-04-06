@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServicePortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6,7 +13,7 @@ pub struct ServicePortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub node_port: <Option<i32> as crate::Optionable>::Optioned,
+    pub node_port: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,7 +38,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServicePort {
         ServicePortAc {
             app_protocol: crate::OptionableConvert::into_optioned(self.app_protocol),
             name: crate::OptionableConvert::into_optioned(self.name),
-            node_port: crate::OptionableConvert::into_optioned(self.node_port),
+            node_port: self.node_port,
             port: Some(self.port),
             protocol: crate::OptionableConvert::into_optioned(self.protocol),
             target_port: crate::OptionableConvert::into_optioned(self.target_port),
@@ -39,12 +46,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServicePort {
     }
     fn try_from_optioned(value: ServicePortAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            app_protocol: crate::OptionableConvert::try_from_optioned(value.app_protocol)?,
+            app_protocol: crate::OptionableConvert::try_from_optioned(
+                value.app_protocol,
+            )?,
             name: crate::OptionableConvert::try_from_optioned(value.name)?,
-            node_port: crate::OptionableConvert::try_from_optioned(value.node_port)?,
-            port: value.port.ok_or(crate::Error {
-                missing_field: "port",
-            })?,
+            node_port: value.node_port,
+            port: value
+                .port
+                .ok_or(crate::Error {
+                    missing_field: "port",
+                })?,
             protocol: crate::OptionableConvert::try_from_optioned(value.protocol)?,
             target_port: crate::OptionableConvert::try_from_optioned(value.target_port)?,
         })
@@ -52,7 +63,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServicePort {
     fn merge(&mut self, other: ServicePortAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.app_protocol, other.app_protocol)?;
         crate::OptionableConvert::merge(&mut self.name, other.name)?;
-        crate::OptionableConvert::merge(&mut self.node_port, other.node_port)?;
+        self.node_port = other.node_port;
         if let Some(other_value) = other.port {
             self.port = other_value;
         }
@@ -63,7 +74,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServicePort {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ServicePort> for ServicePortAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ServicePort>
+for ServicePortAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::ServicePort) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

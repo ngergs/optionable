@@ -1,8 +1,15 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MetricValueStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub average_utilization: <Option<i32> as crate::Optionable>::Optioned,
+    pub average_utilization: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub average_value: <Option<
         ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
@@ -22,25 +29,26 @@ impl crate::Optionable for MetricValueStatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricValueStatus {
+impl crate::OptionableConvert
+for k8s_openapi027::api::autoscaling::v2::MetricValueStatus {
     fn into_optioned(self) -> MetricValueStatusAc {
         MetricValueStatusAc {
-            average_utilization: crate::OptionableConvert::into_optioned(self.average_utilization),
+            average_utilization: self.average_utilization,
             average_value: crate::OptionableConvert::into_optioned(self.average_value),
             value: crate::OptionableConvert::into_optioned(self.value),
         }
     }
     fn try_from_optioned(value: MetricValueStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            average_utilization: crate::OptionableConvert::try_from_optioned(
-                value.average_utilization,
+            average_utilization: value.average_utilization,
+            average_value: crate::OptionableConvert::try_from_optioned(
+                value.average_value,
             )?,
-            average_value: crate::OptionableConvert::try_from_optioned(value.average_value)?,
             value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
     }
     fn merge(&mut self, other: MetricValueStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.average_utilization, other.average_utilization)?;
+        self.average_utilization = other.average_utilization;
         crate::OptionableConvert::merge(&mut self.average_value, other.average_value)?;
         crate::OptionableConvert::merge(&mut self.value, other.value)?;
         Ok(())
@@ -49,9 +57,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricVa
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::MetricValueStatus>
-    for MetricValueStatusAc
-{
-    fn from_optionable(value: k8s_openapi027::api::autoscaling::v2::MetricValueStatus) -> Self {
+for MetricValueStatusAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::autoscaling::v2::MetricValueStatus,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

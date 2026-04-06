@@ -1,14 +1,26 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CertificateSigningRequestSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub expiration_seconds: <Option<i32> as crate::Optionable>::Optioned,
+    pub expiration_seconds: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub extra: <Option<
-        std::collections::BTreeMap<std::string::String, std::vec::Vec<std::string::String>>,
+        std::collections::BTreeMap<
+            std::string::String,
+            std::vec::Vec<std::string::String>,
+        >,
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub groups: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub groups: <Option<
+        std::vec::Vec<std::string::String>,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request: Option<<::k8s_openapi027::ByteString as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -16,12 +28,15 @@ pub struct CertificateSigningRequestSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub usages: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub usages: <Option<
+        std::vec::Vec<std::string::String>,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub username: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
+impl crate::Optionable
+for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
     type Optioned = CertificateSigningRequestSpecAc;
 }
 #[automatically_derived]
@@ -31,11 +46,10 @@ impl crate::Optionable for CertificateSigningRequestSpecAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec
-{
+for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
     fn into_optioned(self) -> CertificateSigningRequestSpecAc {
         CertificateSigningRequestSpecAc {
-            expiration_seconds: crate::OptionableConvert::into_optioned(self.expiration_seconds),
+            expiration_seconds: self.expiration_seconds,
             extra: crate::OptionableConvert::into_optioned(self.extra),
             groups: crate::OptionableConvert::into_optioned(self.groups),
             request: Some(crate::OptionableConvert::into_optioned(self.request)),
@@ -45,30 +59,37 @@ impl crate::OptionableConvert
             username: crate::OptionableConvert::into_optioned(self.username),
         }
     }
-    fn try_from_optioned(value: CertificateSigningRequestSpecAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: CertificateSigningRequestSpecAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
-            expiration_seconds: crate::OptionableConvert::try_from_optioned(
-                value.expiration_seconds,
-            )?,
+            expiration_seconds: value.expiration_seconds,
             extra: crate::OptionableConvert::try_from_optioned(value.extra)?,
             groups: crate::OptionableConvert::try_from_optioned(value.groups)?,
-            request: crate::OptionableConvert::try_from_optioned(value.request.ok_or(
-                crate::Error {
-                    missing_field: "request",
-                },
-            )?)?,
-            signer_name: crate::OptionableConvert::try_from_optioned(value.signer_name.ok_or(
-                crate::Error {
-                    missing_field: "signer_name",
-                },
-            )?)?,
+            request: crate::OptionableConvert::try_from_optioned(
+                value
+                    .request
+                    .ok_or(crate::Error {
+                        missing_field: "request",
+                    })?,
+            )?,
+            signer_name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .signer_name
+                    .ok_or(crate::Error {
+                        missing_field: "signer_name",
+                    })?,
+            )?,
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
             usages: crate::OptionableConvert::try_from_optioned(value.usages)?,
             username: crate::OptionableConvert::try_from_optioned(value.username)?,
         })
     }
-    fn merge(&mut self, other: CertificateSigningRequestSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.expiration_seconds, other.expiration_seconds)?;
+    fn merge(
+        &mut self,
+        other: CertificateSigningRequestSpecAc,
+    ) -> Result<(), crate::Error> {
+        self.expiration_seconds = other.expiration_seconds;
         crate::OptionableConvert::merge(&mut self.extra, other.extra)?;
         crate::OptionableConvert::merge(&mut self.groups, other.groups)?;
         if let Some(other_value) = other.request {
@@ -85,9 +106,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec>
-    for CertificateSigningRequestSpecAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec,
+> for CertificateSigningRequestSpecAc {
     fn from_optionable(
         value: k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec,
     ) -> Self {
@@ -95,8 +116,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::certificates::v1::CertificateSi
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec, crate::Error>
-    {
+    ) -> Result<
+        k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

@@ -1,24 +1,31 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeploymentStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub available_replicas: <Option<i32> as crate::Optionable>::Optioned,
+    pub available_replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub collision_count: <Option<i32> as crate::Optionable>::Optioned,
+    pub collision_count: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: <Option<
         std::vec::Vec<::k8s_openapi027::api::apps::v1::DeploymentCondition>,
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub observed_generation: <Option<i64> as crate::Optionable>::Optioned,
+    pub observed_generation: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ready_replicas: <Option<i32> as crate::Optionable>::Optioned,
+    pub ready_replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub replicas: <Option<i32> as crate::Optionable>::Optioned,
+    pub replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub unavailable_replicas: <Option<i32> as crate::Optionable>::Optioned,
+    pub unavailable_replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub updated_replicas: <Option<i32> as crate::Optionable>::Optioned,
+    pub updated_replicas: Option<i32>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::apps::v1::DeploymentStatus {
@@ -33,56 +40,44 @@ impl crate::Optionable for DeploymentStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentStatus {
     fn into_optioned(self) -> DeploymentStatusAc {
         DeploymentStatusAc {
-            available_replicas: crate::OptionableConvert::into_optioned(self.available_replicas),
-            collision_count: crate::OptionableConvert::into_optioned(self.collision_count),
+            available_replicas: self.available_replicas,
+            collision_count: self.collision_count,
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
-            observed_generation: crate::OptionableConvert::into_optioned(self.observed_generation),
-            ready_replicas: crate::OptionableConvert::into_optioned(self.ready_replicas),
-            replicas: crate::OptionableConvert::into_optioned(self.replicas),
-            unavailable_replicas: crate::OptionableConvert::into_optioned(
-                self.unavailable_replicas,
-            ),
-            updated_replicas: crate::OptionableConvert::into_optioned(self.updated_replicas),
+            observed_generation: self.observed_generation,
+            ready_replicas: self.ready_replicas,
+            replicas: self.replicas,
+            unavailable_replicas: self.unavailable_replicas,
+            updated_replicas: self.updated_replicas,
         }
     }
     fn try_from_optioned(value: DeploymentStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            available_replicas: crate::OptionableConvert::try_from_optioned(
-                value.available_replicas,
-            )?,
-            collision_count: crate::OptionableConvert::try_from_optioned(value.collision_count)?,
+            available_replicas: value.available_replicas,
+            collision_count: value.collision_count,
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
-            observed_generation: crate::OptionableConvert::try_from_optioned(
-                value.observed_generation,
-            )?,
-            ready_replicas: crate::OptionableConvert::try_from_optioned(value.ready_replicas)?,
-            replicas: crate::OptionableConvert::try_from_optioned(value.replicas)?,
-            unavailable_replicas: crate::OptionableConvert::try_from_optioned(
-                value.unavailable_replicas,
-            )?,
-            updated_replicas: crate::OptionableConvert::try_from_optioned(value.updated_replicas)?,
+            observed_generation: value.observed_generation,
+            ready_replicas: value.ready_replicas,
+            replicas: value.replicas,
+            unavailable_replicas: value.unavailable_replicas,
+            updated_replicas: value.updated_replicas,
         })
     }
     fn merge(&mut self, other: DeploymentStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.available_replicas, other.available_replicas)?;
-        crate::OptionableConvert::merge(&mut self.collision_count, other.collision_count)?;
+        self.available_replicas = other.available_replicas;
+        self.collision_count = other.collision_count;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        crate::OptionableConvert::merge(&mut self.observed_generation, other.observed_generation)?;
-        crate::OptionableConvert::merge(&mut self.ready_replicas, other.ready_replicas)?;
-        crate::OptionableConvert::merge(&mut self.replicas, other.replicas)?;
-        crate::OptionableConvert::merge(
-            &mut self.unavailable_replicas,
-            other.unavailable_replicas,
-        )?;
-        crate::OptionableConvert::merge(&mut self.updated_replicas, other.updated_replicas)?;
+        self.observed_generation = other.observed_generation;
+        self.ready_replicas = other.ready_replicas;
+        self.replicas = other.replicas;
+        self.unavailable_replicas = other.unavailable_replicas;
+        self.updated_replicas = other.updated_replicas;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::DeploymentStatus>
-    for DeploymentStatusAc
-{
+for DeploymentStatusAc {
     fn from_optionable(value: k8s_openapi027::api::apps::v1::DeploymentStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

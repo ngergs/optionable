@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimConsumerReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -11,7 +18,8 @@ pub struct ResourceClaimConsumerReferenceAc {
     pub uid: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::resource::v1alpha3::ResourceClaimConsumerReference {
+impl crate::Optionable
+for k8s_openapi027::api::resource::v1alpha3::ResourceClaimConsumerReference {
     type Optioned = ResourceClaimConsumerReferenceAc;
 }
 #[automatically_derived]
@@ -21,8 +29,7 @@ impl crate::Optionable for ResourceClaimConsumerReferenceAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::api::resource::v1alpha3::ResourceClaimConsumerReference
-{
+for k8s_openapi027::api::resource::v1alpha3::ResourceClaimConsumerReference {
     fn into_optioned(self) -> ResourceClaimConsumerReferenceAc {
         ResourceClaimConsumerReferenceAc {
             api_group: crate::OptionableConvert::into_optioned(self.api_group),
@@ -31,23 +38,38 @@ impl crate::OptionableConvert
             uid: Some(crate::OptionableConvert::into_optioned(self.uid)),
         }
     }
-    fn try_from_optioned(value: ResourceClaimConsumerReferenceAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: ResourceClaimConsumerReferenceAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             api_group: crate::OptionableConvert::try_from_optioned(value.api_group)?,
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
-            resource: crate::OptionableConvert::try_from_optioned(value.resource.ok_or(
-                crate::Error {
-                    missing_field: "resource",
-                },
-            )?)?,
-            uid: crate::OptionableConvert::try_from_optioned(value.uid.ok_or(crate::Error {
-                missing_field: "uid",
-            })?)?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
+            resource: crate::OptionableConvert::try_from_optioned(
+                value
+                    .resource
+                    .ok_or(crate::Error {
+                        missing_field: "resource",
+                    })?,
+            )?,
+            uid: crate::OptionableConvert::try_from_optioned(
+                value
+                    .uid
+                    .ok_or(crate::Error {
+                        missing_field: "uid",
+                    })?,
+            )?,
         })
     }
-    fn merge(&mut self, other: ResourceClaimConsumerReferenceAc) -> Result<(), crate::Error> {
+    fn merge(
+        &mut self,
+        other: ResourceClaimConsumerReferenceAc,
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
@@ -63,9 +85,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::ResourceClaimConsumerReference>
-    for ResourceClaimConsumerReferenceAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::resource::v1alpha3::ResourceClaimConsumerReference,
+> for ResourceClaimConsumerReferenceAc {
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1alpha3::ResourceClaimConsumerReference,
     ) -> Self {
@@ -73,8 +95,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::ResourceCla
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::resource::v1alpha3::ResourceClaimConsumerReference, crate::Error>
-    {
+    ) -> Result<
+        k8s_openapi027::api::resource::v1alpha3::ResourceClaimConsumerReference,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

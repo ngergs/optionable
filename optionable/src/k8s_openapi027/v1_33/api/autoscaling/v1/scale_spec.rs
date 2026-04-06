@@ -1,8 +1,15 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ScaleSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub replicas: <Option<i32> as crate::Optionable>::Optioned,
+    pub replicas: Option<i32>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::autoscaling::v1::ScaleSpec {
@@ -17,22 +24,21 @@ impl crate::Optionable for ScaleSpecAc {
 impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v1::ScaleSpec {
     fn into_optioned(self) -> ScaleSpecAc {
         ScaleSpecAc {
-            replicas: crate::OptionableConvert::into_optioned(self.replicas),
+            replicas: self.replicas,
         }
     }
     fn try_from_optioned(value: ScaleSpecAc) -> Result<Self, crate::Error> {
-        Ok(Self {
-            replicas: crate::OptionableConvert::try_from_optioned(value.replicas)?,
-        })
+        Ok(Self { replicas: value.replicas })
     }
     fn merge(&mut self, other: ScaleSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.replicas, other.replicas)?;
+        self.replicas = other.replicas;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v1::ScaleSpec> for ScaleSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v1::ScaleSpec>
+for ScaleSpecAc {
     fn from_optionable(value: k8s_openapi027::api::autoscaling::v1::ScaleSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

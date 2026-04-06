@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FlowDistinguisherMethodAc {
     #[serde(rename = "type")]
@@ -6,7 +13,8 @@ pub struct FlowDistinguisherMethodAc {
     pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::flowcontrol::v1::FlowDistinguisherMethod {
+impl crate::Optionable
+for k8s_openapi027::api::flowcontrol::v1::FlowDistinguisherMethod {
     type Optioned = FlowDistinguisherMethodAc;
 }
 #[automatically_derived]
@@ -15,19 +23,24 @@ impl crate::Optionable for FlowDistinguisherMethodAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::FlowDistinguisherMethod {
+impl crate::OptionableConvert
+for k8s_openapi027::api::flowcontrol::v1::FlowDistinguisherMethod {
     fn into_optioned(self) -> FlowDistinguisherMethodAc {
         FlowDistinguisherMethodAc {
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
-    fn try_from_optioned(value: FlowDistinguisherMethodAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: FlowDistinguisherMethodAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
-            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
-                crate::Error {
-                    missing_field: "type_",
-                },
-            )?)?,
+            type_: crate::OptionableConvert::try_from_optioned(
+                value
+                    .type_
+                    .ok_or(crate::Error {
+                        missing_field: "type_",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: FlowDistinguisherMethodAc) -> Result<(), crate::Error> {
@@ -39,9 +52,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::FlowDist
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::flowcontrol::v1::FlowDistinguisherMethod>
-    for FlowDistinguisherMethodAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::flowcontrol::v1::FlowDistinguisherMethod,
+> for FlowDistinguisherMethodAc {
     fn from_optionable(
         value: k8s_openapi027::api::flowcontrol::v1::FlowDistinguisherMethod,
     ) -> Self {
@@ -49,7 +62,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::flowcontrol::v1::FlowDistinguis
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::flowcontrol::v1::FlowDistinguisherMethod, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::flowcontrol::v1::FlowDistinguisherMethod,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceDefinitionSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -12,7 +19,7 @@ pub struct CustomResourceDefinitionSpecAc {
         <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionNames as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub preserve_unknown_fields: <Option<bool> as crate::Optionable>::Optioned,
+    pub preserve_unknown_fields: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -40,9 +47,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             conversion: crate::OptionableConvert::into_optioned(self.conversion),
             group: Some(crate::OptionableConvert::into_optioned(self.group)),
             names: Some(crate::OptionableConvert::into_optioned(self.names)),
-            preserve_unknown_fields: crate::OptionableConvert::into_optioned(
-                self.preserve_unknown_fields,
-            ),
+            preserve_unknown_fields: self.preserve_unknown_fields,
             scope: Some(crate::OptionableConvert::into_optioned(self.scope)),
             versions: Some(crate::OptionableConvert::into_optioned(self.versions)),
         }
@@ -66,9 +71,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
                         missing_field: "names",
                     })?,
             )?,
-            preserve_unknown_fields: crate::OptionableConvert::try_from_optioned(
-                value.preserve_unknown_fields,
-            )?,
+            preserve_unknown_fields: value.preserve_unknown_fields,
             scope: crate::OptionableConvert::try_from_optioned(
                 value
                     .scope
@@ -96,10 +99,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         if let Some(other_value) = other.names {
             crate::OptionableConvert::merge(&mut self.names, other_value)?;
         }
-        crate::OptionableConvert::merge(
-            &mut self.preserve_unknown_fields,
-            other.preserve_unknown_fields,
-        )?;
+        self.preserve_unknown_fields = other.preserve_unknown_fields;
         if let Some(other_value) = other.scope {
             crate::OptionableConvert::merge(&mut self.scope, other_value)?;
         }

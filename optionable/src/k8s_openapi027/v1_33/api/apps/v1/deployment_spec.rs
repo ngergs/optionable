@@ -1,16 +1,23 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeploymentSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub min_ready_seconds: <Option<i32> as crate::Optionable>::Optioned,
+    pub min_ready_seconds: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub paused: <Option<bool> as crate::Optionable>::Optioned,
+    pub paused: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub progress_deadline_seconds: <Option<i32> as crate::Optionable>::Optioned,
+    pub progress_deadline_seconds: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub replicas: <Option<i32> as crate::Optionable>::Optioned,
+    pub replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub revision_history_limit: <Option<i32> as crate::Optionable>::Optioned,
+    pub revision_history_limit: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub selector: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
@@ -37,15 +44,11 @@ impl crate::Optionable for DeploymentSpecAc {
 impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentSpec {
     fn into_optioned(self) -> DeploymentSpecAc {
         DeploymentSpecAc {
-            min_ready_seconds: crate::OptionableConvert::into_optioned(self.min_ready_seconds),
-            paused: crate::OptionableConvert::into_optioned(self.paused),
-            progress_deadline_seconds: crate::OptionableConvert::into_optioned(
-                self.progress_deadline_seconds,
-            ),
-            replicas: crate::OptionableConvert::into_optioned(self.replicas),
-            revision_history_limit: crate::OptionableConvert::into_optioned(
-                self.revision_history_limit,
-            ),
+            min_ready_seconds: self.min_ready_seconds,
+            paused: self.paused,
+            progress_deadline_seconds: self.progress_deadline_seconds,
+            replicas: self.replicas,
+            revision_history_limit: self.revision_history_limit,
             selector: Some(crate::OptionableConvert::into_optioned(self.selector)),
             strategy: crate::OptionableConvert::into_optioned(self.strategy),
             template: Some(crate::OptionableConvert::into_optioned(self.template)),
@@ -53,42 +56,34 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentSpec 
     }
     fn try_from_optioned(value: DeploymentSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            min_ready_seconds: crate::OptionableConvert::try_from_optioned(
-                value.min_ready_seconds,
+            min_ready_seconds: value.min_ready_seconds,
+            paused: value.paused,
+            progress_deadline_seconds: value.progress_deadline_seconds,
+            replicas: value.replicas,
+            revision_history_limit: value.revision_history_limit,
+            selector: crate::OptionableConvert::try_from_optioned(
+                value
+                    .selector
+                    .ok_or(crate::Error {
+                        missing_field: "selector",
+                    })?,
             )?,
-            paused: crate::OptionableConvert::try_from_optioned(value.paused)?,
-            progress_deadline_seconds: crate::OptionableConvert::try_from_optioned(
-                value.progress_deadline_seconds,
-            )?,
-            replicas: crate::OptionableConvert::try_from_optioned(value.replicas)?,
-            revision_history_limit: crate::OptionableConvert::try_from_optioned(
-                value.revision_history_limit,
-            )?,
-            selector: crate::OptionableConvert::try_from_optioned(value.selector.ok_or(
-                crate::Error {
-                    missing_field: "selector",
-                },
-            )?)?,
             strategy: crate::OptionableConvert::try_from_optioned(value.strategy)?,
-            template: crate::OptionableConvert::try_from_optioned(value.template.ok_or(
-                crate::Error {
-                    missing_field: "template",
-                },
-            )?)?,
+            template: crate::OptionableConvert::try_from_optioned(
+                value
+                    .template
+                    .ok_or(crate::Error {
+                        missing_field: "template",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: DeploymentSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.min_ready_seconds, other.min_ready_seconds)?;
-        crate::OptionableConvert::merge(&mut self.paused, other.paused)?;
-        crate::OptionableConvert::merge(
-            &mut self.progress_deadline_seconds,
-            other.progress_deadline_seconds,
-        )?;
-        crate::OptionableConvert::merge(&mut self.replicas, other.replicas)?;
-        crate::OptionableConvert::merge(
-            &mut self.revision_history_limit,
-            other.revision_history_limit,
-        )?;
+        self.min_ready_seconds = other.min_ready_seconds;
+        self.paused = other.paused;
+        self.progress_deadline_seconds = other.progress_deadline_seconds;
+        self.replicas = other.replicas;
+        self.revision_history_limit = other.revision_history_limit;
         if let Some(other_value) = other.selector {
             crate::OptionableConvert::merge(&mut self.selector, other_value)?;
         }
@@ -101,7 +96,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentSpec 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::DeploymentSpec> for DeploymentSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::DeploymentSpec>
+for DeploymentSpecAc {
     fn from_optionable(value: k8s_openapi027::api::apps::v1::DeploymentSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

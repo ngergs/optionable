@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressPortStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -18,7 +25,8 @@ impl crate::Optionable for IngressPortStatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressPortStatus {
+impl crate::OptionableConvert
+for k8s_openapi027::api::networking::v1::IngressPortStatus {
     fn into_optioned(self) -> IngressPortStatusAc {
         IngressPortStatusAc {
             error: crate::OptionableConvert::into_optioned(self.error),
@@ -29,14 +37,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressPo
     fn try_from_optioned(value: IngressPortStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             error: crate::OptionableConvert::try_from_optioned(value.error)?,
-            port: value.port.ok_or(crate::Error {
-                missing_field: "port",
-            })?,
-            protocol: crate::OptionableConvert::try_from_optioned(value.protocol.ok_or(
-                crate::Error {
-                    missing_field: "protocol",
-                },
-            )?)?,
+            port: value
+                .port
+                .ok_or(crate::Error {
+                    missing_field: "port",
+                })?,
+            protocol: crate::OptionableConvert::try_from_optioned(
+                value
+                    .protocol
+                    .ok_or(crate::Error {
+                        missing_field: "protocol",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: IngressPortStatusAc) -> Result<(), crate::Error> {
@@ -53,9 +65,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressPo
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::IngressPortStatus>
-    for IngressPortStatusAc
-{
-    fn from_optionable(value: k8s_openapi027::api::networking::v1::IngressPortStatus) -> Self {
+for IngressPortStatusAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::networking::v1::IngressPortStatus,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

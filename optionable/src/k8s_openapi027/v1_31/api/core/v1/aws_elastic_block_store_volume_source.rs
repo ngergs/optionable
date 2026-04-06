@@ -1,18 +1,26 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AWSElasticBlockStoreVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub partition: <Option<i32> as crate::Optionable>::Optioned,
+    pub partition: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub read_only: <Option<bool> as crate::Optionable>::Optioned,
+    pub read_only: Option<bool>,
     #[serde(rename = "volumeID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_id: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource {
+impl crate::Optionable
+for k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource {
     type Optioned = AWSElasticBlockStoreVolumeSourceAc;
 }
 #[automatically_derived]
@@ -21,31 +29,39 @@ impl crate::Optionable for AWSElasticBlockStoreVolumeSourceAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource {
+impl crate::OptionableConvert
+for k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource {
     fn into_optioned(self) -> AWSElasticBlockStoreVolumeSourceAc {
         AWSElasticBlockStoreVolumeSourceAc {
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
-            partition: crate::OptionableConvert::into_optioned(self.partition),
-            read_only: crate::OptionableConvert::into_optioned(self.read_only),
+            partition: self.partition,
+            read_only: self.read_only,
             volume_id: Some(crate::OptionableConvert::into_optioned(self.volume_id)),
         }
     }
-    fn try_from_optioned(value: AWSElasticBlockStoreVolumeSourceAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: AWSElasticBlockStoreVolumeSourceAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
-            partition: crate::OptionableConvert::try_from_optioned(value.partition)?,
-            read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
-            volume_id: crate::OptionableConvert::try_from_optioned(value.volume_id.ok_or(
-                crate::Error {
-                    missing_field: "volume_id",
-                },
-            )?)?,
+            partition: value.partition,
+            read_only: value.read_only,
+            volume_id: crate::OptionableConvert::try_from_optioned(
+                value
+                    .volume_id
+                    .ok_or(crate::Error {
+                        missing_field: "volume_id",
+                    })?,
+            )?,
         })
     }
-    fn merge(&mut self, other: AWSElasticBlockStoreVolumeSourceAc) -> Result<(), crate::Error> {
+    fn merge(
+        &mut self,
+        other: AWSElasticBlockStoreVolumeSourceAc,
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
-        crate::OptionableConvert::merge(&mut self.partition, other.partition)?;
-        crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        self.partition = other.partition;
+        self.read_only = other.read_only;
         if let Some(other_value) = other.volume_id {
             crate::OptionableConvert::merge(&mut self.volume_id, other_value)?;
         }
@@ -54,9 +70,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AWSElasticBlock
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource>
-    for AWSElasticBlockStoreVolumeSourceAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource,
+> for AWSElasticBlockStoreVolumeSourceAc {
     fn from_optionable(
         value: k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource,
     ) -> Self {
@@ -64,7 +80,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::AWSElasticBlockStoreV
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
