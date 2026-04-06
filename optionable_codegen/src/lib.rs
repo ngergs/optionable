@@ -37,9 +37,9 @@ use syn::parse::Parser;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::{
-    Attribute, Data, DataEnum, DataStruct, DeriveInput, Error, Field, Fields, Generics,
-    ImplGenerics, LitStr, Meta, MetaList, Path, Token, Type, TypeGenerics, TypePath, WhereClause,
-    parse_quote,
+    Attribute, Data, DataEnum, DataStruct, DeriveInput, Error, Field, Fields, GenericArgument,
+    Generics, ImplGenerics, LitStr, Meta, MetaList, Path, PathArguments, Token, Type, TypeGenerics,
+    TypePath, WhereClause, parse_quote,
 };
 
 const HELPER_IDENT: &str = "optionable";
@@ -931,14 +931,70 @@ const SELF_RESOLVING_TYPES: [&str; 18] = [
     "String", "OsString",
 ];
 
+/// Container types with one effective type parameter where `Container<T>::Optioned = Container<T::Optioned>`.
+/// Lifetimes (e.g. for `Cow`) are skipped when looking for the type argument.
+const SINGLE_TYPE_PARAM_CONTAINERS: [&str; 13] = [
+    "Vec",
+    "VecDeque",
+    "LinkedList",
+    "BinaryHeap",
+    "BTreeSet",
+    "HashSet",
+    "Option",
+    "Box",
+    "Arc",
+    "Rc",
+    "Cell",
+    "RefCell",
+    "Cow",
+];
+
+/// Map-like container types where the value (second type parameter) changes analogously to `Container<K, T>::Optioned = Container<K, T::Optioned>`.
+const MAP_CONTAINERS: [&str; 2] = ["HashMap", "BTreeMap"];
+
 /// Checks when it is well known that the type resolves to itself as its `Optioned`.
-/// Limited to self-resolving (mostly primitive) types.
+/// Handles primitives, common std types, and recursively handles well-known container types.
 fn is_self_resolving_optioned(ty: &Type) -> bool {
-    if let Type::Path(TypePath { qself, path }) = &ty
-        && qself.is_none()
-        && SELF_RESOLVING_TYPES.contains(&&*path.to_token_stream().to_string())
-    {
-        true
+    let Type::Path(TypePath { qself, path }) = ty else {
+        return false;
+    };
+    if qself.is_some() {
+        return false;
+    }
+    if SELF_RESOLVING_TYPES.contains(&&*path.to_token_stream().to_string()) {
+        return true;
+    }
+    let Some(segment) = path.segments.last() else {
+        return false;
+    };
+    let ident = segment.ident.to_string();
+    let PathArguments::AngleBracketed(args) = &segment.arguments else {
+        return false;
+    };
+    let type_args: Vec<&Type> = args
+        .args
+        .iter()
+        .filter_map(|arg| {
+            if let GenericArgument::Type(ty) = arg {
+                Some(ty)
+            } else {
+                None
+            }
+        })
+        .collect();
+
+    if SINGLE_TYPE_PARAM_CONTAINERS.contains(&&*ident) {
+        type_args
+            .first()
+            .is_some_and(|inner| is_self_resolving_optioned(inner))
+    } else if MAP_CONTAINERS.contains(&&*ident) {
+        type_args
+            .get(1)
+            .is_some_and(|value_ty| is_self_resolving_optioned(value_ty))
+    } else if ident == "Result" {
+        type_args
+            .first()
+            .is_some_and(|ok_ty| is_self_resolving_optioned(ok_ty))
     } else {
         false
     }
@@ -1017,10 +1073,19 @@ mod tests {
     use quote::quote;
     use syn::{Path, parse_quote};
 
+    fn normalize_token_str(s: String) -> String {
+        // `quote!` literals and interpolated token streams differ in whether adjacent `>>`
+        // closing angle brackets are rendered with or without a space. Normalize to `> >`.
+        s.replace(">>", "> >")
+    }
+
     fn assert_optionable(input: proc_macro2::TokenStream, expected: proc_macro2::TokenStream) {
         let parsed = syn::parse2(input).unwrap();
         let output = derive_optionable(parsed, None).unwrap();
-        assert_eq!(expected.to_string(), output.to_string());
+        assert_eq!(
+            normalize_token_str(expected.to_string()),
+            normalize_token_str(output.to_string())
+        );
     }
 
     #[test]
@@ -1230,7 +1295,7 @@ mod tests {
                     name: Option<String>,
                     #[serde(rename = "middle__name")]
                     #[serde(skip_serializing_if = "Option::is_none")]
-                    middle_name: <Option<String> as ::optionable::Optionable>::Optioned,
+                    middle_name: Option<String>,
                     #[serde(skip_serializing_if = "Option::is_none")]
                     surname: Option<String>
                 }
@@ -1250,7 +1315,7 @@ mod tests {
                     fn into_optioned (self) -> DeriveExampleAc {
                         DeriveExampleAc  {
                             name: Some(self.name),
-                            middle_name: ::optionable::OptionableConvert::into_optioned(self.middle_name),
+                            middle_name: self.middle_name,
                             surname: Some(self.surname)
                         }
                     }
@@ -1258,7 +1323,7 @@ mod tests {
                     fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::Error> {
                         Ok(Self{
                             name: value.name.ok_or(::optionable::Error { missing_field: "name"})?,
-                            middle_name: ::optionable::OptionableConvert::try_from_optioned(value.middle_name)?,
+                            middle_name: value.middle_name,
                             surname: value.surname.ok_or(::optionable::Error { missing_field: "surname"})?
                         })
                     }
@@ -1267,7 +1332,7 @@ mod tests {
                         if let Some(other_value) = other.name {
                             self.name =  other_value;
                         }
-                        ::optionable::OptionableConvert::merge(&mut self.middle_name, other.middle_name)?;
+                        self.middle_name = other.middle_name;
                         if let Some(other_value) = other.surname {
                             self.surname =  other_value;
                         }
@@ -1322,7 +1387,7 @@ mod tests {
                     name: Option<String>,
                     #[serde(rename = "middle__name")]
                     #[serde(skip_serializing_if = "Option::is_none")]
-                    middle_name: Option< <Option<String> as ::optionable::Optionable>::Optioned>,
+                    middle_name: Option<Option<String>>,
                     #[serde(skip_serializing_if = "Option::is_none")]
                     surname: Option<String>
                 }
@@ -1342,7 +1407,7 @@ mod tests {
                     fn into_optioned (self) -> DeriveExampleAc {
                         DeriveExampleAc  {
                             name: Some(self.name),
-                            middle_name: Some(::optionable::OptionableConvert::into_optioned(self.middle_name)),
+                            middle_name: Some(self.middle_name),
                             surname: Some(self.surname)
                         }
                     }
@@ -1350,7 +1415,7 @@ mod tests {
                     fn try_from_optioned(value: DeriveExampleAc ) -> Result <Self, ::optionable::Error> {
                         Ok(Self{
                             name: value.name.ok_or(::optionable::Error { missing_field: "name"})?,
-                            middle_name: ::optionable::OptionableConvert::try_from_optioned(value.middle_name.ok_or(::optionable::Error{ missing_field : "middle_name" })?)?,
+                            middle_name: value.middle_name.ok_or(::optionable::Error{ missing_field : "middle_name" })?,
                             surname: value.surname.ok_or(::optionable::Error { missing_field: "surname"})?
                         })
                     }
@@ -1360,7 +1425,7 @@ mod tests {
                             self.name =  other_value;
                         }
                         if let Some(other_value) = other.middle_name {
-                            ::optionable::OptionableConvert::merge(&mut self.middle_name, other_value)?;
+                            self.middle_name = other_value;
                         }
                         if let Some(other_value) = other.surname {
                             self.surname =  other_value;
