@@ -1,10 +1,19 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IPBlockAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cidr: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub except: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub except: <Option<
+        std::vec::Vec<std::string::String>,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::networking::v1::IPBlock {
@@ -25,9 +34,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IPBlock {
     }
     fn try_from_optioned(value: IPBlockAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            cidr: crate::OptionableConvert::try_from_optioned(value.cidr.ok_or(crate::Error {
-                missing_field: "cidr",
-            })?)?,
+            cidr: crate::OptionableConvert::try_from_optioned(
+                value
+                    .cidr
+                    .ok_or(crate::Error {
+                        missing_field: "cidr",
+                    })?,
+            )?,
             except: crate::OptionableConvert::try_from_optioned(value.except)?,
         })
     }

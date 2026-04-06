@@ -1,14 +1,29 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceRuleAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub api_groups: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub api_groups: <Option<
+        std::vec::Vec<std::string::String>,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_names: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub resource_names: <Option<
+        std::vec::Vec<std::string::String>,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resources: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub resources: <Option<
+        std::vec::Vec<std::string::String>,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub verbs: Option<<std::vec::Vec<std::string::String> as crate::Optionable>::Optioned>,
+    pub verbs: Option<
+        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::authorization::v1::ResourceRule {
@@ -32,13 +47,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::Resour
     fn try_from_optioned(value: ResourceRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             api_groups: crate::OptionableConvert::try_from_optioned(value.api_groups)?,
-            resource_names: crate::OptionableConvert::try_from_optioned(value.resource_names)?,
+            resource_names: crate::OptionableConvert::try_from_optioned(
+                value.resource_names,
+            )?,
             resources: crate::OptionableConvert::try_from_optioned(value.resources)?,
-            verbs: crate::OptionableConvert::try_from_optioned(value.verbs.ok_or(
-                crate::Error {
-                    missing_field: "verbs",
-                },
-            )?)?,
+            verbs: crate::OptionableConvert::try_from_optioned(
+                value
+                    .verbs
+                    .ok_or(crate::Error {
+                        missing_field: "verbs",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: ResourceRuleAc) -> Result<(), crate::Error> {
@@ -54,9 +73,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::Resour
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::authorization::v1::ResourceRule>
-    for ResourceRuleAc
-{
-    fn from_optionable(value: k8s_openapi027::api::authorization::v1::ResourceRule) -> Self {
+for ResourceRuleAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::authorization::v1::ResourceRule,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct WorkloadReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6,7 +13,9 @@ pub struct WorkloadReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_group: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_group_replica_key: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub pod_group_replica_key: <Option<
+        std::string::String,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::WorkloadReference {
@@ -30,14 +39,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::WorkloadReferen
     }
     fn try_from_optioned(value: WorkloadReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
-            pod_group: crate::OptionableConvert::try_from_optioned(value.pod_group.ok_or(
-                crate::Error {
-                    missing_field: "pod_group",
-                },
-            )?)?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
+            pod_group: crate::OptionableConvert::try_from_optioned(
+                value
+                    .pod_group
+                    .ok_or(crate::Error {
+                        missing_field: "pod_group",
+                    })?,
+            )?,
             pod_group_replica_key: crate::OptionableConvert::try_from_optioned(
                 value.pod_group_replica_key,
             )?,
@@ -60,8 +75,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::WorkloadReferen
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::WorkloadReference>
-    for WorkloadReferenceAc
-{
+for WorkloadReferenceAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::WorkloadReference) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

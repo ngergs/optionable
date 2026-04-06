@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodTemplateAc {
     #[serde(
@@ -13,8 +20,9 @@ pub struct PodTemplateAc {
     pub kind: std::marker::PhantomData<Self>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub template:
-        <Option<::k8s_openapi027::api::core::v1::PodTemplateSpec> as crate::Optionable>::Optioned,
+    pub template: <Option<
+        ::k8s_openapi027::api::core::v1::PodTemplateSpec,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodTemplate {
@@ -49,7 +57,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodTemplate {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodTemplate> for PodTemplateAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodTemplate>
+for PodTemplateAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::PodTemplate) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
@@ -66,16 +75,11 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodTemplate> for PodT
     }
 }
 impl k8s_openapi027::Resource for PodTemplateAc {
-    const API_VERSION: &'static str =
-        <k8s_openapi027::api::core::v1::PodTemplate as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str =
-        <k8s_openapi027::api::core::v1::PodTemplate as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str =
-        <k8s_openapi027::api::core::v1::PodTemplate as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str =
-        <k8s_openapi027::api::core::v1::PodTemplate as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str =
-        <k8s_openapi027::api::core::v1::PodTemplate as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str = <k8s_openapi027::api::core::v1::PodTemplate as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi027::api::core::v1::PodTemplate as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi027::api::core::v1::PodTemplate as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi027::api::core::v1::PodTemplate as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::core::v1::PodTemplate as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::core::v1::PodTemplate as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for PodTemplateAc {

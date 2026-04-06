@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodAntiAffinityAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -23,26 +30,22 @@ impl crate::Optionable for PodAntiAffinityAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodAntiAffinity {
     fn into_optioned(self) -> PodAntiAffinityAc {
         PodAntiAffinityAc {
-            preferred_during_scheduling_ignored_during_execution:
-                crate::OptionableConvert::into_optioned(
-                    self.preferred_during_scheduling_ignored_during_execution,
-                ),
-            required_during_scheduling_ignored_during_execution:
-                crate::OptionableConvert::into_optioned(
-                    self.required_during_scheduling_ignored_during_execution,
-                ),
+            preferred_during_scheduling_ignored_during_execution: crate::OptionableConvert::into_optioned(
+                self.preferred_during_scheduling_ignored_during_execution,
+            ),
+            required_during_scheduling_ignored_during_execution: crate::OptionableConvert::into_optioned(
+                self.required_during_scheduling_ignored_during_execution,
+            ),
         }
     }
     fn try_from_optioned(value: PodAntiAffinityAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            preferred_during_scheduling_ignored_during_execution:
-                crate::OptionableConvert::try_from_optioned(
-                    value.preferred_during_scheduling_ignored_during_execution,
-                )?,
-            required_during_scheduling_ignored_during_execution:
-                crate::OptionableConvert::try_from_optioned(
-                    value.required_during_scheduling_ignored_during_execution,
-                )?,
+            preferred_during_scheduling_ignored_during_execution: crate::OptionableConvert::try_from_optioned(
+                value.preferred_during_scheduling_ignored_during_execution,
+            )?,
+            required_during_scheduling_ignored_during_execution: crate::OptionableConvert::try_from_optioned(
+                value.required_during_scheduling_ignored_during_execution,
+            )?,
         })
     }
     fn merge(&mut self, other: PodAntiAffinityAc) -> Result<(), crate::Error> {
@@ -59,7 +62,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodAntiAffinity
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodAntiAffinity> for PodAntiAffinityAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodAntiAffinity>
+for PodAntiAffinityAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::PodAntiAffinity) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

@@ -1,8 +1,17 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIResourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub categories: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub categories: <Option<
+        std::vec::Vec<std::string::String>,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -12,18 +21,25 @@ pub struct APIResourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub namespaced: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub short_names: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub short_names: <Option<
+        std::vec::Vec<std::string::String>,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub singular_name: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub storage_version_hash: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub storage_version_hash: <Option<
+        std::string::String,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub verbs: Option<<std::vec::Vec<std::string::String> as crate::Optionable>::Optioned>,
+    pub verbs: Option<
+        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub version: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource {
+impl crate::Optionable
+for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource {
     type Optioned = APIResourceAc;
 }
 #[automatically_derived]
@@ -32,7 +48,8 @@ impl crate::Optionable for APIResourceAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource {
+impl crate::OptionableConvert
+for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource {
     fn into_optioned(self) -> APIResourceAc {
         APIResourceAc {
             categories: crate::OptionableConvert::into_optioned(self.categories),
@@ -41,7 +58,9 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta:
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             namespaced: Some(self.namespaced),
             short_names: crate::OptionableConvert::into_optioned(self.short_names),
-            singular_name: Some(crate::OptionableConvert::into_optioned(self.singular_name)),
+            singular_name: Some(
+                crate::OptionableConvert::into_optioned(self.singular_name),
+            ),
             storage_version_hash: crate::OptionableConvert::into_optioned(
                 self.storage_version_hash,
             ),
@@ -53,29 +72,43 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta:
         Ok(Self {
             categories: crate::OptionableConvert::try_from_optioned(value.categories)?,
             group: crate::OptionableConvert::try_from_optioned(value.group)?,
-            kind: crate::OptionableConvert::try_from_optioned(value.kind.ok_or(crate::Error {
-                missing_field: "kind",
-            })?)?,
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
-            namespaced: value.namespaced.ok_or(crate::Error {
-                missing_field: "namespaced",
-            })?,
+            kind: crate::OptionableConvert::try_from_optioned(
+                value
+                    .kind
+                    .ok_or(crate::Error {
+                        missing_field: "kind",
+                    })?,
+            )?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
+            namespaced: value
+                .namespaced
+                .ok_or(crate::Error {
+                    missing_field: "namespaced",
+                })?,
             short_names: crate::OptionableConvert::try_from_optioned(value.short_names)?,
             singular_name: crate::OptionableConvert::try_from_optioned(
-                value.singular_name.ok_or(crate::Error {
-                    missing_field: "singular_name",
-                })?,
+                value
+                    .singular_name
+                    .ok_or(crate::Error {
+                        missing_field: "singular_name",
+                    })?,
             )?,
             storage_version_hash: crate::OptionableConvert::try_from_optioned(
                 value.storage_version_hash,
             )?,
-            verbs: crate::OptionableConvert::try_from_optioned(value.verbs.ok_or(
-                crate::Error {
-                    missing_field: "verbs",
-                },
-            )?)?,
+            verbs: crate::OptionableConvert::try_from_optioned(
+                value
+                    .verbs
+                    .ok_or(crate::Error {
+                        missing_field: "verbs",
+                    })?,
+            )?,
             version: crate::OptionableConvert::try_from_optioned(value.version)?,
         })
     }
@@ -108,9 +141,9 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta:
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource>
-    for APIResourceAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource,
+> for APIResourceAc {
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource,
     ) -> Self {
@@ -118,7 +151,10 @@ impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::A
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

@@ -1,16 +1,20 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ListAc<T>
 where
     T: k8s_openapi027::ListableResource,
     std::vec::Vec<T>: crate::Optionable,
-    <std::vec::Vec<T> as crate::Optionable>::Optioned: Sized
-        + Clone
-        + Default
-        + PartialEq
-        + serde::de::DeserializeOwned
-        + serde::Serialize
-        + std::fmt::Debug,
+    <std::vec::Vec<
+        T,
+    > as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     #[serde(
         serialize_with = "crate::k8s_openapi::serialize_api_version",
@@ -31,13 +35,10 @@ impl<T> crate::Optionable for k8s_openapi027::List<T>
 where
     T: k8s_openapi027::ListableResource,
     std::vec::Vec<T>: crate::Optionable,
-    <std::vec::Vec<T> as crate::Optionable>::Optioned: Sized
-        + Clone
-        + Default
-        + PartialEq
-        + serde::de::DeserializeOwned
-        + serde::Serialize
-        + std::fmt::Debug,
+    <std::vec::Vec<
+        T,
+    > as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     type Optioned = ListAc<T>;
 }
@@ -46,13 +47,10 @@ impl<T> crate::Optionable for ListAc<T>
 where
     T: k8s_openapi027::ListableResource,
     std::vec::Vec<T>: crate::Optionable,
-    <std::vec::Vec<T> as crate::Optionable>::Optioned: Sized
-        + Clone
-        + Default
-        + PartialEq
-        + serde::de::DeserializeOwned
-        + serde::Serialize
-        + std::fmt::Debug,
+    <std::vec::Vec<
+        T,
+    > as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     type Optioned = ListAc<T>;
 }
@@ -62,13 +60,10 @@ impl<T> crate::OptionableConvert for k8s_openapi027::List<T>
 where
     T: k8s_openapi027::ListableResource,
     std::vec::Vec<T>: crate::OptionableConvert,
-    <std::vec::Vec<T> as crate::Optionable>::Optioned: Sized
-        + Clone
-        + Default
-        + PartialEq
-        + serde::de::DeserializeOwned
-        + serde::Serialize
-        + std::fmt::Debug,
+    <std::vec::Vec<
+        T,
+    > as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     fn into_optioned(self) -> ListAc<T> {
         ListAc::<T> {
@@ -80,11 +75,13 @@ where
     }
     fn try_from_optioned(value: ListAc<T>) -> Result<Self, crate::Error> {
         Ok(Self {
-            items: crate::OptionableConvert::try_from_optioned(value.items.ok_or(
-                crate::Error {
-                    missing_field: "items",
-                },
-            )?)?,
+            items: crate::OptionableConvert::try_from_optioned(
+                value
+                    .items
+                    .ok_or(crate::Error {
+                        missing_field: "items",
+                    })?,
+            )?,
             metadata: value.metadata,
         })
     }
@@ -102,13 +99,10 @@ impl<T> crate::OptionedConvert<k8s_openapi027::List<T>> for ListAc<T>
 where
     T: k8s_openapi027::ListableResource,
     std::vec::Vec<T>: crate::OptionableConvert,
-    <std::vec::Vec<T> as crate::Optionable>::Optioned: Sized
-        + Clone
-        + Default
-        + PartialEq
-        + serde::de::DeserializeOwned
-        + serde::Serialize
-        + std::fmt::Debug,
+    <std::vec::Vec<
+        T,
+    > as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     fn from_optionable(value: k8s_openapi027::List<T>) -> Self {
         crate::OptionableConvert::into_optioned(value)
@@ -116,7 +110,10 @@ where
     fn try_into_optionable(self) -> Result<k8s_openapi027::List<T>, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
-    fn merge_into(self, other: &mut k8s_openapi027::List<T>) -> Result<(), crate::Error> {
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi027::List<T>,
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(other, self)
     }
 }
@@ -124,34 +121,36 @@ impl<T> k8s_openapi027::Resource for ListAc<T>
 where
     T: k8s_openapi027::ListableResource,
     std::vec::Vec<T>: crate::Optionable,
-    <std::vec::Vec<T> as crate::Optionable>::Optioned: Sized
-        + Clone
-        + Default
-        + PartialEq
-        + serde::de::DeserializeOwned
-        + serde::Serialize
-        + std::fmt::Debug,
+    <std::vec::Vec<
+        T,
+    > as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
-    const API_VERSION: &'static str =
-        <k8s_openapi027::List<T> as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str = <k8s_openapi027::List<T> as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str = <k8s_openapi027::List<T> as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str = <k8s_openapi027::List<T> as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str =
-        <k8s_openapi027::List<T> as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str = <k8s_openapi027::List<
+        T,
+    > as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi027::List<
+        T,
+    > as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi027::List<
+        T,
+    > as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi027::List<
+        T,
+    > as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::List<
+        T,
+    > as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::List<T> as k8s_openapi027::Resource>::Scope;
 }
 impl<T> k8s_openapi027::Metadata for ListAc<T>
 where
     T: k8s_openapi027::ListableResource,
     std::vec::Vec<T>: crate::Optionable,
-    <std::vec::Vec<T> as crate::Optionable>::Optioned: Sized
-        + Clone
-        + Default
-        + PartialEq
-        + serde::de::DeserializeOwned
-        + serde::Serialize
-        + std::fmt::Debug,
+    <std::vec::Vec<
+        T,
+    > as crate::Optionable>::Optioned: Sized + Clone + Default + PartialEq
+        + serde::de::DeserializeOwned + serde::Serialize + std::fmt::Debug,
 {
     type Ty = <k8s_openapi027::List<T> as k8s_openapi027::Metadata>::Ty;
     fn metadata(&self) -> &<Self as k8s_openapi027::Metadata>::Ty {

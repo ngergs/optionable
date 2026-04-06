@@ -1,8 +1,15 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkPolicyPortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub end_port: <Option<i32> as crate::Optionable>::Optioned,
+    pub end_port: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: <Option<
         ::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString,
@@ -20,23 +27,24 @@ impl crate::Optionable for NetworkPolicyPortAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::NetworkPolicyPort {
+impl crate::OptionableConvert
+for k8s_openapi027::api::networking::v1::NetworkPolicyPort {
     fn into_optioned(self) -> NetworkPolicyPortAc {
         NetworkPolicyPortAc {
-            end_port: crate::OptionableConvert::into_optioned(self.end_port),
+            end_port: self.end_port,
             port: crate::OptionableConvert::into_optioned(self.port),
             protocol: crate::OptionableConvert::into_optioned(self.protocol),
         }
     }
     fn try_from_optioned(value: NetworkPolicyPortAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            end_port: crate::OptionableConvert::try_from_optioned(value.end_port)?,
+            end_port: value.end_port,
             port: crate::OptionableConvert::try_from_optioned(value.port)?,
             protocol: crate::OptionableConvert::try_from_optioned(value.protocol)?,
         })
     }
     fn merge(&mut self, other: NetworkPolicyPortAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.end_port, other.end_port)?;
+        self.end_port = other.end_port;
         crate::OptionableConvert::merge(&mut self.port, other.port)?;
         crate::OptionableConvert::merge(&mut self.protocol, other.protocol)?;
         Ok(())
@@ -45,9 +53,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::NetworkPo
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::NetworkPolicyPort>
-    for NetworkPolicyPortAc
-{
-    fn from_optionable(value: k8s_openapi027::api::networking::v1::NetworkPolicyPort) -> Self {
+for NetworkPolicyPortAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::networking::v1::NetworkPolicyPort,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

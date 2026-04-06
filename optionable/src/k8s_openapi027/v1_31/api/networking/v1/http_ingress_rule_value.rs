@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HTTPIngressRuleValueAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -18,7 +25,8 @@ impl crate::Optionable for HTTPIngressRuleValueAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::HTTPIngressRuleValue {
+impl crate::OptionableConvert
+for k8s_openapi027::api::networking::v1::HTTPIngressRuleValue {
     fn into_optioned(self) -> HTTPIngressRuleValueAc {
         HTTPIngressRuleValueAc {
             paths: Some(crate::OptionableConvert::into_optioned(self.paths)),
@@ -26,11 +34,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::HTTPIngre
     }
     fn try_from_optioned(value: HTTPIngressRuleValueAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            paths: crate::OptionableConvert::try_from_optioned(value.paths.ok_or(
-                crate::Error {
-                    missing_field: "paths",
-                },
-            )?)?,
+            paths: crate::OptionableConvert::try_from_optioned(
+                value
+                    .paths
+                    .ok_or(crate::Error {
+                        missing_field: "paths",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: HTTPIngressRuleValueAc) -> Result<(), crate::Error> {
@@ -43,14 +53,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::HTTPIngre
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::HTTPIngressRuleValue>
-    for HTTPIngressRuleValueAc
-{
-    fn from_optionable(value: k8s_openapi027::api::networking::v1::HTTPIngressRuleValue) -> Self {
+for HTTPIngressRuleValueAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::networking::v1::HTTPIngressRuleValue,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::networking::v1::HTTPIngressRuleValue, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::networking::v1::HTTPIngressRuleValue,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

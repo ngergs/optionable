@@ -1,8 +1,15 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSwapStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub capacity: <Option<i64> as crate::Optionable>::Optioned,
+    pub capacity: Option<i64>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::NodeSwapStatus {
@@ -17,22 +24,21 @@ impl crate::Optionable for NodeSwapStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSwapStatus {
     fn into_optioned(self) -> NodeSwapStatusAc {
         NodeSwapStatusAc {
-            capacity: crate::OptionableConvert::into_optioned(self.capacity),
+            capacity: self.capacity,
         }
     }
     fn try_from_optioned(value: NodeSwapStatusAc) -> Result<Self, crate::Error> {
-        Ok(Self {
-            capacity: crate::OptionableConvert::try_from_optioned(value.capacity)?,
-        })
+        Ok(Self { capacity: value.capacity })
     }
     fn merge(&mut self, other: NodeSwapStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
+        self.capacity = other.capacity;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSwapStatus> for NodeSwapStatusAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSwapStatus>
+for NodeSwapStatusAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::NodeSwapStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

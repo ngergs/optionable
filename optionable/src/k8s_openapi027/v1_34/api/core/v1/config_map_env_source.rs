@@ -1,10 +1,17 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ConfigMapEnvSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub optional: <Option<bool> as crate::Optionable>::Optioned,
+    pub optional: Option<bool>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ConfigMapEnvSource {
@@ -20,31 +27,36 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapEnvSou
     fn into_optioned(self) -> ConfigMapEnvSourceAc {
         ConfigMapEnvSourceAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
-            optional: crate::OptionableConvert::into_optioned(self.optional),
+            optional: self.optional,
         }
     }
     fn try_from_optioned(value: ConfigMapEnvSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
-            optional: crate::OptionableConvert::try_from_optioned(value.optional)?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
+            optional: value.optional,
         })
     }
     fn merge(&mut self, other: ConfigMapEnvSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
-        crate::OptionableConvert::merge(&mut self.optional, other.optional)?;
+        self.optional = other.optional;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ConfigMapEnvSource>
-    for ConfigMapEnvSourceAc
-{
-    fn from_optionable(value: k8s_openapi027::api::core::v1::ConfigMapEnvSource) -> Self {
+for ConfigMapEnvSourceAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::core::v1::ConfigMapEnvSource,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

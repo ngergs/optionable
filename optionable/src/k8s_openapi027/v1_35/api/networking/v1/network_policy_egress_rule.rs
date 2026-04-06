@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkPolicyEgressRuleAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -20,14 +27,17 @@ impl crate::Optionable for NetworkPolicyEgressRuleAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::NetworkPolicyEgressRule {
+impl crate::OptionableConvert
+for k8s_openapi027::api::networking::v1::NetworkPolicyEgressRule {
     fn into_optioned(self) -> NetworkPolicyEgressRuleAc {
         NetworkPolicyEgressRuleAc {
             ports: crate::OptionableConvert::into_optioned(self.ports),
             to: crate::OptionableConvert::into_optioned(self.to),
         }
     }
-    fn try_from_optioned(value: NetworkPolicyEgressRuleAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: NetworkPolicyEgressRuleAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
             to: crate::OptionableConvert::try_from_optioned(value.to)?,
@@ -42,8 +52,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::NetworkPo
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::NetworkPolicyEgressRule>
-    for NetworkPolicyEgressRuleAc
-{
+for NetworkPolicyEgressRuleAc {
     fn from_optionable(
         value: k8s_openapi027::api::networking::v1::NetworkPolicyEgressRule,
     ) -> Self {
@@ -51,7 +60,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::NetworkPolicyEg
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::networking::v1::NetworkPolicyEgressRule, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::networking::v1::NetworkPolicyEgressRule,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

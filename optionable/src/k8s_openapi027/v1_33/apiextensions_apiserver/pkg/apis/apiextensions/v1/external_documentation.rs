@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ExternalDocumentationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -8,8 +15,7 @@ pub struct ExternalDocumentationAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ExternalDocumentation
-{
+for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ExternalDocumentation {
     type Optioned = ExternalDocumentationAc;
 }
 #[automatically_derived]
@@ -19,8 +25,7 @@ impl crate::Optionable for ExternalDocumentationAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ExternalDocumentation
-{
+for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ExternalDocumentation {
     fn into_optioned(self) -> ExternalDocumentationAc {
         ExternalDocumentationAc {
             description: crate::OptionableConvert::into_optioned(self.description),

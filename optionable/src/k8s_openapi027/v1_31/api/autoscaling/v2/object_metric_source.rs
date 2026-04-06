@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ObjectMetricSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -24,12 +31,13 @@ impl crate::Optionable for ObjectMetricSourceAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::ObjectMetricSource {
+impl crate::OptionableConvert
+for k8s_openapi027::api::autoscaling::v2::ObjectMetricSource {
     fn into_optioned(self) -> ObjectMetricSourceAc {
         ObjectMetricSourceAc {
-            described_object: Some(crate::OptionableConvert::into_optioned(
-                self.described_object,
-            )),
+            described_object: Some(
+                crate::OptionableConvert::into_optioned(self.described_object),
+            ),
             metric: Some(crate::OptionableConvert::into_optioned(self.metric)),
             target: Some(crate::OptionableConvert::into_optioned(self.target)),
         }
@@ -37,20 +45,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::ObjectMe
     fn try_from_optioned(value: ObjectMetricSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             described_object: crate::OptionableConvert::try_from_optioned(
-                value.described_object.ok_or(crate::Error {
-                    missing_field: "described_object",
-                })?,
+                value
+                    .described_object
+                    .ok_or(crate::Error {
+                        missing_field: "described_object",
+                    })?,
             )?,
-            metric: crate::OptionableConvert::try_from_optioned(value.metric.ok_or(
-                crate::Error {
-                    missing_field: "metric",
-                },
-            )?)?,
-            target: crate::OptionableConvert::try_from_optioned(value.target.ok_or(
-                crate::Error {
-                    missing_field: "target",
-                },
-            )?)?,
+            metric: crate::OptionableConvert::try_from_optioned(
+                value
+                    .metric
+                    .ok_or(crate::Error {
+                        missing_field: "metric",
+                    })?,
+            )?,
+            target: crate::OptionableConvert::try_from_optioned(
+                value
+                    .target
+                    .ok_or(crate::Error {
+                        missing_field: "target",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: ObjectMetricSourceAc) -> Result<(), crate::Error> {
@@ -69,9 +83,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::ObjectMe
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::ObjectMetricSource>
-    for ObjectMetricSourceAc
-{
-    fn from_optionable(value: k8s_openapi027::api::autoscaling::v2::ObjectMetricSource) -> Self {
+for ObjectMetricSourceAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::autoscaling::v2::ObjectMetricSource,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

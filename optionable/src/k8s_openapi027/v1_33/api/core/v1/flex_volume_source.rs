@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FlexVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -10,7 +17,7 @@ pub struct FlexVolumeSourceAc {
         std::collections::BTreeMap<std::string::String, std::string::String>,
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub read_only: <Option<bool> as crate::Optionable>::Optioned,
+    pub read_only: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret_ref: <Option<
         ::k8s_openapi027::api::core::v1::LocalObjectReference,
@@ -32,20 +39,22 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FlexVolumeSourc
             driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             options: crate::OptionableConvert::into_optioned(self.options),
-            read_only: crate::OptionableConvert::into_optioned(self.read_only),
+            read_only: self.read_only,
             secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
         }
     }
     fn try_from_optioned(value: FlexVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            driver: crate::OptionableConvert::try_from_optioned(value.driver.ok_or(
-                crate::Error {
-                    missing_field: "driver",
-                },
-            )?)?,
+            driver: crate::OptionableConvert::try_from_optioned(
+                value
+                    .driver
+                    .ok_or(crate::Error {
+                        missing_field: "driver",
+                    })?,
+            )?,
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             options: crate::OptionableConvert::try_from_optioned(value.options)?,
-            read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
+            read_only: value.read_only,
             secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
         })
     }
@@ -55,7 +64,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FlexVolumeSourc
         }
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.options, other.options)?;
-        crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        self.read_only = other.read_only;
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
         Ok(())
     }
@@ -63,8 +72,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FlexVolumeSourc
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::FlexVolumeSource>
-    for FlexVolumeSourceAc
-{
+for FlexVolumeSourceAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::FlexVolumeSource) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

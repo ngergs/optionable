@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HTTPIngressPathAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -30,17 +37,21 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::HTTPIngre
     }
     fn try_from_optioned(value: HTTPIngressPathAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            backend: crate::OptionableConvert::try_from_optioned(value.backend.ok_or(
-                crate::Error {
-                    missing_field: "backend",
-                },
-            )?)?,
+            backend: crate::OptionableConvert::try_from_optioned(
+                value
+                    .backend
+                    .ok_or(crate::Error {
+                        missing_field: "backend",
+                    })?,
+            )?,
             path: crate::OptionableConvert::try_from_optioned(value.path)?,
-            path_type: crate::OptionableConvert::try_from_optioned(value.path_type.ok_or(
-                crate::Error {
-                    missing_field: "path_type",
-                },
-            )?)?,
+            path_type: crate::OptionableConvert::try_from_optioned(
+                value
+                    .path_type
+                    .ok_or(crate::Error {
+                        missing_field: "path_type",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: HTTPIngressPathAc) -> Result<(), crate::Error> {
@@ -57,9 +68,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::HTTPIngre
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::HTTPIngressPath>
-    for HTTPIngressPathAc
-{
-    fn from_optionable(value: k8s_openapi027::api::networking::v1::HTTPIngressPath) -> Self {
+for HTTPIngressPathAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::networking::v1::HTTPIngressPath,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceAllocationConfigurationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -13,7 +20,8 @@ pub struct DeviceAllocationConfigurationAc {
     pub source: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::resource::v1::DeviceAllocationConfiguration {
+impl crate::Optionable
+for k8s_openapi027::api::resource::v1::DeviceAllocationConfiguration {
     type Optioned = DeviceAllocationConfigurationAc;
 }
 #[automatically_derived]
@@ -22,7 +30,8 @@ impl crate::Optionable for DeviceAllocationConfigurationAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceAllocationConfiguration {
+impl crate::OptionableConvert
+for k8s_openapi027::api::resource::v1::DeviceAllocationConfiguration {
     fn into_optioned(self) -> DeviceAllocationConfigurationAc {
         DeviceAllocationConfigurationAc {
             opaque: crate::OptionableConvert::into_optioned(self.opaque),
@@ -30,18 +39,25 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceAlloc
             source: Some(crate::OptionableConvert::into_optioned(self.source)),
         }
     }
-    fn try_from_optioned(value: DeviceAllocationConfigurationAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: DeviceAllocationConfigurationAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             opaque: crate::OptionableConvert::try_from_optioned(value.opaque)?,
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
-            source: crate::OptionableConvert::try_from_optioned(value.source.ok_or(
-                crate::Error {
-                    missing_field: "source",
-                },
-            )?)?,
+            source: crate::OptionableConvert::try_from_optioned(
+                value
+                    .source
+                    .ok_or(crate::Error {
+                        missing_field: "source",
+                    })?,
+            )?,
         })
     }
-    fn merge(&mut self, other: DeviceAllocationConfigurationAc) -> Result<(), crate::Error> {
+    fn merge(
+        &mut self,
+        other: DeviceAllocationConfigurationAc,
+    ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.opaque, other.opaque)?;
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
         if let Some(other_value) = other.source {
@@ -52,9 +68,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceAlloc
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::resource::v1::DeviceAllocationConfiguration>
-    for DeviceAllocationConfigurationAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::resource::v1::DeviceAllocationConfiguration,
+> for DeviceAllocationConfigurationAc {
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1::DeviceAllocationConfiguration,
     ) -> Self {
@@ -62,8 +78,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::resource::v1::DeviceAllocationC
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::resource::v1::DeviceAllocationConfiguration, crate::Error>
-    {
+    ) -> Result<
+        k8s_openapi027::api::resource::v1::DeviceAllocationConfiguration,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

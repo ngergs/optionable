@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MutationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -13,7 +20,8 @@ pub struct MutationAc {
     pub patch_type: Option<<std::string::String as crate::Optionable>::Optioned>,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::admissionregistration::v1beta1::Mutation {
+impl crate::Optionable
+for k8s_openapi027::api::admissionregistration::v1beta1::Mutation {
     type Optioned = MutationAc;
 }
 #[automatically_derived]
@@ -22,10 +30,13 @@ impl crate::Optionable for MutationAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::admissionregistration::v1beta1::Mutation {
+impl crate::OptionableConvert
+for k8s_openapi027::api::admissionregistration::v1beta1::Mutation {
     fn into_optioned(self) -> MutationAc {
         MutationAc {
-            apply_configuration: crate::OptionableConvert::into_optioned(self.apply_configuration),
+            apply_configuration: crate::OptionableConvert::into_optioned(
+                self.apply_configuration,
+            ),
             json_patch: crate::OptionableConvert::into_optioned(self.json_patch),
             patch_type: Some(crate::OptionableConvert::into_optioned(self.patch_type)),
         }
@@ -36,15 +47,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::admissionregistration::v1
                 value.apply_configuration,
             )?,
             json_patch: crate::OptionableConvert::try_from_optioned(value.json_patch)?,
-            patch_type: crate::OptionableConvert::try_from_optioned(value.patch_type.ok_or(
-                crate::Error {
-                    missing_field: "patch_type",
-                },
-            )?)?,
+            patch_type: crate::OptionableConvert::try_from_optioned(
+                value
+                    .patch_type
+                    .ok_or(crate::Error {
+                        missing_field: "patch_type",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: MutationAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.apply_configuration, other.apply_configuration)?;
+        crate::OptionableConvert::merge(
+            &mut self.apply_configuration,
+            other.apply_configuration,
+        )?;
         crate::OptionableConvert::merge(&mut self.json_patch, other.json_patch)?;
         if let Some(other_value) = other.patch_type {
             crate::OptionableConvert::merge(&mut self.patch_type, other_value)?;
@@ -54,9 +70,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::admissionregistration::v1
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::admissionregistration::v1beta1::Mutation>
-    for MutationAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::admissionregistration::v1beta1::Mutation,
+> for MutationAc {
     fn from_optionable(
         value: k8s_openapi027::api::admissionregistration::v1beta1::Mutation,
     ) -> Self {
@@ -64,7 +80,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::admissionregistration::v1beta1:
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::admissionregistration::v1beta1::Mutation, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::admissionregistration::v1beta1::Mutation,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

@@ -1,8 +1,17 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NamespaceSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub finalizers: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub finalizers: <Option<
+        std::vec::Vec<std::string::String>,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::NamespaceSpec {
@@ -32,7 +41,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceSpec {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NamespaceSpec> for NamespaceSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NamespaceSpec>
+for NamespaceSpecAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::NamespaceSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

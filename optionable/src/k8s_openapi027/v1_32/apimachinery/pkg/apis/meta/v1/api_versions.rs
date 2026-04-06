@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIVersionsAc {
     #[serde(
@@ -19,10 +26,13 @@ pub struct APIVersionsAc {
         > as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub versions: Option<<std::vec::Vec<std::string::String> as crate::Optionable>::Optioned>,
+    pub versions: Option<
+        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions {
+impl crate::Optionable
+for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions {
     type Optioned = APIVersionsAc;
 }
 #[automatically_derived]
@@ -31,34 +41,44 @@ impl crate::Optionable for APIVersionsAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions {
+impl crate::OptionableConvert
+for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions {
     fn into_optioned(self) -> APIVersionsAc {
         APIVersionsAc {
             api_version: Default::default(),
             kind: Default::default(),
-            server_address_by_client_cidrs: Some(crate::OptionableConvert::into_optioned(
-                self.server_address_by_client_cidrs,
-            )),
+            server_address_by_client_cidrs: Some(
+                crate::OptionableConvert::into_optioned(
+                    self.server_address_by_client_cidrs,
+                ),
+            ),
             versions: Some(crate::OptionableConvert::into_optioned(self.versions)),
         }
     }
     fn try_from_optioned(value: APIVersionsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             server_address_by_client_cidrs: crate::OptionableConvert::try_from_optioned(
-                value.server_address_by_client_cidrs.ok_or(crate::Error {
-                    missing_field: "server_address_by_client_cidrs",
-                })?,
+                value
+                    .server_address_by_client_cidrs
+                    .ok_or(crate::Error {
+                        missing_field: "server_address_by_client_cidrs",
+                    })?,
             )?,
-            versions: crate::OptionableConvert::try_from_optioned(value.versions.ok_or(
-                crate::Error {
-                    missing_field: "versions",
-                },
-            )?)?,
+            versions: crate::OptionableConvert::try_from_optioned(
+                value
+                    .versions
+                    .ok_or(crate::Error {
+                        missing_field: "versions",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: APIVersionsAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.server_address_by_client_cidrs {
-            crate::OptionableConvert::merge(&mut self.server_address_by_client_cidrs, other_value)?;
+            crate::OptionableConvert::merge(
+                &mut self.server_address_by_client_cidrs,
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.versions {
             crate::OptionableConvert::merge(&mut self.versions, other_value)?;
@@ -68,9 +88,9 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta:
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions>
-    for APIVersionsAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions,
+> for APIVersionsAc {
     fn from_optionable(
         value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions,
     ) -> Self {
@@ -78,7 +98,10 @@ impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::A
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -99,6 +122,7 @@ impl k8s_openapi027::Resource for APIVersionsAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_apiversionsac() {
-    crate::testutil::roundtrip_test::<k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions>(
-    );
+    crate::testutil::roundtrip_test::<
+        k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions,
+    >();
 }

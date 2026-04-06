@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SeccompProfileAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -20,7 +27,9 @@ impl crate::Optionable for SeccompProfileAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SeccompProfile {
     fn into_optioned(self) -> SeccompProfileAc {
         SeccompProfileAc {
-            localhost_profile: crate::OptionableConvert::into_optioned(self.localhost_profile),
+            localhost_profile: crate::OptionableConvert::into_optioned(
+                self.localhost_profile,
+            ),
             type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
         }
     }
@@ -29,15 +38,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SeccompProfile 
             localhost_profile: crate::OptionableConvert::try_from_optioned(
                 value.localhost_profile,
             )?,
-            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
-                crate::Error {
-                    missing_field: "type_",
-                },
-            )?)?,
+            type_: crate::OptionableConvert::try_from_optioned(
+                value
+                    .type_
+                    .ok_or(crate::Error {
+                        missing_field: "type_",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: SeccompProfileAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.localhost_profile, other.localhost_profile)?;
+        crate::OptionableConvert::merge(
+            &mut self.localhost_profile,
+            other.localhost_profile,
+        )?;
         if let Some(other_value) = other.type_ {
             crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
@@ -46,7 +60,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SeccompProfile 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::SeccompProfile> for SeccompProfileAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::SeccompProfile>
+for SeccompProfileAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::SeccompProfile) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceTaintRuleStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -7,7 +14,8 @@ pub struct DeviceTaintRuleStatusAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus {
+impl crate::Optionable
+for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus {
     type Optioned = DeviceTaintRuleStatusAc;
 }
 #[automatically_derived]
@@ -16,7 +24,8 @@ impl crate::Optionable for DeviceTaintRuleStatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus {
+impl crate::OptionableConvert
+for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus {
     fn into_optioned(self) -> DeviceTaintRuleStatusAc {
         DeviceTaintRuleStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
@@ -34,9 +43,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Devic
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus>
-    for DeviceTaintRuleStatusAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus,
+> for DeviceTaintRuleStatusAc {
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus,
     ) -> Self {
@@ -44,7 +53,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::DeviceTaint
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

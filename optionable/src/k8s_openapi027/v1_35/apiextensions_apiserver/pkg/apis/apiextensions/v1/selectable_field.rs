@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelectableFieldAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6,8 +13,7 @@ pub struct SelectableFieldAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField
-{
+for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField {
     type Optioned = SelectableFieldAc;
 }
 #[automatically_derived]
@@ -17,8 +23,7 @@ impl crate::Optionable for SelectableFieldAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField
-{
+for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField {
     fn into_optioned(self) -> SelectableFieldAc {
         SelectableFieldAc {
             json_path: Some(crate::OptionableConvert::into_optioned(self.json_path)),
@@ -26,11 +31,13 @@ impl crate::OptionableConvert
     }
     fn try_from_optioned(value: SelectableFieldAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            json_path: crate::OptionableConvert::try_from_optioned(value.json_path.ok_or(
-                crate::Error {
-                    missing_field: "json_path",
-                },
-            )?)?,
+            json_path: crate::OptionableConvert::try_from_optioned(
+                value
+                    .json_path
+                    .ok_or(crate::Error {
+                        missing_field: "json_path",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: SelectableFieldAc) -> Result<(), crate::Error> {
@@ -42,11 +49,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl
-    crate::OptionedConvert<
-        k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField,
-    > for SelectableFieldAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField,
+> for SelectableFieldAc {
     fn from_optionable(
         value: k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField,
     ) -> Self {

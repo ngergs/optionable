@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MetricIdentifierAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -18,7 +25,8 @@ impl crate::Optionable for MetricIdentifierAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricIdentifier {
+impl crate::OptionableConvert
+for k8s_openapi027::api::autoscaling::v2::MetricIdentifier {
     fn into_optioned(self) -> MetricIdentifierAc {
         MetricIdentifierAc {
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
@@ -27,9 +35,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricId
     }
     fn try_from_optioned(value: MetricIdentifierAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
             selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
         })
     }
@@ -44,9 +56,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricId
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::MetricIdentifier>
-    for MetricIdentifierAc
-{
-    fn from_optionable(value: k8s_openapi027::api::autoscaling::v2::MetricIdentifier) -> Self {
+for MetricIdentifierAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::autoscaling::v2::MetricIdentifier,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

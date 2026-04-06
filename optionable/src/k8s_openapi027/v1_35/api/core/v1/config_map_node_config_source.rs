@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ConfigMapNodeConfigSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -22,34 +29,49 @@ impl crate::Optionable for ConfigMapNodeConfigSourceAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapNodeConfigSource {
+impl crate::OptionableConvert
+for k8s_openapi027::api::core::v1::ConfigMapNodeConfigSource {
     fn into_optioned(self) -> ConfigMapNodeConfigSourceAc {
         ConfigMapNodeConfigSourceAc {
-            kubelet_config_key: Some(crate::OptionableConvert::into_optioned(
-                self.kubelet_config_key,
-            )),
+            kubelet_config_key: Some(
+                crate::OptionableConvert::into_optioned(self.kubelet_config_key),
+            ),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
             namespace: Some(crate::OptionableConvert::into_optioned(self.namespace)),
-            resource_version: crate::OptionableConvert::into_optioned(self.resource_version),
+            resource_version: crate::OptionableConvert::into_optioned(
+                self.resource_version,
+            ),
             uid: crate::OptionableConvert::into_optioned(self.uid),
         }
     }
-    fn try_from_optioned(value: ConfigMapNodeConfigSourceAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: ConfigMapNodeConfigSourceAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             kubelet_config_key: crate::OptionableConvert::try_from_optioned(
-                value.kubelet_config_key.ok_or(crate::Error {
-                    missing_field: "kubelet_config_key",
-                })?,
+                value
+                    .kubelet_config_key
+                    .ok_or(crate::Error {
+                        missing_field: "kubelet_config_key",
+                    })?,
             )?,
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
-            namespace: crate::OptionableConvert::try_from_optioned(value.namespace.ok_or(
-                crate::Error {
-                    missing_field: "namespace",
-                },
-            )?)?,
-            resource_version: crate::OptionableConvert::try_from_optioned(value.resource_version)?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
+            namespace: crate::OptionableConvert::try_from_optioned(
+                value
+                    .namespace
+                    .ok_or(crate::Error {
+                        missing_field: "namespace",
+                    })?,
+            )?,
+            resource_version: crate::OptionableConvert::try_from_optioned(
+                value.resource_version,
+            )?,
             uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
         })
     }
@@ -63,7 +85,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapNodeCo
         if let Some(other_value) = other.namespace {
             crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
         }
-        crate::OptionableConvert::merge(&mut self.resource_version, other.resource_version)?;
+        crate::OptionableConvert::merge(
+            &mut self.resource_version,
+            other.resource_version,
+        )?;
         crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
         Ok(())
     }
@@ -71,9 +96,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapNodeCo
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ConfigMapNodeConfigSource>
-    for ConfigMapNodeConfigSourceAc
-{
-    fn from_optionable(value: k8s_openapi027::api::core::v1::ConfigMapNodeConfigSource) -> Self {
+for ConfigMapNodeConfigSourceAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::core::v1::ConfigMapNodeConfigSource,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

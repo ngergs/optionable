@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NamespaceConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -44,16 +51,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceCondit
             )?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
-            status: crate::OptionableConvert::try_from_optioned(value.status.ok_or(
-                crate::Error {
-                    missing_field: "status",
-                },
-            )?)?,
-            type_: crate::OptionableConvert::try_from_optioned(value.type_.ok_or(
-                crate::Error {
-                    missing_field: "type_",
-                },
-            )?)?,
+            status: crate::OptionableConvert::try_from_optioned(
+                value
+                    .status
+                    .ok_or(crate::Error {
+                        missing_field: "status",
+                    })?,
+            )?,
+            type_: crate::OptionableConvert::try_from_optioned(
+                value
+                    .type_
+                    .ok_or(crate::Error {
+                        missing_field: "type_",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: NamespaceConditionAc) -> Result<(), crate::Error> {
@@ -75,9 +86,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceCondit
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NamespaceCondition>
-    for NamespaceConditionAc
-{
-    fn from_optionable(value: k8s_openapi027::api::core::v1::NamespaceCondition) -> Self {
+for NamespaceConditionAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::core::v1::NamespaceCondition,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

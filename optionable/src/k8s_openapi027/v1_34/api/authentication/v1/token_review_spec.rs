@@ -1,8 +1,17 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TokenReviewSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub audiences: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub audiences: <Option<
+        std::vec::Vec<std::string::String>,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub token: <Option<std::string::String> as crate::Optionable>::Optioned,
 }
@@ -16,7 +25,8 @@ impl crate::Optionable for TokenReviewSpecAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::authentication::v1::TokenReviewSpec {
+impl crate::OptionableConvert
+for k8s_openapi027::api::authentication::v1::TokenReviewSpec {
     fn into_optioned(self) -> TokenReviewSpecAc {
         TokenReviewSpecAc {
             audiences: crate::OptionableConvert::into_optioned(self.audiences),
@@ -38,9 +48,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::authentication::v1::Token
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::authentication::v1::TokenReviewSpec>
-    for TokenReviewSpecAc
-{
-    fn from_optionable(value: k8s_openapi027::api::authentication::v1::TokenReviewSpec) -> Self {
+for TokenReviewSpecAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::authentication::v1::TokenReviewSpec,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

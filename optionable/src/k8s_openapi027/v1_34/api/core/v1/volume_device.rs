@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeDeviceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -25,14 +32,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeDevice {
     }
     fn try_from_optioned(value: VolumeDeviceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            device_path: crate::OptionableConvert::try_from_optioned(value.device_path.ok_or(
-                crate::Error {
-                    missing_field: "device_path",
-                },
-            )?)?,
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
+            device_path: crate::OptionableConvert::try_from_optioned(
+                value
+                    .device_path
+                    .ok_or(crate::Error {
+                        missing_field: "device_path",
+                    })?,
+            )?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: VolumeDeviceAc) -> Result<(), crate::Error> {
@@ -47,7 +60,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeDevice {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::VolumeDevice> for VolumeDeviceAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::VolumeDevice>
+for VolumeDeviceAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::VolumeDevice) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

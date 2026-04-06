@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ClusterRoleBindingAc {
     #[serde(
@@ -44,11 +51,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::ClusterRoleBind
     fn try_from_optioned(value: ClusterRoleBindingAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            role_ref: crate::OptionableConvert::try_from_optioned(value.role_ref.ok_or(
-                crate::Error {
-                    missing_field: "role_ref",
-                },
-            )?)?,
+            role_ref: crate::OptionableConvert::try_from_optioned(
+                value
+                    .role_ref
+                    .ok_or(crate::Error {
+                        missing_field: "role_ref",
+                    })?,
+            )?,
             subjects: crate::OptionableConvert::try_from_optioned(value.subjects)?,
         })
     }
@@ -64,9 +73,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::ClusterRoleBind
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::rbac::v1::ClusterRoleBinding>
-    for ClusterRoleBindingAc
-{
-    fn from_optionable(value: k8s_openapi027::api::rbac::v1::ClusterRoleBinding) -> Self {
+for ClusterRoleBindingAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::rbac::v1::ClusterRoleBinding,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
@@ -83,15 +93,11 @@ impl crate::OptionedConvert<k8s_openapi027::api::rbac::v1::ClusterRoleBinding>
 }
 impl k8s_openapi027::Resource for ClusterRoleBindingAc {
     const API_VERSION: &'static str = <k8s_openapi027::api::rbac::v1::ClusterRoleBinding as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str =
-        <k8s_openapi027::api::rbac::v1::ClusterRoleBinding as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str =
-        <k8s_openapi027::api::rbac::v1::ClusterRoleBinding as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str =
-        <k8s_openapi027::api::rbac::v1::ClusterRoleBinding as k8s_openapi027::Resource>::VERSION;
+    const GROUP: &'static str = <k8s_openapi027::api::rbac::v1::ClusterRoleBinding as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi027::api::rbac::v1::ClusterRoleBinding as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi027::api::rbac::v1::ClusterRoleBinding as k8s_openapi027::Resource>::VERSION;
     const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::rbac::v1::ClusterRoleBinding as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
-    type Scope =
-        <k8s_openapi027::api::rbac::v1::ClusterRoleBinding as k8s_openapi027::Resource>::Scope;
+    type Scope = <k8s_openapi027::api::rbac::v1::ClusterRoleBinding as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for ClusterRoleBindingAc {
     type Ty = <k8s_openapi027::api::rbac::v1::ClusterRoleBinding as k8s_openapi027::Metadata>::Ty;
@@ -105,5 +111,7 @@ impl k8s_openapi027::Metadata for ClusterRoleBindingAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_clusterrolebindingac() {
-    crate::testutil::roundtrip_test::<k8s_openapi027::api::rbac::v1::ClusterRoleBinding>();
+    crate::testutil::roundtrip_test::<
+        k8s_openapi027::api::rbac::v1::ClusterRoleBinding,
+    >();
 }

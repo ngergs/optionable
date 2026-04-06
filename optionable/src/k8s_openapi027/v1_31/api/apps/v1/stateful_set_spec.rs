@@ -1,8 +1,15 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatefulSetSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub min_ready_seconds: <Option<i32> as crate::Optionable>::Optioned,
+    pub min_ready_seconds: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ordinals: <Option<
         ::k8s_openapi027::api::apps::v1::StatefulSetOrdinals,
@@ -16,9 +23,9 @@ pub struct StatefulSetSpecAc {
         std::string::String,
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub replicas: <Option<i32> as crate::Optionable>::Optioned,
+    pub replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub revision_history_limit: <Option<i32> as crate::Optionable>::Optioned,
+    pub revision_history_limit: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub selector: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
@@ -51,7 +58,7 @@ impl crate::Optionable for StatefulSetSpecAc {
 impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec {
     fn into_optioned(self) -> StatefulSetSpecAc {
         StatefulSetSpecAc {
-            min_ready_seconds: crate::OptionableConvert::into_optioned(self.min_ready_seconds),
+            min_ready_seconds: self.min_ready_seconds,
             ordinals: crate::OptionableConvert::into_optioned(self.ordinals),
             persistent_volume_claim_retention_policy: crate::OptionableConvert::into_optioned(
                 self.persistent_volume_claim_retention_policy,
@@ -59,14 +66,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
             pod_management_policy: crate::OptionableConvert::into_optioned(
                 self.pod_management_policy,
             ),
-            replicas: crate::OptionableConvert::into_optioned(self.replicas),
-            revision_history_limit: crate::OptionableConvert::into_optioned(
-                self.revision_history_limit,
-            ),
+            replicas: self.replicas,
+            revision_history_limit: self.revision_history_limit,
             selector: Some(crate::OptionableConvert::into_optioned(self.selector)),
             service_name: crate::OptionableConvert::into_optioned(self.service_name),
             template: Some(crate::OptionableConvert::into_optioned(self.template)),
-            update_strategy: crate::OptionableConvert::into_optioned(self.update_strategy),
+            update_strategy: crate::OptionableConvert::into_optioned(
+                self.update_strategy,
+            ),
             volume_claim_templates: crate::OptionableConvert::into_optioned(
                 self.volume_claim_templates,
             ),
@@ -74,9 +81,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
     }
     fn try_from_optioned(value: StatefulSetSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            min_ready_seconds: crate::OptionableConvert::try_from_optioned(
-                value.min_ready_seconds,
-            )?,
+            min_ready_seconds: value.min_ready_seconds,
             ordinals: crate::OptionableConvert::try_from_optioned(value.ordinals)?,
             persistent_volume_claim_retention_policy: crate::OptionableConvert::try_from_optioned(
                 value.persistent_volume_claim_retention_policy,
@@ -84,29 +89,35 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
             pod_management_policy: crate::OptionableConvert::try_from_optioned(
                 value.pod_management_policy,
             )?,
-            replicas: crate::OptionableConvert::try_from_optioned(value.replicas)?,
-            revision_history_limit: crate::OptionableConvert::try_from_optioned(
-                value.revision_history_limit,
+            replicas: value.replicas,
+            revision_history_limit: value.revision_history_limit,
+            selector: crate::OptionableConvert::try_from_optioned(
+                value
+                    .selector
+                    .ok_or(crate::Error {
+                        missing_field: "selector",
+                    })?,
             )?,
-            selector: crate::OptionableConvert::try_from_optioned(value.selector.ok_or(
-                crate::Error {
-                    missing_field: "selector",
-                },
-            )?)?,
-            service_name: crate::OptionableConvert::try_from_optioned(value.service_name)?,
-            template: crate::OptionableConvert::try_from_optioned(value.template.ok_or(
-                crate::Error {
-                    missing_field: "template",
-                },
-            )?)?,
-            update_strategy: crate::OptionableConvert::try_from_optioned(value.update_strategy)?,
+            service_name: crate::OptionableConvert::try_from_optioned(
+                value.service_name,
+            )?,
+            template: crate::OptionableConvert::try_from_optioned(
+                value
+                    .template
+                    .ok_or(crate::Error {
+                        missing_field: "template",
+                    })?,
+            )?,
+            update_strategy: crate::OptionableConvert::try_from_optioned(
+                value.update_strategy,
+            )?,
             volume_claim_templates: crate::OptionableConvert::try_from_optioned(
                 value.volume_claim_templates,
             )?,
         })
     }
     fn merge(&mut self, other: StatefulSetSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.min_ready_seconds, other.min_ready_seconds)?;
+        self.min_ready_seconds = other.min_ready_seconds;
         crate::OptionableConvert::merge(&mut self.ordinals, other.ordinals)?;
         crate::OptionableConvert::merge(
             &mut self.persistent_volume_claim_retention_policy,
@@ -116,11 +127,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
             &mut self.pod_management_policy,
             other.pod_management_policy,
         )?;
-        crate::OptionableConvert::merge(&mut self.replicas, other.replicas)?;
-        crate::OptionableConvert::merge(
-            &mut self.revision_history_limit,
-            other.revision_history_limit,
-        )?;
+        self.replicas = other.replicas;
+        self.revision_history_limit = other.revision_history_limit;
         if let Some(other_value) = other.selector {
             crate::OptionableConvert::merge(&mut self.selector, other_value)?;
         }
@@ -128,7 +136,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
         if let Some(other_value) = other.template {
             crate::OptionableConvert::merge(&mut self.template, other_value)?;
         }
-        crate::OptionableConvert::merge(&mut self.update_strategy, other.update_strategy)?;
+        crate::OptionableConvert::merge(
+            &mut self.update_strategy,
+            other.update_strategy,
+        )?;
         crate::OptionableConvert::merge(
             &mut self.volume_claim_templates,
             other.volume_claim_templates,
@@ -138,7 +149,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::StatefulSetSpec> for StatefulSetSpecAc {
+impl crate::OptionedConvert<k8s_openapi027::api::apps::v1::StatefulSetSpec>
+for StatefulSetSpecAc {
     fn from_optionable(value: k8s_openapi027::api::apps::v1::StatefulSetSpec) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

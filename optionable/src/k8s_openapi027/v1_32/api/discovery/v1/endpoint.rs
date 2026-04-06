@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -43,7 +50,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::Endpoint {
         EndpointAc {
             addresses: Some(crate::OptionableConvert::into_optioned(self.addresses)),
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
-            deprecated_topology: crate::OptionableConvert::into_optioned(self.deprecated_topology),
+            deprecated_topology: crate::OptionableConvert::into_optioned(
+                self.deprecated_topology,
+            ),
             hints: crate::OptionableConvert::into_optioned(self.hints),
             hostname: crate::OptionableConvert::into_optioned(self.hostname),
             node_name: crate::OptionableConvert::into_optioned(self.node_name),
@@ -53,11 +62,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::Endpoint {
     }
     fn try_from_optioned(value: EndpointAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            addresses: crate::OptionableConvert::try_from_optioned(value.addresses.ok_or(
-                crate::Error {
-                    missing_field: "addresses",
-                },
-            )?)?,
+            addresses: crate::OptionableConvert::try_from_optioned(
+                value
+                    .addresses
+                    .ok_or(crate::Error {
+                        missing_field: "addresses",
+                    })?,
+            )?,
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             deprecated_topology: crate::OptionableConvert::try_from_optioned(
                 value.deprecated_topology,
@@ -74,7 +85,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::Endpoint {
             crate::OptionableConvert::merge(&mut self.addresses, other_value)?;
         }
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        crate::OptionableConvert::merge(&mut self.deprecated_topology, other.deprecated_topology)?;
+        crate::OptionableConvert::merge(
+            &mut self.deprecated_topology,
+            other.deprecated_topology,
+        )?;
         crate::OptionableConvert::merge(&mut self.hints, other.hints)?;
         crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
         crate::OptionableConvert::merge(&mut self.node_name, other.node_name)?;
@@ -85,7 +99,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::Endpoint {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::discovery::v1::Endpoint> for EndpointAc {
+impl crate::OptionedConvert<k8s_openapi027::api::discovery::v1::Endpoint>
+for EndpointAc {
     fn from_optionable(value: k8s_openapi027::api::discovery::v1::Endpoint) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

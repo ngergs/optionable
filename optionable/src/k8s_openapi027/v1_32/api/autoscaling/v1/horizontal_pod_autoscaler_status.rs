@@ -1,9 +1,16 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerStatusAc {
     #[serde(rename = "currentCPUUtilizationPercentage")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub current_cpu_utilization_percentage: <Option<i32> as crate::Optionable>::Optioned,
+    pub current_cpu_utilization_percentage: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -13,10 +20,11 @@ pub struct HorizontalPodAutoscalerStatusAc {
         ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
     > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub observed_generation: <Option<i64> as crate::Optionable>::Optioned,
+    pub observed_generation: Option<i64>,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
+impl crate::Optionable
+for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
     type Optioned = HorizontalPodAutoscalerStatusAc;
 }
 #[automatically_derived]
@@ -26,57 +34,64 @@ impl crate::Optionable for HorizontalPodAutoscalerStatusAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus
-{
+for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
     fn into_optioned(self) -> HorizontalPodAutoscalerStatusAc {
         HorizontalPodAutoscalerStatusAc {
-            current_cpu_utilization_percentage: crate::OptionableConvert::into_optioned(
-                self.current_cpu_utilization_percentage,
-            ),
+            current_cpu_utilization_percentage: self.current_cpu_utilization_percentage,
             current_replicas: Some(self.current_replicas),
             desired_replicas: Some(self.desired_replicas),
-            last_scale_time: crate::OptionableConvert::into_optioned(self.last_scale_time),
-            observed_generation: crate::OptionableConvert::into_optioned(self.observed_generation),
+            last_scale_time: crate::OptionableConvert::into_optioned(
+                self.last_scale_time,
+            ),
+            observed_generation: self.observed_generation,
         }
     }
-    fn try_from_optioned(value: HorizontalPodAutoscalerStatusAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: HorizontalPodAutoscalerStatusAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
-            current_cpu_utilization_percentage: crate::OptionableConvert::try_from_optioned(
-                value.current_cpu_utilization_percentage,
+            current_cpu_utilization_percentage: value.current_cpu_utilization_percentage,
+            current_replicas: value
+                .current_replicas
+                .ok_or(crate::Error {
+                    missing_field: "current_replicas",
+                })?,
+            desired_replicas: value
+                .desired_replicas
+                .ok_or(crate::Error {
+                    missing_field: "desired_replicas",
+                })?,
+            last_scale_time: crate::OptionableConvert::try_from_optioned(
+                value.last_scale_time,
             )?,
-            current_replicas: value.current_replicas.ok_or(crate::Error {
-                missing_field: "current_replicas",
-            })?,
-            desired_replicas: value.desired_replicas.ok_or(crate::Error {
-                missing_field: "desired_replicas",
-            })?,
-            last_scale_time: crate::OptionableConvert::try_from_optioned(value.last_scale_time)?,
-            observed_generation: crate::OptionableConvert::try_from_optioned(
-                value.observed_generation,
-            )?,
+            observed_generation: value.observed_generation,
         })
     }
-    fn merge(&mut self, other: HorizontalPodAutoscalerStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.current_cpu_utilization_percentage,
-            other.current_cpu_utilization_percentage,
-        )?;
+    fn merge(
+        &mut self,
+        other: HorizontalPodAutoscalerStatusAc,
+    ) -> Result<(), crate::Error> {
+        self.current_cpu_utilization_percentage = other
+            .current_cpu_utilization_percentage;
         if let Some(other_value) = other.current_replicas {
             self.current_replicas = other_value;
         }
         if let Some(other_value) = other.desired_replicas {
             self.desired_replicas = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.last_scale_time, other.last_scale_time)?;
-        crate::OptionableConvert::merge(&mut self.observed_generation, other.observed_generation)?;
+        crate::OptionableConvert::merge(
+            &mut self.last_scale_time,
+            other.last_scale_time,
+        )?;
+        self.observed_generation = other.observed_generation;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus>
-    for HorizontalPodAutoscalerStatusAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus,
+> for HorizontalPodAutoscalerStatusAc {
     fn from_optionable(
         value: k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus,
     ) -> Self {
@@ -84,8 +99,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v1::HorizontalPodA
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus, crate::Error>
-    {
+    ) -> Result<
+        k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

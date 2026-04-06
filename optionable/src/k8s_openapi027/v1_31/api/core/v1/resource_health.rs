@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceHealthAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,11 +34,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceHealth 
     fn try_from_optioned(value: ResourceHealthAc) -> Result<Self, crate::Error> {
         Ok(Self {
             health: crate::OptionableConvert::try_from_optioned(value.health)?,
-            resource_id: crate::OptionableConvert::try_from_optioned(value.resource_id.ok_or(
-                crate::Error {
-                    missing_field: "resource_id",
-                },
-            )?)?,
+            resource_id: crate::OptionableConvert::try_from_optioned(
+                value
+                    .resource_id
+                    .ok_or(crate::Error {
+                        missing_field: "resource_id",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: ResourceHealthAc) -> Result<(), crate::Error> {
@@ -44,7 +53,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceHealth 
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ResourceHealth> for ResourceHealthAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ResourceHealth>
+for ResourceHealthAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::ResourceHealth) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkPolicyIngressRuleAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -11,7 +18,8 @@ pub struct NetworkPolicyIngressRuleAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::networking::v1::NetworkPolicyIngressRule {
+impl crate::Optionable
+for k8s_openapi027::api::networking::v1::NetworkPolicyIngressRule {
     type Optioned = NetworkPolicyIngressRuleAc;
 }
 #[automatically_derived]
@@ -20,14 +28,17 @@ impl crate::Optionable for NetworkPolicyIngressRuleAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::NetworkPolicyIngressRule {
+impl crate::OptionableConvert
+for k8s_openapi027::api::networking::v1::NetworkPolicyIngressRule {
     fn into_optioned(self) -> NetworkPolicyIngressRuleAc {
         NetworkPolicyIngressRuleAc {
             from: crate::OptionableConvert::into_optioned(self.from),
             ports: crate::OptionableConvert::into_optioned(self.ports),
         }
     }
-    fn try_from_optioned(value: NetworkPolicyIngressRuleAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: NetworkPolicyIngressRuleAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             from: crate::OptionableConvert::try_from_optioned(value.from)?,
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
@@ -41,9 +52,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::NetworkPo
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::NetworkPolicyIngressRule>
-    for NetworkPolicyIngressRuleAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::networking::v1::NetworkPolicyIngressRule,
+> for NetworkPolicyIngressRuleAc {
     fn from_optionable(
         value: k8s_openapi027::api::networking::v1::NetworkPolicyIngressRule,
     ) -> Self {
@@ -51,7 +62,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::NetworkPolicyIn
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::networking::v1::NetworkPolicyIngressRule, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::networking::v1::NetworkPolicyIngressRule,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

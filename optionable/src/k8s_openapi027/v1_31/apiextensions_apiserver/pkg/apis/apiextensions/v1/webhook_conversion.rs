@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct WebhookConversionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -12,8 +19,7 @@ pub struct WebhookConversionAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion
-{
+for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion {
     type Optioned = WebhookConversionAc;
 }
 #[automatically_derived]
@@ -23,41 +29,45 @@ impl crate::Optionable for WebhookConversionAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion
-{
+for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion {
     fn into_optioned(self) -> WebhookConversionAc {
         WebhookConversionAc {
             client_config: crate::OptionableConvert::into_optioned(self.client_config),
-            conversion_review_versions: Some(crate::OptionableConvert::into_optioned(
-                self.conversion_review_versions,
-            )),
+            conversion_review_versions: Some(
+                crate::OptionableConvert::into_optioned(self.conversion_review_versions),
+            ),
         }
     }
     fn try_from_optioned(value: WebhookConversionAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            client_config: crate::OptionableConvert::try_from_optioned(value.client_config)?,
+            client_config: crate::OptionableConvert::try_from_optioned(
+                value.client_config,
+            )?,
             conversion_review_versions: crate::OptionableConvert::try_from_optioned(
-                value.conversion_review_versions.ok_or(crate::Error {
-                    missing_field: "conversion_review_versions",
-                })?,
+                value
+                    .conversion_review_versions
+                    .ok_or(crate::Error {
+                        missing_field: "conversion_review_versions",
+                    })?,
             )?,
         })
     }
     fn merge(&mut self, other: WebhookConversionAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.client_config, other.client_config)?;
         if let Some(other_value) = other.conversion_review_versions {
-            crate::OptionableConvert::merge(&mut self.conversion_review_versions, other_value)?;
+            crate::OptionableConvert::merge(
+                &mut self.conversion_review_versions,
+                other_value,
+            )?;
         }
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl
-    crate::OptionedConvert<
-        k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion,
-    > for WebhookConversionAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion,
+> for WebhookConversionAc {
     fn from_optionable(
         value: k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookConversion,
     ) -> Self {

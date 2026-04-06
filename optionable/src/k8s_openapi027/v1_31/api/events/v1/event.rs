@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EventAc {
     #[serde(
@@ -14,7 +21,7 @@ pub struct EventAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub action: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub deprecated_count: <Option<i32> as crate::Optionable>::Optioned,
+    pub deprecated_count: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub deprecated_first_timestamp: <Option<
         ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
@@ -74,14 +81,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::events::v1::Event {
             api_version: Default::default(),
             kind: Default::default(),
             action: crate::OptionableConvert::into_optioned(self.action),
-            deprecated_count: crate::OptionableConvert::into_optioned(self.deprecated_count),
+            deprecated_count: self.deprecated_count,
             deprecated_first_timestamp: crate::OptionableConvert::into_optioned(
                 self.deprecated_first_timestamp,
             ),
             deprecated_last_timestamp: crate::OptionableConvert::into_optioned(
                 self.deprecated_last_timestamp,
             ),
-            deprecated_source: crate::OptionableConvert::into_optioned(self.deprecated_source),
+            deprecated_source: crate::OptionableConvert::into_optioned(
+                self.deprecated_source,
+            ),
             event_time: crate::OptionableConvert::into_optioned(self.event_time),
             metadata: self.metadata,
             note: crate::OptionableConvert::into_optioned(self.note),
@@ -91,7 +100,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::events::v1::Event {
             reporting_controller: crate::OptionableConvert::into_optioned(
                 self.reporting_controller,
             ),
-            reporting_instance: crate::OptionableConvert::into_optioned(self.reporting_instance),
+            reporting_instance: crate::OptionableConvert::into_optioned(
+                self.reporting_instance,
+            ),
             series: crate::OptionableConvert::into_optioned(self.series),
             type_: crate::OptionableConvert::into_optioned(self.type_),
         }
@@ -99,7 +110,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::events::v1::Event {
     fn try_from_optioned(value: EventAc) -> Result<Self, crate::Error> {
         Ok(Self {
             action: crate::OptionableConvert::try_from_optioned(value.action)?,
-            deprecated_count: crate::OptionableConvert::try_from_optioned(value.deprecated_count)?,
+            deprecated_count: value.deprecated_count,
             deprecated_first_timestamp: crate::OptionableConvert::try_from_optioned(
                 value.deprecated_first_timestamp,
             )?,
@@ -127,7 +138,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::events::v1::Event {
     }
     fn merge(&mut self, other: EventAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.action, other.action)?;
-        crate::OptionableConvert::merge(&mut self.deprecated_count, other.deprecated_count)?;
+        self.deprecated_count = other.deprecated_count;
         crate::OptionableConvert::merge(
             &mut self.deprecated_first_timestamp,
             other.deprecated_first_timestamp,
@@ -136,7 +147,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::events::v1::Event {
             &mut self.deprecated_last_timestamp,
             other.deprecated_last_timestamp,
         )?;
-        crate::OptionableConvert::merge(&mut self.deprecated_source, other.deprecated_source)?;
+        crate::OptionableConvert::merge(
+            &mut self.deprecated_source,
+            other.deprecated_source,
+        )?;
         crate::OptionableConvert::merge(&mut self.event_time, other.event_time)?;
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.note, other.note)?;
@@ -147,7 +161,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::events::v1::Event {
             &mut self.reporting_controller,
             other.reporting_controller,
         )?;
-        crate::OptionableConvert::merge(&mut self.reporting_instance, other.reporting_instance)?;
+        crate::OptionableConvert::merge(
+            &mut self.reporting_instance,
+            other.reporting_instance,
+        )?;
         crate::OptionableConvert::merge(&mut self.series, other.series)?;
         crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
         Ok(())
@@ -159,7 +176,9 @@ impl crate::OptionedConvert<k8s_openapi027::api::events::v1::Event> for EventAc 
     fn from_optionable(value: k8s_openapi027::api::events::v1::Event) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(self) -> Result<k8s_openapi027::api::events::v1::Event, crate::Error> {
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi027::api::events::v1::Event, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -170,16 +189,11 @@ impl crate::OptionedConvert<k8s_openapi027::api::events::v1::Event> for EventAc 
     }
 }
 impl k8s_openapi027::Resource for EventAc {
-    const API_VERSION: &'static str =
-        <k8s_openapi027::api::events::v1::Event as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str =
-        <k8s_openapi027::api::events::v1::Event as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str =
-        <k8s_openapi027::api::events::v1::Event as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str =
-        <k8s_openapi027::api::events::v1::Event as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str =
-        <k8s_openapi027::api::events::v1::Event as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str = <k8s_openapi027::api::events::v1::Event as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi027::api::events::v1::Event as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi027::api::events::v1::Event as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi027::api::events::v1::Event as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::events::v1::Event as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::events::v1::Event as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for EventAc {

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MutatingAdmissionPolicyBindingSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -14,8 +21,7 @@ pub struct MutatingAdmissionPolicyBindingSpecAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-    for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBindingSpec
-{
+for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBindingSpec {
     type Optioned = MutatingAdmissionPolicyBindingSpecAc;
 }
 #[automatically_derived]
@@ -25,11 +31,12 @@ impl crate::Optionable for MutatingAdmissionPolicyBindingSpecAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBindingSpec
-{
+for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBindingSpec {
     fn into_optioned(self) -> MutatingAdmissionPolicyBindingSpecAc {
         MutatingAdmissionPolicyBindingSpecAc {
-            match_resources: crate::OptionableConvert::into_optioned(self.match_resources),
+            match_resources: crate::OptionableConvert::into_optioned(
+                self.match_resources,
+            ),
             param_ref: crate::OptionableConvert::into_optioned(self.param_ref),
             policy_name: crate::OptionableConvert::into_optioned(self.policy_name),
         }
@@ -38,13 +45,21 @@ impl crate::OptionableConvert
         value: MutatingAdmissionPolicyBindingSpecAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            match_resources: crate::OptionableConvert::try_from_optioned(value.match_resources)?,
+            match_resources: crate::OptionableConvert::try_from_optioned(
+                value.match_resources,
+            )?,
             param_ref: crate::OptionableConvert::try_from_optioned(value.param_ref)?,
             policy_name: crate::OptionableConvert::try_from_optioned(value.policy_name)?,
         })
     }
-    fn merge(&mut self, other: MutatingAdmissionPolicyBindingSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.match_resources, other.match_resources)?;
+    fn merge(
+        &mut self,
+        other: MutatingAdmissionPolicyBindingSpecAc,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(
+            &mut self.match_resources,
+            other.match_resources,
+        )?;
         crate::OptionableConvert::merge(&mut self.param_ref, other.param_ref)?;
         crate::OptionableConvert::merge(&mut self.policy_name, other.policy_name)?;
         Ok(())
@@ -52,11 +67,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl
-    crate::OptionedConvert<
-        k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBindingSpec,
-    > for MutatingAdmissionPolicyBindingSpecAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBindingSpec,
+> for MutatingAdmissionPolicyBindingSpecAc {
     fn from_optionable(
         value: k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBindingSpec,
     ) -> Self {

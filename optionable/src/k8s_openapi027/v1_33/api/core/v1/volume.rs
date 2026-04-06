@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -154,7 +161,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Volume {
             fc: crate::OptionableConvert::into_optioned(self.fc),
             flex_volume: crate::OptionableConvert::into_optioned(self.flex_volume),
             flocker: crate::OptionableConvert::into_optioned(self.flocker),
-            gce_persistent_disk: crate::OptionableConvert::into_optioned(self.gce_persistent_disk),
+            gce_persistent_disk: crate::OptionableConvert::into_optioned(
+                self.gce_persistent_disk,
+            ),
             git_repo: crate::OptionableConvert::into_optioned(self.git_repo),
             glusterfs: crate::OptionableConvert::into_optioned(self.glusterfs),
             host_path: crate::OptionableConvert::into_optioned(self.host_path),
@@ -168,7 +177,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Volume {
             photon_persistent_disk: crate::OptionableConvert::into_optioned(
                 self.photon_persistent_disk,
             ),
-            portworx_volume: crate::OptionableConvert::into_optioned(self.portworx_volume),
+            portworx_volume: crate::OptionableConvert::into_optioned(
+                self.portworx_volume,
+            ),
             projected: crate::OptionableConvert::into_optioned(self.projected),
             quobyte: crate::OptionableConvert::into_optioned(self.quobyte),
             rbd: crate::OptionableConvert::into_optioned(self.rbd),
@@ -189,7 +200,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Volume {
             cinder: crate::OptionableConvert::try_from_optioned(value.cinder)?,
             config_map: crate::OptionableConvert::try_from_optioned(value.config_map)?,
             csi: crate::OptionableConvert::try_from_optioned(value.csi)?,
-            downward_api: crate::OptionableConvert::try_from_optioned(value.downward_api)?,
+            downward_api: crate::OptionableConvert::try_from_optioned(
+                value.downward_api,
+            )?,
             empty_dir: crate::OptionableConvert::try_from_optioned(value.empty_dir)?,
             ephemeral: crate::OptionableConvert::try_from_optioned(value.ephemeral)?,
             fc: crate::OptionableConvert::try_from_optioned(value.fc)?,
@@ -203,9 +216,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Volume {
             host_path: crate::OptionableConvert::try_from_optioned(value.host_path)?,
             image: crate::OptionableConvert::try_from_optioned(value.image)?,
             iscsi: crate::OptionableConvert::try_from_optioned(value.iscsi)?,
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
             nfs: crate::OptionableConvert::try_from_optioned(value.nfs)?,
             persistent_volume_claim: crate::OptionableConvert::try_from_optioned(
                 value.persistent_volume_claim,
@@ -213,14 +230,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Volume {
             photon_persistent_disk: crate::OptionableConvert::try_from_optioned(
                 value.photon_persistent_disk,
             )?,
-            portworx_volume: crate::OptionableConvert::try_from_optioned(value.portworx_volume)?,
+            portworx_volume: crate::OptionableConvert::try_from_optioned(
+                value.portworx_volume,
+            )?,
             projected: crate::OptionableConvert::try_from_optioned(value.projected)?,
             quobyte: crate::OptionableConvert::try_from_optioned(value.quobyte)?,
             rbd: crate::OptionableConvert::try_from_optioned(value.rbd)?,
             scale_io: crate::OptionableConvert::try_from_optioned(value.scale_io)?,
             secret: crate::OptionableConvert::try_from_optioned(value.secret)?,
             storageos: crate::OptionableConvert::try_from_optioned(value.storageos)?,
-            vsphere_volume: crate::OptionableConvert::try_from_optioned(value.vsphere_volume)?,
+            vsphere_volume: crate::OptionableConvert::try_from_optioned(
+                value.vsphere_volume,
+            )?,
         })
     }
     fn merge(&mut self, other: VolumeAc) -> Result<(), crate::Error> {
@@ -240,7 +261,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Volume {
         crate::OptionableConvert::merge(&mut self.fc, other.fc)?;
         crate::OptionableConvert::merge(&mut self.flex_volume, other.flex_volume)?;
         crate::OptionableConvert::merge(&mut self.flocker, other.flocker)?;
-        crate::OptionableConvert::merge(&mut self.gce_persistent_disk, other.gce_persistent_disk)?;
+        crate::OptionableConvert::merge(
+            &mut self.gce_persistent_disk,
+            other.gce_persistent_disk,
+        )?;
         crate::OptionableConvert::merge(&mut self.git_repo, other.git_repo)?;
         crate::OptionableConvert::merge(&mut self.glusterfs, other.glusterfs)?;
         crate::OptionableConvert::merge(&mut self.host_path, other.host_path)?;
@@ -258,7 +282,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Volume {
             &mut self.photon_persistent_disk,
             other.photon_persistent_disk,
         )?;
-        crate::OptionableConvert::merge(&mut self.portworx_volume, other.portworx_volume)?;
+        crate::OptionableConvert::merge(
+            &mut self.portworx_volume,
+            other.portworx_volume,
+        )?;
         crate::OptionableConvert::merge(&mut self.projected, other.projected)?;
         crate::OptionableConvert::merge(&mut self.quobyte, other.quobyte)?;
         crate::OptionableConvert::merge(&mut self.rbd, other.rbd)?;
@@ -275,7 +302,9 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Volume> for VolumeAc 
     fn from_optionable(value: k8s_openapi027::api::core::v1::Volume) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(self) -> Result<k8s_openapi027::api::core::v1::Volume, crate::Error> {
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi027::api::core::v1::Volume, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EventAc {
     #[serde(
@@ -14,7 +21,7 @@ pub struct EventAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub action: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub count: <Option<i32> as crate::Optionable>::Optioned,
+    pub count: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub event_time: <Option<
         ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::MicroTime,
@@ -74,19 +81,25 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
             api_version: Default::default(),
             kind: Default::default(),
             action: crate::OptionableConvert::into_optioned(self.action),
-            count: crate::OptionableConvert::into_optioned(self.count),
+            count: self.count,
             event_time: crate::OptionableConvert::into_optioned(self.event_time),
-            first_timestamp: crate::OptionableConvert::into_optioned(self.first_timestamp),
-            involved_object: Some(crate::OptionableConvert::into_optioned(
-                self.involved_object,
-            )),
+            first_timestamp: crate::OptionableConvert::into_optioned(
+                self.first_timestamp,
+            ),
+            involved_object: Some(
+                crate::OptionableConvert::into_optioned(self.involved_object),
+            ),
             last_timestamp: crate::OptionableConvert::into_optioned(self.last_timestamp),
             message: crate::OptionableConvert::into_optioned(self.message),
             metadata: self.metadata,
             reason: crate::OptionableConvert::into_optioned(self.reason),
             related: crate::OptionableConvert::into_optioned(self.related),
-            reporting_component: crate::OptionableConvert::into_optioned(self.reporting_component),
-            reporting_instance: crate::OptionableConvert::into_optioned(self.reporting_instance),
+            reporting_component: crate::OptionableConvert::into_optioned(
+                self.reporting_component,
+            ),
+            reporting_instance: crate::OptionableConvert::into_optioned(
+                self.reporting_instance,
+            ),
             series: crate::OptionableConvert::into_optioned(self.series),
             source: crate::OptionableConvert::into_optioned(self.source),
             type_: crate::OptionableConvert::into_optioned(self.type_),
@@ -95,15 +108,21 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
     fn try_from_optioned(value: EventAc) -> Result<Self, crate::Error> {
         Ok(Self {
             action: crate::OptionableConvert::try_from_optioned(value.action)?,
-            count: crate::OptionableConvert::try_from_optioned(value.count)?,
+            count: value.count,
             event_time: crate::OptionableConvert::try_from_optioned(value.event_time)?,
-            first_timestamp: crate::OptionableConvert::try_from_optioned(value.first_timestamp)?,
-            involved_object: crate::OptionableConvert::try_from_optioned(
-                value.involved_object.ok_or(crate::Error {
-                    missing_field: "involved_object",
-                })?,
+            first_timestamp: crate::OptionableConvert::try_from_optioned(
+                value.first_timestamp,
             )?,
-            last_timestamp: crate::OptionableConvert::try_from_optioned(value.last_timestamp)?,
+            involved_object: crate::OptionableConvert::try_from_optioned(
+                value
+                    .involved_object
+                    .ok_or(crate::Error {
+                        missing_field: "involved_object",
+                    })?,
+            )?,
+            last_timestamp: crate::OptionableConvert::try_from_optioned(
+                value.last_timestamp,
+            )?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             metadata: value.metadata,
             reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
@@ -121,9 +140,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
     }
     fn merge(&mut self, other: EventAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.action, other.action)?;
-        crate::OptionableConvert::merge(&mut self.count, other.count)?;
+        self.count = other.count;
         crate::OptionableConvert::merge(&mut self.event_time, other.event_time)?;
-        crate::OptionableConvert::merge(&mut self.first_timestamp, other.first_timestamp)?;
+        crate::OptionableConvert::merge(
+            &mut self.first_timestamp,
+            other.first_timestamp,
+        )?;
         if let Some(other_value) = other.involved_object {
             crate::OptionableConvert::merge(&mut self.involved_object, other_value)?;
         }
@@ -132,8 +154,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         crate::OptionableConvert::merge(&mut self.related, other.related)?;
-        crate::OptionableConvert::merge(&mut self.reporting_component, other.reporting_component)?;
-        crate::OptionableConvert::merge(&mut self.reporting_instance, other.reporting_instance)?;
+        crate::OptionableConvert::merge(
+            &mut self.reporting_component,
+            other.reporting_component,
+        )?;
+        crate::OptionableConvert::merge(
+            &mut self.reporting_instance,
+            other.reporting_instance,
+        )?;
         crate::OptionableConvert::merge(&mut self.series, other.series)?;
         crate::OptionableConvert::merge(&mut self.source, other.source)?;
         crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
@@ -146,7 +174,9 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Event> for EventAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::Event) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
-    fn try_into_optionable(self) -> Result<k8s_openapi027::api::core::v1::Event, crate::Error> {
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi027::api::core::v1::Event, crate::Error> {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -157,16 +187,11 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Event> for EventAc {
     }
 }
 impl k8s_openapi027::Resource for EventAc {
-    const API_VERSION: &'static str =
-        <k8s_openapi027::api::core::v1::Event as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str =
-        <k8s_openapi027::api::core::v1::Event as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str =
-        <k8s_openapi027::api::core::v1::Event as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str =
-        <k8s_openapi027::api::core::v1::Event as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str =
-        <k8s_openapi027::api::core::v1::Event as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str = <k8s_openapi027::api::core::v1::Event as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi027::api::core::v1::Event as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi027::api::core::v1::Event as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi027::api::core::v1::Event as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::core::v1::Event as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::core::v1::Event as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for EventAc {

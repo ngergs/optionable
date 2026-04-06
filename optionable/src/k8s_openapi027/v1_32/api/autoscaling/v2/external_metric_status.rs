@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ExternalMetricStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -20,7 +27,8 @@ impl crate::Optionable for ExternalMetricStatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::ExternalMetricStatus {
+impl crate::OptionableConvert
+for k8s_openapi027::api::autoscaling::v2::ExternalMetricStatus {
     fn into_optioned(self) -> ExternalMetricStatusAc {
         ExternalMetricStatusAc {
             current: Some(crate::OptionableConvert::into_optioned(self.current)),
@@ -29,16 +37,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::External
     }
     fn try_from_optioned(value: ExternalMetricStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            current: crate::OptionableConvert::try_from_optioned(value.current.ok_or(
-                crate::Error {
-                    missing_field: "current",
-                },
-            )?)?,
-            metric: crate::OptionableConvert::try_from_optioned(value.metric.ok_or(
-                crate::Error {
-                    missing_field: "metric",
-                },
-            )?)?,
+            current: crate::OptionableConvert::try_from_optioned(
+                value
+                    .current
+                    .ok_or(crate::Error {
+                        missing_field: "current",
+                    })?,
+            )?,
+            metric: crate::OptionableConvert::try_from_optioned(
+                value
+                    .metric
+                    .ok_or(crate::Error {
+                        missing_field: "metric",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: ExternalMetricStatusAc) -> Result<(), crate::Error> {
@@ -54,14 +66,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::External
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::autoscaling::v2::ExternalMetricStatus>
-    for ExternalMetricStatusAc
-{
-    fn from_optionable(value: k8s_openapi027::api::autoscaling::v2::ExternalMetricStatus) -> Self {
+for ExternalMetricStatusAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::autoscaling::v2::ExternalMetricStatus,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::autoscaling::v2::ExternalMetricStatus, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::autoscaling::v2::ExternalMetricStatus,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

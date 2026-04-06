@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LeaseCandidateAc {
     #[serde(
@@ -27,7 +34,8 @@ impl crate::Optionable for LeaseCandidateAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::coordination::v1alpha2::LeaseCandidate {
+impl crate::OptionableConvert
+for k8s_openapi027::api::coordination::v1alpha2::LeaseCandidate {
     fn into_optioned(self) -> LeaseCandidateAc {
         LeaseCandidateAc {
             api_version: Default::default(),
@@ -51,14 +59,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::coordination::v1alpha2::L
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::coordination::v1alpha2::LeaseCandidate>
-    for LeaseCandidateAc
-{
-    fn from_optionable(value: k8s_openapi027::api::coordination::v1alpha2::LeaseCandidate) -> Self {
+for LeaseCandidateAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::coordination::v1alpha2::LeaseCandidate,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::coordination::v1alpha2::LeaseCandidate, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::coordination::v1alpha2::LeaseCandidate,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -88,6 +100,7 @@ impl k8s_openapi027::Metadata for LeaseCandidateAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_leasecandidateac() {
-    crate::testutil::roundtrip_test::<k8s_openapi027::api::coordination::v1alpha2::LeaseCandidate>(
-    );
+    crate::testutil::roundtrip_test::<
+        k8s_openapi027::api::coordination::v1alpha2::LeaseCandidate,
+    >();
 }

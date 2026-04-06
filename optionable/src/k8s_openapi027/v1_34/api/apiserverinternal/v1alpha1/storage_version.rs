@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionAc {
     #[serde(
@@ -22,7 +29,8 @@ pub struct StorageVersionAc {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersion {
+impl crate::Optionable
+for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersion {
     type Optioned = StorageVersionAc;
 }
 #[automatically_derived]
@@ -31,7 +39,8 @@ impl crate::Optionable for StorageVersionAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersion {
+impl crate::OptionableConvert
+for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersion {
     fn into_optioned(self) -> StorageVersionAc {
         StorageVersionAc {
             api_version: Default::default(),
@@ -44,14 +53,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::apiserverinternal::v1alph
     fn try_from_optioned(value: StorageVersionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            spec: crate::OptionableConvert::try_from_optioned(value.spec.ok_or(crate::Error {
-                missing_field: "spec",
-            })?)?,
-            status: crate::OptionableConvert::try_from_optioned(value.status.ok_or(
-                crate::Error {
-                    missing_field: "status",
-                },
-            )?)?,
+            spec: crate::OptionableConvert::try_from_optioned(
+                value
+                    .spec
+                    .ok_or(crate::Error {
+                        missing_field: "spec",
+                    })?,
+            )?,
+            status: crate::OptionableConvert::try_from_optioned(
+                value
+                    .status
+                    .ok_or(crate::Error {
+                        missing_field: "status",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: StorageVersionAc) -> Result<(), crate::Error> {
@@ -67,9 +82,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::apiserverinternal::v1alph
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersion>
-    for StorageVersionAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersion,
+> for StorageVersionAc {
     fn from_optionable(
         value: k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersion,
     ) -> Self {
@@ -77,8 +92,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::apiserverinternal::v1alpha1::St
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersion, crate::Error>
-    {
+    ) -> Result<
+        k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersion,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

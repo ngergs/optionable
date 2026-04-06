@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageClassAc {
     #[serde(
@@ -12,7 +19,7 @@ pub struct StorageClassAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub allow_volume_expansion: <Option<bool> as crate::Optionable>::Optioned,
+    pub allow_volume_expansion: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allowed_topologies: <Option<
         std::vec::Vec<::k8s_openapi027::api::core::v1::TopologySelectorTerm>,
@@ -50,46 +57,52 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::StorageClass
         StorageClassAc {
             api_version: Default::default(),
             kind: Default::default(),
-            allow_volume_expansion: crate::OptionableConvert::into_optioned(
-                self.allow_volume_expansion,
+            allow_volume_expansion: self.allow_volume_expansion,
+            allowed_topologies: crate::OptionableConvert::into_optioned(
+                self.allowed_topologies,
             ),
-            allowed_topologies: crate::OptionableConvert::into_optioned(self.allowed_topologies),
             metadata: self.metadata,
             mount_options: crate::OptionableConvert::into_optioned(self.mount_options),
             parameters: crate::OptionableConvert::into_optioned(self.parameters),
             provisioner: Some(crate::OptionableConvert::into_optioned(self.provisioner)),
             reclaim_policy: crate::OptionableConvert::into_optioned(self.reclaim_policy),
-            volume_binding_mode: crate::OptionableConvert::into_optioned(self.volume_binding_mode),
+            volume_binding_mode: crate::OptionableConvert::into_optioned(
+                self.volume_binding_mode,
+            ),
         }
     }
     fn try_from_optioned(value: StorageClassAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            allow_volume_expansion: crate::OptionableConvert::try_from_optioned(
-                value.allow_volume_expansion,
-            )?,
+            allow_volume_expansion: value.allow_volume_expansion,
             allowed_topologies: crate::OptionableConvert::try_from_optioned(
                 value.allowed_topologies,
             )?,
             metadata: value.metadata,
-            mount_options: crate::OptionableConvert::try_from_optioned(value.mount_options)?,
+            mount_options: crate::OptionableConvert::try_from_optioned(
+                value.mount_options,
+            )?,
             parameters: crate::OptionableConvert::try_from_optioned(value.parameters)?,
-            provisioner: crate::OptionableConvert::try_from_optioned(value.provisioner.ok_or(
-                crate::Error {
-                    missing_field: "provisioner",
-                },
-            )?)?,
-            reclaim_policy: crate::OptionableConvert::try_from_optioned(value.reclaim_policy)?,
+            provisioner: crate::OptionableConvert::try_from_optioned(
+                value
+                    .provisioner
+                    .ok_or(crate::Error {
+                        missing_field: "provisioner",
+                    })?,
+            )?,
+            reclaim_policy: crate::OptionableConvert::try_from_optioned(
+                value.reclaim_policy,
+            )?,
             volume_binding_mode: crate::OptionableConvert::try_from_optioned(
                 value.volume_binding_mode,
             )?,
         })
     }
     fn merge(&mut self, other: StorageClassAc) -> Result<(), crate::Error> {
+        self.allow_volume_expansion = other.allow_volume_expansion;
         crate::OptionableConvert::merge(
-            &mut self.allow_volume_expansion,
-            other.allow_volume_expansion,
+            &mut self.allowed_topologies,
+            other.allowed_topologies,
         )?;
-        crate::OptionableConvert::merge(&mut self.allowed_topologies, other.allowed_topologies)?;
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.mount_options, other.mount_options)?;
         crate::OptionableConvert::merge(&mut self.parameters, other.parameters)?;
@@ -97,13 +110,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::StorageClass
             crate::OptionableConvert::merge(&mut self.provisioner, other_value)?;
         }
         crate::OptionableConvert::merge(&mut self.reclaim_policy, other.reclaim_policy)?;
-        crate::OptionableConvert::merge(&mut self.volume_binding_mode, other.volume_binding_mode)?;
+        crate::OptionableConvert::merge(
+            &mut self.volume_binding_mode,
+            other.volume_binding_mode,
+        )?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::storage::v1::StorageClass> for StorageClassAc {
+impl crate::OptionedConvert<k8s_openapi027::api::storage::v1::StorageClass>
+for StorageClassAc {
     fn from_optionable(value: k8s_openapi027::api::storage::v1::StorageClass) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
@@ -120,17 +137,12 @@ impl crate::OptionedConvert<k8s_openapi027::api::storage::v1::StorageClass> for 
     }
 }
 impl k8s_openapi027::Resource for StorageClassAc {
-    const API_VERSION: &'static str =
-        <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str =
-        <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str =
-        <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str =
-        <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Resource>::VERSION;
+    const API_VERSION: &'static str = <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Resource>::VERSION;
     const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
-    type Scope =
-        <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Resource>::Scope;
+    type Scope = <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for StorageClassAc {
     type Ty = <k8s_openapi027::api::storage::v1::StorageClass as k8s_openapi027::Metadata>::Ty;

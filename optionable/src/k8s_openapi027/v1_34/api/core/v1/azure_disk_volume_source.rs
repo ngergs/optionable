@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AzureDiskVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -13,7 +20,7 @@ pub struct AzureDiskVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub read_only: <Option<bool> as crate::Optionable>::Optioned,
+    pub read_only: Option<bool>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::AzureDiskVolumeSource {
@@ -33,25 +40,31 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AzureDiskVolume
             disk_uri: Some(crate::OptionableConvert::into_optioned(self.disk_uri)),
             fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
             kind: crate::OptionableConvert::into_optioned(self.kind),
-            read_only: crate::OptionableConvert::into_optioned(self.read_only),
+            read_only: self.read_only,
         }
     }
     fn try_from_optioned(value: AzureDiskVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            caching_mode: crate::OptionableConvert::try_from_optioned(value.caching_mode)?,
-            disk_name: crate::OptionableConvert::try_from_optioned(value.disk_name.ok_or(
-                crate::Error {
-                    missing_field: "disk_name",
-                },
-            )?)?,
-            disk_uri: crate::OptionableConvert::try_from_optioned(value.disk_uri.ok_or(
-                crate::Error {
-                    missing_field: "disk_uri",
-                },
-            )?)?,
+            caching_mode: crate::OptionableConvert::try_from_optioned(
+                value.caching_mode,
+            )?,
+            disk_name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .disk_name
+                    .ok_or(crate::Error {
+                        missing_field: "disk_name",
+                    })?,
+            )?,
+            disk_uri: crate::OptionableConvert::try_from_optioned(
+                value
+                    .disk_uri
+                    .ok_or(crate::Error {
+                        missing_field: "disk_uri",
+                    })?,
+            )?,
             fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
             kind: crate::OptionableConvert::try_from_optioned(value.kind)?,
-            read_only: crate::OptionableConvert::try_from_optioned(value.read_only)?,
+            read_only: value.read_only,
         })
     }
     fn merge(&mut self, other: AzureDiskVolumeSourceAc) -> Result<(), crate::Error> {
@@ -64,16 +77,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AzureDiskVolume
         }
         crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
-        crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        self.read_only = other.read_only;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::AzureDiskVolumeSource>
-    for AzureDiskVolumeSourceAc
-{
-    fn from_optionable(value: k8s_openapi027::api::core::v1::AzureDiskVolumeSource) -> Self {
+for AzureDiskVolumeSourceAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::core::v1::AzureDiskVolumeSource,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodDisruptionBudgetSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -28,10 +35,13 @@ impl crate::Optionable for PodDisruptionBudgetSpecAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec {
+impl crate::OptionableConvert
+for k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec {
     fn into_optioned(self) -> PodDisruptionBudgetSpecAc {
         PodDisruptionBudgetSpecAc {
-            max_unavailable: crate::OptionableConvert::into_optioned(self.max_unavailable),
+            max_unavailable: crate::OptionableConvert::into_optioned(
+                self.max_unavailable,
+            ),
             min_available: crate::OptionableConvert::into_optioned(self.min_available),
             selector: crate::OptionableConvert::into_optioned(self.selector),
             unhealthy_pod_eviction_policy: crate::OptionableConvert::into_optioned(
@@ -39,10 +49,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::policy::v1::PodDisruption
             ),
         }
     }
-    fn try_from_optioned(value: PodDisruptionBudgetSpecAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: PodDisruptionBudgetSpecAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
-            max_unavailable: crate::OptionableConvert::try_from_optioned(value.max_unavailable)?,
-            min_available: crate::OptionableConvert::try_from_optioned(value.min_available)?,
+            max_unavailable: crate::OptionableConvert::try_from_optioned(
+                value.max_unavailable,
+            )?,
+            min_available: crate::OptionableConvert::try_from_optioned(
+                value.min_available,
+            )?,
             selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
             unhealthy_pod_eviction_policy: crate::OptionableConvert::try_from_optioned(
                 value.unhealthy_pod_eviction_policy,
@@ -50,7 +66,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::policy::v1::PodDisruption
         })
     }
     fn merge(&mut self, other: PodDisruptionBudgetSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.max_unavailable, other.max_unavailable)?;
+        crate::OptionableConvert::merge(
+            &mut self.max_unavailable,
+            other.max_unavailable,
+        )?;
         crate::OptionableConvert::merge(&mut self.min_available, other.min_available)?;
         crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
         crate::OptionableConvert::merge(
@@ -63,9 +82,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::policy::v1::PodDisruption
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec>
-    for PodDisruptionBudgetSpecAc
-{
-    fn from_optionable(value: k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec) -> Self {
+for PodDisruptionBudgetSpecAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

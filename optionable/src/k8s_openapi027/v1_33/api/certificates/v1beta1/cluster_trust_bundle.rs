@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ClusterTrustBundleAc {
     #[serde(
@@ -18,7 +25,8 @@ pub struct ClusterTrustBundleAc {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundle {
+impl crate::Optionable
+for k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundle {
     type Optioned = ClusterTrustBundleAc;
 }
 #[automatically_derived]
@@ -27,7 +35,8 @@ impl crate::Optionable for ClusterTrustBundleAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundle {
+impl crate::OptionableConvert
+for k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundle {
     fn into_optioned(self) -> ClusterTrustBundleAc {
         ClusterTrustBundleAc {
             api_version: Default::default(),
@@ -39,9 +48,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::certificates::v1beta1::Cl
     fn try_from_optioned(value: ClusterTrustBundleAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            spec: crate::OptionableConvert::try_from_optioned(value.spec.ok_or(crate::Error {
-                missing_field: "spec",
-            })?)?,
+            spec: crate::OptionableConvert::try_from_optioned(
+                value
+                    .spec
+                    .ok_or(crate::Error {
+                        missing_field: "spec",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: ClusterTrustBundleAc) -> Result<(), crate::Error> {
@@ -54,9 +67,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::certificates::v1beta1::Cl
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundle>
-    for ClusterTrustBundleAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundle,
+> for ClusterTrustBundleAc {
     fn from_optionable(
         value: k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundle,
     ) -> Self {
@@ -64,7 +77,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::certificates::v1beta1::ClusterT
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundle, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundle,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -94,6 +110,7 @@ impl k8s_openapi027::Metadata for ClusterTrustBundleAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_clustertrustbundleac() {
-    crate::testutil::roundtrip_test::<k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundle>(
-    );
+    crate::testutil::roundtrip_test::<
+        k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundle,
+    >();
 }

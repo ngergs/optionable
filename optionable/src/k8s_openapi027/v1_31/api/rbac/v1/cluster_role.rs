@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ClusterRoleAc {
     #[serde(
@@ -36,20 +43,27 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::ClusterRole {
         ClusterRoleAc {
             api_version: Default::default(),
             kind: Default::default(),
-            aggregation_rule: crate::OptionableConvert::into_optioned(self.aggregation_rule),
+            aggregation_rule: crate::OptionableConvert::into_optioned(
+                self.aggregation_rule,
+            ),
             metadata: self.metadata,
             rules: crate::OptionableConvert::into_optioned(self.rules),
         }
     }
     fn try_from_optioned(value: ClusterRoleAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            aggregation_rule: crate::OptionableConvert::try_from_optioned(value.aggregation_rule)?,
+            aggregation_rule: crate::OptionableConvert::try_from_optioned(
+                value.aggregation_rule,
+            )?,
             metadata: value.metadata,
             rules: crate::OptionableConvert::try_from_optioned(value.rules)?,
         })
     }
     fn merge(&mut self, other: ClusterRoleAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.aggregation_rule, other.aggregation_rule)?;
+        crate::OptionableConvert::merge(
+            &mut self.aggregation_rule,
+            other.aggregation_rule,
+        )?;
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
         Ok(())
@@ -57,7 +71,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::ClusterRole {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::rbac::v1::ClusterRole> for ClusterRoleAc {
+impl crate::OptionedConvert<k8s_openapi027::api::rbac::v1::ClusterRole>
+for ClusterRoleAc {
     fn from_optionable(value: k8s_openapi027::api::rbac::v1::ClusterRole) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
@@ -74,16 +89,11 @@ impl crate::OptionedConvert<k8s_openapi027::api::rbac::v1::ClusterRole> for Clus
     }
 }
 impl k8s_openapi027::Resource for ClusterRoleAc {
-    const API_VERSION: &'static str =
-        <k8s_openapi027::api::rbac::v1::ClusterRole as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str =
-        <k8s_openapi027::api::rbac::v1::ClusterRole as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str =
-        <k8s_openapi027::api::rbac::v1::ClusterRole as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str =
-        <k8s_openapi027::api::rbac::v1::ClusterRole as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str =
-        <k8s_openapi027::api::rbac::v1::ClusterRole as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str = <k8s_openapi027::api::rbac::v1::ClusterRole as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi027::api::rbac::v1::ClusterRole as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi027::api::rbac::v1::ClusterRole as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi027::api::rbac::v1::ClusterRole as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::rbac::v1::ClusterRole as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::rbac::v1::ClusterRole as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for ClusterRoleAc {

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIServiceAc {
     #[serde(
@@ -23,8 +30,7 @@ pub struct APIServiceAc {
 }
 #[automatically_derived]
 impl crate::Optionable
-    for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIService
-{
+for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIService {
     type Optioned = APIServiceAc;
 }
 #[automatically_derived]
@@ -34,8 +40,7 @@ impl crate::Optionable for APIServiceAc {
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert
-    for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIService
-{
+for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIService {
     fn into_optioned(self) -> APIServiceAc {
         APIServiceAc {
             api_version: Default::default(),
@@ -61,11 +66,9 @@ impl crate::OptionableConvert
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl
-    crate::OptionedConvert<
-        k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
-    > for APIServiceAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
+> for APIServiceAc {
     fn from_optionable(
         value: k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
     ) -> Self {

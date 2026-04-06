@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIGroupAc {
     #[serde(
@@ -41,13 +48,16 @@ impl crate::Optionable for APIGroupAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup {
+impl crate::OptionableConvert
+for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup {
     fn into_optioned(self) -> APIGroupAc {
         APIGroupAc {
             api_version: Default::default(),
             kind: Default::default(),
             name: Some(crate::OptionableConvert::into_optioned(self.name)),
-            preferred_version: crate::OptionableConvert::into_optioned(self.preferred_version),
+            preferred_version: crate::OptionableConvert::into_optioned(
+                self.preferred_version,
+            ),
             server_address_by_client_cidrs: crate::OptionableConvert::into_optioned(
                 self.server_address_by_client_cidrs,
             ),
@@ -56,27 +66,36 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta:
     }
     fn try_from_optioned(value: APIGroupAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
             preferred_version: crate::OptionableConvert::try_from_optioned(
                 value.preferred_version,
             )?,
             server_address_by_client_cidrs: crate::OptionableConvert::try_from_optioned(
                 value.server_address_by_client_cidrs,
             )?,
-            versions: crate::OptionableConvert::try_from_optioned(value.versions.ok_or(
-                crate::Error {
-                    missing_field: "versions",
-                },
-            )?)?,
+            versions: crate::OptionableConvert::try_from_optioned(
+                value
+                    .versions
+                    .ok_or(crate::Error {
+                        missing_field: "versions",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: APIGroupAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
             crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
-        crate::OptionableConvert::merge(&mut self.preferred_version, other.preferred_version)?;
+        crate::OptionableConvert::merge(
+            &mut self.preferred_version,
+            other.preferred_version,
+        )?;
         crate::OptionableConvert::merge(
             &mut self.server_address_by_client_cidrs,
             other.server_address_by_client_cidrs,
@@ -90,14 +109,18 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::apis::meta:
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup>
-    for APIGroupAc
-{
-    fn from_optionable(value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup) -> Self {
+for APIGroupAc {
+    fn from_optionable(
+        value: k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -118,6 +141,7 @@ impl k8s_openapi027::Resource for APIGroupAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_apigroupac() {
-    crate::testutil::roundtrip_test::<k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup>(
-    );
+    crate::testutil::roundtrip_test::<
+        k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup,
+    >();
 }

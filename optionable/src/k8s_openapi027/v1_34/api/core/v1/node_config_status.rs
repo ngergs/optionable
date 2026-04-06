@@ -1,17 +1,27 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeConfigStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub active:
-        <Option<::k8s_openapi027::api::core::v1::NodeConfigSource> as crate::Optionable>::Optioned,
+    pub active: <Option<
+        ::k8s_openapi027::api::core::v1::NodeConfigSource,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub assigned:
-        <Option<::k8s_openapi027::api::core::v1::NodeConfigSource> as crate::Optionable>::Optioned,
+    pub assigned: <Option<
+        ::k8s_openapi027::api::core::v1::NodeConfigSource,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub error: <Option<std::string::String> as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub last_known_good:
-        <Option<::k8s_openapi027::api::core::v1::NodeConfigSource> as crate::Optionable>::Optioned,
+    pub last_known_good: <Option<
+        ::k8s_openapi027::api::core::v1::NodeConfigSource,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::NodeConfigStatus {
@@ -29,7 +39,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeConfigStatu
             active: crate::OptionableConvert::into_optioned(self.active),
             assigned: crate::OptionableConvert::into_optioned(self.assigned),
             error: crate::OptionableConvert::into_optioned(self.error),
-            last_known_good: crate::OptionableConvert::into_optioned(self.last_known_good),
+            last_known_good: crate::OptionableConvert::into_optioned(
+                self.last_known_good,
+            ),
         }
     }
     fn try_from_optioned(value: NodeConfigStatusAc) -> Result<Self, crate::Error> {
@@ -37,22 +49,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeConfigStatu
             active: crate::OptionableConvert::try_from_optioned(value.active)?,
             assigned: crate::OptionableConvert::try_from_optioned(value.assigned)?,
             error: crate::OptionableConvert::try_from_optioned(value.error)?,
-            last_known_good: crate::OptionableConvert::try_from_optioned(value.last_known_good)?,
+            last_known_good: crate::OptionableConvert::try_from_optioned(
+                value.last_known_good,
+            )?,
         })
     }
     fn merge(&mut self, other: NodeConfigStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.active, other.active)?;
         crate::OptionableConvert::merge(&mut self.assigned, other.assigned)?;
         crate::OptionableConvert::merge(&mut self.error, other.error)?;
-        crate::OptionableConvert::merge(&mut self.last_known_good, other.last_known_good)?;
+        crate::OptionableConvert::merge(
+            &mut self.last_known_good,
+            other.last_known_good,
+        )?;
         Ok(())
     }
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeConfigStatus>
-    for NodeConfigStatusAc
-{
+for NodeConfigStatusAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::NodeConfigStatus) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

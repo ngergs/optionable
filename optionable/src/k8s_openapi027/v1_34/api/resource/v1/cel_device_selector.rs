@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CELDeviceSelectorAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -22,11 +29,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::CELDeviceSe
     }
     fn try_from_optioned(value: CELDeviceSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            expression: crate::OptionableConvert::try_from_optioned(value.expression.ok_or(
-                crate::Error {
-                    missing_field: "expression",
-                },
-            )?)?,
+            expression: crate::OptionableConvert::try_from_optioned(
+                value
+                    .expression
+                    .ok_or(crate::Error {
+                        missing_field: "expression",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: CELDeviceSelectorAc) -> Result<(), crate::Error> {
@@ -39,9 +48,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::CELDeviceSe
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1::CELDeviceSelector>
-    for CELDeviceSelectorAc
-{
-    fn from_optionable(value: k8s_openapi027::api::resource::v1::CELDeviceSelector) -> Self {
+for CELDeviceSelectorAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::resource::v1::CELDeviceSelector,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(

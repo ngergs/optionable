@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TCPSocketActionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -28,9 +35,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TCPSocketAction
     fn try_from_optioned(value: TCPSocketActionAc) -> Result<Self, crate::Error> {
         Ok(Self {
             host: crate::OptionableConvert::try_from_optioned(value.host)?,
-            port: crate::OptionableConvert::try_from_optioned(value.port.ok_or(crate::Error {
-                missing_field: "port",
-            })?)?,
+            port: crate::OptionableConvert::try_from_optioned(
+                value
+                    .port
+                    .ok_or(crate::Error {
+                        missing_field: "port",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: TCPSocketActionAc) -> Result<(), crate::Error> {
@@ -43,7 +54,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TCPSocketAction
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::core::v1::TCPSocketAction> for TCPSocketActionAc {
+impl crate::OptionedConvert<k8s_openapi027::api::core::v1::TCPSocketAction>
+for TCPSocketActionAc {
     fn from_optionable(value: k8s_openapi027::api::core::v1::TCPSocketAction) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }

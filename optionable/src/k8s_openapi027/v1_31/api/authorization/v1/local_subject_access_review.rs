@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LocalSubjectAccessReviewAc {
     #[serde(
@@ -22,7 +29,8 @@ pub struct LocalSubjectAccessReviewAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::authorization::v1::LocalSubjectAccessReview {
+impl crate::Optionable
+for k8s_openapi027::api::authorization::v1::LocalSubjectAccessReview {
     type Optioned = LocalSubjectAccessReviewAc;
 }
 #[automatically_derived]
@@ -31,7 +39,8 @@ impl crate::Optionable for LocalSubjectAccessReviewAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::LocalSubjectAccessReview {
+impl crate::OptionableConvert
+for k8s_openapi027::api::authorization::v1::LocalSubjectAccessReview {
     fn into_optioned(self) -> LocalSubjectAccessReviewAc {
         LocalSubjectAccessReviewAc {
             api_version: Default::default(),
@@ -41,12 +50,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::LocalS
             status: crate::OptionableConvert::into_optioned(self.status),
         }
     }
-    fn try_from_optioned(value: LocalSubjectAccessReviewAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: LocalSubjectAccessReviewAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            spec: crate::OptionableConvert::try_from_optioned(value.spec.ok_or(crate::Error {
-                missing_field: "spec",
-            })?)?,
+            spec: crate::OptionableConvert::try_from_optioned(
+                value
+                    .spec
+                    .ok_or(crate::Error {
+                        missing_field: "spec",
+                    })?,
+            )?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
@@ -61,9 +76,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::LocalS
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::authorization::v1::LocalSubjectAccessReview>
-    for LocalSubjectAccessReviewAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::authorization::v1::LocalSubjectAccessReview,
+> for LocalSubjectAccessReviewAc {
     fn from_optionable(
         value: k8s_openapi027::api::authorization::v1::LocalSubjectAccessReview,
     ) -> Self {
@@ -71,8 +86,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::authorization::v1::LocalSubject
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::authorization::v1::LocalSubjectAccessReview, crate::Error>
-    {
+    ) -> Result<
+        k8s_openapi027::api::authorization::v1::LocalSubjectAccessReview,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

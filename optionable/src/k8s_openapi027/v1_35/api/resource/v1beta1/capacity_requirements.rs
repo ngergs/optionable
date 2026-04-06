@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CapacityRequirementsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -19,7 +26,8 @@ impl crate::Optionable for CapacityRequirementsAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::CapacityRequirements {
+impl crate::OptionableConvert
+for k8s_openapi027::api::resource::v1beta1::CapacityRequirements {
     fn into_optioned(self) -> CapacityRequirementsAc {
         CapacityRequirementsAc {
             requests: crate::OptionableConvert::into_optioned(self.requests),
@@ -38,8 +46,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Capaci
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta1::CapacityRequirements>
-    for CapacityRequirementsAc
-{
+for CapacityRequirementsAc {
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1beta1::CapacityRequirements,
     ) -> Self {
@@ -47,7 +54,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::resource::v1beta1::CapacityRequ
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::resource::v1beta1::CapacityRequirements, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::resource::v1beta1::CapacityRequirements,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

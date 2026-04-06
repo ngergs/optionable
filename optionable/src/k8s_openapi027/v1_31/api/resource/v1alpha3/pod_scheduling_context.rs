@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodSchedulingContextAc {
     #[serde(
@@ -22,7 +29,8 @@ pub struct PodSchedulingContextAc {
     > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::resource::v1alpha3::PodSchedulingContext {
+impl crate::Optionable
+for k8s_openapi027::api::resource::v1alpha3::PodSchedulingContext {
     type Optioned = PodSchedulingContextAc;
 }
 #[automatically_derived]
@@ -31,7 +39,8 @@ impl crate::Optionable for PodSchedulingContextAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::PodSchedulingContext {
+impl crate::OptionableConvert
+for k8s_openapi027::api::resource::v1alpha3::PodSchedulingContext {
     fn into_optioned(self) -> PodSchedulingContextAc {
         PodSchedulingContextAc {
             api_version: Default::default(),
@@ -44,9 +53,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::PodSc
     fn try_from_optioned(value: PodSchedulingContextAc) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            spec: crate::OptionableConvert::try_from_optioned(value.spec.ok_or(crate::Error {
-                missing_field: "spec",
-            })?)?,
+            spec: crate::OptionableConvert::try_from_optioned(
+                value
+                    .spec
+                    .ok_or(crate::Error {
+                        missing_field: "spec",
+                    })?,
+            )?,
             status: crate::OptionableConvert::try_from_optioned(value.status)?,
         })
     }
@@ -61,9 +74,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::PodSc
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::PodSchedulingContext>
-    for PodSchedulingContextAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::resource::v1alpha3::PodSchedulingContext,
+> for PodSchedulingContextAc {
     fn from_optionable(
         value: k8s_openapi027::api::resource::v1alpha3::PodSchedulingContext,
     ) -> Self {
@@ -71,7 +84,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::resource::v1alpha3::PodScheduli
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::resource::v1alpha3::PodSchedulingContext, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::resource::v1alpha3::PodSchedulingContext,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(
@@ -101,6 +117,7 @@ impl k8s_openapi027::Metadata for PodSchedulingContextAc {
 #[cfg(test_k8s_openapi_roundtrip)]
 #[test]
 fn roundtrip_podschedulingcontextac() {
-    crate::testutil::roundtrip_test::<k8s_openapi027::api::resource::v1alpha3::PodSchedulingContext>(
-    );
+    crate::testutil::roundtrip_test::<
+        k8s_openapi027::api::resource::v1alpha3::PodSchedulingContext,
+    >();
 }

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ValidationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -20,22 +27,27 @@ impl crate::Optionable for ValidationAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::admissionregistration::v1::Validation {
+impl crate::OptionableConvert
+for k8s_openapi027::api::admissionregistration::v1::Validation {
     fn into_optioned(self) -> ValidationAc {
         ValidationAc {
             expression: Some(crate::OptionableConvert::into_optioned(self.expression)),
             message: crate::OptionableConvert::into_optioned(self.message),
-            message_expression: crate::OptionableConvert::into_optioned(self.message_expression),
+            message_expression: crate::OptionableConvert::into_optioned(
+                self.message_expression,
+            ),
             reason: crate::OptionableConvert::into_optioned(self.reason),
         }
     }
     fn try_from_optioned(value: ValidationAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            expression: crate::OptionableConvert::try_from_optioned(value.expression.ok_or(
-                crate::Error {
-                    missing_field: "expression",
-                },
-            )?)?,
+            expression: crate::OptionableConvert::try_from_optioned(
+                value
+                    .expression
+                    .ok_or(crate::Error {
+                        missing_field: "expression",
+                    })?,
+            )?,
             message: crate::OptionableConvert::try_from_optioned(value.message)?,
             message_expression: crate::OptionableConvert::try_from_optioned(
                 value.message_expression,
@@ -48,7 +60,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::admissionregistration::v1
             crate::OptionableConvert::merge(&mut self.expression, other_value)?;
         }
         crate::OptionableConvert::merge(&mut self.message, other.message)?;
-        crate::OptionableConvert::merge(&mut self.message_expression, other.message_expression)?;
+        crate::OptionableConvert::merge(
+            &mut self.message_expression,
+            other.message_expression,
+        )?;
         crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         Ok(())
     }
@@ -56,14 +71,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::admissionregistration::v1
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::admissionregistration::v1::Validation>
-    for ValidationAc
-{
-    fn from_optionable(value: k8s_openapi027::api::admissionregistration::v1::Validation) -> Self {
+for ValidationAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::admissionregistration::v1::Validation,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::admissionregistration::v1::Validation, crate::Error> {
+    ) -> Result<
+        k8s_openapi027::api::admissionregistration::v1::Validation,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

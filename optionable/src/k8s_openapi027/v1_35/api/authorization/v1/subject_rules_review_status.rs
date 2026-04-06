@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SubjectRulesReviewStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -19,7 +26,8 @@ pub struct SubjectRulesReviewStatusAc {
     >,
 }
 #[automatically_derived]
-impl crate::Optionable for k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus {
+impl crate::Optionable
+for k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus {
     type Optioned = SubjectRulesReviewStatusAc;
 }
 #[automatically_derived]
@@ -28,37 +36,55 @@ impl crate::Optionable for SubjectRulesReviewStatusAc {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus {
+impl crate::OptionableConvert
+for k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus {
     fn into_optioned(self) -> SubjectRulesReviewStatusAc {
         SubjectRulesReviewStatusAc {
-            evaluation_error: crate::OptionableConvert::into_optioned(self.evaluation_error),
+            evaluation_error: crate::OptionableConvert::into_optioned(
+                self.evaluation_error,
+            ),
             incomplete: Some(self.incomplete),
-            non_resource_rules: Some(crate::OptionableConvert::into_optioned(
-                self.non_resource_rules,
-            )),
-            resource_rules: Some(crate::OptionableConvert::into_optioned(self.resource_rules)),
+            non_resource_rules: Some(
+                crate::OptionableConvert::into_optioned(self.non_resource_rules),
+            ),
+            resource_rules: Some(
+                crate::OptionableConvert::into_optioned(self.resource_rules),
+            ),
         }
     }
-    fn try_from_optioned(value: SubjectRulesReviewStatusAc) -> Result<Self, crate::Error> {
+    fn try_from_optioned(
+        value: SubjectRulesReviewStatusAc,
+    ) -> Result<Self, crate::Error> {
         Ok(Self {
-            evaluation_error: crate::OptionableConvert::try_from_optioned(value.evaluation_error)?,
-            incomplete: value.incomplete.ok_or(crate::Error {
-                missing_field: "incomplete",
-            })?,
-            non_resource_rules: crate::OptionableConvert::try_from_optioned(
-                value.non_resource_rules.ok_or(crate::Error {
-                    missing_field: "non_resource_rules",
+            evaluation_error: crate::OptionableConvert::try_from_optioned(
+                value.evaluation_error,
+            )?,
+            incomplete: value
+                .incomplete
+                .ok_or(crate::Error {
+                    missing_field: "incomplete",
                 })?,
+            non_resource_rules: crate::OptionableConvert::try_from_optioned(
+                value
+                    .non_resource_rules
+                    .ok_or(crate::Error {
+                        missing_field: "non_resource_rules",
+                    })?,
             )?,
             resource_rules: crate::OptionableConvert::try_from_optioned(
-                value.resource_rules.ok_or(crate::Error {
-                    missing_field: "resource_rules",
-                })?,
+                value
+                    .resource_rules
+                    .ok_or(crate::Error {
+                        missing_field: "resource_rules",
+                    })?,
             )?,
         })
     }
     fn merge(&mut self, other: SubjectRulesReviewStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.evaluation_error, other.evaluation_error)?;
+        crate::OptionableConvert::merge(
+            &mut self.evaluation_error,
+            other.evaluation_error,
+        )?;
         if let Some(other_value) = other.incomplete {
             self.incomplete = other_value;
         }
@@ -73,9 +99,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::Subjec
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus>
-    for SubjectRulesReviewStatusAc
-{
+impl crate::OptionedConvert<
+    k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus,
+> for SubjectRulesReviewStatusAc {
     fn from_optionable(
         value: k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus,
     ) -> Self {
@@ -83,8 +109,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::authorization::v1::SubjectRules
     }
     fn try_into_optionable(
         self,
-    ) -> Result<k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus, crate::Error>
-    {
+    ) -> Result<
+        k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus,
+        crate::Error,
+    > {
         crate::OptionableConvert::try_from_optioned(self)
     }
     fn merge_into(

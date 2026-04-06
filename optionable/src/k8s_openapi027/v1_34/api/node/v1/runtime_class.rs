@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RuntimeClassAc {
     #[serde(
@@ -15,11 +22,13 @@ pub struct RuntimeClassAc {
     pub handler: Option<<std::string::String as crate::Optionable>::Optioned>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub overhead:
-        <Option<::k8s_openapi027::api::node::v1::Overhead> as crate::Optionable>::Optioned,
+    pub overhead: <Option<
+        ::k8s_openapi027::api::node::v1::Overhead,
+    > as crate::Optionable>::Optioned,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scheduling:
-        <Option<::k8s_openapi027::api::node::v1::Scheduling> as crate::Optionable>::Optioned,
+    pub scheduling: <Option<
+        ::k8s_openapi027::api::node::v1::Scheduling,
+    > as crate::Optionable>::Optioned,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::node::v1::RuntimeClass {
@@ -44,11 +53,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::node::v1::RuntimeClass {
     }
     fn try_from_optioned(value: RuntimeClassAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            handler: crate::OptionableConvert::try_from_optioned(value.handler.ok_or(
-                crate::Error {
-                    missing_field: "handler",
-                },
-            )?)?,
+            handler: crate::OptionableConvert::try_from_optioned(
+                value
+                    .handler
+                    .ok_or(crate::Error {
+                        missing_field: "handler",
+                    })?,
+            )?,
             metadata: value.metadata,
             overhead: crate::OptionableConvert::try_from_optioned(value.overhead)?,
             scheduling: crate::OptionableConvert::try_from_optioned(value.scheduling)?,
@@ -66,7 +77,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::node::v1::RuntimeClass {
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::node::v1::RuntimeClass> for RuntimeClassAc {
+impl crate::OptionedConvert<k8s_openapi027::api::node::v1::RuntimeClass>
+for RuntimeClassAc {
     fn from_optionable(value: k8s_openapi027::api::node::v1::RuntimeClass) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
@@ -83,16 +95,11 @@ impl crate::OptionedConvert<k8s_openapi027::api::node::v1::RuntimeClass> for Run
     }
 }
 impl k8s_openapi027::Resource for RuntimeClassAc {
-    const API_VERSION: &'static str =
-        <k8s_openapi027::api::node::v1::RuntimeClass as k8s_openapi027::Resource>::API_VERSION;
-    const GROUP: &'static str =
-        <k8s_openapi027::api::node::v1::RuntimeClass as k8s_openapi027::Resource>::GROUP;
-    const KIND: &'static str =
-        <k8s_openapi027::api::node::v1::RuntimeClass as k8s_openapi027::Resource>::KIND;
-    const VERSION: &'static str =
-        <k8s_openapi027::api::node::v1::RuntimeClass as k8s_openapi027::Resource>::VERSION;
-    const URL_PATH_SEGMENT: &'static str =
-        <k8s_openapi027::api::node::v1::RuntimeClass as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
+    const API_VERSION: &'static str = <k8s_openapi027::api::node::v1::RuntimeClass as k8s_openapi027::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi027::api::node::v1::RuntimeClass as k8s_openapi027::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi027::api::node::v1::RuntimeClass as k8s_openapi027::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi027::api::node::v1::RuntimeClass as k8s_openapi027::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <k8s_openapi027::api::node::v1::RuntimeClass as k8s_openapi027::Resource>::URL_PATH_SEGMENT;
     type Scope = <k8s_openapi027::api::node::v1::RuntimeClass as k8s_openapi027::Resource>::Scope;
 }
 impl k8s_openapi027::Metadata for RuntimeClassAc {

@@ -1,4 +1,11 @@
-#[derive(Clone, Default, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodGroupAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,14 +34,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1alpha1::Pod
     }
     fn try_from_optioned(value: PodGroupAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(value.name.ok_or(crate::Error {
-                missing_field: "name",
-            })?)?,
-            policy: crate::OptionableConvert::try_from_optioned(value.policy.ok_or(
-                crate::Error {
-                    missing_field: "policy",
-                },
-            )?)?,
+            name: crate::OptionableConvert::try_from_optioned(
+                value
+                    .name
+                    .ok_or(crate::Error {
+                        missing_field: "name",
+                    })?,
+            )?,
+            policy: crate::OptionableConvert::try_from_optioned(
+                value
+                    .policy
+                    .ok_or(crate::Error {
+                        missing_field: "policy",
+                    })?,
+            )?,
         })
     }
     fn merge(&mut self, other: PodGroupAc) -> Result<(), crate::Error> {
@@ -49,8 +62,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1alpha1::Pod
 }
 #[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
-impl crate::OptionedConvert<k8s_openapi027::api::scheduling::v1alpha1::PodGroup> for PodGroupAc {
-    fn from_optionable(value: k8s_openapi027::api::scheduling::v1alpha1::PodGroup) -> Self {
+impl crate::OptionedConvert<k8s_openapi027::api::scheduling::v1alpha1::PodGroup>
+for PodGroupAc {
+    fn from_optionable(
+        value: k8s_openapi027::api::scheduling::v1alpha1::PodGroup,
+    ) -> Self {
         crate::OptionableConvert::into_optioned(value)
     }
     fn try_into_optionable(
