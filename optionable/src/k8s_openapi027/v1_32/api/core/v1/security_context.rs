@@ -11,17 +11,17 @@ pub struct SecurityContextAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allow_privilege_escalation: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub app_armor_profile: <Option<
-        ::k8s_openapi027::api::core::v1::AppArmorProfile,
-    > as crate::Optionable>::Optioned,
+    pub app_armor_profile: Option<
+        <::k8s_openapi027::api::core::v1::AppArmorProfile as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub capabilities: <Option<
-        ::k8s_openapi027::api::core::v1::Capabilities,
-    > as crate::Optionable>::Optioned,
+    pub capabilities: Option<
+        <::k8s_openapi027::api::core::v1::Capabilities as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub privileged: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub proc_mount: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub proc_mount: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only_root_filesystem: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,17 +31,17 @@ pub struct SecurityContextAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub run_as_user: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub se_linux_options: <Option<
-        ::k8s_openapi027::api::core::v1::SELinuxOptions,
-    > as crate::Optionable>::Optioned,
+    pub se_linux_options: Option<
+        <::k8s_openapi027::api::core::v1::SELinuxOptions as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub seccomp_profile: <Option<
-        ::k8s_openapi027::api::core::v1::SeccompProfile,
-    > as crate::Optionable>::Optioned,
+    pub seccomp_profile: Option<
+        <::k8s_openapi027::api::core::v1::SeccompProfile as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub windows_options: <Option<
-        ::k8s_openapi027::api::core::v1::WindowsSecurityContextOptions,
-    > as crate::Optionable>::Optioned,
+    pub windows_options: Option<
+        <::k8s_openapi027::api::core::v1::WindowsSecurityContextOptions as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::SecurityContext {
@@ -62,7 +62,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecurityContext
             ),
             capabilities: crate::OptionableConvert::into_optioned(self.capabilities),
             privileged: self.privileged,
-            proc_mount: crate::OptionableConvert::into_optioned(self.proc_mount),
+            proc_mount: self.proc_mount,
             read_only_root_filesystem: self.read_only_root_filesystem,
             run_as_group: self.run_as_group,
             run_as_non_root: self.run_as_non_root,
@@ -88,7 +88,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecurityContext
                 value.capabilities,
             )?,
             privileged: value.privileged,
-            proc_mount: crate::OptionableConvert::try_from_optioned(value.proc_mount)?,
+            proc_mount: value.proc_mount,
             read_only_root_filesystem: value.read_only_root_filesystem,
             run_as_group: value.run_as_group,
             run_as_non_root: value.run_as_non_root,
@@ -112,7 +112,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecurityContext
         )?;
         crate::OptionableConvert::merge(&mut self.capabilities, other.capabilities)?;
         self.privileged = other.privileged;
-        crate::OptionableConvert::merge(&mut self.proc_mount, other.proc_mount)?;
+        self.proc_mount = other.proc_mount;
         self.read_only_root_filesystem = other.read_only_root_filesystem;
         self.run_as_group = other.run_as_group;
         self.run_as_non_root = other.run_as_non_root;

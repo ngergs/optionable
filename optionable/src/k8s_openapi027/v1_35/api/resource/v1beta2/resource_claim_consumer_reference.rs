@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimConsumerReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub api_group: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub api_group: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub resource: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub uid: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub uid: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -32,53 +32,47 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::resource::v1beta2::ResourceClaimConsumerReference {
     fn into_optioned(self) -> ResourceClaimConsumerReferenceAc {
         ResourceClaimConsumerReferenceAc {
-            api_group: crate::OptionableConvert::into_optioned(self.api_group),
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
-            resource: Some(crate::OptionableConvert::into_optioned(self.resource)),
-            uid: Some(crate::OptionableConvert::into_optioned(self.uid)),
+            api_group: self.api_group,
+            name: Some(self.name),
+            resource: Some(self.resource),
+            uid: Some(self.uid),
         }
     }
     fn try_from_optioned(
         value: ResourceClaimConsumerReferenceAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            api_group: crate::OptionableConvert::try_from_optioned(value.api_group)?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
-            resource: crate::OptionableConvert::try_from_optioned(
-                value
-                    .resource
-                    .ok_or(crate::Error {
-                        missing_field: "resource",
-                    })?,
-            )?,
-            uid: crate::OptionableConvert::try_from_optioned(
-                value
-                    .uid
-                    .ok_or(crate::Error {
-                        missing_field: "uid",
-                    })?,
-            )?,
+            api_group: value.api_group,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
+            resource: value
+                .resource
+                .ok_or(crate::Error {
+                    missing_field: "resource",
+                })?,
+            uid: value
+                .uid
+                .ok_or(crate::Error {
+                    missing_field: "uid",
+                })?,
         })
     }
     fn merge(
         &mut self,
         other: ResourceClaimConsumerReferenceAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
+        self.api_group = other.api_group;
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         if let Some(other_value) = other.resource {
-            crate::OptionableConvert::merge(&mut self.resource, other_value)?;
+            self.resource = other_value;
         }
         if let Some(other_value) = other.uid {
-            crate::OptionableConvert::merge(&mut self.uid, other_value)?;
+            self.uid = other_value;
         }
         Ok(())
     }

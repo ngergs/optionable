@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LifecycleAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub post_start: <Option<
-        ::k8s_openapi027::api::core::v1::LifecycleHandler,
-    > as crate::Optionable>::Optioned,
+    pub post_start: Option<
+        <::k8s_openapi027::api::core::v1::LifecycleHandler as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pre_stop: <Option<
-        ::k8s_openapi027::api::core::v1::LifecycleHandler,
-    > as crate::Optionable>::Optioned,
+    pub pre_stop: Option<
+        <::k8s_openapi027::api::core::v1::LifecycleHandler as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::Lifecycle {

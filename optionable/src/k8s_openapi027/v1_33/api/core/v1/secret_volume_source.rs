@@ -11,13 +11,15 @@ pub struct SecretVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub default_mode: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub items: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::KeyToPath>,
-    > as crate::Optionable>::Optioned,
+    pub items: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::KeyToPath as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub optional: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub secret_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::SecretVolumeSource {
@@ -35,7 +37,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretVolumeSou
             default_mode: self.default_mode,
             items: crate::OptionableConvert::into_optioned(self.items),
             optional: self.optional,
-            secret_name: crate::OptionableConvert::into_optioned(self.secret_name),
+            secret_name: self.secret_name,
         }
     }
     fn try_from_optioned(value: SecretVolumeSourceAc) -> Result<Self, crate::Error> {
@@ -43,14 +45,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretVolumeSou
             default_mode: value.default_mode,
             items: crate::OptionableConvert::try_from_optioned(value.items)?,
             optional: value.optional,
-            secret_name: crate::OptionableConvert::try_from_optioned(value.secret_name)?,
+            secret_name: value.secret_name,
         })
     }
     fn merge(&mut self, other: SecretVolumeSourceAc) -> Result<(), crate::Error> {
         self.default_mode = other.default_mode;
         crate::OptionableConvert::merge(&mut self.items, other.items)?;
         self.optional = other.optional;
-        crate::OptionableConvert::merge(&mut self.secret_name, other.secret_name)?;
+        self.secret_name = other.secret_name;
         Ok(())
     }
 }

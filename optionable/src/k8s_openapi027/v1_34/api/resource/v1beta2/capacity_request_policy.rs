@@ -9,17 +9,19 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CapacityRequestPolicyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub default: <Option<
-        ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
-    > as crate::Optionable>::Optioned,
+    pub default: Option<
+        <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub valid_range: <Option<
-        ::k8s_openapi027::api::resource::v1beta2::CapacityRequestPolicyRange,
-    > as crate::Optionable>::Optioned,
+    pub valid_range: Option<
+        <::k8s_openapi027::api::resource::v1beta2::CapacityRequestPolicyRange as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub valid_values: <Option<
-        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::api::resource::Quantity>,
-    > as crate::Optionable>::Optioned,
+    pub valid_values: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

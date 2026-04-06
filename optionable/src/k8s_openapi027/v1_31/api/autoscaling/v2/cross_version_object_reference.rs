@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CrossVersionObjectReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub api_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub api_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub kind: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub kind: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -30,42 +30,38 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::autoscaling::v2::CrossVersionObjectReference {
     fn into_optioned(self) -> CrossVersionObjectReferenceAc {
         CrossVersionObjectReferenceAc {
-            api_version: crate::OptionableConvert::into_optioned(self.api_version),
-            kind: Some(crate::OptionableConvert::into_optioned(self.kind)),
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            api_version: self.api_version,
+            kind: Some(self.kind),
+            name: Some(self.name),
         }
     }
     fn try_from_optioned(
         value: CrossVersionObjectReferenceAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
-            kind: crate::OptionableConvert::try_from_optioned(
-                value
-                    .kind
-                    .ok_or(crate::Error {
-                        missing_field: "kind",
-                    })?,
-            )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            api_version: value.api_version,
+            kind: value
+                .kind
+                .ok_or(crate::Error {
+                    missing_field: "kind",
+                })?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
         })
     }
     fn merge(
         &mut self,
         other: CrossVersionObjectReferenceAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
+        self.api_version = other.api_version;
         if let Some(other_value) = other.kind {
-            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
+            self.kind = other_value;
         }
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         Ok(())
     }

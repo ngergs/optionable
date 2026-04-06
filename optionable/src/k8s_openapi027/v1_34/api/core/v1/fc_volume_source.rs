@@ -9,20 +9,16 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FCVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub fs_type: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lun: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
     #[serde(rename = "targetWWNs")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_wwns: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub target_wwns: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub wwids: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub wwids: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::FCVolumeSource {
@@ -37,28 +33,28 @@ impl crate::Optionable for FCVolumeSourceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FCVolumeSource {
     fn into_optioned(self) -> FCVolumeSourceAc {
         FCVolumeSourceAc {
-            fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
+            fs_type: self.fs_type,
             lun: self.lun,
             read_only: self.read_only,
-            target_wwns: crate::OptionableConvert::into_optioned(self.target_wwns),
-            wwids: crate::OptionableConvert::into_optioned(self.wwids),
+            target_wwns: self.target_wwns,
+            wwids: self.wwids,
         }
     }
     fn try_from_optioned(value: FCVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
+            fs_type: value.fs_type,
             lun: value.lun,
             read_only: value.read_only,
-            target_wwns: crate::OptionableConvert::try_from_optioned(value.target_wwns)?,
-            wwids: crate::OptionableConvert::try_from_optioned(value.wwids)?,
+            target_wwns: value.target_wwns,
+            wwids: value.wwids,
         })
     }
     fn merge(&mut self, other: FCVolumeSourceAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
+        self.fs_type = other.fs_type;
         self.lun = other.lun;
         self.read_only = other.read_only;
-        crate::OptionableConvert::merge(&mut self.target_wwns, other.target_wwns)?;
-        crate::OptionableConvert::merge(&mut self.wwids, other.wwids)?;
+        self.target_wwns = other.target_wwns;
+        self.wwids = other.wwids;
         Ok(())
     }
 }

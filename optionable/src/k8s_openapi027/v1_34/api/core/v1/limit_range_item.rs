@@ -9,43 +9,43 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LimitRangeItemAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub default: <Option<
+    pub default: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub default_request: <Option<
+    pub default_request: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub max: <Option<
+    pub max: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub max_limit_request_ratio: <Option<
+    pub max_limit_request_ratio: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub min: <Option<
+    pub min: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub type_: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::LimitRangeItem {
@@ -69,7 +69,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LimitRangeItem 
                 self.max_limit_request_ratio,
             ),
             min: crate::OptionableConvert::into_optioned(self.min),
-            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
+            type_: Some(self.type_),
         }
     }
     fn try_from_optioned(value: LimitRangeItemAc) -> Result<Self, crate::Error> {
@@ -83,13 +83,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LimitRangeItem 
                 value.max_limit_request_ratio,
             )?,
             min: crate::OptionableConvert::try_from_optioned(value.min)?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            type_: value
+                .type_
+                .ok_or(crate::Error {
+                    missing_field: "type_",
+                })?,
         })
     }
     fn merge(&mut self, other: LimitRangeItemAc) -> Result<(), crate::Error> {
@@ -105,7 +103,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LimitRangeItem 
         )?;
         crate::OptionableConvert::merge(&mut self.min, other.min)?;
         if let Some(other_value) = other.type_ {
-            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+            self.type_ = other_value;
         }
         Ok(())
     }

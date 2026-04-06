@@ -9,17 +9,17 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerStateAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub running: <Option<
-        ::k8s_openapi027::api::core::v1::ContainerStateRunning,
-    > as crate::Optionable>::Optioned,
+    pub running: Option<
+        <::k8s_openapi027::api::core::v1::ContainerStateRunning as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub terminated: <Option<
-        ::k8s_openapi027::api::core::v1::ContainerStateTerminated,
-    > as crate::Optionable>::Optioned,
+    pub terminated: Option<
+        <::k8s_openapi027::api::core::v1::ContainerStateTerminated as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub waiting: <Option<
-        ::k8s_openapi027::api::core::v1::ContainerStateWaiting,
-    > as crate::Optionable>::Optioned,
+    pub waiting: Option<
+        <::k8s_openapi027::api::core::v1::ContainerStateWaiting as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ContainerState {

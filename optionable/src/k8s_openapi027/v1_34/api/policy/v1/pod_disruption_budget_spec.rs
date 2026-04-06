@@ -9,21 +9,19 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodDisruptionBudgetSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub max_unavailable: <Option<
-        ::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString,
-    > as crate::Optionable>::Optioned,
+    pub max_unavailable: Option<
+        <::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub min_available: <Option<
-        ::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString,
-    > as crate::Optionable>::Optioned,
+    pub min_available: Option<
+        <::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub selector: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector,
-    > as crate::Optionable>::Optioned,
+    pub selector: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub unhealthy_pod_eviction_policy: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub unhealthy_pod_eviction_policy: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec {
@@ -44,9 +42,7 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec {
             ),
             min_available: crate::OptionableConvert::into_optioned(self.min_available),
             selector: crate::OptionableConvert::into_optioned(self.selector),
-            unhealthy_pod_eviction_policy: crate::OptionableConvert::into_optioned(
-                self.unhealthy_pod_eviction_policy,
-            ),
+            unhealthy_pod_eviction_policy: self.unhealthy_pod_eviction_policy,
         }
     }
     fn try_from_optioned(
@@ -60,9 +56,7 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec {
                 value.min_available,
             )?,
             selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
-            unhealthy_pod_eviction_policy: crate::OptionableConvert::try_from_optioned(
-                value.unhealthy_pod_eviction_policy,
-            )?,
+            unhealthy_pod_eviction_policy: value.unhealthy_pod_eviction_policy,
         })
     }
     fn merge(&mut self, other: PodDisruptionBudgetSpecAc) -> Result<(), crate::Error> {
@@ -72,10 +66,7 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec {
         )?;
         crate::OptionableConvert::merge(&mut self.min_available, other.min_available)?;
         crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
-        crate::OptionableConvert::merge(
-            &mut self.unhealthy_pod_eviction_policy,
-            other.unhealthy_pod_eviction_policy,
-        )?;
+        self.unhealthy_pod_eviction_policy = other.unhealthy_pod_eviction_policy;
         Ok(())
     }
 }

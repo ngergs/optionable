@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GlusterfsVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub endpoints: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub endpoints: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub path: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
 }
@@ -28,36 +28,32 @@ impl crate::Optionable for GlusterfsVolumeSourceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::GlusterfsVolumeSource {
     fn into_optioned(self) -> GlusterfsVolumeSourceAc {
         GlusterfsVolumeSourceAc {
-            endpoints: Some(crate::OptionableConvert::into_optioned(self.endpoints)),
-            path: Some(crate::OptionableConvert::into_optioned(self.path)),
+            endpoints: Some(self.endpoints),
+            path: Some(self.path),
             read_only: self.read_only,
         }
     }
     fn try_from_optioned(value: GlusterfsVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            endpoints: crate::OptionableConvert::try_from_optioned(
-                value
-                    .endpoints
-                    .ok_or(crate::Error {
-                        missing_field: "endpoints",
-                    })?,
-            )?,
-            path: crate::OptionableConvert::try_from_optioned(
-                value
-                    .path
-                    .ok_or(crate::Error {
-                        missing_field: "path",
-                    })?,
-            )?,
+            endpoints: value
+                .endpoints
+                .ok_or(crate::Error {
+                    missing_field: "endpoints",
+                })?,
+            path: value
+                .path
+                .ok_or(crate::Error {
+                    missing_field: "path",
+                })?,
             read_only: value.read_only,
         })
     }
     fn merge(&mut self, other: GlusterfsVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.endpoints {
-            crate::OptionableConvert::merge(&mut self.endpoints, other_value)?;
+            self.endpoints = other_value;
         }
         if let Some(other_value) = other.path {
-            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+            self.path = other_value;
         }
         self.read_only = other.read_only;
         Ok(())

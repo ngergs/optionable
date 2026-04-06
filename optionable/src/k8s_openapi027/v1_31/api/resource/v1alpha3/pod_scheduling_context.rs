@@ -24,9 +24,9 @@ pub struct PodSchedulingContextAc {
         <::k8s_openapi027::api::resource::v1alpha3::PodSchedulingContextSpec as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: <Option<
-        ::k8s_openapi027::api::resource::v1alpha3::PodSchedulingContextStatus,
-    > as crate::Optionable>::Optioned,
+    pub status: Option<
+        <::k8s_openapi027::api::resource::v1alpha3::PodSchedulingContextStatus as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

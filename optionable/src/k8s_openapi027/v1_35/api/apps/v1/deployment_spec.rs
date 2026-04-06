@@ -23,9 +23,9 @@ pub struct DeploymentSpecAc {
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub strategy: <Option<
-        ::k8s_openapi027::api::apps::v1::DeploymentStrategy,
-    > as crate::Optionable>::Optioned,
+    pub strategy: Option<
+        <::k8s_openapi027::api::apps::v1::DeploymentStrategy as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub template: Option<
         <::k8s_openapi027::api::core::v1::PodTemplateSpec as crate::Optionable>::Optioned,

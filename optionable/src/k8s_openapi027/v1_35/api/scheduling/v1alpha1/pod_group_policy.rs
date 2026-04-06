@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodGroupPolicyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub basic: <Option<
-        ::k8s_openapi027::api::scheduling::v1alpha1::BasicSchedulingPolicy,
-    > as crate::Optionable>::Optioned,
+    pub basic: Option<
+        <::k8s_openapi027::api::scheduling::v1alpha1::BasicSchedulingPolicy as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub gang: <Option<
-        ::k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy,
-    > as crate::Optionable>::Optioned,
+    pub gang: Option<
+        <::k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::scheduling::v1alpha1::PodGroupPolicy {

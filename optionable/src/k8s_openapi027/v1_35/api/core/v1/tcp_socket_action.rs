@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TCPSocketActionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub host: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub host: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<
         <::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString as crate::Optionable>::Optioned,
@@ -28,13 +28,13 @@ impl crate::Optionable for TCPSocketActionAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TCPSocketAction {
     fn into_optioned(self) -> TCPSocketActionAc {
         TCPSocketActionAc {
-            host: crate::OptionableConvert::into_optioned(self.host),
+            host: self.host,
             port: Some(crate::OptionableConvert::into_optioned(self.port)),
         }
     }
     fn try_from_optioned(value: TCPSocketActionAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            host: crate::OptionableConvert::try_from_optioned(value.host)?,
+            host: value.host,
             port: crate::OptionableConvert::try_from_optioned(
                 value
                     .port
@@ -45,7 +45,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TCPSocketAction
         })
     }
     fn merge(&mut self, other: TCPSocketActionAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.host, other.host)?;
+        self.host = other.host;
         if let Some(other_value) = other.port {
             crate::OptionableConvert::merge(&mut self.port, other_value)?;
         }

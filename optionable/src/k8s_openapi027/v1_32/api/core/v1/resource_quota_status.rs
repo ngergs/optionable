@@ -9,19 +9,19 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceQuotaStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub hard: <Option<
+    pub hard: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub used: <Option<
+    pub used: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ResourceQuotaStatus {

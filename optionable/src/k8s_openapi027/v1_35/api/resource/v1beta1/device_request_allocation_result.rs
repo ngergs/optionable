@@ -11,35 +11,33 @@ pub struct DeviceRequestAllocationResultAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub admin_access: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub binding_conditions: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub binding_conditions: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub binding_failure_conditions: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub binding_failure_conditions: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub consumed_capacity: <Option<
+    pub consumed_capacity: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub device: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub device: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub driver: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub driver: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pool: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub pool: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub request: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub request: Option<std::string::String>,
     #[serde(rename = "shareID")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub share_id: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub share_id: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tolerations: <Option<
-        std::vec::Vec<::k8s_openapi027::api::resource::v1beta1::DeviceToleration>,
-    > as crate::Optionable>::Optioned,
+    pub tolerations: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::resource::v1beta1::DeviceToleration as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -57,20 +55,16 @@ for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult {
     fn into_optioned(self) -> DeviceRequestAllocationResultAc {
         DeviceRequestAllocationResultAc {
             admin_access: self.admin_access,
-            binding_conditions: crate::OptionableConvert::into_optioned(
-                self.binding_conditions,
-            ),
-            binding_failure_conditions: crate::OptionableConvert::into_optioned(
-                self.binding_failure_conditions,
-            ),
+            binding_conditions: self.binding_conditions,
+            binding_failure_conditions: self.binding_failure_conditions,
             consumed_capacity: crate::OptionableConvert::into_optioned(
                 self.consumed_capacity,
             ),
-            device: Some(crate::OptionableConvert::into_optioned(self.device)),
-            driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
-            pool: Some(crate::OptionableConvert::into_optioned(self.pool)),
-            request: Some(crate::OptionableConvert::into_optioned(self.request)),
-            share_id: crate::OptionableConvert::into_optioned(self.share_id),
+            device: Some(self.device),
+            driver: Some(self.driver),
+            pool: Some(self.pool),
+            request: Some(self.request),
+            share_id: self.share_id,
             tolerations: crate::OptionableConvert::into_optioned(self.tolerations),
         }
     }
@@ -79,44 +73,32 @@ for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult {
     ) -> Result<Self, crate::Error> {
         Ok(Self {
             admin_access: value.admin_access,
-            binding_conditions: crate::OptionableConvert::try_from_optioned(
-                value.binding_conditions,
-            )?,
-            binding_failure_conditions: crate::OptionableConvert::try_from_optioned(
-                value.binding_failure_conditions,
-            )?,
+            binding_conditions: value.binding_conditions,
+            binding_failure_conditions: value.binding_failure_conditions,
             consumed_capacity: crate::OptionableConvert::try_from_optioned(
                 value.consumed_capacity,
             )?,
-            device: crate::OptionableConvert::try_from_optioned(
-                value
-                    .device
-                    .ok_or(crate::Error {
-                        missing_field: "device",
-                    })?,
-            )?,
-            driver: crate::OptionableConvert::try_from_optioned(
-                value
-                    .driver
-                    .ok_or(crate::Error {
-                        missing_field: "driver",
-                    })?,
-            )?,
-            pool: crate::OptionableConvert::try_from_optioned(
-                value
-                    .pool
-                    .ok_or(crate::Error {
-                        missing_field: "pool",
-                    })?,
-            )?,
-            request: crate::OptionableConvert::try_from_optioned(
-                value
-                    .request
-                    .ok_or(crate::Error {
-                        missing_field: "request",
-                    })?,
-            )?,
-            share_id: crate::OptionableConvert::try_from_optioned(value.share_id)?,
+            device: value
+                .device
+                .ok_or(crate::Error {
+                    missing_field: "device",
+                })?,
+            driver: value
+                .driver
+                .ok_or(crate::Error {
+                    missing_field: "driver",
+                })?,
+            pool: value
+                .pool
+                .ok_or(crate::Error {
+                    missing_field: "pool",
+                })?,
+            request: value
+                .request
+                .ok_or(crate::Error {
+                    missing_field: "request",
+                })?,
+            share_id: value.share_id,
             tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
         })
     }
@@ -125,31 +107,25 @@ for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult {
         other: DeviceRequestAllocationResultAc,
     ) -> Result<(), crate::Error> {
         self.admin_access = other.admin_access;
-        crate::OptionableConvert::merge(
-            &mut self.binding_conditions,
-            other.binding_conditions,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.binding_failure_conditions,
-            other.binding_failure_conditions,
-        )?;
+        self.binding_conditions = other.binding_conditions;
+        self.binding_failure_conditions = other.binding_failure_conditions;
         crate::OptionableConvert::merge(
             &mut self.consumed_capacity,
             other.consumed_capacity,
         )?;
         if let Some(other_value) = other.device {
-            crate::OptionableConvert::merge(&mut self.device, other_value)?;
+            self.device = other_value;
         }
         if let Some(other_value) = other.driver {
-            crate::OptionableConvert::merge(&mut self.driver, other_value)?;
+            self.driver = other_value;
         }
         if let Some(other_value) = other.pool {
-            crate::OptionableConvert::merge(&mut self.pool, other_value)?;
+            self.pool = other_value;
         }
         if let Some(other_value) = other.request {
-            crate::OptionableConvert::merge(&mut self.request, other_value)?;
+            self.request = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.share_id, other.share_id)?;
+        self.share_id = other.share_id;
         crate::OptionableConvert::merge(&mut self.tolerations, other.tolerations)?;
         Ok(())
     }

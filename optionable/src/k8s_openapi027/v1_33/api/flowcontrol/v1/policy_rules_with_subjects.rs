@@ -9,18 +9,22 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PolicyRulesWithSubjectsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub non_resource_rules: <Option<
-        std::vec::Vec<::k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule>,
-    > as crate::Optionable>::Optioned,
+    pub non_resource_rules: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_rules: <Option<
-        std::vec::Vec<::k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule>,
-    > as crate::Optionable>::Optioned,
+    pub resource_rules: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub subjects: Option<
-        <std::vec::Vec<
-            ::k8s_openapi027::api::flowcontrol::v1::Subject,
-        > as crate::Optionable>::Optioned,
+        std::vec::Vec<
+            <::k8s_openapi027::api::flowcontrol::v1::Subject as crate::Optionable>::Optioned,
+        >,
     >,
 }
 #[automatically_derived]

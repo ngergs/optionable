@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HostIPAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ip: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub ip: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::HostIP {
@@ -23,24 +23,20 @@ impl crate::Optionable for HostIPAc {
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HostIP {
     fn into_optioned(self) -> HostIPAc {
-        HostIPAc {
-            ip: Some(crate::OptionableConvert::into_optioned(self.ip)),
-        }
+        HostIPAc { ip: Some(self.ip) }
     }
     fn try_from_optioned(value: HostIPAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            ip: crate::OptionableConvert::try_from_optioned(
-                value
-                    .ip
-                    .ok_or(crate::Error {
-                        missing_field: "ip",
-                    })?,
-            )?,
+            ip: value
+                .ip
+                .ok_or(crate::Error {
+                    missing_field: "ip",
+                })?,
         })
     }
     fn merge(&mut self, other: HostIPAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.ip {
-            crate::OptionableConvert::merge(&mut self.ip, other_value)?;
+            self.ip = other_value;
         }
         Ok(())
     }

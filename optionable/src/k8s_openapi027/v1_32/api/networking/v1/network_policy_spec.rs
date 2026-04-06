@@ -9,21 +9,23 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkPolicySpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub egress: <Option<
-        std::vec::Vec<::k8s_openapi027::api::networking::v1::NetworkPolicyEgressRule>,
-    > as crate::Optionable>::Optioned,
+    pub egress: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::networking::v1::NetworkPolicyEgressRule as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ingress: <Option<
-        std::vec::Vec<::k8s_openapi027::api::networking::v1::NetworkPolicyIngressRule>,
-    > as crate::Optionable>::Optioned,
+    pub ingress: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::networking::v1::NetworkPolicyIngressRule as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_selector: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector,
-    > as crate::Optionable>::Optioned,
+    pub pod_selector: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub policy_types: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub policy_types: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::networking::v1::NetworkPolicySpec {
@@ -42,7 +44,7 @@ for k8s_openapi027::api::networking::v1::NetworkPolicySpec {
             egress: crate::OptionableConvert::into_optioned(self.egress),
             ingress: crate::OptionableConvert::into_optioned(self.ingress),
             pod_selector: crate::OptionableConvert::into_optioned(self.pod_selector),
-            policy_types: crate::OptionableConvert::into_optioned(self.policy_types),
+            policy_types: self.policy_types,
         }
     }
     fn try_from_optioned(value: NetworkPolicySpecAc) -> Result<Self, crate::Error> {
@@ -52,16 +54,14 @@ for k8s_openapi027::api::networking::v1::NetworkPolicySpec {
             pod_selector: crate::OptionableConvert::try_from_optioned(
                 value.pod_selector,
             )?,
-            policy_types: crate::OptionableConvert::try_from_optioned(
-                value.policy_types,
-            )?,
+            policy_types: value.policy_types,
         })
     }
     fn merge(&mut self, other: NetworkPolicySpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.egress, other.egress)?;
         crate::OptionableConvert::merge(&mut self.ingress, other.ingress)?;
         crate::OptionableConvert::merge(&mut self.pod_selector, other.pod_selector)?;
-        crate::OptionableConvert::merge(&mut self.policy_types, other.policy_types)?;
+        self.policy_types = other.policy_types;
         Ok(())
     }
 }

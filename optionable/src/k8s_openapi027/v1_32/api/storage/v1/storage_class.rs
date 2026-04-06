@@ -21,26 +21,24 @@ pub struct StorageClassAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allow_volume_expansion: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub allowed_topologies: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::TopologySelectorTerm>,
-    > as crate::Optionable>::Optioned,
+    pub allowed_topologies: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::TopologySelectorTerm as crate::Optionable>::Optioned,
+        >,
+    >,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub mount_options: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub mount_options: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parameters: <Option<
+    pub parameters: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub provisioner: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub provisioner: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub reclaim_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub reclaim_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volume_binding_mode: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub volume_binding_mode: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::storage::v1::StorageClass {
@@ -62,13 +60,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::StorageClass
                 self.allowed_topologies,
             ),
             metadata: self.metadata,
-            mount_options: crate::OptionableConvert::into_optioned(self.mount_options),
-            parameters: crate::OptionableConvert::into_optioned(self.parameters),
-            provisioner: Some(crate::OptionableConvert::into_optioned(self.provisioner)),
-            reclaim_policy: crate::OptionableConvert::into_optioned(self.reclaim_policy),
-            volume_binding_mode: crate::OptionableConvert::into_optioned(
-                self.volume_binding_mode,
-            ),
+            mount_options: self.mount_options,
+            parameters: self.parameters,
+            provisioner: Some(self.provisioner),
+            reclaim_policy: self.reclaim_policy,
+            volume_binding_mode: self.volume_binding_mode,
         }
     }
     fn try_from_optioned(value: StorageClassAc) -> Result<Self, crate::Error> {
@@ -78,23 +74,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::StorageClass
                 value.allowed_topologies,
             )?,
             metadata: value.metadata,
-            mount_options: crate::OptionableConvert::try_from_optioned(
-                value.mount_options,
-            )?,
-            parameters: crate::OptionableConvert::try_from_optioned(value.parameters)?,
-            provisioner: crate::OptionableConvert::try_from_optioned(
-                value
-                    .provisioner
-                    .ok_or(crate::Error {
-                        missing_field: "provisioner",
-                    })?,
-            )?,
-            reclaim_policy: crate::OptionableConvert::try_from_optioned(
-                value.reclaim_policy,
-            )?,
-            volume_binding_mode: crate::OptionableConvert::try_from_optioned(
-                value.volume_binding_mode,
-            )?,
+            mount_options: value.mount_options,
+            parameters: value.parameters,
+            provisioner: value
+                .provisioner
+                .ok_or(crate::Error {
+                    missing_field: "provisioner",
+                })?,
+            reclaim_policy: value.reclaim_policy,
+            volume_binding_mode: value.volume_binding_mode,
         })
     }
     fn merge(&mut self, other: StorageClassAc) -> Result<(), crate::Error> {
@@ -104,16 +92,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::StorageClass
             other.allowed_topologies,
         )?;
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.mount_options, other.mount_options)?;
-        crate::OptionableConvert::merge(&mut self.parameters, other.parameters)?;
+        self.mount_options = other.mount_options;
+        self.parameters = other.parameters;
         if let Some(other_value) = other.provisioner {
-            crate::OptionableConvert::merge(&mut self.provisioner, other_value)?;
+            self.provisioner = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.reclaim_policy, other.reclaim_policy)?;
-        crate::OptionableConvert::merge(
-            &mut self.volume_binding_mode,
-            other.volume_binding_mode,
-        )?;
+        self.reclaim_policy = other.reclaim_policy;
+        self.volume_binding_mode = other.volume_binding_mode;
         Ok(())
     }
 }

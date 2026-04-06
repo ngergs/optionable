@@ -11,9 +11,11 @@ pub struct ReplicationControllerStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub available_replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::ReplicationControllerCondition>,
-    > as crate::Optionable>::Optioned,
+    pub conditions: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::ReplicationControllerCondition as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fully_labeled_replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]

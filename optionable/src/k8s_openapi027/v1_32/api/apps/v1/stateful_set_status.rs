@@ -13,13 +13,15 @@ pub struct StatefulSetStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub collision_count: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
-        std::vec::Vec<::k8s_openapi027::api::apps::v1::StatefulSetCondition>,
-    > as crate::Optionable>::Optioned,
+    pub conditions: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::apps::v1::StatefulSetCondition as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub current_revision: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub current_revision: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,7 +29,7 @@ pub struct StatefulSetStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub update_revision: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub update_revision: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub updated_replicas: Option<i32>,
 }
@@ -48,15 +50,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetStat
             collision_count: self.collision_count,
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             current_replicas: self.current_replicas,
-            current_revision: crate::OptionableConvert::into_optioned(
-                self.current_revision,
-            ),
+            current_revision: self.current_revision,
             observed_generation: self.observed_generation,
             ready_replicas: self.ready_replicas,
             replicas: Some(self.replicas),
-            update_revision: crate::OptionableConvert::into_optioned(
-                self.update_revision,
-            ),
+            update_revision: self.update_revision,
             updated_replicas: self.updated_replicas,
         }
     }
@@ -66,9 +64,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetStat
             collision_count: value.collision_count,
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             current_replicas: value.current_replicas,
-            current_revision: crate::OptionableConvert::try_from_optioned(
-                value.current_revision,
-            )?,
+            current_revision: value.current_revision,
             observed_generation: value.observed_generation,
             ready_replicas: value.ready_replicas,
             replicas: value
@@ -76,9 +72,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetStat
                 .ok_or(crate::Error {
                     missing_field: "replicas",
                 })?,
-            update_revision: crate::OptionableConvert::try_from_optioned(
-                value.update_revision,
-            )?,
+            update_revision: value.update_revision,
             updated_replicas: value.updated_replicas,
         })
     }
@@ -87,19 +81,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetStat
         self.collision_count = other.collision_count;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         self.current_replicas = other.current_replicas;
-        crate::OptionableConvert::merge(
-            &mut self.current_revision,
-            other.current_revision,
-        )?;
+        self.current_revision = other.current_revision;
         self.observed_generation = other.observed_generation;
         self.ready_replicas = other.ready_replicas;
         if let Some(other_value) = other.replicas {
             self.replicas = other_value;
         }
-        crate::OptionableConvert::merge(
-            &mut self.update_revision,
-            other.update_revision,
-        )?;
+        self.update_revision = other.update_revision;
         self.updated_replicas = other.updated_replicas;
         Ok(())
     }

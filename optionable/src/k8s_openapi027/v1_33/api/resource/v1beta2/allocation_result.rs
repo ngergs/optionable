@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AllocationResultAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub devices: <Option<
-        ::k8s_openapi027::api::resource::v1beta2::DeviceAllocationResult,
-    > as crate::Optionable>::Optioned,
+    pub devices: Option<
+        <::k8s_openapi027::api::resource::v1beta2::DeviceAllocationResult as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub node_selector: <Option<
-        ::k8s_openapi027::api::core::v1::NodeSelector,
-    > as crate::Optionable>::Optioned,
+    pub node_selector: Option<
+        <::k8s_openapi027::api::core::v1::NodeSelector as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1beta2::AllocationResult {

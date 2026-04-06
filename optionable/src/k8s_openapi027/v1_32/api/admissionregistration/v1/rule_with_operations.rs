@@ -9,23 +9,15 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RuleWithOperationsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub api_groups: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub api_groups: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub api_versions: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub api_versions: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub operations: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub operations: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resources: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub resources: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub scope: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -42,30 +34,28 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::admissionregistration::v1::RuleWithOperations {
     fn into_optioned(self) -> RuleWithOperationsAc {
         RuleWithOperationsAc {
-            api_groups: crate::OptionableConvert::into_optioned(self.api_groups),
-            api_versions: crate::OptionableConvert::into_optioned(self.api_versions),
-            operations: crate::OptionableConvert::into_optioned(self.operations),
-            resources: crate::OptionableConvert::into_optioned(self.resources),
-            scope: crate::OptionableConvert::into_optioned(self.scope),
+            api_groups: self.api_groups,
+            api_versions: self.api_versions,
+            operations: self.operations,
+            resources: self.resources,
+            scope: self.scope,
         }
     }
     fn try_from_optioned(value: RuleWithOperationsAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            api_groups: crate::OptionableConvert::try_from_optioned(value.api_groups)?,
-            api_versions: crate::OptionableConvert::try_from_optioned(
-                value.api_versions,
-            )?,
-            operations: crate::OptionableConvert::try_from_optioned(value.operations)?,
-            resources: crate::OptionableConvert::try_from_optioned(value.resources)?,
-            scope: crate::OptionableConvert::try_from_optioned(value.scope)?,
+            api_groups: value.api_groups,
+            api_versions: value.api_versions,
+            operations: value.operations,
+            resources: value.resources,
+            scope: value.scope,
         })
     }
     fn merge(&mut self, other: RuleWithOperationsAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.api_groups, other.api_groups)?;
-        crate::OptionableConvert::merge(&mut self.api_versions, other.api_versions)?;
-        crate::OptionableConvert::merge(&mut self.operations, other.operations)?;
-        crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
-        crate::OptionableConvert::merge(&mut self.scope, other.scope)?;
+        self.api_groups = other.api_groups;
+        self.api_versions = other.api_versions;
+        self.operations = other.operations;
+        self.resources = other.resources;
+        self.scope = other.scope;
         Ok(())
     }
 }

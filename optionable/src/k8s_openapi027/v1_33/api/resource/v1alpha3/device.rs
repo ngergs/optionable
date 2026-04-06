@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub basic: <Option<
-        ::k8s_openapi027::api::resource::v1alpha3::BasicDevice,
-    > as crate::Optionable>::Optioned,
+    pub basic: Option<
+        <::k8s_openapi027::api::resource::v1alpha3::BasicDevice as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1alpha3::Device {
@@ -29,25 +29,23 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Devic
     fn into_optioned(self) -> DeviceAc {
         DeviceAc {
             basic: crate::OptionableConvert::into_optioned(self.basic),
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            name: Some(self.name),
         }
     }
     fn try_from_optioned(value: DeviceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             basic: crate::OptionableConvert::try_from_optioned(value.basic)?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
         })
     }
     fn merge(&mut self, other: DeviceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.basic, other.basic)?;
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         Ok(())
     }

@@ -9,21 +9,21 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LifecycleHandlerAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub exec: <Option<
-        ::k8s_openapi027::api::core::v1::ExecAction,
-    > as crate::Optionable>::Optioned,
+    pub exec: Option<
+        <::k8s_openapi027::api::core::v1::ExecAction as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub http_get: <Option<
-        ::k8s_openapi027::api::core::v1::HTTPGetAction,
-    > as crate::Optionable>::Optioned,
+    pub http_get: Option<
+        <::k8s_openapi027::api::core::v1::HTTPGetAction as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub sleep: <Option<
-        ::k8s_openapi027::api::core::v1::SleepAction,
-    > as crate::Optionable>::Optioned,
+    pub sleep: Option<
+        <::k8s_openapi027::api::core::v1::SleepAction as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tcp_socket: <Option<
-        ::k8s_openapi027::api::core::v1::TCPSocketAction,
-    > as crate::Optionable>::Optioned,
+    pub tcp_socket: Option<
+        <::k8s_openapi027::api::core::v1::TCPSocketAction as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::LifecycleHandler {

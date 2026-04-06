@@ -9,23 +9,25 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
+    pub conditions: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition,
+            <::k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub current_metrics: <Option<
-        std::vec::Vec<::k8s_openapi027::api::autoscaling::v2::MetricStatus>,
-    > as crate::Optionable>::Optioned,
+    pub current_metrics: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::autoscaling::v2::MetricStatus as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub desired_replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub last_scale_time: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub last_scale_time: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
 }

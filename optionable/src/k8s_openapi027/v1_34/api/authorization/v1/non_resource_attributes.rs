@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NonResourceAttributesAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub path: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub verb: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub verb: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -28,19 +28,19 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::authorization::v1::NonResourceAttributes {
     fn into_optioned(self) -> NonResourceAttributesAc {
         NonResourceAttributesAc {
-            path: crate::OptionableConvert::into_optioned(self.path),
-            verb: crate::OptionableConvert::into_optioned(self.verb),
+            path: self.path,
+            verb: self.verb,
         }
     }
     fn try_from_optioned(value: NonResourceAttributesAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            path: crate::OptionableConvert::try_from_optioned(value.path)?,
-            verb: crate::OptionableConvert::try_from_optioned(value.verb)?,
+            path: value.path,
+            verb: value.verb,
         })
     }
     fn merge(&mut self, other: NonResourceAttributesAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.path, other.path)?;
-        crate::OptionableConvert::merge(&mut self.verb, other.verb)?;
+        self.path = other.path;
+        self.verb = other.verb;
         Ok(())
     }
 }

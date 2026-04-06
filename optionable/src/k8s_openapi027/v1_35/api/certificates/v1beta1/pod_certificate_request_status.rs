@@ -9,23 +9,25 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodCertificateRequestStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub begin_refresh_at: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub begin_refresh_at: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub certificate_chain: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub certificate_chain: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
-        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>,
-    > as crate::Optionable>::Optioned,
+    pub conditions: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub not_after: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub not_after: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub not_before: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub not_before: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -45,9 +47,7 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
             begin_refresh_at: crate::OptionableConvert::into_optioned(
                 self.begin_refresh_at,
             ),
-            certificate_chain: crate::OptionableConvert::into_optioned(
-                self.certificate_chain,
-            ),
+            certificate_chain: self.certificate_chain,
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             not_after: crate::OptionableConvert::into_optioned(self.not_after),
             not_before: crate::OptionableConvert::into_optioned(self.not_before),
@@ -60,9 +60,7 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
             begin_refresh_at: crate::OptionableConvert::try_from_optioned(
                 value.begin_refresh_at,
             )?,
-            certificate_chain: crate::OptionableConvert::try_from_optioned(
-                value.certificate_chain,
-            )?,
+            certificate_chain: value.certificate_chain,
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             not_after: crate::OptionableConvert::try_from_optioned(value.not_after)?,
             not_before: crate::OptionableConvert::try_from_optioned(value.not_before)?,
@@ -76,10 +74,7 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
             &mut self.begin_refresh_at,
             other.begin_refresh_at,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.certificate_chain,
-            other.certificate_chain,
-        )?;
+        self.certificate_chain = other.certificate_chain;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(&mut self.not_after, other.not_after)?;
         crate::OptionableConvert::merge(&mut self.not_before, other.not_before)?;

@@ -9,18 +9,18 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub last_transition_time: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub last_transition_time: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub message: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub reason: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub status: Option<std::string::String>,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub type_: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -40,10 +40,10 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
             last_transition_time: crate::OptionableConvert::into_optioned(
                 self.last_transition_time,
             ),
-            message: crate::OptionableConvert::into_optioned(self.message),
-            reason: crate::OptionableConvert::into_optioned(self.reason),
-            status: Some(crate::OptionableConvert::into_optioned(self.status)),
-            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
+            message: self.message,
+            reason: self.reason,
+            status: Some(self.status),
+            type_: Some(self.type_),
         }
     }
     fn try_from_optioned(
@@ -53,22 +53,18 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
             last_transition_time: crate::OptionableConvert::try_from_optioned(
                 value.last_transition_time,
             )?,
-            message: crate::OptionableConvert::try_from_optioned(value.message)?,
-            reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
-            status: crate::OptionableConvert::try_from_optioned(
-                value
-                    .status
-                    .ok_or(crate::Error {
-                        missing_field: "status",
-                    })?,
-            )?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            message: value.message,
+            reason: value.reason,
+            status: value
+                .status
+                .ok_or(crate::Error {
+                    missing_field: "status",
+                })?,
+            type_: value
+                .type_
+                .ok_or(crate::Error {
+                    missing_field: "type_",
+                })?,
         })
     }
     fn merge(
@@ -79,13 +75,13 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition {
             &mut self.last_transition_time,
             other.last_transition_time,
         )?;
-        crate::OptionableConvert::merge(&mut self.message, other.message)?;
-        crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
+        self.message = other.message;
+        self.reason = other.reason;
         if let Some(other_value) = other.status {
-            crate::OptionableConvert::merge(&mut self.status, other_value)?;
+            self.status = other_value;
         }
         if let Some(other_value) = other.type_ {
-            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+            self.type_ = other_value;
         }
         Ok(())
     }

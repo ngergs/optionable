@@ -19,9 +19,9 @@ pub struct ControllerRevisionAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub data: <Option<
-        ::k8s_openapi027::apimachinery::pkg::runtime::RawExtension,
-    > as crate::Optionable>::Optioned,
+    pub data: Option<
+        <::k8s_openapi027::apimachinery::pkg::runtime::RawExtension as crate::Optionable>::Optioned,
+    >,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub revision: Option<i64>,

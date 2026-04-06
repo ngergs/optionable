@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceTaintSelectorAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub device: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub device: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub driver: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub driver: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pool: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub pool: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1alpha3::DeviceTaintSelector {
@@ -29,22 +29,22 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::resource::v1alpha3::DeviceTaintSelector {
     fn into_optioned(self) -> DeviceTaintSelectorAc {
         DeviceTaintSelectorAc {
-            device: crate::OptionableConvert::into_optioned(self.device),
-            driver: crate::OptionableConvert::into_optioned(self.driver),
-            pool: crate::OptionableConvert::into_optioned(self.pool),
+            device: self.device,
+            driver: self.driver,
+            pool: self.pool,
         }
     }
     fn try_from_optioned(value: DeviceTaintSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            device: crate::OptionableConvert::try_from_optioned(value.device)?,
-            driver: crate::OptionableConvert::try_from_optioned(value.driver)?,
-            pool: crate::OptionableConvert::try_from_optioned(value.pool)?,
+            device: value.device,
+            driver: value.driver,
+            pool: value.pool,
         })
     }
     fn merge(&mut self, other: DeviceTaintSelectorAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.device, other.device)?;
-        crate::OptionableConvert::merge(&mut self.driver, other.driver)?;
-        crate::OptionableConvert::merge(&mut self.pool, other.pool)?;
+        self.device = other.device;
+        self.driver = other.driver;
+        self.pool = other.pool;
         Ok(())
     }
 }

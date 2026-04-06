@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionMigrationSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub continue_token: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub continue_token: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<
         <::k8s_openapi027::api::storagemigration::v1alpha1::GroupVersionResource as crate::Optionable>::Optioned,
@@ -30,7 +30,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::storagemigration::v1alpha1::StorageVersionMigrationSpec {
     fn into_optioned(self) -> StorageVersionMigrationSpecAc {
         StorageVersionMigrationSpecAc {
-            continue_token: crate::OptionableConvert::into_optioned(self.continue_token),
+            continue_token: self.continue_token,
             resource: Some(crate::OptionableConvert::into_optioned(self.resource)),
         }
     }
@@ -38,9 +38,7 @@ for k8s_openapi027::api::storagemigration::v1alpha1::StorageVersionMigrationSpec
         value: StorageVersionMigrationSpecAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            continue_token: crate::OptionableConvert::try_from_optioned(
-                value.continue_token,
-            )?,
+            continue_token: value.continue_token,
             resource: crate::OptionableConvert::try_from_optioned(
                 value
                     .resource
@@ -54,7 +52,7 @@ for k8s_openapi027::api::storagemigration::v1alpha1::StorageVersionMigrationSpec
         &mut self,
         other: StorageVersionMigrationSpecAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.continue_token, other.continue_token)?;
+        self.continue_token = other.continue_token;
         if let Some(other_value) = other.resource {
             crate::OptionableConvert::merge(&mut self.resource, other_value)?;
         }

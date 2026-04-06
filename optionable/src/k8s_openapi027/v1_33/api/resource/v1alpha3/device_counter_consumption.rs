@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceCounterConsumptionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub counter_set: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub counter_set: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub counters: Option<
-        <std::collections::BTreeMap<
+        std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::api::resource::v1alpha3::Counter,
-        > as crate::Optionable>::Optioned,
+            <::k8s_openapi027::api::resource::v1alpha3::Counter as crate::Optionable>::Optioned,
+        >,
     >,
 }
 #[automatically_derived]
@@ -33,7 +33,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::resource::v1alpha3::DeviceCounterConsumption {
     fn into_optioned(self) -> DeviceCounterConsumptionAc {
         DeviceCounterConsumptionAc {
-            counter_set: Some(crate::OptionableConvert::into_optioned(self.counter_set)),
+            counter_set: Some(self.counter_set),
             counters: Some(crate::OptionableConvert::into_optioned(self.counters)),
         }
     }
@@ -41,13 +41,11 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceCounterConsumption {
         value: DeviceCounterConsumptionAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            counter_set: crate::OptionableConvert::try_from_optioned(
-                value
-                    .counter_set
-                    .ok_or(crate::Error {
-                        missing_field: "counter_set",
-                    })?,
-            )?,
+            counter_set: value
+                .counter_set
+                .ok_or(crate::Error {
+                    missing_field: "counter_set",
+                })?,
             counters: crate::OptionableConvert::try_from_optioned(
                 value
                     .counters
@@ -59,7 +57,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceCounterConsumption {
     }
     fn merge(&mut self, other: DeviceCounterConsumptionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.counter_set {
-            crate::OptionableConvert::merge(&mut self.counter_set, other_value)?;
+            self.counter_set = other_value;
         }
         if let Some(other_value) = other.counters {
             crate::OptionableConvert::merge(&mut self.counters, other_value)?;

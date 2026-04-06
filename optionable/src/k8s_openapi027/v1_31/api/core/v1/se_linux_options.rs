@@ -9,14 +9,14 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SELinuxOptionsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub level: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub level: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub role: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub role: Option<std::string::String>,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub type_: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub user: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::SELinuxOptions {
@@ -31,25 +31,25 @@ impl crate::Optionable for SELinuxOptionsAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SELinuxOptions {
     fn into_optioned(self) -> SELinuxOptionsAc {
         SELinuxOptionsAc {
-            level: crate::OptionableConvert::into_optioned(self.level),
-            role: crate::OptionableConvert::into_optioned(self.role),
-            type_: crate::OptionableConvert::into_optioned(self.type_),
-            user: crate::OptionableConvert::into_optioned(self.user),
+            level: self.level,
+            role: self.role,
+            type_: self.type_,
+            user: self.user,
         }
     }
     fn try_from_optioned(value: SELinuxOptionsAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            level: crate::OptionableConvert::try_from_optioned(value.level)?,
-            role: crate::OptionableConvert::try_from_optioned(value.role)?,
-            type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
-            user: crate::OptionableConvert::try_from_optioned(value.user)?,
+            level: value.level,
+            role: value.role,
+            type_: value.type_,
+            user: value.user,
         })
     }
     fn merge(&mut self, other: SELinuxOptionsAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.level, other.level)?;
-        crate::OptionableConvert::merge(&mut self.role, other.role)?;
-        crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
-        crate::OptionableConvert::merge(&mut self.user, other.user)?;
+        self.level = other.level;
+        self.role = other.role;
+        self.type_ = other.type_;
+        self.user = other.user;
         Ok(())
     }
 }

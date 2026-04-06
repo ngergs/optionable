@@ -11,7 +11,7 @@ pub struct CSIDriverSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attach_required: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fs_group_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub fs_group_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_info_on_mount: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -21,13 +21,13 @@ pub struct CSIDriverSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_capacity: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub token_requests: <Option<
-        std::vec::Vec<::k8s_openapi027::api::storage::v1::TokenRequest>,
-    > as crate::Optionable>::Optioned,
+    pub token_requests: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::storage::v1::TokenRequest as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volume_lifecycle_modes: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub volume_lifecycle_modes: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::storage::v1::CSIDriverSpec {
@@ -43,25 +43,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIDriverSpe
     fn into_optioned(self) -> CSIDriverSpecAc {
         CSIDriverSpecAc {
             attach_required: self.attach_required,
-            fs_group_policy: crate::OptionableConvert::into_optioned(
-                self.fs_group_policy,
-            ),
+            fs_group_policy: self.fs_group_policy,
             pod_info_on_mount: self.pod_info_on_mount,
             requires_republish: self.requires_republish,
             se_linux_mount: self.se_linux_mount,
             storage_capacity: self.storage_capacity,
             token_requests: crate::OptionableConvert::into_optioned(self.token_requests),
-            volume_lifecycle_modes: crate::OptionableConvert::into_optioned(
-                self.volume_lifecycle_modes,
-            ),
+            volume_lifecycle_modes: self.volume_lifecycle_modes,
         }
     }
     fn try_from_optioned(value: CSIDriverSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
             attach_required: value.attach_required,
-            fs_group_policy: crate::OptionableConvert::try_from_optioned(
-                value.fs_group_policy,
-            )?,
+            fs_group_policy: value.fs_group_policy,
             pod_info_on_mount: value.pod_info_on_mount,
             requires_republish: value.requires_republish,
             se_linux_mount: value.se_linux_mount,
@@ -69,26 +63,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIDriverSpe
             token_requests: crate::OptionableConvert::try_from_optioned(
                 value.token_requests,
             )?,
-            volume_lifecycle_modes: crate::OptionableConvert::try_from_optioned(
-                value.volume_lifecycle_modes,
-            )?,
+            volume_lifecycle_modes: value.volume_lifecycle_modes,
         })
     }
     fn merge(&mut self, other: CSIDriverSpecAc) -> Result<(), crate::Error> {
         self.attach_required = other.attach_required;
-        crate::OptionableConvert::merge(
-            &mut self.fs_group_policy,
-            other.fs_group_policy,
-        )?;
+        self.fs_group_policy = other.fs_group_policy;
         self.pod_info_on_mount = other.pod_info_on_mount;
         self.requires_republish = other.requires_republish;
         self.se_linux_mount = other.se_linux_mount;
         self.storage_capacity = other.storage_capacity;
         crate::OptionableConvert::merge(&mut self.token_requests, other.token_requests)?;
-        crate::OptionableConvert::merge(
-            &mut self.volume_lifecycle_modes,
-            other.volume_lifecycle_modes,
-        )?;
+        self.volume_lifecycle_modes = other.volume_lifecycle_modes;
         Ok(())
     }
 }

@@ -5,9 +5,9 @@ pub enum JSONSchemaPropsOrBoolAc {
     Schema(
         #[serde(skip_serializing_if = "Option::is_none")]
         Option<
-            <std::boxed::Box<
-                ::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
-            > as crate::Optionable>::Optioned,
+            std::boxed::Box<
+                <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps as crate::Optionable>::Optioned,
+            >,
         >,
     ),
     Bool(#[serde(skip_serializing_if = "Option::is_none")] Option<bool>),

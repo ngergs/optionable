@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeDaemonEndpointsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub kubelet_endpoint: <Option<
-        ::k8s_openapi027::api::core::v1::DaemonEndpoint,
-    > as crate::Optionable>::Optioned,
+    pub kubelet_endpoint: Option<
+        <::k8s_openapi027::api::core::v1::DaemonEndpoint as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::NodeDaemonEndpoints {

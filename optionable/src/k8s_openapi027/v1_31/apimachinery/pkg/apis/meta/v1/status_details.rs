@@ -9,19 +9,21 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatusDetailsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub causes: <Option<
-        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause>,
-    > as crate::Optionable>::Optioned,
+    pub causes: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub group: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub kind: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub kind: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub retry_after_seconds: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub uid: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -39,30 +41,30 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusDetails {
     fn into_optioned(self) -> StatusDetailsAc {
         StatusDetailsAc {
             causes: crate::OptionableConvert::into_optioned(self.causes),
-            group: crate::OptionableConvert::into_optioned(self.group),
-            kind: crate::OptionableConvert::into_optioned(self.kind),
-            name: crate::OptionableConvert::into_optioned(self.name),
+            group: self.group,
+            kind: self.kind,
+            name: self.name,
             retry_after_seconds: self.retry_after_seconds,
-            uid: crate::OptionableConvert::into_optioned(self.uid),
+            uid: self.uid,
         }
     }
     fn try_from_optioned(value: StatusDetailsAc) -> Result<Self, crate::Error> {
         Ok(Self {
             causes: crate::OptionableConvert::try_from_optioned(value.causes)?,
-            group: crate::OptionableConvert::try_from_optioned(value.group)?,
-            kind: crate::OptionableConvert::try_from_optioned(value.kind)?,
-            name: crate::OptionableConvert::try_from_optioned(value.name)?,
+            group: value.group,
+            kind: value.kind,
+            name: value.name,
             retry_after_seconds: value.retry_after_seconds,
-            uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
+            uid: value.uid,
         })
     }
     fn merge(&mut self, other: StatusDetailsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.causes, other.causes)?;
-        crate::OptionableConvert::merge(&mut self.group, other.group)?;
-        crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
-        crate::OptionableConvert::merge(&mut self.name, other.name)?;
+        self.group = other.group;
+        self.kind = other.kind;
+        self.name = other.name;
         self.retry_after_seconds = other.retry_after_seconds;
-        crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
+        self.uid = other.uid;
         Ok(())
     }
 }

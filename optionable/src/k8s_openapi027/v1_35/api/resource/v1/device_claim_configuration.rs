@@ -9,13 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceClaimConfigurationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub opaque: <Option<
-        ::k8s_openapi027::api::resource::v1::OpaqueDeviceConfiguration,
-    > as crate::Optionable>::Optioned,
+    pub opaque: Option<
+        <::k8s_openapi027::api::resource::v1::OpaqueDeviceConfiguration as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub requests: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub requests: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1::DeviceClaimConfiguration {
@@ -32,7 +30,7 @@ for k8s_openapi027::api::resource::v1::DeviceClaimConfiguration {
     fn into_optioned(self) -> DeviceClaimConfigurationAc {
         DeviceClaimConfigurationAc {
             opaque: crate::OptionableConvert::into_optioned(self.opaque),
-            requests: crate::OptionableConvert::into_optioned(self.requests),
+            requests: self.requests,
         }
     }
     fn try_from_optioned(
@@ -40,12 +38,12 @@ for k8s_openapi027::api::resource::v1::DeviceClaimConfiguration {
     ) -> Result<Self, crate::Error> {
         Ok(Self {
             opaque: crate::OptionableConvert::try_from_optioned(value.opaque)?,
-            requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
+            requests: value.requests,
         })
     }
     fn merge(&mut self, other: DeviceClaimConfigurationAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.opaque, other.opaque)?;
-        crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
+        self.requests = other.requests;
         Ok(())
     }
 }

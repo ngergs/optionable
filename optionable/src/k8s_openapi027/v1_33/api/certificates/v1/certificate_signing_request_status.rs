@@ -9,15 +9,15 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CertificateSigningRequestStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub certificate: <Option<
-        ::k8s_openapi027::ByteString,
-    > as crate::Optionable>::Optioned,
+    pub certificate: Option<
+        <::k8s_openapi027::ByteString as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
+    pub conditions: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition,
+            <::k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

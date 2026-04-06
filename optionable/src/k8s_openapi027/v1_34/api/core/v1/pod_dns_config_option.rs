@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodDNSConfigOptionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub value: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodDNSConfigOption {
@@ -26,19 +26,19 @@ impl crate::Optionable for PodDNSConfigOptionAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodDNSConfigOption {
     fn into_optioned(self) -> PodDNSConfigOptionAc {
         PodDNSConfigOptionAc {
-            name: crate::OptionableConvert::into_optioned(self.name),
-            value: crate::OptionableConvert::into_optioned(self.value),
+            name: self.name,
+            value: self.value,
         }
     }
     fn try_from_optioned(value: PodDNSConfigOptionAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(value.name)?,
-            value: crate::OptionableConvert::try_from_optioned(value.value)?,
+            name: value.name,
+            value: value.value,
         })
     }
     fn merge(&mut self, other: PodDNSConfigOptionAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.name, other.name)?;
-        crate::OptionableConvert::merge(&mut self.value, other.value)?;
+        self.name = other.name;
+        self.value = other.value;
         Ok(())
     }
 }

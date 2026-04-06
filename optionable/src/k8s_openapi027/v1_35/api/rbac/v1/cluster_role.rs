@@ -19,14 +19,16 @@ pub struct ClusterRoleAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub aggregation_rule: <Option<
-        ::k8s_openapi027::api::rbac::v1::AggregationRule,
-    > as crate::Optionable>::Optioned,
+    pub aggregation_rule: Option<
+        <::k8s_openapi027::api::rbac::v1::AggregationRule as crate::Optionable>::Optioned,
+    >,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rules: <Option<
-        std::vec::Vec<::k8s_openapi027::api::rbac::v1::PolicyRule>,
-    > as crate::Optionable>::Optioned,
+    pub rules: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::rbac::v1::PolicyRule as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::rbac::v1::ClusterRole {

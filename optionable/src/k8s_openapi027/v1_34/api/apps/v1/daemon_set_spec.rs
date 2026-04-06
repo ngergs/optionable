@@ -21,9 +21,9 @@ pub struct DaemonSetSpecAc {
         <::k8s_openapi027::api::core::v1::PodTemplateSpec as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub update_strategy: <Option<
-        ::k8s_openapi027::api::apps::v1::DaemonSetUpdateStrategy,
-    > as crate::Optionable>::Optioned,
+    pub update_strategy: Option<
+        <::k8s_openapi027::api::apps::v1::DaemonSetUpdateStrategy as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::apps::v1::DaemonSetSpec {

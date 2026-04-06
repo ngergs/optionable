@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FieldSelectorAttributesAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub raw_selector: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub raw_selector: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub requirements: <Option<
+    pub requirements: Option<
         std::vec::Vec<
-            ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::FieldSelectorRequirement,
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::FieldSelectorRequirement as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -32,7 +32,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::authorization::v1::FieldSelectorAttributes {
     fn into_optioned(self) -> FieldSelectorAttributesAc {
         FieldSelectorAttributesAc {
-            raw_selector: crate::OptionableConvert::into_optioned(self.raw_selector),
+            raw_selector: self.raw_selector,
             requirements: crate::OptionableConvert::into_optioned(self.requirements),
         }
     }
@@ -40,16 +40,14 @@ for k8s_openapi027::api::authorization::v1::FieldSelectorAttributes {
         value: FieldSelectorAttributesAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            raw_selector: crate::OptionableConvert::try_from_optioned(
-                value.raw_selector,
-            )?,
+            raw_selector: value.raw_selector,
             requirements: crate::OptionableConvert::try_from_optioned(
                 value.requirements,
             )?,
         })
     }
     fn merge(&mut self, other: FieldSelectorAttributesAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.raw_selector, other.raw_selector)?;
+        self.raw_selector = other.raw_selector;
         crate::OptionableConvert::merge(&mut self.requirements, other.requirements)?;
         Ok(())
     }

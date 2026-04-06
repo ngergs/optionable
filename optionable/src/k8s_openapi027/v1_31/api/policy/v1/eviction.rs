@@ -19,9 +19,9 @@ pub struct EvictionAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub delete_options: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions,
-    > as crate::Optionable>::Optioned,
+    pub delete_options: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions as crate::Optionable>::Optioned,
+    >,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
 }
 #[automatically_derived]

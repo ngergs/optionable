@@ -9,10 +9,10 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodFailurePolicyOnPodConditionsPatternAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub status: Option<std::string::String>,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub type_: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -29,28 +29,24 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
     fn into_optioned(self) -> PodFailurePolicyOnPodConditionsPatternAc {
         PodFailurePolicyOnPodConditionsPatternAc {
-            status: Some(crate::OptionableConvert::into_optioned(self.status)),
-            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
+            status: Some(self.status),
+            type_: Some(self.type_),
         }
     }
     fn try_from_optioned(
         value: PodFailurePolicyOnPodConditionsPatternAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            status: crate::OptionableConvert::try_from_optioned(
-                value
-                    .status
-                    .ok_or(crate::Error {
-                        missing_field: "status",
-                    })?,
-            )?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            status: value
+                .status
+                .ok_or(crate::Error {
+                    missing_field: "status",
+                })?,
+            type_: value
+                .type_
+                .ok_or(crate::Error {
+                    missing_field: "type_",
+                })?,
         })
     }
     fn merge(
@@ -58,10 +54,10 @@ for k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
         other: PodFailurePolicyOnPodConditionsPatternAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.status {
-            crate::OptionableConvert::merge(&mut self.status, other_value)?;
+            self.status = other_value;
         }
         if let Some(other_value) = other.type_ {
-            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+            self.type_ = other_value;
         }
         Ok(())
     }

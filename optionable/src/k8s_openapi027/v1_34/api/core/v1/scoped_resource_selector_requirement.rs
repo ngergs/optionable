@@ -9,13 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ScopedResourceSelectorRequirementAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub operator: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub operator: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub scope_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub values: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub values: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -32,30 +30,26 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement {
     fn into_optioned(self) -> ScopedResourceSelectorRequirementAc {
         ScopedResourceSelectorRequirementAc {
-            operator: Some(crate::OptionableConvert::into_optioned(self.operator)),
-            scope_name: Some(crate::OptionableConvert::into_optioned(self.scope_name)),
-            values: crate::OptionableConvert::into_optioned(self.values),
+            operator: Some(self.operator),
+            scope_name: Some(self.scope_name),
+            values: self.values,
         }
     }
     fn try_from_optioned(
         value: ScopedResourceSelectorRequirementAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            operator: crate::OptionableConvert::try_from_optioned(
-                value
-                    .operator
-                    .ok_or(crate::Error {
-                        missing_field: "operator",
-                    })?,
-            )?,
-            scope_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .scope_name
-                    .ok_or(crate::Error {
-                        missing_field: "scope_name",
-                    })?,
-            )?,
-            values: crate::OptionableConvert::try_from_optioned(value.values)?,
+            operator: value
+                .operator
+                .ok_or(crate::Error {
+                    missing_field: "operator",
+                })?,
+            scope_name: value
+                .scope_name
+                .ok_or(crate::Error {
+                    missing_field: "scope_name",
+                })?,
+            values: value.values,
         })
     }
     fn merge(
@@ -63,12 +57,12 @@ for k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement {
         other: ScopedResourceSelectorRequirementAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.operator {
-            crate::OptionableConvert::merge(&mut self.operator, other_value)?;
+            self.operator = other_value;
         }
         if let Some(other_value) = other.scope_name {
-            crate::OptionableConvert::merge(&mut self.scope_name, other_value)?;
+            self.scope_name = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.values, other.values)?;
+        self.values = other.values;
         Ok(())
     }
 }

@@ -9,19 +9,21 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceClassSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub config: <Option<
+    pub config: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::resource::v1alpha3::DeviceClassConfiguration,
+            <::k8s_openapi027::api::resource::v1alpha3::DeviceClassConfiguration as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub selectors: <Option<
-        std::vec::Vec<::k8s_openapi027::api::resource::v1alpha3::DeviceSelector>,
-    > as crate::Optionable>::Optioned,
+    pub selectors: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::resource::v1alpha3::DeviceSelector as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub suitable_nodes: <Option<
-        ::k8s_openapi027::api::core::v1::NodeSelector,
-    > as crate::Optionable>::Optioned,
+    pub suitable_nodes: Option<
+        <::k8s_openapi027::api::core::v1::NodeSelector as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec {

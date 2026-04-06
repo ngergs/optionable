@@ -9,35 +9,39 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ValidatingAdmissionPolicySpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub audit_annotations: <Option<
+    pub audit_annotations: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::admissionregistration::v1alpha1::AuditAnnotation,
+            <::k8s_openapi027::api::admissionregistration::v1alpha1::AuditAnnotation as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub failure_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub failure_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub match_conditions: <Option<
+    pub match_conditions: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::admissionregistration::v1alpha1::MatchCondition,
+            <::k8s_openapi027::api::admissionregistration::v1alpha1::MatchCondition as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub match_constraints: <Option<
-        ::k8s_openapi027::api::admissionregistration::v1alpha1::MatchResources,
-    > as crate::Optionable>::Optioned,
+    pub match_constraints: Option<
+        <::k8s_openapi027::api::admissionregistration::v1alpha1::MatchResources as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub param_kind: <Option<
-        ::k8s_openapi027::api::admissionregistration::v1alpha1::ParamKind,
-    > as crate::Optionable>::Optioned,
+    pub param_kind: Option<
+        <::k8s_openapi027::api::admissionregistration::v1alpha1::ParamKind as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub validations: <Option<
-        std::vec::Vec<::k8s_openapi027::api::admissionregistration::v1alpha1::Validation>,
-    > as crate::Optionable>::Optioned,
+    pub validations: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::admissionregistration::v1alpha1::Validation as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub variables: <Option<
-        std::vec::Vec<::k8s_openapi027::api::admissionregistration::v1alpha1::Variable>,
-    > as crate::Optionable>::Optioned,
+    pub variables: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::admissionregistration::v1alpha1::Variable as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -57,7 +61,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
             audit_annotations: crate::OptionableConvert::into_optioned(
                 self.audit_annotations,
             ),
-            failure_policy: crate::OptionableConvert::into_optioned(self.failure_policy),
+            failure_policy: self.failure_policy,
             match_conditions: crate::OptionableConvert::into_optioned(
                 self.match_conditions,
             ),
@@ -76,9 +80,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
             audit_annotations: crate::OptionableConvert::try_from_optioned(
                 value.audit_annotations,
             )?,
-            failure_policy: crate::OptionableConvert::try_from_optioned(
-                value.failure_policy,
-            )?,
+            failure_policy: value.failure_policy,
             match_conditions: crate::OptionableConvert::try_from_optioned(
                 value.match_conditions,
             )?,
@@ -98,7 +100,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
             &mut self.audit_annotations,
             other.audit_annotations,
         )?;
-        crate::OptionableConvert::merge(&mut self.failure_policy, other.failure_policy)?;
+        self.failure_policy = other.failure_policy;
         crate::OptionableConvert::merge(
             &mut self.match_conditions,
             other.match_conditions,

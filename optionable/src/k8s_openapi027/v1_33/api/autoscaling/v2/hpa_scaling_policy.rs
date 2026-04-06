@@ -12,7 +12,7 @@ pub struct HPAScalingPolicyAc {
     pub period_seconds: Option<i32>,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub type_: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<i32>,
 }
@@ -31,7 +31,7 @@ for k8s_openapi027::api::autoscaling::v2::HPAScalingPolicy {
     fn into_optioned(self) -> HPAScalingPolicyAc {
         HPAScalingPolicyAc {
             period_seconds: Some(self.period_seconds),
-            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
+            type_: Some(self.type_),
             value: Some(self.value),
         }
     }
@@ -42,13 +42,11 @@ for k8s_openapi027::api::autoscaling::v2::HPAScalingPolicy {
                 .ok_or(crate::Error {
                     missing_field: "period_seconds",
                 })?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            type_: value
+                .type_
+                .ok_or(crate::Error {
+                    missing_field: "type_",
+                })?,
             value: value
                 .value
                 .ok_or(crate::Error {
@@ -61,7 +59,7 @@ for k8s_openapi027::api::autoscaling::v2::HPAScalingPolicy {
             self.period_seconds = other_value;
         }
         if let Some(other_value) = other.type_ {
-            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+            self.type_ = other_value;
         }
         if let Some(other_value) = other.value {
             self.value = other_value;

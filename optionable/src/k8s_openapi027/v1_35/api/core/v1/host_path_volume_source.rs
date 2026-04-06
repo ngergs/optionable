@@ -9,10 +9,10 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HostPathVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub path: Option<std::string::String>,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub type_: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::HostPathVolumeSource {
@@ -27,27 +27,25 @@ impl crate::Optionable for HostPathVolumeSourceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HostPathVolumeSource {
     fn into_optioned(self) -> HostPathVolumeSourceAc {
         HostPathVolumeSourceAc {
-            path: Some(crate::OptionableConvert::into_optioned(self.path)),
-            type_: crate::OptionableConvert::into_optioned(self.type_),
+            path: Some(self.path),
+            type_: self.type_,
         }
     }
     fn try_from_optioned(value: HostPathVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            path: crate::OptionableConvert::try_from_optioned(
-                value
-                    .path
-                    .ok_or(crate::Error {
-                        missing_field: "path",
-                    })?,
-            )?,
-            type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
+            path: value
+                .path
+                .ok_or(crate::Error {
+                    missing_field: "path",
+                })?,
+            type_: value.type_,
         })
     }
     fn merge(&mut self, other: HostPathVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.path {
-            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+            self.path = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
+        self.type_ = other.type_;
         Ok(())
     }
 }

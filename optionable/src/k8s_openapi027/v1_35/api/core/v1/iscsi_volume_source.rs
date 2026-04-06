@@ -13,27 +13,25 @@ pub struct ISCSIVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub chap_auth_session: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub fs_type: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub initiator_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub initiator_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub iqn: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub iqn: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub iscsi_interface: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub iscsi_interface: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lun: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub portals: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub portals: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret_ref: <Option<
-        ::k8s_openapi027::api::core::v1::LocalObjectReference,
-    > as crate::Optionable>::Optioned,
+    pub secret_ref: Option<
+        <::k8s_openapi027::api::core::v1::LocalObjectReference as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_portal: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub target_portal: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ISCSIVolumeSource {
@@ -50,76 +48,61 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ISCSIVolumeSour
         ISCSIVolumeSourceAc {
             chap_auth_discovery: self.chap_auth_discovery,
             chap_auth_session: self.chap_auth_session,
-            fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
-            initiator_name: crate::OptionableConvert::into_optioned(self.initiator_name),
-            iqn: Some(crate::OptionableConvert::into_optioned(self.iqn)),
-            iscsi_interface: crate::OptionableConvert::into_optioned(
-                self.iscsi_interface,
-            ),
+            fs_type: self.fs_type,
+            initiator_name: self.initiator_name,
+            iqn: Some(self.iqn),
+            iscsi_interface: self.iscsi_interface,
             lun: Some(self.lun),
-            portals: crate::OptionableConvert::into_optioned(self.portals),
+            portals: self.portals,
             read_only: self.read_only,
             secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
-            target_portal: Some(
-                crate::OptionableConvert::into_optioned(self.target_portal),
-            ),
+            target_portal: Some(self.target_portal),
         }
     }
     fn try_from_optioned(value: ISCSIVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             chap_auth_discovery: value.chap_auth_discovery,
             chap_auth_session: value.chap_auth_session,
-            fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
-            initiator_name: crate::OptionableConvert::try_from_optioned(
-                value.initiator_name,
-            )?,
-            iqn: crate::OptionableConvert::try_from_optioned(
-                value
-                    .iqn
-                    .ok_or(crate::Error {
-                        missing_field: "iqn",
-                    })?,
-            )?,
-            iscsi_interface: crate::OptionableConvert::try_from_optioned(
-                value.iscsi_interface,
-            )?,
+            fs_type: value.fs_type,
+            initiator_name: value.initiator_name,
+            iqn: value
+                .iqn
+                .ok_or(crate::Error {
+                    missing_field: "iqn",
+                })?,
+            iscsi_interface: value.iscsi_interface,
             lun: value
                 .lun
                 .ok_or(crate::Error {
                     missing_field: "lun",
                 })?,
-            portals: crate::OptionableConvert::try_from_optioned(value.portals)?,
+            portals: value.portals,
             read_only: value.read_only,
             secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
-            target_portal: crate::OptionableConvert::try_from_optioned(
-                value
-                    .target_portal
-                    .ok_or(crate::Error {
-                        missing_field: "target_portal",
-                    })?,
-            )?,
+            target_portal: value
+                .target_portal
+                .ok_or(crate::Error {
+                    missing_field: "target_portal",
+                })?,
         })
     }
     fn merge(&mut self, other: ISCSIVolumeSourceAc) -> Result<(), crate::Error> {
         self.chap_auth_discovery = other.chap_auth_discovery;
         self.chap_auth_session = other.chap_auth_session;
-        crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
-        crate::OptionableConvert::merge(&mut self.initiator_name, other.initiator_name)?;
+        self.fs_type = other.fs_type;
+        self.initiator_name = other.initiator_name;
         if let Some(other_value) = other.iqn {
-            crate::OptionableConvert::merge(&mut self.iqn, other_value)?;
+            self.iqn = other_value;
         }
-        crate::OptionableConvert::merge(
-            &mut self.iscsi_interface,
-            other.iscsi_interface,
-        )?;
+        self.iscsi_interface = other.iscsi_interface;
         if let Some(other_value) = other.lun {
             self.lun = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.portals, other.portals)?;
+        self.portals = other.portals;
         self.read_only = other.read_only;
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
         if let Some(other_value) = other.target_portal {
-            crate::OptionableConvert::merge(&mut self.target_portal, other_value)?;
+            self.target_portal = other_value;
         }
         Ok(())
     }

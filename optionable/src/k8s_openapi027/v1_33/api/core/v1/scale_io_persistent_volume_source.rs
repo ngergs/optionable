@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ScaleIOPersistentVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub fs_type: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub gateway: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub gateway: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub protection_domain: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub protection_domain: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -23,13 +23,13 @@ pub struct ScaleIOPersistentVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ssl_enabled: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub storage_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub storage_mode: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub storage_pool: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub storage_pool: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub system: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub system: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volume_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub volume_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ScaleIOPersistentVolumeSource {
@@ -45,35 +45,29 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::core::v1::ScaleIOPersistentVolumeSource {
     fn into_optioned(self) -> ScaleIOPersistentVolumeSourceAc {
         ScaleIOPersistentVolumeSourceAc {
-            fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
-            gateway: Some(crate::OptionableConvert::into_optioned(self.gateway)),
-            protection_domain: crate::OptionableConvert::into_optioned(
-                self.protection_domain,
-            ),
+            fs_type: self.fs_type,
+            gateway: Some(self.gateway),
+            protection_domain: self.protection_domain,
             read_only: self.read_only,
             secret_ref: Some(crate::OptionableConvert::into_optioned(self.secret_ref)),
             ssl_enabled: self.ssl_enabled,
-            storage_mode: crate::OptionableConvert::into_optioned(self.storage_mode),
-            storage_pool: crate::OptionableConvert::into_optioned(self.storage_pool),
-            system: Some(crate::OptionableConvert::into_optioned(self.system)),
-            volume_name: crate::OptionableConvert::into_optioned(self.volume_name),
+            storage_mode: self.storage_mode,
+            storage_pool: self.storage_pool,
+            system: Some(self.system),
+            volume_name: self.volume_name,
         }
     }
     fn try_from_optioned(
         value: ScaleIOPersistentVolumeSourceAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
-            gateway: crate::OptionableConvert::try_from_optioned(
-                value
-                    .gateway
-                    .ok_or(crate::Error {
-                        missing_field: "gateway",
-                    })?,
-            )?,
-            protection_domain: crate::OptionableConvert::try_from_optioned(
-                value.protection_domain,
-            )?,
+            fs_type: value.fs_type,
+            gateway: value
+                .gateway
+                .ok_or(crate::Error {
+                    missing_field: "gateway",
+                })?,
+            protection_domain: value.protection_domain,
             read_only: value.read_only,
             secret_ref: crate::OptionableConvert::try_from_optioned(
                 value
@@ -83,45 +77,36 @@ for k8s_openapi027::api::core::v1::ScaleIOPersistentVolumeSource {
                     })?,
             )?,
             ssl_enabled: value.ssl_enabled,
-            storage_mode: crate::OptionableConvert::try_from_optioned(
-                value.storage_mode,
-            )?,
-            storage_pool: crate::OptionableConvert::try_from_optioned(
-                value.storage_pool,
-            )?,
-            system: crate::OptionableConvert::try_from_optioned(
-                value
-                    .system
-                    .ok_or(crate::Error {
-                        missing_field: "system",
-                    })?,
-            )?,
-            volume_name: crate::OptionableConvert::try_from_optioned(value.volume_name)?,
+            storage_mode: value.storage_mode,
+            storage_pool: value.storage_pool,
+            system: value
+                .system
+                .ok_or(crate::Error {
+                    missing_field: "system",
+                })?,
+            volume_name: value.volume_name,
         })
     }
     fn merge(
         &mut self,
         other: ScaleIOPersistentVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
+        self.fs_type = other.fs_type;
         if let Some(other_value) = other.gateway {
-            crate::OptionableConvert::merge(&mut self.gateway, other_value)?;
+            self.gateway = other_value;
         }
-        crate::OptionableConvert::merge(
-            &mut self.protection_domain,
-            other.protection_domain,
-        )?;
+        self.protection_domain = other.protection_domain;
         self.read_only = other.read_only;
         if let Some(other_value) = other.secret_ref {
             crate::OptionableConvert::merge(&mut self.secret_ref, other_value)?;
         }
         self.ssl_enabled = other.ssl_enabled;
-        crate::OptionableConvert::merge(&mut self.storage_mode, other.storage_mode)?;
-        crate::OptionableConvert::merge(&mut self.storage_pool, other.storage_pool)?;
+        self.storage_mode = other.storage_mode;
+        self.storage_pool = other.storage_pool;
         if let Some(other_value) = other.system {
-            crate::OptionableConvert::merge(&mut self.system, other_value)?;
+            self.system = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.volume_name, other.volume_name)?;
+        self.volume_name = other.volume_name;
         Ok(())
     }
 }

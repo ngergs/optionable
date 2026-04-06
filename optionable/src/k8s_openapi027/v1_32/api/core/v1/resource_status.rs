@@ -9,11 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resources: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::ResourceHealth>,
-    > as crate::Optionable>::Optioned,
+    pub resources: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::ResourceHealth as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ResourceStatus {
@@ -28,25 +30,23 @@ impl crate::Optionable for ResourceStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceStatus {
     fn into_optioned(self) -> ResourceStatusAc {
         ResourceStatusAc {
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            name: Some(self.name),
             resources: crate::OptionableConvert::into_optioned(self.resources),
         }
     }
     fn try_from_optioned(value: ResourceStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
             resources: crate::OptionableConvert::try_from_optioned(value.resources)?,
         })
     }
     fn merge(&mut self, other: ResourceStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
         Ok(())

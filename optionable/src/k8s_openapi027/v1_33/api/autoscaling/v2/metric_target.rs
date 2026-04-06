@@ -11,16 +11,16 @@ pub struct MetricTargetAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub average_utilization: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub average_value: <Option<
-        ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
-    > as crate::Optionable>::Optioned,
+    pub average_value: Option<
+        <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+    >,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub type_: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: <Option<
-        ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
-    > as crate::Optionable>::Optioned,
+    pub value: Option<
+        <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::autoscaling::v2::MetricTarget {
@@ -37,7 +37,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricTa
         MetricTargetAc {
             average_utilization: self.average_utilization,
             average_value: crate::OptionableConvert::into_optioned(self.average_value),
-            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
+            type_: Some(self.type_),
             value: crate::OptionableConvert::into_optioned(self.value),
         }
     }
@@ -47,13 +47,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricTa
             average_value: crate::OptionableConvert::try_from_optioned(
                 value.average_value,
             )?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            type_: value
+                .type_
+                .ok_or(crate::Error {
+                    missing_field: "type_",
+                })?,
             value: crate::OptionableConvert::try_from_optioned(value.value)?,
         })
     }
@@ -61,7 +59,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricTa
         self.average_utilization = other.average_utilization;
         crate::OptionableConvert::merge(&mut self.average_value, other.average_value)?;
         if let Some(other_value) = other.type_ {
-            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+            self.type_ = other_value;
         }
         crate::OptionableConvert::merge(&mut self.value, other.value)?;
         Ok(())

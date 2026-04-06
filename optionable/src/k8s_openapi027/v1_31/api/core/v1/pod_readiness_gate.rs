@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodReadinessGateAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub condition_type: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub condition_type: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodReadinessGate {
@@ -24,25 +24,21 @@ impl crate::Optionable for PodReadinessGateAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodReadinessGate {
     fn into_optioned(self) -> PodReadinessGateAc {
         PodReadinessGateAc {
-            condition_type: Some(
-                crate::OptionableConvert::into_optioned(self.condition_type),
-            ),
+            condition_type: Some(self.condition_type),
         }
     }
     fn try_from_optioned(value: PodReadinessGateAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            condition_type: crate::OptionableConvert::try_from_optioned(
-                value
-                    .condition_type
-                    .ok_or(crate::Error {
-                        missing_field: "condition_type",
-                    })?,
-            )?,
+            condition_type: value
+                .condition_type
+                .ok_or(crate::Error {
+                    missing_field: "condition_type",
+                })?,
         })
     }
     fn merge(&mut self, other: PodReadinessGateAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.condition_type {
-            crate::OptionableConvert::merge(&mut self.condition_type, other_value)?;
+            self.condition_type = other_value;
         }
         Ok(())
     }

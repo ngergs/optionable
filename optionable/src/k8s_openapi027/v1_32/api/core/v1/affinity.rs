@@ -9,17 +9,17 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AffinityAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub node_affinity: <Option<
-        ::k8s_openapi027::api::core::v1::NodeAffinity,
-    > as crate::Optionable>::Optioned,
+    pub node_affinity: Option<
+        <::k8s_openapi027::api::core::v1::NodeAffinity as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_affinity: <Option<
-        ::k8s_openapi027::api::core::v1::PodAffinity,
-    > as crate::Optionable>::Optioned,
+    pub pod_affinity: Option<
+        <::k8s_openapi027::api::core::v1::PodAffinity as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_anti_affinity: <Option<
-        ::k8s_openapi027::api::core::v1::PodAntiAffinity,
-    > as crate::Optionable>::Optioned,
+    pub pod_anti_affinity: Option<
+        <::k8s_openapi027::api::core::v1::PodAntiAffinity as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::Affinity {

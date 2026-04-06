@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceTaintRuleSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub device_selector: <Option<
-        ::k8s_openapi027::api::resource::v1alpha3::DeviceTaintSelector,
-    > as crate::Optionable>::Optioned,
+    pub device_selector: Option<
+        <::k8s_openapi027::api::resource::v1alpha3::DeviceTaintSelector as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub taint: Option<
         <::k8s_openapi027::api::resource::v1alpha3::DeviceTaint as crate::Optionable>::Optioned,

@@ -10,13 +10,13 @@
 pub struct ListMetaAc {
     #[serde(rename = "continue")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub continue_: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub continue_: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub remaining_item_count: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub resource_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub self_link: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub self_link: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ListMeta {
@@ -32,32 +32,25 @@ impl crate::OptionableConvert
 for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ListMeta {
     fn into_optioned(self) -> ListMetaAc {
         ListMetaAc {
-            continue_: crate::OptionableConvert::into_optioned(self.continue_),
+            continue_: self.continue_,
             remaining_item_count: self.remaining_item_count,
-            resource_version: crate::OptionableConvert::into_optioned(
-                self.resource_version,
-            ),
-            self_link: crate::OptionableConvert::into_optioned(self.self_link),
+            resource_version: self.resource_version,
+            self_link: self.self_link,
         }
     }
     fn try_from_optioned(value: ListMetaAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            continue_: crate::OptionableConvert::try_from_optioned(value.continue_)?,
+            continue_: value.continue_,
             remaining_item_count: value.remaining_item_count,
-            resource_version: crate::OptionableConvert::try_from_optioned(
-                value.resource_version,
-            )?,
-            self_link: crate::OptionableConvert::try_from_optioned(value.self_link)?,
+            resource_version: value.resource_version,
+            self_link: value.self_link,
         })
     }
     fn merge(&mut self, other: ListMetaAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.continue_, other.continue_)?;
+        self.continue_ = other.continue_;
         self.remaining_item_count = other.remaining_item_count;
-        crate::OptionableConvert::merge(
-            &mut self.resource_version,
-            other.resource_version,
-        )?;
-        crate::OptionableConvert::merge(&mut self.self_link, other.self_link)?;
+        self.resource_version = other.resource_version;
+        self.self_link = other.self_link;
         Ok(())
     }
 }

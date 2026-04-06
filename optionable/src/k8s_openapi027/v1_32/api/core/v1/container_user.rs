@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerUserAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub linux: <Option<
-        ::k8s_openapi027::api::core::v1::LinuxContainerUser,
-    > as crate::Optionable>::Optioned,
+    pub linux: Option<
+        <::k8s_openapi027::api::core::v1::LinuxContainerUser as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ContainerUser {

@@ -9,9 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ExecActionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub command: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub command: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ExecAction {
@@ -26,16 +24,14 @@ impl crate::Optionable for ExecActionAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ExecAction {
     fn into_optioned(self) -> ExecActionAc {
         ExecActionAc {
-            command: crate::OptionableConvert::into_optioned(self.command),
+            command: self.command,
         }
     }
     fn try_from_optioned(value: ExecActionAc) -> Result<Self, crate::Error> {
-        Ok(Self {
-            command: crate::OptionableConvert::try_from_optioned(value.command)?,
-        })
+        Ok(Self { command: value.command })
     }
     fn merge(&mut self, other: ExecActionAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.command, other.command)?;
+        self.command = other.command;
         Ok(())
     }
 }

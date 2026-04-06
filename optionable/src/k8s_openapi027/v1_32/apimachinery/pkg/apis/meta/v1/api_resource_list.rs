@@ -19,12 +19,12 @@ pub struct APIResourceListAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group_version: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub group_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resources: Option<
-        <std::vec::Vec<
-            ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource,
-        > as crate::Optionable>::Optioned,
+        std::vec::Vec<
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource as crate::Optionable>::Optioned,
+        >,
     >,
 }
 #[automatically_derived]
@@ -44,21 +44,17 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResourceList {
         APIResourceListAc {
             api_version: Default::default(),
             kind: Default::default(),
-            group_version: Some(
-                crate::OptionableConvert::into_optioned(self.group_version),
-            ),
+            group_version: Some(self.group_version),
             resources: Some(crate::OptionableConvert::into_optioned(self.resources)),
         }
     }
     fn try_from_optioned(value: APIResourceListAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            group_version: crate::OptionableConvert::try_from_optioned(
-                value
-                    .group_version
-                    .ok_or(crate::Error {
-                        missing_field: "group_version",
-                    })?,
-            )?,
+            group_version: value
+                .group_version
+                .ok_or(crate::Error {
+                    missing_field: "group_version",
+                })?,
             resources: crate::OptionableConvert::try_from_optioned(
                 value
                     .resources
@@ -70,7 +66,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResourceList {
     }
     fn merge(&mut self, other: APIResourceListAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.group_version {
-            crate::OptionableConvert::merge(&mut self.group_version, other_value)?;
+            self.group_version = other_value;
         }
         if let Some(other_value) = other.resources {
             crate::OptionableConvert::merge(&mut self.resources, other_value)?;

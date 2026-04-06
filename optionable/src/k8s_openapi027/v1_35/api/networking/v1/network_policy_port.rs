@@ -11,11 +11,11 @@ pub struct NetworkPolicyPortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub end_port: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub port: <Option<
-        ::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString,
-    > as crate::Optionable>::Optioned,
+    pub port: Option<
+        <::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub protocol: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub protocol: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::networking::v1::NetworkPolicyPort {
@@ -33,20 +33,20 @@ for k8s_openapi027::api::networking::v1::NetworkPolicyPort {
         NetworkPolicyPortAc {
             end_port: self.end_port,
             port: crate::OptionableConvert::into_optioned(self.port),
-            protocol: crate::OptionableConvert::into_optioned(self.protocol),
+            protocol: self.protocol,
         }
     }
     fn try_from_optioned(value: NetworkPolicyPortAc) -> Result<Self, crate::Error> {
         Ok(Self {
             end_port: value.end_port,
             port: crate::OptionableConvert::try_from_optioned(value.port)?,
-            protocol: crate::OptionableConvert::try_from_optioned(value.protocol)?,
+            protocol: value.protocol,
         })
     }
     fn merge(&mut self, other: NetworkPolicyPortAc) -> Result<(), crate::Error> {
         self.end_port = other.end_port;
         crate::OptionableConvert::merge(&mut self.port, other.port)?;
-        crate::OptionableConvert::merge(&mut self.protocol, other.protocol)?;
+        self.protocol = other.protocol;
         Ok(())
     }
 }

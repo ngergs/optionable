@@ -11,9 +11,11 @@ pub struct DaemonSetStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub collision_count: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
-        std::vec::Vec<::k8s_openapi027::api::apps::v1::DaemonSetCondition>,
-    > as crate::Optionable>::Optioned,
+    pub conditions: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::apps::v1::DaemonSetCondition as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_number_scheduled: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]

@@ -11,17 +11,19 @@ pub struct ResourceSliceSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub all_nodes: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub devices: <Option<
-        std::vec::Vec<::k8s_openapi027::api::resource::v1beta1::Device>,
-    > as crate::Optionable>::Optioned,
+    pub devices: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::resource::v1beta1::Device as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub driver: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub driver: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub node_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub node_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub node_selector: <Option<
-        ::k8s_openapi027::api::core::v1::NodeSelector,
-    > as crate::Optionable>::Optioned,
+    pub node_selector: Option<
+        <::k8s_openapi027::api::core::v1::NodeSelector as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pool: Option<
         <::k8s_openapi027::api::resource::v1beta1::ResourcePool as crate::Optionable>::Optioned,
@@ -43,8 +45,8 @@ for k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec {
         ResourceSliceSpecAc {
             all_nodes: self.all_nodes,
             devices: crate::OptionableConvert::into_optioned(self.devices),
-            driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
-            node_name: crate::OptionableConvert::into_optioned(self.node_name),
+            driver: Some(self.driver),
+            node_name: self.node_name,
             node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
             pool: Some(crate::OptionableConvert::into_optioned(self.pool)),
         }
@@ -53,14 +55,12 @@ for k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec {
         Ok(Self {
             all_nodes: value.all_nodes,
             devices: crate::OptionableConvert::try_from_optioned(value.devices)?,
-            driver: crate::OptionableConvert::try_from_optioned(
-                value
-                    .driver
-                    .ok_or(crate::Error {
-                        missing_field: "driver",
-                    })?,
-            )?,
-            node_name: crate::OptionableConvert::try_from_optioned(value.node_name)?,
+            driver: value
+                .driver
+                .ok_or(crate::Error {
+                    missing_field: "driver",
+                })?,
+            node_name: value.node_name,
             node_selector: crate::OptionableConvert::try_from_optioned(
                 value.node_selector,
             )?,
@@ -77,9 +77,9 @@ for k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec {
         self.all_nodes = other.all_nodes;
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
         if let Some(other_value) = other.driver {
-            crate::OptionableConvert::merge(&mut self.driver, other_value)?;
+            self.driver = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.node_name, other.node_name)?;
+        self.node_name = other.node_name;
         crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
         if let Some(other_value) = other.pool {
             crate::OptionableConvert::merge(&mut self.pool, other_value)?;

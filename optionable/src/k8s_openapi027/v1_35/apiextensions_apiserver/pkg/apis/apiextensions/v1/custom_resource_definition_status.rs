@@ -9,21 +9,19 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceDefinitionStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub accepted_names: <Option<
-        ::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionNames,
-    > as crate::Optionable>::Optioned,
+    pub accepted_names: Option<
+        <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionNames as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
+    pub conditions: Option<
         std::vec::Vec<
-            ::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionCondition,
+            <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionCondition as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub stored_versions: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub stored_versions: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -43,9 +41,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             accepted_names: crate::OptionableConvert::into_optioned(self.accepted_names),
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             observed_generation: self.observed_generation,
-            stored_versions: crate::OptionableConvert::into_optioned(
-                self.stored_versions,
-            ),
+            stored_versions: self.stored_versions,
         }
     }
     fn try_from_optioned(
@@ -57,9 +53,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             )?,
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             observed_generation: value.observed_generation,
-            stored_versions: crate::OptionableConvert::try_from_optioned(
-                value.stored_versions,
-            )?,
+            stored_versions: value.stored_versions,
         })
     }
     fn merge(
@@ -69,10 +63,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         crate::OptionableConvert::merge(&mut self.accepted_names, other.accepted_names)?;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         self.observed_generation = other.observed_generation;
-        crate::OptionableConvert::merge(
-            &mut self.stored_versions,
-            other.stored_versions,
-        )?;
+        self.stored_versions = other.stored_versions;
         Ok(())
     }
 }

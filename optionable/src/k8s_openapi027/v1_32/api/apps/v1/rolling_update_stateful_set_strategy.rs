@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RollingUpdateStatefulSetStrategyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub max_unavailable: <Option<
-        ::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString,
-    > as crate::Optionable>::Optioned,
+    pub max_unavailable: Option<
+        <::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub partition: Option<i32>,
 }

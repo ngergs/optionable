@@ -20,9 +20,11 @@ pub struct EndpointsAc {
     pub kind: std::marker::PhantomData<Self>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub subsets: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::EndpointSubset>,
-    > as crate::Optionable>::Optioned,
+    pub subsets: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::EndpointSubset as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::Endpoints {

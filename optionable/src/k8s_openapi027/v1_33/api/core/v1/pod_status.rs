@@ -9,61 +9,73 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::PodCondition>,
-    > as crate::Optionable>::Optioned,
+    pub conditions: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::PodCondition as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub container_statuses: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::ContainerStatus>,
-    > as crate::Optionable>::Optioned,
+    pub container_statuses: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::ContainerStatus as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ephemeral_container_statuses: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::ContainerStatus>,
-    > as crate::Optionable>::Optioned,
+    pub ephemeral_container_statuses: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::ContainerStatus as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(rename = "hostIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub host_ip: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub host_ip: Option<std::string::String>,
     #[serde(rename = "hostIPs")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub host_ips: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::HostIP>,
-    > as crate::Optionable>::Optioned,
+    pub host_ips: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::HostIP as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub init_container_statuses: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::ContainerStatus>,
-    > as crate::Optionable>::Optioned,
+    pub init_container_statuses: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::ContainerStatus as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub message: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub nominated_node_name: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub nominated_node_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub phase: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub phase: Option<std::string::String>,
     #[serde(rename = "podIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_ip: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub pod_ip: Option<std::string::String>,
     #[serde(rename = "podIPs")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_ips: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::PodIP>,
-    > as crate::Optionable>::Optioned,
+    pub pod_ips: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::PodIP as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub qos_class: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub qos_class: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub reason: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resize: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub resize: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_claim_statuses: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::PodResourceClaimStatus>,
-    > as crate::Optionable>::Optioned,
+    pub resource_claim_statuses: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::PodResourceClaimStatus as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub start_time: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub start_time: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodStatus {
@@ -85,22 +97,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodStatus {
             ephemeral_container_statuses: crate::OptionableConvert::into_optioned(
                 self.ephemeral_container_statuses,
             ),
-            host_ip: crate::OptionableConvert::into_optioned(self.host_ip),
+            host_ip: self.host_ip,
             host_ips: crate::OptionableConvert::into_optioned(self.host_ips),
             init_container_statuses: crate::OptionableConvert::into_optioned(
                 self.init_container_statuses,
             ),
-            message: crate::OptionableConvert::into_optioned(self.message),
-            nominated_node_name: crate::OptionableConvert::into_optioned(
-                self.nominated_node_name,
-            ),
+            message: self.message,
+            nominated_node_name: self.nominated_node_name,
             observed_generation: self.observed_generation,
-            phase: crate::OptionableConvert::into_optioned(self.phase),
-            pod_ip: crate::OptionableConvert::into_optioned(self.pod_ip),
+            phase: self.phase,
+            pod_ip: self.pod_ip,
             pod_ips: crate::OptionableConvert::into_optioned(self.pod_ips),
-            qos_class: crate::OptionableConvert::into_optioned(self.qos_class),
-            reason: crate::OptionableConvert::into_optioned(self.reason),
-            resize: crate::OptionableConvert::into_optioned(self.resize),
+            qos_class: self.qos_class,
+            reason: self.reason,
+            resize: self.resize,
             resource_claim_statuses: crate::OptionableConvert::into_optioned(
                 self.resource_claim_statuses,
             ),
@@ -116,22 +126,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodStatus {
             ephemeral_container_statuses: crate::OptionableConvert::try_from_optioned(
                 value.ephemeral_container_statuses,
             )?,
-            host_ip: crate::OptionableConvert::try_from_optioned(value.host_ip)?,
+            host_ip: value.host_ip,
             host_ips: crate::OptionableConvert::try_from_optioned(value.host_ips)?,
             init_container_statuses: crate::OptionableConvert::try_from_optioned(
                 value.init_container_statuses,
             )?,
-            message: crate::OptionableConvert::try_from_optioned(value.message)?,
-            nominated_node_name: crate::OptionableConvert::try_from_optioned(
-                value.nominated_node_name,
-            )?,
+            message: value.message,
+            nominated_node_name: value.nominated_node_name,
             observed_generation: value.observed_generation,
-            phase: crate::OptionableConvert::try_from_optioned(value.phase)?,
-            pod_ip: crate::OptionableConvert::try_from_optioned(value.pod_ip)?,
+            phase: value.phase,
+            pod_ip: value.pod_ip,
             pod_ips: crate::OptionableConvert::try_from_optioned(value.pod_ips)?,
-            qos_class: crate::OptionableConvert::try_from_optioned(value.qos_class)?,
-            reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
-            resize: crate::OptionableConvert::try_from_optioned(value.resize)?,
+            qos_class: value.qos_class,
+            reason: value.reason,
+            resize: value.resize,
             resource_claim_statuses: crate::OptionableConvert::try_from_optioned(
                 value.resource_claim_statuses,
             )?,
@@ -148,24 +156,21 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodStatus {
             &mut self.ephemeral_container_statuses,
             other.ephemeral_container_statuses,
         )?;
-        crate::OptionableConvert::merge(&mut self.host_ip, other.host_ip)?;
+        self.host_ip = other.host_ip;
         crate::OptionableConvert::merge(&mut self.host_ips, other.host_ips)?;
         crate::OptionableConvert::merge(
             &mut self.init_container_statuses,
             other.init_container_statuses,
         )?;
-        crate::OptionableConvert::merge(&mut self.message, other.message)?;
-        crate::OptionableConvert::merge(
-            &mut self.nominated_node_name,
-            other.nominated_node_name,
-        )?;
+        self.message = other.message;
+        self.nominated_node_name = other.nominated_node_name;
         self.observed_generation = other.observed_generation;
-        crate::OptionableConvert::merge(&mut self.phase, other.phase)?;
-        crate::OptionableConvert::merge(&mut self.pod_ip, other.pod_ip)?;
+        self.phase = other.phase;
+        self.pod_ip = other.pod_ip;
         crate::OptionableConvert::merge(&mut self.pod_ips, other.pod_ips)?;
-        crate::OptionableConvert::merge(&mut self.qos_class, other.qos_class)?;
-        crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
-        crate::OptionableConvert::merge(&mut self.resize, other.resize)?;
+        self.qos_class = other.qos_class;
+        self.reason = other.reason;
+        self.resize = other.resize;
         crate::OptionableConvert::merge(
             &mut self.resource_claim_statuses,
             other.resource_claim_statuses,

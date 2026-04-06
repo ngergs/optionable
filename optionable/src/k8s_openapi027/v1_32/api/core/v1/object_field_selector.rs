@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ObjectFieldSelectorAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub api_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub api_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub field_path: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub field_path: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ObjectFieldSelector {
@@ -26,26 +26,24 @@ impl crate::Optionable for ObjectFieldSelectorAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ObjectFieldSelector {
     fn into_optioned(self) -> ObjectFieldSelectorAc {
         ObjectFieldSelectorAc {
-            api_version: crate::OptionableConvert::into_optioned(self.api_version),
-            field_path: Some(crate::OptionableConvert::into_optioned(self.field_path)),
+            api_version: self.api_version,
+            field_path: Some(self.field_path),
         }
     }
     fn try_from_optioned(value: ObjectFieldSelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
-            field_path: crate::OptionableConvert::try_from_optioned(
-                value
-                    .field_path
-                    .ok_or(crate::Error {
-                        missing_field: "field_path",
-                    })?,
-            )?,
+            api_version: value.api_version,
+            field_path: value
+                .field_path
+                .ok_or(crate::Error {
+                    missing_field: "field_path",
+                })?,
         })
     }
     fn merge(&mut self, other: ObjectFieldSelectorAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
+        self.api_version = other.api_version;
         if let Some(other_value) = other.field_path {
-            crate::OptionableConvert::merge(&mut self.field_path, other_value)?;
+            self.field_path = other_value;
         }
         Ok(())
     }

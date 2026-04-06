@@ -9,19 +9,21 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HTTPGetActionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub host: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub host: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub http_headers: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::HTTPHeader>,
-    > as crate::Optionable>::Optioned,
+    pub http_headers: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::HTTPHeader as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub path: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<
         <::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scheme: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub scheme: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::HTTPGetAction {
@@ -36,20 +38,20 @@ impl crate::Optionable for HTTPGetActionAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HTTPGetAction {
     fn into_optioned(self) -> HTTPGetActionAc {
         HTTPGetActionAc {
-            host: crate::OptionableConvert::into_optioned(self.host),
+            host: self.host,
             http_headers: crate::OptionableConvert::into_optioned(self.http_headers),
-            path: crate::OptionableConvert::into_optioned(self.path),
+            path: self.path,
             port: Some(crate::OptionableConvert::into_optioned(self.port)),
-            scheme: crate::OptionableConvert::into_optioned(self.scheme),
+            scheme: self.scheme,
         }
     }
     fn try_from_optioned(value: HTTPGetActionAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            host: crate::OptionableConvert::try_from_optioned(value.host)?,
+            host: value.host,
             http_headers: crate::OptionableConvert::try_from_optioned(
                 value.http_headers,
             )?,
-            path: crate::OptionableConvert::try_from_optioned(value.path)?,
+            path: value.path,
             port: crate::OptionableConvert::try_from_optioned(
                 value
                     .port
@@ -57,17 +59,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HTTPGetAction {
                         missing_field: "port",
                     })?,
             )?,
-            scheme: crate::OptionableConvert::try_from_optioned(value.scheme)?,
+            scheme: value.scheme,
         })
     }
     fn merge(&mut self, other: HTTPGetActionAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.host, other.host)?;
+        self.host = other.host;
         crate::OptionableConvert::merge(&mut self.http_headers, other.http_headers)?;
-        crate::OptionableConvert::merge(&mut self.path, other.path)?;
+        self.path = other.path;
         if let Some(other_value) = other.port {
             crate::OptionableConvert::merge(&mut self.port, other_value)?;
         }
-        crate::OptionableConvert::merge(&mut self.scheme, other.scheme)?;
+        self.scheme = other.scheme;
         Ok(())
     }
 }

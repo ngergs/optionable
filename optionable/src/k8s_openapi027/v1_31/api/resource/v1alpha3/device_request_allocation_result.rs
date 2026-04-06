@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceRequestAllocationResultAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub device: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub device: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub driver: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub driver: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pool: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub pool: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub request: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub request: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -32,44 +32,36 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::resource::v1alpha3::DeviceRequestAllocationResult {
     fn into_optioned(self) -> DeviceRequestAllocationResultAc {
         DeviceRequestAllocationResultAc {
-            device: Some(crate::OptionableConvert::into_optioned(self.device)),
-            driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
-            pool: Some(crate::OptionableConvert::into_optioned(self.pool)),
-            request: Some(crate::OptionableConvert::into_optioned(self.request)),
+            device: Some(self.device),
+            driver: Some(self.driver),
+            pool: Some(self.pool),
+            request: Some(self.request),
         }
     }
     fn try_from_optioned(
         value: DeviceRequestAllocationResultAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            device: crate::OptionableConvert::try_from_optioned(
-                value
-                    .device
-                    .ok_or(crate::Error {
-                        missing_field: "device",
-                    })?,
-            )?,
-            driver: crate::OptionableConvert::try_from_optioned(
-                value
-                    .driver
-                    .ok_or(crate::Error {
-                        missing_field: "driver",
-                    })?,
-            )?,
-            pool: crate::OptionableConvert::try_from_optioned(
-                value
-                    .pool
-                    .ok_or(crate::Error {
-                        missing_field: "pool",
-                    })?,
-            )?,
-            request: crate::OptionableConvert::try_from_optioned(
-                value
-                    .request
-                    .ok_or(crate::Error {
-                        missing_field: "request",
-                    })?,
-            )?,
+            device: value
+                .device
+                .ok_or(crate::Error {
+                    missing_field: "device",
+                })?,
+            driver: value
+                .driver
+                .ok_or(crate::Error {
+                    missing_field: "driver",
+                })?,
+            pool: value
+                .pool
+                .ok_or(crate::Error {
+                    missing_field: "pool",
+                })?,
+            request: value
+                .request
+                .ok_or(crate::Error {
+                    missing_field: "request",
+                })?,
         })
     }
     fn merge(
@@ -77,16 +69,16 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceRequestAllocationResult {
         other: DeviceRequestAllocationResultAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.device {
-            crate::OptionableConvert::merge(&mut self.device, other_value)?;
+            self.device = other_value;
         }
         if let Some(other_value) = other.driver {
-            crate::OptionableConvert::merge(&mut self.driver, other_value)?;
+            self.driver = other_value;
         }
         if let Some(other_value) = other.pool {
-            crate::OptionableConvert::merge(&mut self.pool, other_value)?;
+            self.pool = other_value;
         }
         if let Some(other_value) = other.request {
-            crate::OptionableConvert::merge(&mut self.request, other_value)?;
+            self.request = other_value;
         }
         Ok(())
     }

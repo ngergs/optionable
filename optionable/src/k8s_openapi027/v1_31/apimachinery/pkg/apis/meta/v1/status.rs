@@ -21,16 +21,16 @@ pub struct StatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub code: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub details: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusDetails,
-    > as crate::Optionable>::Optioned,
+    pub details: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusDetails as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub message: Option<std::string::String>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ListMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub reason: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub status: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status {
@@ -50,29 +50,29 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status {
             kind: Default::default(),
             code: self.code,
             details: crate::OptionableConvert::into_optioned(self.details),
-            message: crate::OptionableConvert::into_optioned(self.message),
+            message: self.message,
             metadata: self.metadata,
-            reason: crate::OptionableConvert::into_optioned(self.reason),
-            status: crate::OptionableConvert::into_optioned(self.status),
+            reason: self.reason,
+            status: self.status,
         }
     }
     fn try_from_optioned(value: StatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             code: value.code,
             details: crate::OptionableConvert::try_from_optioned(value.details)?,
-            message: crate::OptionableConvert::try_from_optioned(value.message)?,
+            message: value.message,
             metadata: value.metadata,
-            reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
-            status: crate::OptionableConvert::try_from_optioned(value.status)?,
+            reason: value.reason,
+            status: value.status,
         })
     }
     fn merge(&mut self, other: StatusAc) -> Result<(), crate::Error> {
         self.code = other.code;
         crate::OptionableConvert::merge(&mut self.details, other.details)?;
-        crate::OptionableConvert::merge(&mut self.message, other.message)?;
+        self.message = other.message;
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
-        crate::OptionableConvert::merge(&mut self.status, other.status)?;
+        self.reason = other.reason;
+        self.status = other.status;
         Ok(())
     }
 }

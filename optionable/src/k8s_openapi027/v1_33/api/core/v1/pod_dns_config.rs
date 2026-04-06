@@ -9,17 +9,15 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodDNSConfigAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub nameservers: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub nameservers: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub options: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::PodDNSConfigOption>,
-    > as crate::Optionable>::Optioned,
+    pub options: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::PodDNSConfigOption as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub searches: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub searches: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodDNSConfig {
@@ -34,22 +32,22 @@ impl crate::Optionable for PodDNSConfigAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodDNSConfig {
     fn into_optioned(self) -> PodDNSConfigAc {
         PodDNSConfigAc {
-            nameservers: crate::OptionableConvert::into_optioned(self.nameservers),
+            nameservers: self.nameservers,
             options: crate::OptionableConvert::into_optioned(self.options),
-            searches: crate::OptionableConvert::into_optioned(self.searches),
+            searches: self.searches,
         }
     }
     fn try_from_optioned(value: PodDNSConfigAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            nameservers: crate::OptionableConvert::try_from_optioned(value.nameservers)?,
+            nameservers: value.nameservers,
             options: crate::OptionableConvert::try_from_optioned(value.options)?,
-            searches: crate::OptionableConvert::try_from_optioned(value.searches)?,
+            searches: value.searches,
         })
     }
     fn merge(&mut self, other: PodDNSConfigAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.nameservers, other.nameservers)?;
+        self.nameservers = other.nameservers;
         crate::OptionableConvert::merge(&mut self.options, other.options)?;
-        crate::OptionableConvert::merge(&mut self.searches, other.searches)?;
+        self.searches = other.searches;
         Ok(())
     }
 }

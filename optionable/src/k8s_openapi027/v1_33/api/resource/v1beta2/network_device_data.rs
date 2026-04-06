@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkDeviceDataAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub hardware_address: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub hardware_address: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub interface_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub interface_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ips: <Option<std::vec::Vec<std::string::String>> as crate::Optionable>::Optioned,
+    pub ips: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1beta2::NetworkDeviceData {
@@ -29,31 +29,22 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::resource::v1beta2::NetworkDeviceData {
     fn into_optioned(self) -> NetworkDeviceDataAc {
         NetworkDeviceDataAc {
-            hardware_address: crate::OptionableConvert::into_optioned(
-                self.hardware_address,
-            ),
-            interface_name: crate::OptionableConvert::into_optioned(self.interface_name),
-            ips: crate::OptionableConvert::into_optioned(self.ips),
+            hardware_address: self.hardware_address,
+            interface_name: self.interface_name,
+            ips: self.ips,
         }
     }
     fn try_from_optioned(value: NetworkDeviceDataAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            hardware_address: crate::OptionableConvert::try_from_optioned(
-                value.hardware_address,
-            )?,
-            interface_name: crate::OptionableConvert::try_from_optioned(
-                value.interface_name,
-            )?,
-            ips: crate::OptionableConvert::try_from_optioned(value.ips)?,
+            hardware_address: value.hardware_address,
+            interface_name: value.interface_name,
+            ips: value.ips,
         })
     }
     fn merge(&mut self, other: NetworkDeviceDataAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.hardware_address,
-            other.hardware_address,
-        )?;
-        crate::OptionableConvert::merge(&mut self.interface_name, other.interface_name)?;
-        crate::OptionableConvert::merge(&mut self.ips, other.ips)?;
+        self.hardware_address = other.hardware_address;
+        self.interface_name = other.interface_name;
+        self.ips = other.ips;
         Ok(())
     }
 }

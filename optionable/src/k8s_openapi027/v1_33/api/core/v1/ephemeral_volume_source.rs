@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EphemeralVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volume_claim_template: <Option<
-        ::k8s_openapi027::api::core::v1::PersistentVolumeClaimTemplate,
-    > as crate::Optionable>::Optioned,
+    pub volume_claim_template: Option<
+        <::k8s_openapi027::api::core::v1::PersistentVolumeClaimTemplate as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::EphemeralVolumeSource {

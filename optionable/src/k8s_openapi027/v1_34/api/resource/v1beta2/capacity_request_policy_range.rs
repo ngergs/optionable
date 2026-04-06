@@ -9,17 +9,17 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CapacityRequestPolicyRangeAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub max: <Option<
-        ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
-    > as crate::Optionable>::Optioned,
+    pub max: Option<
+        <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub min: Option<
         <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub step: <Option<
-        ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
-    > as crate::Optionable>::Optioned,
+    pub step: Option<
+        <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

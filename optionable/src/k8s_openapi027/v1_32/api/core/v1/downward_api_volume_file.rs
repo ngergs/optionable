@@ -9,17 +9,17 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DownwardAPIVolumeFileAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub field_ref: <Option<
-        ::k8s_openapi027::api::core::v1::ObjectFieldSelector,
-    > as crate::Optionable>::Optioned,
+    pub field_ref: Option<
+        <::k8s_openapi027::api::core::v1::ObjectFieldSelector as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mode: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub path: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_field_ref: <Option<
-        ::k8s_openapi027::api::core::v1::ResourceFieldSelector,
-    > as crate::Optionable>::Optioned,
+    pub resource_field_ref: Option<
+        <::k8s_openapi027::api::core::v1::ResourceFieldSelector as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::DownwardAPIVolumeFile {
@@ -36,7 +36,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::DownwardAPIVolu
         DownwardAPIVolumeFileAc {
             field_ref: crate::OptionableConvert::into_optioned(self.field_ref),
             mode: self.mode,
-            path: Some(crate::OptionableConvert::into_optioned(self.path)),
+            path: Some(self.path),
             resource_field_ref: crate::OptionableConvert::into_optioned(
                 self.resource_field_ref,
             ),
@@ -46,13 +46,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::DownwardAPIVolu
         Ok(Self {
             field_ref: crate::OptionableConvert::try_from_optioned(value.field_ref)?,
             mode: value.mode,
-            path: crate::OptionableConvert::try_from_optioned(
-                value
-                    .path
-                    .ok_or(crate::Error {
-                        missing_field: "path",
-                    })?,
-            )?,
+            path: value
+                .path
+                .ok_or(crate::Error {
+                    missing_field: "path",
+                })?,
             resource_field_ref: crate::OptionableConvert::try_from_optioned(
                 value.resource_field_ref,
             )?,
@@ -62,7 +60,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::DownwardAPIVolu
         crate::OptionableConvert::merge(&mut self.field_ref, other.field_ref)?;
         self.mode = other.mode;
         if let Some(other_value) = other.path {
-            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+            self.path = other_value;
         }
         crate::OptionableConvert::merge(
             &mut self.resource_field_ref,

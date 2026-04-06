@@ -11,7 +11,7 @@ pub struct ScaleStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub selector: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub selector: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::autoscaling::v1::ScaleStatus {
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v1::ScaleSta
     fn into_optioned(self) -> ScaleStatusAc {
         ScaleStatusAc {
             replicas: Some(self.replicas),
-            selector: crate::OptionableConvert::into_optioned(self.selector),
+            selector: self.selector,
         }
     }
     fn try_from_optioned(value: ScaleStatusAc) -> Result<Self, crate::Error> {
@@ -37,14 +37,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v1::ScaleSta
                 .ok_or(crate::Error {
                     missing_field: "replicas",
                 })?,
-            selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
+            selector: value.selector,
         })
     }
     fn merge(&mut self, other: ScaleStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.replicas {
             self.replicas = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
+        self.selector = other.selector;
         Ok(())
     }
 }

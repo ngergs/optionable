@@ -11,28 +11,24 @@ pub struct CertificateSigningRequestSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration_seconds: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub extra: <Option<
+    pub extra: Option<
         std::collections::BTreeMap<
             std::string::String,
             std::vec::Vec<std::string::String>,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub groups: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub groups: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request: Option<<::k8s_openapi027::ByteString as crate::Optionable>::Optioned>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub signer_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub signer_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub uid: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub usages: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub usages: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub username: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub username: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -50,13 +46,13 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
     fn into_optioned(self) -> CertificateSigningRequestSpecAc {
         CertificateSigningRequestSpecAc {
             expiration_seconds: self.expiration_seconds,
-            extra: crate::OptionableConvert::into_optioned(self.extra),
-            groups: crate::OptionableConvert::into_optioned(self.groups),
+            extra: self.extra,
+            groups: self.groups,
             request: Some(crate::OptionableConvert::into_optioned(self.request)),
-            signer_name: Some(crate::OptionableConvert::into_optioned(self.signer_name)),
-            uid: crate::OptionableConvert::into_optioned(self.uid),
-            usages: crate::OptionableConvert::into_optioned(self.usages),
-            username: crate::OptionableConvert::into_optioned(self.username),
+            signer_name: Some(self.signer_name),
+            uid: self.uid,
+            usages: self.usages,
+            username: self.username,
         }
     }
     fn try_from_optioned(
@@ -64,8 +60,8 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
     ) -> Result<Self, crate::Error> {
         Ok(Self {
             expiration_seconds: value.expiration_seconds,
-            extra: crate::OptionableConvert::try_from_optioned(value.extra)?,
-            groups: crate::OptionableConvert::try_from_optioned(value.groups)?,
+            extra: value.extra,
+            groups: value.groups,
             request: crate::OptionableConvert::try_from_optioned(
                 value
                     .request
@@ -73,16 +69,14 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
                         missing_field: "request",
                     })?,
             )?,
-            signer_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .signer_name
-                    .ok_or(crate::Error {
-                        missing_field: "signer_name",
-                    })?,
-            )?,
-            uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
-            usages: crate::OptionableConvert::try_from_optioned(value.usages)?,
-            username: crate::OptionableConvert::try_from_optioned(value.username)?,
+            signer_name: value
+                .signer_name
+                .ok_or(crate::Error {
+                    missing_field: "signer_name",
+                })?,
+            uid: value.uid,
+            usages: value.usages,
+            username: value.username,
         })
     }
     fn merge(
@@ -90,17 +84,17 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
         other: CertificateSigningRequestSpecAc,
     ) -> Result<(), crate::Error> {
         self.expiration_seconds = other.expiration_seconds;
-        crate::OptionableConvert::merge(&mut self.extra, other.extra)?;
-        crate::OptionableConvert::merge(&mut self.groups, other.groups)?;
+        self.extra = other.extra;
+        self.groups = other.groups;
         if let Some(other_value) = other.request {
             crate::OptionableConvert::merge(&mut self.request, other_value)?;
         }
         if let Some(other_value) = other.signer_name {
-            crate::OptionableConvert::merge(&mut self.signer_name, other_value)?;
+            self.signer_name = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
-        crate::OptionableConvert::merge(&mut self.usages, other.usages)?;
-        crate::OptionableConvert::merge(&mut self.username, other.username)?;
+        self.uid = other.uid;
+        self.usages = other.usages;
+        self.username = other.username;
         Ok(())
     }
 }

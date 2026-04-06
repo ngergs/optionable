@@ -19,23 +19,23 @@ pub struct APIGroupAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub preferred_version: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery,
-    > as crate::Optionable>::Optioned,
+    pub preferred_version: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery as crate::Optionable>::Optioned,
+    >,
     #[serde(rename = "serverAddressByClientCIDRs")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub server_address_by_client_cidrs: <Option<
+    pub server_address_by_client_cidrs: Option<
         std::vec::Vec<
-            ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR,
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub versions: Option<
-        <std::vec::Vec<
-            ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery,
-        > as crate::Optionable>::Optioned,
+        std::vec::Vec<
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery as crate::Optionable>::Optioned,
+        >,
     >,
 }
 #[automatically_derived]
@@ -54,7 +54,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup {
         APIGroupAc {
             api_version: Default::default(),
             kind: Default::default(),
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            name: Some(self.name),
             preferred_version: crate::OptionableConvert::into_optioned(
                 self.preferred_version,
             ),
@@ -66,13 +66,11 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup {
     }
     fn try_from_optioned(value: APIGroupAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
             preferred_version: crate::OptionableConvert::try_from_optioned(
                 value.preferred_version,
             )?,
@@ -90,7 +88,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup {
     }
     fn merge(&mut self, other: APIGroupAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         crate::OptionableConvert::merge(
             &mut self.preferred_version,

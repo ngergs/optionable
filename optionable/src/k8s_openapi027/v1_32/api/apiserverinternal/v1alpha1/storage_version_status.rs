@@ -9,21 +9,19 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub common_encoding_version: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub common_encoding_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
+    pub conditions: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionCondition,
+            <::k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionCondition as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub storage_versions: <Option<
+    pub storage_versions: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::apiserverinternal::v1alpha1::ServerStorageVersion,
+            <::k8s_openapi027::api::apiserverinternal::v1alpha1::ServerStorageVersion as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -40,9 +38,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionStatus {
     fn into_optioned(self) -> StorageVersionStatusAc {
         StorageVersionStatusAc {
-            common_encoding_version: crate::OptionableConvert::into_optioned(
-                self.common_encoding_version,
-            ),
+            common_encoding_version: self.common_encoding_version,
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             storage_versions: crate::OptionableConvert::into_optioned(
                 self.storage_versions,
@@ -51,9 +47,7 @@ for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionStatus {
     }
     fn try_from_optioned(value: StorageVersionStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            common_encoding_version: crate::OptionableConvert::try_from_optioned(
-                value.common_encoding_version,
-            )?,
+            common_encoding_version: value.common_encoding_version,
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             storage_versions: crate::OptionableConvert::try_from_optioned(
                 value.storage_versions,
@@ -61,10 +55,7 @@ for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionStatus {
         })
     }
     fn merge(&mut self, other: StorageVersionStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.common_encoding_version,
-            other.common_encoding_version,
-        )?;
+        self.common_encoding_version = other.common_encoding_version;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(
             &mut self.storage_versions,

@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TokenRequestAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub audience: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub audience: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration_seconds: Option<i64>,
 }
@@ -26,25 +26,23 @@ impl crate::Optionable for TokenRequestAc {
 impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::TokenRequest {
     fn into_optioned(self) -> TokenRequestAc {
         TokenRequestAc {
-            audience: Some(crate::OptionableConvert::into_optioned(self.audience)),
+            audience: Some(self.audience),
             expiration_seconds: self.expiration_seconds,
         }
     }
     fn try_from_optioned(value: TokenRequestAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            audience: crate::OptionableConvert::try_from_optioned(
-                value
-                    .audience
-                    .ok_or(crate::Error {
-                        missing_field: "audience",
-                    })?,
-            )?,
+            audience: value
+                .audience
+                .ok_or(crate::Error {
+                    missing_field: "audience",
+                })?,
             expiration_seconds: value.expiration_seconds,
         })
     }
     fn merge(&mut self, other: TokenRequestAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.audience {
-            crate::OptionableConvert::merge(&mut self.audience, other_value)?;
+            self.audience = other_value;
         }
         self.expiration_seconds = other.expiration_seconds;
         Ok(())

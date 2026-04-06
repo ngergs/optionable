@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodSchedulingContextStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_claims: <Option<
+    pub resource_claims: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::resource::v1alpha3::ResourceClaimSchedulingStatus,
+            <::k8s_openapi027::api::resource::v1alpha3::ResourceClaimSchedulingStatus as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

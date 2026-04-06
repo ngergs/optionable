@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub devices: <Option<
-        ::k8s_openapi027::api::resource::v1::DeviceClaim,
-    > as crate::Optionable>::Optioned,
+    pub devices: Option<
+        <::k8s_openapi027::api::resource::v1::DeviceClaim as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1::ResourceClaimSpec {

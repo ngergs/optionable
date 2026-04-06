@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct OpaqueDeviceConfigurationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub driver: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub driver: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parameters: Option<
         <::k8s_openapi027::apimachinery::pkg::runtime::RawExtension as crate::Optionable>::Optioned,
@@ -30,7 +30,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::resource::v1alpha3::OpaqueDeviceConfiguration {
     fn into_optioned(self) -> OpaqueDeviceConfigurationAc {
         OpaqueDeviceConfigurationAc {
-            driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
+            driver: Some(self.driver),
             parameters: Some(crate::OptionableConvert::into_optioned(self.parameters)),
         }
     }
@@ -38,13 +38,11 @@ for k8s_openapi027::api::resource::v1alpha3::OpaqueDeviceConfiguration {
         value: OpaqueDeviceConfigurationAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            driver: crate::OptionableConvert::try_from_optioned(
-                value
-                    .driver
-                    .ok_or(crate::Error {
-                        missing_field: "driver",
-                    })?,
-            )?,
+            driver: value
+                .driver
+                .ok_or(crate::Error {
+                    missing_field: "driver",
+                })?,
             parameters: crate::OptionableConvert::try_from_optioned(
                 value
                     .parameters
@@ -56,7 +54,7 @@ for k8s_openapi027::api::resource::v1alpha3::OpaqueDeviceConfiguration {
     }
     fn merge(&mut self, other: OpaqueDeviceConfigurationAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.driver {
-            crate::OptionableConvert::merge(&mut self.driver, other_value)?;
+            self.driver = other_value;
         }
         if let Some(other_value) = other.parameters {
             crate::OptionableConvert::merge(&mut self.parameters, other_value)?;

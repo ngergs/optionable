@@ -21,14 +21,18 @@ pub struct ServiceAccountAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub automount_service_account_token: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub image_pull_secrets: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::LocalObjectReference>,
-    > as crate::Optionable>::Optioned,
+    pub image_pull_secrets: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::LocalObjectReference as crate::Optionable>::Optioned,
+        >,
+    >,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub secrets: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::ObjectReference>,
-    > as crate::Optionable>::Optioned,
+    pub secrets: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ServiceAccount {

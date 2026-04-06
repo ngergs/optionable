@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceBackendPortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub number: Option<i32>,
 }
@@ -27,18 +27,18 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::networking::v1::ServiceBackendPort {
     fn into_optioned(self) -> ServiceBackendPortAc {
         ServiceBackendPortAc {
-            name: crate::OptionableConvert::into_optioned(self.name),
+            name: self.name,
             number: self.number,
         }
     }
     fn try_from_optioned(value: ServiceBackendPortAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(value.name)?,
+            name: value.name,
             number: value.number,
         })
     }
     fn merge(&mut self, other: ServiceBackendPortAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.name, other.name)?;
+        self.name = other.name;
         self.number = other.number;
         Ok(())
     }

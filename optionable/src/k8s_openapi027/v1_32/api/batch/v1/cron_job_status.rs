@@ -9,17 +9,19 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CronJobStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub active: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::ObjectReference>,
-    > as crate::Optionable>::Optioned,
+    pub active: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub last_schedule_time: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub last_schedule_time: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub last_successful_time: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub last_successful_time: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::batch::v1::CronJobStatus {

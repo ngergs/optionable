@@ -11,9 +11,9 @@ pub struct AzureFileVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub secret_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub share_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub share_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::AzureFileVolumeSource {
@@ -29,36 +29,32 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AzureFileVolume
     fn into_optioned(self) -> AzureFileVolumeSourceAc {
         AzureFileVolumeSourceAc {
             read_only: self.read_only,
-            secret_name: Some(crate::OptionableConvert::into_optioned(self.secret_name)),
-            share_name: Some(crate::OptionableConvert::into_optioned(self.share_name)),
+            secret_name: Some(self.secret_name),
+            share_name: Some(self.share_name),
         }
     }
     fn try_from_optioned(value: AzureFileVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
             read_only: value.read_only,
-            secret_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .secret_name
-                    .ok_or(crate::Error {
-                        missing_field: "secret_name",
-                    })?,
-            )?,
-            share_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .share_name
-                    .ok_or(crate::Error {
-                        missing_field: "share_name",
-                    })?,
-            )?,
+            secret_name: value
+                .secret_name
+                .ok_or(crate::Error {
+                    missing_field: "secret_name",
+                })?,
+            share_name: value
+                .share_name
+                .ok_or(crate::Error {
+                    missing_field: "share_name",
+                })?,
         })
     }
     fn merge(&mut self, other: AzureFileVolumeSourceAc) -> Result<(), crate::Error> {
         self.read_only = other.read_only;
         if let Some(other_value) = other.secret_name {
-            crate::OptionableConvert::merge(&mut self.secret_name, other_value)?;
+            self.secret_name = other_value;
         }
         if let Some(other_value) = other.share_name {
-            crate::OptionableConvert::merge(&mut self.share_name, other_value)?;
+            self.share_name = other_value;
         }
         Ok(())
     }

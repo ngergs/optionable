@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceMetricSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target: Option<
         <::k8s_openapi027::api::autoscaling::v2::MetricTarget as crate::Optionable>::Optioned,
@@ -29,19 +29,17 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::autoscaling::v2::ResourceMetricSource {
     fn into_optioned(self) -> ResourceMetricSourceAc {
         ResourceMetricSourceAc {
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            name: Some(self.name),
             target: Some(crate::OptionableConvert::into_optioned(self.target)),
         }
     }
     fn try_from_optioned(value: ResourceMetricSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
             target: crate::OptionableConvert::try_from_optioned(
                 value
                     .target
@@ -53,7 +51,7 @@ for k8s_openapi027::api::autoscaling::v2::ResourceMetricSource {
     }
     fn merge(&mut self, other: ResourceMetricSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         if let Some(other_value) = other.target {
             crate::OptionableConvert::merge(&mut self.target, other_value)?;

@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ClusterTrustBundleSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub signer_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub signer_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub trust_bundle: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub trust_bundle: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -28,28 +28,24 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundleSpec {
     fn into_optioned(self) -> ClusterTrustBundleSpecAc {
         ClusterTrustBundleSpecAc {
-            signer_name: crate::OptionableConvert::into_optioned(self.signer_name),
-            trust_bundle: Some(
-                crate::OptionableConvert::into_optioned(self.trust_bundle),
-            ),
+            signer_name: self.signer_name,
+            trust_bundle: Some(self.trust_bundle),
         }
     }
     fn try_from_optioned(value: ClusterTrustBundleSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            signer_name: crate::OptionableConvert::try_from_optioned(value.signer_name)?,
-            trust_bundle: crate::OptionableConvert::try_from_optioned(
-                value
-                    .trust_bundle
-                    .ok_or(crate::Error {
-                        missing_field: "trust_bundle",
-                    })?,
-            )?,
+            signer_name: value.signer_name,
+            trust_bundle: value
+                .trust_bundle
+                .ok_or(crate::Error {
+                    missing_field: "trust_bundle",
+                })?,
         })
     }
     fn merge(&mut self, other: ClusterTrustBundleSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.signer_name, other.signer_name)?;
+        self.signer_name = other.signer_name;
         if let Some(other_value) = other.trust_bundle {
-            crate::OptionableConvert::merge(&mut self.trust_bundle, other_value)?;
+            self.trust_bundle = other_value;
         }
         Ok(())
     }

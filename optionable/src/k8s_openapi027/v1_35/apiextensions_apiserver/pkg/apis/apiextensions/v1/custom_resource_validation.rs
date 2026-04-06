@@ -10,9 +10,9 @@
 pub struct CustomResourceValidationAc {
     #[serde(rename = "openAPIV3Schema")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub open_api_v3_schema: <Option<
-        ::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps,
-    > as crate::Optionable>::Optioned,
+    pub open_api_v3_schema: Option<
+        <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

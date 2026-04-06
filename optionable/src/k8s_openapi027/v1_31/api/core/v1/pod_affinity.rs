@@ -9,13 +9,17 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodAffinityAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub preferred_during_scheduling_ignored_during_execution: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::WeightedPodAffinityTerm>,
-    > as crate::Optionable>::Optioned,
+    pub preferred_during_scheduling_ignored_during_execution: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::WeightedPodAffinityTerm as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub required_during_scheduling_ignored_during_execution: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::PodAffinityTerm>,
-    > as crate::Optionable>::Optioned,
+    pub required_during_scheduling_ignored_during_execution: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::PodAffinityTerm as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodAffinity {

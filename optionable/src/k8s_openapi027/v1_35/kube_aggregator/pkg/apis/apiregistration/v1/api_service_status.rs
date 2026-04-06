@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIServiceStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
+    pub conditions: Option<
         std::vec::Vec<
-            ::k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCondition,
+            <::k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCondition as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

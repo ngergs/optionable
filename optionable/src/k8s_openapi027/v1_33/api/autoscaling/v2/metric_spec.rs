@@ -9,28 +9,28 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MetricSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub container_resource: <Option<
-        ::k8s_openapi027::api::autoscaling::v2::ContainerResourceMetricSource,
-    > as crate::Optionable>::Optioned,
+    pub container_resource: Option<
+        <::k8s_openapi027::api::autoscaling::v2::ContainerResourceMetricSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub external: <Option<
-        ::k8s_openapi027::api::autoscaling::v2::ExternalMetricSource,
-    > as crate::Optionable>::Optioned,
+    pub external: Option<
+        <::k8s_openapi027::api::autoscaling::v2::ExternalMetricSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub object: <Option<
-        ::k8s_openapi027::api::autoscaling::v2::ObjectMetricSource,
-    > as crate::Optionable>::Optioned,
+    pub object: Option<
+        <::k8s_openapi027::api::autoscaling::v2::ObjectMetricSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pods: <Option<
-        ::k8s_openapi027::api::autoscaling::v2::PodsMetricSource,
-    > as crate::Optionable>::Optioned,
+    pub pods: Option<
+        <::k8s_openapi027::api::autoscaling::v2::PodsMetricSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource: <Option<
-        ::k8s_openapi027::api::autoscaling::v2::ResourceMetricSource,
-    > as crate::Optionable>::Optioned,
+    pub resource: Option<
+        <::k8s_openapi027::api::autoscaling::v2::ResourceMetricSource as crate::Optionable>::Optioned,
+    >,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub type_: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::autoscaling::v2::MetricSpec {
@@ -52,7 +52,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricSp
             object: crate::OptionableConvert::into_optioned(self.object),
             pods: crate::OptionableConvert::into_optioned(self.pods),
             resource: crate::OptionableConvert::into_optioned(self.resource),
-            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
+            type_: Some(self.type_),
         }
     }
     fn try_from_optioned(value: MetricSpecAc) -> Result<Self, crate::Error> {
@@ -64,13 +64,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricSp
             object: crate::OptionableConvert::try_from_optioned(value.object)?,
             pods: crate::OptionableConvert::try_from_optioned(value.pods)?,
             resource: crate::OptionableConvert::try_from_optioned(value.resource)?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            type_: value
+                .type_
+                .ok_or(crate::Error {
+                    missing_field: "type_",
+                })?,
         })
     }
     fn merge(&mut self, other: MetricSpecAc) -> Result<(), crate::Error> {
@@ -83,7 +81,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricSp
         crate::OptionableConvert::merge(&mut self.pods, other.pods)?;
         crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
         if let Some(other_value) = other.type_ {
-            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+            self.type_ = other_value;
         }
         Ok(())
     }

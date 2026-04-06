@@ -9,16 +9,16 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CinderVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub fs_type: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret_ref: <Option<
-        ::k8s_openapi027::api::core::v1::LocalObjectReference,
-    > as crate::Optionable>::Optioned,
+    pub secret_ref: Option<
+        <::k8s_openapi027::api::core::v1::LocalObjectReference as crate::Optionable>::Optioned,
+    >,
     #[serde(rename = "volumeID")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volume_id: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub volume_id: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::CinderVolumeSource {
@@ -33,32 +33,30 @@ impl crate::Optionable for CinderVolumeSourceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::CinderVolumeSource {
     fn into_optioned(self) -> CinderVolumeSourceAc {
         CinderVolumeSourceAc {
-            fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
+            fs_type: self.fs_type,
             read_only: self.read_only,
             secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
-            volume_id: Some(crate::OptionableConvert::into_optioned(self.volume_id)),
+            volume_id: Some(self.volume_id),
         }
     }
     fn try_from_optioned(value: CinderVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
+            fs_type: value.fs_type,
             read_only: value.read_only,
             secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
-            volume_id: crate::OptionableConvert::try_from_optioned(
-                value
-                    .volume_id
-                    .ok_or(crate::Error {
-                        missing_field: "volume_id",
-                    })?,
-            )?,
+            volume_id: value
+                .volume_id
+                .ok_or(crate::Error {
+                    missing_field: "volume_id",
+                })?,
         })
     }
     fn merge(&mut self, other: CinderVolumeSourceAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
+        self.fs_type = other.fs_type;
         self.read_only = other.read_only;
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
         if let Some(other_value) = other.volume_id {
-            crate::OptionableConvert::merge(&mut self.volume_id, other_value)?;
+            self.volume_id = other_value;
         }
         Ok(())
     }

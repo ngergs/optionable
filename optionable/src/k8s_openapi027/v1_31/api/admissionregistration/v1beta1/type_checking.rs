@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TypeCheckingAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub expression_warnings: <Option<
+    pub expression_warnings: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning,
+            <::k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

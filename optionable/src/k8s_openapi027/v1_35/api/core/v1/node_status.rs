@@ -9,65 +9,71 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub addresses: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::NodeAddress>,
-    > as crate::Optionable>::Optioned,
+    pub addresses: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::NodeAddress as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub allocatable: <Option<
+    pub allocatable: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub capacity: <Option<
+    pub capacity: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::NodeCondition>,
-    > as crate::Optionable>::Optioned,
+    pub conditions: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::NodeCondition as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub config: <Option<
-        ::k8s_openapi027::api::core::v1::NodeConfigStatus,
-    > as crate::Optionable>::Optioned,
+    pub config: Option<
+        <::k8s_openapi027::api::core::v1::NodeConfigStatus as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub daemon_endpoints: <Option<
-        ::k8s_openapi027::api::core::v1::NodeDaemonEndpoints,
-    > as crate::Optionable>::Optioned,
+    pub daemon_endpoints: Option<
+        <::k8s_openapi027::api::core::v1::NodeDaemonEndpoints as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub declared_features: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub declared_features: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub features: <Option<
-        ::k8s_openapi027::api::core::v1::NodeFeatures,
-    > as crate::Optionable>::Optioned,
+    pub features: Option<
+        <::k8s_openapi027::api::core::v1::NodeFeatures as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub images: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::ContainerImage>,
-    > as crate::Optionable>::Optioned,
+    pub images: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::ContainerImage as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub node_info: <Option<
-        ::k8s_openapi027::api::core::v1::NodeSystemInfo,
-    > as crate::Optionable>::Optioned,
+    pub node_info: Option<
+        <::k8s_openapi027::api::core::v1::NodeSystemInfo as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub phase: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub phase: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub runtime_handlers: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::NodeRuntimeHandler>,
-    > as crate::Optionable>::Optioned,
+    pub runtime_handlers: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::NodeRuntimeHandler as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volumes_attached: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::AttachedVolume>,
-    > as crate::Optionable>::Optioned,
+    pub volumes_attached: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::AttachedVolume as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volumes_in_use: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub volumes_in_use: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::NodeStatus {
@@ -90,20 +96,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeStatus {
             daemon_endpoints: crate::OptionableConvert::into_optioned(
                 self.daemon_endpoints,
             ),
-            declared_features: crate::OptionableConvert::into_optioned(
-                self.declared_features,
-            ),
+            declared_features: self.declared_features,
             features: crate::OptionableConvert::into_optioned(self.features),
             images: crate::OptionableConvert::into_optioned(self.images),
             node_info: crate::OptionableConvert::into_optioned(self.node_info),
-            phase: crate::OptionableConvert::into_optioned(self.phase),
+            phase: self.phase,
             runtime_handlers: crate::OptionableConvert::into_optioned(
                 self.runtime_handlers,
             ),
             volumes_attached: crate::OptionableConvert::into_optioned(
                 self.volumes_attached,
             ),
-            volumes_in_use: crate::OptionableConvert::into_optioned(self.volumes_in_use),
+            volumes_in_use: self.volumes_in_use,
         }
     }
     fn try_from_optioned(value: NodeStatusAc) -> Result<Self, crate::Error> {
@@ -116,22 +120,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeStatus {
             daemon_endpoints: crate::OptionableConvert::try_from_optioned(
                 value.daemon_endpoints,
             )?,
-            declared_features: crate::OptionableConvert::try_from_optioned(
-                value.declared_features,
-            )?,
+            declared_features: value.declared_features,
             features: crate::OptionableConvert::try_from_optioned(value.features)?,
             images: crate::OptionableConvert::try_from_optioned(value.images)?,
             node_info: crate::OptionableConvert::try_from_optioned(value.node_info)?,
-            phase: crate::OptionableConvert::try_from_optioned(value.phase)?,
+            phase: value.phase,
             runtime_handlers: crate::OptionableConvert::try_from_optioned(
                 value.runtime_handlers,
             )?,
             volumes_attached: crate::OptionableConvert::try_from_optioned(
                 value.volumes_attached,
             )?,
-            volumes_in_use: crate::OptionableConvert::try_from_optioned(
-                value.volumes_in_use,
-            )?,
+            volumes_in_use: value.volumes_in_use,
         })
     }
     fn merge(&mut self, other: NodeStatusAc) -> Result<(), crate::Error> {
@@ -144,14 +144,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeStatus {
             &mut self.daemon_endpoints,
             other.daemon_endpoints,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.declared_features,
-            other.declared_features,
-        )?;
+        self.declared_features = other.declared_features;
         crate::OptionableConvert::merge(&mut self.features, other.features)?;
         crate::OptionableConvert::merge(&mut self.images, other.images)?;
         crate::OptionableConvert::merge(&mut self.node_info, other.node_info)?;
-        crate::OptionableConvert::merge(&mut self.phase, other.phase)?;
+        self.phase = other.phase;
         crate::OptionableConvert::merge(
             &mut self.runtime_handlers,
             other.runtime_handlers,
@@ -160,7 +157,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeStatus {
             &mut self.volumes_attached,
             other.volumes_attached,
         )?;
-        crate::OptionableConvert::merge(&mut self.volumes_in_use, other.volumes_in_use)?;
+        self.volumes_in_use = other.volumes_in_use;
         Ok(())
     }
 }

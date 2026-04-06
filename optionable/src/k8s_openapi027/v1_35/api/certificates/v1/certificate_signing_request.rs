@@ -24,9 +24,9 @@ pub struct CertificateSigningRequestAc {
         <::k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: <Option<
-        ::k8s_openapi027::api::certificates::v1::CertificateSigningRequestStatus,
-    > as crate::Optionable>::Optioned,
+    pub status: Option<
+        <::k8s_openapi027::api::certificates::v1::CertificateSigningRequestStatus as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

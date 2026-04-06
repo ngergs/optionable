@@ -11,9 +11,9 @@ pub struct EventSeriesAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub last_observed_time: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::MicroTime,
-    > as crate::Optionable>::Optioned,
+    pub last_observed_time: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::MicroTime as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::EventSeries {

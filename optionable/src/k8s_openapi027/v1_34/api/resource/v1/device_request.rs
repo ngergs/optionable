@@ -9,15 +9,17 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceRequestAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub exactly: <Option<
-        ::k8s_openapi027::api::resource::v1::ExactDeviceRequest,
-    > as crate::Optionable>::Optioned,
+    pub exactly: Option<
+        <::k8s_openapi027::api::resource::v1::ExactDeviceRequest as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub first_available: <Option<
-        std::vec::Vec<::k8s_openapi027::api::resource::v1::DeviceSubRequest>,
-    > as crate::Optionable>::Optioned,
+    pub first_available: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::resource::v1::DeviceSubRequest as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1::DeviceRequest {
@@ -36,7 +38,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceReque
             first_available: crate::OptionableConvert::into_optioned(
                 self.first_available,
             ),
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            name: Some(self.name),
         }
     }
     fn try_from_optioned(value: DeviceRequestAc) -> Result<Self, crate::Error> {
@@ -45,13 +47,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceReque
             first_available: crate::OptionableConvert::try_from_optioned(
                 value.first_available,
             )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
         })
     }
     fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::Error> {
@@ -61,7 +61,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceReque
             other.first_available,
         )?;
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         Ok(())
     }

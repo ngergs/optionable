@@ -5,9 +5,9 @@ pub enum PatchAc {
     Json(
         #[serde(skip_serializing_if = "Option::is_none")]
         Option<
-            <std::vec::Vec<
-                ::k8s_openapi027::serde_json::Value,
-            > as crate::Optionable>::Optioned,
+            std::vec::Vec<
+                <::k8s_openapi027::serde_json::Value as crate::Optionable>::Optioned,
+            >,
         >,
     ),
     Merge(

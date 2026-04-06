@@ -9,27 +9,27 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub config_source: <Option<
-        ::k8s_openapi027::api::core::v1::NodeConfigSource,
-    > as crate::Optionable>::Optioned,
+    pub config_source: Option<
+        <::k8s_openapi027::api::core::v1::NodeConfigSource as crate::Optionable>::Optioned,
+    >,
     #[serde(rename = "externalID")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub external_id: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub external_id: Option<std::string::String>,
     #[serde(rename = "podCIDR")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_cidr: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub pod_cidr: Option<std::string::String>,
     #[serde(rename = "podCIDRs")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_cidrs: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub pod_cidrs: Option<std::vec::Vec<std::string::String>>,
     #[serde(rename = "providerID")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub provider_id: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub provider_id: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub taints: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::Taint>,
-    > as crate::Optionable>::Optioned,
+    pub taints: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::Taint as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unschedulable: Option<bool>,
 }
@@ -47,10 +47,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSpec {
     fn into_optioned(self) -> NodeSpecAc {
         NodeSpecAc {
             config_source: crate::OptionableConvert::into_optioned(self.config_source),
-            external_id: crate::OptionableConvert::into_optioned(self.external_id),
-            pod_cidr: crate::OptionableConvert::into_optioned(self.pod_cidr),
-            pod_cidrs: crate::OptionableConvert::into_optioned(self.pod_cidrs),
-            provider_id: crate::OptionableConvert::into_optioned(self.provider_id),
+            external_id: self.external_id,
+            pod_cidr: self.pod_cidr,
+            pod_cidrs: self.pod_cidrs,
+            provider_id: self.provider_id,
             taints: crate::OptionableConvert::into_optioned(self.taints),
             unschedulable: self.unschedulable,
         }
@@ -60,20 +60,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSpec {
             config_source: crate::OptionableConvert::try_from_optioned(
                 value.config_source,
             )?,
-            external_id: crate::OptionableConvert::try_from_optioned(value.external_id)?,
-            pod_cidr: crate::OptionableConvert::try_from_optioned(value.pod_cidr)?,
-            pod_cidrs: crate::OptionableConvert::try_from_optioned(value.pod_cidrs)?,
-            provider_id: crate::OptionableConvert::try_from_optioned(value.provider_id)?,
+            external_id: value.external_id,
+            pod_cidr: value.pod_cidr,
+            pod_cidrs: value.pod_cidrs,
+            provider_id: value.provider_id,
             taints: crate::OptionableConvert::try_from_optioned(value.taints)?,
             unschedulable: value.unschedulable,
         })
     }
     fn merge(&mut self, other: NodeSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.config_source, other.config_source)?;
-        crate::OptionableConvert::merge(&mut self.external_id, other.external_id)?;
-        crate::OptionableConvert::merge(&mut self.pod_cidr, other.pod_cidr)?;
-        crate::OptionableConvert::merge(&mut self.pod_cidrs, other.pod_cidrs)?;
-        crate::OptionableConvert::merge(&mut self.provider_id, other.provider_id)?;
+        self.external_id = other.external_id;
+        self.pod_cidr = other.pod_cidr;
+        self.pod_cidrs = other.pod_cidrs;
+        self.provider_id = other.provider_id;
         crate::OptionableConvert::merge(&mut self.taints, other.taints)?;
         self.unschedulable = other.unschedulable;
         Ok(())

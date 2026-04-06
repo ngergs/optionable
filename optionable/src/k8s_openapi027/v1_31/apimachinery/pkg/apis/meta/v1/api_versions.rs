@@ -21,14 +21,12 @@ pub struct APIVersionsAc {
     #[serde(rename = "serverAddressByClientCIDRs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub server_address_by_client_cidrs: Option<
-        <std::vec::Vec<
-            ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR,
-        > as crate::Optionable>::Optioned,
+        std::vec::Vec<
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR as crate::Optionable>::Optioned,
+        >,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub versions: Option<
-        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
-    >,
+    pub versions: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -52,7 +50,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions {
                     self.server_address_by_client_cidrs,
                 ),
             ),
-            versions: Some(crate::OptionableConvert::into_optioned(self.versions)),
+            versions: Some(self.versions),
         }
     }
     fn try_from_optioned(value: APIVersionsAc) -> Result<Self, crate::Error> {
@@ -64,13 +62,11 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions {
                         missing_field: "server_address_by_client_cidrs",
                     })?,
             )?,
-            versions: crate::OptionableConvert::try_from_optioned(
-                value
-                    .versions
-                    .ok_or(crate::Error {
-                        missing_field: "versions",
-                    })?,
-            )?,
+            versions: value
+                .versions
+                .ok_or(crate::Error {
+                    missing_field: "versions",
+                })?,
         })
     }
     fn merge(&mut self, other: APIVersionsAc) -> Result<(), crate::Error> {
@@ -81,7 +77,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions {
             )?;
         }
         if let Some(other_value) = other.versions {
-            crate::OptionableConvert::merge(&mut self.versions, other_value)?;
+            self.versions = other_value;
         }
         Ok(())
     }

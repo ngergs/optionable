@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BoundObjectReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub api_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub api_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub kind: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub kind: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub uid: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -32,25 +32,25 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::authentication::v1::BoundObjectReference {
     fn into_optioned(self) -> BoundObjectReferenceAc {
         BoundObjectReferenceAc {
-            api_version: crate::OptionableConvert::into_optioned(self.api_version),
-            kind: crate::OptionableConvert::into_optioned(self.kind),
-            name: crate::OptionableConvert::into_optioned(self.name),
-            uid: crate::OptionableConvert::into_optioned(self.uid),
+            api_version: self.api_version,
+            kind: self.kind,
+            name: self.name,
+            uid: self.uid,
         }
     }
     fn try_from_optioned(value: BoundObjectReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
-            kind: crate::OptionableConvert::try_from_optioned(value.kind)?,
-            name: crate::OptionableConvert::try_from_optioned(value.name)?,
-            uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
+            api_version: value.api_version,
+            kind: value.kind,
+            name: value.name,
+            uid: value.uid,
         })
     }
     fn merge(&mut self, other: BoundObjectReferenceAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
-        crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
-        crate::OptionableConvert::merge(&mut self.name, other.name)?;
-        crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
+        self.api_version = other.api_version;
+        self.kind = other.kind;
+        self.name = other.name;
+        self.uid = other.uid;
         Ok(())
     }
 }

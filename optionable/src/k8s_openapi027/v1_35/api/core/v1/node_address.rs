@@ -9,10 +9,10 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeAddressAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub address: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub address: Option<std::string::String>,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub type_: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::NodeAddress {
@@ -27,34 +27,30 @@ impl crate::Optionable for NodeAddressAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeAddress {
     fn into_optioned(self) -> NodeAddressAc {
         NodeAddressAc {
-            address: Some(crate::OptionableConvert::into_optioned(self.address)),
-            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
+            address: Some(self.address),
+            type_: Some(self.type_),
         }
     }
     fn try_from_optioned(value: NodeAddressAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            address: crate::OptionableConvert::try_from_optioned(
-                value
-                    .address
-                    .ok_or(crate::Error {
-                        missing_field: "address",
-                    })?,
-            )?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            address: value
+                .address
+                .ok_or(crate::Error {
+                    missing_field: "address",
+                })?,
+            type_: value
+                .type_
+                .ok_or(crate::Error {
+                    missing_field: "type_",
+                })?,
         })
     }
     fn merge(&mut self, other: NodeAddressAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.address {
-            crate::OptionableConvert::merge(&mut self.address, other_value)?;
+            self.address = other_value;
         }
         if let Some(other_value) = other.type_ {
-            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+            self.type_ = other_value;
         }
         Ok(())
     }

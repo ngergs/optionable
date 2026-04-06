@@ -9,9 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressLoadBalancerStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ingress: <Option<
-        std::vec::Vec<::k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress>,
-    > as crate::Optionable>::Optioned,
+    pub ingress: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

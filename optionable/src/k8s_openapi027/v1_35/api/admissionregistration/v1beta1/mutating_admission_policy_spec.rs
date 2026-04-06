@@ -9,33 +9,35 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MutatingAdmissionPolicySpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub failure_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub failure_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub match_conditions: <Option<
+    pub match_conditions: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::admissionregistration::v1beta1::MatchCondition,
+            <::k8s_openapi027::api::admissionregistration::v1beta1::MatchCondition as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub match_constraints: <Option<
-        ::k8s_openapi027::api::admissionregistration::v1beta1::MatchResources,
-    > as crate::Optionable>::Optioned,
+    pub match_constraints: Option<
+        <::k8s_openapi027::api::admissionregistration::v1beta1::MatchResources as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub mutations: <Option<
-        std::vec::Vec<::k8s_openapi027::api::admissionregistration::v1beta1::Mutation>,
-    > as crate::Optionable>::Optioned,
+    pub mutations: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::admissionregistration::v1beta1::Mutation as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub param_kind: <Option<
-        ::k8s_openapi027::api::admissionregistration::v1beta1::ParamKind,
-    > as crate::Optionable>::Optioned,
+    pub param_kind: Option<
+        <::k8s_openapi027::api::admissionregistration::v1beta1::ParamKind as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub reinvocation_policy: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub reinvocation_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub variables: <Option<
-        std::vec::Vec<::k8s_openapi027::api::admissionregistration::v1beta1::Variable>,
-    > as crate::Optionable>::Optioned,
+    pub variables: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::admissionregistration::v1beta1::Variable as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -52,7 +54,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicySpec {
     fn into_optioned(self) -> MutatingAdmissionPolicySpecAc {
         MutatingAdmissionPolicySpecAc {
-            failure_policy: crate::OptionableConvert::into_optioned(self.failure_policy),
+            failure_policy: self.failure_policy,
             match_conditions: crate::OptionableConvert::into_optioned(
                 self.match_conditions,
             ),
@@ -61,9 +63,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
             ),
             mutations: crate::OptionableConvert::into_optioned(self.mutations),
             param_kind: crate::OptionableConvert::into_optioned(self.param_kind),
-            reinvocation_policy: crate::OptionableConvert::into_optioned(
-                self.reinvocation_policy,
-            ),
+            reinvocation_policy: self.reinvocation_policy,
             variables: crate::OptionableConvert::into_optioned(self.variables),
         }
     }
@@ -71,9 +71,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
         value: MutatingAdmissionPolicySpecAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            failure_policy: crate::OptionableConvert::try_from_optioned(
-                value.failure_policy,
-            )?,
+            failure_policy: value.failure_policy,
             match_conditions: crate::OptionableConvert::try_from_optioned(
                 value.match_conditions,
             )?,
@@ -82,9 +80,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
             )?,
             mutations: crate::OptionableConvert::try_from_optioned(value.mutations)?,
             param_kind: crate::OptionableConvert::try_from_optioned(value.param_kind)?,
-            reinvocation_policy: crate::OptionableConvert::try_from_optioned(
-                value.reinvocation_policy,
-            )?,
+            reinvocation_policy: value.reinvocation_policy,
             variables: crate::OptionableConvert::try_from_optioned(value.variables)?,
         })
     }
@@ -92,7 +88,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
         &mut self,
         other: MutatingAdmissionPolicySpecAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.failure_policy, other.failure_policy)?;
+        self.failure_policy = other.failure_policy;
         crate::OptionableConvert::merge(
             &mut self.match_conditions,
             other.match_conditions,
@@ -103,10 +99,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
         )?;
         crate::OptionableConvert::merge(&mut self.mutations, other.mutations)?;
         crate::OptionableConvert::merge(&mut self.param_kind, other.param_kind)?;
-        crate::OptionableConvert::merge(
-            &mut self.reinvocation_policy,
-            other.reinvocation_policy,
-        )?;
+        self.reinvocation_policy = other.reinvocation_policy;
         crate::OptionableConvert::merge(&mut self.variables, other.variables)?;
         Ok(())
     }

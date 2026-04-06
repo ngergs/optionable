@@ -11,33 +11,37 @@ pub struct PodSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub active_deadline_seconds: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub affinity: <Option<
-        ::k8s_openapi027::api::core::v1::Affinity,
-    > as crate::Optionable>::Optioned,
+    pub affinity: Option<
+        <::k8s_openapi027::api::core::v1::Affinity as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub automount_service_account_token: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub containers: Option<
-        <std::vec::Vec<
-            ::k8s_openapi027::api::core::v1::Container,
-        > as crate::Optionable>::Optioned,
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::Container as crate::Optionable>::Optioned,
+        >,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub dns_config: <Option<
-        ::k8s_openapi027::api::core::v1::PodDNSConfig,
-    > as crate::Optionable>::Optioned,
+    pub dns_config: Option<
+        <::k8s_openapi027::api::core::v1::PodDNSConfig as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub dns_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub dns_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub enable_service_links: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ephemeral_containers: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::EphemeralContainer>,
-    > as crate::Optionable>::Optioned,
+    pub ephemeral_containers: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::EphemeralContainer as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub host_aliases: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::HostAlias>,
-    > as crate::Optionable>::Optioned,
+    pub host_aliases: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::HostAlias as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(rename = "hostIPC")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host_ipc: Option<bool>,
@@ -49,89 +53,101 @@ pub struct PodSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host_users: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub hostname: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub hostname: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub image_pull_secrets: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::LocalObjectReference>,
-    > as crate::Optionable>::Optioned,
+    pub image_pull_secrets: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::LocalObjectReference as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub init_containers: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::Container>,
-    > as crate::Optionable>::Optioned,
+    pub init_containers: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::Container as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub node_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub node_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub node_selector: <Option<
+    pub node_selector: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub os: <Option<
-        ::k8s_openapi027::api::core::v1::PodOS,
-    > as crate::Optionable>::Optioned,
+    pub os: Option<
+        <::k8s_openapi027::api::core::v1::PodOS as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub overhead: <Option<
+    pub overhead: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub preemption_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub preemption_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub priority: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub priority_class_name: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub priority_class_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub readiness_gates: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::PodReadinessGate>,
-    > as crate::Optionable>::Optioned,
+    pub readiness_gates: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::PodReadinessGate as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_claims: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::PodResourceClaim>,
-    > as crate::Optionable>::Optioned,
+    pub resource_claims: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::PodResourceClaim as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub restart_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub restart_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub runtime_class_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub runtime_class_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scheduler_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub scheduler_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scheduling_gates: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::PodSchedulingGate>,
-    > as crate::Optionable>::Optioned,
+    pub scheduling_gates: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::PodSchedulingGate as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub security_context: <Option<
-        ::k8s_openapi027::api::core::v1::PodSecurityContext,
-    > as crate::Optionable>::Optioned,
+    pub security_context: Option<
+        <::k8s_openapi027::api::core::v1::PodSecurityContext as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_account: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub service_account: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_account_name: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub service_account_name: Option<std::string::String>,
     #[serde(rename = "setHostnameAsFQDN")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub set_hostname_as_fqdn: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub share_process_namespace: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub subdomain: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub subdomain: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_grace_period_seconds: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tolerations: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::Toleration>,
-    > as crate::Optionable>::Optioned,
+    pub tolerations: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::Toleration as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub topology_spread_constraints: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::TopologySpreadConstraint>,
-    > as crate::Optionable>::Optioned,
+    pub topology_spread_constraints: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::TopologySpreadConstraint as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volumes: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::Volume>,
-    > as crate::Optionable>::Optioned,
+    pub volumes: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::Volume as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodSpec {
@@ -151,7 +167,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             automount_service_account_token: self.automount_service_account_token,
             containers: Some(crate::OptionableConvert::into_optioned(self.containers)),
             dns_config: crate::OptionableConvert::into_optioned(self.dns_config),
-            dns_policy: crate::OptionableConvert::into_optioned(self.dns_policy),
+            dns_policy: self.dns_policy,
             enable_service_links: self.enable_service_links,
             ephemeral_containers: crate::OptionableConvert::into_optioned(
                 self.ephemeral_containers,
@@ -161,50 +177,40 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             host_network: self.host_network,
             host_pid: self.host_pid,
             host_users: self.host_users,
-            hostname: crate::OptionableConvert::into_optioned(self.hostname),
+            hostname: self.hostname,
             image_pull_secrets: crate::OptionableConvert::into_optioned(
                 self.image_pull_secrets,
             ),
             init_containers: crate::OptionableConvert::into_optioned(
                 self.init_containers,
             ),
-            node_name: crate::OptionableConvert::into_optioned(self.node_name),
-            node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
+            node_name: self.node_name,
+            node_selector: self.node_selector,
             os: crate::OptionableConvert::into_optioned(self.os),
             overhead: crate::OptionableConvert::into_optioned(self.overhead),
-            preemption_policy: crate::OptionableConvert::into_optioned(
-                self.preemption_policy,
-            ),
+            preemption_policy: self.preemption_policy,
             priority: self.priority,
-            priority_class_name: crate::OptionableConvert::into_optioned(
-                self.priority_class_name,
-            ),
+            priority_class_name: self.priority_class_name,
             readiness_gates: crate::OptionableConvert::into_optioned(
                 self.readiness_gates,
             ),
             resource_claims: crate::OptionableConvert::into_optioned(
                 self.resource_claims,
             ),
-            restart_policy: crate::OptionableConvert::into_optioned(self.restart_policy),
-            runtime_class_name: crate::OptionableConvert::into_optioned(
-                self.runtime_class_name,
-            ),
-            scheduler_name: crate::OptionableConvert::into_optioned(self.scheduler_name),
+            restart_policy: self.restart_policy,
+            runtime_class_name: self.runtime_class_name,
+            scheduler_name: self.scheduler_name,
             scheduling_gates: crate::OptionableConvert::into_optioned(
                 self.scheduling_gates,
             ),
             security_context: crate::OptionableConvert::into_optioned(
                 self.security_context,
             ),
-            service_account: crate::OptionableConvert::into_optioned(
-                self.service_account,
-            ),
-            service_account_name: crate::OptionableConvert::into_optioned(
-                self.service_account_name,
-            ),
+            service_account: self.service_account,
+            service_account_name: self.service_account_name,
             set_hostname_as_fqdn: self.set_hostname_as_fqdn,
             share_process_namespace: self.share_process_namespace,
-            subdomain: crate::OptionableConvert::into_optioned(self.subdomain),
+            subdomain: self.subdomain,
             termination_grace_period_seconds: self.termination_grace_period_seconds,
             tolerations: crate::OptionableConvert::into_optioned(self.tolerations),
             topology_spread_constraints: crate::OptionableConvert::into_optioned(
@@ -226,7 +232,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
                     })?,
             )?,
             dns_config: crate::OptionableConvert::try_from_optioned(value.dns_config)?,
-            dns_policy: crate::OptionableConvert::try_from_optioned(value.dns_policy)?,
+            dns_policy: value.dns_policy,
             enable_service_links: value.enable_service_links,
             ephemeral_containers: crate::OptionableConvert::try_from_optioned(
                 value.ephemeral_containers,
@@ -238,56 +244,40 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             host_network: value.host_network,
             host_pid: value.host_pid,
             host_users: value.host_users,
-            hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
+            hostname: value.hostname,
             image_pull_secrets: crate::OptionableConvert::try_from_optioned(
                 value.image_pull_secrets,
             )?,
             init_containers: crate::OptionableConvert::try_from_optioned(
                 value.init_containers,
             )?,
-            node_name: crate::OptionableConvert::try_from_optioned(value.node_name)?,
-            node_selector: crate::OptionableConvert::try_from_optioned(
-                value.node_selector,
-            )?,
+            node_name: value.node_name,
+            node_selector: value.node_selector,
             os: crate::OptionableConvert::try_from_optioned(value.os)?,
             overhead: crate::OptionableConvert::try_from_optioned(value.overhead)?,
-            preemption_policy: crate::OptionableConvert::try_from_optioned(
-                value.preemption_policy,
-            )?,
+            preemption_policy: value.preemption_policy,
             priority: value.priority,
-            priority_class_name: crate::OptionableConvert::try_from_optioned(
-                value.priority_class_name,
-            )?,
+            priority_class_name: value.priority_class_name,
             readiness_gates: crate::OptionableConvert::try_from_optioned(
                 value.readiness_gates,
             )?,
             resource_claims: crate::OptionableConvert::try_from_optioned(
                 value.resource_claims,
             )?,
-            restart_policy: crate::OptionableConvert::try_from_optioned(
-                value.restart_policy,
-            )?,
-            runtime_class_name: crate::OptionableConvert::try_from_optioned(
-                value.runtime_class_name,
-            )?,
-            scheduler_name: crate::OptionableConvert::try_from_optioned(
-                value.scheduler_name,
-            )?,
+            restart_policy: value.restart_policy,
+            runtime_class_name: value.runtime_class_name,
+            scheduler_name: value.scheduler_name,
             scheduling_gates: crate::OptionableConvert::try_from_optioned(
                 value.scheduling_gates,
             )?,
             security_context: crate::OptionableConvert::try_from_optioned(
                 value.security_context,
             )?,
-            service_account: crate::OptionableConvert::try_from_optioned(
-                value.service_account,
-            )?,
-            service_account_name: crate::OptionableConvert::try_from_optioned(
-                value.service_account_name,
-            )?,
+            service_account: value.service_account,
+            service_account_name: value.service_account_name,
             set_hostname_as_fqdn: value.set_hostname_as_fqdn,
             share_process_namespace: value.share_process_namespace,
-            subdomain: crate::OptionableConvert::try_from_optioned(value.subdomain)?,
+            subdomain: value.subdomain,
             termination_grace_period_seconds: value.termination_grace_period_seconds,
             tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
             topology_spread_constraints: crate::OptionableConvert::try_from_optioned(
@@ -304,7 +294,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             crate::OptionableConvert::merge(&mut self.containers, other_value)?;
         }
         crate::OptionableConvert::merge(&mut self.dns_config, other.dns_config)?;
-        crate::OptionableConvert::merge(&mut self.dns_policy, other.dns_policy)?;
+        self.dns_policy = other.dns_policy;
         self.enable_service_links = other.enable_service_links;
         crate::OptionableConvert::merge(
             &mut self.ephemeral_containers,
@@ -315,7 +305,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
         self.host_network = other.host_network;
         self.host_pid = other.host_pid;
         self.host_users = other.host_users;
-        crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
+        self.hostname = other.hostname;
         crate::OptionableConvert::merge(
             &mut self.image_pull_secrets,
             other.image_pull_secrets,
@@ -324,19 +314,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             &mut self.init_containers,
             other.init_containers,
         )?;
-        crate::OptionableConvert::merge(&mut self.node_name, other.node_name)?;
-        crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
+        self.node_name = other.node_name;
+        self.node_selector = other.node_selector;
         crate::OptionableConvert::merge(&mut self.os, other.os)?;
         crate::OptionableConvert::merge(&mut self.overhead, other.overhead)?;
-        crate::OptionableConvert::merge(
-            &mut self.preemption_policy,
-            other.preemption_policy,
-        )?;
+        self.preemption_policy = other.preemption_policy;
         self.priority = other.priority;
-        crate::OptionableConvert::merge(
-            &mut self.priority_class_name,
-            other.priority_class_name,
-        )?;
+        self.priority_class_name = other.priority_class_name;
         crate::OptionableConvert::merge(
             &mut self.readiness_gates,
             other.readiness_gates,
@@ -345,12 +329,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             &mut self.resource_claims,
             other.resource_claims,
         )?;
-        crate::OptionableConvert::merge(&mut self.restart_policy, other.restart_policy)?;
-        crate::OptionableConvert::merge(
-            &mut self.runtime_class_name,
-            other.runtime_class_name,
-        )?;
-        crate::OptionableConvert::merge(&mut self.scheduler_name, other.scheduler_name)?;
+        self.restart_policy = other.restart_policy;
+        self.runtime_class_name = other.runtime_class_name;
+        self.scheduler_name = other.scheduler_name;
         crate::OptionableConvert::merge(
             &mut self.scheduling_gates,
             other.scheduling_gates,
@@ -359,17 +340,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             &mut self.security_context,
             other.security_context,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.service_account,
-            other.service_account,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.service_account_name,
-            other.service_account_name,
-        )?;
+        self.service_account = other.service_account;
+        self.service_account_name = other.service_account_name;
         self.set_hostname_as_fqdn = other.set_hostname_as_fqdn;
         self.share_process_namespace = other.share_process_namespace;
-        crate::OptionableConvert::merge(&mut self.subdomain, other.subdomain)?;
+        self.subdomain = other.subdomain;
         self.termination_grace_period_seconds = other.termination_grace_period_seconds;
         crate::OptionableConvert::merge(&mut self.tolerations, other.tolerations)?;
         crate::OptionableConvert::merge(

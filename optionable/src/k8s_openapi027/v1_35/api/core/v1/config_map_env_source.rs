@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ConfigMapEnvSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub optional: Option<bool>,
 }
@@ -26,25 +26,23 @@ impl crate::Optionable for ConfigMapEnvSourceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapEnvSource {
     fn into_optioned(self) -> ConfigMapEnvSourceAc {
         ConfigMapEnvSourceAc {
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            name: Some(self.name),
             optional: self.optional,
         }
     }
     fn try_from_optioned(value: ConfigMapEnvSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
             optional: value.optional,
         })
     }
     fn merge(&mut self, other: ConfigMapEnvSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         self.optional = other.optional;
         Ok(())

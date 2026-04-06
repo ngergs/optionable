@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub namespace: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub namespace: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub path: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<i32>,
 }
@@ -32,40 +32,36 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::admissionregistration::v1::ServiceReference {
     fn into_optioned(self) -> ServiceReferenceAc {
         ServiceReferenceAc {
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
-            namespace: Some(crate::OptionableConvert::into_optioned(self.namespace)),
-            path: crate::OptionableConvert::into_optioned(self.path),
+            name: Some(self.name),
+            namespace: Some(self.namespace),
+            path: self.path,
             port: self.port,
         }
     }
     fn try_from_optioned(value: ServiceReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
-            namespace: crate::OptionableConvert::try_from_optioned(
-                value
-                    .namespace
-                    .ok_or(crate::Error {
-                        missing_field: "namespace",
-                    })?,
-            )?,
-            path: crate::OptionableConvert::try_from_optioned(value.path)?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
+            namespace: value
+                .namespace
+                .ok_or(crate::Error {
+                    missing_field: "namespace",
+                })?,
+            path: value.path,
             port: value.port,
         })
     }
     fn merge(&mut self, other: ServiceReferenceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         if let Some(other_value) = other.namespace {
-            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
+            self.namespace = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.path, other.path)?;
+        self.path = other.path;
         self.port = other.port;
         Ok(())
     }

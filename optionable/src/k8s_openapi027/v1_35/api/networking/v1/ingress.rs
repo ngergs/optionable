@@ -20,13 +20,13 @@ pub struct IngressAc {
     pub kind: std::marker::PhantomData<Self>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub spec: <Option<
-        ::k8s_openapi027::api::networking::v1::IngressSpec,
-    > as crate::Optionable>::Optioned,
+    pub spec: Option<
+        <::k8s_openapi027::api::networking::v1::IngressSpec as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: <Option<
-        ::k8s_openapi027::api::networking::v1::IngressStatus,
-    > as crate::Optionable>::Optioned,
+    pub status: Option<
+        <::k8s_openapi027::api::networking::v1::IngressStatus as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::networking::v1::Ingress {

@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GroupVersionResourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub group: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub resource: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub version: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -30,22 +30,22 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::storagemigration::v1alpha1::GroupVersionResource {
     fn into_optioned(self) -> GroupVersionResourceAc {
         GroupVersionResourceAc {
-            group: crate::OptionableConvert::into_optioned(self.group),
-            resource: crate::OptionableConvert::into_optioned(self.resource),
-            version: crate::OptionableConvert::into_optioned(self.version),
+            group: self.group,
+            resource: self.resource,
+            version: self.version,
         }
     }
     fn try_from_optioned(value: GroupVersionResourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            group: crate::OptionableConvert::try_from_optioned(value.group)?,
-            resource: crate::OptionableConvert::try_from_optioned(value.resource)?,
-            version: crate::OptionableConvert::try_from_optioned(value.version)?,
+            group: value.group,
+            resource: value.resource,
+            version: value.version,
         })
     }
     fn merge(&mut self, other: GroupVersionResourceAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.group, other.group)?;
-        crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
-        crate::OptionableConvert::merge(&mut self.version, other.version)?;
+        self.group = other.group;
+        self.resource = other.resource;
+        self.version = other.version;
         Ok(())
     }
 }

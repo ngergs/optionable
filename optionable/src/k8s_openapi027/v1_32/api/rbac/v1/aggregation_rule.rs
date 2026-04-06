@@ -9,9 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AggregationRuleAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub cluster_role_selectors: <Option<
-        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector>,
-    > as crate::Optionable>::Optioned,
+    pub cluster_role_selectors: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::rbac::v1::AggregationRule {

@@ -11,17 +11,15 @@ pub struct StatefulSetSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub min_ready_seconds: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ordinals: <Option<
-        ::k8s_openapi027::api::apps::v1::StatefulSetOrdinals,
-    > as crate::Optionable>::Optioned,
+    pub ordinals: Option<
+        <::k8s_openapi027::api::apps::v1::StatefulSetOrdinals as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub persistent_volume_claim_retention_policy: <Option<
-        ::k8s_openapi027::api::apps::v1::StatefulSetPersistentVolumeClaimRetentionPolicy,
-    > as crate::Optionable>::Optioned,
+    pub persistent_volume_claim_retention_policy: Option<
+        <::k8s_openapi027::api::apps::v1::StatefulSetPersistentVolumeClaimRetentionPolicy as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_management_policy: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub pod_management_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,19 +29,21 @@ pub struct StatefulSetSpecAc {
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub service_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub template: Option<
         <::k8s_openapi027::api::core::v1::PodTemplateSpec as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub update_strategy: <Option<
-        ::k8s_openapi027::api::apps::v1::StatefulSetUpdateStrategy,
-    > as crate::Optionable>::Optioned,
+    pub update_strategy: Option<
+        <::k8s_openapi027::api::apps::v1::StatefulSetUpdateStrategy as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volume_claim_templates: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::PersistentVolumeClaim>,
-    > as crate::Optionable>::Optioned,
+    pub volume_claim_templates: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::PersistentVolumeClaim as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::apps::v1::StatefulSetSpec {
@@ -63,13 +63,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
             persistent_volume_claim_retention_policy: crate::OptionableConvert::into_optioned(
                 self.persistent_volume_claim_retention_policy,
             ),
-            pod_management_policy: crate::OptionableConvert::into_optioned(
-                self.pod_management_policy,
-            ),
+            pod_management_policy: self.pod_management_policy,
             replicas: self.replicas,
             revision_history_limit: self.revision_history_limit,
             selector: Some(crate::OptionableConvert::into_optioned(self.selector)),
-            service_name: crate::OptionableConvert::into_optioned(self.service_name),
+            service_name: self.service_name,
             template: Some(crate::OptionableConvert::into_optioned(self.template)),
             update_strategy: crate::OptionableConvert::into_optioned(
                 self.update_strategy,
@@ -86,9 +84,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
             persistent_volume_claim_retention_policy: crate::OptionableConvert::try_from_optioned(
                 value.persistent_volume_claim_retention_policy,
             )?,
-            pod_management_policy: crate::OptionableConvert::try_from_optioned(
-                value.pod_management_policy,
-            )?,
+            pod_management_policy: value.pod_management_policy,
             replicas: value.replicas,
             revision_history_limit: value.revision_history_limit,
             selector: crate::OptionableConvert::try_from_optioned(
@@ -98,9 +94,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
                         missing_field: "selector",
                     })?,
             )?,
-            service_name: crate::OptionableConvert::try_from_optioned(
-                value.service_name,
-            )?,
+            service_name: value.service_name,
             template: crate::OptionableConvert::try_from_optioned(
                 value
                     .template
@@ -123,16 +117,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
             &mut self.persistent_volume_claim_retention_policy,
             other.persistent_volume_claim_retention_policy,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.pod_management_policy,
-            other.pod_management_policy,
-        )?;
+        self.pod_management_policy = other.pod_management_policy;
         self.replicas = other.replicas;
         self.revision_history_limit = other.revision_history_limit;
         if let Some(other_value) = other.selector {
             crate::OptionableConvert::merge(&mut self.selector, other_value)?;
         }
-        crate::OptionableConvert::merge(&mut self.service_name, other.service_name)?;
+        self.service_name = other.service_name;
         if let Some(other_value) = other.template {
             crate::OptionableConvert::merge(&mut self.template, other_value)?;
         }

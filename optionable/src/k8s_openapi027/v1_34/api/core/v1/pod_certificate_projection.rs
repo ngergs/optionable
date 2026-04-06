@@ -9,21 +9,17 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodCertificateProjectionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub certificate_chain_path: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub certificate_chain_path: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub credential_bundle_path: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub credential_bundle_path: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub key_path: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub key_path: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub key_type: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub key_type: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub max_expiration_seconds: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub signer_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub signer_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodCertificateProjection {
@@ -39,62 +35,44 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::core::v1::PodCertificateProjection {
     fn into_optioned(self) -> PodCertificateProjectionAc {
         PodCertificateProjectionAc {
-            certificate_chain_path: crate::OptionableConvert::into_optioned(
-                self.certificate_chain_path,
-            ),
-            credential_bundle_path: crate::OptionableConvert::into_optioned(
-                self.credential_bundle_path,
-            ),
-            key_path: crate::OptionableConvert::into_optioned(self.key_path),
-            key_type: Some(crate::OptionableConvert::into_optioned(self.key_type)),
+            certificate_chain_path: self.certificate_chain_path,
+            credential_bundle_path: self.credential_bundle_path,
+            key_path: self.key_path,
+            key_type: Some(self.key_type),
             max_expiration_seconds: self.max_expiration_seconds,
-            signer_name: Some(crate::OptionableConvert::into_optioned(self.signer_name)),
+            signer_name: Some(self.signer_name),
         }
     }
     fn try_from_optioned(
         value: PodCertificateProjectionAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            certificate_chain_path: crate::OptionableConvert::try_from_optioned(
-                value.certificate_chain_path,
-            )?,
-            credential_bundle_path: crate::OptionableConvert::try_from_optioned(
-                value.credential_bundle_path,
-            )?,
-            key_path: crate::OptionableConvert::try_from_optioned(value.key_path)?,
-            key_type: crate::OptionableConvert::try_from_optioned(
-                value
-                    .key_type
-                    .ok_or(crate::Error {
-                        missing_field: "key_type",
-                    })?,
-            )?,
+            certificate_chain_path: value.certificate_chain_path,
+            credential_bundle_path: value.credential_bundle_path,
+            key_path: value.key_path,
+            key_type: value
+                .key_type
+                .ok_or(crate::Error {
+                    missing_field: "key_type",
+                })?,
             max_expiration_seconds: value.max_expiration_seconds,
-            signer_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .signer_name
-                    .ok_or(crate::Error {
-                        missing_field: "signer_name",
-                    })?,
-            )?,
+            signer_name: value
+                .signer_name
+                .ok_or(crate::Error {
+                    missing_field: "signer_name",
+                })?,
         })
     }
     fn merge(&mut self, other: PodCertificateProjectionAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.certificate_chain_path,
-            other.certificate_chain_path,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.credential_bundle_path,
-            other.credential_bundle_path,
-        )?;
-        crate::OptionableConvert::merge(&mut self.key_path, other.key_path)?;
+        self.certificate_chain_path = other.certificate_chain_path;
+        self.credential_bundle_path = other.credential_bundle_path;
+        self.key_path = other.key_path;
         if let Some(other_value) = other.key_type {
-            crate::OptionableConvert::merge(&mut self.key_type, other_value)?;
+            self.key_type = other_value;
         }
         self.max_expiration_seconds = other.max_expiration_seconds;
         if let Some(other_value) = other.signer_name {
-            crate::OptionableConvert::merge(&mut self.signer_name, other_value)?;
+            self.signer_name = other_value;
         }
         Ok(())
     }

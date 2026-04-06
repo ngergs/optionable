@@ -9,27 +9,27 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceAttributesAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub field_selector: <Option<
-        ::k8s_openapi027::api::authorization::v1::FieldSelectorAttributes,
-    > as crate::Optionable>::Optioned,
+    pub field_selector: Option<
+        <::k8s_openapi027::api::authorization::v1::FieldSelectorAttributes as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub group: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub label_selector: <Option<
-        ::k8s_openapi027::api::authorization::v1::LabelSelectorAttributes,
-    > as crate::Optionable>::Optioned,
+    pub label_selector: Option<
+        <::k8s_openapi027::api::authorization::v1::LabelSelectorAttributes as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub namespace: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub namespace: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub resource: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub subresource: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub subresource: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub verb: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub verb: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub version: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::authorization::v1::ResourceAttributes {
@@ -46,14 +46,14 @@ for k8s_openapi027::api::authorization::v1::ResourceAttributes {
     fn into_optioned(self) -> ResourceAttributesAc {
         ResourceAttributesAc {
             field_selector: crate::OptionableConvert::into_optioned(self.field_selector),
-            group: crate::OptionableConvert::into_optioned(self.group),
+            group: self.group,
             label_selector: crate::OptionableConvert::into_optioned(self.label_selector),
-            name: crate::OptionableConvert::into_optioned(self.name),
-            namespace: crate::OptionableConvert::into_optioned(self.namespace),
-            resource: crate::OptionableConvert::into_optioned(self.resource),
-            subresource: crate::OptionableConvert::into_optioned(self.subresource),
-            verb: crate::OptionableConvert::into_optioned(self.verb),
-            version: crate::OptionableConvert::into_optioned(self.version),
+            name: self.name,
+            namespace: self.namespace,
+            resource: self.resource,
+            subresource: self.subresource,
+            verb: self.verb,
+            version: self.version,
         }
     }
     fn try_from_optioned(value: ResourceAttributesAc) -> Result<Self, crate::Error> {
@@ -61,28 +61,28 @@ for k8s_openapi027::api::authorization::v1::ResourceAttributes {
             field_selector: crate::OptionableConvert::try_from_optioned(
                 value.field_selector,
             )?,
-            group: crate::OptionableConvert::try_from_optioned(value.group)?,
+            group: value.group,
             label_selector: crate::OptionableConvert::try_from_optioned(
                 value.label_selector,
             )?,
-            name: crate::OptionableConvert::try_from_optioned(value.name)?,
-            namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
-            resource: crate::OptionableConvert::try_from_optioned(value.resource)?,
-            subresource: crate::OptionableConvert::try_from_optioned(value.subresource)?,
-            verb: crate::OptionableConvert::try_from_optioned(value.verb)?,
-            version: crate::OptionableConvert::try_from_optioned(value.version)?,
+            name: value.name,
+            namespace: value.namespace,
+            resource: value.resource,
+            subresource: value.subresource,
+            verb: value.verb,
+            version: value.version,
         })
     }
     fn merge(&mut self, other: ResourceAttributesAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.field_selector, other.field_selector)?;
-        crate::OptionableConvert::merge(&mut self.group, other.group)?;
+        self.group = other.group;
         crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
-        crate::OptionableConvert::merge(&mut self.name, other.name)?;
-        crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
-        crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
-        crate::OptionableConvert::merge(&mut self.subresource, other.subresource)?;
-        crate::OptionableConvert::merge(&mut self.verb, other.verb)?;
-        crate::OptionableConvert::merge(&mut self.version, other.version)?;
+        self.name = other.name;
+        self.namespace = other.namespace;
+        self.resource = other.resource;
+        self.subresource = other.subresource;
+        self.verb = other.verb;
+        self.version = other.version;
         Ok(())
     }
 }

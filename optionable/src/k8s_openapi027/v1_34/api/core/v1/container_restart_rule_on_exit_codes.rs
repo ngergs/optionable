@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerRestartRuleOnExitCodesAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub operator: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub operator: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub values: Option<std::vec::Vec<i32>>,
 }
@@ -28,7 +28,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::core::v1::ContainerRestartRuleOnExitCodes {
     fn into_optioned(self) -> ContainerRestartRuleOnExitCodesAc {
         ContainerRestartRuleOnExitCodesAc {
-            operator: Some(crate::OptionableConvert::into_optioned(self.operator)),
+            operator: Some(self.operator),
             values: self.values,
         }
     }
@@ -36,13 +36,11 @@ for k8s_openapi027::api::core::v1::ContainerRestartRuleOnExitCodes {
         value: ContainerRestartRuleOnExitCodesAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            operator: crate::OptionableConvert::try_from_optioned(
-                value
-                    .operator
-                    .ok_or(crate::Error {
-                        missing_field: "operator",
-                    })?,
-            )?,
+            operator: value
+                .operator
+                .ok_or(crate::Error {
+                    missing_field: "operator",
+                })?,
             values: value.values,
         })
     }
@@ -51,7 +49,7 @@ for k8s_openapi027::api::core::v1::ContainerRestartRuleOnExitCodes {
         other: ContainerRestartRuleOnExitCodesAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.operator {
-            crate::OptionableConvert::merge(&mut self.operator, other_value)?;
+            self.operator = other_value;
         }
         self.values = other.values;
         Ok(())

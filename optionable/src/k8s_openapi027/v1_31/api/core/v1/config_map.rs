@@ -19,13 +19,16 @@ pub struct ConfigMapAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub binary_data: <Option<
-        std::collections::BTreeMap<std::string::String, ::k8s_openapi027::ByteString>,
-    > as crate::Optionable>::Optioned,
+    pub binary_data: Option<
+        std::collections::BTreeMap<
+            std::string::String,
+            <::k8s_openapi027::ByteString as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub data: <Option<
+    pub data: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub immutable: Option<bool>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -46,7 +49,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMap {
             api_version: Default::default(),
             kind: Default::default(),
             binary_data: crate::OptionableConvert::into_optioned(self.binary_data),
-            data: crate::OptionableConvert::into_optioned(self.data),
+            data: self.data,
             immutable: self.immutable,
             metadata: self.metadata,
         }
@@ -54,14 +57,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMap {
     fn try_from_optioned(value: ConfigMapAc) -> Result<Self, crate::Error> {
         Ok(Self {
             binary_data: crate::OptionableConvert::try_from_optioned(value.binary_data)?,
-            data: crate::OptionableConvert::try_from_optioned(value.data)?,
+            data: value.data,
             immutable: value.immutable,
             metadata: value.metadata,
         })
     }
     fn merge(&mut self, other: ConfigMapAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.binary_data, other.binary_data)?;
-        crate::OptionableConvert::merge(&mut self.data, other.data)?;
+        self.data = other.data;
         self.immutable = other.immutable;
         self.metadata = other.metadata;
         Ok(())

@@ -13,9 +13,9 @@ pub struct HTTPIngressPathAc {
         <::k8s_openapi027::api::networking::v1::IngressBackend as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub path: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path_type: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub path_type: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::networking::v1::HTTPIngressPath {
@@ -31,8 +31,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::HTTPIngre
     fn into_optioned(self) -> HTTPIngressPathAc {
         HTTPIngressPathAc {
             backend: Some(crate::OptionableConvert::into_optioned(self.backend)),
-            path: crate::OptionableConvert::into_optioned(self.path),
-            path_type: Some(crate::OptionableConvert::into_optioned(self.path_type)),
+            path: self.path,
+            path_type: Some(self.path_type),
         }
     }
     fn try_from_optioned(value: HTTPIngressPathAc) -> Result<Self, crate::Error> {
@@ -44,23 +44,21 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::HTTPIngre
                         missing_field: "backend",
                     })?,
             )?,
-            path: crate::OptionableConvert::try_from_optioned(value.path)?,
-            path_type: crate::OptionableConvert::try_from_optioned(
-                value
-                    .path_type
-                    .ok_or(crate::Error {
-                        missing_field: "path_type",
-                    })?,
-            )?,
+            path: value.path,
+            path_type: value
+                .path_type
+                .ok_or(crate::Error {
+                    missing_field: "path_type",
+                })?,
         })
     }
     fn merge(&mut self, other: HTTPIngressPathAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.backend {
             crate::OptionableConvert::merge(&mut self.backend, other_value)?;
         }
-        crate::OptionableConvert::merge(&mut self.path, other.path)?;
+        self.path = other.path;
         if let Some(other_value) = other.path_type {
-            crate::OptionableConvert::merge(&mut self.path_type, other_value)?;
+            self.path_type = other_value;
         }
         Ok(())
     }

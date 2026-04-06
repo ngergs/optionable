@@ -10,9 +10,9 @@
 pub struct SessionAffinityConfigAc {
     #[serde(rename = "clientIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub client_ip: <Option<
-        ::k8s_openapi027::api::core::v1::ClientIPConfig,
-    > as crate::Optionable>::Optioned,
+    pub client_ip: Option<
+        <::k8s_openapi027::api::core::v1::ClientIPConfig as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::SessionAffinityConfig {

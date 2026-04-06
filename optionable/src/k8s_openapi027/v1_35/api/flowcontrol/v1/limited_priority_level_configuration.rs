@@ -13,9 +13,9 @@ pub struct LimitedPriorityLevelConfigurationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lendable_percent: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub limit_response: <Option<
-        ::k8s_openapi027::api::flowcontrol::v1::LimitResponse,
-    > as crate::Optionable>::Optioned,
+    pub limit_response: Option<
+        <::k8s_openapi027::api::flowcontrol::v1::LimitResponse as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub nominal_concurrency_shares: Option<i32>,
 }

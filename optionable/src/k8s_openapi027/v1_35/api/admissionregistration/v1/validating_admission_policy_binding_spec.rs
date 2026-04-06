@@ -9,19 +9,17 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ValidatingAdmissionPolicyBindingSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub match_resources: <Option<
-        ::k8s_openapi027::api::admissionregistration::v1::MatchResources,
-    > as crate::Optionable>::Optioned,
+    pub match_resources: Option<
+        <::k8s_openapi027::api::admissionregistration::v1::MatchResources as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub param_ref: <Option<
-        ::k8s_openapi027::api::admissionregistration::v1::ParamRef,
-    > as crate::Optionable>::Optioned,
+    pub param_ref: Option<
+        <::k8s_openapi027::api::admissionregistration::v1::ParamRef as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub policy_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub policy_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub validation_actions: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub validation_actions: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -42,10 +40,8 @@ for k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicyBin
                 self.match_resources,
             ),
             param_ref: crate::OptionableConvert::into_optioned(self.param_ref),
-            policy_name: crate::OptionableConvert::into_optioned(self.policy_name),
-            validation_actions: crate::OptionableConvert::into_optioned(
-                self.validation_actions,
-            ),
+            policy_name: self.policy_name,
+            validation_actions: self.validation_actions,
         }
     }
     fn try_from_optioned(
@@ -56,10 +52,8 @@ for k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicyBin
                 value.match_resources,
             )?,
             param_ref: crate::OptionableConvert::try_from_optioned(value.param_ref)?,
-            policy_name: crate::OptionableConvert::try_from_optioned(value.policy_name)?,
-            validation_actions: crate::OptionableConvert::try_from_optioned(
-                value.validation_actions,
-            )?,
+            policy_name: value.policy_name,
+            validation_actions: value.validation_actions,
         })
     }
     fn merge(
@@ -71,11 +65,8 @@ for k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicyBin
             other.match_resources,
         )?;
         crate::OptionableConvert::merge(&mut self.param_ref, other.param_ref)?;
-        crate::OptionableConvert::merge(&mut self.policy_name, other.policy_name)?;
-        crate::OptionableConvert::merge(
-            &mut self.validation_actions,
-            other.validation_actions,
-        )?;
+        self.policy_name = other.policy_name;
+        self.validation_actions = other.validation_actions;
         Ok(())
     }
 }

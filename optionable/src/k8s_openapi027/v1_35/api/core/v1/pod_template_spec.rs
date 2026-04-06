@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodTemplateSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub metadata: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    > as crate::Optionable>::Optioned,
+    pub metadata: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub spec: <Option<
-        ::k8s_openapi027::api::core::v1::PodSpec,
-    > as crate::Optionable>::Optioned,
+    pub spec: Option<
+        <::k8s_openapi027::api::core::v1::PodSpec as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodTemplateSpec {

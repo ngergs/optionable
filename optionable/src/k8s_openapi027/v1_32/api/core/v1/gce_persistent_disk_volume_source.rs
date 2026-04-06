@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GCEPersistentDiskVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub fs_type: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub partition: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pd_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub pd_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
 }
@@ -31,9 +31,9 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::core::v1::GCEPersistentDiskVolumeSource {
     fn into_optioned(self) -> GCEPersistentDiskVolumeSourceAc {
         GCEPersistentDiskVolumeSourceAc {
-            fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
+            fs_type: self.fs_type,
             partition: self.partition,
-            pd_name: Some(crate::OptionableConvert::into_optioned(self.pd_name)),
+            pd_name: Some(self.pd_name),
             read_only: self.read_only,
         }
     }
@@ -41,15 +41,13 @@ for k8s_openapi027::api::core::v1::GCEPersistentDiskVolumeSource {
         value: GCEPersistentDiskVolumeSourceAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
+            fs_type: value.fs_type,
             partition: value.partition,
-            pd_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .pd_name
-                    .ok_or(crate::Error {
-                        missing_field: "pd_name",
-                    })?,
-            )?,
+            pd_name: value
+                .pd_name
+                .ok_or(crate::Error {
+                    missing_field: "pd_name",
+                })?,
             read_only: value.read_only,
         })
     }
@@ -57,10 +55,10 @@ for k8s_openapi027::api::core::v1::GCEPersistentDiskVolumeSource {
         &mut self,
         other: GCEPersistentDiskVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
+        self.fs_type = other.fs_type;
         self.partition = other.partition;
         if let Some(other_value) = other.pd_name {
-            crate::OptionableConvert::merge(&mut self.pd_name, other_value)?;
+            self.pd_name = other_value;
         }
         self.read_only = other.read_only;
         Ok(())

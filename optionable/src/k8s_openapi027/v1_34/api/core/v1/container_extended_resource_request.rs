@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerExtendedResourceRequestAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub container_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub container_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub request_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub request_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub resource_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -30,42 +30,30 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::core::v1::ContainerExtendedResourceRequest {
     fn into_optioned(self) -> ContainerExtendedResourceRequestAc {
         ContainerExtendedResourceRequestAc {
-            container_name: Some(
-                crate::OptionableConvert::into_optioned(self.container_name),
-            ),
-            request_name: Some(
-                crate::OptionableConvert::into_optioned(self.request_name),
-            ),
-            resource_name: Some(
-                crate::OptionableConvert::into_optioned(self.resource_name),
-            ),
+            container_name: Some(self.container_name),
+            request_name: Some(self.request_name),
+            resource_name: Some(self.resource_name),
         }
     }
     fn try_from_optioned(
         value: ContainerExtendedResourceRequestAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            container_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .container_name
-                    .ok_or(crate::Error {
-                        missing_field: "container_name",
-                    })?,
-            )?,
-            request_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .request_name
-                    .ok_or(crate::Error {
-                        missing_field: "request_name",
-                    })?,
-            )?,
-            resource_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .resource_name
-                    .ok_or(crate::Error {
-                        missing_field: "resource_name",
-                    })?,
-            )?,
+            container_name: value
+                .container_name
+                .ok_or(crate::Error {
+                    missing_field: "container_name",
+                })?,
+            request_name: value
+                .request_name
+                .ok_or(crate::Error {
+                    missing_field: "request_name",
+                })?,
+            resource_name: value
+                .resource_name
+                .ok_or(crate::Error {
+                    missing_field: "resource_name",
+                })?,
         })
     }
     fn merge(
@@ -73,13 +61,13 @@ for k8s_openapi027::api::core::v1::ContainerExtendedResourceRequest {
         other: ContainerExtendedResourceRequestAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.container_name {
-            crate::OptionableConvert::merge(&mut self.container_name, other_value)?;
+            self.container_name = other_value;
         }
         if let Some(other_value) = other.request_name {
-            crate::OptionableConvert::merge(&mut self.request_name, other_value)?;
+            self.request_name = other_value;
         }
         if let Some(other_value) = other.resource_name {
-            crate::OptionableConvert::merge(&mut self.resource_name, other_value)?;
+            self.resource_name = other_value;
         }
         Ok(())
     }

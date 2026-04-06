@@ -9,28 +9,26 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SubjectAccessReviewSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub extra: <Option<
+    pub extra: Option<
         std::collections::BTreeMap<
             std::string::String,
             std::vec::Vec<std::string::String>,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub groups: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub groups: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub non_resource_attributes: <Option<
-        ::k8s_openapi027::api::authorization::v1::NonResourceAttributes,
-    > as crate::Optionable>::Optioned,
+    pub non_resource_attributes: Option<
+        <::k8s_openapi027::api::authorization::v1::NonResourceAttributes as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_attributes: <Option<
-        ::k8s_openapi027::api::authorization::v1::ResourceAttributes,
-    > as crate::Optionable>::Optioned,
+    pub resource_attributes: Option<
+        <::k8s_openapi027::api::authorization::v1::ResourceAttributes as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub uid: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub user: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -47,37 +45,37 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::authorization::v1::SubjectAccessReviewSpec {
     fn into_optioned(self) -> SubjectAccessReviewSpecAc {
         SubjectAccessReviewSpecAc {
-            extra: crate::OptionableConvert::into_optioned(self.extra),
-            groups: crate::OptionableConvert::into_optioned(self.groups),
+            extra: self.extra,
+            groups: self.groups,
             non_resource_attributes: crate::OptionableConvert::into_optioned(
                 self.non_resource_attributes,
             ),
             resource_attributes: crate::OptionableConvert::into_optioned(
                 self.resource_attributes,
             ),
-            uid: crate::OptionableConvert::into_optioned(self.uid),
-            user: crate::OptionableConvert::into_optioned(self.user),
+            uid: self.uid,
+            user: self.user,
         }
     }
     fn try_from_optioned(
         value: SubjectAccessReviewSpecAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            extra: crate::OptionableConvert::try_from_optioned(value.extra)?,
-            groups: crate::OptionableConvert::try_from_optioned(value.groups)?,
+            extra: value.extra,
+            groups: value.groups,
             non_resource_attributes: crate::OptionableConvert::try_from_optioned(
                 value.non_resource_attributes,
             )?,
             resource_attributes: crate::OptionableConvert::try_from_optioned(
                 value.resource_attributes,
             )?,
-            uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
-            user: crate::OptionableConvert::try_from_optioned(value.user)?,
+            uid: value.uid,
+            user: value.user,
         })
     }
     fn merge(&mut self, other: SubjectAccessReviewSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.extra, other.extra)?;
-        crate::OptionableConvert::merge(&mut self.groups, other.groups)?;
+        self.extra = other.extra;
+        self.groups = other.groups;
         crate::OptionableConvert::merge(
             &mut self.non_resource_attributes,
             other.non_resource_attributes,
@@ -86,8 +84,8 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewSpec {
             &mut self.resource_attributes,
             other.resource_attributes,
         )?;
-        crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
-        crate::OptionableConvert::merge(&mut self.user, other.user)?;
+        self.uid = other.uid;
+        self.user = other.user;
         Ok(())
     }
 }

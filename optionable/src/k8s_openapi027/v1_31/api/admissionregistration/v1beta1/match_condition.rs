@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MatchConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub expression: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub expression: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -28,34 +28,30 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::admissionregistration::v1beta1::MatchCondition {
     fn into_optioned(self) -> MatchConditionAc {
         MatchConditionAc {
-            expression: Some(crate::OptionableConvert::into_optioned(self.expression)),
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            expression: Some(self.expression),
+            name: Some(self.name),
         }
     }
     fn try_from_optioned(value: MatchConditionAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            expression: crate::OptionableConvert::try_from_optioned(
-                value
-                    .expression
-                    .ok_or(crate::Error {
-                        missing_field: "expression",
-                    })?,
-            )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            expression: value
+                .expression
+                .ok_or(crate::Error {
+                    missing_field: "expression",
+                })?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
         })
     }
     fn merge(&mut self, other: MatchConditionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expression {
-            crate::OptionableConvert::merge(&mut self.expression, other_value)?;
+            self.expression = other_value;
         }
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         Ok(())
     }

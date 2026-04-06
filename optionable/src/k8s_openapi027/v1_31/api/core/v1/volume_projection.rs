@@ -9,26 +9,26 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeProjectionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub cluster_trust_bundle: <Option<
-        ::k8s_openapi027::api::core::v1::ClusterTrustBundleProjection,
-    > as crate::Optionable>::Optioned,
+    pub cluster_trust_bundle: Option<
+        <::k8s_openapi027::api::core::v1::ClusterTrustBundleProjection as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub config_map: <Option<
-        ::k8s_openapi027::api::core::v1::ConfigMapProjection,
-    > as crate::Optionable>::Optioned,
+    pub config_map: Option<
+        <::k8s_openapi027::api::core::v1::ConfigMapProjection as crate::Optionable>::Optioned,
+    >,
     #[serde(rename = "downwardAPI")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub downward_api: <Option<
-        ::k8s_openapi027::api::core::v1::DownwardAPIProjection,
-    > as crate::Optionable>::Optioned,
+    pub downward_api: Option<
+        <::k8s_openapi027::api::core::v1::DownwardAPIProjection as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret: <Option<
-        ::k8s_openapi027::api::core::v1::SecretProjection,
-    > as crate::Optionable>::Optioned,
+    pub secret: Option<
+        <::k8s_openapi027::api::core::v1::SecretProjection as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_account_token: <Option<
-        ::k8s_openapi027::api::core::v1::ServiceAccountTokenProjection,
-    > as crate::Optionable>::Optioned,
+    pub service_account_token: Option<
+        <::k8s_openapi027::api::core::v1::ServiceAccountTokenProjection as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::VolumeProjection {

@@ -9,10 +9,10 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PhotonPersistentDiskVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub fs_type: Option<std::string::String>,
     #[serde(rename = "pdID")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pd_id: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub pd_id: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -29,31 +29,29 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::core::v1::PhotonPersistentDiskVolumeSource {
     fn into_optioned(self) -> PhotonPersistentDiskVolumeSourceAc {
         PhotonPersistentDiskVolumeSourceAc {
-            fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
-            pd_id: Some(crate::OptionableConvert::into_optioned(self.pd_id)),
+            fs_type: self.fs_type,
+            pd_id: Some(self.pd_id),
         }
     }
     fn try_from_optioned(
         value: PhotonPersistentDiskVolumeSourceAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
-            pd_id: crate::OptionableConvert::try_from_optioned(
-                value
-                    .pd_id
-                    .ok_or(crate::Error {
-                        missing_field: "pd_id",
-                    })?,
-            )?,
+            fs_type: value.fs_type,
+            pd_id: value
+                .pd_id
+                .ok_or(crate::Error {
+                    missing_field: "pd_id",
+                })?,
         })
     }
     fn merge(
         &mut self,
         other: PhotonPersistentDiskVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
+        self.fs_type = other.fs_type;
         if let Some(other_value) = other.pd_id {
-            crate::OptionableConvert::merge(&mut self.pd_id, other_value)?;
+            self.pd_id = other_value;
         }
         Ok(())
     }

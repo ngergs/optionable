@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct JobTemplateSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub metadata: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-    > as crate::Optionable>::Optioned,
+    pub metadata: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub spec: <Option<
-        ::k8s_openapi027::api::batch::v1::JobSpec,
-    > as crate::Optionable>::Optioned,
+    pub spec: Option<
+        <::k8s_openapi027::api::batch::v1::JobSpec as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::batch::v1::JobTemplateSpec {

@@ -10,9 +10,9 @@
 pub struct ServerAddressByClientCIDRAc {
     #[serde(rename = "clientCIDR")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub client_cidr: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub client_cidr: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub server_address: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub server_address: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -29,38 +29,32 @@ impl crate::OptionableConvert
 for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR {
     fn into_optioned(self) -> ServerAddressByClientCIDRAc {
         ServerAddressByClientCIDRAc {
-            client_cidr: Some(crate::OptionableConvert::into_optioned(self.client_cidr)),
-            server_address: Some(
-                crate::OptionableConvert::into_optioned(self.server_address),
-            ),
+            client_cidr: Some(self.client_cidr),
+            server_address: Some(self.server_address),
         }
     }
     fn try_from_optioned(
         value: ServerAddressByClientCIDRAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            client_cidr: crate::OptionableConvert::try_from_optioned(
-                value
-                    .client_cidr
-                    .ok_or(crate::Error {
-                        missing_field: "client_cidr",
-                    })?,
-            )?,
-            server_address: crate::OptionableConvert::try_from_optioned(
-                value
-                    .server_address
-                    .ok_or(crate::Error {
-                        missing_field: "server_address",
-                    })?,
-            )?,
+            client_cidr: value
+                .client_cidr
+                .ok_or(crate::Error {
+                    missing_field: "client_cidr",
+                })?,
+            server_address: value
+                .server_address
+                .ok_or(crate::Error {
+                    missing_field: "server_address",
+                })?,
         })
     }
     fn merge(&mut self, other: ServerAddressByClientCIDRAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.client_cidr {
-            crate::OptionableConvert::merge(&mut self.client_cidr, other_value)?;
+            self.client_cidr = other_value;
         }
         if let Some(other_value) = other.server_address {
-            crate::OptionableConvert::merge(&mut self.server_address, other_value)?;
+            self.server_address = other_value;
         }
         Ok(())
     }

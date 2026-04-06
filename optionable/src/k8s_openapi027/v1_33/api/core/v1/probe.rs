@@ -9,19 +9,19 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ProbeAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub exec: <Option<
-        ::k8s_openapi027::api::core::v1::ExecAction,
-    > as crate::Optionable>::Optioned,
+    pub exec: Option<
+        <::k8s_openapi027::api::core::v1::ExecAction as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub failure_threshold: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub grpc: <Option<
-        ::k8s_openapi027::api::core::v1::GRPCAction,
-    > as crate::Optionable>::Optioned,
+    pub grpc: Option<
+        <::k8s_openapi027::api::core::v1::GRPCAction as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub http_get: <Option<
-        ::k8s_openapi027::api::core::v1::HTTPGetAction,
-    > as crate::Optionable>::Optioned,
+    pub http_get: Option<
+        <::k8s_openapi027::api::core::v1::HTTPGetAction as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub initial_delay_seconds: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -29,9 +29,9 @@ pub struct ProbeAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub success_threshold: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tcp_socket: <Option<
-        ::k8s_openapi027::api::core::v1::TCPSocketAction,
-    > as crate::Optionable>::Optioned,
+    pub tcp_socket: Option<
+        <::k8s_openapi027::api::core::v1::TCPSocketAction as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_grace_period_seconds: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]

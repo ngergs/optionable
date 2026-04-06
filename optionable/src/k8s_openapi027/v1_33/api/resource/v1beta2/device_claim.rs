@@ -9,17 +9,23 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceClaimAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub config: <Option<
-        std::vec::Vec<::k8s_openapi027::api::resource::v1beta2::DeviceClaimConfiguration>,
-    > as crate::Optionable>::Optioned,
+    pub config: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::resource::v1beta2::DeviceClaimConfiguration as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub constraints: <Option<
-        std::vec::Vec<::k8s_openapi027::api::resource::v1beta2::DeviceConstraint>,
-    > as crate::Optionable>::Optioned,
+    pub constraints: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::resource::v1beta2::DeviceConstraint as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub requests: <Option<
-        std::vec::Vec<::k8s_openapi027::api::resource::v1beta2::DeviceRequest>,
-    > as crate::Optionable>::Optioned,
+    pub requests: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::resource::v1beta2::DeviceRequest as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1beta2::DeviceClaim {

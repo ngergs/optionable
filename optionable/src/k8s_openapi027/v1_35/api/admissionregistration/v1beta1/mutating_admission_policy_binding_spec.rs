@@ -9,15 +9,15 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MutatingAdmissionPolicyBindingSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub match_resources: <Option<
-        ::k8s_openapi027::api::admissionregistration::v1beta1::MatchResources,
-    > as crate::Optionable>::Optioned,
+    pub match_resources: Option<
+        <::k8s_openapi027::api::admissionregistration::v1beta1::MatchResources as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub param_ref: <Option<
-        ::k8s_openapi027::api::admissionregistration::v1beta1::ParamRef,
-    > as crate::Optionable>::Optioned,
+    pub param_ref: Option<
+        <::k8s_openapi027::api::admissionregistration::v1beta1::ParamRef as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub policy_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub policy_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -38,7 +38,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
                 self.match_resources,
             ),
             param_ref: crate::OptionableConvert::into_optioned(self.param_ref),
-            policy_name: crate::OptionableConvert::into_optioned(self.policy_name),
+            policy_name: self.policy_name,
         }
     }
     fn try_from_optioned(
@@ -49,7 +49,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
                 value.match_resources,
             )?,
             param_ref: crate::OptionableConvert::try_from_optioned(value.param_ref)?,
-            policy_name: crate::OptionableConvert::try_from_optioned(value.policy_name)?,
+            policy_name: value.policy_name,
         })
     }
     fn merge(
@@ -61,7 +61,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
             other.match_resources,
         )?;
         crate::OptionableConvert::merge(&mut self.param_ref, other.param_ref)?;
-        crate::OptionableConvert::merge(&mut self.policy_name, other.policy_name)?;
+        self.policy_name = other.policy_name;
         Ok(())
     }
 }

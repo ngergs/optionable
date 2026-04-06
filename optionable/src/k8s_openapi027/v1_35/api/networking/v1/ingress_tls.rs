@@ -9,11 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressTLSAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub hosts: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub hosts: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub secret_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::networking::v1::IngressTLS {
@@ -28,19 +26,19 @@ impl crate::Optionable for IngressTLSAc {
 impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressTLS {
     fn into_optioned(self) -> IngressTLSAc {
         IngressTLSAc {
-            hosts: crate::OptionableConvert::into_optioned(self.hosts),
-            secret_name: crate::OptionableConvert::into_optioned(self.secret_name),
+            hosts: self.hosts,
+            secret_name: self.secret_name,
         }
     }
     fn try_from_optioned(value: IngressTLSAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            hosts: crate::OptionableConvert::try_from_optioned(value.hosts)?,
-            secret_name: crate::OptionableConvert::try_from_optioned(value.secret_name)?,
+            hosts: value.hosts,
+            secret_name: value.secret_name,
         })
     }
     fn merge(&mut self, other: IngressTLSAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.hosts, other.hosts)?;
-        crate::OptionableConvert::merge(&mut self.secret_name, other.secret_name)?;
+        self.hosts = other.hosts;
+        self.secret_name = other.secret_name;
         Ok(())
     }
 }

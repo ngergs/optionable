@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct JSONPatchAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub expression: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub expression: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -26,16 +26,16 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::admissionregistration::v1beta1::JSONPatch {
     fn into_optioned(self) -> JSONPatchAc {
         JSONPatchAc {
-            expression: crate::OptionableConvert::into_optioned(self.expression),
+            expression: self.expression,
         }
     }
     fn try_from_optioned(value: JSONPatchAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            expression: crate::OptionableConvert::try_from_optioned(value.expression)?,
+            expression: value.expression,
         })
     }
     fn merge(&mut self, other: JSONPatchAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.expression, other.expression)?;
+        self.expression = other.expression;
         Ok(())
     }
 }

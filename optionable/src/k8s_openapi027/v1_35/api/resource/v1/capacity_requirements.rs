@@ -9,12 +9,12 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CapacityRequirementsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub requests: <Option<
+    pub requests: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1::CapacityRequirements {

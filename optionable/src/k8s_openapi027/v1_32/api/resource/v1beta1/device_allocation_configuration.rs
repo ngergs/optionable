@@ -9,15 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceAllocationConfigurationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub opaque: <Option<
-        ::k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration,
-    > as crate::Optionable>::Optioned,
+    pub opaque: Option<
+        <::k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub requests: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub requests: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub source: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub source: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -35,8 +33,8 @@ for k8s_openapi027::api::resource::v1beta1::DeviceAllocationConfiguration {
     fn into_optioned(self) -> DeviceAllocationConfigurationAc {
         DeviceAllocationConfigurationAc {
             opaque: crate::OptionableConvert::into_optioned(self.opaque),
-            requests: crate::OptionableConvert::into_optioned(self.requests),
-            source: Some(crate::OptionableConvert::into_optioned(self.source)),
+            requests: self.requests,
+            source: Some(self.source),
         }
     }
     fn try_from_optioned(
@@ -44,14 +42,12 @@ for k8s_openapi027::api::resource::v1beta1::DeviceAllocationConfiguration {
     ) -> Result<Self, crate::Error> {
         Ok(Self {
             opaque: crate::OptionableConvert::try_from_optioned(value.opaque)?,
-            requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
-            source: crate::OptionableConvert::try_from_optioned(
-                value
-                    .source
-                    .ok_or(crate::Error {
-                        missing_field: "source",
-                    })?,
-            )?,
+            requests: value.requests,
+            source: value
+                .source
+                .ok_or(crate::Error {
+                    missing_field: "source",
+                })?,
         })
     }
     fn merge(
@@ -59,9 +55,9 @@ for k8s_openapi027::api::resource::v1beta1::DeviceAllocationConfiguration {
         other: DeviceAllocationConfigurationAc,
     ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.opaque, other.opaque)?;
-        crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
+        self.requests = other.requests;
         if let Some(other_value) = other.source {
-            crate::OptionableConvert::merge(&mut self.source, other_value)?;
+            self.source = other_value;
         }
         Ok(())
     }

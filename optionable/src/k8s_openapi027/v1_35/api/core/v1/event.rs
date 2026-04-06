@@ -19,51 +19,49 @@ pub struct EventAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub action: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub event_time: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::MicroTime,
-    > as crate::Optionable>::Optioned,
+    pub event_time: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::MicroTime as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub first_timestamp: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub first_timestamp: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub involved_object: Option<
         <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub last_timestamp: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub last_timestamp: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub message: Option<std::string::String>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub reason: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub related: <Option<
-        ::k8s_openapi027::api::core::v1::ObjectReference,
-    > as crate::Optionable>::Optioned,
+    pub related: Option<
+        <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub reporting_component: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub reporting_component: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub reporting_instance: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub reporting_instance: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub series: <Option<
-        ::k8s_openapi027::api::core::v1::EventSeries,
-    > as crate::Optionable>::Optioned,
+    pub series: Option<
+        <::k8s_openapi027::api::core::v1::EventSeries as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub source: <Option<
-        ::k8s_openapi027::api::core::v1::EventSource,
-    > as crate::Optionable>::Optioned,
+    pub source: Option<
+        <::k8s_openapi027::api::core::v1::EventSource as crate::Optionable>::Optioned,
+    >,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub type_: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::Event {
@@ -80,7 +78,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
         EventAc {
             api_version: Default::default(),
             kind: Default::default(),
-            action: crate::OptionableConvert::into_optioned(self.action),
+            action: self.action,
             count: self.count,
             event_time: crate::OptionableConvert::into_optioned(self.event_time),
             first_timestamp: crate::OptionableConvert::into_optioned(
@@ -90,24 +88,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
                 crate::OptionableConvert::into_optioned(self.involved_object),
             ),
             last_timestamp: crate::OptionableConvert::into_optioned(self.last_timestamp),
-            message: crate::OptionableConvert::into_optioned(self.message),
+            message: self.message,
             metadata: self.metadata,
-            reason: crate::OptionableConvert::into_optioned(self.reason),
+            reason: self.reason,
             related: crate::OptionableConvert::into_optioned(self.related),
-            reporting_component: crate::OptionableConvert::into_optioned(
-                self.reporting_component,
-            ),
-            reporting_instance: crate::OptionableConvert::into_optioned(
-                self.reporting_instance,
-            ),
+            reporting_component: self.reporting_component,
+            reporting_instance: self.reporting_instance,
             series: crate::OptionableConvert::into_optioned(self.series),
             source: crate::OptionableConvert::into_optioned(self.source),
-            type_: crate::OptionableConvert::into_optioned(self.type_),
+            type_: self.type_,
         }
     }
     fn try_from_optioned(value: EventAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            action: crate::OptionableConvert::try_from_optioned(value.action)?,
+            action: value.action,
             count: value.count,
             event_time: crate::OptionableConvert::try_from_optioned(value.event_time)?,
             first_timestamp: crate::OptionableConvert::try_from_optioned(
@@ -123,23 +117,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
             last_timestamp: crate::OptionableConvert::try_from_optioned(
                 value.last_timestamp,
             )?,
-            message: crate::OptionableConvert::try_from_optioned(value.message)?,
+            message: value.message,
             metadata: value.metadata,
-            reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
+            reason: value.reason,
             related: crate::OptionableConvert::try_from_optioned(value.related)?,
-            reporting_component: crate::OptionableConvert::try_from_optioned(
-                value.reporting_component,
-            )?,
-            reporting_instance: crate::OptionableConvert::try_from_optioned(
-                value.reporting_instance,
-            )?,
+            reporting_component: value.reporting_component,
+            reporting_instance: value.reporting_instance,
             series: crate::OptionableConvert::try_from_optioned(value.series)?,
             source: crate::OptionableConvert::try_from_optioned(value.source)?,
-            type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
+            type_: value.type_,
         })
     }
     fn merge(&mut self, other: EventAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.action, other.action)?;
+        self.action = other.action;
         self.count = other.count;
         crate::OptionableConvert::merge(&mut self.event_time, other.event_time)?;
         crate::OptionableConvert::merge(
@@ -150,21 +140,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
             crate::OptionableConvert::merge(&mut self.involved_object, other_value)?;
         }
         crate::OptionableConvert::merge(&mut self.last_timestamp, other.last_timestamp)?;
-        crate::OptionableConvert::merge(&mut self.message, other.message)?;
+        self.message = other.message;
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
+        self.reason = other.reason;
         crate::OptionableConvert::merge(&mut self.related, other.related)?;
-        crate::OptionableConvert::merge(
-            &mut self.reporting_component,
-            other.reporting_component,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.reporting_instance,
-            other.reporting_instance,
-        )?;
+        self.reporting_component = other.reporting_component;
+        self.reporting_instance = other.reporting_instance;
         crate::OptionableConvert::merge(&mut self.series, other.series)?;
         crate::OptionableConvert::merge(&mut self.source, other.source)?;
-        crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
+        self.type_ = other.type_;
         Ok(())
     }
 }

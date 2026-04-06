@@ -9,19 +9,19 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CSIVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub driver: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub driver: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fs_type: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub fs_type: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub node_publish_secret_ref: <Option<
-        ::k8s_openapi027::api::core::v1::LocalObjectReference,
-    > as crate::Optionable>::Optioned,
+    pub node_publish_secret_ref: Option<
+        <::k8s_openapi027::api::core::v1::LocalObjectReference as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volume_attributes: <Option<
+    pub volume_attributes: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
-    > as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::CSIVolumeSource {
@@ -36,50 +36,41 @@ impl crate::Optionable for CSIVolumeSourceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::CSIVolumeSource {
     fn into_optioned(self) -> CSIVolumeSourceAc {
         CSIVolumeSourceAc {
-            driver: Some(crate::OptionableConvert::into_optioned(self.driver)),
-            fs_type: crate::OptionableConvert::into_optioned(self.fs_type),
+            driver: Some(self.driver),
+            fs_type: self.fs_type,
             node_publish_secret_ref: crate::OptionableConvert::into_optioned(
                 self.node_publish_secret_ref,
             ),
             read_only: self.read_only,
-            volume_attributes: crate::OptionableConvert::into_optioned(
-                self.volume_attributes,
-            ),
+            volume_attributes: self.volume_attributes,
         }
     }
     fn try_from_optioned(value: CSIVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            driver: crate::OptionableConvert::try_from_optioned(
-                value
-                    .driver
-                    .ok_or(crate::Error {
-                        missing_field: "driver",
-                    })?,
-            )?,
-            fs_type: crate::OptionableConvert::try_from_optioned(value.fs_type)?,
+            driver: value
+                .driver
+                .ok_or(crate::Error {
+                    missing_field: "driver",
+                })?,
+            fs_type: value.fs_type,
             node_publish_secret_ref: crate::OptionableConvert::try_from_optioned(
                 value.node_publish_secret_ref,
             )?,
             read_only: value.read_only,
-            volume_attributes: crate::OptionableConvert::try_from_optioned(
-                value.volume_attributes,
-            )?,
+            volume_attributes: value.volume_attributes,
         })
     }
     fn merge(&mut self, other: CSIVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.driver {
-            crate::OptionableConvert::merge(&mut self.driver, other_value)?;
+            self.driver = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
+        self.fs_type = other.fs_type;
         crate::OptionableConvert::merge(
             &mut self.node_publish_secret_ref,
             other.node_publish_secret_ref,
         )?;
         self.read_only = other.read_only;
-        crate::OptionableConvert::merge(
-            &mut self.volume_attributes,
-            other.volume_attributes,
-        )?;
+        self.volume_attributes = other.volume_attributes;
         Ok(())
     }
 }

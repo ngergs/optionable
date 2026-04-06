@@ -10,13 +10,9 @@
 pub struct NonResourceRuleAc {
     #[serde(rename = "nonResourceURLs")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub non_resource_urls: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub non_resource_urls: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub verbs: Option<
-        <std::vec::Vec<std::string::String> as crate::Optionable>::Optioned,
-    >,
+    pub verbs: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::authorization::v1::NonResourceRule {
@@ -32,33 +28,24 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::authorization::v1::NonResourceRule {
     fn into_optioned(self) -> NonResourceRuleAc {
         NonResourceRuleAc {
-            non_resource_urls: crate::OptionableConvert::into_optioned(
-                self.non_resource_urls,
-            ),
-            verbs: Some(crate::OptionableConvert::into_optioned(self.verbs)),
+            non_resource_urls: self.non_resource_urls,
+            verbs: Some(self.verbs),
         }
     }
     fn try_from_optioned(value: NonResourceRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            non_resource_urls: crate::OptionableConvert::try_from_optioned(
-                value.non_resource_urls,
-            )?,
-            verbs: crate::OptionableConvert::try_from_optioned(
-                value
-                    .verbs
-                    .ok_or(crate::Error {
-                        missing_field: "verbs",
-                    })?,
-            )?,
+            non_resource_urls: value.non_resource_urls,
+            verbs: value
+                .verbs
+                .ok_or(crate::Error {
+                    missing_field: "verbs",
+                })?,
         })
     }
     fn merge(&mut self, other: NonResourceRuleAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.non_resource_urls,
-            other.non_resource_urls,
-        )?;
+        self.non_resource_urls = other.non_resource_urls;
         if let Some(other_value) = other.verbs {
-            crate::OptionableConvert::merge(&mut self.verbs, other_value)?;
+            self.verbs = other_value;
         }
         Ok(())
     }

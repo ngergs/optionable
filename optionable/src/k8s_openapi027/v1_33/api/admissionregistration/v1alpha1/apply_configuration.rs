@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ApplyConfigurationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub expression: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub expression: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -26,16 +26,16 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::admissionregistration::v1alpha1::ApplyConfiguration {
     fn into_optioned(self) -> ApplyConfigurationAc {
         ApplyConfigurationAc {
-            expression: crate::OptionableConvert::into_optioned(self.expression),
+            expression: self.expression,
         }
     }
     fn try_from_optioned(value: ApplyConfigurationAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            expression: crate::OptionableConvert::try_from_optioned(value.expression)?,
+            expression: value.expression,
         })
     }
     fn merge(&mut self, other: ApplyConfigurationAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.expression, other.expression)?;
+        self.expression = other.expression;
         Ok(())
     }
 }

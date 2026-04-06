@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointPortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub app_protocol: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub app_protocol: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub protocol: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub protocol: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::discovery::v1::EndpointPort {
@@ -30,27 +30,25 @@ impl crate::Optionable for EndpointPortAc {
 impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointPort {
     fn into_optioned(self) -> EndpointPortAc {
         EndpointPortAc {
-            app_protocol: crate::OptionableConvert::into_optioned(self.app_protocol),
-            name: crate::OptionableConvert::into_optioned(self.name),
+            app_protocol: self.app_protocol,
+            name: self.name,
             port: self.port,
-            protocol: crate::OptionableConvert::into_optioned(self.protocol),
+            protocol: self.protocol,
         }
     }
     fn try_from_optioned(value: EndpointPortAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            app_protocol: crate::OptionableConvert::try_from_optioned(
-                value.app_protocol,
-            )?,
-            name: crate::OptionableConvert::try_from_optioned(value.name)?,
+            app_protocol: value.app_protocol,
+            name: value.name,
             port: value.port,
-            protocol: crate::OptionableConvert::try_from_optioned(value.protocol)?,
+            protocol: value.protocol,
         })
     }
     fn merge(&mut self, other: EndpointPortAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.app_protocol, other.app_protocol)?;
-        crate::OptionableConvert::merge(&mut self.name, other.name)?;
+        self.app_protocol = other.app_protocol;
+        self.name = other.name;
         self.port = other.port;
-        crate::OptionableConvert::merge(&mut self.protocol, other.protocol)?;
+        self.protocol = other.protocol;
         Ok(())
     }
 }

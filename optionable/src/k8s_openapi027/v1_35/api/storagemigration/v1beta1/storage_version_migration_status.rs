@@ -9,11 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionMigrationStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
-        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>,
-    > as crate::Optionable>::Optioned,
+    pub conditions: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub resource_version: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -31,9 +33,7 @@ for k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigrationStatu
     fn into_optioned(self) -> StorageVersionMigrationStatusAc {
         StorageVersionMigrationStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
-            resource_version: crate::OptionableConvert::into_optioned(
-                self.resource_version,
-            ),
+            resource_version: self.resource_version,
         }
     }
     fn try_from_optioned(
@@ -41,9 +41,7 @@ for k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigrationStatu
     ) -> Result<Self, crate::Error> {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
-            resource_version: crate::OptionableConvert::try_from_optioned(
-                value.resource_version,
-            )?,
+            resource_version: value.resource_version,
         })
     }
     fn merge(
@@ -51,10 +49,7 @@ for k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigrationStatu
         other: StorageVersionMigrationStatusAc,
     ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        crate::OptionableConvert::merge(
-            &mut self.resource_version,
-            other.resource_version,
-        )?;
+        self.resource_version = other.resource_version;
         Ok(())
     }
 }

@@ -9,17 +9,23 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointSubsetAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub addresses: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::EndpointAddress>,
-    > as crate::Optionable>::Optioned,
+    pub addresses: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::EndpointAddress as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub not_ready_addresses: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::EndpointAddress>,
-    > as crate::Optionable>::Optioned,
+    pub not_ready_addresses: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::EndpointAddress as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ports: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::EndpointPort>,
-    > as crate::Optionable>::Optioned,
+    pub ports: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::EndpointPort as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::EndpointSubset {

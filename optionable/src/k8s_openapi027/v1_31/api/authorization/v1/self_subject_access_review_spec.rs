@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelfSubjectAccessReviewSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub non_resource_attributes: <Option<
-        ::k8s_openapi027::api::authorization::v1::NonResourceAttributes,
-    > as crate::Optionable>::Optioned,
+    pub non_resource_attributes: Option<
+        <::k8s_openapi027::api::authorization::v1::NonResourceAttributes as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_attributes: <Option<
-        ::k8s_openapi027::api::authorization::v1::ResourceAttributes,
-    > as crate::Optionable>::Optioned,
+    pub resource_attributes: Option<
+        <::k8s_openapi027::api::authorization::v1::ResourceAttributes as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

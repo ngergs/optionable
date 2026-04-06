@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerBehaviorAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scale_down: <Option<
-        ::k8s_openapi027::api::autoscaling::v2::HPAScalingRules,
-    > as crate::Optionable>::Optioned,
+    pub scale_down: Option<
+        <::k8s_openapi027::api::autoscaling::v2::HPAScalingRules as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scale_up: <Option<
-        ::k8s_openapi027::api::autoscaling::v2::HPAScalingRules,
-    > as crate::Optionable>::Optioned,
+    pub scale_up: Option<
+        <::k8s_openapi027::api::autoscaling::v2::HPAScalingRules as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

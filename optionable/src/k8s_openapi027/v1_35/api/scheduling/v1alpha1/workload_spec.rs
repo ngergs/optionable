@@ -9,14 +9,14 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct WorkloadSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub controller_ref: <Option<
-        ::k8s_openapi027::api::scheduling::v1alpha1::TypedLocalObjectReference,
-    > as crate::Optionable>::Optioned,
+    pub controller_ref: Option<
+        <::k8s_openapi027::api::scheduling::v1alpha1::TypedLocalObjectReference as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_groups: Option<
-        <std::vec::Vec<
-            ::k8s_openapi027::api::scheduling::v1alpha1::PodGroup,
-        > as crate::Optionable>::Optioned,
+        std::vec::Vec<
+            <::k8s_openapi027::api::scheduling::v1alpha1::PodGroup as crate::Optionable>::Optioned,
+        >,
     >,
 }
 #[automatically_derived]

@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ExpressionWarningAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub field_ref: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub field_ref: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub warning: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub warning: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -28,34 +28,30 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::admissionregistration::v1beta1::ExpressionWarning {
     fn into_optioned(self) -> ExpressionWarningAc {
         ExpressionWarningAc {
-            field_ref: Some(crate::OptionableConvert::into_optioned(self.field_ref)),
-            warning: Some(crate::OptionableConvert::into_optioned(self.warning)),
+            field_ref: Some(self.field_ref),
+            warning: Some(self.warning),
         }
     }
     fn try_from_optioned(value: ExpressionWarningAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            field_ref: crate::OptionableConvert::try_from_optioned(
-                value
-                    .field_ref
-                    .ok_or(crate::Error {
-                        missing_field: "field_ref",
-                    })?,
-            )?,
-            warning: crate::OptionableConvert::try_from_optioned(
-                value
-                    .warning
-                    .ok_or(crate::Error {
-                        missing_field: "warning",
-                    })?,
-            )?,
+            field_ref: value
+                .field_ref
+                .ok_or(crate::Error {
+                    missing_field: "field_ref",
+                })?,
+            warning: value
+                .warning
+                .ok_or(crate::Error {
+                    missing_field: "warning",
+                })?,
         })
     }
     fn merge(&mut self, other: ExpressionWarningAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.field_ref {
-            crate::OptionableConvert::merge(&mut self.field_ref, other_value)?;
+            self.field_ref = other_value;
         }
         if let Some(other_value) = other.warning {
-            crate::OptionableConvert::merge(&mut self.warning, other_value)?;
+            self.warning = other_value;
         }
         Ok(())
     }

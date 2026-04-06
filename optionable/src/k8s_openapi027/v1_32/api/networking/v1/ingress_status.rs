@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub load_balancer: <Option<
-        ::k8s_openapi027::api::networking::v1::IngressLoadBalancerStatus,
-    > as crate::Optionable>::Optioned,
+    pub load_balancer: Option<
+        <::k8s_openapi027::api::networking::v1::IngressLoadBalancerStatus as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::networking::v1::IngressStatus {

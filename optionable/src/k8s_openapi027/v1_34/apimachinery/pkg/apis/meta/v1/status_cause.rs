@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatusCauseAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub field: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub field: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub message: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub reason: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -30,22 +30,22 @@ impl crate::OptionableConvert
 for k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause {
     fn into_optioned(self) -> StatusCauseAc {
         StatusCauseAc {
-            field: crate::OptionableConvert::into_optioned(self.field),
-            message: crate::OptionableConvert::into_optioned(self.message),
-            reason: crate::OptionableConvert::into_optioned(self.reason),
+            field: self.field,
+            message: self.message,
+            reason: self.reason,
         }
     }
     fn try_from_optioned(value: StatusCauseAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            field: crate::OptionableConvert::try_from_optioned(value.field)?,
-            message: crate::OptionableConvert::try_from_optioned(value.message)?,
-            reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
+            field: value.field,
+            message: value.message,
+            reason: value.reason,
         })
     }
     fn merge(&mut self, other: StatusCauseAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.field, other.field)?;
-        crate::OptionableConvert::merge(&mut self.message, other.message)?;
-        crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
+        self.field = other.field;
+        self.message = other.message;
+        self.reason = other.reason;
         Ok(())
     }
 }

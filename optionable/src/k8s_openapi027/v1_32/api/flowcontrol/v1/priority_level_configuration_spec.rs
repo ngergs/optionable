@@ -9,16 +9,16 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PriorityLevelConfigurationSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub exempt: <Option<
-        ::k8s_openapi027::api::flowcontrol::v1::ExemptPriorityLevelConfiguration,
-    > as crate::Optionable>::Optioned,
+    pub exempt: Option<
+        <::k8s_openapi027::api::flowcontrol::v1::ExemptPriorityLevelConfiguration as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub limited: <Option<
-        ::k8s_openapi027::api::flowcontrol::v1::LimitedPriorityLevelConfiguration,
-    > as crate::Optionable>::Optioned,
+    pub limited: Option<
+        <::k8s_openapi027::api::flowcontrol::v1::LimitedPriorityLevelConfiguration as crate::Optionable>::Optioned,
+    >,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub type_: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -37,7 +37,7 @@ for k8s_openapi027::api::flowcontrol::v1::PriorityLevelConfigurationSpec {
         PriorityLevelConfigurationSpecAc {
             exempt: crate::OptionableConvert::into_optioned(self.exempt),
             limited: crate::OptionableConvert::into_optioned(self.limited),
-            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
+            type_: Some(self.type_),
         }
     }
     fn try_from_optioned(
@@ -46,13 +46,11 @@ for k8s_openapi027::api::flowcontrol::v1::PriorityLevelConfigurationSpec {
         Ok(Self {
             exempt: crate::OptionableConvert::try_from_optioned(value.exempt)?,
             limited: crate::OptionableConvert::try_from_optioned(value.limited)?,
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            type_: value
+                .type_
+                .ok_or(crate::Error {
+                    missing_field: "type_",
+                })?,
         })
     }
     fn merge(
@@ -62,7 +60,7 @@ for k8s_openapi027::api::flowcontrol::v1::PriorityLevelConfigurationSpec {
         crate::OptionableConvert::merge(&mut self.exempt, other.exempt)?;
         crate::OptionableConvert::merge(&mut self.limited, other.limited)?;
         if let Some(other_value) = other.type_ {
-            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+            self.type_ = other_value;
         }
         Ok(())
     }

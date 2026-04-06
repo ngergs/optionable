@@ -9,13 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceConstraintAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub distinct_attribute: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub distinct_attribute: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub match_attribute: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub match_attribute: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub requests: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub requests: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1beta1::DeviceConstraint {
@@ -31,36 +29,22 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::resource::v1beta1::DeviceConstraint {
     fn into_optioned(self) -> DeviceConstraintAc {
         DeviceConstraintAc {
-            distinct_attribute: crate::OptionableConvert::into_optioned(
-                self.distinct_attribute,
-            ),
-            match_attribute: crate::OptionableConvert::into_optioned(
-                self.match_attribute,
-            ),
-            requests: crate::OptionableConvert::into_optioned(self.requests),
+            distinct_attribute: self.distinct_attribute,
+            match_attribute: self.match_attribute,
+            requests: self.requests,
         }
     }
     fn try_from_optioned(value: DeviceConstraintAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            distinct_attribute: crate::OptionableConvert::try_from_optioned(
-                value.distinct_attribute,
-            )?,
-            match_attribute: crate::OptionableConvert::try_from_optioned(
-                value.match_attribute,
-            )?,
-            requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
+            distinct_attribute: value.distinct_attribute,
+            match_attribute: value.match_attribute,
+            requests: value.requests,
         })
     }
     fn merge(&mut self, other: DeviceConstraintAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.distinct_attribute,
-            other.distinct_attribute,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.match_attribute,
-            other.match_attribute,
-        )?;
-        crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
+        self.distinct_attribute = other.distinct_attribute;
+        self.match_attribute = other.match_attribute;
+        self.requests = other.requests;
         Ok(())
     }
 }

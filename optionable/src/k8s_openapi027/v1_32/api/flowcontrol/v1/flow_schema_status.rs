@@ -9,9 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FlowSchemaStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
-        std::vec::Vec<::k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition>,
-    > as crate::Optionable>::Optioned,
+    pub conditions: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::flowcontrol::v1::FlowSchemaStatus {

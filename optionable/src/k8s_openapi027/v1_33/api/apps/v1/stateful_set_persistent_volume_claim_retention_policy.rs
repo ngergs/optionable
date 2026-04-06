@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatefulSetPersistentVolumeClaimRetentionPolicyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub when_deleted: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub when_deleted: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub when_scaled: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub when_scaled: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -28,26 +28,24 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::apps::v1::StatefulSetPersistentVolumeClaimRetentionPolicy {
     fn into_optioned(self) -> StatefulSetPersistentVolumeClaimRetentionPolicyAc {
         StatefulSetPersistentVolumeClaimRetentionPolicyAc {
-            when_deleted: crate::OptionableConvert::into_optioned(self.when_deleted),
-            when_scaled: crate::OptionableConvert::into_optioned(self.when_scaled),
+            when_deleted: self.when_deleted,
+            when_scaled: self.when_scaled,
         }
     }
     fn try_from_optioned(
         value: StatefulSetPersistentVolumeClaimRetentionPolicyAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            when_deleted: crate::OptionableConvert::try_from_optioned(
-                value.when_deleted,
-            )?,
-            when_scaled: crate::OptionableConvert::try_from_optioned(value.when_scaled)?,
+            when_deleted: value.when_deleted,
+            when_scaled: value.when_scaled,
         })
     }
     fn merge(
         &mut self,
         other: StatefulSetPersistentVolumeClaimRetentionPolicyAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.when_deleted, other.when_deleted)?;
-        crate::OptionableConvert::merge(&mut self.when_scaled, other.when_scaled)?;
+        self.when_deleted = other.when_deleted;
+        self.when_scaled = other.when_scaled;
         Ok(())
     }
 }

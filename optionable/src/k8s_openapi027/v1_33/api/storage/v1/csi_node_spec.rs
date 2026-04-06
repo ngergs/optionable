@@ -10,9 +10,9 @@
 pub struct CSINodeSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub drivers: Option<
-        <std::vec::Vec<
-            ::k8s_openapi027::api::storage::v1::CSINodeDriver,
-        > as crate::Optionable>::Optioned,
+        std::vec::Vec<
+            <::k8s_openapi027::api::storage::v1::CSINodeDriver as crate::Optionable>::Optioned,
+        >,
     >,
 }
 #[automatically_derived]

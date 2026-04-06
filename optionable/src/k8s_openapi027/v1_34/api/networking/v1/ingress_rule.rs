@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressRuleAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub host: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub host: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub http: <Option<
-        ::k8s_openapi027::api::networking::v1::HTTPIngressRuleValue,
-    > as crate::Optionable>::Optioned,
+    pub http: Option<
+        <::k8s_openapi027::api::networking::v1::HTTPIngressRuleValue as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::networking::v1::IngressRule {
@@ -28,18 +28,18 @@ impl crate::Optionable for IngressRuleAc {
 impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressRule {
     fn into_optioned(self) -> IngressRuleAc {
         IngressRuleAc {
-            host: crate::OptionableConvert::into_optioned(self.host),
+            host: self.host,
             http: crate::OptionableConvert::into_optioned(self.http),
         }
     }
     fn try_from_optioned(value: IngressRuleAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            host: crate::OptionableConvert::try_from_optioned(value.host)?,
+            host: value.host,
             http: crate::OptionableConvert::try_from_optioned(value.http)?,
         })
     }
     fn merge(&mut self, other: IngressRuleAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.host, other.host)?;
+        self.host = other.host;
         crate::OptionableConvert::merge(&mut self.http, other.http)?;
         Ok(())
     }

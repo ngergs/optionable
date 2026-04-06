@@ -9,13 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeAttachmentSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub inline_volume_spec: <Option<
-        ::k8s_openapi027::api::core::v1::PersistentVolumeSpec,
-    > as crate::Optionable>::Optioned,
+    pub inline_volume_spec: Option<
+        <::k8s_openapi027::api::core::v1::PersistentVolumeSpec as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub persistent_volume_name: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub persistent_volume_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::storage::v1::VolumeAttachmentSource {
@@ -34,9 +32,7 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentSource {
             inline_volume_spec: crate::OptionableConvert::into_optioned(
                 self.inline_volume_spec,
             ),
-            persistent_volume_name: crate::OptionableConvert::into_optioned(
-                self.persistent_volume_name,
-            ),
+            persistent_volume_name: self.persistent_volume_name,
         }
     }
     fn try_from_optioned(value: VolumeAttachmentSourceAc) -> Result<Self, crate::Error> {
@@ -44,9 +40,7 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentSource {
             inline_volume_spec: crate::OptionableConvert::try_from_optioned(
                 value.inline_volume_spec,
             )?,
-            persistent_volume_name: crate::OptionableConvert::try_from_optioned(
-                value.persistent_volume_name,
-            )?,
+            persistent_volume_name: value.persistent_volume_name,
         })
     }
     fn merge(&mut self, other: VolumeAttachmentSourceAc) -> Result<(), crate::Error> {
@@ -54,10 +48,7 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentSource {
             &mut self.inline_volume_spec,
             other.inline_volume_spec,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.persistent_volume_name,
-            other.persistent_volume_name,
-        )?;
+        self.persistent_volume_name = other.persistent_volume_name;
         Ok(())
     }
 }

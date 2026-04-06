@@ -19,19 +19,22 @@ pub struct SecretAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub data: <Option<
-        std::collections::BTreeMap<std::string::String, ::k8s_openapi027::ByteString>,
-    > as crate::Optionable>::Optioned,
+    pub data: Option<
+        std::collections::BTreeMap<
+            std::string::String,
+            <::k8s_openapi027::ByteString as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub immutable: Option<bool>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub string_data: <Option<
+    pub string_data: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub type_: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::Secret {
@@ -51,8 +54,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Secret {
             data: crate::OptionableConvert::into_optioned(self.data),
             immutable: self.immutable,
             metadata: self.metadata,
-            string_data: crate::OptionableConvert::into_optioned(self.string_data),
-            type_: crate::OptionableConvert::into_optioned(self.type_),
+            string_data: self.string_data,
+            type_: self.type_,
         }
     }
     fn try_from_optioned(value: SecretAc) -> Result<Self, crate::Error> {
@@ -60,16 +63,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Secret {
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
             immutable: value.immutable,
             metadata: value.metadata,
-            string_data: crate::OptionableConvert::try_from_optioned(value.string_data)?,
-            type_: crate::OptionableConvert::try_from_optioned(value.type_)?,
+            string_data: value.string_data,
+            type_: value.type_,
         })
     }
     fn merge(&mut self, other: SecretAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
         self.immutable = other.immutable;
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.string_data, other.string_data)?;
-        crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
+        self.string_data = other.string_data;
+        self.type_ = other.type_;
         Ok(())
     }
 }

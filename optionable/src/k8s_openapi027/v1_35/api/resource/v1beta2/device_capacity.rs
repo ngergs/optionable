@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceCapacityAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub request_policy: <Option<
-        ::k8s_openapi027::api::resource::v1beta2::CapacityRequestPolicy,
-    > as crate::Optionable>::Optioned,
+    pub request_policy: Option<
+        <::k8s_openapi027::api::resource::v1beta2::CapacityRequestPolicy as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<
         <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,

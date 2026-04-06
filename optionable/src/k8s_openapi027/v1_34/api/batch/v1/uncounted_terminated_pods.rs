@@ -9,13 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct UncountedTerminatedPodsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub failed: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub failed: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub succeeded: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub succeeded: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::batch::v1::UncountedTerminatedPods {
@@ -31,21 +27,21 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::batch::v1::UncountedTerminatedPods {
     fn into_optioned(self) -> UncountedTerminatedPodsAc {
         UncountedTerminatedPodsAc {
-            failed: crate::OptionableConvert::into_optioned(self.failed),
-            succeeded: crate::OptionableConvert::into_optioned(self.succeeded),
+            failed: self.failed,
+            succeeded: self.succeeded,
         }
     }
     fn try_from_optioned(
         value: UncountedTerminatedPodsAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            failed: crate::OptionableConvert::try_from_optioned(value.failed)?,
-            succeeded: crate::OptionableConvert::try_from_optioned(value.succeeded)?,
+            failed: value.failed,
+            succeeded: value.succeeded,
         })
     }
     fn merge(&mut self, other: UncountedTerminatedPodsAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.failed, other.failed)?;
-        crate::OptionableConvert::merge(&mut self.succeeded, other.succeeded)?;
+        self.failed = other.failed;
+        self.succeeded = other.succeeded;
         Ok(())
     }
 }

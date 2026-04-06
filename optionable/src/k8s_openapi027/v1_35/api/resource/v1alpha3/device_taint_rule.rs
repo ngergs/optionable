@@ -24,9 +24,9 @@ pub struct DeviceTaintRuleAc {
         <::k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: <Option<
-        ::k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus,
-    > as crate::Optionable>::Optioned,
+    pub status: Option<
+        <::k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule {

@@ -19,18 +19,20 @@ pub struct EndpointSliceAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub address_type: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub address_type: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub endpoints: Option<
-        <std::vec::Vec<
-            ::k8s_openapi027::api::discovery::v1::Endpoint,
-        > as crate::Optionable>::Optioned,
+        std::vec::Vec<
+            <::k8s_openapi027::api::discovery::v1::Endpoint as crate::Optionable>::Optioned,
+        >,
     >,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ports: <Option<
-        std::vec::Vec<::k8s_openapi027::api::discovery::v1::EndpointPort>,
-    > as crate::Optionable>::Optioned,
+    pub ports: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::discovery::v1::EndpointPort as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::discovery::v1::EndpointSlice {
@@ -47,9 +49,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointSl
         EndpointSliceAc {
             api_version: Default::default(),
             kind: Default::default(),
-            address_type: Some(
-                crate::OptionableConvert::into_optioned(self.address_type),
-            ),
+            address_type: Some(self.address_type),
             endpoints: Some(crate::OptionableConvert::into_optioned(self.endpoints)),
             metadata: self.metadata,
             ports: crate::OptionableConvert::into_optioned(self.ports),
@@ -57,13 +57,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointSl
     }
     fn try_from_optioned(value: EndpointSliceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            address_type: crate::OptionableConvert::try_from_optioned(
-                value
-                    .address_type
-                    .ok_or(crate::Error {
-                        missing_field: "address_type",
-                    })?,
-            )?,
+            address_type: value
+                .address_type
+                .ok_or(crate::Error {
+                    missing_field: "address_type",
+                })?,
             endpoints: crate::OptionableConvert::try_from_optioned(
                 value
                     .endpoints
@@ -77,7 +75,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointSl
     }
     fn merge(&mut self, other: EndpointSliceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.address_type {
-            crate::OptionableConvert::merge(&mut self.address_type, other_value)?;
+            self.address_type = other_value;
         }
         if let Some(other_value) = other.endpoints {
             crate::OptionableConvert::merge(&mut self.endpoints, other_value)?;

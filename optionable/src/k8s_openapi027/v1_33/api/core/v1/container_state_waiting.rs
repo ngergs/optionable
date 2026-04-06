@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerStateWaitingAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub message: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub message: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub reason: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ContainerStateWaiting {
@@ -26,19 +26,19 @@ impl crate::Optionable for ContainerStateWaitingAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStateWaiting {
     fn into_optioned(self) -> ContainerStateWaitingAc {
         ContainerStateWaitingAc {
-            message: crate::OptionableConvert::into_optioned(self.message),
-            reason: crate::OptionableConvert::into_optioned(self.reason),
+            message: self.message,
+            reason: self.reason,
         }
     }
     fn try_from_optioned(value: ContainerStateWaitingAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            message: crate::OptionableConvert::try_from_optioned(value.message)?,
-            reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
+            message: value.message,
+            reason: value.reason,
         })
     }
     fn merge(&mut self, other: ContainerStateWaitingAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.message, other.message)?;
-        crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
+        self.message = other.message;
+        self.reason = other.reason;
         Ok(())
     }
 }

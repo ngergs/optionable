@@ -24,9 +24,11 @@ pub struct ClusterRoleBindingAc {
         <::k8s_openapi027::api::rbac::v1::RoleRef as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub subjects: <Option<
-        std::vec::Vec<::k8s_openapi027::api::rbac::v1::Subject>,
-    > as crate::Optionable>::Optioned,
+    pub subjects: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::rbac::v1::Subject as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::rbac::v1::ClusterRoleBinding {

@@ -9,13 +9,15 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressLoadBalancerIngressAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub hostname: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub hostname: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ip: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub ip: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ports: <Option<
-        std::vec::Vec<::k8s_openapi027::api::networking::v1::IngressPortStatus>,
-    > as crate::Optionable>::Optioned,
+    pub ports: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::networking::v1::IngressPortStatus as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -32,8 +34,8 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress {
     fn into_optioned(self) -> IngressLoadBalancerIngressAc {
         IngressLoadBalancerIngressAc {
-            hostname: crate::OptionableConvert::into_optioned(self.hostname),
-            ip: crate::OptionableConvert::into_optioned(self.ip),
+            hostname: self.hostname,
+            ip: self.ip,
             ports: crate::OptionableConvert::into_optioned(self.ports),
         }
     }
@@ -41,8 +43,8 @@ for k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress {
         value: IngressLoadBalancerIngressAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            hostname: crate::OptionableConvert::try_from_optioned(value.hostname)?,
-            ip: crate::OptionableConvert::try_from_optioned(value.ip)?,
+            hostname: value.hostname,
+            ip: value.ip,
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
         })
     }
@@ -50,8 +52,8 @@ for k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress {
         &mut self,
         other: IngressLoadBalancerIngressAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
-        crate::OptionableConvert::merge(&mut self.ip, other.ip)?;
+        self.hostname = other.hostname;
+        self.ip = other.ip;
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
         Ok(())
     }

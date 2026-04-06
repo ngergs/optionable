@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub controller: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub controller: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub devices: <Option<
-        ::k8s_openapi027::api::resource::v1alpha3::DeviceClaim,
-    > as crate::Optionable>::Optioned,
+    pub devices: Option<
+        <::k8s_openapi027::api::resource::v1alpha3::DeviceClaim as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSpec {
@@ -29,18 +29,18 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSpec {
     fn into_optioned(self) -> ResourceClaimSpecAc {
         ResourceClaimSpecAc {
-            controller: crate::OptionableConvert::into_optioned(self.controller),
+            controller: self.controller,
             devices: crate::OptionableConvert::into_optioned(self.devices),
         }
     }
     fn try_from_optioned(value: ResourceClaimSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            controller: crate::OptionableConvert::try_from_optioned(value.controller)?,
+            controller: value.controller,
             devices: crate::OptionableConvert::try_from_optioned(value.devices)?,
         })
     }
     fn merge(&mut self, other: ResourceClaimSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.controller, other.controller)?;
+        self.controller = other.controller;
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
         Ok(())
     }

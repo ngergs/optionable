@@ -15,11 +15,11 @@ pub struct JobSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub backoff_limit_per_index: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub completion_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub completion_mode: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub completions: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub managed_by: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub managed_by: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub manual_selector: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -27,21 +27,19 @@ pub struct JobSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parallelism: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_failure_policy: <Option<
-        ::k8s_openapi027::api::batch::v1::PodFailurePolicy,
-    > as crate::Optionable>::Optioned,
+    pub pod_failure_policy: Option<
+        <::k8s_openapi027::api::batch::v1::PodFailurePolicy as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_replacement_policy: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub pod_replacement_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub selector: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector,
-    > as crate::Optionable>::Optioned,
+    pub selector: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub success_policy: <Option<
-        ::k8s_openapi027::api::batch::v1::SuccessPolicy,
-    > as crate::Optionable>::Optioned,
+    pub success_policy: Option<
+        <::k8s_openapi027::api::batch::v1::SuccessPolicy as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub suspend: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -67,20 +65,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
             active_deadline_seconds: self.active_deadline_seconds,
             backoff_limit: self.backoff_limit,
             backoff_limit_per_index: self.backoff_limit_per_index,
-            completion_mode: crate::OptionableConvert::into_optioned(
-                self.completion_mode,
-            ),
+            completion_mode: self.completion_mode,
             completions: self.completions,
-            managed_by: crate::OptionableConvert::into_optioned(self.managed_by),
+            managed_by: self.managed_by,
             manual_selector: self.manual_selector,
             max_failed_indexes: self.max_failed_indexes,
             parallelism: self.parallelism,
             pod_failure_policy: crate::OptionableConvert::into_optioned(
                 self.pod_failure_policy,
             ),
-            pod_replacement_policy: crate::OptionableConvert::into_optioned(
-                self.pod_replacement_policy,
-            ),
+            pod_replacement_policy: self.pod_replacement_policy,
             selector: crate::OptionableConvert::into_optioned(self.selector),
             success_policy: crate::OptionableConvert::into_optioned(self.success_policy),
             suspend: self.suspend,
@@ -93,20 +87,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
             active_deadline_seconds: value.active_deadline_seconds,
             backoff_limit: value.backoff_limit,
             backoff_limit_per_index: value.backoff_limit_per_index,
-            completion_mode: crate::OptionableConvert::try_from_optioned(
-                value.completion_mode,
-            )?,
+            completion_mode: value.completion_mode,
             completions: value.completions,
-            managed_by: crate::OptionableConvert::try_from_optioned(value.managed_by)?,
+            managed_by: value.managed_by,
             manual_selector: value.manual_selector,
             max_failed_indexes: value.max_failed_indexes,
             parallelism: value.parallelism,
             pod_failure_policy: crate::OptionableConvert::try_from_optioned(
                 value.pod_failure_policy,
             )?,
-            pod_replacement_policy: crate::OptionableConvert::try_from_optioned(
-                value.pod_replacement_policy,
-            )?,
+            pod_replacement_policy: value.pod_replacement_policy,
             selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
             success_policy: crate::OptionableConvert::try_from_optioned(
                 value.success_policy,
@@ -126,12 +116,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
         self.active_deadline_seconds = other.active_deadline_seconds;
         self.backoff_limit = other.backoff_limit;
         self.backoff_limit_per_index = other.backoff_limit_per_index;
-        crate::OptionableConvert::merge(
-            &mut self.completion_mode,
-            other.completion_mode,
-        )?;
+        self.completion_mode = other.completion_mode;
         self.completions = other.completions;
-        crate::OptionableConvert::merge(&mut self.managed_by, other.managed_by)?;
+        self.managed_by = other.managed_by;
         self.manual_selector = other.manual_selector;
         self.max_failed_indexes = other.max_failed_indexes;
         self.parallelism = other.parallelism;
@@ -139,10 +126,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
             &mut self.pod_failure_policy,
             other.pod_failure_policy,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.pod_replacement_policy,
-            other.pod_replacement_policy,
-        )?;
+        self.pod_replacement_policy = other.pod_replacement_policy;
         crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
         crate::OptionableConvert::merge(&mut self.success_policy, other.success_policy)?;
         self.suspend = other.suspend;

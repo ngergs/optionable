@@ -9,27 +9,27 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MatchResourcesAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub exclude_resource_rules: <Option<
+    pub exclude_resource_rules: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::admissionregistration::v1::NamedRuleWithOperations,
+            <::k8s_openapi027::api::admissionregistration::v1::NamedRuleWithOperations as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub match_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub match_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub namespace_selector: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector,
-    > as crate::Optionable>::Optioned,
+    pub namespace_selector: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub object_selector: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector,
-    > as crate::Optionable>::Optioned,
+    pub object_selector: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_rules: <Option<
+    pub resource_rules: Option<
         std::vec::Vec<
-            ::k8s_openapi027::api::admissionregistration::v1::NamedRuleWithOperations,
+            <::k8s_openapi027::api::admissionregistration::v1::NamedRuleWithOperations as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -49,7 +49,7 @@ for k8s_openapi027::api::admissionregistration::v1::MatchResources {
             exclude_resource_rules: crate::OptionableConvert::into_optioned(
                 self.exclude_resource_rules,
             ),
-            match_policy: crate::OptionableConvert::into_optioned(self.match_policy),
+            match_policy: self.match_policy,
             namespace_selector: crate::OptionableConvert::into_optioned(
                 self.namespace_selector,
             ),
@@ -64,9 +64,7 @@ for k8s_openapi027::api::admissionregistration::v1::MatchResources {
             exclude_resource_rules: crate::OptionableConvert::try_from_optioned(
                 value.exclude_resource_rules,
             )?,
-            match_policy: crate::OptionableConvert::try_from_optioned(
-                value.match_policy,
-            )?,
+            match_policy: value.match_policy,
             namespace_selector: crate::OptionableConvert::try_from_optioned(
                 value.namespace_selector,
             )?,
@@ -83,7 +81,7 @@ for k8s_openapi027::api::admissionregistration::v1::MatchResources {
             &mut self.exclude_resource_rules,
             other.exclude_resource_rules,
         )?;
-        crate::OptionableConvert::merge(&mut self.match_policy, other.match_policy)?;
+        self.match_policy = other.match_policy;
         crate::OptionableConvert::merge(
             &mut self.namespace_selector,
             other.namespace_selector,

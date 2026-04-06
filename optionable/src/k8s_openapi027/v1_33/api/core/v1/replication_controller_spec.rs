@@ -13,13 +13,13 @@ pub struct ReplicationControllerSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub replicas: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub selector: <Option<
+    pub selector: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub template: <Option<
-        ::k8s_openapi027::api::core::v1::PodTemplateSpec,
-    > as crate::Optionable>::Optioned,
+    pub template: Option<
+        <::k8s_openapi027::api::core::v1::PodTemplateSpec as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ReplicationControllerSpec {
@@ -37,7 +37,7 @@ for k8s_openapi027::api::core::v1::ReplicationControllerSpec {
         ReplicationControllerSpecAc {
             min_ready_seconds: self.min_ready_seconds,
             replicas: self.replicas,
-            selector: crate::OptionableConvert::into_optioned(self.selector),
+            selector: self.selector,
             template: crate::OptionableConvert::into_optioned(self.template),
         }
     }
@@ -47,14 +47,14 @@ for k8s_openapi027::api::core::v1::ReplicationControllerSpec {
         Ok(Self {
             min_ready_seconds: value.min_ready_seconds,
             replicas: value.replicas,
-            selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
+            selector: value.selector,
             template: crate::OptionableConvert::try_from_optioned(value.template)?,
         })
     }
     fn merge(&mut self, other: ReplicationControllerSpecAc) -> Result<(), crate::Error> {
         self.min_ready_seconds = other.min_ready_seconds;
         self.replicas = other.replicas;
-        crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
+        self.selector = other.selector;
         crate::OptionableConvert::merge(&mut self.template, other.template)?;
         Ok(())
     }

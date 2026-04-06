@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelectableFieldAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub json_path: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub json_path: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -26,23 +26,21 @@ impl crate::OptionableConvert
 for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField {
     fn into_optioned(self) -> SelectableFieldAc {
         SelectableFieldAc {
-            json_path: Some(crate::OptionableConvert::into_optioned(self.json_path)),
+            json_path: Some(self.json_path),
         }
     }
     fn try_from_optioned(value: SelectableFieldAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            json_path: crate::OptionableConvert::try_from_optioned(
-                value
-                    .json_path
-                    .ok_or(crate::Error {
-                        missing_field: "json_path",
-                    })?,
-            )?,
+            json_path: value
+                .json_path
+                .ok_or(crate::Error {
+                    missing_field: "json_path",
+                })?,
         })
     }
     fn merge(&mut self, other: SelectableFieldAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.json_path {
-            crate::OptionableConvert::merge(&mut self.json_path, other_value)?;
+            self.json_path = other_value;
         }
         Ok(())
     }

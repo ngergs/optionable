@@ -9,20 +9,18 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceQuotaSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub hard: <Option<
+    pub hard: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope_selector: <Option<
-        ::k8s_openapi027::api::core::v1::ScopeSelector,
-    > as crate::Optionable>::Optioned,
+    pub scope_selector: Option<
+        <::k8s_openapi027::api::core::v1::ScopeSelector as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scopes: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub scopes: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ResourceQuotaSpec {
@@ -39,7 +37,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceQuotaSp
         ResourceQuotaSpecAc {
             hard: crate::OptionableConvert::into_optioned(self.hard),
             scope_selector: crate::OptionableConvert::into_optioned(self.scope_selector),
-            scopes: crate::OptionableConvert::into_optioned(self.scopes),
+            scopes: self.scopes,
         }
     }
     fn try_from_optioned(value: ResourceQuotaSpecAc) -> Result<Self, crate::Error> {
@@ -48,13 +46,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceQuotaSp
             scope_selector: crate::OptionableConvert::try_from_optioned(
                 value.scope_selector,
             )?,
-            scopes: crate::OptionableConvert::try_from_optioned(value.scopes)?,
+            scopes: value.scopes,
         })
     }
     fn merge(&mut self, other: ResourceQuotaSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hard, other.hard)?;
         crate::OptionableConvert::merge(&mut self.scope_selector, other.scope_selector)?;
-        crate::OptionableConvert::merge(&mut self.scopes, other.scopes)?;
+        self.scopes = other.scopes;
         Ok(())
     }
 }

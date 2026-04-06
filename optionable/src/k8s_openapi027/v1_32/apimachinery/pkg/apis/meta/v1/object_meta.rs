@@ -9,53 +9,51 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ObjectMetaAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub annotations: <Option<
+    pub annotations: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub creation_timestamp: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub creation_timestamp: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub deletion_grace_period_seconds: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub deletion_timestamp: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
-    > as crate::Optionable>::Optioned,
+    pub deletion_timestamp: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub finalizers: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub finalizers: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub generate_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub generate_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub generation: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub labels: <Option<
+    pub labels: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub managed_fields: <Option<
+    pub managed_fields: Option<
         std::vec::Vec<
-            ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry,
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub namespace: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub namespace: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub owner_references: <Option<
+    pub owner_references: Option<
         std::vec::Vec<
-            ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference,
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub resource_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub self_link: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub self_link: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub uid: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -72,7 +70,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
     fn into_optioned(self) -> ObjectMetaAc {
         ObjectMetaAc {
-            annotations: crate::OptionableConvert::into_optioned(self.annotations),
+            annotations: self.annotations,
             creation_timestamp: crate::OptionableConvert::into_optioned(
                 self.creation_timestamp,
             ),
@@ -80,26 +78,24 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
             deletion_timestamp: crate::OptionableConvert::into_optioned(
                 self.deletion_timestamp,
             ),
-            finalizers: crate::OptionableConvert::into_optioned(self.finalizers),
-            generate_name: crate::OptionableConvert::into_optioned(self.generate_name),
+            finalizers: self.finalizers,
+            generate_name: self.generate_name,
             generation: self.generation,
-            labels: crate::OptionableConvert::into_optioned(self.labels),
+            labels: self.labels,
             managed_fields: crate::OptionableConvert::into_optioned(self.managed_fields),
-            name: crate::OptionableConvert::into_optioned(self.name),
-            namespace: crate::OptionableConvert::into_optioned(self.namespace),
+            name: self.name,
+            namespace: self.namespace,
             owner_references: crate::OptionableConvert::into_optioned(
                 self.owner_references,
             ),
-            resource_version: crate::OptionableConvert::into_optioned(
-                self.resource_version,
-            ),
-            self_link: crate::OptionableConvert::into_optioned(self.self_link),
-            uid: crate::OptionableConvert::into_optioned(self.uid),
+            resource_version: self.resource_version,
+            self_link: self.self_link,
+            uid: self.uid,
         }
     }
     fn try_from_optioned(value: ObjectMetaAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            annotations: crate::OptionableConvert::try_from_optioned(value.annotations)?,
+            annotations: value.annotations,
             creation_timestamp: crate::OptionableConvert::try_from_optioned(
                 value.creation_timestamp,
             )?,
@@ -107,29 +103,25 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
             deletion_timestamp: crate::OptionableConvert::try_from_optioned(
                 value.deletion_timestamp,
             )?,
-            finalizers: crate::OptionableConvert::try_from_optioned(value.finalizers)?,
-            generate_name: crate::OptionableConvert::try_from_optioned(
-                value.generate_name,
-            )?,
+            finalizers: value.finalizers,
+            generate_name: value.generate_name,
             generation: value.generation,
-            labels: crate::OptionableConvert::try_from_optioned(value.labels)?,
+            labels: value.labels,
             managed_fields: crate::OptionableConvert::try_from_optioned(
                 value.managed_fields,
             )?,
-            name: crate::OptionableConvert::try_from_optioned(value.name)?,
-            namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
+            name: value.name,
+            namespace: value.namespace,
             owner_references: crate::OptionableConvert::try_from_optioned(
                 value.owner_references,
             )?,
-            resource_version: crate::OptionableConvert::try_from_optioned(
-                value.resource_version,
-            )?,
-            self_link: crate::OptionableConvert::try_from_optioned(value.self_link)?,
-            uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
+            resource_version: value.resource_version,
+            self_link: value.self_link,
+            uid: value.uid,
         })
     }
     fn merge(&mut self, other: ObjectMetaAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.annotations, other.annotations)?;
+        self.annotations = other.annotations;
         crate::OptionableConvert::merge(
             &mut self.creation_timestamp,
             other.creation_timestamp,
@@ -139,23 +131,20 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
             &mut self.deletion_timestamp,
             other.deletion_timestamp,
         )?;
-        crate::OptionableConvert::merge(&mut self.finalizers, other.finalizers)?;
-        crate::OptionableConvert::merge(&mut self.generate_name, other.generate_name)?;
+        self.finalizers = other.finalizers;
+        self.generate_name = other.generate_name;
         self.generation = other.generation;
-        crate::OptionableConvert::merge(&mut self.labels, other.labels)?;
+        self.labels = other.labels;
         crate::OptionableConvert::merge(&mut self.managed_fields, other.managed_fields)?;
-        crate::OptionableConvert::merge(&mut self.name, other.name)?;
-        crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
+        self.name = other.name;
+        self.namespace = other.namespace;
         crate::OptionableConvert::merge(
             &mut self.owner_references,
             other.owner_references,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.resource_version,
-            other.resource_version,
-        )?;
-        crate::OptionableConvert::merge(&mut self.self_link, other.self_link)?;
-        crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
+        self.resource_version = other.resource_version;
+        self.self_link = other.self_link;
+        self.uid = other.uid;
         Ok(())
     }
 }

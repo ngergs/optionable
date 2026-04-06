@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SecretReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub namespace: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub namespace: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::SecretReference {
@@ -26,19 +26,19 @@ impl crate::Optionable for SecretReferenceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretReference {
     fn into_optioned(self) -> SecretReferenceAc {
         SecretReferenceAc {
-            name: crate::OptionableConvert::into_optioned(self.name),
-            namespace: crate::OptionableConvert::into_optioned(self.namespace),
+            name: self.name,
+            namespace: self.namespace,
         }
     }
     fn try_from_optioned(value: SecretReferenceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(value.name)?,
-            namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
+            name: value.name,
+            namespace: value.namespace,
         })
     }
     fn merge(&mut self, other: SecretReferenceAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.name, other.name)?;
-        crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
+        self.name = other.name;
+        self.namespace = other.namespace;
         Ok(())
     }
 }

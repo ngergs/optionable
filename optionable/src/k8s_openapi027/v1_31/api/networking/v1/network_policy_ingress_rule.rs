@@ -9,13 +9,17 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkPolicyIngressRuleAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub from: <Option<
-        std::vec::Vec<::k8s_openapi027::api::networking::v1::NetworkPolicyPeer>,
-    > as crate::Optionable>::Optioned,
+    pub from: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::networking::v1::NetworkPolicyPeer as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ports: <Option<
-        std::vec::Vec<::k8s_openapi027::api::networking::v1::NetworkPolicyPort>,
-    > as crate::Optionable>::Optioned,
+    pub ports: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::networking::v1::NetworkPolicyPort as crate::Optionable>::Optioned,
+        >,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

@@ -9,11 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ModifyVolumeStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub status: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_volume_attributes_class_name: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub target_volume_attributes_class_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ModifyVolumeStatus {
@@ -28,34 +26,27 @@ impl crate::Optionable for ModifyVolumeStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ModifyVolumeStatus {
     fn into_optioned(self) -> ModifyVolumeStatusAc {
         ModifyVolumeStatusAc {
-            status: Some(crate::OptionableConvert::into_optioned(self.status)),
-            target_volume_attributes_class_name: crate::OptionableConvert::into_optioned(
-                self.target_volume_attributes_class_name,
-            ),
+            status: Some(self.status),
+            target_volume_attributes_class_name: self.target_volume_attributes_class_name,
         }
     }
     fn try_from_optioned(value: ModifyVolumeStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            status: crate::OptionableConvert::try_from_optioned(
-                value
-                    .status
-                    .ok_or(crate::Error {
-                        missing_field: "status",
-                    })?,
-            )?,
-            target_volume_attributes_class_name: crate::OptionableConvert::try_from_optioned(
-                value.target_volume_attributes_class_name,
-            )?,
+            status: value
+                .status
+                .ok_or(crate::Error {
+                    missing_field: "status",
+                })?,
+            target_volume_attributes_class_name: value
+                .target_volume_attributes_class_name,
         })
     }
     fn merge(&mut self, other: ModifyVolumeStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.status {
-            crate::OptionableConvert::merge(&mut self.status, other_value)?;
+            self.status = other_value;
         }
-        crate::OptionableConvert::merge(
-            &mut self.target_volume_attributes_class_name,
-            other.target_volume_attributes_class_name,
-        )?;
+        self.target_volume_attributes_class_name = other
+            .target_volume_attributes_class_name;
         Ok(())
     }
 }

@@ -10,7 +10,7 @@
 pub struct FlowDistinguisherMethodAc {
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub type_: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -27,25 +27,23 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::flowcontrol::v1::FlowDistinguisherMethod {
     fn into_optioned(self) -> FlowDistinguisherMethodAc {
         FlowDistinguisherMethodAc {
-            type_: Some(crate::OptionableConvert::into_optioned(self.type_)),
+            type_: Some(self.type_),
         }
     }
     fn try_from_optioned(
         value: FlowDistinguisherMethodAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            type_: crate::OptionableConvert::try_from_optioned(
-                value
-                    .type_
-                    .ok_or(crate::Error {
-                        missing_field: "type_",
-                    })?,
-            )?,
+            type_: value
+                .type_
+                .ok_or(crate::Error {
+                    missing_field: "type_",
+                })?,
         })
     }
     fn merge(&mut self, other: FlowDistinguisherMethodAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.type_ {
-            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+            self.type_ = other_value;
         }
         Ok(())
     }

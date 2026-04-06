@@ -11,11 +11,13 @@ pub struct ConfigMapVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub default_mode: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub items: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::KeyToPath>,
-    > as crate::Optionable>::Optioned,
+    pub items: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::KeyToPath as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub optional: Option<bool>,
 }
@@ -34,7 +36,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapVolume
         ConfigMapVolumeSourceAc {
             default_mode: self.default_mode,
             items: crate::OptionableConvert::into_optioned(self.items),
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            name: Some(self.name),
             optional: self.optional,
         }
     }
@@ -42,13 +44,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapVolume
         Ok(Self {
             default_mode: value.default_mode,
             items: crate::OptionableConvert::try_from_optioned(value.items)?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
             optional: value.optional,
         })
     }
@@ -56,7 +56,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapVolume
         self.default_mode = other.default_mode;
         crate::OptionableConvert::merge(&mut self.items, other.items)?;
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         self.optional = other.optional;
         Ok(())

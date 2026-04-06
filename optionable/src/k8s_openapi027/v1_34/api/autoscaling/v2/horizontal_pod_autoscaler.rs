@@ -20,13 +20,13 @@ pub struct HorizontalPodAutoscalerAc {
     pub kind: std::marker::PhantomData<Self>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub spec: <Option<
-        ::k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerSpec,
-    > as crate::Optionable>::Optioned,
+    pub spec: Option<
+        <::k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerSpec as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: <Option<
-        ::k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus,
-    > as crate::Optionable>::Optioned,
+    pub status: Option<
+        <::k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

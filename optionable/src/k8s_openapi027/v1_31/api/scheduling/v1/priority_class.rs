@@ -19,12 +19,12 @@ pub struct PriorityClassAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub description: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub global_default: Option<bool>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub preemption_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub preemption_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<i32>,
 }
@@ -43,23 +43,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1::PriorityC
         PriorityClassAc {
             api_version: Default::default(),
             kind: Default::default(),
-            description: crate::OptionableConvert::into_optioned(self.description),
+            description: self.description,
             global_default: self.global_default,
             metadata: self.metadata,
-            preemption_policy: crate::OptionableConvert::into_optioned(
-                self.preemption_policy,
-            ),
+            preemption_policy: self.preemption_policy,
             value: Some(self.value),
         }
     }
     fn try_from_optioned(value: PriorityClassAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            description: crate::OptionableConvert::try_from_optioned(value.description)?,
+            description: value.description,
             global_default: value.global_default,
             metadata: value.metadata,
-            preemption_policy: crate::OptionableConvert::try_from_optioned(
-                value.preemption_policy,
-            )?,
+            preemption_policy: value.preemption_policy,
             value: value
                 .value
                 .ok_or(crate::Error {
@@ -68,13 +64,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1::PriorityC
         })
     }
     fn merge(&mut self, other: PriorityClassAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.description, other.description)?;
+        self.description = other.description;
         self.global_default = other.global_default;
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(
-            &mut self.preemption_policy,
-            other.preemption_policy,
-        )?;
+        self.preemption_policy = other.preemption_policy;
         if let Some(other_value) = other.value {
             self.value = other_value;
         }

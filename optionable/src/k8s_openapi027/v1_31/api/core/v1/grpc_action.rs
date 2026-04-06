@@ -11,7 +11,7 @@ pub struct GRPCActionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub service: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::GRPCAction {
@@ -27,7 +27,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::GRPCAction {
     fn into_optioned(self) -> GRPCActionAc {
         GRPCActionAc {
             port: Some(self.port),
-            service: crate::OptionableConvert::into_optioned(self.service),
+            service: self.service,
         }
     }
     fn try_from_optioned(value: GRPCActionAc) -> Result<Self, crate::Error> {
@@ -37,14 +37,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::GRPCAction {
                 .ok_or(crate::Error {
                     missing_field: "port",
                 })?,
-            service: crate::OptionableConvert::try_from_optioned(value.service)?,
+            service: value.service,
         })
     }
     fn merge(&mut self, other: GRPCActionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.port {
             self.port = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.service, other.service)?;
+        self.service = other.service;
         Ok(())
     }
 }

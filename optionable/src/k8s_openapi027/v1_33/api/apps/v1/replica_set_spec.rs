@@ -17,9 +17,9 @@ pub struct ReplicaSetSpecAc {
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub template: <Option<
-        ::k8s_openapi027::api::core::v1::PodTemplateSpec,
-    > as crate::Optionable>::Optioned,
+    pub template: Option<
+        <::k8s_openapi027::api::core::v1::PodTemplateSpec as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::apps::v1::ReplicaSetSpec {

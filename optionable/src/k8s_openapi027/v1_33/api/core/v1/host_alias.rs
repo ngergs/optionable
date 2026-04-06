@@ -9,11 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HostAliasAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub hostnames: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub hostnames: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ip: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub ip: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::HostAlias {
@@ -28,26 +26,24 @@ impl crate::Optionable for HostAliasAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HostAlias {
     fn into_optioned(self) -> HostAliasAc {
         HostAliasAc {
-            hostnames: crate::OptionableConvert::into_optioned(self.hostnames),
-            ip: Some(crate::OptionableConvert::into_optioned(self.ip)),
+            hostnames: self.hostnames,
+            ip: Some(self.ip),
         }
     }
     fn try_from_optioned(value: HostAliasAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            hostnames: crate::OptionableConvert::try_from_optioned(value.hostnames)?,
-            ip: crate::OptionableConvert::try_from_optioned(
-                value
-                    .ip
-                    .ok_or(crate::Error {
-                        missing_field: "ip",
-                    })?,
-            )?,
+            hostnames: value.hostnames,
+            ip: value
+                .ip
+                .ok_or(crate::Error {
+                    missing_field: "ip",
+                })?,
         })
     }
     fn merge(&mut self, other: HostAliasAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.hostnames, other.hostnames)?;
+        self.hostnames = other.hostnames;
         if let Some(other_value) = other.ip {
-            crate::OptionableConvert::merge(&mut self.ip, other_value)?;
+            self.ip = other_value;
         }
         Ok(())
     }

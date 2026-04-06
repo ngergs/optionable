@@ -9,9 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerImageAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub names: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub names: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub size_bytes: Option<i64>,
 }
@@ -28,18 +26,18 @@ impl crate::Optionable for ContainerImageAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerImage {
     fn into_optioned(self) -> ContainerImageAc {
         ContainerImageAc {
-            names: crate::OptionableConvert::into_optioned(self.names),
+            names: self.names,
             size_bytes: self.size_bytes,
         }
     }
     fn try_from_optioned(value: ContainerImageAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            names: crate::OptionableConvert::try_from_optioned(value.names)?,
+            names: value.names,
             size_bytes: value.size_bytes,
         })
     }
     fn merge(&mut self, other: ContainerImageAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.names, other.names)?;
+        self.names = other.names;
         self.size_bytes = other.size_bytes;
         Ok(())
     }

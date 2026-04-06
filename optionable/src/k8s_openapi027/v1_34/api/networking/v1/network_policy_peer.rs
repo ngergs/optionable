@@ -9,17 +9,17 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkPolicyPeerAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ip_block: <Option<
-        ::k8s_openapi027::api::networking::v1::IPBlock,
-    > as crate::Optionable>::Optioned,
+    pub ip_block: Option<
+        <::k8s_openapi027::api::networking::v1::IPBlock as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub namespace_selector: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector,
-    > as crate::Optionable>::Optioned,
+    pub namespace_selector: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pod_selector: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector,
-    > as crate::Optionable>::Optioned,
+    pub pod_selector: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::networking::v1::NetworkPolicyPeer {

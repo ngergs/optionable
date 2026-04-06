@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeNodeAffinityAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub required: <Option<
-        ::k8s_openapi027::api::core::v1::NodeSelector,
-    > as crate::Optionable>::Optioned,
+    pub required: Option<
+        <::k8s_openapi027::api::core::v1::NodeSelector as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::VolumeNodeAffinity {

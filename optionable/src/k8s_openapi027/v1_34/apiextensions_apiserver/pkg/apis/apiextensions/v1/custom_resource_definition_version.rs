@@ -9,38 +9,36 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceDefinitionVersionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub additional_printer_columns: <Option<
+    pub additional_printer_columns: Option<
         std::vec::Vec<
-            ::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceColumnDefinition,
+            <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceColumnDefinition as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub deprecated: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub deprecation_warning: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub deprecation_warning: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
     #[serde(rename = "$schema")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub schema: <Option<
-        ::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceValidation,
-    > as crate::Optionable>::Optioned,
+    pub schema: Option<
+        <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceValidation as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub selectable_fields: <Option<
+    pub selectable_fields: Option<
         std::vec::Vec<
-            ::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField,
+            <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::SelectableField as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub served: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storage: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub subresources: <Option<
-        ::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresources,
-    > as crate::Optionable>::Optioned,
+    pub subresources: Option<
+        <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresources as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -61,10 +59,8 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
                 self.additional_printer_columns,
             ),
             deprecated: self.deprecated,
-            deprecation_warning: crate::OptionableConvert::into_optioned(
-                self.deprecation_warning,
-            ),
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            deprecation_warning: self.deprecation_warning,
+            name: Some(self.name),
             schema: crate::OptionableConvert::into_optioned(self.schema),
             selectable_fields: crate::OptionableConvert::into_optioned(
                 self.selectable_fields,
@@ -82,16 +78,12 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
                 value.additional_printer_columns,
             )?,
             deprecated: value.deprecated,
-            deprecation_warning: crate::OptionableConvert::try_from_optioned(
-                value.deprecation_warning,
-            )?,
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            deprecation_warning: value.deprecation_warning,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
             schema: crate::OptionableConvert::try_from_optioned(value.schema)?,
             selectable_fields: crate::OptionableConvert::try_from_optioned(
                 value.selectable_fields,
@@ -120,12 +112,9 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             other.additional_printer_columns,
         )?;
         self.deprecated = other.deprecated;
-        crate::OptionableConvert::merge(
-            &mut self.deprecation_warning,
-            other.deprecation_warning,
-        )?;
+        self.deprecation_warning = other.deprecation_warning;
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         crate::OptionableConvert::merge(&mut self.schema, other.schema)?;
         crate::OptionableConvert::merge(

@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EventSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub component: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub component: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub host: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub host: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::EventSource {
@@ -26,19 +26,19 @@ impl crate::Optionable for EventSourceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EventSource {
     fn into_optioned(self) -> EventSourceAc {
         EventSourceAc {
-            component: crate::OptionableConvert::into_optioned(self.component),
-            host: crate::OptionableConvert::into_optioned(self.host),
+            component: self.component,
+            host: self.host,
         }
     }
     fn try_from_optioned(value: EventSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            component: crate::OptionableConvert::try_from_optioned(value.component)?,
-            host: crate::OptionableConvert::try_from_optioned(value.host)?,
+            component: value.component,
+            host: value.host,
         })
     }
     fn merge(&mut self, other: EventSourceAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.component, other.component)?;
-        crate::OptionableConvert::merge(&mut self.host, other.host)?;
+        self.component = other.component;
+        self.host = other.host;
         Ok(())
     }
 }

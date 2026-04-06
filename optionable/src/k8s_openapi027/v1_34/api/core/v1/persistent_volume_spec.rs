@@ -9,129 +9,121 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PersistentVolumeSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub access_modes: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub access_modes: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub aws_elastic_block_store: <Option<
-        ::k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub aws_elastic_block_store: Option<
+        <::k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub azure_disk: <Option<
-        ::k8s_openapi027::api::core::v1::AzureDiskVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub azure_disk: Option<
+        <::k8s_openapi027::api::core::v1::AzureDiskVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub azure_file: <Option<
-        ::k8s_openapi027::api::core::v1::AzureFilePersistentVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub azure_file: Option<
+        <::k8s_openapi027::api::core::v1::AzureFilePersistentVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub capacity: <Option<
+    pub capacity: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
+            <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub cephfs: <Option<
-        ::k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub cephfs: Option<
+        <::k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub cinder: <Option<
-        ::k8s_openapi027::api::core::v1::CinderPersistentVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub cinder: Option<
+        <::k8s_openapi027::api::core::v1::CinderPersistentVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub claim_ref: <Option<
-        ::k8s_openapi027::api::core::v1::ObjectReference,
-    > as crate::Optionable>::Optioned,
+    pub claim_ref: Option<
+        <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub csi: <Option<
-        ::k8s_openapi027::api::core::v1::CSIPersistentVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub csi: Option<
+        <::k8s_openapi027::api::core::v1::CSIPersistentVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fc: <Option<
-        ::k8s_openapi027::api::core::v1::FCVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub fc: Option<
+        <::k8s_openapi027::api::core::v1::FCVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub flex_volume: <Option<
-        ::k8s_openapi027::api::core::v1::FlexPersistentVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub flex_volume: Option<
+        <::k8s_openapi027::api::core::v1::FlexPersistentVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub flocker: <Option<
-        ::k8s_openapi027::api::core::v1::FlockerVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub flocker: Option<
+        <::k8s_openapi027::api::core::v1::FlockerVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub gce_persistent_disk: <Option<
-        ::k8s_openapi027::api::core::v1::GCEPersistentDiskVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub gce_persistent_disk: Option<
+        <::k8s_openapi027::api::core::v1::GCEPersistentDiskVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub glusterfs: <Option<
-        ::k8s_openapi027::api::core::v1::GlusterfsPersistentVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub glusterfs: Option<
+        <::k8s_openapi027::api::core::v1::GlusterfsPersistentVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub host_path: <Option<
-        ::k8s_openapi027::api::core::v1::HostPathVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub host_path: Option<
+        <::k8s_openapi027::api::core::v1::HostPathVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub iscsi: <Option<
-        ::k8s_openapi027::api::core::v1::ISCSIPersistentVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub iscsi: Option<
+        <::k8s_openapi027::api::core::v1::ISCSIPersistentVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub local: <Option<
-        ::k8s_openapi027::api::core::v1::LocalVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub local: Option<
+        <::k8s_openapi027::api::core::v1::LocalVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub mount_options: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub mount_options: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub nfs: <Option<
-        ::k8s_openapi027::api::core::v1::NFSVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub nfs: Option<
+        <::k8s_openapi027::api::core::v1::NFSVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub node_affinity: <Option<
-        ::k8s_openapi027::api::core::v1::VolumeNodeAffinity,
-    > as crate::Optionable>::Optioned,
+    pub node_affinity: Option<
+        <::k8s_openapi027::api::core::v1::VolumeNodeAffinity as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub persistent_volume_reclaim_policy: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub persistent_volume_reclaim_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub photon_persistent_disk: <Option<
-        ::k8s_openapi027::api::core::v1::PhotonPersistentDiskVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub photon_persistent_disk: Option<
+        <::k8s_openapi027::api::core::v1::PhotonPersistentDiskVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub portworx_volume: <Option<
-        ::k8s_openapi027::api::core::v1::PortworxVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub portworx_volume: Option<
+        <::k8s_openapi027::api::core::v1::PortworxVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub quobyte: <Option<
-        ::k8s_openapi027::api::core::v1::QuobyteVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub quobyte: Option<
+        <::k8s_openapi027::api::core::v1::QuobyteVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rbd: <Option<
-        ::k8s_openapi027::api::core::v1::RBDPersistentVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub rbd: Option<
+        <::k8s_openapi027::api::core::v1::RBDPersistentVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(rename = "scaleIO")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scale_io: <Option<
-        ::k8s_openapi027::api::core::v1::ScaleIOPersistentVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub scale_io: Option<
+        <::k8s_openapi027::api::core::v1::ScaleIOPersistentVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub storage_class_name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub storage_class_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub storageos: <Option<
-        ::k8s_openapi027::api::core::v1::StorageOSPersistentVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub storageos: Option<
+        <::k8s_openapi027::api::core::v1::StorageOSPersistentVolumeSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volume_attributes_class_name: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub volume_attributes_class_name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volume_mode: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub volume_mode: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vsphere_volume: <Option<
-        ::k8s_openapi027::api::core::v1::VsphereVirtualDiskVolumeSource,
-    > as crate::Optionable>::Optioned,
+    pub vsphere_volume: Option<
+        <::k8s_openapi027::api::core::v1::VsphereVirtualDiskVolumeSource as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PersistentVolumeSpec {
@@ -146,7 +138,7 @@ impl crate::Optionable for PersistentVolumeSpecAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolumeSpec {
     fn into_optioned(self) -> PersistentVolumeSpecAc {
         PersistentVolumeSpecAc {
-            access_modes: crate::OptionableConvert::into_optioned(self.access_modes),
+            access_modes: self.access_modes,
             aws_elastic_block_store: crate::OptionableConvert::into_optioned(
                 self.aws_elastic_block_store,
             ),
@@ -167,12 +159,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
             host_path: crate::OptionableConvert::into_optioned(self.host_path),
             iscsi: crate::OptionableConvert::into_optioned(self.iscsi),
             local: crate::OptionableConvert::into_optioned(self.local),
-            mount_options: crate::OptionableConvert::into_optioned(self.mount_options),
+            mount_options: self.mount_options,
             nfs: crate::OptionableConvert::into_optioned(self.nfs),
             node_affinity: crate::OptionableConvert::into_optioned(self.node_affinity),
-            persistent_volume_reclaim_policy: crate::OptionableConvert::into_optioned(
-                self.persistent_volume_reclaim_policy,
-            ),
+            persistent_volume_reclaim_policy: self.persistent_volume_reclaim_policy,
             photon_persistent_disk: crate::OptionableConvert::into_optioned(
                 self.photon_persistent_disk,
             ),
@@ -182,22 +172,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
             quobyte: crate::OptionableConvert::into_optioned(self.quobyte),
             rbd: crate::OptionableConvert::into_optioned(self.rbd),
             scale_io: crate::OptionableConvert::into_optioned(self.scale_io),
-            storage_class_name: crate::OptionableConvert::into_optioned(
-                self.storage_class_name,
-            ),
+            storage_class_name: self.storage_class_name,
             storageos: crate::OptionableConvert::into_optioned(self.storageos),
-            volume_attributes_class_name: crate::OptionableConvert::into_optioned(
-                self.volume_attributes_class_name,
-            ),
-            volume_mode: crate::OptionableConvert::into_optioned(self.volume_mode),
+            volume_attributes_class_name: self.volume_attributes_class_name,
+            volume_mode: self.volume_mode,
             vsphere_volume: crate::OptionableConvert::into_optioned(self.vsphere_volume),
         }
     }
     fn try_from_optioned(value: PersistentVolumeSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            access_modes: crate::OptionableConvert::try_from_optioned(
-                value.access_modes,
-            )?,
+            access_modes: value.access_modes,
             aws_elastic_block_store: crate::OptionableConvert::try_from_optioned(
                 value.aws_elastic_block_store,
             )?,
@@ -218,16 +202,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
             host_path: crate::OptionableConvert::try_from_optioned(value.host_path)?,
             iscsi: crate::OptionableConvert::try_from_optioned(value.iscsi)?,
             local: crate::OptionableConvert::try_from_optioned(value.local)?,
-            mount_options: crate::OptionableConvert::try_from_optioned(
-                value.mount_options,
-            )?,
+            mount_options: value.mount_options,
             nfs: crate::OptionableConvert::try_from_optioned(value.nfs)?,
             node_affinity: crate::OptionableConvert::try_from_optioned(
                 value.node_affinity,
             )?,
-            persistent_volume_reclaim_policy: crate::OptionableConvert::try_from_optioned(
-                value.persistent_volume_reclaim_policy,
-            )?,
+            persistent_volume_reclaim_policy: value.persistent_volume_reclaim_policy,
             photon_persistent_disk: crate::OptionableConvert::try_from_optioned(
                 value.photon_persistent_disk,
             )?,
@@ -237,21 +217,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
             quobyte: crate::OptionableConvert::try_from_optioned(value.quobyte)?,
             rbd: crate::OptionableConvert::try_from_optioned(value.rbd)?,
             scale_io: crate::OptionableConvert::try_from_optioned(value.scale_io)?,
-            storage_class_name: crate::OptionableConvert::try_from_optioned(
-                value.storage_class_name,
-            )?,
+            storage_class_name: value.storage_class_name,
             storageos: crate::OptionableConvert::try_from_optioned(value.storageos)?,
-            volume_attributes_class_name: crate::OptionableConvert::try_from_optioned(
-                value.volume_attributes_class_name,
-            )?,
-            volume_mode: crate::OptionableConvert::try_from_optioned(value.volume_mode)?,
+            volume_attributes_class_name: value.volume_attributes_class_name,
+            volume_mode: value.volume_mode,
             vsphere_volume: crate::OptionableConvert::try_from_optioned(
                 value.vsphere_volume,
             )?,
         })
     }
     fn merge(&mut self, other: PersistentVolumeSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.access_modes, other.access_modes)?;
+        self.access_modes = other.access_modes;
         crate::OptionableConvert::merge(
             &mut self.aws_elastic_block_store,
             other.aws_elastic_block_store,
@@ -274,13 +250,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
         crate::OptionableConvert::merge(&mut self.host_path, other.host_path)?;
         crate::OptionableConvert::merge(&mut self.iscsi, other.iscsi)?;
         crate::OptionableConvert::merge(&mut self.local, other.local)?;
-        crate::OptionableConvert::merge(&mut self.mount_options, other.mount_options)?;
+        self.mount_options = other.mount_options;
         crate::OptionableConvert::merge(&mut self.nfs, other.nfs)?;
         crate::OptionableConvert::merge(&mut self.node_affinity, other.node_affinity)?;
-        crate::OptionableConvert::merge(
-            &mut self.persistent_volume_reclaim_policy,
-            other.persistent_volume_reclaim_policy,
-        )?;
+        self.persistent_volume_reclaim_policy = other.persistent_volume_reclaim_policy;
         crate::OptionableConvert::merge(
             &mut self.photon_persistent_disk,
             other.photon_persistent_disk,
@@ -292,16 +265,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
         crate::OptionableConvert::merge(&mut self.quobyte, other.quobyte)?;
         crate::OptionableConvert::merge(&mut self.rbd, other.rbd)?;
         crate::OptionableConvert::merge(&mut self.scale_io, other.scale_io)?;
-        crate::OptionableConvert::merge(
-            &mut self.storage_class_name,
-            other.storage_class_name,
-        )?;
+        self.storage_class_name = other.storage_class_name;
         crate::OptionableConvert::merge(&mut self.storageos, other.storageos)?;
-        crate::OptionableConvert::merge(
-            &mut self.volume_attributes_class_name,
-            other.volume_attributes_class_name,
-        )?;
-        crate::OptionableConvert::merge(&mut self.volume_mode, other.volume_mode)?;
+        self.volume_attributes_class_name = other.volume_attributes_class_name;
+        self.volume_mode = other.volume_mode;
         crate::OptionableConvert::merge(&mut self.vsphere_volume, other.vsphere_volume)?;
         Ok(())
     }

@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub request: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub request: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ResourceClaim {
@@ -26,27 +26,25 @@ impl crate::Optionable for ResourceClaimAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceClaim {
     fn into_optioned(self) -> ResourceClaimAc {
         ResourceClaimAc {
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
-            request: crate::OptionableConvert::into_optioned(self.request),
+            name: Some(self.name),
+            request: self.request,
         }
     }
     fn try_from_optioned(value: ResourceClaimAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
-            request: crate::OptionableConvert::try_from_optioned(value.request)?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
+            request: value.request,
         })
     }
     fn merge(&mut self, other: ResourceClaimAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.request, other.request)?;
+        self.request = other.request;
         Ok(())
     }
 }

@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceAccountTokenProjectionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub audience: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub audience: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration_seconds: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub path: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ServiceAccountTokenProjection {
@@ -29,34 +29,32 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::core::v1::ServiceAccountTokenProjection {
     fn into_optioned(self) -> ServiceAccountTokenProjectionAc {
         ServiceAccountTokenProjectionAc {
-            audience: crate::OptionableConvert::into_optioned(self.audience),
+            audience: self.audience,
             expiration_seconds: self.expiration_seconds,
-            path: Some(crate::OptionableConvert::into_optioned(self.path)),
+            path: Some(self.path),
         }
     }
     fn try_from_optioned(
         value: ServiceAccountTokenProjectionAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            audience: crate::OptionableConvert::try_from_optioned(value.audience)?,
+            audience: value.audience,
             expiration_seconds: value.expiration_seconds,
-            path: crate::OptionableConvert::try_from_optioned(
-                value
-                    .path
-                    .ok_or(crate::Error {
-                        missing_field: "path",
-                    })?,
-            )?,
+            path: value
+                .path
+                .ok_or(crate::Error {
+                    missing_field: "path",
+                })?,
         })
     }
     fn merge(
         &mut self,
         other: ServiceAccountTokenProjectionAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.audience, other.audience)?;
+        self.audience = other.audience;
         self.expiration_seconds = other.expiration_seconds;
         if let Some(other_value) = other.path {
-            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+            self.path = other_value;
         }
         Ok(())
     }

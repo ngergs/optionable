@@ -10,17 +10,13 @@
 pub struct ServerStorageVersionAc {
     #[serde(rename = "apiServerID")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub api_server_id: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub api_server_id: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub decodable_versions: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub decodable_versions: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub encoding_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub encoding_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub served_versions: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub served_versions: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -37,48 +33,25 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::apiserverinternal::v1alpha1::ServerStorageVersion {
     fn into_optioned(self) -> ServerStorageVersionAc {
         ServerStorageVersionAc {
-            api_server_id: crate::OptionableConvert::into_optioned(self.api_server_id),
-            decodable_versions: crate::OptionableConvert::into_optioned(
-                self.decodable_versions,
-            ),
-            encoding_version: crate::OptionableConvert::into_optioned(
-                self.encoding_version,
-            ),
-            served_versions: crate::OptionableConvert::into_optioned(
-                self.served_versions,
-            ),
+            api_server_id: self.api_server_id,
+            decodable_versions: self.decodable_versions,
+            encoding_version: self.encoding_version,
+            served_versions: self.served_versions,
         }
     }
     fn try_from_optioned(value: ServerStorageVersionAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            api_server_id: crate::OptionableConvert::try_from_optioned(
-                value.api_server_id,
-            )?,
-            decodable_versions: crate::OptionableConvert::try_from_optioned(
-                value.decodable_versions,
-            )?,
-            encoding_version: crate::OptionableConvert::try_from_optioned(
-                value.encoding_version,
-            )?,
-            served_versions: crate::OptionableConvert::try_from_optioned(
-                value.served_versions,
-            )?,
+            api_server_id: value.api_server_id,
+            decodable_versions: value.decodable_versions,
+            encoding_version: value.encoding_version,
+            served_versions: value.served_versions,
         })
     }
     fn merge(&mut self, other: ServerStorageVersionAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.api_server_id, other.api_server_id)?;
-        crate::OptionableConvert::merge(
-            &mut self.decodable_versions,
-            other.decodable_versions,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.encoding_version,
-            other.encoding_version,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.served_versions,
-            other.served_versions,
-        )?;
+        self.api_server_id = other.api_server_id;
+        self.decodable_versions = other.decodable_versions;
+        self.encoding_version = other.encoding_version;
+        self.served_versions = other.served_versions;
         Ok(())
     }
 }

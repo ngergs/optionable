@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodGroupAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub policy: Option<
         <::k8s_openapi027::api::scheduling::v1alpha1::PodGroupPolicy as crate::Optionable>::Optioned,
@@ -28,19 +28,17 @@ impl crate::Optionable for PodGroupAc {
 impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1alpha1::PodGroup {
     fn into_optioned(self) -> PodGroupAc {
         PodGroupAc {
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
+            name: Some(self.name),
             policy: Some(crate::OptionableConvert::into_optioned(self.policy)),
         }
     }
     fn try_from_optioned(value: PodGroupAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
             policy: crate::OptionableConvert::try_from_optioned(
                 value
                     .policy
@@ -52,7 +50,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1alpha1::Pod
     }
     fn merge(&mut self, other: PodGroupAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         if let Some(other_value) = other.policy {
             crate::OptionableConvert::merge(&mut self.policy, other_value)?;

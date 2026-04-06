@@ -11,13 +11,13 @@ pub struct MetricValueStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub average_utilization: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub average_value: <Option<
-        ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
-    > as crate::Optionable>::Optioned,
+    pub average_value: Option<
+        <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: <Option<
-        ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
-    > as crate::Optionable>::Optioned,
+    pub value: Option<
+        <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::autoscaling::v2::MetricValueStatus {

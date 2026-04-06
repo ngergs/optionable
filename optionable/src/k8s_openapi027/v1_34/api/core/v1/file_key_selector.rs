@@ -9,13 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FileKeySelectorAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub key: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub key: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub optional: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub path: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volume_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub volume_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::FileKeySelector {
@@ -30,48 +30,42 @@ impl crate::Optionable for FileKeySelectorAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FileKeySelector {
     fn into_optioned(self) -> FileKeySelectorAc {
         FileKeySelectorAc {
-            key: Some(crate::OptionableConvert::into_optioned(self.key)),
+            key: Some(self.key),
             optional: self.optional,
-            path: Some(crate::OptionableConvert::into_optioned(self.path)),
-            volume_name: Some(crate::OptionableConvert::into_optioned(self.volume_name)),
+            path: Some(self.path),
+            volume_name: Some(self.volume_name),
         }
     }
     fn try_from_optioned(value: FileKeySelectorAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            key: crate::OptionableConvert::try_from_optioned(
-                value
-                    .key
-                    .ok_or(crate::Error {
-                        missing_field: "key",
-                    })?,
-            )?,
+            key: value
+                .key
+                .ok_or(crate::Error {
+                    missing_field: "key",
+                })?,
             optional: value.optional,
-            path: crate::OptionableConvert::try_from_optioned(
-                value
-                    .path
-                    .ok_or(crate::Error {
-                        missing_field: "path",
-                    })?,
-            )?,
-            volume_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .volume_name
-                    .ok_or(crate::Error {
-                        missing_field: "volume_name",
-                    })?,
-            )?,
+            path: value
+                .path
+                .ok_or(crate::Error {
+                    missing_field: "path",
+                })?,
+            volume_name: value
+                .volume_name
+                .ok_or(crate::Error {
+                    missing_field: "volume_name",
+                })?,
         })
     }
     fn merge(&mut self, other: FileKeySelectorAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.key {
-            crate::OptionableConvert::merge(&mut self.key, other_value)?;
+            self.key = other_value;
         }
         self.optional = other.optional;
         if let Some(other_value) = other.path {
-            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+            self.path = other_value;
         }
         if let Some(other_value) = other.volume_name {
-            crate::OptionableConvert::merge(&mut self.volume_name, other_value)?;
+            self.volume_name = other_value;
         }
         Ok(())
     }

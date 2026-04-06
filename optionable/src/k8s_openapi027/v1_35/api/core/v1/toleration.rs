@@ -9,15 +9,15 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TolerationAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub effect: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub effect: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub key: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub key: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub operator: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub operator: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub toleration_seconds: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub value: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::Toleration {
@@ -32,28 +32,28 @@ impl crate::Optionable for TolerationAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Toleration {
     fn into_optioned(self) -> TolerationAc {
         TolerationAc {
-            effect: crate::OptionableConvert::into_optioned(self.effect),
-            key: crate::OptionableConvert::into_optioned(self.key),
-            operator: crate::OptionableConvert::into_optioned(self.operator),
+            effect: self.effect,
+            key: self.key,
+            operator: self.operator,
             toleration_seconds: self.toleration_seconds,
-            value: crate::OptionableConvert::into_optioned(self.value),
+            value: self.value,
         }
     }
     fn try_from_optioned(value: TolerationAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            effect: crate::OptionableConvert::try_from_optioned(value.effect)?,
-            key: crate::OptionableConvert::try_from_optioned(value.key)?,
-            operator: crate::OptionableConvert::try_from_optioned(value.operator)?,
+            effect: value.effect,
+            key: value.key,
+            operator: value.operator,
             toleration_seconds: value.toleration_seconds,
-            value: crate::OptionableConvert::try_from_optioned(value.value)?,
+            value: value.value,
         })
     }
     fn merge(&mut self, other: TolerationAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.effect, other.effect)?;
-        crate::OptionableConvert::merge(&mut self.key, other.key)?;
-        crate::OptionableConvert::merge(&mut self.operator, other.operator)?;
+        self.effect = other.effect;
+        self.key = other.key;
+        self.operator = other.operator;
         self.toleration_seconds = other.toleration_seconds;
-        crate::OptionableConvert::merge(&mut self.value, other.value)?;
+        self.value = other.value;
         Ok(())
     }
 }

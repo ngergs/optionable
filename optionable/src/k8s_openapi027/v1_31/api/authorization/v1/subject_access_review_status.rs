@@ -13,9 +13,9 @@ pub struct SubjectAccessReviewStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub denied: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub evaluation_error: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub evaluation_error: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub reason: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub reason: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -34,10 +34,8 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewStatus {
         SubjectAccessReviewStatusAc {
             allowed: Some(self.allowed),
             denied: self.denied,
-            evaluation_error: crate::OptionableConvert::into_optioned(
-                self.evaluation_error,
-            ),
-            reason: crate::OptionableConvert::into_optioned(self.reason),
+            evaluation_error: self.evaluation_error,
+            reason: self.reason,
         }
     }
     fn try_from_optioned(
@@ -50,10 +48,8 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewStatus {
                     missing_field: "allowed",
                 })?,
             denied: value.denied,
-            evaluation_error: crate::OptionableConvert::try_from_optioned(
-                value.evaluation_error,
-            )?,
-            reason: crate::OptionableConvert::try_from_optioned(value.reason)?,
+            evaluation_error: value.evaluation_error,
+            reason: value.reason,
         })
     }
     fn merge(&mut self, other: SubjectAccessReviewStatusAc) -> Result<(), crate::Error> {
@@ -61,11 +57,8 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewStatus {
             self.allowed = other_value;
         }
         self.denied = other.denied;
-        crate::OptionableConvert::merge(
-            &mut self.evaluation_error,
-            other.evaluation_error,
-        )?;
-        crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
+        self.evaluation_error = other.evaluation_error;
+        self.reason = other.reason;
         Ok(())
     }
 }

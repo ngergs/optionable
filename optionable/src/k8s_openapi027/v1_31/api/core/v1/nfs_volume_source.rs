@@ -9,11 +9,11 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NFSVolumeSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub path: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub server: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub server: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::NFSVolumeSource {
@@ -28,37 +28,33 @@ impl crate::Optionable for NFSVolumeSourceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NFSVolumeSource {
     fn into_optioned(self) -> NFSVolumeSourceAc {
         NFSVolumeSourceAc {
-            path: Some(crate::OptionableConvert::into_optioned(self.path)),
+            path: Some(self.path),
             read_only: self.read_only,
-            server: Some(crate::OptionableConvert::into_optioned(self.server)),
+            server: Some(self.server),
         }
     }
     fn try_from_optioned(value: NFSVolumeSourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            path: crate::OptionableConvert::try_from_optioned(
-                value
-                    .path
-                    .ok_or(crate::Error {
-                        missing_field: "path",
-                    })?,
-            )?,
+            path: value
+                .path
+                .ok_or(crate::Error {
+                    missing_field: "path",
+                })?,
             read_only: value.read_only,
-            server: crate::OptionableConvert::try_from_optioned(
-                value
-                    .server
-                    .ok_or(crate::Error {
-                        missing_field: "server",
-                    })?,
-            )?,
+            server: value
+                .server
+                .ok_or(crate::Error {
+                    missing_field: "server",
+                })?,
         })
     }
     fn merge(&mut self, other: NFSVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.path {
-            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+            self.path = other_value;
         }
         self.read_only = other.read_only;
         if let Some(other_value) = other.server {
-            crate::OptionableConvert::merge(&mut self.server, other_value)?;
+            self.server = other_value;
         }
         Ok(())
     }

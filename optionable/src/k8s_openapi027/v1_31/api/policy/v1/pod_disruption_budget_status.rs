@@ -9,20 +9,22 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodDisruptionBudgetStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
-        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>,
-    > as crate::Optionable>::Optioned,
+    pub conditions: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_healthy: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub desired_healthy: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub disrupted_pods: <Option<
+    pub disrupted_pods: Option<
         std::collections::BTreeMap<
             std::string::String,
-            ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time,
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
         >,
-    > as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub disruptions_allowed: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]

@@ -10,14 +10,12 @@
 pub struct PodExtendedResourceClaimStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request_mappings: Option<
-        <std::vec::Vec<
-            ::k8s_openapi027::api::core::v1::ContainerExtendedResourceRequest,
-        > as crate::Optionable>::Optioned,
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::ContainerExtendedResourceRequest as crate::Optionable>::Optioned,
+        >,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_claim_name: Option<
-        <std::string::String as crate::Optionable>::Optioned,
-    >,
+    pub resource_claim_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -37,9 +35,7 @@ for k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus {
             request_mappings: Some(
                 crate::OptionableConvert::into_optioned(self.request_mappings),
             ),
-            resource_claim_name: Some(
-                crate::OptionableConvert::into_optioned(self.resource_claim_name),
-            ),
+            resource_claim_name: Some(self.resource_claim_name),
         }
     }
     fn try_from_optioned(
@@ -53,13 +49,11 @@ for k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus {
                         missing_field: "request_mappings",
                     })?,
             )?,
-            resource_claim_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .resource_claim_name
-                    .ok_or(crate::Error {
-                        missing_field: "resource_claim_name",
-                    })?,
-            )?,
+            resource_claim_name: value
+                .resource_claim_name
+                .ok_or(crate::Error {
+                    missing_field: "resource_claim_name",
+                })?,
         })
     }
     fn merge(
@@ -70,7 +64,7 @@ for k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus {
             crate::OptionableConvert::merge(&mut self.request_mappings, other_value)?;
         }
         if let Some(other_value) = other.resource_claim_name {
-            crate::OptionableConvert::merge(&mut self.resource_claim_name, other_value)?;
+            self.resource_claim_name = other_value;
         }
         Ok(())
     }

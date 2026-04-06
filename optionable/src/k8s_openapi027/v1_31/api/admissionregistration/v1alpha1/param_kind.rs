@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ParamKindAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub api_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub api_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub kind: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub kind: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -28,19 +28,19 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::admissionregistration::v1alpha1::ParamKind {
     fn into_optioned(self) -> ParamKindAc {
         ParamKindAc {
-            api_version: crate::OptionableConvert::into_optioned(self.api_version),
-            kind: crate::OptionableConvert::into_optioned(self.kind),
+            api_version: self.api_version,
+            kind: self.kind,
         }
     }
     fn try_from_optioned(value: ParamKindAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
-            kind: crate::OptionableConvert::try_from_optioned(value.kind)?,
+            api_version: value.api_version,
+            kind: value.kind,
         })
     }
     fn merge(&mut self, other: ParamKindAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
-        crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
+        self.api_version = other.api_version;
+        self.kind = other.kind;
         Ok(())
     }
 }

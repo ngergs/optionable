@@ -9,15 +9,13 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodSecurityContextAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub app_armor_profile: <Option<
-        ::k8s_openapi027::api::core::v1::AppArmorProfile,
-    > as crate::Optionable>::Optioned,
+    pub app_armor_profile: Option<
+        <::k8s_openapi027::api::core::v1::AppArmorProfile as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_group: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fs_group_change_policy: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub fs_group_change_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub run_as_group: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -25,27 +23,27 @@ pub struct PodSecurityContextAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub run_as_user: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub se_linux_options: <Option<
-        ::k8s_openapi027::api::core::v1::SELinuxOptions,
-    > as crate::Optionable>::Optioned,
+    pub se_linux_options: Option<
+        <::k8s_openapi027::api::core::v1::SELinuxOptions as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub seccomp_profile: <Option<
-        ::k8s_openapi027::api::core::v1::SeccompProfile,
-    > as crate::Optionable>::Optioned,
+    pub seccomp_profile: Option<
+        <::k8s_openapi027::api::core::v1::SeccompProfile as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub supplemental_groups: Option<std::vec::Vec<i64>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub supplemental_groups_policy: <Option<
-        std::string::String,
-    > as crate::Optionable>::Optioned,
+    pub supplemental_groups_policy: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub sysctls: <Option<
-        std::vec::Vec<::k8s_openapi027::api::core::v1::Sysctl>,
-    > as crate::Optionable>::Optioned,
+    pub sysctls: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::api::core::v1::Sysctl as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub windows_options: <Option<
-        ::k8s_openapi027::api::core::v1::WindowsSecurityContextOptions,
-    > as crate::Optionable>::Optioned,
+    pub windows_options: Option<
+        <::k8s_openapi027::api::core::v1::WindowsSecurityContextOptions as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodSecurityContext {
@@ -64,9 +62,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSecurityCont
                 self.app_armor_profile,
             ),
             fs_group: self.fs_group,
-            fs_group_change_policy: crate::OptionableConvert::into_optioned(
-                self.fs_group_change_policy,
-            ),
+            fs_group_change_policy: self.fs_group_change_policy,
             run_as_group: self.run_as_group,
             run_as_non_root: self.run_as_non_root,
             run_as_user: self.run_as_user,
@@ -77,9 +73,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSecurityCont
                 self.seccomp_profile,
             ),
             supplemental_groups: self.supplemental_groups,
-            supplemental_groups_policy: crate::OptionableConvert::into_optioned(
-                self.supplemental_groups_policy,
-            ),
+            supplemental_groups_policy: self.supplemental_groups_policy,
             sysctls: crate::OptionableConvert::into_optioned(self.sysctls),
             windows_options: crate::OptionableConvert::into_optioned(
                 self.windows_options,
@@ -92,9 +86,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSecurityCont
                 value.app_armor_profile,
             )?,
             fs_group: value.fs_group,
-            fs_group_change_policy: crate::OptionableConvert::try_from_optioned(
-                value.fs_group_change_policy,
-            )?,
+            fs_group_change_policy: value.fs_group_change_policy,
             run_as_group: value.run_as_group,
             run_as_non_root: value.run_as_non_root,
             run_as_user: value.run_as_user,
@@ -105,9 +97,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSecurityCont
                 value.seccomp_profile,
             )?,
             supplemental_groups: value.supplemental_groups,
-            supplemental_groups_policy: crate::OptionableConvert::try_from_optioned(
-                value.supplemental_groups_policy,
-            )?,
+            supplemental_groups_policy: value.supplemental_groups_policy,
             sysctls: crate::OptionableConvert::try_from_optioned(value.sysctls)?,
             windows_options: crate::OptionableConvert::try_from_optioned(
                 value.windows_options,
@@ -120,10 +110,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSecurityCont
             other.app_armor_profile,
         )?;
         self.fs_group = other.fs_group;
-        crate::OptionableConvert::merge(
-            &mut self.fs_group_change_policy,
-            other.fs_group_change_policy,
-        )?;
+        self.fs_group_change_policy = other.fs_group_change_policy;
         self.run_as_group = other.run_as_group;
         self.run_as_non_root = other.run_as_non_root;
         self.run_as_user = other.run_as_user;
@@ -136,10 +123,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSecurityCont
             other.seccomp_profile,
         )?;
         self.supplemental_groups = other.supplemental_groups;
-        crate::OptionableConvert::merge(
-            &mut self.supplemental_groups_policy,
-            other.supplemental_groups_policy,
-        )?;
+        self.supplemental_groups_policy = other.supplemental_groups_policy;
         crate::OptionableConvert::merge(&mut self.sysctls, other.sysctls)?;
         crate::OptionableConvert::merge(
             &mut self.windows_options,

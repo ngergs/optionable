@@ -9,7 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelfSubjectRulesReviewSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub namespace: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub namespace: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -26,21 +26,19 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::authorization::v1::SelfSubjectRulesReviewSpec {
     fn into_optioned(self) -> SelfSubjectRulesReviewSpecAc {
         SelfSubjectRulesReviewSpecAc {
-            namespace: crate::OptionableConvert::into_optioned(self.namespace),
+            namespace: self.namespace,
         }
     }
     fn try_from_optioned(
         value: SelfSubjectRulesReviewSpecAc,
     ) -> Result<Self, crate::Error> {
-        Ok(Self {
-            namespace: crate::OptionableConvert::try_from_optioned(value.namespace)?,
-        })
+        Ok(Self { namespace: value.namespace })
     }
     fn merge(
         &mut self,
         other: SelfSubjectRulesReviewSpecAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
+        self.namespace = other.namespace;
         Ok(())
     }
 }

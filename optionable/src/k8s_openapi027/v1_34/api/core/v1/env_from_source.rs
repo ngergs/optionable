@@ -9,15 +9,15 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EnvFromSourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub config_map_ref: <Option<
-        ::k8s_openapi027::api::core::v1::ConfigMapEnvSource,
-    > as crate::Optionable>::Optioned,
+    pub config_map_ref: Option<
+        <::k8s_openapi027::api::core::v1::ConfigMapEnvSource as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub prefix: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub prefix: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret_ref: <Option<
-        ::k8s_openapi027::api::core::v1::SecretEnvSource,
-    > as crate::Optionable>::Optioned,
+    pub secret_ref: Option<
+        <::k8s_openapi027::api::core::v1::SecretEnvSource as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::EnvFromSource {
@@ -33,7 +33,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvFromSource {
     fn into_optioned(self) -> EnvFromSourceAc {
         EnvFromSourceAc {
             config_map_ref: crate::OptionableConvert::into_optioned(self.config_map_ref),
-            prefix: crate::OptionableConvert::into_optioned(self.prefix),
+            prefix: self.prefix,
             secret_ref: crate::OptionableConvert::into_optioned(self.secret_ref),
         }
     }
@@ -42,13 +42,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvFromSource {
             config_map_ref: crate::OptionableConvert::try_from_optioned(
                 value.config_map_ref,
             )?,
-            prefix: crate::OptionableConvert::try_from_optioned(value.prefix)?,
+            prefix: value.prefix,
             secret_ref: crate::OptionableConvert::try_from_optioned(value.secret_ref)?,
         })
     }
     fn merge(&mut self, other: EnvFromSourceAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.config_map_ref, other.config_map_ref)?;
-        crate::OptionableConvert::merge(&mut self.prefix, other.prefix)?;
+        self.prefix = other.prefix;
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
         Ok(())
     }

@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HTTPHeaderAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub value: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::HTTPHeader {
@@ -26,34 +26,30 @@ impl crate::Optionable for HTTPHeaderAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HTTPHeader {
     fn into_optioned(self) -> HTTPHeaderAc {
         HTTPHeaderAc {
-            name: Some(crate::OptionableConvert::into_optioned(self.name)),
-            value: Some(crate::OptionableConvert::into_optioned(self.value)),
+            name: Some(self.name),
+            value: Some(self.value),
         }
     }
     fn try_from_optioned(value: HTTPHeaderAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .name
-                    .ok_or(crate::Error {
-                        missing_field: "name",
-                    })?,
-            )?,
-            value: crate::OptionableConvert::try_from_optioned(
-                value
-                    .value
-                    .ok_or(crate::Error {
-                        missing_field: "value",
-                    })?,
-            )?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
+            value: value
+                .value
+                .ok_or(crate::Error {
+                    missing_field: "value",
+                })?,
         })
     }
     fn merge(&mut self, other: HTTPHeaderAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = other_value;
         }
         if let Some(other_value) = other.value {
-            crate::OptionableConvert::merge(&mut self.value, other_value)?;
+            self.value = other_value;
         }
         Ok(())
     }

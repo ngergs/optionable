@@ -9,15 +9,17 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ValidatingAdmissionPolicyStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: <Option<
-        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>,
-    > as crate::Optionable>::Optioned,
+    pub conditions: Option<
+        std::vec::Vec<
+            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_checking: <Option<
-        ::k8s_openapi027::api::admissionregistration::v1::TypeChecking,
-    > as crate::Optionable>::Optioned,
+    pub type_checking: Option<
+        <::k8s_openapi027::api::admissionregistration::v1::TypeChecking as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable

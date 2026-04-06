@@ -12,13 +12,13 @@ pub struct ContainerPortAc {
     pub container_port: Option<i32>,
     #[serde(rename = "hostIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub host_ip: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub host_ip: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host_port: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub name: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub protocol: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub protocol: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ContainerPort {
@@ -34,10 +34,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerPort {
     fn into_optioned(self) -> ContainerPortAc {
         ContainerPortAc {
             container_port: Some(self.container_port),
-            host_ip: crate::OptionableConvert::into_optioned(self.host_ip),
+            host_ip: self.host_ip,
             host_port: self.host_port,
-            name: crate::OptionableConvert::into_optioned(self.name),
-            protocol: crate::OptionableConvert::into_optioned(self.protocol),
+            name: self.name,
+            protocol: self.protocol,
         }
     }
     fn try_from_optioned(value: ContainerPortAc) -> Result<Self, crate::Error> {
@@ -47,20 +47,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerPort {
                 .ok_or(crate::Error {
                     missing_field: "container_port",
                 })?,
-            host_ip: crate::OptionableConvert::try_from_optioned(value.host_ip)?,
+            host_ip: value.host_ip,
             host_port: value.host_port,
-            name: crate::OptionableConvert::try_from_optioned(value.name)?,
-            protocol: crate::OptionableConvert::try_from_optioned(value.protocol)?,
+            name: value.name,
+            protocol: value.protocol,
         })
     }
     fn merge(&mut self, other: ContainerPortAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.container_port {
             self.container_port = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.host_ip, other.host_ip)?;
+        self.host_ip = other.host_ip;
         self.host_port = other.host_port;
-        crate::OptionableConvert::merge(&mut self.name, other.name)?;
-        crate::OptionableConvert::merge(&mut self.protocol, other.protocol)?;
+        self.name = other.name;
+        self.protocol = other.protocol;
         Ok(())
     }
 }

@@ -10,9 +10,9 @@
 pub struct SuccessPolicyAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rules: Option<
-        <std::vec::Vec<
-            ::k8s_openapi027::api::batch::v1::SuccessPolicyRule,
-        > as crate::Optionable>::Optioned,
+        std::vec::Vec<
+            <::k8s_openapi027::api::batch::v1::SuccessPolicyRule as crate::Optionable>::Optioned,
+        >,
     >,
 }
 #[automatically_derived]

@@ -24,9 +24,9 @@ pub struct TokenReviewAc {
         <::k8s_openapi027::api::authentication::v1::TokenReviewSpec as crate::Optionable>::Optioned,
     >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: <Option<
-        ::k8s_openapi027::api::authentication::v1::TokenReviewStatus,
-    > as crate::Optionable>::Optioned,
+    pub status: Option<
+        <::k8s_openapi027::api::authentication::v1::TokenReviewStatus as crate::Optionable>::Optioned,
+    >,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::authentication::v1::TokenReview {

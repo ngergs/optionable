@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GroupResourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub group: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub resource: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -28,34 +28,30 @@ impl crate::OptionableConvert
 for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource {
     fn into_optioned(self) -> GroupResourceAc {
         GroupResourceAc {
-            group: Some(crate::OptionableConvert::into_optioned(self.group)),
-            resource: Some(crate::OptionableConvert::into_optioned(self.resource)),
+            group: Some(self.group),
+            resource: Some(self.resource),
         }
     }
     fn try_from_optioned(value: GroupResourceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            group: crate::OptionableConvert::try_from_optioned(
-                value
-                    .group
-                    .ok_or(crate::Error {
-                        missing_field: "group",
-                    })?,
-            )?,
-            resource: crate::OptionableConvert::try_from_optioned(
-                value
-                    .resource
-                    .ok_or(crate::Error {
-                        missing_field: "resource",
-                    })?,
-            )?,
+            group: value
+                .group
+                .ok_or(crate::Error {
+                    missing_field: "group",
+                })?,
+            resource: value
+                .resource
+                .ok_or(crate::Error {
+                    missing_field: "resource",
+                })?,
         })
     }
     fn merge(&mut self, other: GroupResourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.group {
-            crate::OptionableConvert::merge(&mut self.group, other_value)?;
+            self.group = other_value;
         }
         if let Some(other_value) = other.resource {
-            crate::OptionableConvert::merge(&mut self.resource, other_value)?;
+            self.resource = other_value;
         }
         Ok(())
     }

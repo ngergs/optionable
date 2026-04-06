@@ -10,9 +10,9 @@
 pub struct HTTPIngressRuleValueAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub paths: Option<
-        <std::vec::Vec<
-            ::k8s_openapi027::api::networking::v1::HTTPIngressPath,
-        > as crate::Optionable>::Optioned,
+        std::vec::Vec<
+            <::k8s_openapi027::api::networking::v1::HTTPIngressPath as crate::Optionable>::Optioned,
+        >,
     >,
 }
 #[automatically_derived]

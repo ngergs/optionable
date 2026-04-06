@@ -9,9 +9,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PreconditionsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub resource_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub uid: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub uid: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -28,26 +28,19 @@ impl crate::OptionableConvert
 for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Preconditions {
     fn into_optioned(self) -> PreconditionsAc {
         PreconditionsAc {
-            resource_version: crate::OptionableConvert::into_optioned(
-                self.resource_version,
-            ),
-            uid: crate::OptionableConvert::into_optioned(self.uid),
+            resource_version: self.resource_version,
+            uid: self.uid,
         }
     }
     fn try_from_optioned(value: PreconditionsAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            resource_version: crate::OptionableConvert::try_from_optioned(
-                value.resource_version,
-            )?,
-            uid: crate::OptionableConvert::try_from_optioned(value.uid)?,
+            resource_version: value.resource_version,
+            uid: value.uid,
         })
     }
     fn merge(&mut self, other: PreconditionsAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.resource_version,
-            other.resource_version,
-        )?;
-        crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
+        self.resource_version = other.resource_version;
+        self.uid = other.uid;
         Ok(())
     }
 }

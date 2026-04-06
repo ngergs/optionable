@@ -9,9 +9,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NamespaceSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub finalizers: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub finalizers: Option<std::vec::Vec<std::string::String>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::NamespaceSpec {
@@ -26,16 +24,16 @@ impl crate::Optionable for NamespaceSpecAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceSpec {
     fn into_optioned(self) -> NamespaceSpecAc {
         NamespaceSpecAc {
-            finalizers: crate::OptionableConvert::into_optioned(self.finalizers),
+            finalizers: self.finalizers,
         }
     }
     fn try_from_optioned(value: NamespaceSpecAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            finalizers: crate::OptionableConvert::try_from_optioned(value.finalizers)?,
+            finalizers: value.finalizers,
         })
     }
     fn merge(&mut self, other: NamespaceSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.finalizers, other.finalizers)?;
+        self.finalizers = other.finalizers;
         Ok(())
     }
 }

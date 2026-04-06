@@ -9,23 +9,21 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeleteOptionsAc {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub api_version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub api_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub dry_run: <Option<
-        std::vec::Vec<std::string::String>,
-    > as crate::Optionable>::Optioned,
+    pub dry_run: Option<std::vec::Vec<std::string::String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub grace_period_seconds: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub kind: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub kind: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub orphan_dependents: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub preconditions: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Preconditions,
-    > as crate::Optionable>::Optioned,
+    pub preconditions: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Preconditions as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub propagation_policy: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub propagation_policy: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -42,43 +40,36 @@ impl crate::OptionableConvert
 for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
     fn into_optioned(self) -> DeleteOptionsAc {
         DeleteOptionsAc {
-            api_version: crate::OptionableConvert::into_optioned(self.api_version),
-            dry_run: crate::OptionableConvert::into_optioned(self.dry_run),
+            api_version: self.api_version,
+            dry_run: self.dry_run,
             grace_period_seconds: self.grace_period_seconds,
-            kind: crate::OptionableConvert::into_optioned(self.kind),
+            kind: self.kind,
             orphan_dependents: self.orphan_dependents,
             preconditions: crate::OptionableConvert::into_optioned(self.preconditions),
-            propagation_policy: crate::OptionableConvert::into_optioned(
-                self.propagation_policy,
-            ),
+            propagation_policy: self.propagation_policy,
         }
     }
     fn try_from_optioned(value: DeleteOptionsAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            api_version: crate::OptionableConvert::try_from_optioned(value.api_version)?,
-            dry_run: crate::OptionableConvert::try_from_optioned(value.dry_run)?,
+            api_version: value.api_version,
+            dry_run: value.dry_run,
             grace_period_seconds: value.grace_period_seconds,
-            kind: crate::OptionableConvert::try_from_optioned(value.kind)?,
+            kind: value.kind,
             orphan_dependents: value.orphan_dependents,
             preconditions: crate::OptionableConvert::try_from_optioned(
                 value.preconditions,
             )?,
-            propagation_policy: crate::OptionableConvert::try_from_optioned(
-                value.propagation_policy,
-            )?,
+            propagation_policy: value.propagation_policy,
         })
     }
     fn merge(&mut self, other: DeleteOptionsAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
-        crate::OptionableConvert::merge(&mut self.dry_run, other.dry_run)?;
+        self.api_version = other.api_version;
+        self.dry_run = other.dry_run;
         self.grace_period_seconds = other.grace_period_seconds;
-        crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
+        self.kind = other.kind;
         self.orphan_dependents = other.orphan_dependents;
         crate::OptionableConvert::merge(&mut self.preconditions, other.preconditions)?;
-        crate::OptionableConvert::merge(
-            &mut self.propagation_policy,
-            other.propagation_policy,
-        )?;
+        self.propagation_policy = other.propagation_policy;
         Ok(())
     }
 }

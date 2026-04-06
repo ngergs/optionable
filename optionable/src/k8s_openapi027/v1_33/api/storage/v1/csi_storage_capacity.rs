@@ -19,20 +19,20 @@ pub struct CSIStorageCapacityAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub capacity: <Option<
-        ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
-    > as crate::Optionable>::Optioned,
+    pub capacity: Option<
+        <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub maximum_volume_size: <Option<
-        ::k8s_openapi027::apimachinery::pkg::api::resource::Quantity,
-    > as crate::Optionable>::Optioned,
+    pub maximum_volume_size: Option<
+        <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+    >,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub node_topology: <Option<
-        ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector,
-    > as crate::Optionable>::Optioned,
+    pub node_topology: Option<
+        <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub storage_class_name: Option<<std::string::String as crate::Optionable>::Optioned>,
+    pub storage_class_name: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::storage::v1::CSIStorageCapacity {
@@ -55,9 +55,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIStorageCa
             ),
             metadata: self.metadata,
             node_topology: crate::OptionableConvert::into_optioned(self.node_topology),
-            storage_class_name: Some(
-                crate::OptionableConvert::into_optioned(self.storage_class_name),
-            ),
+            storage_class_name: Some(self.storage_class_name),
         }
     }
     fn try_from_optioned(value: CSIStorageCapacityAc) -> Result<Self, crate::Error> {
@@ -70,13 +68,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIStorageCa
             node_topology: crate::OptionableConvert::try_from_optioned(
                 value.node_topology,
             )?,
-            storage_class_name: crate::OptionableConvert::try_from_optioned(
-                value
-                    .storage_class_name
-                    .ok_or(crate::Error {
-                        missing_field: "storage_class_name",
-                    })?,
-            )?,
+            storage_class_name: value
+                .storage_class_name
+                .ok_or(crate::Error {
+                    missing_field: "storage_class_name",
+                })?,
         })
     }
     fn merge(&mut self, other: CSIStorageCapacityAc) -> Result<(), crate::Error> {
@@ -88,7 +84,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIStorageCa
         self.metadata = other.metadata;
         crate::OptionableConvert::merge(&mut self.node_topology, other.node_topology)?;
         if let Some(other_value) = other.storage_class_name {
-            crate::OptionableConvert::merge(&mut self.storage_class_name, other_value)?;
+            self.storage_class_name = other_value;
         }
         Ok(())
     }

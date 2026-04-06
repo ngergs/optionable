@@ -13,9 +13,9 @@ pub struct DeviceAttributeAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub int: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub string: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub string: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub version: <Option<std::string::String> as crate::Optionable>::Optioned,
+    pub version: Option<std::string::String>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::resource::v1beta2::DeviceAttribute {
@@ -33,23 +33,23 @@ for k8s_openapi027::api::resource::v1beta2::DeviceAttribute {
         DeviceAttributeAc {
             bool: self.bool,
             int: self.int,
-            string: crate::OptionableConvert::into_optioned(self.string),
-            version: crate::OptionableConvert::into_optioned(self.version),
+            string: self.string,
+            version: self.version,
         }
     }
     fn try_from_optioned(value: DeviceAttributeAc) -> Result<Self, crate::Error> {
         Ok(Self {
             bool: value.bool,
             int: value.int,
-            string: crate::OptionableConvert::try_from_optioned(value.string)?,
-            version: crate::OptionableConvert::try_from_optioned(value.version)?,
+            string: value.string,
+            version: value.version,
         })
     }
     fn merge(&mut self, other: DeviceAttributeAc) -> Result<(), crate::Error> {
         self.bool = other.bool;
         self.int = other.int;
-        crate::OptionableConvert::merge(&mut self.string, other.string)?;
-        crate::OptionableConvert::merge(&mut self.version, other.version)?;
+        self.string = other.string;
+        self.version = other.version;
         Ok(())
     }
 }
