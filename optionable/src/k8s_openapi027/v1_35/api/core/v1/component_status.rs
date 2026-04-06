@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ComponentStatusAc {
     #[serde(
@@ -18,12 +19,14 @@ pub struct ComponentStatusAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// List of component conditions observed
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::ComponentCondition as crate::Optionable>::Optioned,
         >,
     >,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
 }
 #[automatically_derived]

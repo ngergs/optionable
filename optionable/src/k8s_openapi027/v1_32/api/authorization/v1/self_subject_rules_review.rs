@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelfSubjectRulesReviewAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct SelfSubjectRulesReviewAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec holds information about the request being evaluated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::authorization::v1::SelfSubjectRulesReviewSpec as crate::Optionable>::Optioned,
     >,
+    /// Status is filled in by the server and indicates the set of actions a user can perform.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus as crate::Optionable>::Optioned,

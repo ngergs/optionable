@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// LimitRange sets resource usage limits for each kind of resource in a Namespace.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LimitRangeAc {
     #[serde(
@@ -18,7 +19,9 @@ pub struct LimitRangeAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::core::v1::LimitRangeSpec as crate::Optionable>::Optioned,

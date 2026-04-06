@@ -6,30 +6,41 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DaemonSetStatus represents the current status of a daemon set.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DaemonSetStatusAc {
+    /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub collision_count: Option<i32>,
+    /// Represents the latest available observations of a DaemonSet's current state.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::apps::v1::DaemonSetCondition as crate::Optionable>::Optioned,
         >,
     >,
+    /// The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_number_scheduled: Option<i32>,
+    /// The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub desired_number_scheduled: Option<i32>,
+    /// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub number_available: Option<i32>,
+    /// The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub number_misscheduled: Option<i32>,
+    /// numberReady is the number of nodes that should be running the daemon pod and have one or more of the daemon pod running with a Ready Condition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub number_ready: Option<i32>,
+    /// The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub number_unavailable: Option<i32>,
+    /// The most recent generation observed by the daemon set controller.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
+    /// The total number of nodes that are running updated daemon pod
     #[serde(skip_serializing_if = "Option::is_none")]
     pub updated_number_scheduled: Option<i32>,
 }

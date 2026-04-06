@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ClusterRoleAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct ClusterRoleAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub aggregation_rule: Option<
         <::k8s_openapi027::api::rbac::v1::AggregationRule as crate::Optionable>::Optioned,
     >,
+    /// Standard object's metadata.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Rules holds all the PolicyRules for this ClusterRole
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rules: Option<
         std::vec::Vec<

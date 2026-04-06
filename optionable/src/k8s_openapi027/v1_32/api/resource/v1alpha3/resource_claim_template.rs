@@ -6,6 +6,9 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceClaimTemplate is used to produce ResourceClaim objects.
+///
+/// This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimTemplateAc {
     #[serde(
@@ -18,7 +21,11 @@ pub struct ResourceClaimTemplateAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Describes the ResourceClaim that is to be generated.
+    ///
+    /// This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::resource::v1alpha3::ResourceClaimTemplateSpec as crate::Optionable>::Optioned,

@@ -6,14 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimConsumerReferenceAc {
+    /// APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_group: Option<std::string::String>,
+    /// Name is the name of resource being referenced.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// Resource is the type of resource being referenced, for example "pods".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<std::string::String>,
+    /// UID identifies exactly one incarnation of the resource.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: Option<std::string::String>,
 }

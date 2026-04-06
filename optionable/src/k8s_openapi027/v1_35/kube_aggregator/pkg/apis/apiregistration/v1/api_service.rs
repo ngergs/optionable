@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// APIService represents a server for a particular GroupVersion. Name must be "version.group".
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIServiceAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct APIServiceAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec contains information for locating and communicating with a server
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec as crate::Optionable>::Optioned,
     >,
+    /// Status contains derived information about an API server
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceStatus as crate::Optionable>::Optioned,

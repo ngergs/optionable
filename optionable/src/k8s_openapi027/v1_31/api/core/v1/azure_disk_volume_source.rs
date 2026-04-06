@@ -6,19 +6,26 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AzureDiskVolumeSourceAc {
+    /// cachingMode is the Host Caching mode: None, Read Only, Read Write.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub caching_mode: Option<std::string::String>,
+    /// diskName is the Name of the data disk in the blob storage
     #[serde(skip_serializing_if = "Option::is_none")]
     pub disk_name: Option<std::string::String>,
+    /// diskURI is the URI of data disk in the blob storage
     #[serde(rename = "diskURI")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub disk_uri: Option<std::string::String>,
+    /// fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: Option<std::string::String>,
+    /// kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
+    /// readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
 }

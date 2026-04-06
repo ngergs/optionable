@@ -6,18 +6,23 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// VolumeAttachmentStatus is the status of a VolumeAttachment request.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeAttachmentStatusAc {
+    /// attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attach_error: Option<
         <::k8s_openapi027::api::storage::v1::VolumeError as crate::Optionable>::Optioned,
     >,
+    /// attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attached: Option<bool>,
+    /// attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attachment_metadata: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     >,
+    /// detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub detach_error: Option<
         <::k8s_openapi027::api::storage::v1::VolumeError as crate::Optionable>::Optioned,

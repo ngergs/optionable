@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ClientIPConfig represents the configurations of Client IP based session affinity.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ClientIPConfigAc {
+    /// timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be \>0 && \<=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub timeout_seconds: Option<i32>,
 }

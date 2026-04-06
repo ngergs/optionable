@@ -1,4 +1,5 @@
 #[derive(Clone, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+/// IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.
 #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
 #[serde(untagged)]
 pub enum IntOrStringAc {

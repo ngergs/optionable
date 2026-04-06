@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodGroup represents a set of pods with a common scheduling policy.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodGroupAc {
+    /// Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// Policy defines the scheduling policy for this PodGroup.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub policy: Option<
         <::k8s_openapi027::api::scheduling::v1alpha1::PodGroupPolicy as crate::Optionable>::Optioned,

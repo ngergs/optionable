@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NonResourceAttributesAc {
+    /// Path is the URL path of the request
     #[serde(skip_serializing_if = "Option::is_none")]
     pub path: Option<std::string::String>,
+    /// Verb is the standard HTTP verb
     #[serde(skip_serializing_if = "Option::is_none")]
     pub verb: Option<std::string::String>,
 }

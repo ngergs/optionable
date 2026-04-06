@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PersistentVolumeClaimTemplateAc {
+    /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub metadata: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
     >,
+    /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::core::v1::PersistentVolumeClaimSpec as crate::Optionable>::Optioned,

@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// LimitRangeSpec defines a min/max usage limit for resources that match on kind.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LimitRangeSpecAc {
+    /// Limits is the list of LimitRangeItem objects that are enforced.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub limits: Option<
         std::vec::Vec<

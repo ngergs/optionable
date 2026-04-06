@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodDisruptionBudgetAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct PodDisruptionBudgetAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Specification of the desired behavior of the PodDisruptionBudget.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec as crate::Optionable>::Optioned,
     >,
+    /// Most recently observed status of the PodDisruptionBudget.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::policy::v1::PodDisruptionBudgetStatus as crate::Optionable>::Optioned,

@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// GroupSubject holds detailed information for group-kind subject.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GroupSubjectAc {
+    /// name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

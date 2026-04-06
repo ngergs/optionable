@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct WorkloadAc {
     #[serde(
@@ -18,7 +19,9 @@ pub struct WorkloadAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. Name must be a DNS subdomain.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec defines the desired behavior of a Workload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::scheduling::v1alpha1::WorkloadSpec as crate::Optionable>::Optioned,

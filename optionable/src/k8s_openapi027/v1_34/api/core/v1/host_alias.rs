@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HostAliasAc {
+    /// Hostnames for the above IP address.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hostnames: Option<std::vec::Vec<std::string::String>>,
+    /// IP address of the host file entry.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ip: Option<std::string::String>,
 }

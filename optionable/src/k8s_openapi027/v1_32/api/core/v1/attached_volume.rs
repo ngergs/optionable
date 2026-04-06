@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// AttachedVolume describes a volume attached to a node
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AttachedVolumeAc {
+    /// DevicePath represents the device path where the volume should be available
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device_path: Option<std::string::String>,
+    /// Name of the attached volume
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

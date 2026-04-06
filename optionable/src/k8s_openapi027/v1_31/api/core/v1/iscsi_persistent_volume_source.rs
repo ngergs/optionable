@@ -6,30 +6,42 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ISCSIPersistentVolumeSourceAc {
+    /// chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
     #[serde(skip_serializing_if = "Option::is_none")]
     pub chap_auth_discovery: Option<bool>,
+    /// chapAuthSession defines whether support iSCSI Session CHAP authentication
     #[serde(skip_serializing_if = "Option::is_none")]
     pub chap_auth_session: Option<bool>,
+    /// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: Option<std::string::String>,
+    /// initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface \<target portal\>:\<volume name\> will be created for the connection.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub initiator_name: Option<std::string::String>,
+    /// iqn is Target iSCSI Qualified Name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub iqn: Option<std::string::String>,
+    /// iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub iscsi_interface: Option<std::string::String>,
+    /// lun is iSCSI Target Lun number.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lun: Option<i32>,
+    /// portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub portals: Option<std::vec::Vec<std::string::String>>,
+    /// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
+    /// secretRef is the CHAP Secret for iSCSI target and initiator authentication
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret_ref: Option<
         <::k8s_openapi027::api::core::v1::SecretReference as crate::Optionable>::Optioned,
     >,
+    /// targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target_portal: Option<std::string::String>,
 }

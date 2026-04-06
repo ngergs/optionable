@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ObjectFieldSelector selects an APIVersioned field of an object.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ObjectFieldSelectorAc {
+    /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_version: Option<std::string::String>,
+    /// Path of the field to select in the specified API version.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub field_path: Option<std::string::String>,
 }

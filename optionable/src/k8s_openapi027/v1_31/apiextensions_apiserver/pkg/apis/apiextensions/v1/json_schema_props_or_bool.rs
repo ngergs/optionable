@@ -1,4 +1,5 @@
 #[derive(Clone, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+/// JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.
 #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
 #[serde(untagged)]
 pub enum JSONSchemaPropsOrBoolAc {

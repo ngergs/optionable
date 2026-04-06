@@ -6,16 +6,20 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ValidatingAdmissionPolicyStatus represents the status of an admission validation policy.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ValidatingAdmissionPolicyStatusAc {
+    /// The conditions represent the latest available observations of a policy's current state.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
         >,
     >,
+    /// The generation observed by the controller.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
+    /// The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_checking: Option<
         <::k8s_openapi027::api::admissionregistration::v1beta1::TypeChecking as crate::Optionable>::Optioned,

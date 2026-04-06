@@ -6,6 +6,9 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
+///
+/// StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageClassAc {
     #[serde(
@@ -18,25 +21,33 @@ pub struct StorageClassAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// allowVolumeExpansion shows whether the storage class allow volume expand.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allow_volume_expansion: Option<bool>,
+    /// allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allowed_topologies: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::TopologySelectorTerm as crate::Optionable>::Optioned,
         >,
     >,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. \["ro", "soft"\]. Not validated - mount of the PVs will simply fail if one is invalid.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mount_options: Option<std::vec::Vec<std::string::String>>,
+    /// parameters holds the parameters for the provisioner that should create volumes of this storage class.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parameters: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     >,
+    /// provisioner indicates the type of the provisioner.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provisioner: Option<std::string::String>,
+    /// reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reclaim_policy: Option<std::string::String>,
+    /// volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_binding_mode: Option<std::string::String>,
 }

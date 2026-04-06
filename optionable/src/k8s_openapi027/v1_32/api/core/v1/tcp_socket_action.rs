@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// TCPSocketAction describes an action based on opening a socket
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TCPSocketActionAc {
+    /// Optional: Host name to connect to, defaults to the pod IP.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host: Option<std::string::String>,
+    /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<
         <::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString as crate::Optionable>::Optioned,

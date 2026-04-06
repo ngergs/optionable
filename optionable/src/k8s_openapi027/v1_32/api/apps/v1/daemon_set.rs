@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DaemonSet represents the configuration of a daemon set.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DaemonSetAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct DaemonSetAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::apps::v1::DaemonSetSpec as crate::Optionable>::Optioned,
     >,
+    /// The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::apps::v1::DaemonSetStatus as crate::Optionable>::Optioned,

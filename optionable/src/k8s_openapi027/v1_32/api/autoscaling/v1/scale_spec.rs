@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ScaleSpec describes the attributes of a scale subresource.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ScaleSpecAc {
+    /// replicas is the desired number of instances for the scaled object.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub replicas: Option<i32>,
 }

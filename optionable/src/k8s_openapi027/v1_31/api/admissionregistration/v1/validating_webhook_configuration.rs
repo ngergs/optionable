@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ValidatingWebhookConfigurationAc {
     #[serde(
@@ -18,7 +19,9 @@ pub struct ValidatingWebhookConfigurationAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Webhooks is a list of webhooks and the affected resources and operations.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub webhooks: Option<
         std::vec::Vec<

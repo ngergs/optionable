@@ -6,14 +6,18 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// MetricValueStatus holds the current value for a metric
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MetricValueStatusAc {
+    /// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub average_utilization: Option<i32>,
+    /// averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub average_value: Option<
         <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
     >,
+    /// value is the current value of the metric (as a quantity).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<
         <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,

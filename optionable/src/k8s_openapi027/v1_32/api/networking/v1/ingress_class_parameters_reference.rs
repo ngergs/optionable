@@ -6,16 +6,22 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressClassParametersReferenceAc {
+    /// apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_group: Option<std::string::String>,
+    /// kind is the type of resource being referenced.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
+    /// name is the name of resource being referenced.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace: Option<std::string::String>,
+    /// scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope: Option<std::string::String>,
 }

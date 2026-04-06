@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// VolumeError captures an error encountered during a volume operation.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeErrorAc {
+    /// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// time represents the time the error was encountered.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,

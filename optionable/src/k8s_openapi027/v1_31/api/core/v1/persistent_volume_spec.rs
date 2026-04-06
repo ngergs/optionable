@@ -6,22 +6,28 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PersistentVolumeSpec is the specification of a persistent volume.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PersistentVolumeSpecAc {
+    /// accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
     #[serde(skip_serializing_if = "Option::is_none")]
     pub access_modes: Option<std::vec::Vec<std::string::String>>,
+    /// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
     #[serde(skip_serializing_if = "Option::is_none")]
     pub aws_elastic_block_store: Option<
         <::k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub azure_disk: Option<
         <::k8s_openapi027::api::core::v1::AzureDiskVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub azure_file: Option<
         <::k8s_openapi027::api::core::v1::AzureFilePersistentVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
     #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: Option<
         std::collections::BTreeMap<
@@ -29,97 +35,123 @@ pub struct PersistentVolumeSpecAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cephfs: Option<
         <::k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cinder: Option<
         <::k8s_openapi027::api::core::v1::CinderPersistentVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
     #[serde(skip_serializing_if = "Option::is_none")]
     pub claim_ref: Option<
         <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
     >,
+    /// csi represents storage that is handled by an external CSI driver (Beta feature).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub csi: Option<
         <::k8s_openapi027::api::core::v1::CSIPersistentVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fc: Option<
         <::k8s_openapi027::api::core::v1::FCVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub flex_volume: Option<
         <::k8s_openapi027::api::core::v1::FlexPersistentVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
     #[serde(skip_serializing_if = "Option::is_none")]
     pub flocker: Option<
         <::k8s_openapi027::api::core::v1::FlockerVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
     #[serde(skip_serializing_if = "Option::is_none")]
     pub gce_persistent_disk: Option<
         <::k8s_openapi027::api::core::v1::GCEPersistentDiskVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
     #[serde(skip_serializing_if = "Option::is_none")]
     pub glusterfs: Option<
         <::k8s_openapi027::api::core::v1::GlusterfsPersistentVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host_path: Option<
         <::k8s_openapi027::api::core::v1::HostPathVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub iscsi: Option<
         <::k8s_openapi027::api::core::v1::ISCSIPersistentVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// local represents directly-attached storage with node affinity
     #[serde(skip_serializing_if = "Option::is_none")]
     pub local: Option<
         <::k8s_openapi027::api::core::v1::LocalVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// mountOptions is the list of mount options, e.g. \["ro", "soft"\]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mount_options: Option<std::vec::Vec<std::string::String>>,
+    /// nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
     #[serde(skip_serializing_if = "Option::is_none")]
     pub nfs: Option<
         <::k8s_openapi027::api::core::v1::NFSVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_affinity: Option<
         <::k8s_openapi027::api::core::v1::VolumeNodeAffinity as crate::Optionable>::Optioned,
     >,
+    /// persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
     #[serde(skip_serializing_if = "Option::is_none")]
     pub persistent_volume_reclaim_policy: Option<std::string::String>,
+    /// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
     #[serde(skip_serializing_if = "Option::is_none")]
     pub photon_persistent_disk: Option<
         <::k8s_openapi027::api::core::v1::PhotonPersistentDiskVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
     #[serde(skip_serializing_if = "Option::is_none")]
     pub portworx_volume: Option<
         <::k8s_openapi027::api::core::v1::PortworxVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
     #[serde(skip_serializing_if = "Option::is_none")]
     pub quobyte: Option<
         <::k8s_openapi027::api::core::v1::QuobyteVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rbd: Option<
         <::k8s_openapi027::api::core::v1::RBDPersistentVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
     #[serde(rename = "scaleIO")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scale_io: Option<
         <::k8s_openapi027::api::core::v1::ScaleIOPersistentVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_class_name: Option<std::string::String>,
+    /// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storageos: Option<
         <::k8s_openapi027::api::core::v1::StorageOSPersistentVolumeSource as crate::Optionable>::Optioned,
     >,
+    /// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_attributes_class_name: Option<std::string::String>,
+    /// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_mode: Option<std::string::String>,
+    /// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vsphere_volume: Option<
         <::k8s_openapi027::api::core::v1::VsphereVirtualDiskVolumeSource as crate::Optionable>::Optioned,

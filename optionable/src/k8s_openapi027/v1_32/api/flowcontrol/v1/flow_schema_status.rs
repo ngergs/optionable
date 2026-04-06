@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// FlowSchemaStatus represents the current state of a FlowSchema.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FlowSchemaStatusAc {
+    /// `conditions` is a list of the current states of FlowSchema.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<

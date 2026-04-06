@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Deployment enables declarative updates for Pods and ReplicaSets.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeploymentAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct DeploymentAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Specification of the desired behavior of the Deployment.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::apps::v1::DeploymentSpec as crate::Optionable>::Optioned,
     >,
+    /// Most recently observed status of the Deployment.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::apps::v1::DeploymentStatus as crate::Optionable>::Optioned,

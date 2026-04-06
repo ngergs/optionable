@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct UncountedTerminatedPodsAc {
+    /// failed holds UIDs of failed Pods.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub failed: Option<std::vec::Vec<std::string::String>>,
+    /// succeeded holds UIDs of succeeded Pods.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub succeeded: Option<std::vec::Vec<std::string::String>>,
 }

@@ -6,13 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// HPAScalingPolicy is a single policy which must hold true for a specified past interval.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HPAScalingPolicyAc {
+    /// periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub period_seconds: Option<i32>,
+    /// type is used to specify the scaling policy.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,
+    /// value contains the amount of change which is permitted by the policy. It must be greater than zero
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<i32>,
 }

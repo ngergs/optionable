@@ -6,14 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// BoundObjectReference is a reference to an object that a token is bound to.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BoundObjectReferenceAc {
+    /// API version of the referent.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_version: Option<std::string::String>,
+    /// Kind of the referent. Valid kinds are 'Pod' and 'Secret'.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
+    /// Name of the referent.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// UID of the referent.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: Option<std::string::String>,
 }

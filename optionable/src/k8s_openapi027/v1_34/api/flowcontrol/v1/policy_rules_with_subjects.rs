@@ -6,20 +6,24 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PolicyRulesWithSubjectsAc {
+    /// `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub non_resource_rules: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule as crate::Optionable>::Optioned,
         >,
     >,
+    /// `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_rules: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule as crate::Optionable>::Optioned,
         >,
     >,
+    /// subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub subjects: Option<
         std::vec::Vec<

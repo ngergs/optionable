@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ServiceBackendPort is the service port being referenced.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceBackendPortAc {
+    /// name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub number: Option<i32>,
 }

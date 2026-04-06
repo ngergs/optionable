@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NodeSwapStatus represents swap memory information.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSwapStatusAc {
+    /// Total amount of swap memory in bytes.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: Option<i64>,
 }

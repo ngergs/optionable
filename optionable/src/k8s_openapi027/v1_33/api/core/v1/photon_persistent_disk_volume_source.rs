@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Represents a Photon Controller persistent disk resource.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PhotonPersistentDiskVolumeSourceAc {
+    /// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: Option<std::string::String>,
+    /// pdID is the ID that identifies Photon Controller persistent disk
     #[serde(rename = "pdID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pd_id: Option<std::string::String>,

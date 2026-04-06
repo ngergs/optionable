@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// StorageVersionSpec is an empty spec.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionSpecAc(
     #[serde(skip_serializing_if = "Option::is_none")]

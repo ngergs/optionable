@@ -6,18 +6,25 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct QuobyteVolumeSourceAc {
+    /// group to map volume access to Default is no group
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<std::string::String>,
+    /// readOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
+    /// registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
     #[serde(skip_serializing_if = "Option::is_none")]
     pub registry: Option<std::string::String>,
+    /// tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<std::string::String>,
+    /// user to map volume access to Defaults to serivceaccount user
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<std::string::String>,
+    /// volume is a string that references an already created Quobyte volume by name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume: Option<std::string::String>,
 }

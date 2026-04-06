@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Overhead structure represents the resource overhead associated with running a pod.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct OverheadAc {
+    /// podFixed represents the fixed resource overhead associated with running a pod.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_fixed: Option<
         std::collections::BTreeMap<

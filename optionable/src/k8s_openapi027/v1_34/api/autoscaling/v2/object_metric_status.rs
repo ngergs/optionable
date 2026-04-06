@@ -6,16 +6,20 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ObjectMetricStatusAc {
+    /// current contains the current value for the given metric
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current: Option<
         <::k8s_openapi027::api::autoscaling::v2::MetricValueStatus as crate::Optionable>::Optioned,
     >,
+    /// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
     #[serde(skip_serializing_if = "Option::is_none")]
     pub described_object: Option<
         <::k8s_openapi027::api::autoscaling::v2::CrossVersionObjectReference as crate::Optionable>::Optioned,
     >,
+    /// metric identifies the target metric by name and selector
     #[serde(skip_serializing_if = "Option::is_none")]
     pub metric: Option<
         <::k8s_openapi027::api::autoscaling::v2::MetricIdentifier as crate::Optionable>::Optioned,

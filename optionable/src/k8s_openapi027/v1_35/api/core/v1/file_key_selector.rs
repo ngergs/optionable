@@ -6,14 +6,21 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// FileKeySelector selects a key of the env file.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FileKeySelectorAc {
+    /// The key within the env file. An invalid key will prevent the pod from starting. The keys defined within a source may consist of any printable ASCII characters except '='. During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub key: Option<std::string::String>,
+    /// Specify whether the file or its key must be defined. If the file or key does not exist, then the env var is not published. If optional is set to true and the specified key does not exist, the environment variable will not be set in the Pod's containers.
+    ///
+    /// If optional is set to false and the specified key does not exist, an error will be returned during Pod creation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub optional: Option<bool>,
+    /// The path within the volume from which to select the file. Must be relative and may not contain the '..' path or start with '..'.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub path: Option<std::string::String>,
+    /// The name of the volume mount containing the env file.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_name: Option<std::string::String>,
 }

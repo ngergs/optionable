@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ScopedResourceSelectorRequirementAc {
+    /// Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub operator: Option<std::string::String>,
+    /// The name of the scope that the selector applies to.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_name: Option<std::string::String>,
+    /// An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub values: Option<std::vec::Vec<std::string::String>>,
 }

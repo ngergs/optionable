@@ -6,6 +6,9 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+///
+/// Kubelets use this API to implement podCertificate projected volumes
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodCertificateRequestAc {
     #[serde(
@@ -18,11 +21,14 @@ pub struct PodCertificateRequestAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// metadata contains the object metadata.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// spec contains the details about the certificate being requested.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::certificates::v1alpha1::PodCertificateRequestSpec as crate::Optionable>::Optioned,
     >,
+    /// status contains the issued certificate, and a standard set of conditions.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::certificates::v1alpha1::PodCertificateRequestStatus as crate::Optionable>::Optioned,

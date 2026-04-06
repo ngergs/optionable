@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// volumeDevice describes a mapping of a raw block device within a container.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeDeviceAc {
+    /// devicePath is the path inside of the container that the device will be mapped to.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device_path: Option<std::string::String>,
+    /// name must match the name of a persistentVolumeClaim in the pod
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// TokenRequest contains parameters of a service account token.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TokenRequestAc {
+    /// audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub audience: Option<std::string::String>,
+    /// expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration_seconds: Option<i64>,
 }

@@ -6,18 +6,23 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SubjectRulesReviewStatusAc {
+    /// EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub evaluation_error: Option<std::string::String>,
+    /// Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub incomplete: Option<bool>,
+    /// NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub non_resource_rules: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::authorization::v1::NonResourceRule as crate::Optionable>::Optioned,
         >,
     >,
+    /// ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_rules: Option<
         std::vec::Vec<

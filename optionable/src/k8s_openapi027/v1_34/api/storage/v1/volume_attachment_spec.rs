@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeAttachmentSpecAc {
+    /// attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attacher: Option<std::string::String>,
+    /// nodeName represents the node that the volume should be attached to.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_name: Option<std::string::String>,
+    /// source represents the volume that should be attached.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub source: Option<
         <::k8s_openapi027::api::storage::v1::VolumeAttachmentSource as crate::Optionable>::Optioned,

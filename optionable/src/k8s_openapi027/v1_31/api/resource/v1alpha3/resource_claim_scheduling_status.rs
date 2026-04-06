@@ -6,10 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimSchedulingStatusAc {
+    /// Name matches the pod.spec.resourceClaims\[*\].Name field.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
+    ///
+    /// The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unsuitable_nodes: Option<std::vec::Vec<std::string::String>>,
 }

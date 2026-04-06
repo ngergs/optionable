@@ -6,14 +6,18 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EnvFromSourceAc {
+    /// The ConfigMap to select from
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config_map_ref: Option<
         <::k8s_openapi027::api::core::v1::ConfigMapEnvSource as crate::Optionable>::Optioned,
     >,
+    /// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub prefix: Option<std::string::String>,
+    /// The Secret to select from
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret_ref: Option<
         <::k8s_openapi027::api::core::v1::SecretEnvSource as crate::Optionable>::Optioned,

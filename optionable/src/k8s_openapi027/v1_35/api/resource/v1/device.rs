@@ -6,12 +6,22 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceAc {
+    /// AllNodes indicates that all nodes have access to the device.
+    ///
+    /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub all_nodes: Option<bool>,
+    /// AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+    ///
+    /// If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allow_multiple_allocations: Option<bool>,
+    /// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
+    ///
+    /// The maximum number of attributes and capacities combined is 32.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attributes: Option<
         std::collections::BTreeMap<
@@ -19,12 +29,32 @@ pub struct DeviceAc {
             <::k8s_openapi027::api::resource::v1::DeviceAttribute as crate::Optionable>::Optioned,
         >,
     >,
+    /// BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+    ///
+    /// The maximum number of binding conditions is 4.
+    ///
+    /// The conditions must be a valid condition type string.
+    ///
+    /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub binding_conditions: Option<std::vec::Vec<std::string::String>>,
+    /// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+    ///
+    /// The maximum number of binding failure conditions is 4.
+    ///
+    /// The conditions must be a valid condition type string.
+    ///
+    /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub binding_failure_conditions: Option<std::vec::Vec<std::string::String>>,
+    /// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+    ///
+    /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub binds_to_node: Option<bool>,
+    /// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
+    ///
+    /// The maximum number of attributes and capacities combined is 32.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: Option<
         std::collections::BTreeMap<
@@ -32,20 +62,39 @@ pub struct DeviceAc {
             <::k8s_openapi027::api::resource::v1::DeviceCapacity as crate::Optionable>::Optioned,
         >,
     >,
+    /// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+    ///
+    /// There can only be a single entry per counterSet.
+    ///
+    /// The maximum number of device counter consumptions per device is 2.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub consumes_counters: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::resource::v1::DeviceCounterConsumption as crate::Optionable>::Optioned,
         >,
     >,
+    /// Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// NodeName identifies the node where the device is available.
+    ///
+    /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_name: Option<std::string::String>,
+    /// NodeSelector defines the nodes where the device is available.
+    ///
+    /// Must use exactly one term.
+    ///
+    /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_selector: Option<
         <::k8s_openapi027::api::core::v1::NodeSelector as crate::Optionable>::Optioned,
     >,
+    /// If specified, these are the driver-defined taints.
+    ///
+    /// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
+    ///
+    /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub taints: Option<
         std::vec::Vec<

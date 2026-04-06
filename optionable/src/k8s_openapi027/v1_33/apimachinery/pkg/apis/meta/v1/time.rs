@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TimeAc(
     #[serde(skip_serializing_if = "Option::is_none")]

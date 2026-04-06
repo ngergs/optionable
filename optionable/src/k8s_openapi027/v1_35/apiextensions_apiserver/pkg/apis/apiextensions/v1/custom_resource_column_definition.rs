@@ -6,18 +6,25 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// CustomResourceColumnDefinition specifies a column for server side printing.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceColumnDefinitionAc {
+    /// description is a human readable description of this column.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<std::string::String>,
+    /// format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub format: Option<std::string::String>,
+    /// jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub json_path: Option<std::string::String>,
+    /// name is a human readable name for the column.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub priority: Option<i32>,
+    /// type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// MicroTime is version of Time with microsecond level precision.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MicroTimeAc(
     #[serde(skip_serializing_if = "Option::is_none")]

@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// StorageVersionMigration represents a migration of stored data to the latest storage version.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionMigrationAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct StorageVersionMigrationAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Specification of the migration.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigrationSpec as crate::Optionable>::Optioned,
     >,
+    /// Status of the migration.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigrationStatus as crate::Optionable>::Optioned,

@@ -6,14 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// VolumeMountStatus shows status of volume mounts.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeMountStatusAc {
+    /// MountPath corresponds to the original VolumeMount.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mount_path: Option<std::string::String>,
+    /// Name corresponds to the name of the original VolumeMount.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// ReadOnly corresponds to the original VolumeMount.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
+    /// RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub recursive_read_only: Option<std::string::String>,
 }

@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodOS defines the OS parameters of a pod.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodOSAc {
+    /// Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

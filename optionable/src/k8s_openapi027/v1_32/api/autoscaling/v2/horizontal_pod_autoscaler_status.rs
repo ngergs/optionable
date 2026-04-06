@@ -6,28 +6,35 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerStatusAc {
+    /// conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition as crate::Optionable>::Optioned,
         >,
     >,
+    /// currentMetrics is the last read state of the metrics used by this autoscaler.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_metrics: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::autoscaling::v2::MetricStatus as crate::Optionable>::Optioned,
         >,
     >,
+    /// currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_replicas: Option<i32>,
+    /// desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub desired_replicas: Option<i32>,
+    /// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_scale_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// observedGeneration is the most recent generation observed by this autoscaler.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
 }

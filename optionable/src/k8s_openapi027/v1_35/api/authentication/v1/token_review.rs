@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TokenReviewAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct TokenReviewAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec holds information about the request being evaluated
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::authentication::v1::TokenReviewSpec as crate::Optionable>::Optioned,
     >,
+    /// Status is filled in by the server and indicates whether the request can be authenticated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::authentication::v1::TokenReviewStatus as crate::Optionable>::Optioned,

@@ -6,18 +6,24 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ClusterTrustBundleProjectionAc {
+    /// Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub label_selector: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
     >,
+    /// Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub optional: Option<bool>,
+    /// Relative path from the volume root to write the bundle.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub path: Option<std::string::String>,
+    /// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub signer_name: Option<std::string::String>,
 }

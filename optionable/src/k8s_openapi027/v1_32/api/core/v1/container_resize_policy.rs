@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ContainerResizePolicy represents resource resize policy for the container.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerResizePolicyAc {
+    /// Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_name: Option<std::string::String>,
+    /// Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub restart_policy: Option<std::string::String>,
 }

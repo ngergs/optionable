@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SecretKeySelector selects a key of a Secret.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SecretKeySelectorAc {
+    /// The key of the secret to select from.  Must be a valid secret key.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub key: Option<std::string::String>,
+    /// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// Specify whether the Secret or its key must be defined
     #[serde(skip_serializing_if = "Option::is_none")]
     pub optional: Option<bool>,
 }

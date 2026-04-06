@@ -6,15 +6,20 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Represents a vSphere volume resource.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VsphereVirtualDiskVolumeSourceAc {
+    /// fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: Option<std::string::String>,
+    /// storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
     #[serde(rename = "storagePolicyID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_policy_id: Option<std::string::String>,
+    /// storagePolicyName is the storage Policy Based Management (SPBM) profile name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_policy_name: Option<std::string::String>,
+    /// volumePath is the path that identifies vSphere volume vmdk
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_path: Option<std::string::String>,
 }

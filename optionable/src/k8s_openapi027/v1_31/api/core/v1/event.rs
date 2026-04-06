@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EventAc {
     #[serde(
@@ -18,47 +19,62 @@ pub struct EventAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// What action was taken/failed regarding to the Regarding object.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub action: Option<std::string::String>,
+    /// The number of times this event has occurred.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
+    /// Time when this Event was first observed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub event_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::MicroTime as crate::Optionable>::Optioned,
     >,
+    /// The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub first_timestamp: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// The object that this event is about.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub involved_object: Option<
         <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
     >,
+    /// The time at which the most recent occurrence of this event was recorded.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_timestamp: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// A human-readable description of the status of this operation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
+    /// Optional secondary object for more complex actions.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub related: Option<
         <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
     >,
+    /// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reporting_component: Option<std::string::String>,
+    /// ID of the controller instance, e.g. `kubelet-xyzf`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reporting_instance: Option<std::string::String>,
+    /// Data about the Event series this event represents or nil if it's a singleton Event.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub series: Option<
         <::k8s_openapi027::api::core::v1::EventSeries as crate::Optionable>::Optioned,
     >,
+    /// The component reporting this event. Should be a short machine understandable string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub source: Option<
         <::k8s_openapi027::api::core::v1::EventSource as crate::Optionable>::Optioned,
     >,
+    /// Type of this event (Normal, Warning), new types could be added in the future
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

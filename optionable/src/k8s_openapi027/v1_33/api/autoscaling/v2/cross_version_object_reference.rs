@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// CrossVersionObjectReference contains enough information to let you identify the referred resource.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CrossVersionObjectReferenceAc {
+    /// apiVersion is the API version of the referent
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_version: Option<std::string::String>,
+    /// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
+    /// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

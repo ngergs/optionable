@@ -6,12 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceClaimConfigurationAc {
+    /// Opaque provides driver-specific configuration parameters.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub opaque: Option<
         <::k8s_openapi027::api::resource::v1beta2::OpaqueDeviceConfiguration as crate::Optionable>::Optioned,
     >,
+    /// Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+    ///
+    /// References to subrequests must include the name of the main request and may include the subrequest using the format \<main request\>\[/\<subrequest\>\]. If just the main request is given, the configuration applies to all subrequests.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub requests: Option<std::vec::Vec<std::string::String>>,
 }

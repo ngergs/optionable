@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AzureFileVolumeSourceAc {
+    /// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
+    /// secretName is the  name of secret that contains Azure Storage Account Name and Key
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret_name: Option<std::string::String>,
+    /// shareName is the azure share Name
     #[serde(skip_serializing_if = "Option::is_none")]
     pub share_name: Option<std::string::String>,
 }

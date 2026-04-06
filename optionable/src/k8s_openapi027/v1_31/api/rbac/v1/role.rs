@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RoleAc {
     #[serde(
@@ -18,7 +19,9 @@ pub struct RoleAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Rules holds all the PolicyRules for this Role
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rules: Option<
         std::vec::Vec<

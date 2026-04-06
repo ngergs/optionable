@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodFailurePolicyOnPodConditionsPatternAc {
+    /// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<std::string::String>,
+    /// Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

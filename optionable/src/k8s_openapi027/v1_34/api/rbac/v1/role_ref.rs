@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// RoleRef contains information that points to the role being used
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RoleRefAc {
+    /// APIGroup is the group for the resource being referenced
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_group: Option<std::string::String>,
+    /// Kind is the type of resource being referenced
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
+    /// Name is the name of resource being referenced
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ContainerUser represents user identity information
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerUserAc {
+    /// Linux holds user identity information initially attached to the first process of the containers in Linux. Note that the actual running identity can be changed if the process has enough privilege to do so.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub linux: Option<
         <::k8s_openapi027::api::core::v1::LinuxContainerUser as crate::Optionable>::Optioned,

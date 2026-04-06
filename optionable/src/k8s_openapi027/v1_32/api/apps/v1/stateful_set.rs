@@ -6,6 +6,11 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// StatefulSet represents a set of pods with consistent identities. Identities are defined as:
+///   - Network: A single stable DNS and hostname.
+///   - Storage: As many VolumeClaims as requested.
+///
+/// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatefulSetAc {
     #[serde(
@@ -18,11 +23,14 @@ pub struct StatefulSetAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec defines the desired identities of pods in this set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::apps::v1::StatefulSetSpec as crate::Optionable>::Optioned,
     >,
+    /// Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::apps::v1::StatefulSetStatus as crate::Optionable>::Optioned,

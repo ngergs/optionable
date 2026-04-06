@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TypeCheckingAc {
+    /// The type checking warnings for each expression.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expression_warnings: Option<
         std::vec::Vec<

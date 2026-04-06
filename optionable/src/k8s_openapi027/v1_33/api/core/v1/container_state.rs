@@ -6,16 +6,20 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerStateAc {
+    /// Details about a running container
     #[serde(skip_serializing_if = "Option::is_none")]
     pub running: Option<
         <::k8s_openapi027::api::core::v1::ContainerStateRunning as crate::Optionable>::Optioned,
     >,
+    /// Details about a terminated container
     #[serde(skip_serializing_if = "Option::is_none")]
     pub terminated: Option<
         <::k8s_openapi027::api::core::v1::ContainerStateTerminated as crate::Optionable>::Optioned,
     >,
+    /// Details about a waiting container
     #[serde(skip_serializing_if = "Option::is_none")]
     pub waiting: Option<
         <::k8s_openapi027::api::core::v1::ContainerStateWaiting as crate::Optionable>::Optioned,

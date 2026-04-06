@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PreferredSchedulingTermAc {
+    /// A node selector term, associated with the corresponding weight.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preference: Option<
         <::k8s_openapi027::api::core::v1::NodeSelectorTerm as crate::Optionable>::Optioned,
     >,
+    /// Weight associated with matching the corresponding nodeSelectorTerm, in the range 1-100.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,
 }

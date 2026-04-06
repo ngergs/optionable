@@ -6,20 +6,25 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LifecycleHandlerAc {
+    /// Exec specifies the action to take.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub exec: Option<
         <::k8s_openapi027::api::core::v1::ExecAction as crate::Optionable>::Optioned,
     >,
+    /// HTTPGet specifies the http request to perform.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub http_get: Option<
         <::k8s_openapi027::api::core::v1::HTTPGetAction as crate::Optionable>::Optioned,
     >,
+    /// Sleep represents the duration that the container should sleep before being terminated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sleep: Option<
         <::k8s_openapi027::api::core::v1::SleepAction as crate::Optionable>::Optioned,
     >,
+    /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tcp_socket: Option<
         <::k8s_openapi027::api::core::v1::TCPSocketAction as crate::Optionable>::Optioned,

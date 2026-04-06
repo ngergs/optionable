@@ -6,22 +6,29 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ReplicationControllerStatus represents the current status of a replication controller.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ReplicationControllerStatusAc {
+    /// The number of available replicas (ready for at least minReadySeconds) for this replication controller.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub available_replicas: Option<i32>,
+    /// Represents the latest available observations of a replication controller's current state.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::ReplicationControllerCondition as crate::Optionable>::Optioned,
         >,
     >,
+    /// The number of pods that have labels matching the labels of the pod template of the replication controller.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fully_labeled_replicas: Option<i32>,
+    /// ObservedGeneration reflects the generation of the most recently observed replication controller.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
+    /// The number of ready replicas for this replication controller.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ready_replicas: Option<i32>,
+    /// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
     #[serde(skip_serializing_if = "Option::is_none")]
     pub replicas: Option<i32>,
 }

@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceTaintRuleAc {
     #[serde(
@@ -18,7 +19,11 @@ pub struct DeviceTaintRuleAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec specifies the selector and one taint.
+    ///
+    /// Changing the spec automatically increments the metadata.generation number.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec as crate::Optionable>::Optioned,

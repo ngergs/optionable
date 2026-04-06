@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// LinuxContainerUser represents user identity information in Linux containers
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LinuxContainerUserAc {
+    /// GID is the primary gid initially attached to the first process in the container
     #[serde(skip_serializing_if = "Option::is_none")]
     pub gid: Option<i64>,
+    /// SupplementalGroups are the supplemental groups initially attached to the first process in the container
     #[serde(skip_serializing_if = "Option::is_none")]
     pub supplemental_groups: Option<std::vec::Vec<i64>>,
+    /// UID is the primary uid initially attached to the first process in the container
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: Option<i64>,
 }

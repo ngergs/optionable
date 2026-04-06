@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Describe a container image
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerImageAc {
+    /// Names by which this image is known. e.g. \["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"\]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub names: Option<std::vec::Vec<std::string::String>>,
+    /// The size of the image in bytes.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub size_bytes: Option<i64>,
 }

@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceClaim references one entry in PodSpec.ResourceClaims.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimAc {
+    /// Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request: Option<std::string::String>,
 }

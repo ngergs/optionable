@@ -6,12 +6,18 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// VolumeError captures an error encountered during a volume operation.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeErrorAc {
+    /// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+    ///
+    /// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub error_code: Option<i32>,
+    /// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// time represents the time the error was encountered.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,

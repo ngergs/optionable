@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SessionAffinityConfig represents the configurations of session affinity.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SessionAffinityConfigAc {
+    /// clientIP contains the configurations of Client IP based session affinity.
     #[serde(rename = "clientIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub client_ip: Option<

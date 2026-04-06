@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// IngressBackend describes all endpoints for a given service and port.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressBackendAc {
+    /// resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<
         <::k8s_openapi027::api::core::v1::TypedLocalObjectReference as crate::Optionable>::Optioned,
     >,
+    /// service references a service as a backend. This is a mutually exclusive setting with "Resource".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service: Option<
         <::k8s_openapi027::api::networking::v1::IngressServiceBackend as crate::Optionable>::Optioned,

@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HostPathVolumeSourceAc {
+    /// path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
     #[serde(skip_serializing_if = "Option::is_none")]
     pub path: Option<std::string::String>,
+    /// type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

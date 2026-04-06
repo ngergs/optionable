@@ -6,14 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceClassSpec is used in a \[DeviceClass\] to define what can be allocated and how to configure it.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceClassSpecAc {
+    /// Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
+    ///
+    /// They are passed to the driver, but are not considered while allocating the claim.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::resource::v1beta2::DeviceClassConfiguration as crate::Optionable>::Optioned,
         >,
     >,
+    /// Each selector must be satisfied by a device which is claimed via this class.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub selectors: Option<
         std::vec::Vec<

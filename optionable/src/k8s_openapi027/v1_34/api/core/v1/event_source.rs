@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// EventSource contains information for an event.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EventSourceAc {
+    /// Component from which the event is generated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub component: Option<std::string::String>,
+    /// Node name on which the event is generated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host: Option<std::string::String>,
 }

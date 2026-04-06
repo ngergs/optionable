@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// FieldSelectorRequirement is a selector that contains values, a key, and an operator that relates the key and values.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FieldSelectorRequirementAc {
+    /// key is the field selector key that the requirement applies to.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub key: Option<std::string::String>,
+    /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. The list of operators may grow in the future.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub operator: Option<std::string::String>,
+    /// values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub values: Option<std::vec::Vec<std::string::String>>,
 }

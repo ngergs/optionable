@@ -6,10 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SecretEnvSource selects a Secret to populate the environment variables with.
+///
+/// The contents of the target Secret's Data field will represent the key-value pairs as environment variables.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SecretEnvSourceAc {
+    /// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// Specify whether the Secret must be defined
     #[serde(skip_serializing_if = "Option::is_none")]
     pub optional: Option<bool>,
 }

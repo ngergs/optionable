@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// UserSubject holds detailed information for user-kind subject.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct UserSubjectAc {
+    /// `name` is the username that matches, or "*" to match all usernames. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

@@ -6,12 +6,21 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceCapacity describes a quantity associated with a device.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceCapacityAc {
+    /// RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+    ///
+    /// The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+    ///
+    /// If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request_policy: Option<
         <::k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy as crate::Optionable>::Optioned,
     >,
+    /// Value defines how much of a certain capacity that device has.
+    ///
+    /// This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<
         <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,

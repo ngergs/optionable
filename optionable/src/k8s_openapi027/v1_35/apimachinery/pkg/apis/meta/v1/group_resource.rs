@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GroupResourceAc {
     #[serde(skip_serializing_if = "Option::is_none")]

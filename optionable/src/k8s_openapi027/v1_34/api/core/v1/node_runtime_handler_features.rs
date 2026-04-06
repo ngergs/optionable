@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NodeRuntimeHandlerFeatures is a set of features implemented by the runtime handler.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeRuntimeHandlerFeaturesAc {
+    /// RecursiveReadOnlyMounts is set to true if the runtime handler supports RecursiveReadOnlyMounts.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub recursive_read_only_mounts: Option<bool>,
+    /// UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_namespaces: Option<bool>,
 }

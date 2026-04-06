@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SubjectAccessReviewSpecAc {
+    /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub extra: Option<
         std::collections::BTreeMap<
@@ -15,18 +17,23 @@ pub struct SubjectAccessReviewSpecAc {
             std::vec::Vec<std::string::String>,
         >,
     >,
+    /// Groups is the groups you're testing for.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub groups: Option<std::vec::Vec<std::string::String>>,
+    /// NonResourceAttributes describes information for a non-resource access request
     #[serde(skip_serializing_if = "Option::is_none")]
     pub non_resource_attributes: Option<
         <::k8s_openapi027::api::authorization::v1::NonResourceAttributes as crate::Optionable>::Optioned,
     >,
+    /// ResourceAuthorizationAttributes describes information for a resource access request
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_attributes: Option<
         <::k8s_openapi027::api::authorization::v1::ResourceAttributes as crate::Optionable>::Optioned,
     >,
+    /// UID information about the requesting user.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: Option<std::string::String>,
+    /// User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<std::string::String>,
 }

@@ -6,14 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NamespaceStatus is information about the current status of a Namespace.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NamespaceStatusAc {
+    /// Represents the latest available observations of a namespace's current state.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::NamespaceCondition as crate::Optionable>::Optioned,
         >,
     >,
+    /// Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub phase: Option<std::string::String>,
 }

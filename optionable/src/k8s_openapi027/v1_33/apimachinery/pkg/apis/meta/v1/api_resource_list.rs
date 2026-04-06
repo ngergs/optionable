@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// APIResourceList is a list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIResourceListAc {
     #[serde(
@@ -18,8 +19,10 @@ pub struct APIResourceListAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// groupVersion is the group and version this APIResourceList is for.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group_version: Option<std::string::String>,
+    /// resources contains the name of the resources and if they are namespaced.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resources: Option<
         std::vec::Vec<

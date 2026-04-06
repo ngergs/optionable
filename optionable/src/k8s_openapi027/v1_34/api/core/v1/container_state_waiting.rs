@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ContainerStateWaiting is a waiting state of a container.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerStateWaitingAc {
+    /// Message regarding why the container is not yet running.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// (brief) reason the container is not yet running.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
 }

@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// APIServiceStatus contains derived information about an API server
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIServiceStatusAc {
+    /// Current service state of apiService.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<

@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceCapacity describes a quantity associated with a device.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceCapacityAc {
+    /// Value defines how much of a certain device capacity is available.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<
         <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,

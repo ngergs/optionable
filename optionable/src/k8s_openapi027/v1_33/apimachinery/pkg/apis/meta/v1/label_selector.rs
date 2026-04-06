@@ -6,14 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LabelSelectorAc {
+    /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub match_expressions: Option<
         std::vec::Vec<
             <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelectorRequirement as crate::Optionable>::Optioned,
         >,
     >,
+    /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub match_labels: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,

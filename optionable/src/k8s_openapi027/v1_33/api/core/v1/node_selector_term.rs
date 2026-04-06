@@ -6,14 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSelectorTermAc {
+    /// A list of node selector requirements by node's labels.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub match_expressions: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::NodeSelectorRequirement as crate::Optionable>::Optioned,
         >,
     >,
+    /// A list of node selector requirements by node's fields.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub match_fields: Option<
         std::vec::Vec<

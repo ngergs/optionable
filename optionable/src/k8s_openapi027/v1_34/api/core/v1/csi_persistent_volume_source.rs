@@ -6,38 +6,49 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Represents storage that is managed by an external CSI volume driver
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CSIPersistentVolumeSourceAc {
+    /// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub controller_expand_secret_ref: Option<
         <::k8s_openapi027::api::core::v1::SecretReference as crate::Optionable>::Optioned,
     >,
+    /// controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub controller_publish_secret_ref: Option<
         <::k8s_openapi027::api::core::v1::SecretReference as crate::Optionable>::Optioned,
     >,
+    /// driver is the name of the driver to use for this volume. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub driver: Option<std::string::String>,
+    /// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: Option<std::string::String>,
+    /// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_expand_secret_ref: Option<
         <::k8s_openapi027::api::core::v1::SecretReference as crate::Optionable>::Optioned,
     >,
+    /// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_publish_secret_ref: Option<
         <::k8s_openapi027::api::core::v1::SecretReference as crate::Optionable>::Optioned,
     >,
+    /// nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_stage_secret_ref: Option<
         <::k8s_openapi027::api::core::v1::SecretReference as crate::Optionable>::Optioned,
     >,
+    /// readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
+    /// volumeAttributes of the volume to publish.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_attributes: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     >,
+    /// volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_handle: Option<std::string::String>,
 }

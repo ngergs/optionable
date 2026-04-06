@@ -6,10 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// BasicDevice defines one device instance.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BasicDeviceAc {
+    /// AllNodes indicates that all nodes have access to the device.
+    ///
+    /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub all_nodes: Option<bool>,
+    /// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
+    ///
+    /// The maximum number of attributes and capacities combined is 32.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attributes: Option<
         std::collections::BTreeMap<
@@ -17,6 +24,9 @@ pub struct BasicDeviceAc {
             <::k8s_openapi027::api::resource::v1beta1::DeviceAttribute as crate::Optionable>::Optioned,
         >,
     >,
+    /// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
+    ///
+    /// The maximum number of attributes and capacities combined is 32.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: Option<
         std::collections::BTreeMap<
@@ -24,18 +34,36 @@ pub struct BasicDeviceAc {
             <::k8s_openapi027::api::resource::v1beta1::DeviceCapacity as crate::Optionable>::Optioned,
         >,
     >,
+    /// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+    ///
+    /// There can only be a single entry per counterSet.
+    ///
+    /// The total number of device counter consumption entries must be \<= 32. In addition, the total number in the entire ResourceSlice must be \<= 1024 (for example, 64 devices with 16 counters each).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub consumes_counters: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::resource::v1beta1::DeviceCounterConsumption as crate::Optionable>::Optioned,
         >,
     >,
+    /// NodeName identifies the node where the device is available.
+    ///
+    /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_name: Option<std::string::String>,
+    /// NodeSelector defines the nodes where the device is available.
+    ///
+    /// Must use exactly one term.
+    ///
+    /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_selector: Option<
         <::k8s_openapi027::api::core::v1::NodeSelector as crate::Optionable>::Optioned,
     >,
+    /// If specified, these are the driver-defined taints.
+    ///
+    /// The maximum number of taints is 4.
+    ///
+    /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub taints: Option<
         std::vec::Vec<

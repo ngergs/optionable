@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://kubernetes.io/docs/concepts/containers/runtime-class/
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct RuntimeClassAc {
     #[serde(
@@ -18,13 +19,18 @@ pub struct RuntimeClassAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub handler: Option<std::string::String>,
+    /// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+    ///  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub overhead: Option<
         <::k8s_openapi027::api::node::v1::Overhead as crate::Optionable>::Optioned,
     >,
+    /// scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scheduling: Option<
         <::k8s_openapi027::api::node::v1::Scheduling as crate::Optionable>::Optioned,

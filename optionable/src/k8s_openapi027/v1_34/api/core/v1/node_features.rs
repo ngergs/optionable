@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NodeFeatures describes the set of features implemented by the CRI implementation. The features contained in the NodeFeatures should depend only on the cri implementation independent of runtime handlers.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeFeaturesAc {
+    /// SupplementalGroupsPolicy is set to true if the runtime supports SupplementalGroupsPolicy and ContainerUser.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub supplemental_groups_policy: Option<bool>,
 }

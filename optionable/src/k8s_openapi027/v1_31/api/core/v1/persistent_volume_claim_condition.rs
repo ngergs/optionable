@@ -6,18 +6,23 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PersistentVolumeClaimCondition contains details about state of pvc
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PersistentVolumeClaimConditionAc {
+    /// lastProbeTime is the time we probed the condition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_probe_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// lastTransitionTime is the time the condition transitioned from one status to another.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_transition_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// message is the human-readable message indicating details about last transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]

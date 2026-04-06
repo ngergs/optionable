@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ForZone provides information about which zones should consume this endpoint.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ForZoneAc {
+    /// name represents the name of the zone.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

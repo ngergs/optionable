@@ -6,10 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// GRPCAction specifies an action involving a GRPC service.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GRPCActionAc {
+    /// Port number of the gRPC service. Number must be in the range 1 to 65535.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<i32>,
+    /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+    ///
+    /// If this is not specified, the default behavior is defined by gRPC.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service: Option<std::string::String>,
 }

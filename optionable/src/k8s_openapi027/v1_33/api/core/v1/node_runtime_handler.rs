@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NodeRuntimeHandler is a set of runtime handler information.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeRuntimeHandlerAc {
+    /// Supported features.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub features: Option<
         <::k8s_openapi027::api::core::v1::NodeRuntimeHandlerFeatures as crate::Optionable>::Optioned,
     >,
+    /// Runtime handler name. Empty for the default runtime handler.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

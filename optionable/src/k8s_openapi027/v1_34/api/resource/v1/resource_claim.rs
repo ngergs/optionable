@@ -6,6 +6,9 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.
+///
+/// This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimAc {
     #[serde(
@@ -18,11 +21,14 @@ pub struct ResourceClaimAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec describes what is being requested and how to configure it. The spec is immutable.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::resource::v1::ResourceClaimSpec as crate::Optionable>::Optioned,
     >,
+    /// Status describes whether the claim is ready to use and what has been allocated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::resource::v1::ResourceClaimStatus as crate::Optionable>::Optioned,

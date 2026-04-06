@@ -6,14 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// EndpointHints provides hints describing how an endpoint should be consumed.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointHintsAc {
+    /// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub for_nodes: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::discovery::v1::ForNode as crate::Optionable>::Optioned,
         >,
     >,
+    /// forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub for_zones: Option<
         std::vec::Vec<

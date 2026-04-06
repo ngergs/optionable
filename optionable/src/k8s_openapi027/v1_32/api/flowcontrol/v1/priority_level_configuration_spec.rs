@@ -6,16 +6,20 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PriorityLevelConfigurationSpecAc {
+    /// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub exempt: Option<
         <::k8s_openapi027::api::flowcontrol::v1::ExemptPriorityLevelConfiguration as crate::Optionable>::Optioned,
     >,
+    /// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub limited: Option<
         <::k8s_openapi027::api::flowcontrol::v1::LimitedPriorityLevelConfiguration as crate::Optionable>::Optioned,
     >,
+    /// `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

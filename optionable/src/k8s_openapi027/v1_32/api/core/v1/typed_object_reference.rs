@@ -6,14 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// TypedObjectReference contains enough information to let you locate the typed referenced object
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TypedObjectReferenceAc {
+    /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_group: Option<std::string::String>,
+    /// Kind is the type of resource being referenced
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
+    /// Name is the name of resource being referenced
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// Namespace is the namespace of resource being referenced Note that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details. (Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace: Option<std::string::String>,
 }

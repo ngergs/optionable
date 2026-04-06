@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SecretReferenceAc {
+    /// name is unique within a namespace to reference a secret resource.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// namespace defines the space within which the secret name must be unique.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace: Option<std::string::String>,
 }

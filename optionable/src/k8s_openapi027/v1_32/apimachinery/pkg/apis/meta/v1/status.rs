@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Status is a return value for calls that don't return other objects.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatusAc {
     #[serde(
@@ -18,17 +19,23 @@ pub struct StatusAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Suggested HTTP return code for this status, 0 if not set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub code: Option<i32>,
+    /// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub details: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusDetails as crate::Optionable>::Optioned,
     >,
+    /// A human-readable description of the status of this operation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ListMeta,
+    /// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
+    /// Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<std::string::String>,
 }

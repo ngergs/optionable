@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PortworxVolumeSource represents a Portworx volume resource.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PortworxVolumeSourceAc {
+    /// fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: Option<std::string::String>,
+    /// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
+    /// volumeID uniquely identifies a Portworx volume
     #[serde(rename = "volumeID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_id: Option<std::string::String>,

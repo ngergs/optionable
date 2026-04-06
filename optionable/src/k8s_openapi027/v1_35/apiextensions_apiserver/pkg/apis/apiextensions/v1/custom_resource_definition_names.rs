@@ -6,18 +6,25 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceDefinitionNamesAc {
+    /// categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub categories: Option<std::vec::Vec<std::string::String>>,
+    /// kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
+    /// listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub list_kind: Option<std::string::String>,
+    /// plural is the plural name of the resource to serve. The custom resources are served under `/apis/\<group\>/\<version\>/.../\<plural\>`. Must match the name of the CustomResourceDefinition (in the form `\<names.plural\>.\<group\>`). Must be all lowercase.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub plural: Option<std::string::String>,
+    /// shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname\>`. It must be all lowercase.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub short_names: Option<std::vec::Vec<std::string::String>>,
+    /// singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub singular: Option<std::string::String>,
 }

@@ -6,6 +6,9 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
+///
+/// VolumeAttachment objects are non-namespaced.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeAttachmentAc {
     #[serde(
@@ -18,11 +21,14 @@ pub struct VolumeAttachmentAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::storage::v1::VolumeAttachmentSpec as crate::Optionable>::Optioned,
     >,
+    /// status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::storage::v1::VolumeAttachmentStatus as crate::Optionable>::Optioned,

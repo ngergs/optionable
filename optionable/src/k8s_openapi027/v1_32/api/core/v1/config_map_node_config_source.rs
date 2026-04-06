@@ -6,16 +6,22 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ConfigMapNodeConfigSourceAc {
+    /// KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kubelet_config_key: Option<std::string::String>,
+    /// Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace: Option<std::string::String>,
+    /// ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_version: Option<std::string::String>,
+    /// UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: Option<std::string::String>,
 }

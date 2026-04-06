@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceQuotaStatus defines the enforced hard limits and observed use.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceQuotaStatusAc {
+    /// Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hard: Option<
         std::collections::BTreeMap<
@@ -15,6 +17,7 @@ pub struct ResourceQuotaStatusAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// Used is the current observed total usage of the resource in the namespace.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub used: Option<
         std::collections::BTreeMap<

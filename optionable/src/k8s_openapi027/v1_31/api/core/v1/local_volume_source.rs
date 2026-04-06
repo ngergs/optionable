@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Local represents directly-attached storage with node affinity (Beta feature)
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LocalVolumeSourceAc {
+    /// fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: Option<std::string::String>,
+    /// path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub path: Option<std::string::String>,
 }

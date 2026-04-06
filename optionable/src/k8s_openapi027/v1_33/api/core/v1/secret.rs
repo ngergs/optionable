@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SecretAc {
     #[serde(
@@ -18,6 +19,7 @@ pub struct SecretAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data: Option<
         std::collections::BTreeMap<
@@ -25,13 +27,17 @@ pub struct SecretAc {
             <::k8s_openapi027::ByteString as crate::Optionable>::Optioned,
         >,
     >,
+    /// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub immutable: Option<bool>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub string_data: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     >,
+    /// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

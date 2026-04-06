@@ -6,14 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ServiceStatus represents the current status of a service.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceStatusAc {
+    /// Current service state
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
         >,
     >,
+    /// LoadBalancer contains the current status of the load-balancer, if one is present.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub load_balancer: Option<
         <::k8s_openapi027::api::core::v1::LoadBalancerStatus as crate::Optionable>::Optioned,

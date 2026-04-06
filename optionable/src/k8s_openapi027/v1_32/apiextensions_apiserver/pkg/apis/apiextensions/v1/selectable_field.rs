@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SelectableField specifies the JSON path of a field that may be used with field selectors.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelectableFieldAc {
+    /// jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub json_path: Option<std::string::String>,
 }

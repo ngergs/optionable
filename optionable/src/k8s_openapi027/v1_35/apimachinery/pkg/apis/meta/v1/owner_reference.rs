@@ -6,18 +6,25 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct OwnerReferenceAc {
+    /// API version of the referent.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_version: Option<std::string::String>,
+    /// If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub block_owner_deletion: Option<bool>,
+    /// If true, this reference points to the managing controller.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub controller: Option<bool>,
+    /// Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
+    /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: Option<std::string::String>,
 }

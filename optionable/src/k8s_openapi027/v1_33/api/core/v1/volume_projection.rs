@@ -6,25 +6,37 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Projection that may be projected along with other supported volume types. Exactly one of these fields must be set.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeProjectionAc {
+    /// ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+    ///
+    /// Alpha, gated by the ClusterTrustBundleProjection feature gate.
+    ///
+    /// ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+    ///
+    /// Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster_trust_bundle: Option<
         <::k8s_openapi027::api::core::v1::ClusterTrustBundleProjection as crate::Optionable>::Optioned,
     >,
+    /// configMap information about the configMap data to project
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config_map: Option<
         <::k8s_openapi027::api::core::v1::ConfigMapProjection as crate::Optionable>::Optioned,
     >,
+    /// downwardAPI information about the downwardAPI data to project
     #[serde(rename = "downwardAPI")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub downward_api: Option<
         <::k8s_openapi027::api::core::v1::DownwardAPIProjection as crate::Optionable>::Optioned,
     >,
+    /// secret information about the secret data to project
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret: Option<
         <::k8s_openapi027::api::core::v1::SecretProjection as crate::Optionable>::Optioned,
     >,
+    /// serviceAccountToken is information about the serviceAccountToken data to project
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_account_token: Option<
         <::k8s_openapi027::api::core::v1::ServiceAccountTokenProjection as crate::Optionable>::Optioned,

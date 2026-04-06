@@ -6,16 +6,21 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CinderVolumeSourceAc {
+    /// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: Option<std::string::String>,
+    /// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
+    /// secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret_ref: Option<
         <::k8s_openapi027::api::core::v1::LocalObjectReference as crate::Optionable>::Optioned,
     >,
+    /// volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     #[serde(rename = "volumeID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_id: Option<std::string::String>,

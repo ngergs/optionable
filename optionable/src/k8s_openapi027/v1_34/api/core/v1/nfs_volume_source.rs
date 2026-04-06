@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NFSVolumeSourceAc {
+    /// path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
     #[serde(skip_serializing_if = "Option::is_none")]
     pub path: Option<std::string::String>,
+    /// readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
+    /// server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
     #[serde(skip_serializing_if = "Option::is_none")]
     pub server: Option<std::string::String>,
 }

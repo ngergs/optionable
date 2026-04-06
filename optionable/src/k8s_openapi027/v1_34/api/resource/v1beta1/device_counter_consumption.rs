@@ -6,10 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceCounterConsumptionAc {
+    /// CounterSet is the name of the set from which the counters defined will be consumed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub counter_set: Option<std::string::String>,
+    /// Counters defines the counters that will be consumed by the device.
+    ///
+    /// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub counters: Option<
         std::collections::BTreeMap<

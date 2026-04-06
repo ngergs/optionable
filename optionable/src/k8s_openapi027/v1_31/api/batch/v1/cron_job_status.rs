@@ -6,18 +6,22 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// CronJobStatus represents the current state of a cron job.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CronJobStatusAc {
+    /// A list of pointers to currently running jobs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub active: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
         >,
     >,
+    /// Information when was the last time the job was successfully scheduled.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_schedule_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// Information when was the last time the job successfully completed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_successful_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,

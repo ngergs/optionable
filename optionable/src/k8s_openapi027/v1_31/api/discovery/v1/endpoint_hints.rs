@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// EndpointHints provides hints describing how an endpoint should be consumed.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointHintsAc {
+    /// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub for_zones: Option<
         std::vec::Vec<

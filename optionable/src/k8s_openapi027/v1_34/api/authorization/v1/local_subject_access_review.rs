@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LocalSubjectAccessReviewAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct LocalSubjectAccessReviewAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::authorization::v1::SubjectAccessReviewSpec as crate::Optionable>::Optioned,
     >,
+    /// Status is filled in by the server and indicates whether the request is allowed or not
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::authorization::v1::SubjectAccessReviewStatus as crate::Optionable>::Optioned,

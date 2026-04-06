@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceAc {
+    /// Basic defines one device instance.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub basic: Option<
         <::k8s_openapi027::api::resource::v1beta1::BasicDevice as crate::Optionable>::Optioned,
     >,
+    /// Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

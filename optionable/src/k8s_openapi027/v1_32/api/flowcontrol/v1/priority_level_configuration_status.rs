@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PriorityLevelConfigurationStatus represents the current state of a "request-priority".
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PriorityLevelConfigurationStatusAc {
+    /// `conditions` is the current state of "request-priority".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<

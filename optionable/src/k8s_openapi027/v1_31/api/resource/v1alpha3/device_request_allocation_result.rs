@@ -6,14 +6,23 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceRequestAllocationResult contains the allocation result for one request.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceRequestAllocationResultAc {
+    /// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device: Option<std::string::String>,
+    /// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+    ///
+    /// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub driver: Option<std::string::String>,
+    /// This name together with the driver name and the device name field identify which device was allocated (`\<driver name\>/\<pool name\>/\<device name\>`).
+    ///
+    /// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pool: Option<std::string::String>,
+    /// Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request: Option<std::string::String>,
 }

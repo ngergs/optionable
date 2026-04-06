@@ -6,14 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceAllocationResult is the result of allocating devices.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceAllocationResultAc {
+    /// This field is a combination of all the claim and class configuration parameters. Drivers can distinguish between those based on a flag.
+    ///
+    /// This includes configuration parameters for drivers which have no allocated devices in the result because it is up to the drivers which configuration parameters they support. They can silently ignore unknown configuration parameters.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::resource::v1beta1::DeviceAllocationConfiguration as crate::Optionable>::Optioned,
         >,
     >,
+    /// Results lists all allocated devices.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub results: Option<
         std::vec::Vec<

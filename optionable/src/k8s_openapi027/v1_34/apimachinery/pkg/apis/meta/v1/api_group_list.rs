@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIGroupListAc {
     #[serde(
@@ -18,6 +19,7 @@ pub struct APIGroupListAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// groups is a list of APIGroup.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub groups: Option<
         std::vec::Vec<

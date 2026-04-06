@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// WorkloadSpec defines the desired state of a Workload.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct WorkloadSpecAc {
+    /// ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub controller_ref: Option<
         <::k8s_openapi027::api::scheduling::v1alpha1::TypedLocalObjectReference as crate::Optionable>::Optioned,
     >,
+    /// PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_groups: Option<
         std::vec::Vec<

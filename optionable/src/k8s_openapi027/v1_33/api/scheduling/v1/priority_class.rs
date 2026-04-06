@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PriorityClassAc {
     #[serde(
@@ -18,13 +19,18 @@ pub struct PriorityClassAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// description is an arbitrary string that usually provides guidelines on when this priority class should be used.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<std::string::String>,
+    /// globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub global_default: Option<bool>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preemption_policy: Option<std::string::String>,
+    /// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<i32>,
 }

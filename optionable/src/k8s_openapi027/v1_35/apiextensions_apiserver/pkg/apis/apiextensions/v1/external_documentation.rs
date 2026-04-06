@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ExternalDocumentation allows referencing an external resource for extended documentation.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ExternalDocumentationAc {
     #[serde(skip_serializing_if = "Option::is_none")]

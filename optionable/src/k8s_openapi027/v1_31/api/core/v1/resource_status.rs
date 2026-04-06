@@ -8,8 +8,10 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceStatusAc {
+    /// Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resources: Option<
         std::vec::Vec<

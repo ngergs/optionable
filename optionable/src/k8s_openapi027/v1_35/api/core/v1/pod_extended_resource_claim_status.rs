@@ -6,14 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodExtendedResourceClaimStatus is stored in the PodStatus for the extended resource requests backed by DRA. It stores the generated name for the corresponding special ResourceClaim created by the scheduler.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodExtendedResourceClaimStatusAc {
+    /// RequestMappings identifies the mapping of \<container, extended resource backed by DRA\> to  device request in the generated ResourceClaim.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request_mappings: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::ContainerExtendedResourceRequest as crate::Optionable>::Optioned,
         >,
     >,
+    /// ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_claim_name: Option<std::string::String>,
 }

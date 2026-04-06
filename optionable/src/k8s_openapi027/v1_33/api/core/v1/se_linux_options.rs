@@ -6,15 +6,20 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SELinuxOptions are the labels to be applied to the container
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SELinuxOptionsAc {
+    /// Level is SELinux level label that applies to the container.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub level: Option<std::string::String>,
+    /// Role is a SELinux role label that applies to the container.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<std::string::String>,
+    /// Type is a SELinux type label that applies to the container.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,
+    /// User is a SELinux user label that applies to the container.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<std::string::String>,
 }

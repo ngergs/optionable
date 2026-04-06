@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DaemonSetUpdateStrategyAc {
+    /// Rolling update config params. Present only if type = "RollingUpdate".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rolling_update: Option<
         <::k8s_openapi027::api::apps::v1::RollingUpdateDaemonSet as crate::Optionable>::Optioned,
     >,
+    /// Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

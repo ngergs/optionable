@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BasicSchedulingPolicyAc(
     #[serde(skip_serializing_if = "Option::is_none")]

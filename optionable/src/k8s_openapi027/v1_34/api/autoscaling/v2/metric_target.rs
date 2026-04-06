@@ -6,17 +6,22 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// MetricTarget defines the target value, average value, or average utilization of a specific metric
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MetricTargetAc {
+    /// averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
     #[serde(skip_serializing_if = "Option::is_none")]
     pub average_utilization: Option<i32>,
+    /// averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub average_value: Option<
         <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
     >,
+    /// type represents whether the metric type is Utilization, Value, or AverageValue
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,
+    /// value is the target value of the metric (as a quantity).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<
         <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,

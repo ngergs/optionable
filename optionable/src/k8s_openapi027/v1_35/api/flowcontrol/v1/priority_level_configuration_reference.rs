@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PriorityLevelConfigurationReferenceAc {
+    /// `name` is the name of the priority level configuration being referenced Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

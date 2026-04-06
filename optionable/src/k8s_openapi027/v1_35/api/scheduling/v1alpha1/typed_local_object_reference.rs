@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// TypedLocalObjectReference allows to reference typed object inside the same namespace.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TypedLocalObjectReferenceAc {
+    /// APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_group: Option<std::string::String>,
+    /// Kind is the type of resource being referenced. It must be a path segment name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
+    /// Name is the name of resource being referenced. It must be a path segment name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

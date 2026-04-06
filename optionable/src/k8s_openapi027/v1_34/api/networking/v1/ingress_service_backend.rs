@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// IngressServiceBackend references a Kubernetes Service as a Backend.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressServiceBackendAc {
+    /// name is the referenced service. The service must exist in the same namespace as the Ingress object.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// port of the referenced service. A port name or port number is required for a IngressServiceBackend.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<
         <::k8s_openapi027::api::networking::v1::ServiceBackendPort as crate::Optionable>::Optioned,

@@ -6,15 +6,20 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// An API server instance reports the version it can decode and the version it encodes objects to when persisting objects in the backend.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServerStorageVersionAc {
+    /// The ID of the reporting API server.
     #[serde(rename = "apiServerID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_server_id: Option<std::string::String>,
+    /// The API server can decode objects encoded in these versions. The encodingVersion must be included in the decodableVersions.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub decodable_versions: Option<std::vec::Vec<std::string::String>>,
+    /// The API server encodes the object to this version when persisting it in the backend (e.g., etcd).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub encoding_version: Option<std::string::String>,
+    /// The API server can serve these versions. DecodableVersions must include all ServedVersions.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub served_versions: Option<std::vec::Vec<std::string::String>>,
 }

@@ -6,24 +6,30 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// EnvVarSource represents a source for the value of an EnvVar.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EnvVarSourceAc {
+    /// Selects a key of a ConfigMap.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config_map_key_ref: Option<
         <::k8s_openapi027::api::core::v1::ConfigMapKeySelector as crate::Optionable>::Optioned,
     >,
+    /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels\['\<KEY\>'\]`, `metadata.annotations\['\<KEY\>'\]`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub field_ref: Option<
         <::k8s_openapi027::api::core::v1::ObjectFieldSelector as crate::Optionable>::Optioned,
     >,
+    /// FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub file_key_ref: Option<
         <::k8s_openapi027::api::core::v1::FileKeySelector as crate::Optionable>::Optioned,
     >,
+    /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_field_ref: Option<
         <::k8s_openapi027::api::core::v1::ResourceFieldSelector as crate::Optionable>::Optioned,
     >,
+    /// Selects a key of a secret in the pod's namespace
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret_key_ref: Option<
         <::k8s_openapi027::api::core::v1::SecretKeySelector as crate::Optionable>::Optioned,

@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ServiceAccountSubject holds detailed information for service-account-kind subject.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceAccountSubjectAc {
+    /// `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// `namespace` is the namespace of matching ServiceAccount objects. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace: Option<std::string::String>,
 }

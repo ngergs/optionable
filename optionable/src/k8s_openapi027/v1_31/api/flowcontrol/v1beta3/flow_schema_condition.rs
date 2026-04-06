@@ -6,18 +6,24 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// FlowSchemaCondition describes conditions for a FlowSchema.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FlowSchemaConditionAc {
+    /// `lastTransitionTime` is the last time the condition transitioned from one status to another.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_transition_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// `message` is a human-readable message indicating details about last transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
+    /// `status` is the status of the condition. Can be True, False, Unknown. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<std::string::String>,
+    /// `type` is the type of the condition. Required.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

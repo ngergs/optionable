@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodTemplateSpec describes the data a pod should have when created from a template
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodTemplateSpecAc {
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     #[serde(skip_serializing_if = "Option::is_none")]
     pub metadata: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
     >,
+    /// Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::core::v1::PodSpec as crate::Optionable>::Optioned,

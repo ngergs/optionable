@@ -6,14 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Status of the storage version migration.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionMigrationStatusAc {
+    /// The latest available observations of the migration's current state.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
         >,
     >,
+    /// ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_version: Option<std::string::String>,
 }

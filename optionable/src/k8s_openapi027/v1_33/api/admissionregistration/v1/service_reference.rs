@@ -6,14 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ServiceReference holds a reference to Service.legacy.k8s.io
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceReferenceAc {
+    /// `name` is the name of the service. Required
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// `namespace` is the namespace of the service. Required
     #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace: Option<std::string::String>,
+    /// `path` is an optional URL path which will be sent in any request to this service.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub path: Option<std::string::String>,
+    /// If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<i32>,
 }

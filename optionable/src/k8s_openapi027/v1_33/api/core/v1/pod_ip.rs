@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodIP represents a single IP address allocated to the pod.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodIPAc {
+    /// IP is the IP address assigned to the pod
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ip: Option<std::string::String>,
 }

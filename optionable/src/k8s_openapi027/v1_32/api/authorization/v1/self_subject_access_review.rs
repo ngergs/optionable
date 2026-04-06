@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelfSubjectAccessReviewAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct SelfSubjectAccessReviewAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec holds information about the request being evaluated.  user and groups must be empty
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec as crate::Optionable>::Optioned,
     >,
+    /// Status is filled in by the server and indicates whether the request is allowed or not
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::authorization::v1::SubjectAccessReviewStatus as crate::Optionable>::Optioned,

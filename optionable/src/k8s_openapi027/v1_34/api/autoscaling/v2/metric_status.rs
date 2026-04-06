@@ -6,28 +6,35 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// MetricStatus describes the last-read state of a single metric.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MetricStatusAc {
+    /// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub container_resource: Option<
         <::k8s_openapi027::api::autoscaling::v2::ContainerResourceMetricStatus as crate::Optionable>::Optioned,
     >,
+    /// external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub external: Option<
         <::k8s_openapi027::api::autoscaling::v2::ExternalMetricStatus as crate::Optionable>::Optioned,
     >,
+    /// object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub object: Option<
         <::k8s_openapi027::api::autoscaling::v2::ObjectMetricStatus as crate::Optionable>::Optioned,
     >,
+    /// pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pods: Option<
         <::k8s_openapi027::api::autoscaling::v2::PodsMetricStatus as crate::Optionable>::Optioned,
     >,
+    /// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<
         <::k8s_openapi027::api::autoscaling::v2::ResourceMetricStatus as crate::Optionable>::Optioned,
     >,
+    /// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

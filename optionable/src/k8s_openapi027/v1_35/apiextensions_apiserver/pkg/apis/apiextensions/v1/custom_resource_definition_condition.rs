@@ -6,20 +6,27 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// CustomResourceDefinitionCondition contains details for the current condition of this pod.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceDefinitionConditionAc {
+    /// lastTransitionTime last time the condition transitioned from one status to another.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_transition_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// message is a human-readable message indicating details about last transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions\[x\].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
+    /// reason is a unique, one-word, CamelCase reason for the condition's last transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
+    /// status is the status of the condition. Can be True, False, Unknown.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<std::string::String>,
+    /// type is the type of the condition. Types include Established, NamesAccepted and Terminating.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

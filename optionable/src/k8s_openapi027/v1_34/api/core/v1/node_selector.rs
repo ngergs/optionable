@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSelectorAc {
+    /// Required. A list of node selector terms. The terms are ORed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_selector_terms: Option<
         std::vec::Vec<

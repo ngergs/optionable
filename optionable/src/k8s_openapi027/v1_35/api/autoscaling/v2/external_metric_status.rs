@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ExternalMetricStatusAc {
+    /// current contains the current value for the given metric
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current: Option<
         <::k8s_openapi027::api::autoscaling::v2::MetricValueStatus as crate::Optionable>::Optioned,
     >,
+    /// metric identifies the target metric by name and selector
     #[serde(skip_serializing_if = "Option::is_none")]
     pub metric: Option<
         <::k8s_openapi027::api::autoscaling::v2::MetricIdentifier as crate::Optionable>::Optioned,

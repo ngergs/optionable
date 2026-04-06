@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIVersionsAc {
     #[serde(
@@ -18,6 +19,7 @@ pub struct APIVersionsAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
     #[serde(rename = "serverAddressByClientCIDRs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub server_address_by_client_cidrs: Option<
@@ -25,6 +27,7 @@ pub struct APIVersionsAc {
             <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR as crate::Optionable>::Optioned,
         >,
     >,
+    /// versions are the api versions that are available.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub versions: Option<std::vec::Vec<std::string::String>>,
 }

@@ -6,16 +6,21 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PersistentVolumeStatus is the current status of a persistent volume.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PersistentVolumeStatusAc {
+    /// lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_phase_transition_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// message is a human-readable message indicating details about why the volume is in this state.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
     #[serde(skip_serializing_if = "Option::is_none")]
     pub phase: Option<std::string::String>,
+    /// reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
 }

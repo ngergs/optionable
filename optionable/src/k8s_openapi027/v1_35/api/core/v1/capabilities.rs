@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Adds and removes POSIX capabilities from running containers.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CapabilitiesAc {
+    /// Added capabilities
     #[serde(skip_serializing_if = "Option::is_none")]
     pub add: Option<std::vec::Vec<std::string::String>>,
+    /// Removed capabilities
     #[serde(skip_serializing_if = "Option::is_none")]
     pub drop: Option<std::vec::Vec<std::string::String>>,
 }

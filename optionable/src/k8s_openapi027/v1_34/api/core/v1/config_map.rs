@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ConfigMap holds configuration data for pods to consume.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ConfigMapAc {
     #[serde(
@@ -18,6 +19,7 @@ pub struct ConfigMapAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub binary_data: Option<
         std::collections::BTreeMap<
@@ -25,12 +27,15 @@ pub struct ConfigMapAc {
             <::k8s_openapi027::ByteString as crate::Optionable>::Optioned,
         >,
     >,
+    /// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     >,
+    /// Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub immutable: Option<bool>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
 }
 #[automatically_derived]

@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodReadinessGate contains the reference to a pod condition
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodReadinessGateAc {
+    /// ConditionType refers to a condition in the pod's condition list with matching type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub condition_type: Option<std::string::String>,
 }

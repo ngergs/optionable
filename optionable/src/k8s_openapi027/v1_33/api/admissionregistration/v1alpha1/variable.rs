@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Variable is the definition of a variable that is used for composition.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VariableAc {
+    /// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expression: Option<std::string::String>,
+    /// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

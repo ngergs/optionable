@@ -6,14 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceAttribute must have exactly one field set.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceAttributeAc {
+    /// BoolValue is a true/false value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub bool: Option<bool>,
+    /// IntValue is a number.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub int: Option<i64>,
+    /// StringValue is a string. Must not be longer than 64 characters.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub string: Option<std::string::String>,
+    /// VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub version: Option<std::string::String>,
 }

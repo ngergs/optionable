@@ -6,14 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Info contains versioning information. how we'll want to distribute that information.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct InfoAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub build_date: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub compiler: Option<std::string::String>,
+    /// EmulationMajor is the major version of the emulation version
     #[serde(skip_serializing_if = "Option::is_none")]
     pub emulation_major: Option<std::string::String>,
+    /// EmulationMinor is the minor version of the emulation version
     #[serde(skip_serializing_if = "Option::is_none")]
     pub emulation_minor: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -24,12 +27,16 @@ pub struct InfoAc {
     pub git_version: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub go_version: Option<std::string::String>,
+    /// Major is the major version of the binary version
     #[serde(skip_serializing_if = "Option::is_none")]
     pub major: Option<std::string::String>,
+    /// MinCompatibilityMajor is the major version of the minimum compatibility version
     #[serde(skip_serializing_if = "Option::is_none")]
     pub min_compatibility_major: Option<std::string::String>,
+    /// MinCompatibilityMinor is the minor version of the minimum compatibility version
     #[serde(skip_serializing_if = "Option::is_none")]
     pub min_compatibility_minor: Option<std::string::String>,
+    /// Minor is the minor version of the binary version
     #[serde(skip_serializing_if = "Option::is_none")]
     pub minor: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]

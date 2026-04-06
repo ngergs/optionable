@@ -6,16 +6,21 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// specification of a horizontal pod autoscaler.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerSpecAc {
+    /// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub max_replicas: Option<i32>,
+    /// minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub min_replicas: Option<i32>,
+    /// reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scale_target_ref: Option<
         <::k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference as crate::Optionable>::Optioned,
     >,
+    /// targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
     #[serde(rename = "targetCPUUtilizationPercentage")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target_cpu_utilization_percentage: Option<i32>,

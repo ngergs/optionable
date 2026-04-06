@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// List is a list of resources.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ListAc<T>
 where
@@ -23,8 +24,10 @@ where
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// List of objects.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub items: Option<std::vec::Vec<<T as crate::Optionable>::Optioned>>,
+    /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ListMeta,
 }
 #[automatically_derived]

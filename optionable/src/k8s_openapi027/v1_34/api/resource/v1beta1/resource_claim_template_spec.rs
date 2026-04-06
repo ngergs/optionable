@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimTemplateSpecAc {
+    /// ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub metadata: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
     >,
+    /// Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::resource::v1beta1::ResourceClaimSpec as crate::Optionable>::Optioned,

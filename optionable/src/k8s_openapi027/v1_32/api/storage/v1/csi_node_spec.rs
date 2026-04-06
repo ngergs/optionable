@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// CSINodeSpec holds information about the specification of all CSI drivers installed on a node
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CSINodeSpecAc {
+    /// drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub drivers: Option<
         std::vec::Vec<

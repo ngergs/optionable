@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatefulSetPersistentVolumeClaimRetentionPolicyAc {
+    /// WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub when_deleted: Option<std::string::String>,
+    /// WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub when_scaled: Option<std::string::String>,
 }

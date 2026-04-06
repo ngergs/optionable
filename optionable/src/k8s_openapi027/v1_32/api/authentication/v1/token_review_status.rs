@@ -6,14 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// TokenReviewStatus is the result of the token authentication request.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TokenReviewStatusAc {
+    /// Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub audiences: Option<std::vec::Vec<std::string::String>>,
+    /// Authenticated indicates that the token was associated with a known user.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub authenticated: Option<bool>,
+    /// Error indicates that the token couldn't be checked
     #[serde(skip_serializing_if = "Option::is_none")]
     pub error: Option<std::string::String>,
+    /// User is the UserInfo associated with the provided token.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<
         <::k8s_openapi027::api::authentication::v1::UserInfo as crate::Optionable>::Optioned,

@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TopologySelectorLabelRequirementAc {
+    /// The label key that the selector applies to.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub key: Option<std::string::String>,
+    /// An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub values: Option<std::vec::Vec<std::string::String>>,
 }

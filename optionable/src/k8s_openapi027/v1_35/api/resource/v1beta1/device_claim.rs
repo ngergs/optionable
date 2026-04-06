@@ -6,20 +6,24 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceClaim defines how to request devices with a ResourceClaim.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceClaimAc {
+    /// This field holds configuration for multiple potential drivers which could satisfy requests in this claim. It is ignored while allocating the claim.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::resource::v1beta1::DeviceClaimConfiguration as crate::Optionable>::Optioned,
         >,
     >,
+    /// These constraints must be satisfied by the set of devices that get allocated for the claim.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub constraints: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::resource::v1beta1::DeviceConstraint as crate::Optionable>::Optioned,
         >,
     >,
+    /// Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub requests: Option<
         std::vec::Vec<

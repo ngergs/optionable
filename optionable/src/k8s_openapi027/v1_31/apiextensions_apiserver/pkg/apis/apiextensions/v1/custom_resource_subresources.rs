@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// CustomResourceSubresources defines the status and scale subresources for CustomResources.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceSubresourcesAc {
+    /// scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scale: Option<
         <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresourceScale as crate::Optionable>::Optioned,
     >,
+    /// status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceSubresourceStatus as crate::Optionable>::Optioned,

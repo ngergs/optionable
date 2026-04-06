@@ -6,20 +6,27 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Describes the state of the storageVersion at a certain point.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionConditionAc {
+    /// Last time the condition transitioned from one status to another.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_transition_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// A human readable message indicating details about the transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// If set, this represents the .metadata.generation that the condition was set based upon.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
+    /// The reason for the condition's last transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
+    /// Status of the condition, one of True, False, Unknown.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<std::string::String>,
+    /// Type of the condition.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

@@ -6,6 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
+///
+/// Kubelets use this API to obtain:
+///  1. client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client-kubelet" signerName).
+///  2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the "kubernetes.io/kubelet-serving" signerName).
+///
+/// This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CertificateSigningRequestAc {
     #[serde(
@@ -19,10 +26,12 @@ pub struct CertificateSigningRequestAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec as crate::Optionable>::Optioned,
     >,
+    /// status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::certificates::v1::CertificateSigningRequestStatus as crate::Optionable>::Optioned,

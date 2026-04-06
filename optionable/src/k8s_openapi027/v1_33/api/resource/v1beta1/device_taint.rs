@@ -6,16 +6,21 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceTaintAc {
+    /// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub effect: Option<std::string::String>,
+    /// The taint key to be applied to a device. Must be a label name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub key: Option<std::string::String>,
+    /// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub time_added: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// The taint value corresponding to the taint key. Must be a label value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<std::string::String>,
 }

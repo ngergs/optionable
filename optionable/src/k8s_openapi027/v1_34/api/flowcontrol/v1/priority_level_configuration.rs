@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PriorityLevelConfiguration represents the configuration of a priority level.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PriorityLevelConfigurationAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct PriorityLevelConfigurationAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::flowcontrol::v1::PriorityLevelConfigurationSpec as crate::Optionable>::Optioned,
     >,
+    /// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::flowcontrol::v1::PriorityLevelConfigurationStatus as crate::Optionable>::Optioned,

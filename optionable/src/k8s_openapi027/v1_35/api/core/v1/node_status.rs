@@ -6,14 +6,17 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NodeStatus is information about the current status of a node.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeStatusAc {
+    /// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub addresses: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::NodeAddress as crate::Optionable>::Optioned,
         >,
     >,
+    /// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allocatable: Option<
         std::collections::BTreeMap<
@@ -21,6 +24,7 @@ pub struct NodeStatusAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
     #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: Option<
         std::collections::BTreeMap<
@@ -28,50 +32,61 @@ pub struct NodeStatusAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::NodeCondition as crate::Optionable>::Optioned,
         >,
     >,
+    /// Status of the config assigned to the node via the dynamic Kubelet config feature.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config: Option<
         <::k8s_openapi027::api::core::v1::NodeConfigStatus as crate::Optionable>::Optioned,
     >,
+    /// Endpoints of daemons running on the Node.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub daemon_endpoints: Option<
         <::k8s_openapi027::api::core::v1::NodeDaemonEndpoints as crate::Optionable>::Optioned,
     >,
+    /// DeclaredFeatures represents the features related to feature gates that are declared by the node.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub declared_features: Option<std::vec::Vec<std::string::String>>,
+    /// Features describes the set of features implemented by the CRI implementation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub features: Option<
         <::k8s_openapi027::api::core::v1::NodeFeatures as crate::Optionable>::Optioned,
     >,
+    /// List of container images on this node
     #[serde(skip_serializing_if = "Option::is_none")]
     pub images: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::ContainerImage as crate::Optionable>::Optioned,
         >,
     >,
+    /// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_info: Option<
         <::k8s_openapi027::api::core::v1::NodeSystemInfo as crate::Optionable>::Optioned,
     >,
+    /// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub phase: Option<std::string::String>,
+    /// The available runtime handlers.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub runtime_handlers: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::NodeRuntimeHandler as crate::Optionable>::Optioned,
         >,
     >,
+    /// List of volumes that are attached to the node.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volumes_attached: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::AttachedVolume as crate::Optionable>::Optioned,
         >,
     >,
+    /// List of attachable volumes in use (mounted) by the node.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volumes_in_use: Option<std::vec::Vec<std::string::String>>,
 }

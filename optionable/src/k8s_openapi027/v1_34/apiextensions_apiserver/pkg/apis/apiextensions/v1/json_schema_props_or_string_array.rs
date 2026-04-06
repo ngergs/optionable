@@ -1,4 +1,5 @@
 #[derive(Clone, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+/// JSONSchemaPropsOrStringArray represents a JSONSchemaProps or a string array.
 #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
 #[serde(untagged)]
 pub enum JSONSchemaPropsOrStringArrayAc {

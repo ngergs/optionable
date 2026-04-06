@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// MetricIdentifier defines the name and optionally selector for a metric
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MetricIdentifierAc {
+    /// name is the name of the given metric
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub selector: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,

@@ -6,24 +6,32 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// LeaseSpec is a specification of a Lease.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LeaseSpecAc {
+    /// acquireTime is a time when the current lease was acquired.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub acquire_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::MicroTime as crate::Optionable>::Optioned,
     >,
+    /// holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub holder_identity: Option<std::string::String>,
+    /// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lease_duration_seconds: Option<i32>,
+    /// leaseTransitions is the number of transitions of a lease between holders.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lease_transitions: Option<i32>,
+    /// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preferred_holder: Option<std::string::String>,
+    /// renewTime is a time when the current holder of a lease has last updated the lease.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub renew_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::MicroTime as crate::Optionable>::Optioned,
     >,
+    /// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub strategy: Option<std::string::String>,
 }

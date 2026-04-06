@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodSchedulingGate is associated to a Pod to guard its scheduling.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodSchedulingGateAc {
+    /// Name of the scheduling gate. Each scheduling gate must have a unique name field.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

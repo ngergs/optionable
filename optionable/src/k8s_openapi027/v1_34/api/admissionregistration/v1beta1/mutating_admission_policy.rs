@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MutatingAdmissionPolicyAc {
     #[serde(
@@ -18,7 +19,9 @@ pub struct MutatingAdmissionPolicyAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Specification of the desired behavior of the MutatingAdmissionPolicy.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicySpec as crate::Optionable>::Optioned,

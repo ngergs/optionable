@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ContainerRestartRule describes how a container exit is handled.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerRestartRuleAc {
+    /// Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub action: Option<std::string::String>,
+    /// Represents the exit codes to check on container exits.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub exit_codes: Option<
         <::k8s_openapi027::api::core::v1::ContainerRestartRuleOnExitCodes as crate::Optionable>::Optioned,

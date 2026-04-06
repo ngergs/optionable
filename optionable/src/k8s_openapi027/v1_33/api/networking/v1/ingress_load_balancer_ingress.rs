@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressLoadBalancerIngressAc {
+    /// hostname is set for load-balancer ingress points that are DNS based.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hostname: Option<std::string::String>,
+    /// ip is set for load-balancer ingress points that are IP based.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ip: Option<std::string::String>,
+    /// ports provides information about the ports exposed by this LoadBalancer.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ports: Option<
         std::vec::Vec<

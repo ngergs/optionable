@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Storage version of a specific resource.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct StorageVersionAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// The name is \<group\>.\<resource\>.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec is an empty spec. It is here to comply with Kubernetes API style.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionSpec as crate::Optionable>::Optioned,
     >,
+    /// API server instances report the version they can decode and the version they encode objects to when persisting objects in the backend.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionStatus as crate::Optionable>::Optioned,

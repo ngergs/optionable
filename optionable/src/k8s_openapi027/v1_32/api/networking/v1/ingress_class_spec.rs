@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// IngressClassSpec provides information about the class of an Ingress.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressClassSpecAc {
+    /// controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub controller: Option<std::string::String>,
+    /// parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parameters: Option<
         <::k8s_openapi027::api::networking::v1::IngressClassParametersReference as crate::Optionable>::Optioned,

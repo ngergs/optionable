@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// HTTPHeader describes a custom header to be used in HTTP probes
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HTTPHeaderAc {
+    /// The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// The header field value
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<std::string::String>,
 }

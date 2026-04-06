@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodSchedulingContextStatus describes where resources for the Pod can be allocated.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodSchedulingContextStatusAc {
+    /// ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_claims: Option<
         std::vec::Vec<

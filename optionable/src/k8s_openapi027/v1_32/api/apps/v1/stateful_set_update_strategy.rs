@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatefulSetUpdateStrategyAc {
+    /// RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rolling_update: Option<
         <::k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy as crate::Optionable>::Optioned,
     >,
+    /// Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

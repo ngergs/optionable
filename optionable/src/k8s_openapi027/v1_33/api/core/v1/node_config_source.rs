@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeConfigSourceAc {
+    /// ConfigMap is a reference to a Node's ConfigMap
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config_map: Option<
         <::k8s_openapi027::api::core::v1::ConfigMapNodeConfigSource as crate::Optionable>::Optioned,

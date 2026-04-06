@@ -6,6 +6,9 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
+///
+/// This is an alpha type and requires enabling the DRAControlPlaneController feature gate.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodSchedulingContextAc {
     #[serde(
@@ -18,11 +21,14 @@ pub struct PodSchedulingContextAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec describes where resources for the Pod are needed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::resource::v1alpha3::PodSchedulingContextSpec as crate::Optionable>::Optioned,
     >,
+    /// Status describes where resources for the Pod can be allocated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::resource::v1alpha3::PodSchedulingContextStatus as crate::Optionable>::Optioned,

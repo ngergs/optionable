@@ -6,14 +6,21 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceRequirements describes the compute resource requirements.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceRequirementsAc {
+    /// Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+    ///
+    /// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    ///
+    /// This field is immutable. It can only be set for containers.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub claims: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::ResourceClaim as crate::Optionable>::Optioned,
         >,
     >,
+    /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub limits: Option<
         std::collections::BTreeMap<
@@ -21,6 +28,7 @@ pub struct ResourceRequirementsAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub requests: Option<
         std::collections::BTreeMap<

@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Spec of the storage version migration.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionMigrationSpecAc {
+    /// The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub continue_token: Option<std::string::String>,
+    /// The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<
         <::k8s_openapi027::api::storagemigration::v1alpha1::GroupVersionResource as crate::Optionable>::Optioned,

@@ -6,22 +6,29 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// JobCondition describes current state of a job.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct JobConditionAc {
+    /// Last time the condition was checked.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_probe_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// Last time the condition transit from one status to another.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_transition_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// Human readable message indicating details about last transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// (brief) reason for the condition's last transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
+    /// Status of the condition, one of True, False, Unknown.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<std::string::String>,
+    /// Type of job condition, Complete or Failed.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

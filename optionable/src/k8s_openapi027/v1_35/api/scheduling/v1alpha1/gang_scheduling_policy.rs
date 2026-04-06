@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// GangSchedulingPolicy defines the parameters for gang scheduling.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GangSchedulingPolicyAc {
+    /// MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub min_count: Option<i32>,
 }

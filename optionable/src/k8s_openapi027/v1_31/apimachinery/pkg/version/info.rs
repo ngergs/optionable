@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Info contains versioning information. how we'll want to distribute that information.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct InfoAc {
     #[serde(skip_serializing_if = "Option::is_none")]

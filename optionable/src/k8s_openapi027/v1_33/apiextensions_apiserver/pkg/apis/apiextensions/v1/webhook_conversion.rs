@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// WebhookConversion describes how to call a conversion webhook
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct WebhookConversionAc {
+    /// clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub client_config: Option<
         <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::WebhookClientConfig as crate::Optionable>::Optioned,
     >,
+    /// conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conversion_review_versions: Option<std::vec::Vec<std::string::String>>,
 }

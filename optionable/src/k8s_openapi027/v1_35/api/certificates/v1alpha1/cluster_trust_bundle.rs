@@ -6,6 +6,11 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
+///
+/// ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
+///
+/// It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ClusterTrustBundleAc {
     #[serde(
@@ -18,7 +23,9 @@ pub struct ClusterTrustBundleAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// metadata contains the object metadata.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// spec contains the signer (if any) and trust anchors.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::certificates::v1alpha1::ClusterTrustBundleSpec as crate::Optionable>::Optioned,

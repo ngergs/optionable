@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceSelector must have exactly one field set.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceSelectorAc {
+    /// CEL contains a CEL expression for selecting a device.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cel: Option<
         <::k8s_openapi027::api::resource::v1::CELDeviceSelector as crate::Optionable>::Optioned,

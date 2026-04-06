@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// IPAddressSpec describe the attributes in an IP Address.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IPAddressSpecAc {
+    /// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parent_ref: Option<
         <::k8s_openapi027::api::networking::v1beta1::ParentReference as crate::Optionable>::Optioned,

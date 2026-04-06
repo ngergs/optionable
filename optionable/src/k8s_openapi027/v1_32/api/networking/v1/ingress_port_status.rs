@@ -6,12 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// IngressPortStatus represents the error condition of a service port
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct IngressPortStatusAc {
+    /// error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+    ///   CamelCase names
+    /// - cloud provider specific error values must have names that comply with the
+    ///   format foo.example.com/CamelCase.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub error: Option<std::string::String>,
+    /// port is the port number of the ingress port.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<i32>,
+    /// protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
     #[serde(skip_serializing_if = "Option::is_none")]
     pub protocol: Option<std::string::String>,
 }

@@ -6,18 +6,23 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SubjectAc {
+    /// `group` matches based on user group name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<
         <::k8s_openapi027::api::flowcontrol::v1::GroupSubject as crate::Optionable>::Optioned,
     >,
+    /// `kind` indicates which one of the other fields is non-empty. Required
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
+    /// `serviceAccount` matches ServiceAccounts.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_account: Option<
         <::k8s_openapi027::api::flowcontrol::v1::ServiceAccountSubject as crate::Optionable>::Optioned,
     >,
+    /// `user` matches based on username.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<
         <::k8s_openapi027::api::flowcontrol::v1::UserSubject as crate::Optionable>::Optioned,

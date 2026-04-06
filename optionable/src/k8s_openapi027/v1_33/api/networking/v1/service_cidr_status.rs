@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ServiceCIDRStatus describes the current state of the ServiceCIDR.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceCIDRStatusAc {
+    /// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<

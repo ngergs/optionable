@@ -6,28 +6,39 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ScaleIOVolumeSource represents a persistent ScaleIO volume
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ScaleIOVolumeSourceAc {
+    /// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fs_type: Option<std::string::String>,
+    /// gateway is the host address of the ScaleIO API Gateway.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub gateway: Option<std::string::String>,
+    /// protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub protection_domain: Option<std::string::String>,
+    /// readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub read_only: Option<bool>,
+    /// secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret_ref: Option<
         <::k8s_openapi027::api::core::v1::LocalObjectReference as crate::Optionable>::Optioned,
     >,
+    /// sslEnabled Flag enable/disable SSL communication with Gateway, default false
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ssl_enabled: Option<bool>,
+    /// storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_mode: Option<std::string::String>,
+    /// storagePool is the ScaleIO Storage Pool associated with the protection domain.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_pool: Option<std::string::String>,
+    /// system is the name of the storage system as configured in ScaleIO.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub system: Option<std::string::String>,
+    /// volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_name: Option<std::string::String>,
 }

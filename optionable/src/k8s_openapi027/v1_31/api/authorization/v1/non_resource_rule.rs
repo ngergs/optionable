@@ -6,11 +6,14 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NonResourceRule holds information that describes a rule for the non-resource
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NonResourceRuleAc {
+    /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
     #[serde(rename = "nonResourceURLs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub non_resource_urls: Option<std::vec::Vec<std::string::String>>,
+    /// Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  "*" means all.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub verbs: Option<std::vec::Vec<std::string::String>>,
 }

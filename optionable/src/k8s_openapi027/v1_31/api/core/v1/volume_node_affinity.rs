@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeNodeAffinityAc {
+    /// required specifies hard node constraints that must be met.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub required: Option<
         <::k8s_openapi027::api::core::v1::NodeSelector as crate::Optionable>::Optioned,

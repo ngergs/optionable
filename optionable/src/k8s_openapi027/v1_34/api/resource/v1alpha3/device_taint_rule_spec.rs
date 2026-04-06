@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeviceTaintRuleSpec specifies the selector and one taint.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeviceTaintRuleSpecAc {
+    /// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device_selector: Option<
         <::k8s_openapi027::api::resource::v1alpha3::DeviceTaintSelector as crate::Optionable>::Optioned,
     >,
+    /// The taint that gets applied to matching devices.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub taint: Option<
         <::k8s_openapi027::api::resource::v1alpha3::DeviceTaint as crate::Optionable>::Optioned,

@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// UserInfo holds the information about the user needed to implement the user.Info interface.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct UserInfoAc {
+    /// Any additional information provided by the authenticator.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub extra: Option<
         std::collections::BTreeMap<
@@ -15,10 +17,13 @@ pub struct UserInfoAc {
             std::vec::Vec<std::string::String>,
         >,
     >,
+    /// The names of groups this user is a part of.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub groups: Option<std::vec::Vec<std::string::String>>,
+    /// A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: Option<std::string::String>,
+    /// The name that uniquely identifies this user among all active users.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub username: Option<std::string::String>,
 }

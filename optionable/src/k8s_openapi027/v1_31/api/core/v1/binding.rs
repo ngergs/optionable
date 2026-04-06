@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BindingAc {
     #[serde(
@@ -18,7 +19,9 @@ pub struct BindingAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// The target object that you want to bind to the standard object.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target: Option<
         <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,

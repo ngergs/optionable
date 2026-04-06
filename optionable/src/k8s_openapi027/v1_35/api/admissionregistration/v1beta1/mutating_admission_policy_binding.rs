@@ -6,6 +6,11 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+///
+/// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a \[runtime cost budget\](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+///
+/// Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MutatingAdmissionPolicyBindingAc {
     #[serde(
@@ -18,7 +23,9 @@ pub struct MutatingAdmissionPolicyBindingAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicyBindingSpec as crate::Optionable>::Optioned,

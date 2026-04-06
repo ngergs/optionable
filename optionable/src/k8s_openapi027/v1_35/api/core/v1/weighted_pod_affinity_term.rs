@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct WeightedPodAffinityTermAc {
+    /// Required. A pod affinity term, associated with the corresponding weight.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_affinity_term: Option<
         <::k8s_openapi027::api::core::v1::PodAffinityTerm as crate::Optionable>::Optioned,
     >,
+    /// weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,
 }

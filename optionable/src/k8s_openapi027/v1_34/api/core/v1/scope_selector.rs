@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ScopeSelectorAc {
+    /// A list of scope selector requirements by scope of the resources.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub match_expressions: Option<
         std::vec::Vec<

@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// VolumeResourceRequirements describes the storage resource requirements for a volume.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeResourceRequirementsAc {
+    /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub limits: Option<
         std::collections::BTreeMap<
@@ -15,6 +17,7 @@ pub struct VolumeResourceRequirementsAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub requests: Option<
         std::collections::BTreeMap<

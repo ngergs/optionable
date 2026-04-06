@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LabelSelectorRequirementAc {
+    /// key is the label key that the selector applies to.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub key: Option<std::string::String>,
+    /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub operator: Option<std::string::String>,
+    /// values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub values: Option<std::vec::Vec<std::string::String>>,
 }

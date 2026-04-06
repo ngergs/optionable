@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SchedulingAc {
+    /// nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_selector: Option<
         std::collections::BTreeMap<std::string::String, std::string::String>,
     >,
+    /// tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tolerations: Option<
         std::vec::Vec<

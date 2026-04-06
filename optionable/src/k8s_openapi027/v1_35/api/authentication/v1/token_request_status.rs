@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// TokenRequestStatus is the result of a token request.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TokenRequestStatusAc {
+    /// ExpirationTimestamp is the time of expiration of the returned token.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration_timestamp: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// Token is the opaque bearer token.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub token: Option<std::string::String>,
 }

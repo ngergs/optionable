@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// APIGroup contains the name, the supported versions, and the preferred version of a group.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct APIGroupAc {
     #[serde(
@@ -18,12 +19,15 @@ pub struct APIGroupAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// name is the name of the group.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// preferredVersion is the version preferred by the API server, which probably is the storage version.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preferred_version: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupVersionForDiscovery as crate::Optionable>::Optioned,
     >,
+    /// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
     #[serde(rename = "serverAddressByClientCIDRs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub server_address_by_client_cidrs: Option<
@@ -31,6 +35,7 @@ pub struct APIGroupAc {
             <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR as crate::Optionable>::Optioned,
         >,
     >,
+    /// versions are the versions supported in this group.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub versions: Option<
         std::vec::Vec<

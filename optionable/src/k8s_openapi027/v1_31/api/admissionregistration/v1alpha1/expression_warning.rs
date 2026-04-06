@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ExpressionWarning is a warning information that targets a specific expression.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ExpressionWarningAc {
+    /// The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations\[0\].expression"
     #[serde(skip_serializing_if = "Option::is_none")]
     pub field_ref: Option<std::string::String>,
+    /// The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub warning: Option<std::string::String>,
 }

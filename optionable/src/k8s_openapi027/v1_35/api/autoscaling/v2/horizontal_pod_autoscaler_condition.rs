@@ -6,18 +6,24 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerConditionAc {
+    /// lastTransitionTime is the last time the condition transitioned from one status to another
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_transition_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// message is a human-readable explanation containing details about the transition
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// reason is the reason for the condition's last transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
+    /// status is the status of the condition (True, False, Unknown)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<std::string::String>,
+    /// type describes the current condition
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

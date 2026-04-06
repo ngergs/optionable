@@ -6,30 +6,38 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NodeSpec describes the attributes that a node is created with.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSpecAc {
+    /// Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config_source: Option<
         <::k8s_openapi027::api::core::v1::NodeConfigSource as crate::Optionable>::Optioned,
     >,
+    /// Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
     #[serde(rename = "externalID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub external_id: Option<std::string::String>,
+    /// PodCIDR represents the pod IP range assigned to the node.
     #[serde(rename = "podCIDR")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_cidr: Option<std::string::String>,
+    /// podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
     #[serde(rename = "podCIDRs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_cidrs: Option<std::vec::Vec<std::string::String>>,
+    /// ID of the node assigned by the cloud provider in the format: \<ProviderName\>://\<ProviderSpecificNodeID\>
     #[serde(rename = "providerID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provider_id: Option<std::string::String>,
+    /// If specified, the node's taints.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub taints: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::Taint as crate::Optionable>::Optioned,
         >,
     >,
+    /// Unschedulable controls node schedulability of new pods. By default, node is schedulable. More info: https://kubernetes.io/docs/concepts/nodes/node/#manual-node-administration
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unschedulable: Option<bool>,
 }

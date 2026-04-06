@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ClusterRoleBindingAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct ClusterRoleBindingAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role_ref: Option<
         <::k8s_openapi027::api::rbac::v1::RoleRef as crate::Optionable>::Optioned,
     >,
+    /// Subjects holds references to the objects the role applies to.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub subjects: Option<
         std::vec::Vec<

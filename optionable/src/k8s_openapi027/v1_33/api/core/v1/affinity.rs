@@ -6,16 +6,20 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Affinity is a group of affinity scheduling rules.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AffinityAc {
+    /// Describes node affinity scheduling rules for the pod.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_affinity: Option<
         <::k8s_openapi027::api::core::v1::NodeAffinity as crate::Optionable>::Optioned,
     >,
+    /// Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_affinity: Option<
         <::k8s_openapi027::api::core::v1::PodAffinity as crate::Optionable>::Optioned,
     >,
+    /// Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pod_anti_affinity: Option<
         <::k8s_openapi027::api::core::v1::PodAntiAffinity as crate::Optionable>::Optioned,

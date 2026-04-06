@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ParamKind is a tuple of Group Kind and Version.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ParamKindAc {
+    /// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub api_version: Option<std::string::String>,
+    /// Kind is the API kind the resources belong to. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
 }

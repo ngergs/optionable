@@ -8,10 +8,16 @@
 )]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PortStatusAc {
+    /// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+    ///   CamelCase names
+    /// - cloud provider specific error values must have names that comply with the
+    ///   format foo.example.com/CamelCase.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub error: Option<std::string::String>,
+    /// Port is the port number of the service port of which status is recorded here
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<i32>,
+    /// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
     #[serde(skip_serializing_if = "Option::is_none")]
     pub protocol: Option<std::string::String>,
 }

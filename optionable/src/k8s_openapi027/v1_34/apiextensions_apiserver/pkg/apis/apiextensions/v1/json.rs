@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, \[\]interface{}, map\[string\]interface{} and nil.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct JSONAc(
     #[serde(skip_serializing_if = "Option::is_none")]

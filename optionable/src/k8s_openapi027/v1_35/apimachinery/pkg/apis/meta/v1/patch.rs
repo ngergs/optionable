@@ -1,4 +1,5 @@
 #[derive(Clone, PartialEq, serde::Deserialize, serde::Serialize, std::fmt::Debug)]
+/// Patch is provided to give a concrete name and type to the Kubernetes PATCH request body.
 #[serde(rename_all_fields = "camelCase", deny_unknown_fields)]
 #[serde(untagged)]
 pub enum PatchAc {

@@ -6,22 +6,28 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// HTTPGetAction describes an action based on HTTP Get requests.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HTTPGetActionAc {
+    /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host: Option<std::string::String>,
+    /// Custom headers to set in the request. HTTP allows repeated headers.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub http_headers: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::HTTPHeader as crate::Optionable>::Optioned,
         >,
     >,
+    /// Path to access on the HTTP server.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub path: Option<std::string::String>,
+    /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<
         <::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString as crate::Optionable>::Optioned,
     >,
+    /// Scheme to use for connecting to the host. Defaults to HTTP.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scheme: Option<std::string::String>,
 }

@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ValidatingAdmissionPolicyAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct ValidatingAdmissionPolicyAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Specification of the desired behavior of the ValidatingAdmissionPolicy.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicySpec as crate::Optionable>::Optioned,
     >,
+    /// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicyStatus as crate::Optionable>::Optioned,

@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// TokenRequest requests a token for a given service account.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct TokenRequestAc {
     #[serde(
@@ -18,11 +19,14 @@ pub struct TokenRequestAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec holds information about the request being evaluated
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::authentication::v1::TokenRequestSpec as crate::Optionable>::Optioned,
     >,
+    /// Status is filled in by the server and indicates whether the token can be authenticated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<
         <::k8s_openapi027::api::authentication::v1::TokenRequestStatus as crate::Optionable>::Optioned,

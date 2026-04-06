@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Spec of the storage version migration.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionMigrationSpecAc {
+    /// The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource as crate::Optionable>::Optioned,

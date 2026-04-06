@@ -6,12 +6,18 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerBehaviorAc {
+    /// scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scale_down: Option<
         <::k8s_openapi027::api::autoscaling::v2::HPAScalingRules as crate::Optionable>::Optioned,
     >,
+    /// scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
+    ///   * increase no more than 4 pods per 60 seconds
+    ///   * double the number of pods per 60 seconds
+    /// No stabilization is used.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scale_up: Option<
         <::k8s_openapi027::api::autoscaling::v2::HPAScalingRules as crate::Optionable>::Optioned,

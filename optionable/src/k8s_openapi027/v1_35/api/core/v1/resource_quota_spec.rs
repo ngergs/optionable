@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceQuotaSpecAc {
+    /// hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hard: Option<
         std::collections::BTreeMap<
@@ -15,10 +17,12 @@ pub struct ResourceQuotaSpecAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_selector: Option<
         <::k8s_openapi027::api::core::v1::ScopeSelector as crate::Optionable>::Optioned,
     >,
+    /// A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scopes: Option<std::vec::Vec<std::string::String>>,
 }

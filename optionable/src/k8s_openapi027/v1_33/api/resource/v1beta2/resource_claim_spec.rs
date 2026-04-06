@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimSpecAc {
+    /// Devices defines how to request devices.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub devices: Option<
         <::k8s_openapi027::api::resource::v1beta2::DeviceClaim as crate::Optionable>::Optioned,

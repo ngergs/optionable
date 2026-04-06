@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// FlowDistinguisherMethod specifies the method of a flow distinguisher.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FlowDistinguisherMethodAc {
+    /// `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

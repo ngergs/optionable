@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NamespaceCondition contains details about state of namespace.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NamespaceConditionAc {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -16,8 +17,10 @@ pub struct NamespaceConditionAc {
     pub message: Option<std::string::String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
+    /// Status of the condition, one of True, False, Unknown.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<std::string::String>,
+    /// Type of namespace controller condition.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

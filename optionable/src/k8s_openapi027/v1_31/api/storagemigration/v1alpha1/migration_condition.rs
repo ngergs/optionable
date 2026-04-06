@@ -6,18 +6,24 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Describes the state of a migration at a certain point.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MigrationConditionAc {
+    /// The last time this condition was updated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_update_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// A human readable message indicating details about the transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// The reason for the condition's last transition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
+    /// Status of the condition, one of True, False, Unknown.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<std::string::String>,
+    /// Type of the condition.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct AggregationRuleAc {
+    /// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster_role_selectors: Option<
         std::vec::Vec<

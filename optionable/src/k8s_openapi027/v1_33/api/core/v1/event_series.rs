@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EventSeriesAc {
+    /// Number of occurrences in this series up to the last heartbeat time
     #[serde(skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
+    /// Time of the last occurrence observed
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_observed_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::MicroTime as crate::Optionable>::Optioned,

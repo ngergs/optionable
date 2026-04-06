@@ -6,17 +6,23 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ContainerPort represents a network port in a single container.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerPortAc {
+    /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 \< x \< 65536.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub container_port: Option<i32>,
+    /// What host IP to bind the external port to.
     #[serde(rename = "hostIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host_ip: Option<std::string::String>,
+    /// Number of port to expose on the host. If specified, this must be a valid port number, 0 \< x \< 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host_port: Option<i32>,
+    /// If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub protocol: Option<std::string::String>,
 }

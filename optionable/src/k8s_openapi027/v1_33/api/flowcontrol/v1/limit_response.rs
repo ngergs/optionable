@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// LimitResponse defines how to handle requests that can not be executed right now.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LimitResponseAc {
+    /// `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub queuing: Option<
         <::k8s_openapi027::api::flowcontrol::v1::QueuingConfiguration as crate::Optionable>::Optioned,
     >,
+    /// `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

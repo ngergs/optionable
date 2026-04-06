@@ -6,14 +6,18 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NetworkPolicyPort describes a port to allow traffic on
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkPolicyPortAc {
+    /// endPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub end_port: Option<i32>,
+    /// port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port: Option<
         <::k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString as crate::Optionable>::Optioned,
     >,
+    /// protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub protocol: Option<std::string::String>,
 }

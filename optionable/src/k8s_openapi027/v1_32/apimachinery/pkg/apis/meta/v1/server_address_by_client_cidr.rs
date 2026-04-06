@@ -6,11 +6,14 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ServerAddressByClientCIDR helps the client to determine the server address that they should use, depending on the clientCIDR that they match.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServerAddressByClientCIDRAc {
+    /// The CIDR with which clients can match their IP to figure out the server address that they should use.
     #[serde(rename = "clientCIDR")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub client_cidr: Option<std::string::String>,
+    /// Address of this server, suitable for a client that matches the above CIDR. This can be a hostname, hostname:port, IP or IP:port.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub server_address: Option<std::string::String>,
 }

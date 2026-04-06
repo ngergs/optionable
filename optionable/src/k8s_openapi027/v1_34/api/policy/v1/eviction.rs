@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/\<pod name\>/evictions.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EvictionAc {
     #[serde(
@@ -18,10 +19,12 @@ pub struct EvictionAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// DeleteOptions may be provided
     #[serde(skip_serializing_if = "Option::is_none")]
     pub delete_options: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions as crate::Optionable>::Optioned,
     >,
+    /// ObjectMeta describes the pod that is being evicted.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
 }
 #[automatically_derived]

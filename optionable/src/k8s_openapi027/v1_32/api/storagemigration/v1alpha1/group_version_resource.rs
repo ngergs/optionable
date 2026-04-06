@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// The names of the group, the version, and the resource.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GroupVersionResourceAc {
+    /// The name of the group.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<std::string::String>,
+    /// The name of the resource.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<std::string::String>,
+    /// The name of the version.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub version: Option<std::string::String>,
 }

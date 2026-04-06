@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ContainerExtendedResourceRequest has the mapping of container name, extended resource name to the device request name.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerExtendedResourceRequestAc {
+    /// The name of the container requesting resources.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub container_name: Option<std::string::String>,
+    /// The name of the request in the special ResourceClaim which corresponds to the extended resource.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request_name: Option<std::string::String>,
+    /// The name of the extended resource in that container which gets backed by DRA.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_name: Option<std::string::String>,
 }

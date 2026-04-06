@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DaemonEndpoint contains information about a single Daemon endpoint.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DaemonEndpointAc {
+    /// Port number of the given endpoint.
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "Port")]
     pub port: Option<i32>,

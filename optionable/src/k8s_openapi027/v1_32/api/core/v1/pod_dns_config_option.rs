@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodDNSConfigOption defines DNS resolver options of a pod.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodDNSConfigOptionAc {
+    /// Name is this DNS resolver option's name. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// Value is this DNS resolver option's value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<std::string::String>,
 }

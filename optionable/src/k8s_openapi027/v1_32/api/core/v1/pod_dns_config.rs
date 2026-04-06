@@ -6,16 +6,20 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodDNSConfigAc {
+    /// A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub nameservers: Option<std::vec::Vec<std::string::String>>,
+    /// A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub options: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::core::v1::PodDNSConfigOption as crate::Optionable>::Optioned,
         >,
     >,
+    /// A list of DNS search domains for host-name lookup. This will be appended to the base search paths generated from DNSPolicy. Duplicated search paths will be removed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub searches: Option<std::vec::Vec<std::string::String>>,
 }

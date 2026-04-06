@@ -6,14 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ParentReference describes a reference to a parent object.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ParentReferenceAc {
+    /// Group is the group of the object being referenced.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<std::string::String>,
+    /// Name is the name of the object being referenced.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// Namespace is the namespace of the object being referenced.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace: Option<std::string::String>,
+    /// Resource is the resource of the object being referenced.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<std::string::String>,
 }

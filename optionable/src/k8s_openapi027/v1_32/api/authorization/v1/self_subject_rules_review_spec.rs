@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelfSubjectRulesReviewSpecAc {
+    /// Namespace to evaluate rules for. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace: Option<std::string::String>,
 }

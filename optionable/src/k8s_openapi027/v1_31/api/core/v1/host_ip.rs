@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// HostIP represents a single IP address allocated to the host.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HostIPAc {
+    /// IP is the IP address assigned to the host
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ip: Option<std::string::String>,
 }

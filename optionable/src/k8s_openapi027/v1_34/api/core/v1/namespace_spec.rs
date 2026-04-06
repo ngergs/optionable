@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NamespaceSpec describes the attributes on a Namespace.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NamespaceSpecAc {
+    /// Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub finalizers: Option<std::vec::Vec<std::string::String>>,
 }

@@ -6,12 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// EnvVar represents an environment variable present in a Container.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EnvVarAc {
+    /// Name of the environment variable. Must be a C_IDENTIFIER.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
+    /// Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<std::string::String>,
+    /// Source for the environment variable's value. Cannot be used if value is not empty.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value_from: Option<
         <::k8s_openapi027::api::core::v1::EnvVarSource as crate::Optionable>::Optioned,

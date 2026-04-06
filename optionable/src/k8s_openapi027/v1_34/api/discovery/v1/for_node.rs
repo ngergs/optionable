@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ForNode provides information about which nodes should consume this endpoint.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ForNodeAc {
+    /// name represents the name of the node.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
 }

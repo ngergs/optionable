@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ContainerStateRunning is a running state of a container.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerStateRunningAc {
+    /// Time at which the container was last (re-)started
     #[serde(skip_serializing_if = "Option::is_none")]
     pub started_at: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,

@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NodeDaemonEndpoints lists ports opened by daemons running on the Node.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeDaemonEndpointsAc {
+    /// Endpoint on which Kubelet is listening.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kubelet_endpoint: Option<
         <::k8s_openapi027::api::core::v1::DaemonEndpoint as crate::Optionable>::Optioned,

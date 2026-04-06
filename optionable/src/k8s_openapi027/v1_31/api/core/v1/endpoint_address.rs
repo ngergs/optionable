@@ -6,14 +6,19 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// EndpointAddress is a tuple that describes single IP address.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EndpointAddressAc {
+    /// The Hostname of this endpoint
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hostname: Option<std::string::String>,
+    /// The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ip: Option<std::string::String>,
+    /// Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_name: Option<std::string::String>,
+    /// Reference to object providing the endpoint.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target_ref: Option<
         <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,

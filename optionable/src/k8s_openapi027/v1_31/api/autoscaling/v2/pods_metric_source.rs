@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodsMetricSourceAc {
+    /// metric identifies the target metric by name and selector
     #[serde(skip_serializing_if = "Option::is_none")]
     pub metric: Option<
         <::k8s_openapi027::api::autoscaling::v2::MetricIdentifier as crate::Optionable>::Optioned,
     >,
+    /// target specifies the target value for the given metric
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target: Option<
         <::k8s_openapi027::api::autoscaling::v2::MetricTarget as crate::Optionable>::Optioned,

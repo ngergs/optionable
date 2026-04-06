@@ -6,8 +6,12 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// BasicDevice defines one device instance.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BasicDeviceAc {
+    /// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
+    ///
+    /// The maximum number of attributes and capacities combined is 32.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attributes: Option<
         std::collections::BTreeMap<
@@ -15,6 +19,9 @@ pub struct BasicDeviceAc {
             <::k8s_openapi027::api::resource::v1alpha3::DeviceAttribute as crate::Optionable>::Optioned,
         >,
     >,
+    /// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
+    ///
+    /// The maximum number of attributes and capacities combined is 32.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub capacity: Option<
         std::collections::BTreeMap<

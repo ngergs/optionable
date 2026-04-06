@@ -6,23 +6,31 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ContainerStateTerminated is a terminated state of a container.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerStateTerminatedAc {
+    /// Container's ID in the format '\<type\>://\<container_id\>'
     #[serde(rename = "containerID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub container_id: Option<std::string::String>,
+    /// Exit status from the last termination of the container
     #[serde(skip_serializing_if = "Option::is_none")]
     pub exit_code: Option<i32>,
+    /// Time at which the container last terminated
     #[serde(skip_serializing_if = "Option::is_none")]
     pub finished_at: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
     >,
+    /// Message regarding the last termination of the container
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<std::string::String>,
+    /// (brief) reason from the last termination of the container
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reason: Option<std::string::String>,
+    /// Signal from the last termination of the container
     #[serde(skip_serializing_if = "Option::is_none")]
     pub signal: Option<i32>,
+    /// Time at which previous execution of the container started
     #[serde(skip_serializing_if = "Option::is_none")]
     pub started_at: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,

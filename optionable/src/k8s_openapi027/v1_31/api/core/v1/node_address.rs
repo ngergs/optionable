@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NodeAddress contains information for the node's address.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeAddressAc {
+    /// The node address.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub address: Option<std::string::String>,
+    /// Node address type, one of Hostname, ExternalIP or InternalIP.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

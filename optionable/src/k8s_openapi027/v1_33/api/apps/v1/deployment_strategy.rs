@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// DeploymentStrategy describes how to replace existing pods with new ones.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct DeploymentStrategyAc {
+    /// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rolling_update: Option<
         <::k8s_openapi027::api::apps::v1::RollingUpdateDeployment as crate::Optionable>::Optioned,
     >,
+    /// Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

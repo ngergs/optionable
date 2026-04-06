@@ -6,30 +6,41 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// StatefulSetStatus represents the current state of a StatefulSet.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StatefulSetStatusAc {
+    /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub available_replicas: Option<i32>,
+    /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub collision_count: Option<i32>,
+    /// Represents the latest available observations of a statefulset's current state.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::apps::v1::StatefulSetCondition as crate::Optionable>::Optioned,
         >,
     >,
+    /// currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_replicas: Option<i32>,
+    /// currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence \[0,currentReplicas).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub current_revision: Option<std::string::String>,
+    /// observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
+    /// readyReplicas is the number of pods created for this StatefulSet with a Ready Condition.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ready_replicas: Option<i32>,
+    /// replicas is the number of Pods created by the StatefulSet controller.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub replicas: Option<i32>,
+    /// updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence \[replicas-updatedReplicas,replicas)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub update_revision: Option<std::string::String>,
+    /// updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub updated_replicas: Option<i32>,
 }

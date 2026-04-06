@@ -6,6 +6,7 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NetworkPolicy describes what network traffic is allowed for a set of Pods
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NetworkPolicyAc {
     #[serde(
@@ -18,7 +19,9 @@ pub struct NetworkPolicyAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// spec represents the specification of the desired behavior for this NetworkPolicy.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::networking::v1::NetworkPolicySpec as crate::Optionable>::Optioned,

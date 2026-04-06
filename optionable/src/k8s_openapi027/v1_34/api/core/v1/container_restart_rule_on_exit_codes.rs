@@ -6,10 +6,16 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ContainerRestartRuleOnExitCodes describes the condition for handling an exited container based on its exit codes.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerRestartRuleOnExitCodesAc {
+    /// Represents the relationship between the container exit code(s) and the specified values. Possible values are: - In: the requirement is satisfied if the container exit code is in the
+    ///   set of specified values.
+    /// - NotIn: the requirement is satisfied if the container exit code is
+    ///   not in the set of specified values.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub operator: Option<std::string::String>,
+    /// Specifies the set of values to check for container exit codes. At most 255 elements are allowed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub values: Option<std::vec::Vec<i32>>,
 }

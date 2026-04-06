@@ -6,30 +6,63 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceSliceSpecAc {
+    /// AllNodes indicates that all nodes have access to the resources in the pool.
+    ///
+    /// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub all_nodes: Option<bool>,
+    /// Devices lists some or all of the devices in this pool.
+    ///
+    /// Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+    ///
+    /// Only one of Devices and SharedCounters can be set in a ResourceSlice.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub devices: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::resource::v1beta1::Device as crate::Optionable>::Optioned,
         >,
     >,
+    /// Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+    ///
+    /// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub driver: Option<std::string::String>,
+    /// NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
+    ///
+    /// This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
+    ///
+    /// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_name: Option<std::string::String>,
+    /// NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
+    ///
+    /// Must use exactly one term.
+    ///
+    /// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_selector: Option<
         <::k8s_openapi027::api::core::v1::NodeSelector as crate::Optionable>::Optioned,
     >,
+    /// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+    ///
+    /// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub per_device_node_selection: Option<bool>,
+    /// Pool describes the pool that this ResourceSlice belongs to.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pool: Option<
         <::k8s_openapi027::api::resource::v1beta1::ResourcePool as crate::Optionable>::Optioned,
     >,
+    /// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+    ///
+    /// The names of the counter sets must be unique in the ResourcePool.
+    ///
+    /// Only one of Devices and SharedCounters can be set in a ResourceSlice.
+    ///
+    /// The maximum number of counter sets is 8.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub shared_counters: Option<
         std::vec::Vec<

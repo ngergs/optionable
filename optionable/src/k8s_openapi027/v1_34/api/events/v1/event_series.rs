@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EventSeriesAc {
+    /// count is the number of occurrences in this series up to the last heartbeat time.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
+    /// lastObservedTime is the time when last Event from the series was seen before last heartbeat.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_observed_time: Option<
         <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::MicroTime as crate::Optionable>::Optioned,

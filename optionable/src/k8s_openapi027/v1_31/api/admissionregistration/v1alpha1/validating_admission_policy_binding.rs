@@ -6,6 +6,11 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+///
+/// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
+///
+/// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ValidatingAdmissionPolicyBindingAc {
     #[serde(
@@ -18,7 +23,9 @@ pub struct ValidatingAdmissionPolicyBindingAc {
         deserialize_with = "crate::k8s_openapi::deserialize_kind"
     )]
     pub kind: std::marker::PhantomData<Self>,
+    /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub spec: Option<
         <::k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPolicyBindingSpec as crate::Optionable>::Optioned,

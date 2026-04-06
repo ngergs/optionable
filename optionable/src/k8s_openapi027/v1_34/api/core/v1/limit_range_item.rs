@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LimitRangeItemAc {
+    /// Default resource requirement limit value by resource name if resource limit is omitted.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub default: Option<
         std::collections::BTreeMap<
@@ -15,6 +17,7 @@ pub struct LimitRangeItemAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// DefaultRequest is the default resource requirement request value by resource name if resource request is omitted.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub default_request: Option<
         std::collections::BTreeMap<
@@ -22,6 +25,7 @@ pub struct LimitRangeItemAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// Max usage constraints on this kind by resource name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub max: Option<
         std::collections::BTreeMap<
@@ -29,6 +33,7 @@ pub struct LimitRangeItemAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// MaxLimitRequestRatio if specified, the named resource must have a request and limit that are both non-zero where limit divided by request is less than or equal to the enumerated value; this represents the max burst for the named resource.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub max_limit_request_ratio: Option<
         std::collections::BTreeMap<
@@ -36,6 +41,7 @@ pub struct LimitRangeItemAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// Min usage constraints on this kind by resource name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub min: Option<
         std::collections::BTreeMap<
@@ -43,6 +49,7 @@ pub struct LimitRangeItemAc {
             <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
         >,
     >,
+    /// Type of resource that this limit applies to.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,

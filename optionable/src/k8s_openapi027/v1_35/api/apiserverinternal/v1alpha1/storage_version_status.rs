@@ -6,16 +6,20 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// API server instances report the versions they can decode and the version they encode objects to when persisting objects in the backend.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct StorageVersionStatusAc {
+    /// If all API server instances agree on the same encoding storage version, then this field is set to that version. Otherwise this field is left empty. API servers should finish updating its storageVersionStatus entry before serving write operations, so that this field will be in sync with the reality.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub common_encoding_version: Option<std::string::String>,
+    /// The latest available observations of the storageVersion's state.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionCondition as crate::Optionable>::Optioned,
         >,
     >,
+    /// The reported versions per API server instance.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_versions: Option<
         std::vec::Vec<

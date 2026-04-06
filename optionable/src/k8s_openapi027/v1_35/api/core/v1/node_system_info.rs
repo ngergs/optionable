@@ -6,32 +6,44 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeSystemInfoAc {
+    /// The Architecture reported by the node
     #[serde(skip_serializing_if = "Option::is_none")]
     pub architecture: Option<std::string::String>,
+    /// Boot ID reported by the node.
     #[serde(rename = "bootID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub boot_id: Option<std::string::String>,
+    /// ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub container_runtime_version: Option<std::string::String>,
+    /// Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kernel_version: Option<std::string::String>,
+    /// Deprecated: KubeProxy Version reported by the node.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kube_proxy_version: Option<std::string::String>,
+    /// Kubelet Version reported by the node.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kubelet_version: Option<std::string::String>,
+    /// MachineID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id: http://man7.org/linux/man-pages/man5/machine-id.5.html
     #[serde(rename = "machineID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub machine_id: Option<std::string::String>,
+    /// The Operating System reported by the node
     #[serde(skip_serializing_if = "Option::is_none")]
     pub operating_system: Option<std::string::String>,
+    /// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub os_image: Option<std::string::String>,
+    /// Swap Info reported by the node.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub swap: Option<
         <::k8s_openapi027::api::core::v1::NodeSwapStatus as crate::Optionable>::Optioned,
     >,
+    /// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
     #[serde(rename = "systemUUID")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub system_uuid: Option<std::string::String>,

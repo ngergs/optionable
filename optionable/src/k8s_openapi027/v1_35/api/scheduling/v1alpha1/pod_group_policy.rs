@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// PodGroupPolicy defines the scheduling configuration for a PodGroup.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodGroupPolicyAc {
+    /// Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub basic: Option<
         <::k8s_openapi027::api::scheduling::v1alpha1::BasicSchedulingPolicy as crate::Optionable>::Optioned,
     >,
+    /// Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub gang: Option<
         <::k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy as crate::Optionable>::Optioned,

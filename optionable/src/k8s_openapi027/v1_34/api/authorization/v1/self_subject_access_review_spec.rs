@@ -6,12 +6,15 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelfSubjectAccessReviewSpecAc {
+    /// NonResourceAttributes describes information for a non-resource access request
     #[serde(skip_serializing_if = "Option::is_none")]
     pub non_resource_attributes: Option<
         <::k8s_openapi027::api::authorization::v1::NonResourceAttributes as crate::Optionable>::Optioned,
     >,
+    /// ResourceAuthorizationAttributes describes information for a resource access request
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_attributes: Option<
         <::k8s_openapi027::api::authorization::v1::ResourceAttributes as crate::Optionable>::Optioned,

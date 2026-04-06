@@ -6,14 +6,18 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// ResourceFieldSelector represents container resources (cpu, memory) and their output format
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceFieldSelectorAc {
+    /// Container name: required for volumes, optional for env vars
     #[serde(skip_serializing_if = "Option::is_none")]
     pub container_name: Option<std::string::String>,
+    /// Specifies the output format of the exposed resources, defaults to "1"
     #[serde(skip_serializing_if = "Option::is_none")]
     pub divisor: Option<
         <::k8s_openapi027::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
     >,
+    /// Required: resource to select
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<std::string::String>,
 }

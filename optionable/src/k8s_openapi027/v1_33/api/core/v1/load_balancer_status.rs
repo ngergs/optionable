@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// LoadBalancerStatus represents the status of a load-balancer.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LoadBalancerStatusAc {
+    /// Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ingress: Option<
         std::vec::Vec<

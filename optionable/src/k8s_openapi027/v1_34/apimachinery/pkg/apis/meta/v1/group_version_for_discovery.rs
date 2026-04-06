@@ -6,10 +6,13 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// GroupVersion contains the "group/version" and "version" string of a version. It is made a struct to keep extensibility.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GroupVersionForDiscoveryAc {
+    /// groupVersion specifies the API group and version in the form "group/version"
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group_version: Option<std::string::String>,
+    /// version specifies the version in the form of "version". This is to save the clients the trouble of splitting the GroupVersion.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub version: Option<std::string::String>,
 }

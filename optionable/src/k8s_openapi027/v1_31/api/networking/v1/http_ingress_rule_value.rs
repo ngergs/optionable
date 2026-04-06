@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://\<host\>/\<path\>?\<searchpart\> -\> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HTTPIngressRuleValueAc {
+    /// paths is a collection of paths that map requests to backends.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub paths: Option<
         std::vec::Vec<

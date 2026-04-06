@@ -6,20 +6,25 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceDefinitionStatusAc {
+    /// acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub accepted_names: Option<
         <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionNames as crate::Optionable>::Optioned,
     >,
+    /// conditions indicate state for particular aspects of a CustomResourceDefinition
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
             <::k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinitionCondition as crate::Optionable>::Optioned,
         >,
     >,
+    /// The generation observed by the CRD controller.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub observed_generation: Option<i64>,
+    /// storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub stored_versions: Option<std::vec::Vec<std::string::String>>,
 }

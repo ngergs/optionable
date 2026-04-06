@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SelfSubjectReviewStatusAc {
+    /// User attributes of the user making this request.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_info: Option<
         <::k8s_openapi027::api::authentication::v1::UserInfo as crate::Optionable>::Optioned,

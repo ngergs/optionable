@@ -6,8 +6,10 @@
     serde::Serialize,
     std::fmt::Debug
 )]
+/// CustomResourceValidation is a list of validation methods for CustomResources.
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CustomResourceValidationAc {
+    /// openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
     #[serde(rename = "openAPIV3Schema")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub open_api_v3_schema: Option<
