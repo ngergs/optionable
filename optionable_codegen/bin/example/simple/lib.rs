@@ -1,7 +1,7 @@
 pub mod address;
 struct MemberOpt {
     name: Option<String>,
-    addresses: Option<<Vec<Address> as ::optionable::Optionable>::Optioned>,
+    addresses: Option<Vec<<Address as ::optionable::Optionable>::Optioned>>,
 }
 #[automatically_derived]
 impl ::optionable::Optionable for Member {
@@ -63,7 +63,7 @@ impl ::optionable::OptionedConvert<Member> for MemberOpt {
 mod test {
     struct MemberTestOpt {
         name: Option<String>,
-        addresses: Option<<Vec<Address> as ::optionable::Optionable>::Optioned>,
+        addresses: Option<Vec<<Address as ::optionable::Optionable>::Optioned>>,
     }
     #[automatically_derived]
     impl ::optionable::Optionable for MemberTest {

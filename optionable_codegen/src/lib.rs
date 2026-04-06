@@ -916,12 +916,50 @@ fn merge_fields(
 /// Due to limitations to macro resolving (no order guaranteed) we have to have an explicit
 /// list of well-known types and their optioned types.
 /// For now limited to self-resolving (mostly primitive) types
-fn optioned_ty(crate_name: &Path, ty: &Type) -> TokenStream {
+#[must_use]
+pub fn optioned_ty(crate_name: &Path, ty: &Type) -> TokenStream {
     if is_self_resolving_optioned(ty) {
-        ty.to_token_stream()
-    } else {
-        quote! { <#ty as #crate_name::Optionable>::Optioned }
+        return ty.to_token_stream();
     }
+    let self_resolving_container: Option<TokenStream> = 'c: {
+        let Some((ident, type_args)) = extract_self_resolving_ident(ty) else {
+            break 'c None;
+        };
+        let Some(type_args) = type_args else {
+            break 'c None;
+        };
+        let type_args_count = type_args.count();
+
+        // we already checked for simple self-resolving types implicitly at the beginning of this function
+        let mut optioned_args_index = None;
+        if (SINGLE_TYPE_PARAM_CONTAINERS.contains(&ident.as_str()) && type_args_count == 1)
+            || (ident == "Result" && type_args_count == 2)
+        {
+            optioned_args_index = Some(0);
+        } else if MAP_CONTAINERS.contains(&ident.as_str()) {
+            optioned_args_index = Some(1);
+        }
+        optioned_args_index.and_then(|i| {
+            //construct adjusted type
+            let mut ty = ty.clone();
+            let Some((_ident, Some(type_args))) = extract_self_resolving_ident_mut(&mut ty) else {
+                return None;
+            };
+            let mut type_args = type_args.skip(i);
+            if let Some(inner_ty) = type_args.next() {
+                let transformed = optioned_ty(crate_name, inner_ty);
+                *inner_ty = parse_quote! {#transformed};
+                drop(type_args);
+                Some(ty.to_token_stream())
+            } else {
+                None
+            }
+        })
+    };
+    if let Some(ts) = self_resolving_container {
+        return ts;
+    }
+    quote! { <#ty as #crate_name::Optionable>::Optioned }
 }
 
 const SELF_RESOLVING_TYPES: [&str; 18] = [
@@ -955,48 +993,104 @@ const MAP_CONTAINERS: [&str; 2] = ["HashMap", "BTreeMap"];
 /// Checks when it is well known that the type resolves to itself as its `Optioned`.
 /// Handles primitives, common std types, and recursively handles well-known container types.
 fn is_self_resolving_optioned(ty: &Type) -> bool {
-    let Type::Path(TypePath { qself, path }) = ty else {
+    let Some((ident, type_args)) = extract_self_resolving_ident(ty) else {
         return false;
     };
-    if qself.is_some() {
-        return false;
-    }
-    if SELF_RESOLVING_TYPES.contains(&&*path.to_token_stream().to_string()) {
+    if SELF_RESOLVING_TYPES.contains(&ident.as_str()) {
         return true;
     }
-    let Some(segment) = path.segments.last() else {
+    let Some(mut type_args) = type_args else {
         return false;
     };
-    let ident = segment.ident.to_string();
-    let PathArguments::AngleBracketed(args) = &segment.arguments else {
-        return false;
-    };
-    let type_args: Vec<&Type> = args
-        .args
-        .iter()
-        .filter_map(|arg| {
-            if let GenericArgument::Type(ty) = arg {
-                Some(ty)
-            } else {
-                None
-            }
-        })
-        .collect();
-
-    if SINGLE_TYPE_PARAM_CONTAINERS.contains(&&*ident) {
-        type_args
-            .first()
-            .is_some_and(|inner| is_self_resolving_optioned(inner))
-    } else if MAP_CONTAINERS.contains(&&*ident) {
-        type_args
-            .get(1)
-            .is_some_and(|value_ty| is_self_resolving_optioned(value_ty))
+    if SINGLE_TYPE_PARAM_CONTAINERS.contains(&ident.as_str()) {
+        type_args.next().is_some_and(is_self_resolving_optioned)
+    } else if MAP_CONTAINERS.contains(&ident.as_str()) {
+        type_args.nth(1).is_some_and(is_self_resolving_optioned)
     } else if ident == "Result" {
-        type_args
-            .first()
-            .is_some_and(|ok_ty| is_self_resolving_optioned(ok_ty))
+        type_args.next().is_some_and(is_self_resolving_optioned)
     } else {
         false
+    }
+}
+
+/// Extracts the `Ident` for candidates for self-resolving types.
+/// Returns `None` for types that dont't fit into that pattern.
+fn extract_self_resolving_ident(
+    ty: &Type,
+) -> Option<(String, Option<impl Iterator<Item = &Type>>)> {
+    let Type::Path(TypePath { qself, path }) = ty else {
+        return None;
+    };
+    if qself.is_some() {
+        return None;
+    }
+    let segment = path.segments.last()?;
+    let PathArguments::AngleBracketed(args) = &segment.arguments else {
+        return Some((segment.ident.to_string(), None));
+    };
+    let type_args = args.args.iter().filter_map(|arg| {
+        if let GenericArgument::Type(ty) = arg {
+            Some(ty)
+        } else {
+            None
+        }
+    });
+    Some((segment.ident.to_string(), Some(type_args)))
+}
+
+/// Extracts the `Ident` for candidates for self-resolving types.
+/// Returns `None` for types that dont't fit into that pattern.
+fn extract_self_resolving_ident_mut(
+    ty: &mut Type,
+) -> Option<(String, Option<impl Iterator<Item = &mut Type>>)> {
+    let Type::Path(TypePath { qself, path }) = ty else {
+        return None;
+    };
+    if qself.is_some() {
+        return None;
+    }
+    let segment = path.segments.last_mut()?;
+    let PathArguments::AngleBracketed(args) = &mut segment.arguments else {
+        return Some((segment.ident.to_string(), None));
+    };
+    let type_args = args.args.iter_mut().filter_map(|arg| {
+        if let GenericArgument::Type(ty) = arg {
+            Some(ty)
+        } else {
+            None
+        }
+    });
+    Some((segment.ident.to_string(), Some(type_args)))
+}
+
+/// Peels self-resolving container types (like `Box<T>`, `Vec<T>`, `BTreeMap<K, T>`)
+/// to find the innermost type that effectively needs the `Optionable` bound.
+///
+/// This is needed because `optioned_ty` "unwraps" these containers (e.g. `Box<T>` →
+/// `Box<<T as Optionable>::Optioned>`), so the where clause must constrain the inner
+/// type `T` directly rather than the outer container `Box<T>`.
+/// Recursively peels nested containers.
+pub(crate) fn peel_optionable_container(ty: &Type) -> &Type {
+    let Some((ident, type_args)) = extract_self_resolving_ident(ty) else {
+        return ty;
+    };
+    let Some(mut type_args) = type_args else {
+        return ty;
+    };
+
+    let inner = if SINGLE_TYPE_PARAM_CONTAINERS.contains(&ident.as_str()) {
+        type_args.next()
+    } else if MAP_CONTAINERS.contains(&ident.as_str()) {
+        type_args.nth(1)
+    } else if ident == "Result" {
+        type_args.next()
+    } else {
+        None
+    };
+
+    match inner {
+        Some(inner_ty) => peel_optionable_container(inner_ty),
+        None => ty,
     }
 }
 
@@ -1681,13 +1775,13 @@ mod tests {
                 struct DeriveExampleOpt<'a, T, T2: Serialize, T3>
                     where T: ::optionable::Optionable,
                           <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                          Cow<'a ,T2>: ::optionable::Optionable,
-                          <Cow<'a,T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                          T2: ::optionable::Optionable,
+                          <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                 {
                     #[serde(skip_serializing_if="Option::is_none")]
                     output: Option< <T as ::optionable::Optionable>::Optioned>,
                     #[serde(skip_serializing_if="Option::is_none")]
-                    input: Option< <Cow<'a, T2> as ::optionable::Optionable>::Optioned>,
+                    input: Option< Cow<'a, <T2 as ::optionable::Optionable>::Optioned>>,
                     extra: T3
                 }
 
@@ -1695,8 +1789,8 @@ mod tests {
                 impl<'a, T, T2: Serialize, T3> ::optionable::Optionable for DeriveExample<'a, T, T2, T3>
                     where T: ::optionable::Optionable,
                           <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                          Cow<'a, T2>: ::optionable::Optionable,
-                          <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                          T2: ::optionable::Optionable,
+                          <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                 {
                     type Optioned = DeriveExampleOpt<'a, T,T2,T3>;
                 }
@@ -1705,8 +1799,8 @@ mod tests {
                 impl<'a, T, T2: Serialize, T3> ::optionable::Optionable for DeriveExampleOpt<'a ,T, T2, T3>
                     where T: ::optionable::Optionable,
                           <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                          Cow<'a, T2>: ::optionable::Optionable,
-                          <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                          T2: ::optionable::Optionable,
+                          <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                 {
                     type Optioned = DeriveExampleOpt<'a, T, T2, T3>;
                 }
@@ -1715,8 +1809,8 @@ mod tests {
                 impl <'a, T, T2:Serialize, T3> ::optionable::OptionableConvert for DeriveExample<'a, T, T2, T3>
                     where T: ::optionable::OptionableConvert,
                           <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                          Cow<'a, T2>: ::optionable::OptionableConvert,
-                          <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                          T2: ::optionable::OptionableConvert,
+                          <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                 {
                     fn into_optioned (self) -> DeriveExampleOpt<'a, T, T2, T3> {
                         DeriveExampleOpt::<'a, T, T2, T3> {
@@ -1751,8 +1845,8 @@ mod tests {
                 impl <'a, T, T2:Serialize, T3> ::optionable::OptionedConvert<DeriveExample<'a, T, T2, T3> > for DeriveExampleOpt<'a, T, T2, T3>
                     where T: ::optionable::OptionableConvert,
                           <T as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize,
-                          Cow<'a, T2>: ::optionable::OptionableConvert,
-                          <Cow<'a, T2> as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
+                          T2: ::optionable::OptionableConvert,
+                          <T2 as ::optionable::Optionable>::Optioned: Sized + serde::de::DeserializeOwned + Serialize
                 {
                     fn from_optionable(value: DeriveExample<'a, T, T2, T3>) -> Self {
                         ::optionable::OptionableConvert::into_optioned(value)
@@ -1947,7 +2041,7 @@ mod tests {
         let expected = quote! {
                 struct DeriveExampleOpt {
                     name: Option< <::testcrate::Name as crate::Optionable>::Optioned>,
-                    pub surname: Option< <Box<::testcrate::SurName> as crate::Optionable>::Optioned>
+                    pub surname: Option< Box< <::testcrate::SurName as crate::Optionable>::Optioned>>
                 }
 
                 #[automatically_derived]
@@ -2012,6 +2106,6 @@ mod tests {
             }),
         )
         .unwrap();
-        assert_eq!(expected.to_string(), output.to_string());
+        assert_eq!(normalize_token_str(expected.to_string()), normalize_token_str(output.to_string()));
     }
 }

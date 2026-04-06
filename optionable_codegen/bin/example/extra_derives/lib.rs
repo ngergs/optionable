@@ -4,7 +4,7 @@ struct MemberOpt {
     #[serde(skip_serializing_if = "Option::is_none")]
     name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    addresses: Option<<Vec<Address> as ::optionable::Optionable>::Optioned>,
+    addresses: Option<Vec<<Address as ::optionable::Optionable>::Optioned>>,
 }
 #[automatically_derived]
 impl ::optionable::Optionable for Member {
@@ -69,7 +69,7 @@ mod test {
         #[serde(skip_serializing_if = "Option::is_none")]
         name: Option<String>,
         #[serde(skip_serializing_if = "Option::is_none")]
-        addresses: Option<<Vec<Address> as ::optionable::Optionable>::Optioned>,
+        addresses: Option<Vec<<Address as ::optionable::Optionable>::Optioned>>,
     }
     #[automatically_derived]
     impl ::optionable::Optionable for MemberTest {

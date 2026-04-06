@@ -1,4 +1,5 @@
 use crate::parsed_input::{FieldHandling, FieldParsed};
+use crate::peel_optionable_container;
 use darling::FromMeta;
 use proc_macro2::Ident;
 use std::borrow::Cow;
@@ -126,7 +127,11 @@ fn generic_field_types<'a, 'b>(
                 type_has_generics.visit_type(&f.field.ty);
                 type_has_generics.value
             })
-            .map(|f| &f.field.ty)
+            // For self-resolving containers (Box<T>, Vec<T>, BTreeMap<K,T>, …) `optioned_ty`
+            // "unwraps" the container and generates e.g. `Box<<T as Optionable>::Optioned>`.
+            // The struct field therefore directly references `<T as Optionable>::Optioned`,
+            // so the where clause must bound `T` (not `Box<T>`).
+            .map(|f| peel_optionable_container(&f.field.ty))
             .collect()
     }
 }
