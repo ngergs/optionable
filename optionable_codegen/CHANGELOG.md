@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.13.2...optionable_codegen-v0.14.0) - 2026-04-06
+
+### Added
+
+- [**breaking**] self-resolve fulls self-resolving container-types for derive macro
+
 ## [0.13.2](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.13.1...optionable_codegen-v0.13.2) - 2026-03-19
 
 ### Other
