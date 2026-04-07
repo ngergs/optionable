@@ -1,10 +1,12 @@
 use clap::Parser;
 use darling::FromMeta;
 use optionable_codegen::CodegenSettings;
-use optionable_codegen_cli::{CodegenConfig, CodegenVisitor, file_codegen};
+use optionable_codegen_cli::{
+    CodegenConfig, CodegenVisitor, ListType, determine_list_map_keys, file_codegen,
+};
 use proc_macro2::{Ident, Span};
 use quote::ToTokens;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::default::Default;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
@@ -17,8 +19,13 @@ use syn::{Fields, Item, Path, Type, parse_quote};
 #[command(version, about, long_about = None)]
 struct Args {
     /// Input file.
+    #[arg(long, value_name = "input-file")]
     input_file: PathBuf,
+    /// K8s openapi spec, should point to a checked out version of <https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/v3>
+    #[arg(long, value_name = "k8s-openapi-v3-dir")]
+    k8s_openapi_v3_dir: PathBuf,
     /// Output directory
+    #[arg(long, value_name = "output-dir")]
     output_dir: PathBuf,
     /// package name for the generated package, e.g. `k8s-openapi027`
     #[arg(long, value_name = "package-name")]
@@ -26,18 +33,22 @@ struct Args {
 }
 
 /// Visitor for the `k8s-openapi` optionable codegen.
-struct Visitor {
+struct Visitor<'a> {
     /// The type suffix for the optioned type. Here this is fixed to "Ac".
     optioned_suffix: &'static str,
+    // The mapping from the k8s type identifier with the `io.k8s.`-prefix removed (e.g. `api.core.v1.Container`)
+    // to the rust field names (rustized using the k8s-openapi mapping) for th list-map-keys logic.
+    list_map_keys: &'a HashMap<String, ListType>,
     /// Additional attributes that should be added to input structs/enums.
     has_resource_impl: HashSet<Ident>,
     has_metadata_impl: HashSet<Ident>,
 }
 
-impl Clone for Visitor {
+impl Clone for Visitor<'_> {
     fn clone(&self) -> Self {
         Self {
             optioned_suffix: self.optioned_suffix,
+            list_map_keys: self.list_map_keys,
             // we want to reset all other fields when entering a new module
             has_resource_impl: HashSet::new(),
             has_metadata_impl: HashSet::new(),
@@ -45,7 +56,7 @@ impl Clone for Visitor {
     }
 }
 
-impl CodegenVisitor for Visitor {
+impl CodegenVisitor for Visitor<'_> {
     fn filter(&mut self, item: &Item) -> bool {
         // `WatchEvent` is the only externally tagged enum in k8s-openapi and two variations share a tag.
         // This would require us to implement custom serialization/deserialization.
@@ -161,6 +172,8 @@ impl CodegenVisitor for Visitor {
 /// Dedicated binary target for the purpose of codegen for `k8s-openapi`.
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
+    let list_map_keys = determine_list_map_keys(&args.k8s_openapi_v3_dir)?;
+    println!("{list_map_keys:#?}");
     let package_name_ident = Ident::new(&args.package_name, Span::call_site());
     let codegen_settings = CodegenSettings {
         optionable_crate_name: Path::from_string("crate")?,
@@ -175,6 +188,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         CodegenConfig {
             visitor: Visitor {
                 optioned_suffix,
+                list_map_keys: &list_map_keys,
                 has_resource_impl: HashSet::default(),
                 has_metadata_impl: HashSet::default(),
             },

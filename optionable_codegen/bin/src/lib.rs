@@ -13,6 +13,10 @@ use syn::{
     DeriveInput, Error, Item, ItemEnum, ItemStruct, Token, UseTree, Visibility, parse_quote,
 };
 
+mod k8s_openapi_parse;
+
+pub use k8s_openapi_parse::{ListType, determine_list_map_keys};
+
 /// Used for callback actions when encountering specific elements.
 /// The `CodegenVisitor` will be cloned value upon entering a new module.
 /// Implementors can use this to reset some internal state that should not carry over to the new module.

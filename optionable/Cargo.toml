@@ -39,7 +39,6 @@ chrono04 = { package = "chrono", version = "0.4.44", default-features = false, o
 jiff02 = { package = "jiff", version = "0.2.23", default-features = false, optional = true }
 serde = { version = "1.0.228", default-features = false, optional = true }
 serde_json = { version = "1.0.149", default-features = false, optional = true }
-k8s-openapi026 = { package = "k8s-openapi", version = "0.26.1", default-features = false, optional = true }
 k8s-openapi027 = { package = "k8s-openapi", version = "0.27.1", default-features = false, optional = true }
 kube3 = { package = "kube", version = "3.1.0", default-features = false, optional = true }
 
