@@ -78,7 +78,9 @@ fn process_schema(
         }}).transpose()?;
         // save found map type, ignore explicitly embedded types
         if let Some(list_type) = list_type {
-            let field_path_joined = field_path.join(".");
+            let mut field_path_joined = field_path[..field_path.len() - 1].join(".");
+            field_path_joined.push('.');
+            field_path_joined.push_str(get_rust_ident(field_path.last().unwrap()).as_ref());
             let Some(field_path_joined) = field_path_joined.strip_prefix("io.k8s.") else {
                 return Err(format!(
                     "all fields path have to start with `io.k8s.`, found {field_path:?}"
