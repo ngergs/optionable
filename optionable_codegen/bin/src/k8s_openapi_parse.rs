@@ -1,5 +1,5 @@
 use k8s_openapi_codegen_common::get_rust_ident;
-use openapiv3::{OpenAPI, ReferenceOr, Schema, SchemaKind, Type};
+use openapiv3::{OpenAPI, Schema, SchemaKind, Type};
 use std::cmp::PartialEq;
 use std::{
     collections::HashMap,
@@ -77,25 +77,23 @@ fn process_schema(
                 _ => Err(format!("Unsupported `x-kubernetes-list-type`: {ty}")),
         }}).transpose()?;
         // save found map type, ignore explicitly embedded types
-        if let Some(list_type) = list_type
-            && let Type::Array(array) = &item
-            && let Some(array_schema) = &array.items
-            && let Some(array_schema) = array_schema.clone().as_item()
-            && let SchemaKind::AllOf { all_of } = &array_schema.schema_kind
-            && all_of.len() == 1
-            && let Some(ReferenceOr::Reference { reference }) = all_of.first()
-            && let Some(reference) = reference.strip_prefix("#/components/schemas/io.k8s.")
-        {
+        if let Some(list_type) = list_type {
             let field_path_joined = field_path.join(".");
-            if let Some(existing_list_type) = result.get(&field_path_joined)
+            let Some(field_path_joined) = field_path_joined.strip_prefix("io.k8s.") else {
+                return Err(format!(
+                    "all fields path have to start with `io.k8s.`, found {field_path:?}"
+                )
+                .into());
+            };
+            if let Some(existing_list_type) = result.get(field_path_joined)
                 && *existing_list_type != list_type
             {
                 return Err(format!(
-                    "Conflicting map keys for `{reference}`: field={field_path:?}, existing={existing_list_type:?}, new={list_type:?}"
+                    "Conflicting map keys for field={field_path:?}: existing={existing_list_type:?}, new={list_type:?}"
                 )
                 .into());
             }
-            result.insert(field_path_joined, list_type);
+            result.insert(field_path_joined.to_owned(), list_type);
         }
         // continue recursion
         match item {

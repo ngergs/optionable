@@ -6,7 +6,7 @@ use proc_macro2::Span;
 use quote::{ToTokens, format_ident};
 use std::fs::create_dir_all;
 use std::mem::take;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::{fs, io};
 use syn::Item::{Enum, Mod, Struct, Use};
 use syn::{
@@ -38,9 +38,13 @@ pub trait CodegenVisitor: Clone {
 
     /// Mutates the input.
     fn visit_input(&mut self, _: &mut Item) {}
+
     /// Mutates the generated code. Will be called once after code generation.
     /// Implementors can also reset internal states tracking input here.
     fn visit_output(&mut self, _: &mut Vec<Item>) {}
+
+    /// Called when the output path changes. The path is passed as individual path segments.
+    fn visit_output_path(&mut self, _: &[&str]) {}
 }
 
 /// Represents the current codegen configuration
@@ -72,7 +76,14 @@ pub fn file_codegen<Vis: CodegenVisitor>(
     output_path: &Path,
     mut conf: CodegenConfig<Vis>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    create_dir_all(output_path)?;
+    let output_segments: Vec<String> = output_path
+        .components()
+        .map(|c| c.as_os_str().to_string_lossy().into_owned())
+        .collect();
+    let output_segments_str: Vec<&str> = output_segments.iter().map(String::as_str).collect();
+    conf.visitor.visit_output_path(&output_segments_str);
+    let output_path_buf: PathBuf = output_segments.iter().collect();
+    create_dir_all(&output_path_buf)?;
     let content_str = fs::read_to_string(input_file)?;
     let content = syn::parse_file(&content_str)?;
     let items: Vec<_> = content
@@ -147,7 +158,7 @@ pub fn file_codegen<Vis: CodegenVisitor>(
             item_codegen(
                 item,
                 input_path,
-                output_path,
+                &output_segments,
                 &mut conf,
             ).map(Some)
         })
@@ -163,7 +174,7 @@ pub fn file_codegen<Vis: CodegenVisitor>(
     };
     let result = prettyplease::unparse(&result);
     fs::write(
-        output_path.join(input_file.file_name().ok_or::<io::Error>(io::Error::new(
+        output_path_buf.join(input_file.file_name().ok_or::<io::Error>(io::Error::new(
             io::ErrorKind::InvalidInput,
             "file name ends with `..` which is not supported: {input_file}",
         ))?),
@@ -176,7 +187,7 @@ pub fn file_codegen<Vis: CodegenVisitor>(
 fn item_codegen<V: CodegenVisitor>(
     mut item: Item,
     input_path: &Path,
-    output_path: &Path,
+    output_path: &[String],
     conf: &mut CodegenConfig<V>,
 ) -> Result<Vec<Item>, Box<dyn std::error::Error>> {
     conf.visitor.visit_input(&mut item);
@@ -217,16 +228,16 @@ fn item_codegen<V: CodegenVisitor>(
                     ..conf.clone()
                 };
                 let same_folder_mod_path = input_path.join(format!("{}.rs", mod_entry.ident));
+                let output_path_buf: PathBuf = output_path.iter().collect();
                 if same_folder_mod_path.exists() {
-                    file_codegen(&same_folder_mod_path, output_path, conf)?;
+                    file_codegen(&same_folder_mod_path, &output_path_buf, conf)?;
                 } else {
                     let sub_folder_mod_path =
                         input_path.join(mod_entry.ident.to_string()).join("mod.rs");
-                    file_codegen(
-                        &sub_folder_mod_path,
-                        &output_path.join(mod_entry.ident.to_string()),
-                        conf,
-                    )?;
+                    let mut sub_output_segments = output_path.to_vec();
+                    sub_output_segments.push(mod_entry.ident.to_string());
+                    let sub_output_path_buf: PathBuf = sub_output_segments.iter().collect();
+                    file_codegen(&sub_folder_mod_path, &sub_output_path_buf, conf)?;
                 }
                 Ok(vec![Mod(mod_entry)])
             }

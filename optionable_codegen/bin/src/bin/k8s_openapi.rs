@@ -36,8 +36,9 @@ struct Args {
 struct Visitor<'a> {
     /// The type suffix for the optioned type. Here this is fixed to "Ac".
     optioned_suffix: &'static str,
-    // The mapping from the k8s type identifier with the `io.k8s.`-prefix removed (e.g. `api.core.v1.Container`)
+    // The mapping from the k8s field identifier with the `io.k8s.`-prefix removed (e.g. `api.core.v1.Container.envFrom`)
     // to the rust field names (rustized using the k8s-openapi mapping) for th list-map-keys logic.
+    // todo: handle rust name mapping
     list_map_keys: &'a HashMap<String, ListType>,
     /// Additional attributes that should be added to input structs/enums.
     has_resource_impl: HashSet<Ident>,
@@ -57,6 +58,10 @@ impl Clone for Visitor<'_> {
 }
 
 impl CodegenVisitor for Visitor<'_> {
+    fn visit_output_path(&mut self, path: &[&str]) {
+        println! {"{:?}",&path[1..]};
+    }
+
     fn filter(&mut self, item: &Item) -> bool {
         // `WatchEvent` is the only externally tagged enum in k8s-openapi and two variations share a tag.
         // This would require us to implement custom serialization/deserialization.
