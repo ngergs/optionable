@@ -36,9 +36,11 @@ struct Args {
 struct Visitor<'a> {
     /// The type suffix for the optioned type. Here this is fixed to "Ac".
     optioned_suffix: &'static str,
+    /// Field prefix of the content of currently processed file, e.g. `api.core.v1`
+    field_prefix: Option<String>,
     // The mapping from the k8s field identifier with the `io.k8s.`-prefix removed (e.g. `api.core.v1.Container.env_from`)
     // to the rust field names (rustized using the k8s-openapi mapping) for th list-map-keys logic.
-    list_map_keys: &'a HashMap<String, ListType>,
+    list_types: &'a HashMap<String, ListType>,
     /// Additional attributes that should be added to input structs/enums.
     has_resource_impl: HashSet<Ident>,
     has_metadata_impl: HashSet<Ident>,
@@ -48,7 +50,8 @@ impl Clone for Visitor<'_> {
     fn clone(&self) -> Self {
         Self {
             optioned_suffix: self.optioned_suffix,
-            list_map_keys: self.list_map_keys,
+            list_types: self.list_types,
+            field_prefix: self.field_prefix.clone(),
             // we want to reset all other fields when entering a new module
             has_resource_impl: HashSet::new(),
             has_metadata_impl: HashSet::new(),
@@ -58,7 +61,11 @@ impl Clone for Visitor<'_> {
 
 impl CodegenVisitor for Visitor<'_> {
     fn visit_output_path(&mut self, path: &[&str]) {
-        println! {"{:?}",&path[1..]};
+        if path.len() > 1 {
+            // first path element is the k8s openapi target version, e.g. `v1_31`
+            // afterwards follows the k8s type, e.g. `api.core.v1`
+            self.field_prefix = Some(path[1..].join("."));
+        }
     }
 
     fn filter(&mut self, item: &Item) -> bool {
@@ -99,6 +106,19 @@ impl CodegenVisitor for Visitor<'_> {
         let suffix = self.optioned_suffix;
         match item {
             Struct(item) => {
+                if let Some(field_prefix) = &self.field_prefix {
+                    let field_prefix = format!("{}.{}", field_prefix, item.ident);
+                    for field in &mut item.fields {
+                        if let Some(field_ident) = &field.ident {
+                            let field_key = format!("{}.{field_ident}", field_prefix);
+                            if let Some(list_type) = self.list_types.get(&field_key)
+                                && let ListType::Map(_) = list_type
+                            {
+                                field.attrs.push(parse_quote!(#[optionable(required)]));
+                            }
+                        }
+                    }
+                }
                 let k8s_attr = match (
                     self.has_resource_impl.contains(&item.ident),
                     self.has_metadata_impl.contains(&item.ident),
@@ -177,7 +197,6 @@ impl CodegenVisitor for Visitor<'_> {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
     let list_map_keys = determine_list_map_keys(&args.k8s_openapi_v3_dir)?;
-    println!("{list_map_keys:#?}");
     let package_name_ident = Ident::new(&args.package_name, Span::call_site());
     let codegen_settings = CodegenSettings {
         optionable_crate_name: Path::from_string("crate")?,
@@ -192,7 +211,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         CodegenConfig {
             visitor: Visitor {
                 optioned_suffix,
-                list_map_keys: &list_map_keys,
+                field_prefix: None,
+                list_types: &list_map_keys,
                 has_resource_impl: HashSet::default(),
                 has_metadata_impl: HashSet::default(),
             },
