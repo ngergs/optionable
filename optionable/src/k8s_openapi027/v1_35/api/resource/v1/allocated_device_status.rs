@@ -28,13 +28,11 @@ pub struct AllocatedDeviceStatusAc {
         <::k8s_openapi027::apimachinery::pkg::runtime::RawExtension as crate::Optionable>::Optioned,
     >,
     /// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub device: Option<std::string::String>,
+    pub device: std::string::String,
     /// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
     ///
     /// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub driver: Option<std::string::String>,
+    pub driver: std::string::String,
     /// NetworkData contains network-related information specific to the device.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub network_data: Option<
@@ -43,11 +41,9 @@ pub struct AllocatedDeviceStatusAc {
     /// This name together with the driver name and the device name field identify which device was allocated (`\<driver name\>/\<pool name\>/\<device name\>`).
     ///
     /// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub pool: Option<std::string::String>,
+    pub pool: std::string::String,
     /// ShareID uniquely identifies an individual allocation share of the device.
     #[serde(rename = "shareID")]
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub share_id: Option<std::string::String>,
 }
 #[automatically_derived]
@@ -66,10 +62,10 @@ for k8s_openapi027::api::resource::v1::AllocatedDeviceStatus {
         AllocatedDeviceStatusAc {
             conditions: crate::OptionableConvert::into_optioned(self.conditions),
             data: crate::OptionableConvert::into_optioned(self.data),
-            device: Some(self.device),
-            driver: Some(self.driver),
+            device: self.device,
+            driver: self.driver,
             network_data: crate::OptionableConvert::into_optioned(self.network_data),
-            pool: Some(self.pool),
+            pool: self.pool,
             share_id: self.share_id,
         }
     }
@@ -77,40 +73,22 @@ for k8s_openapi027::api::resource::v1::AllocatedDeviceStatus {
         Ok(Self {
             conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
-            device: value
-                .device
-                .ok_or(crate::Error {
-                    missing_field: "device",
-                })?,
-            driver: value
-                .driver
-                .ok_or(crate::Error {
-                    missing_field: "driver",
-                })?,
+            device: value.device,
+            driver: value.driver,
             network_data: crate::OptionableConvert::try_from_optioned(
                 value.network_data,
             )?,
-            pool: value
-                .pool
-                .ok_or(crate::Error {
-                    missing_field: "pool",
-                })?,
+            pool: value.pool,
             share_id: value.share_id,
         })
     }
     fn merge(&mut self, other: AllocatedDeviceStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
-        if let Some(other_value) = other.device {
-            self.device = other_value;
-        }
-        if let Some(other_value) = other.driver {
-            self.driver = other_value;
-        }
+        self.device = other.device;
+        self.driver = other.driver;
         crate::OptionableConvert::merge(&mut self.network_data, other.network_data)?;
-        if let Some(other_value) = other.pool {
-            self.pool = other_value;
-        }
+        self.pool = other.pool;
         self.share_id = other.share_id;
         Ok(())
     }

@@ -10,8 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EnvVarAc {
     /// Name of the environment variable. Must be a C_IDENTIFIER.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
     /// Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<std::string::String>,
@@ -34,26 +33,20 @@ impl crate::Optionable for EnvVarAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvVar {
     fn into_optioned(self) -> EnvVarAc {
         EnvVarAc {
-            name: Some(self.name),
+            name: self.name,
             value: self.value,
             value_from: crate::OptionableConvert::into_optioned(self.value_from),
         }
     }
     fn try_from_optioned(value: EnvVarAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
             value: value.value,
             value_from: crate::OptionableConvert::try_from_optioned(value.value_from)?,
         })
     }
     fn merge(&mut self, other: EnvVarAc) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.name {
-            self.name = other_value;
-        }
+        self.name = other.name;
         self.value = other.value;
         crate::OptionableConvert::merge(&mut self.value_from, other.value_from)?;
         Ok(())

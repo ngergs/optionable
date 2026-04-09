@@ -44,8 +44,7 @@ pub struct MutatingWebhookAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub match_policy: Option<std::string::String>,
     /// The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
     /// NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
     ///
     /// For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
@@ -133,7 +132,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
                 self.match_conditions,
             ),
             match_policy: self.match_policy,
-            name: Some(self.name),
+            name: self.name,
             namespace_selector: crate::OptionableConvert::into_optioned(
                 self.namespace_selector,
             ),
@@ -165,11 +164,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
                 value.match_conditions,
             )?,
             match_policy: value.match_policy,
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
             namespace_selector: crate::OptionableConvert::try_from_optioned(
                 value.namespace_selector,
             )?,
@@ -199,9 +194,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
             other.match_conditions,
         )?;
         self.match_policy = other.match_policy;
-        if let Some(other_value) = other.name {
-            self.name = other_value;
-        }
+        self.name = other.name;
         crate::OptionableConvert::merge(
             &mut self.namespace_selector,
             other.namespace_selector,

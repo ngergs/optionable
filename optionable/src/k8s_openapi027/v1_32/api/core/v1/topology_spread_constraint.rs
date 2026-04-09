@@ -38,14 +38,12 @@ pub struct TopologySpreadConstraintAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_taints_policy: Option<std::string::String>,
     /// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each \<key, value\> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub topology_key: Option<std::string::String>,
+    pub topology_key: std::string::String,
     /// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
     ///   but giving higher precedence to topologies that would help reduce the
     ///   skew.
     /// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub when_unsatisfiable: Option<std::string::String>,
+    pub when_unsatisfiable: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
@@ -67,8 +65,8 @@ for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
             min_domains: self.min_domains,
             node_affinity_policy: self.node_affinity_policy,
             node_taints_policy: self.node_taints_policy,
-            topology_key: Some(self.topology_key),
-            when_unsatisfiable: Some(self.when_unsatisfiable),
+            topology_key: self.topology_key,
+            when_unsatisfiable: self.when_unsatisfiable,
         }
     }
     fn try_from_optioned(
@@ -87,16 +85,8 @@ for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
             min_domains: value.min_domains,
             node_affinity_policy: value.node_affinity_policy,
             node_taints_policy: value.node_taints_policy,
-            topology_key: value
-                .topology_key
-                .ok_or(crate::Error {
-                    missing_field: "topology_key",
-                })?,
-            when_unsatisfiable: value
-                .when_unsatisfiable
-                .ok_or(crate::Error {
-                    missing_field: "when_unsatisfiable",
-                })?,
+            topology_key: value.topology_key,
+            when_unsatisfiable: value.when_unsatisfiable,
         })
     }
     fn merge(&mut self, other: TopologySpreadConstraintAc) -> Result<(), crate::Error> {
@@ -108,12 +98,8 @@ for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
         self.min_domains = other.min_domains;
         self.node_affinity_policy = other.node_affinity_policy;
         self.node_taints_policy = other.node_taints_policy;
-        if let Some(other_value) = other.topology_key {
-            self.topology_key = other_value;
-        }
-        if let Some(other_value) = other.when_unsatisfiable {
-            self.when_unsatisfiable = other_value;
-        }
+        self.topology_key = other.topology_key;
+        self.when_unsatisfiable = other.when_unsatisfiable;
         Ok(())
     }
 }

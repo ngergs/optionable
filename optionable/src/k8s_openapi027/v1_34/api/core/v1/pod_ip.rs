@@ -10,8 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodIPAc {
     /// IP is the IP address assigned to the pod
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ip: Option<std::string::String>,
+    pub ip: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodIP {
@@ -25,21 +24,13 @@ impl crate::Optionable for PodIPAc {
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodIP {
     fn into_optioned(self) -> PodIPAc {
-        PodIPAc { ip: Some(self.ip) }
+        PodIPAc { ip: self.ip }
     }
     fn try_from_optioned(value: PodIPAc) -> Result<Self, crate::Error> {
-        Ok(Self {
-            ip: value
-                .ip
-                .ok_or(crate::Error {
-                    missing_field: "ip",
-                })?,
-        })
+        Ok(Self { ip: value.ip })
     }
     fn merge(&mut self, other: PodIPAc) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.ip {
-            self.ip = other_value;
-        }
+        self.ip = other.ip;
         Ok(())
     }
 }

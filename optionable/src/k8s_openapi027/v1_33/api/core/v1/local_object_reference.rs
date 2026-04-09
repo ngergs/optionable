@@ -10,8 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LocalObjectReferenceAc {
     /// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::LocalObjectReference {
@@ -26,22 +25,14 @@ impl crate::Optionable for LocalObjectReferenceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LocalObjectReference {
     fn into_optioned(self) -> LocalObjectReferenceAc {
         LocalObjectReferenceAc {
-            name: Some(self.name),
+            name: self.name,
         }
     }
     fn try_from_optioned(value: LocalObjectReferenceAc) -> Result<Self, crate::Error> {
-        Ok(Self {
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
-        })
+        Ok(Self { name: value.name })
     }
     fn merge(&mut self, other: LocalObjectReferenceAc) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.name {
-            self.name = other_value;
-        }
+        self.name = other.name;
         Ok(())
     }
 }

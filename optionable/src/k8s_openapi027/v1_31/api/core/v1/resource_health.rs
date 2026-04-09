@@ -22,8 +22,7 @@ pub struct ResourceHealthAc {
     pub health: Option<std::string::String>,
     /// ResourceID is the unique identifier of the resource. See the ResourceID type for more information.
     #[serde(rename = "resourceID")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub resource_id: Option<std::string::String>,
+    pub resource_id: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ResourceHealth {
@@ -39,24 +38,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceHealth 
     fn into_optioned(self) -> ResourceHealthAc {
         ResourceHealthAc {
             health: self.health,
-            resource_id: Some(self.resource_id),
+            resource_id: self.resource_id,
         }
     }
     fn try_from_optioned(value: ResourceHealthAc) -> Result<Self, crate::Error> {
         Ok(Self {
             health: value.health,
-            resource_id: value
-                .resource_id
-                .ok_or(crate::Error {
-                    missing_field: "resource_id",
-                })?,
+            resource_id: value.resource_id,
         })
     }
     fn merge(&mut self, other: ResourceHealthAc) -> Result<(), crate::Error> {
         self.health = other.health;
-        if let Some(other_value) = other.resource_id {
-            self.resource_id = other_value;
-        }
+        self.resource_id = other.resource_id;
         Ok(())
     }
 }

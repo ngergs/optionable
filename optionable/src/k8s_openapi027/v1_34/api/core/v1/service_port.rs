@@ -28,10 +28,8 @@ pub struct ServicePortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_port: Option<i32>,
     /// The port that will be exposed by this service.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub port: Option<i32>,
+    pub port: i32,
     /// The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub protocol: Option<std::string::String>,
     /// Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -55,7 +53,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServicePort {
             app_protocol: self.app_protocol,
             name: self.name,
             node_port: self.node_port,
-            port: Some(self.port),
+            port: self.port,
             protocol: self.protocol,
             target_port: crate::OptionableConvert::into_optioned(self.target_port),
         }
@@ -65,11 +63,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServicePort {
             app_protocol: value.app_protocol,
             name: value.name,
             node_port: value.node_port,
-            port: value
-                .port
-                .ok_or(crate::Error {
-                    missing_field: "port",
-                })?,
+            port: value.port,
             protocol: value.protocol,
             target_port: crate::OptionableConvert::try_from_optioned(value.target_port)?,
         })
@@ -78,9 +72,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServicePort {
         self.app_protocol = other.app_protocol;
         self.name = other.name;
         self.node_port = other.node_port;
-        if let Some(other_value) = other.port {
-            self.port = other_value;
-        }
+        self.port = other.port;
         self.protocol = other.protocol;
         crate::OptionableConvert::merge(&mut self.target_port, other.target_port)?;
         Ok(())

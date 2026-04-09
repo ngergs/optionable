@@ -11,7 +11,6 @@
 pub struct ServerStorageVersionAc {
     /// The ID of the reporting API server.
     #[serde(rename = "apiServerID")]
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub api_server_id: Option<std::string::String>,
     /// The API server can decode objects encoded in these versions. The encodingVersion must be included in the decodableVersions.
     #[serde(skip_serializing_if = "Option::is_none")]

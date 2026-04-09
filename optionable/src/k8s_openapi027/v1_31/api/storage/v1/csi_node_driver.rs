@@ -15,8 +15,7 @@ pub struct CSINodeDriverAc {
         <::k8s_openapi027::api::storage::v1::VolumeNodeResources as crate::Optionable>::Optioned,
     >,
     /// name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
     /// nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
     #[serde(rename = "nodeID")]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -39,7 +38,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSINodeDrive
     fn into_optioned(self) -> CSINodeDriverAc {
         CSINodeDriverAc {
             allocatable: crate::OptionableConvert::into_optioned(self.allocatable),
-            name: Some(self.name),
+            name: self.name,
             node_id: Some(self.node_id),
             topology_keys: self.topology_keys,
         }
@@ -47,11 +46,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSINodeDrive
     fn try_from_optioned(value: CSINodeDriverAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allocatable: crate::OptionableConvert::try_from_optioned(value.allocatable)?,
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
             node_id: value
                 .node_id
                 .ok_or(crate::Error {
@@ -62,9 +57,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSINodeDrive
     }
     fn merge(&mut self, other: CSINodeDriverAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.allocatable, other.allocatable)?;
-        if let Some(other_value) = other.name {
-            self.name = other_value;
-        }
+        self.name = other.name;
         if let Some(other_value) = other.node_id {
             self.node_id = other_value;
         }

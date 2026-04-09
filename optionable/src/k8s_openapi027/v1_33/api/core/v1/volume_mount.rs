@@ -10,8 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeMountAc {
     /// Path within the container at which the volume should be mounted.  Must not contain ':'.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mount_path: Option<std::string::String>,
+    pub mount_path: std::string::String,
     /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mount_propagation: Option<std::string::String>,
@@ -52,7 +51,7 @@ impl crate::Optionable for VolumeMountAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeMount {
     fn into_optioned(self) -> VolumeMountAc {
         VolumeMountAc {
-            mount_path: Some(self.mount_path),
+            mount_path: self.mount_path,
             mount_propagation: self.mount_propagation,
             name: Some(self.name),
             read_only: self.read_only,
@@ -63,11 +62,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeMount {
     }
     fn try_from_optioned(value: VolumeMountAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            mount_path: value
-                .mount_path
-                .ok_or(crate::Error {
-                    missing_field: "mount_path",
-                })?,
+            mount_path: value.mount_path,
             mount_propagation: value.mount_propagation,
             name: value
                 .name
@@ -81,9 +76,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeMount {
         })
     }
     fn merge(&mut self, other: VolumeMountAc) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.mount_path {
-            self.mount_path = other_value;
-        }
+        self.mount_path = other.mount_path;
         self.mount_propagation = other.mount_propagation;
         if let Some(other_value) = other.name {
             self.name = other_value;

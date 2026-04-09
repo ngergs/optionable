@@ -10,8 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodResourceClaimStatusAc {
     /// Name uniquely identifies this resource claim inside the pod. This must match the name of an entry in pod.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
     /// ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_claim_name: Option<std::string::String>,
@@ -29,24 +28,18 @@ impl crate::Optionable for PodResourceClaimStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodResourceClaimStatus {
     fn into_optioned(self) -> PodResourceClaimStatusAc {
         PodResourceClaimStatusAc {
-            name: Some(self.name),
+            name: self.name,
             resource_claim_name: self.resource_claim_name,
         }
     }
     fn try_from_optioned(value: PodResourceClaimStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
             resource_claim_name: value.resource_claim_name,
         })
     }
     fn merge(&mut self, other: PodResourceClaimStatusAc) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.name {
-            self.name = other_value;
-        }
+        self.name = other.name;
         self.resource_claim_name = other.resource_claim_name;
         Ok(())
     }

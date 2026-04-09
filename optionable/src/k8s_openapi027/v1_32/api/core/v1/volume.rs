@@ -123,8 +123,7 @@ pub struct VolumeAc {
         <::k8s_openapi027::api::core::v1::ISCSIVolumeSource as crate::Optionable>::Optioned,
     >,
     /// name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
     /// nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
     #[serde(skip_serializing_if = "Option::is_none")]
     pub nfs: Option<
@@ -218,7 +217,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Volume {
             host_path: crate::OptionableConvert::into_optioned(self.host_path),
             image: crate::OptionableConvert::into_optioned(self.image),
             iscsi: crate::OptionableConvert::into_optioned(self.iscsi),
-            name: Some(self.name),
+            name: self.name,
             nfs: crate::OptionableConvert::into_optioned(self.nfs),
             persistent_volume_claim: crate::OptionableConvert::into_optioned(
                 self.persistent_volume_claim,
@@ -265,11 +264,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Volume {
             host_path: crate::OptionableConvert::try_from_optioned(value.host_path)?,
             image: crate::OptionableConvert::try_from_optioned(value.image)?,
             iscsi: crate::OptionableConvert::try_from_optioned(value.iscsi)?,
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
             nfs: crate::OptionableConvert::try_from_optioned(value.nfs)?,
             persistent_volume_claim: crate::OptionableConvert::try_from_optioned(
                 value.persistent_volume_claim,
@@ -317,9 +312,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Volume {
         crate::OptionableConvert::merge(&mut self.host_path, other.host_path)?;
         crate::OptionableConvert::merge(&mut self.image, other.image)?;
         crate::OptionableConvert::merge(&mut self.iscsi, other.iscsi)?;
-        if let Some(other_value) = other.name {
-            self.name = other_value;
-        }
+        self.name = other.name;
         crate::OptionableConvert::merge(&mut self.nfs, other.nfs)?;
         crate::OptionableConvert::merge(
             &mut self.persistent_volume_claim,
