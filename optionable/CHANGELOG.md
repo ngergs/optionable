@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.7](https://github.com/ngergs/optionable/compare/optionable-v0.13.6...optionable-v0.13.7) - 2026-04-09
+
+### Fixed
+
+- regenerate k8s-openapi files
+
+### Other
+
+- adjust kube3 test
+- regenerate k8s-openapi with required keys for lists with map type merging
+- add kubernetes openapi parsing to k8s-openapi codegen (not utilized yet)
+- regenerate k8s-openapi
+- regenerate k8s-openapi
+
 ## [0.13.6](https://github.com/ngergs/optionable/compare/optionable-v0.13.5...optionable-v0.13.6) - 2026-03-24
 
 ### Added
