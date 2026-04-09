@@ -28,11 +28,8 @@ pub struct MutatingWebhookAc {
     ///   3. If any matchCondition evaluates to an error (but none are FALSE):
     ///      - If failurePolicy=Fail, reject the request
     ///      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub match_conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::admissionregistration::v1::MatchCondition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::admissionregistration::v1::MatchCondition>,
     >,
     /// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
     ///
@@ -129,9 +126,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
                 crate::OptionableConvert::into_optioned(self.client_config),
             ),
             failure_policy: self.failure_policy,
-            match_conditions: crate::OptionableConvert::into_optioned(
-                self.match_conditions,
-            ),
+            match_conditions: self.match_conditions,
             match_policy: self.match_policy,
             name: Some(self.name),
             namespace_selector: crate::OptionableConvert::into_optioned(
@@ -161,9 +156,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
                     })?,
             )?,
             failure_policy: value.failure_policy,
-            match_conditions: crate::OptionableConvert::try_from_optioned(
-                value.match_conditions,
-            )?,
+            match_conditions: value.match_conditions,
             match_policy: value.match_policy,
             name: value
                 .name
@@ -194,10 +187,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
             crate::OptionableConvert::merge(&mut self.client_config, other_value)?;
         }
         self.failure_policy = other.failure_policy;
-        crate::OptionableConvert::merge(
-            &mut self.match_conditions,
-            other.match_conditions,
-        )?;
+        self.match_conditions = other.match_conditions;
         self.match_policy = other.match_policy;
         if let Some(other_value) = other.name {
             self.name = other_value;

@@ -21,12 +21,7 @@ pub struct PodSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub automount_service_account_token: Option<bool>,
     /// List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub containers: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::Container as crate::Optionable>::Optioned,
-        >,
-    >,
+    pub containers: std::vec::Vec<::k8s_openapi027::api::core::v1::Container>,
     /// Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dns_config: Option<
@@ -39,19 +34,11 @@ pub struct PodSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub enable_service_links: Option<bool>,
     /// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub ephemeral_containers: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::EphemeralContainer as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::EphemeralContainer>,
     >,
     /// HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub host_aliases: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::HostAlias as crate::Optionable>::Optioned,
-        >,
-    >,
+    pub host_aliases: Option<std::vec::Vec<::k8s_openapi027::api::core::v1::HostAlias>>,
     /// Use the host's ipc namespace. Optional: Default to false.
     #[serde(rename = "hostIPC")]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -70,18 +57,12 @@ pub struct PodSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hostname: Option<std::string::String>,
     /// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub image_pull_secrets: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::LocalObjectReference as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::LocalObjectReference>,
     >,
     /// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub init_containers: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::Container as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::Container>,
     >,
     /// NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -129,11 +110,8 @@ pub struct PodSpecAc {
     /// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
     ///
     /// This field is immutable.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_claims: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::PodResourceClaim as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::PodResourceClaim>,
     >,
     /// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
     ///
@@ -156,11 +134,8 @@ pub struct PodSpecAc {
     /// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
     ///
     /// SchedulingGates can only be set at pod creation time, and be removed only afterwards.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub scheduling_gates: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::PodSchedulingGate as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::PodSchedulingGate>,
     >,
     /// SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -194,19 +169,11 @@ pub struct PodSpecAc {
         >,
     >,
     /// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub topology_spread_constraints: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::TopologySpreadConstraint as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::TopologySpreadConstraint>,
     >,
     /// List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub volumes: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::Volume as crate::Optionable>::Optioned,
-        >,
-    >,
+    pub volumes: Option<std::vec::Vec<::k8s_openapi027::api::core::v1::Volume>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::PodSpec {
@@ -224,25 +191,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             active_deadline_seconds: self.active_deadline_seconds,
             affinity: crate::OptionableConvert::into_optioned(self.affinity),
             automount_service_account_token: self.automount_service_account_token,
-            containers: Some(crate::OptionableConvert::into_optioned(self.containers)),
+            containers: self.containers,
             dns_config: crate::OptionableConvert::into_optioned(self.dns_config),
             dns_policy: self.dns_policy,
             enable_service_links: self.enable_service_links,
-            ephemeral_containers: crate::OptionableConvert::into_optioned(
-                self.ephemeral_containers,
-            ),
-            host_aliases: crate::OptionableConvert::into_optioned(self.host_aliases),
+            ephemeral_containers: self.ephemeral_containers,
+            host_aliases: self.host_aliases,
             host_ipc: self.host_ipc,
             host_network: self.host_network,
             host_pid: self.host_pid,
             host_users: self.host_users,
             hostname: self.hostname,
-            image_pull_secrets: crate::OptionableConvert::into_optioned(
-                self.image_pull_secrets,
-            ),
-            init_containers: crate::OptionableConvert::into_optioned(
-                self.init_containers,
-            ),
+            image_pull_secrets: self.image_pull_secrets,
+            init_containers: self.init_containers,
             node_name: self.node_name,
             node_selector: self.node_selector,
             os: crate::OptionableConvert::into_optioned(self.os),
@@ -253,16 +214,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             readiness_gates: crate::OptionableConvert::into_optioned(
                 self.readiness_gates,
             ),
-            resource_claims: crate::OptionableConvert::into_optioned(
-                self.resource_claims,
-            ),
+            resource_claims: self.resource_claims,
             resources: crate::OptionableConvert::into_optioned(self.resources),
             restart_policy: self.restart_policy,
             runtime_class_name: self.runtime_class_name,
             scheduler_name: self.scheduler_name,
-            scheduling_gates: crate::OptionableConvert::into_optioned(
-                self.scheduling_gates,
-            ),
+            scheduling_gates: self.scheduling_gates,
             security_context: crate::OptionableConvert::into_optioned(
                 self.security_context,
             ),
@@ -273,10 +230,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             subdomain: self.subdomain,
             termination_grace_period_seconds: self.termination_grace_period_seconds,
             tolerations: crate::OptionableConvert::into_optioned(self.tolerations),
-            topology_spread_constraints: crate::OptionableConvert::into_optioned(
-                self.topology_spread_constraints,
-            ),
-            volumes: crate::OptionableConvert::into_optioned(self.volumes),
+            topology_spread_constraints: self.topology_spread_constraints,
+            volumes: self.volumes,
         }
     }
     fn try_from_optioned(value: PodSpecAc) -> Result<Self, crate::Error> {
@@ -284,33 +239,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             active_deadline_seconds: value.active_deadline_seconds,
             affinity: crate::OptionableConvert::try_from_optioned(value.affinity)?,
             automount_service_account_token: value.automount_service_account_token,
-            containers: crate::OptionableConvert::try_from_optioned(
-                value
-                    .containers
-                    .ok_or(crate::Error {
-                        missing_field: "containers",
-                    })?,
-            )?,
+            containers: value.containers,
             dns_config: crate::OptionableConvert::try_from_optioned(value.dns_config)?,
             dns_policy: value.dns_policy,
             enable_service_links: value.enable_service_links,
-            ephemeral_containers: crate::OptionableConvert::try_from_optioned(
-                value.ephemeral_containers,
-            )?,
-            host_aliases: crate::OptionableConvert::try_from_optioned(
-                value.host_aliases,
-            )?,
+            ephemeral_containers: value.ephemeral_containers,
+            host_aliases: value.host_aliases,
             host_ipc: value.host_ipc,
             host_network: value.host_network,
             host_pid: value.host_pid,
             host_users: value.host_users,
             hostname: value.hostname,
-            image_pull_secrets: crate::OptionableConvert::try_from_optioned(
-                value.image_pull_secrets,
-            )?,
-            init_containers: crate::OptionableConvert::try_from_optioned(
-                value.init_containers,
-            )?,
+            image_pull_secrets: value.image_pull_secrets,
+            init_containers: value.init_containers,
             node_name: value.node_name,
             node_selector: value.node_selector,
             os: crate::OptionableConvert::try_from_optioned(value.os)?,
@@ -321,16 +262,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             readiness_gates: crate::OptionableConvert::try_from_optioned(
                 value.readiness_gates,
             )?,
-            resource_claims: crate::OptionableConvert::try_from_optioned(
-                value.resource_claims,
-            )?,
+            resource_claims: value.resource_claims,
             resources: crate::OptionableConvert::try_from_optioned(value.resources)?,
             restart_policy: value.restart_policy,
             runtime_class_name: value.runtime_class_name,
             scheduler_name: value.scheduler_name,
-            scheduling_gates: crate::OptionableConvert::try_from_optioned(
-                value.scheduling_gates,
-            )?,
+            scheduling_gates: value.scheduling_gates,
             security_context: crate::OptionableConvert::try_from_optioned(
                 value.security_context,
             )?,
@@ -341,40 +278,27 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             subdomain: value.subdomain,
             termination_grace_period_seconds: value.termination_grace_period_seconds,
             tolerations: crate::OptionableConvert::try_from_optioned(value.tolerations)?,
-            topology_spread_constraints: crate::OptionableConvert::try_from_optioned(
-                value.topology_spread_constraints,
-            )?,
-            volumes: crate::OptionableConvert::try_from_optioned(value.volumes)?,
+            topology_spread_constraints: value.topology_spread_constraints,
+            volumes: value.volumes,
         })
     }
     fn merge(&mut self, other: PodSpecAc) -> Result<(), crate::Error> {
         self.active_deadline_seconds = other.active_deadline_seconds;
         crate::OptionableConvert::merge(&mut self.affinity, other.affinity)?;
         self.automount_service_account_token = other.automount_service_account_token;
-        if let Some(other_value) = other.containers {
-            crate::OptionableConvert::merge(&mut self.containers, other_value)?;
-        }
+        self.containers = other.containers;
         crate::OptionableConvert::merge(&mut self.dns_config, other.dns_config)?;
         self.dns_policy = other.dns_policy;
         self.enable_service_links = other.enable_service_links;
-        crate::OptionableConvert::merge(
-            &mut self.ephemeral_containers,
-            other.ephemeral_containers,
-        )?;
-        crate::OptionableConvert::merge(&mut self.host_aliases, other.host_aliases)?;
+        self.ephemeral_containers = other.ephemeral_containers;
+        self.host_aliases = other.host_aliases;
         self.host_ipc = other.host_ipc;
         self.host_network = other.host_network;
         self.host_pid = other.host_pid;
         self.host_users = other.host_users;
         self.hostname = other.hostname;
-        crate::OptionableConvert::merge(
-            &mut self.image_pull_secrets,
-            other.image_pull_secrets,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.init_containers,
-            other.init_containers,
-        )?;
+        self.image_pull_secrets = other.image_pull_secrets;
+        self.init_containers = other.init_containers;
         self.node_name = other.node_name;
         self.node_selector = other.node_selector;
         crate::OptionableConvert::merge(&mut self.os, other.os)?;
@@ -386,18 +310,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             &mut self.readiness_gates,
             other.readiness_gates,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.resource_claims,
-            other.resource_claims,
-        )?;
+        self.resource_claims = other.resource_claims;
         crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
         self.restart_policy = other.restart_policy;
         self.runtime_class_name = other.runtime_class_name;
         self.scheduler_name = other.scheduler_name;
-        crate::OptionableConvert::merge(
-            &mut self.scheduling_gates,
-            other.scheduling_gates,
-        )?;
+        self.scheduling_gates = other.scheduling_gates;
         crate::OptionableConvert::merge(
             &mut self.security_context,
             other.security_context,
@@ -409,11 +327,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
         self.subdomain = other.subdomain;
         self.termination_grace_period_seconds = other.termination_grace_period_seconds;
         crate::OptionableConvert::merge(&mut self.tolerations, other.tolerations)?;
-        crate::OptionableConvert::merge(
-            &mut self.topology_spread_constraints,
-            other.topology_spread_constraints,
-        )?;
-        crate::OptionableConvert::merge(&mut self.volumes, other.volumes)?;
+        self.topology_spread_constraints = other.topology_spread_constraints;
+        self.volumes = other.volumes;
         Ok(())
     }
 }

@@ -18,11 +18,8 @@ pub struct ContainerStatusAc {
         >,
     >,
     /// AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub allocated_resources_status: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::ResourceStatus as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::ResourceStatus>,
     >,
     /// ContainerID is the ID of the container in the format '\<type\>://\<container_id\>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
     #[serde(rename = "containerID")]
@@ -73,11 +70,8 @@ pub struct ContainerStatusAc {
         <::k8s_openapi027::api::core::v1::ContainerUser as crate::Optionable>::Optioned,
     >,
     /// Status of volume mounts.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_mounts: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::VolumeMountStatus as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::VolumeMountStatus>,
     >,
 }
 #[automatically_derived]
@@ -96,9 +90,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
             allocated_resources: crate::OptionableConvert::into_optioned(
                 self.allocated_resources,
             ),
-            allocated_resources_status: crate::OptionableConvert::into_optioned(
-                self.allocated_resources_status,
-            ),
+            allocated_resources_status: self.allocated_resources_status,
             container_id: self.container_id,
             image: Some(self.image),
             image_id: Some(self.image_id),
@@ -111,7 +103,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
             state: crate::OptionableConvert::into_optioned(self.state),
             stop_signal: self.stop_signal,
             user: crate::OptionableConvert::into_optioned(self.user),
-            volume_mounts: crate::OptionableConvert::into_optioned(self.volume_mounts),
+            volume_mounts: self.volume_mounts,
         }
     }
     fn try_from_optioned(value: ContainerStatusAc) -> Result<Self, crate::Error> {
@@ -119,9 +111,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
             allocated_resources: crate::OptionableConvert::try_from_optioned(
                 value.allocated_resources,
             )?,
-            allocated_resources_status: crate::OptionableConvert::try_from_optioned(
-                value.allocated_resources_status,
-            )?,
+            allocated_resources_status: value.allocated_resources_status,
             container_id: value.container_id,
             image: value
                 .image
@@ -154,9 +144,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
             state: crate::OptionableConvert::try_from_optioned(value.state)?,
             stop_signal: value.stop_signal,
             user: crate::OptionableConvert::try_from_optioned(value.user)?,
-            volume_mounts: crate::OptionableConvert::try_from_optioned(
-                value.volume_mounts,
-            )?,
+            volume_mounts: value.volume_mounts,
         })
     }
     fn merge(&mut self, other: ContainerStatusAc) -> Result<(), crate::Error> {
@@ -164,10 +152,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
             &mut self.allocated_resources,
             other.allocated_resources,
         )?;
-        crate::OptionableConvert::merge(
-            &mut self.allocated_resources_status,
-            other.allocated_resources_status,
-        )?;
+        self.allocated_resources_status = other.allocated_resources_status;
         self.container_id = other.container_id;
         if let Some(other_value) = other.image {
             self.image = other_value;
@@ -190,7 +175,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
         crate::OptionableConvert::merge(&mut self.state, other.state)?;
         self.stop_signal = other.stop_signal;
         crate::OptionableConvert::merge(&mut self.user, other.user)?;
-        crate::OptionableConvert::merge(&mut self.volume_mounts, other.volume_mounts)?;
+        self.volume_mounts = other.volume_mounts;
         Ok(())
     }
 }

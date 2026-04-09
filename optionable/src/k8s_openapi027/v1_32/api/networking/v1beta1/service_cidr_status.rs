@@ -10,11 +10,8 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceCIDRStatusAc {
     /// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>,
     >,
 }
 #[automatically_derived]
@@ -31,16 +28,16 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::networking::v1beta1::ServiceCIDRStatus {
     fn into_optioned(self) -> ServiceCIDRStatusAc {
         ServiceCIDRStatusAc {
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
         }
     }
     fn try_from_optioned(value: ServiceCIDRStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
         })
     }
     fn merge(&mut self, other: ServiceCIDRStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         Ok(())
     }
 }

@@ -16,12 +16,7 @@ pub struct ContainerAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub command: Option<std::vec::Vec<std::string::String>>,
     /// List of environment variables to set in the container. Cannot be updated.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub env: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::EnvVar as crate::Optionable>::Optioned,
-        >,
-    >,
+    pub env: Option<std::vec::Vec<::k8s_openapi027::api::core::v1::EnvVar>>,
     /// List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub env_from: Option<
@@ -49,12 +44,7 @@ pub struct ContainerAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
     /// List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ports: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::ContainerPort as crate::Optionable>::Optioned,
-        >,
-    >,
+    pub ports: Option<std::vec::Vec<::k8s_openapi027::api::core::v1::ContainerPort>>,
     /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
     #[serde(skip_serializing_if = "Option::is_none")]
     pub readiness_probe: Option<
@@ -108,18 +98,12 @@ pub struct ContainerAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tty: Option<bool>,
     /// volumeDevices is the list of block devices to be used by the container.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_devices: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::VolumeDevice as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::VolumeDevice>,
     >,
     /// Pod volumes to mount into the container's filesystem. Cannot be updated.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_mounts: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::VolumeMount as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::VolumeMount>,
     >,
     /// Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -140,14 +124,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
         ContainerAc {
             args: self.args,
             command: self.command,
-            env: crate::OptionableConvert::into_optioned(self.env),
+            env: self.env,
             env_from: crate::OptionableConvert::into_optioned(self.env_from),
             image: self.image,
             image_pull_policy: self.image_pull_policy,
             lifecycle: crate::OptionableConvert::into_optioned(self.lifecycle),
             liveness_probe: crate::OptionableConvert::into_optioned(self.liveness_probe),
             name: Some(self.name),
-            ports: crate::OptionableConvert::into_optioned(self.ports),
+            ports: self.ports,
             readiness_probe: crate::OptionableConvert::into_optioned(
                 self.readiness_probe,
             ),
@@ -166,8 +150,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
             termination_message_path: self.termination_message_path,
             termination_message_policy: self.termination_message_policy,
             tty: self.tty,
-            volume_devices: crate::OptionableConvert::into_optioned(self.volume_devices),
-            volume_mounts: crate::OptionableConvert::into_optioned(self.volume_mounts),
+            volume_devices: self.volume_devices,
+            volume_mounts: self.volume_mounts,
             working_dir: self.working_dir,
         }
     }
@@ -175,7 +159,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
         Ok(Self {
             args: value.args,
             command: value.command,
-            env: crate::OptionableConvert::try_from_optioned(value.env)?,
+            env: value.env,
             env_from: crate::OptionableConvert::try_from_optioned(value.env_from)?,
             image: value.image,
             image_pull_policy: value.image_pull_policy,
@@ -188,7 +172,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
                 .ok_or(crate::Error {
                     missing_field: "name",
                 })?,
-            ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
+            ports: value.ports,
             readiness_probe: crate::OptionableConvert::try_from_optioned(
                 value.readiness_probe,
             )?,
@@ -211,19 +195,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
             termination_message_path: value.termination_message_path,
             termination_message_policy: value.termination_message_policy,
             tty: value.tty,
-            volume_devices: crate::OptionableConvert::try_from_optioned(
-                value.volume_devices,
-            )?,
-            volume_mounts: crate::OptionableConvert::try_from_optioned(
-                value.volume_mounts,
-            )?,
+            volume_devices: value.volume_devices,
+            volume_mounts: value.volume_mounts,
             working_dir: value.working_dir,
         })
     }
     fn merge(&mut self, other: ContainerAc) -> Result<(), crate::Error> {
         self.args = other.args;
         self.command = other.command;
-        crate::OptionableConvert::merge(&mut self.env, other.env)?;
+        self.env = other.env;
         crate::OptionableConvert::merge(&mut self.env_from, other.env_from)?;
         self.image = other.image;
         self.image_pull_policy = other.image_pull_policy;
@@ -232,7 +212,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
+        self.ports = other.ports;
         crate::OptionableConvert::merge(
             &mut self.readiness_probe,
             other.readiness_probe,
@@ -254,8 +234,8 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
         self.termination_message_path = other.termination_message_path;
         self.termination_message_policy = other.termination_message_policy;
         self.tty = other.tty;
-        crate::OptionableConvert::merge(&mut self.volume_devices, other.volume_devices)?;
-        crate::OptionableConvert::merge(&mut self.volume_mounts, other.volume_mounts)?;
+        self.volume_devices = other.volume_devices;
+        self.volume_mounts = other.volume_mounts;
         self.working_dir = other.working_dir;
         Ok(())
     }

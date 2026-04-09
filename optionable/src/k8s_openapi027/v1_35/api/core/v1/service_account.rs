@@ -32,12 +32,7 @@ pub struct ServiceAccountAc {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     /// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub secrets: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
-        >,
-    >,
+    pub secrets: Option<std::vec::Vec<::k8s_openapi027::api::core::v1::ObjectReference>>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::ServiceAccount {
@@ -59,7 +54,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceAccount 
                 self.image_pull_secrets,
             ),
             metadata: self.metadata,
-            secrets: crate::OptionableConvert::into_optioned(self.secrets),
+            secrets: self.secrets,
         }
     }
     fn try_from_optioned(value: ServiceAccountAc) -> Result<Self, crate::Error> {
@@ -69,7 +64,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceAccount 
                 value.image_pull_secrets,
             )?,
             metadata: value.metadata,
-            secrets: crate::OptionableConvert::try_from_optioned(value.secrets)?,
+            secrets: value.secrets,
         })
     }
     fn merge(&mut self, other: ServiceAccountAc) -> Result<(), crate::Error> {
@@ -79,7 +74,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceAccount 
             other.image_pull_secrets,
         )?;
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.secrets, other.secrets)?;
+        self.secrets = other.secrets;
         Ok(())
     }
 }

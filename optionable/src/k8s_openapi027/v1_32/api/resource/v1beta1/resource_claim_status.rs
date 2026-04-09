@@ -15,11 +15,8 @@ pub struct ResourceClaimStatusAc {
         <::k8s_openapi027::api::resource::v1beta1::AllocationResult as crate::Optionable>::Optioned,
     >,
     /// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub devices: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::resource::v1beta1::AllocatedDeviceStatus as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::resource::v1beta1::AllocatedDeviceStatus>,
     >,
     /// ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
     ///
@@ -28,10 +25,9 @@ pub struct ResourceClaimStatusAc {
     /// Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
     ///
     /// There can be at most 256 such reservations. This may get increased in the future, but not reduced.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub reserved_for: Option<
         std::vec::Vec<
-            <::k8s_openapi027::api::resource::v1beta1::ResourceClaimConsumerReference as crate::Optionable>::Optioned,
+            ::k8s_openapi027::api::resource::v1beta1::ResourceClaimConsumerReference,
         >,
     >,
 }
@@ -50,23 +46,21 @@ for k8s_openapi027::api::resource::v1beta1::ResourceClaimStatus {
     fn into_optioned(self) -> ResourceClaimStatusAc {
         ResourceClaimStatusAc {
             allocation: crate::OptionableConvert::into_optioned(self.allocation),
-            devices: crate::OptionableConvert::into_optioned(self.devices),
-            reserved_for: crate::OptionableConvert::into_optioned(self.reserved_for),
+            devices: self.devices,
+            reserved_for: self.reserved_for,
         }
     }
     fn try_from_optioned(value: ResourceClaimStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             allocation: crate::OptionableConvert::try_from_optioned(value.allocation)?,
-            devices: crate::OptionableConvert::try_from_optioned(value.devices)?,
-            reserved_for: crate::OptionableConvert::try_from_optioned(
-                value.reserved_for,
-            )?,
+            devices: value.devices,
+            reserved_for: value.reserved_for,
         })
     }
     fn merge(&mut self, other: ResourceClaimStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.allocation, other.allocation)?;
-        crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
-        crate::OptionableConvert::merge(&mut self.reserved_for, other.reserved_for)?;
+        self.devices = other.devices;
+        self.reserved_for = other.reserved_for;
         Ok(())
     }
 }

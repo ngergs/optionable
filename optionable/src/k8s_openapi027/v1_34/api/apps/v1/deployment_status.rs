@@ -16,11 +16,8 @@ pub struct DeploymentStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub collision_count: Option<i32>,
     /// Represents the latest available observations of a deployment's current state.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::apps::v1::DeploymentCondition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::apps::v1::DeploymentCondition>,
     >,
     /// The generation observed by the deployment controller.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -58,7 +55,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentStatu
         DeploymentStatusAc {
             available_replicas: self.available_replicas,
             collision_count: self.collision_count,
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             observed_generation: self.observed_generation,
             ready_replicas: self.ready_replicas,
             replicas: self.replicas,
@@ -71,7 +68,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentStatu
         Ok(Self {
             available_replicas: value.available_replicas,
             collision_count: value.collision_count,
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             observed_generation: value.observed_generation,
             ready_replicas: value.ready_replicas,
             replicas: value.replicas,
@@ -83,7 +80,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentStatu
     fn merge(&mut self, other: DeploymentStatusAc) -> Result<(), crate::Error> {
         self.available_replicas = other.available_replicas;
         self.collision_count = other.collision_count;
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         self.observed_generation = other.observed_generation;
         self.ready_replicas = other.ready_replicas;
         self.replicas = other.replicas;

@@ -28,10 +28,9 @@ pub struct MutatingAdmissionPolicySpecAc {
     ///   3. If any matchCondition evaluates to an error (but none are FALSE):
     ///      - If failurePolicy=Fail, reject the request
     ///      - If failurePolicy=Ignore, the policy is skipped
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub match_conditions: Option<
         std::vec::Vec<
-            <::k8s_openapi027::api::admissionregistration::v1alpha1::MatchCondition as crate::Optionable>::Optioned,
+            ::k8s_openapi027::api::admissionregistration::v1alpha1::MatchCondition,
         >,
     >,
     /// matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
@@ -84,9 +83,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::MutatingAdmissionPolic
     fn into_optioned(self) -> MutatingAdmissionPolicySpecAc {
         MutatingAdmissionPolicySpecAc {
             failure_policy: self.failure_policy,
-            match_conditions: crate::OptionableConvert::into_optioned(
-                self.match_conditions,
-            ),
+            match_conditions: self.match_conditions,
             match_constraints: crate::OptionableConvert::into_optioned(
                 self.match_constraints,
             ),
@@ -101,9 +98,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::MutatingAdmissionPolic
     ) -> Result<Self, crate::Error> {
         Ok(Self {
             failure_policy: value.failure_policy,
-            match_conditions: crate::OptionableConvert::try_from_optioned(
-                value.match_conditions,
-            )?,
+            match_conditions: value.match_conditions,
             match_constraints: crate::OptionableConvert::try_from_optioned(
                 value.match_constraints,
             )?,
@@ -118,10 +113,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::MutatingAdmissionPolic
         other: MutatingAdmissionPolicySpecAc,
     ) -> Result<(), crate::Error> {
         self.failure_policy = other.failure_policy;
-        crate::OptionableConvert::merge(
-            &mut self.match_conditions,
-            other.match_conditions,
-        )?;
+        self.match_conditions = other.match_conditions;
         crate::OptionableConvert::merge(
             &mut self.match_constraints,
             other.match_constraints,

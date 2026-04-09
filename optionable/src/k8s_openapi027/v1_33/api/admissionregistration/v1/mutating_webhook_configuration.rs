@@ -22,11 +22,8 @@ pub struct MutatingWebhookConfigurationAc {
     /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
     /// Webhooks is a list of webhooks and the affected resources and operations.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub webhooks: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::admissionregistration::v1::MutatingWebhook as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::admissionregistration::v1::MutatingWebhook>,
     >,
 }
 #[automatically_derived]
@@ -47,7 +44,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhookConfiguration
             api_version: Default::default(),
             kind: Default::default(),
             metadata: self.metadata,
-            webhooks: crate::OptionableConvert::into_optioned(self.webhooks),
+            webhooks: self.webhooks,
         }
     }
     fn try_from_optioned(
@@ -55,7 +52,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhookConfiguration
     ) -> Result<Self, crate::Error> {
         Ok(Self {
             metadata: value.metadata,
-            webhooks: crate::OptionableConvert::try_from_optioned(value.webhooks)?,
+            webhooks: value.webhooks,
         })
     }
     fn merge(
@@ -63,7 +60,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhookConfiguration
         other: MutatingWebhookConfigurationAc,
     ) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.webhooks, other.webhooks)?;
+        self.webhooks = other.webhooks;
         Ok(())
     }
 }

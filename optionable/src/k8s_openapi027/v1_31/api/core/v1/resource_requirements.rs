@@ -14,12 +14,7 @@ pub struct ResourceRequirementsAc {
     /// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
     ///
     /// This field is immutable. It can only be set for containers.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub claims: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::ResourceClaim as crate::Optionable>::Optioned,
-        >,
-    >,
+    pub claims: Option<std::vec::Vec<::k8s_openapi027::api::core::v1::ResourceClaim>>,
     /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
     #[serde(skip_serializing_if = "Option::is_none")]
     pub limits: Option<
@@ -50,20 +45,20 @@ impl crate::Optionable for ResourceRequirementsAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceRequirements {
     fn into_optioned(self) -> ResourceRequirementsAc {
         ResourceRequirementsAc {
-            claims: crate::OptionableConvert::into_optioned(self.claims),
+            claims: self.claims,
             limits: crate::OptionableConvert::into_optioned(self.limits),
             requests: crate::OptionableConvert::into_optioned(self.requests),
         }
     }
     fn try_from_optioned(value: ResourceRequirementsAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            claims: crate::OptionableConvert::try_from_optioned(value.claims)?,
+            claims: value.claims,
             limits: crate::OptionableConvert::try_from_optioned(value.limits)?,
             requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
         })
     }
     fn merge(&mut self, other: ResourceRequirementsAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.claims, other.claims)?;
+        self.claims = other.claims;
         crate::OptionableConvert::merge(&mut self.limits, other.limits)?;
         crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
         Ok(())

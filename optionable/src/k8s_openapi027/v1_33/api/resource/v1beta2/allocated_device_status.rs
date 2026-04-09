@@ -12,11 +12,8 @@ pub struct AllocatedDeviceStatusAc {
     /// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
     ///
     /// Must not contain more than 8 entries.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>,
     >,
     /// Data contains arbitrary driver-specific data.
     ///
@@ -59,7 +56,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::resource::v1beta2::AllocatedDeviceStatus {
     fn into_optioned(self) -> AllocatedDeviceStatusAc {
         AllocatedDeviceStatusAc {
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             data: crate::OptionableConvert::into_optioned(self.data),
             device: Some(self.device),
             driver: Some(self.driver),
@@ -69,7 +66,7 @@ for k8s_openapi027::api::resource::v1beta2::AllocatedDeviceStatus {
     }
     fn try_from_optioned(value: AllocatedDeviceStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             data: crate::OptionableConvert::try_from_optioned(value.data)?,
             device: value
                 .device
@@ -92,7 +89,7 @@ for k8s_openapi027::api::resource::v1beta2::AllocatedDeviceStatus {
         })
     }
     fn merge(&mut self, other: AllocatedDeviceStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
         if let Some(other_value) = other.device {
             self.device = other_value;

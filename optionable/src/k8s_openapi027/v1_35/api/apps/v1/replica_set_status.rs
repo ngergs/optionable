@@ -13,11 +13,8 @@ pub struct ReplicaSetStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub available_replicas: Option<i32>,
     /// Represents the latest available observations of a replica set's current state.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::apps::v1::ReplicaSetCondition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::apps::v1::ReplicaSetCondition>,
     >,
     /// The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -51,7 +48,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ReplicaSetStatu
     fn into_optioned(self) -> ReplicaSetStatusAc {
         ReplicaSetStatusAc {
             available_replicas: self.available_replicas,
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             fully_labeled_replicas: self.fully_labeled_replicas,
             observed_generation: self.observed_generation,
             ready_replicas: self.ready_replicas,
@@ -62,7 +59,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ReplicaSetStatu
     fn try_from_optioned(value: ReplicaSetStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             available_replicas: value.available_replicas,
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             fully_labeled_replicas: value.fully_labeled_replicas,
             observed_generation: value.observed_generation,
             ready_replicas: value.ready_replicas,
@@ -76,7 +73,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ReplicaSetStatu
     }
     fn merge(&mut self, other: ReplicaSetStatusAc) -> Result<(), crate::Error> {
         self.available_replicas = other.available_replicas;
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         self.fully_labeled_replicas = other.fully_labeled_replicas;
         self.observed_generation = other.observed_generation;
         self.ready_replicas = other.ready_replicas;

@@ -57,12 +57,7 @@ pub struct ServiceSpecAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub load_balancer_source_ranges: Option<std::vec::Vec<std::string::String>>,
     /// The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ports: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::ServicePort as crate::Optionable>::Optioned,
-        >,
-    >,
+    pub ports: Option<std::vec::Vec<::k8s_openapi027::api::core::v1::ServicePort>>,
     /// publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered "ready" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub publish_not_ready_addresses: Option<bool>,
@@ -113,7 +108,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
             load_balancer_class: self.load_balancer_class,
             load_balancer_ip: self.load_balancer_ip,
             load_balancer_source_ranges: self.load_balancer_source_ranges,
-            ports: crate::OptionableConvert::into_optioned(self.ports),
+            ports: self.ports,
             publish_not_ready_addresses: self.publish_not_ready_addresses,
             selector: self.selector,
             session_affinity: self.session_affinity,
@@ -139,7 +134,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
             load_balancer_class: value.load_balancer_class,
             load_balancer_ip: value.load_balancer_ip,
             load_balancer_source_ranges: value.load_balancer_source_ranges,
-            ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
+            ports: value.ports,
             publish_not_ready_addresses: value.publish_not_ready_addresses,
             selector: value.selector,
             session_affinity: value.session_affinity,
@@ -164,7 +159,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
         self.load_balancer_class = other.load_balancer_class;
         self.load_balancer_ip = other.load_balancer_ip;
         self.load_balancer_source_ranges = other.load_balancer_source_ranges;
-        crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
+        self.ports = other.ports;
         self.publish_not_ready_addresses = other.publish_not_ready_addresses;
         self.selector = other.selector;
         self.session_affinity = other.session_affinity;

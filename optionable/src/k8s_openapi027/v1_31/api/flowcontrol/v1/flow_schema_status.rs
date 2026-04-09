@@ -10,11 +10,8 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FlowSchemaStatusAc {
     /// `conditions` is a list of the current states of FlowSchema.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition>,
     >,
 }
 #[automatically_derived]
@@ -31,16 +28,16 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::flowcontrol::v1::FlowSchemaStatus {
     fn into_optioned(self) -> FlowSchemaStatusAc {
         FlowSchemaStatusAc {
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
         }
     }
     fn try_from_optioned(value: FlowSchemaStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
         })
     }
     fn merge(&mut self, other: FlowSchemaStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         Ok(())
     }
 }

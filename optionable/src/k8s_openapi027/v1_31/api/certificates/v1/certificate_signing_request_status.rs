@@ -36,10 +36,9 @@ pub struct CertificateSigningRequestStatusAc {
         <::k8s_openapi027::ByteString as crate::Optionable>::Optioned,
     >,
     /// conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
-            <::k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition as crate::Optionable>::Optioned,
+            ::k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition,
         >,
     >,
 }
@@ -59,7 +58,7 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestStatus {
     fn into_optioned(self) -> CertificateSigningRequestStatusAc {
         CertificateSigningRequestStatusAc {
             certificate: crate::OptionableConvert::into_optioned(self.certificate),
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
         }
     }
     fn try_from_optioned(
@@ -67,7 +66,7 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestStatus {
     ) -> Result<Self, crate::Error> {
         Ok(Self {
             certificate: crate::OptionableConvert::try_from_optioned(value.certificate)?,
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
         })
     }
     fn merge(
@@ -75,7 +74,7 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestStatus {
         other: CertificateSigningRequestStatusAc,
     ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.certificate, other.certificate)?;
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         Ok(())
     }
 }
