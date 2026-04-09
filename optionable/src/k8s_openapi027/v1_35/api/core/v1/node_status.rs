@@ -10,12 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NodeStatusAc {
     /// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub addresses: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::NodeAddress as crate::Optionable>::Optioned,
-        >,
-    >,
+    pub addresses: Option<std::vec::Vec<::k8s_openapi027::api::core::v1::NodeAddress>>,
     /// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allocatable: Option<
@@ -33,11 +28,8 @@ pub struct NodeStatusAc {
         >,
     >,
     /// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::NodeCondition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::NodeCondition>,
     >,
     /// Status of the config assigned to the node via the dynamic Kubelet config feature.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -103,10 +95,10 @@ impl crate::Optionable for NodeStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeStatus {
     fn into_optioned(self) -> NodeStatusAc {
         NodeStatusAc {
-            addresses: crate::OptionableConvert::into_optioned(self.addresses),
+            addresses: self.addresses,
             allocatable: crate::OptionableConvert::into_optioned(self.allocatable),
             capacity: crate::OptionableConvert::into_optioned(self.capacity),
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             config: crate::OptionableConvert::into_optioned(self.config),
             daemon_endpoints: crate::OptionableConvert::into_optioned(
                 self.daemon_endpoints,
@@ -127,10 +119,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeStatus {
     }
     fn try_from_optioned(value: NodeStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            addresses: crate::OptionableConvert::try_from_optioned(value.addresses)?,
+            addresses: value.addresses,
             allocatable: crate::OptionableConvert::try_from_optioned(value.allocatable)?,
             capacity: crate::OptionableConvert::try_from_optioned(value.capacity)?,
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             config: crate::OptionableConvert::try_from_optioned(value.config)?,
             daemon_endpoints: crate::OptionableConvert::try_from_optioned(
                 value.daemon_endpoints,
@@ -150,10 +142,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeStatus {
         })
     }
     fn merge(&mut self, other: NodeStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.addresses, other.addresses)?;
+        self.addresses = other.addresses;
         crate::OptionableConvert::merge(&mut self.allocatable, other.allocatable)?;
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         crate::OptionableConvert::merge(&mut self.config, other.config)?;
         crate::OptionableConvert::merge(
             &mut self.daemon_endpoints,

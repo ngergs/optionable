@@ -10,10 +10,9 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HorizontalPodAutoscalerStatusAc {
     /// conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
         std::vec::Vec<
-            <::k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition as crate::Optionable>::Optioned,
+            ::k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerCondition,
         >,
     >,
     /// currentMetrics is the last read state of the metrics used by this autoscaler.
@@ -53,7 +52,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
     fn into_optioned(self) -> HorizontalPodAutoscalerStatusAc {
         HorizontalPodAutoscalerStatusAc {
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             current_metrics: crate::OptionableConvert::into_optioned(
                 self.current_metrics,
             ),
@@ -69,7 +68,7 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
         value: HorizontalPodAutoscalerStatusAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             current_metrics: crate::OptionableConvert::try_from_optioned(
                 value.current_metrics,
             )?,
@@ -89,7 +88,7 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
         &mut self,
         other: HorizontalPodAutoscalerStatusAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         crate::OptionableConvert::merge(
             &mut self.current_metrics,
             other.current_metrics,

@@ -33,11 +33,8 @@ pub struct PodCertificateRequestStatusAc {
     /// The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
     ///
     /// If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>,
     >,
     /// notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -69,7 +66,7 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
                 self.begin_refresh_at,
             ),
             certificate_chain: self.certificate_chain,
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             not_after: crate::OptionableConvert::into_optioned(self.not_after),
             not_before: crate::OptionableConvert::into_optioned(self.not_before),
         }
@@ -82,7 +79,7 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
                 value.begin_refresh_at,
             )?,
             certificate_chain: value.certificate_chain,
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             not_after: crate::OptionableConvert::try_from_optioned(value.not_after)?,
             not_before: crate::OptionableConvert::try_from_optioned(value.not_before)?,
         })
@@ -96,7 +93,7 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
             other.begin_refresh_at,
         )?;
         self.certificate_chain = other.certificate_chain;
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         crate::OptionableConvert::merge(&mut self.not_after, other.not_after)?;
         crate::OptionableConvert::merge(&mut self.not_before, other.not_before)?;
         Ok(())

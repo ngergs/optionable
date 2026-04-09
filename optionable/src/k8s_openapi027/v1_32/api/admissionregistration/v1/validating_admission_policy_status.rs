@@ -10,11 +10,8 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ValidatingAdmissionPolicyStatusAc {
     /// The conditions represent the latest available observations of a policy's current state.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>,
     >,
     /// The generation observed by the controller.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -40,7 +37,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicyStatus {
     fn into_optioned(self) -> ValidatingAdmissionPolicyStatusAc {
         ValidatingAdmissionPolicyStatusAc {
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             observed_generation: self.observed_generation,
             type_checking: crate::OptionableConvert::into_optioned(self.type_checking),
         }
@@ -49,7 +46,7 @@ for k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicySta
         value: ValidatingAdmissionPolicyStatusAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             observed_generation: value.observed_generation,
             type_checking: crate::OptionableConvert::try_from_optioned(
                 value.type_checking,
@@ -60,7 +57,7 @@ for k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicySta
         &mut self,
         other: ValidatingAdmissionPolicyStatusAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         self.observed_generation = other.observed_generation;
         crate::OptionableConvert::merge(&mut self.type_checking, other.type_checking)?;
         Ok(())

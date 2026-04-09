@@ -13,11 +13,8 @@ pub struct ResourceStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
     /// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub resources: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::ResourceHealth as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::ResourceHealth>,
     >,
 }
 #[automatically_derived]
@@ -34,7 +31,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceStatus 
     fn into_optioned(self) -> ResourceStatusAc {
         ResourceStatusAc {
             name: Some(self.name),
-            resources: crate::OptionableConvert::into_optioned(self.resources),
+            resources: self.resources,
         }
     }
     fn try_from_optioned(value: ResourceStatusAc) -> Result<Self, crate::Error> {
@@ -44,14 +41,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceStatus 
                 .ok_or(crate::Error {
                     missing_field: "name",
                 })?,
-            resources: crate::OptionableConvert::try_from_optioned(value.resources)?,
+            resources: value.resources,
         })
     }
     fn merge(&mut self, other: ResourceStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
+        self.resources = other.resources;
         Ok(())
     }
 }

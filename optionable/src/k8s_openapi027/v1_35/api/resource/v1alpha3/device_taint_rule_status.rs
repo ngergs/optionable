@@ -19,11 +19,8 @@ pub struct DeviceTaintRuleStatusAc {
     /// For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
     ///
     /// Must have 8 or fewer entries.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>,
     >,
 }
 #[automatically_derived]
@@ -41,16 +38,16 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleStatus {
     fn into_optioned(self) -> DeviceTaintRuleStatusAc {
         DeviceTaintRuleStatusAc {
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
         }
     }
     fn try_from_optioned(value: DeviceTaintRuleStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
         })
     }
     fn merge(&mut self, other: DeviceTaintRuleStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         Ok(())
     }
 }

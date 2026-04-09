@@ -73,11 +73,8 @@ pub struct PersistentVolumeClaimStatusAc {
         >,
     >,
     /// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::PersistentVolumeClaimCondition>,
     >,
     /// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -111,7 +108,7 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus {
                 self.allocated_resources,
             ),
             capacity: crate::OptionableConvert::into_optioned(self.capacity),
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             current_volume_attributes_class_name: self
                 .current_volume_attributes_class_name,
             modify_volume_status: crate::OptionableConvert::into_optioned(
@@ -130,7 +127,7 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus {
                 value.allocated_resources,
             )?,
             capacity: crate::OptionableConvert::try_from_optioned(value.capacity)?,
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             current_volume_attributes_class_name: value
                 .current_volume_attributes_class_name,
             modify_volume_status: crate::OptionableConvert::try_from_optioned(
@@ -150,7 +147,7 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus {
             other.allocated_resources,
         )?;
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         self.current_volume_attributes_class_name = other
             .current_volume_attributes_class_name;
         crate::OptionableConvert::merge(

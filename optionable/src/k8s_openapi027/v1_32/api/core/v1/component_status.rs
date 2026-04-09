@@ -20,11 +20,8 @@ pub struct ComponentStatusAc {
     )]
     pub kind: std::marker::PhantomData<Self>,
     /// List of component conditions observed
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::ComponentCondition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::ComponentCondition>,
     >,
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     pub metadata: ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -44,18 +41,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ComponentStatus
         ComponentStatusAc {
             api_version: Default::default(),
             kind: Default::default(),
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             metadata: self.metadata,
         }
     }
     fn try_from_optioned(value: ComponentStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             metadata: value.metadata,
         })
     }
     fn merge(&mut self, other: ComponentStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         self.metadata = other.metadata;
         Ok(())
     }

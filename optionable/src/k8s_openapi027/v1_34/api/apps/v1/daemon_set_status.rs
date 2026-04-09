@@ -13,11 +13,8 @@ pub struct DaemonSetStatusAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub collision_count: Option<i32>,
     /// Represents the latest available observations of a DaemonSet's current state.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::apps::v1::DaemonSetCondition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::apps::v1::DaemonSetCondition>,
     >,
     /// The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -58,7 +55,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetStatus
     fn into_optioned(self) -> DaemonSetStatusAc {
         DaemonSetStatusAc {
             collision_count: self.collision_count,
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             current_number_scheduled: Some(self.current_number_scheduled),
             desired_number_scheduled: Some(self.desired_number_scheduled),
             number_available: self.number_available,
@@ -72,7 +69,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetStatus
     fn try_from_optioned(value: DaemonSetStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
             collision_count: value.collision_count,
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             current_number_scheduled: value
                 .current_number_scheduled
                 .ok_or(crate::Error {
@@ -101,7 +98,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetStatus
     }
     fn merge(&mut self, other: DaemonSetStatusAc) -> Result<(), crate::Error> {
         self.collision_count = other.collision_count;
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         if let Some(other_value) = other.current_number_scheduled {
             self.current_number_scheduled = other_value;
         }

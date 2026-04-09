@@ -65,10 +65,9 @@ pub struct ObjectMetaAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub namespace: Option<std::string::String>,
     /// List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub owner_references: Option<
         std::vec::Vec<
-            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference as crate::Optionable>::Optioned,
+            ::k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference,
         >,
     >,
     /// An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
@@ -115,9 +114,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
             managed_fields: crate::OptionableConvert::into_optioned(self.managed_fields),
             name: self.name,
             namespace: self.namespace,
-            owner_references: crate::OptionableConvert::into_optioned(
-                self.owner_references,
-            ),
+            owner_references: self.owner_references,
             resource_version: self.resource_version,
             self_link: self.self_link,
             uid: self.uid,
@@ -142,9 +139,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
             )?,
             name: value.name,
             namespace: value.namespace,
-            owner_references: crate::OptionableConvert::try_from_optioned(
-                value.owner_references,
-            )?,
+            owner_references: value.owner_references,
             resource_version: value.resource_version,
             self_link: value.self_link,
             uid: value.uid,
@@ -168,10 +163,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
         crate::OptionableConvert::merge(&mut self.managed_fields, other.managed_fields)?;
         self.name = other.name;
         self.namespace = other.namespace;
-        crate::OptionableConvert::merge(
-            &mut self.owner_references,
-            other.owner_references,
-        )?;
+        self.owner_references = other.owner_references;
         self.resource_version = other.resource_version;
         self.self_link = other.self_link;
         self.uid = other.uid;

@@ -10,11 +10,8 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ServiceStatusAc {
     /// Current service state
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>,
     >,
     /// LoadBalancer contains the current status of the load-balancer, if one is present.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -35,20 +32,20 @@ impl crate::Optionable for ServiceStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceStatus {
     fn into_optioned(self) -> ServiceStatusAc {
         ServiceStatusAc {
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             load_balancer: crate::OptionableConvert::into_optioned(self.load_balancer),
         }
     }
     fn try_from_optioned(value: ServiceStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             load_balancer: crate::OptionableConvert::try_from_optioned(
                 value.load_balancer,
             )?,
         })
     }
     fn merge(&mut self, other: ServiceStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         crate::OptionableConvert::merge(&mut self.load_balancer, other.load_balancer)?;
         Ok(())
     }

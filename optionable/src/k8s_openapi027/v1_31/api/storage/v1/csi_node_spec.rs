@@ -10,12 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CSINodeSpecAc {
     /// drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub drivers: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::storage::v1::CSINodeDriver as crate::Optionable>::Optioned,
-        >,
-    >,
+    pub drivers: std::vec::Vec<::k8s_openapi027::api::storage::v1::CSINodeDriver>,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::storage::v1::CSINodeSpec {
@@ -30,24 +25,14 @@ impl crate::Optionable for CSINodeSpecAc {
 impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSINodeSpec {
     fn into_optioned(self) -> CSINodeSpecAc {
         CSINodeSpecAc {
-            drivers: Some(crate::OptionableConvert::into_optioned(self.drivers)),
+            drivers: self.drivers,
         }
     }
     fn try_from_optioned(value: CSINodeSpecAc) -> Result<Self, crate::Error> {
-        Ok(Self {
-            drivers: crate::OptionableConvert::try_from_optioned(
-                value
-                    .drivers
-                    .ok_or(crate::Error {
-                        missing_field: "drivers",
-                    })?,
-            )?,
-        })
+        Ok(Self { drivers: value.drivers })
     }
     fn merge(&mut self, other: CSINodeSpecAc) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.drivers {
-            crate::OptionableConvert::merge(&mut self.drivers, other_value)?;
-        }
+        self.drivers = other.drivers;
         Ok(())
     }
 }

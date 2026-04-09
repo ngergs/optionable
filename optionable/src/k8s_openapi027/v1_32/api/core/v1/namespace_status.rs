@@ -10,11 +10,8 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct NamespaceStatusAc {
     /// Represents the latest available observations of a namespace's current state.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::core::v1::NamespaceCondition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::core::v1::NamespaceCondition>,
     >,
     /// Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -33,18 +30,18 @@ impl crate::Optionable for NamespaceStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceStatus {
     fn into_optioned(self) -> NamespaceStatusAc {
         NamespaceStatusAc {
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             phase: self.phase,
         }
     }
     fn try_from_optioned(value: NamespaceStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             phase: value.phase,
         })
     }
     fn merge(&mut self, other: NamespaceStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         self.phase = other.phase;
         Ok(())
     }

@@ -37,11 +37,8 @@ pub struct ValidatingAdmissionPolicySpecAc {
     ///   3. If any matchCondition evaluates to an error (but none are FALSE):
     ///      - If failurePolicy=Fail, reject the request
     ///      - If failurePolicy=Ignore, the policy is skipped
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub match_conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::admissionregistration::v1::MatchCondition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::admissionregistration::v1::MatchCondition>,
     >,
     /// MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -63,11 +60,8 @@ pub struct ValidatingAdmissionPolicySpecAc {
     /// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
     ///
     /// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub variables: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::api::admissionregistration::v1::Variable as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::api::admissionregistration::v1::Variable>,
     >,
 }
 #[automatically_derived]
@@ -89,15 +83,13 @@ for k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicySpe
                 self.audit_annotations,
             ),
             failure_policy: self.failure_policy,
-            match_conditions: crate::OptionableConvert::into_optioned(
-                self.match_conditions,
-            ),
+            match_conditions: self.match_conditions,
             match_constraints: crate::OptionableConvert::into_optioned(
                 self.match_constraints,
             ),
             param_kind: crate::OptionableConvert::into_optioned(self.param_kind),
             validations: crate::OptionableConvert::into_optioned(self.validations),
-            variables: crate::OptionableConvert::into_optioned(self.variables),
+            variables: self.variables,
         }
     }
     fn try_from_optioned(
@@ -108,15 +100,13 @@ for k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicySpe
                 value.audit_annotations,
             )?,
             failure_policy: value.failure_policy,
-            match_conditions: crate::OptionableConvert::try_from_optioned(
-                value.match_conditions,
-            )?,
+            match_conditions: value.match_conditions,
             match_constraints: crate::OptionableConvert::try_from_optioned(
                 value.match_constraints,
             )?,
             param_kind: crate::OptionableConvert::try_from_optioned(value.param_kind)?,
             validations: crate::OptionableConvert::try_from_optioned(value.validations)?,
-            variables: crate::OptionableConvert::try_from_optioned(value.variables)?,
+            variables: value.variables,
         })
     }
     fn merge(
@@ -128,17 +118,14 @@ for k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicySpe
             other.audit_annotations,
         )?;
         self.failure_policy = other.failure_policy;
-        crate::OptionableConvert::merge(
-            &mut self.match_conditions,
-            other.match_conditions,
-        )?;
+        self.match_conditions = other.match_conditions;
         crate::OptionableConvert::merge(
             &mut self.match_constraints,
             other.match_constraints,
         )?;
         crate::OptionableConvert::merge(&mut self.param_kind, other.param_kind)?;
         crate::OptionableConvert::merge(&mut self.validations, other.validations)?;
-        crate::OptionableConvert::merge(&mut self.variables, other.variables)?;
+        self.variables = other.variables;
         Ok(())
     }
 }

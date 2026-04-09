@@ -18,11 +18,8 @@ pub struct PodDisruptionBudgetStatusAc {
     /// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
     ///                   The condition will be True, and the number of allowed
     ///                   disruptions are provided by the disruptionsAllowed property.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub conditions: Option<
-        std::vec::Vec<
-            <::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition as crate::Optionable>::Optioned,
-        >,
+        std::vec::Vec<::k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition>,
     >,
     /// current number of healthy pods
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -62,7 +59,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::policy::v1::PodDisruptionBudgetStatus {
     fn into_optioned(self) -> PodDisruptionBudgetStatusAc {
         PodDisruptionBudgetStatusAc {
-            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            conditions: self.conditions,
             current_healthy: Some(self.current_healthy),
             desired_healthy: Some(self.desired_healthy),
             disrupted_pods: crate::OptionableConvert::into_optioned(self.disrupted_pods),
@@ -75,7 +72,7 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetStatus {
         value: PodDisruptionBudgetStatusAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            conditions: value.conditions,
             current_healthy: value
                 .current_healthy
                 .ok_or(crate::Error {
@@ -103,7 +100,7 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetStatus {
         })
     }
     fn merge(&mut self, other: PodDisruptionBudgetStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        self.conditions = other.conditions;
         if let Some(other_value) = other.current_healthy {
             self.current_healthy = other_value;
         }
