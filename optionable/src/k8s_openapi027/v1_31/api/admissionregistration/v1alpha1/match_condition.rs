@@ -22,8 +22,7 @@ pub struct MatchConditionAc {
     /// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '(\[A-Za-z0-9\]\[-A-Za-z0-9_.\]*)?\[A-Za-z0-9\]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
     ///
     /// Required.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -41,7 +40,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::MatchCondition {
     fn into_optioned(self) -> MatchConditionAc {
         MatchConditionAc {
             expression: Some(self.expression),
-            name: Some(self.name),
+            name: self.name,
         }
     }
     fn try_from_optioned(value: MatchConditionAc) -> Result<Self, crate::Error> {
@@ -51,20 +50,14 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::MatchCondition {
                 .ok_or(crate::Error {
                     missing_field: "expression",
                 })?,
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
         })
     }
     fn merge(&mut self, other: MatchConditionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expression {
             self.expression = other_value;
         }
-        if let Some(other_value) = other.name {
-            self.name = other_value;
-        }
+        self.name = other.name;
         Ok(())
     }
 }

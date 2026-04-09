@@ -22,8 +22,7 @@ pub struct NamespaceConditionAc {
     pub status: Option<std::string::String>,
     /// Type of namespace controller condition.
     #[serde(rename = "type")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: Option<std::string::String>,
+    pub type_: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::NamespaceCondition {
@@ -44,7 +43,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceCondit
             message: self.message,
             reason: self.reason,
             status: Some(self.status),
-            type_: Some(self.type_),
+            type_: self.type_,
         }
     }
     fn try_from_optioned(value: NamespaceConditionAc) -> Result<Self, crate::Error> {
@@ -59,11 +58,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceCondit
                 .ok_or(crate::Error {
                     missing_field: "status",
                 })?,
-            type_: value
-                .type_
-                .ok_or(crate::Error {
-                    missing_field: "type_",
-                })?,
+            type_: value.type_,
         })
     }
     fn merge(&mut self, other: NamespaceConditionAc) -> Result<(), crate::Error> {
@@ -76,9 +71,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceCondit
         if let Some(other_value) = other.status {
             self.status = other_value;
         }
-        if let Some(other_value) = other.type_ {
-            self.type_ = other_value;
-        }
+        self.type_ = other.type_;
         Ok(())
     }
 }

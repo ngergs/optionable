@@ -10,8 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimAc {
     /// Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
     /// Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request: Option<std::string::String>,
@@ -29,24 +28,18 @@ impl crate::Optionable for ResourceClaimAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceClaim {
     fn into_optioned(self) -> ResourceClaimAc {
         ResourceClaimAc {
-            name: Some(self.name),
+            name: self.name,
             request: self.request,
         }
     }
     fn try_from_optioned(value: ResourceClaimAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
             request: value.request,
         })
     }
     fn merge(&mut self, other: ResourceClaimAc) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.name {
-            self.name = other_value;
-        }
+        self.name = other.name;
         self.request = other.request;
         Ok(())
     }

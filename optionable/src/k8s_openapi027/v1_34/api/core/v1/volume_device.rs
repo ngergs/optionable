@@ -10,8 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeDeviceAc {
     /// devicePath is the path inside of the container that the device will be mapped to.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub device_path: Option<std::string::String>,
+    pub device_path: std::string::String,
     /// name must match the name of a persistentVolumeClaim in the pod
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
@@ -29,17 +28,13 @@ impl crate::Optionable for VolumeDeviceAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeDevice {
     fn into_optioned(self) -> VolumeDeviceAc {
         VolumeDeviceAc {
-            device_path: Some(self.device_path),
+            device_path: self.device_path,
             name: Some(self.name),
         }
     }
     fn try_from_optioned(value: VolumeDeviceAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            device_path: value
-                .device_path
-                .ok_or(crate::Error {
-                    missing_field: "device_path",
-                })?,
+            device_path: value.device_path,
             name: value
                 .name
                 .ok_or(crate::Error {
@@ -48,9 +43,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeDevice {
         })
     }
     fn merge(&mut self, other: VolumeDeviceAc) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.device_path {
-            self.device_path = other_value;
-        }
+        self.device_path = other.device_path;
         if let Some(other_value) = other.name {
             self.name = other_value;
         }

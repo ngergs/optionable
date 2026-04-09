@@ -19,8 +19,7 @@ pub struct ResourceClaimConsumerReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<std::string::String>,
     /// UID identifies exactly one incarnation of the resource.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub uid: Option<std::string::String>,
+    pub uid: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -40,7 +39,7 @@ for k8s_openapi027::api::resource::v1beta2::ResourceClaimConsumerReference {
             api_group: self.api_group,
             name: Some(self.name),
             resource: Some(self.resource),
-            uid: Some(self.uid),
+            uid: self.uid,
         }
     }
     fn try_from_optioned(
@@ -58,11 +57,7 @@ for k8s_openapi027::api::resource::v1beta2::ResourceClaimConsumerReference {
                 .ok_or(crate::Error {
                     missing_field: "resource",
                 })?,
-            uid: value
-                .uid
-                .ok_or(crate::Error {
-                    missing_field: "uid",
-                })?,
+            uid: value.uid,
         })
     }
     fn merge(
@@ -76,9 +71,7 @@ for k8s_openapi027::api::resource::v1beta2::ResourceClaimConsumerReference {
         if let Some(other_value) = other.resource {
             self.resource = other_value;
         }
-        if let Some(other_value) = other.uid {
-            self.uid = other_value;
-        }
+        self.uid = other.uid;
         Ok(())
     }
 }

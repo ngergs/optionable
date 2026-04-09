@@ -19,7 +19,6 @@ pub struct ObjectReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub kind: Option<std::string::String>,
     /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
     /// Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
     #[serde(skip_serializing_if = "Option::is_none")]

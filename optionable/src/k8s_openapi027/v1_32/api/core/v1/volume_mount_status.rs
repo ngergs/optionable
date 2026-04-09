@@ -10,8 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct VolumeMountStatusAc {
     /// MountPath corresponds to the original VolumeMount.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mount_path: Option<std::string::String>,
+    pub mount_path: std::string::String,
     /// Name corresponds to the name of the original VolumeMount.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
@@ -35,7 +34,7 @@ impl crate::Optionable for VolumeMountStatusAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeMountStatus {
     fn into_optioned(self) -> VolumeMountStatusAc {
         VolumeMountStatusAc {
-            mount_path: Some(self.mount_path),
+            mount_path: self.mount_path,
             name: Some(self.name),
             read_only: self.read_only,
             recursive_read_only: self.recursive_read_only,
@@ -43,11 +42,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeMountStat
     }
     fn try_from_optioned(value: VolumeMountStatusAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            mount_path: value
-                .mount_path
-                .ok_or(crate::Error {
-                    missing_field: "mount_path",
-                })?,
+            mount_path: value.mount_path,
             name: value
                 .name
                 .ok_or(crate::Error {
@@ -58,9 +53,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeMountStat
         })
     }
     fn merge(&mut self, other: VolumeMountStatusAc) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.mount_path {
-            self.mount_path = other_value;
-        }
+        self.mount_path = other.mount_path;
         if let Some(other_value) = other.name {
             self.name = other_value;
         }

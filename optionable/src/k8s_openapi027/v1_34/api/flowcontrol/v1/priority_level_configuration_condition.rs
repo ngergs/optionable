@@ -25,7 +25,6 @@ pub struct PriorityLevelConfigurationConditionAc {
     pub status: Option<std::string::String>,
     /// `type` is the type of the condition. Required.
     #[serde(rename = "type")]
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,
 }
 #[automatically_derived]

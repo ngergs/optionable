@@ -13,8 +13,7 @@ pub struct VariableAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expression: Option<std::string::String>,
     /// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::admissionregistration::v1::Variable {
@@ -31,7 +30,7 @@ for k8s_openapi027::api::admissionregistration::v1::Variable {
     fn into_optioned(self) -> VariableAc {
         VariableAc {
             expression: Some(self.expression),
-            name: Some(self.name),
+            name: self.name,
         }
     }
     fn try_from_optioned(value: VariableAc) -> Result<Self, crate::Error> {
@@ -41,20 +40,14 @@ for k8s_openapi027::api::admissionregistration::v1::Variable {
                 .ok_or(crate::Error {
                     missing_field: "expression",
                 })?,
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
         })
     }
     fn merge(&mut self, other: VariableAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expression {
             self.expression = other_value;
         }
-        if let Some(other_value) = other.name {
-            self.name = other_value;
-        }
+        self.name = other.name;
         Ok(())
     }
 }

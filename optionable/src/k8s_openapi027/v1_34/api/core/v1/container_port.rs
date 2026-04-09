@@ -10,8 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ContainerPortAc {
     /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 \< x \< 65536.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub container_port: Option<i32>,
+    pub container_port: i32,
     /// What host IP to bind the external port to.
     #[serde(rename = "hostIP")]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -23,7 +22,6 @@ pub struct ContainerPortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
     /// Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub protocol: Option<std::string::String>,
 }
 #[automatically_derived]
@@ -39,7 +37,7 @@ impl crate::Optionable for ContainerPortAc {
 impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerPort {
     fn into_optioned(self) -> ContainerPortAc {
         ContainerPortAc {
-            container_port: Some(self.container_port),
+            container_port: self.container_port,
             host_ip: self.host_ip,
             host_port: self.host_port,
             name: self.name,
@@ -48,11 +46,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerPort {
     }
     fn try_from_optioned(value: ContainerPortAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            container_port: value
-                .container_port
-                .ok_or(crate::Error {
-                    missing_field: "container_port",
-                })?,
+            container_port: value.container_port,
             host_ip: value.host_ip,
             host_port: value.host_port,
             name: value.name,
@@ -60,9 +54,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerPort {
         })
     }
     fn merge(&mut self, other: ContainerPortAc) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.container_port {
-            self.container_port = other_value;
-        }
+        self.container_port = other.container_port;
         self.host_ip = other.host_ip;
         self.host_port = other.host_port;
         self.name = other.name;

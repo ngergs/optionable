@@ -25,8 +25,7 @@ pub struct OwnerReferenceAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
     /// UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub uid: Option<std::string::String>,
+    pub uid: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -48,7 +47,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
             controller: self.controller,
             kind: Some(self.kind),
             name: Some(self.name),
-            uid: Some(self.uid),
+            uid: self.uid,
         }
     }
     fn try_from_optioned(value: OwnerReferenceAc) -> Result<Self, crate::Error> {
@@ -70,11 +69,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
                 .ok_or(crate::Error {
                     missing_field: "name",
                 })?,
-            uid: value
-                .uid
-                .ok_or(crate::Error {
-                    missing_field: "uid",
-                })?,
+            uid: value.uid,
         })
     }
     fn merge(&mut self, other: OwnerReferenceAc) -> Result<(), crate::Error> {
@@ -89,9 +84,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        if let Some(other_value) = other.uid {
-            self.uid = other_value;
-        }
+        self.uid = other.uid;
         Ok(())
     }
 }

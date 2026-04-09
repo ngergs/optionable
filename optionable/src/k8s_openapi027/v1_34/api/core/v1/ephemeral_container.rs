@@ -48,8 +48,7 @@ pub struct EphemeralContainerAc {
         <::k8s_openapi027::api::core::v1::Probe as crate::Optionable>::Optioned,
     >,
     /// Name of the ephemeral container specified as a DNS_LABEL. This name must be unique among all containers, init containers and ephemeral containers.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
     /// Ports are not allowed for ephemeral containers.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ports: Option<
@@ -153,7 +152,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EphemeralContai
             image_pull_policy: self.image_pull_policy,
             lifecycle: crate::OptionableConvert::into_optioned(self.lifecycle),
             liveness_probe: crate::OptionableConvert::into_optioned(self.liveness_probe),
-            name: Some(self.name),
+            name: self.name,
             ports: crate::OptionableConvert::into_optioned(self.ports),
             readiness_probe: crate::OptionableConvert::into_optioned(
                 self.readiness_probe,
@@ -191,11 +190,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EphemeralContai
             liveness_probe: crate::OptionableConvert::try_from_optioned(
                 value.liveness_probe,
             )?,
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
             readiness_probe: crate::OptionableConvert::try_from_optioned(
                 value.readiness_probe,
@@ -238,9 +233,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EphemeralContai
         self.image_pull_policy = other.image_pull_policy;
         crate::OptionableConvert::merge(&mut self.lifecycle, other.lifecycle)?;
         crate::OptionableConvert::merge(&mut self.liveness_probe, other.liveness_probe)?;
-        if let Some(other_value) = other.name {
-            self.name = other_value;
-        }
+        self.name = other.name;
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
         crate::OptionableConvert::merge(
             &mut self.readiness_probe,

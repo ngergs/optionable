@@ -13,8 +13,7 @@ pub struct HostAliasAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hostnames: Option<std::vec::Vec<std::string::String>>,
     /// IP address of the host file entry.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ip: Option<std::string::String>,
+    pub ip: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable for k8s_openapi027::api::core::v1::HostAlias {
@@ -30,24 +29,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HostAlias {
     fn into_optioned(self) -> HostAliasAc {
         HostAliasAc {
             hostnames: self.hostnames,
-            ip: Some(self.ip),
+            ip: self.ip,
         }
     }
     fn try_from_optioned(value: HostAliasAc) -> Result<Self, crate::Error> {
         Ok(Self {
             hostnames: value.hostnames,
-            ip: value
-                .ip
-                .ok_or(crate::Error {
-                    missing_field: "ip",
-                })?,
+            ip: value.ip,
         })
     }
     fn merge(&mut self, other: HostAliasAc) -> Result<(), crate::Error> {
         self.hostnames = other.hostnames;
-        if let Some(other_value) = other.ip {
-            self.ip = other_value;
-        }
+        self.ip = other.ip;
         Ok(())
     }
 }

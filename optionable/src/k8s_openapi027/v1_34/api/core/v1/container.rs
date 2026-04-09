@@ -46,8 +46,7 @@ pub struct ContainerAc {
         <::k8s_openapi027::api::core::v1::Probe as crate::Optionable>::Optioned,
     >,
     /// Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
     /// List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ports: Option<
@@ -146,7 +145,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
             image_pull_policy: self.image_pull_policy,
             lifecycle: crate::OptionableConvert::into_optioned(self.lifecycle),
             liveness_probe: crate::OptionableConvert::into_optioned(self.liveness_probe),
-            name: Some(self.name),
+            name: self.name,
             ports: crate::OptionableConvert::into_optioned(self.ports),
             readiness_probe: crate::OptionableConvert::into_optioned(
                 self.readiness_probe,
@@ -183,11 +182,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
             liveness_probe: crate::OptionableConvert::try_from_optioned(
                 value.liveness_probe,
             )?,
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
             ports: crate::OptionableConvert::try_from_optioned(value.ports)?,
             readiness_probe: crate::OptionableConvert::try_from_optioned(
                 value.readiness_probe,
@@ -229,9 +224,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
         self.image_pull_policy = other.image_pull_policy;
         crate::OptionableConvert::merge(&mut self.lifecycle, other.lifecycle)?;
         crate::OptionableConvert::merge(&mut self.liveness_probe, other.liveness_probe)?;
-        if let Some(other_value) = other.name {
-            self.name = other_value;
-        }
+        self.name = other.name;
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
         crate::OptionableConvert::merge(
             &mut self.readiness_probe,
