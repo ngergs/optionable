@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.13.2...optionable_codegen-v0.14.0) - 2026-04-09
+
+### Added
+
+- k8s codegen keeps fields required that are key fields for lists with map type merge behavior
+- preserve doc comments for generated optioned types
+- [**breaking**] use self-resolving container types for derive macro output
+- [**breaking**] self-resolve fulls self-resolving container-types for derive macro
+
+### Other
+
+- handle rust field mapping for parsed k8s openapi schema identifiers
+- pass output path to codegen visitors, simplify k8s openapi spec parsing
+- add kubernetes openapi parsing to k8s-openapi codegen (not utilized yet)
+
 ## [0.13.2](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.13.1...optionable_codegen-v0.13.2) - 2026-03-19
 
 ### Other
