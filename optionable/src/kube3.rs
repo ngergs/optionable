@@ -527,7 +527,7 @@ mod test {
         if should_rm_image_pull_policy {
             assert_eq!(
                 ContainerAc {
-                    name: Some("test2".to_owned()),
+                    name: "test2".to_owned(),
                     image: Some("test2".to_owned()),
                     ..Default::default()
                 },
@@ -536,7 +536,7 @@ mod test {
         } else {
             assert_eq!(
                 ContainerAc {
-                    name: Some("test2".to_owned()),
+                    name: "test2".to_owned(),
                     image: Some("test2".to_owned()),
                     image_pull_policy: Some("always".to_owned()),
                     ..Default::default()
