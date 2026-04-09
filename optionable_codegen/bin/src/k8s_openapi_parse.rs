@@ -1,5 +1,5 @@
 use k8s_openapi_codegen_common::get_rust_ident;
-use openapiv3::{OpenAPI, Schema, SchemaKind, Type};
+use openapiv3::{OpenAPI, ReferenceOr, Schema, SchemaKind, Type};
 use std::cmp::PartialEq;
 use std::{
     collections::HashMap,
@@ -16,6 +16,15 @@ pub enum ListType {
     Map(Vec<String>),
 }
 
+/// Mapping obtained from the upstream Kubernetes OpenAPI v3 specifications, atm only for list merge types.
+#[derive(Default)]
+pub struct OpenApiListExtensions {
+    // Field identifier (e.g. `api.core.v1.Container.Env`) to ListType
+    pub list_type: HashMap<String, ListType>,
+    // Struct identifier (e.g. `api.core.v1.EnvVar`) to list keys if it's used somewhere with list type `Map`.
+    pub list_map_keys: HashMap<String, Vec<String>>,
+}
+
 /// Determines the `x-kubernetes-list-type` and for `map` the `x-kubernetes-list-map-keys` for each type from the Kubernetes Openapi v3 specification.
 /// Skips embedded type definitions (only reference types are followed).
 /// The input directory should point to this: <https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec/v3>.
@@ -23,8 +32,8 @@ pub enum ListType {
 /// so e.g. `api.core.v1.Container`. The values for `ListType::Map` are the rustified (k8s openapi mapping) rust field names.
 pub fn determine_list_map_keys(
     k8s_openapi_v3_dir: &PathBuf,
-) -> Result<HashMap<String, ListType>, Box<dyn std::error::Error>> {
-    let mut result = HashMap::new();
+) -> Result<OpenApiListExtensions, Box<dyn std::error::Error>> {
+    let mut result = OpenApiListExtensions::default();
     let schema_files = fs::read_dir(k8s_openapi_v3_dir)?;
     for schema_file in schema_files {
         let schema_file = schema_file?;
@@ -40,8 +49,9 @@ pub fn determine_list_map_keys(
 }
 
 /// Parses the schema recursively and extract the `list_map` behavior into the result `HashMap`.
+#[allow(clippy::too_many_lines)]
 fn process_schema(
-    result: &mut HashMap<String, ListType>,
+    result: &mut OpenApiListExtensions,
     field_path: &[&str],
     schema: Option<&Schema>,
 ) -> Result<(), Box<dyn std::error::Error>> {
@@ -87,7 +97,7 @@ fn process_schema(
                 )
                 .into());
             };
-            if let Some(existing_list_type) = result.get(field_path_joined)
+            if let Some(existing_list_type) = result.list_type.get(field_path_joined)
                 && *existing_list_type != list_type
             {
                 return Err(format!(
@@ -95,7 +105,35 @@ fn process_schema(
                 )
                 .into());
             }
-            result.insert(field_path_joined.to_owned(), list_type);
+
+            // only supported way to determine the list key type
+            if let ListType::Map(list_keys) = &list_type {
+                if let Type::Array(array) = &item
+                    && let Some(array_schema) = &array.items
+                    && let Some(array_schema) = array_schema.clone().as_item()
+                    && let SchemaKind::AllOf { all_of } = &array_schema.schema_kind
+                    && all_of.len() == 1
+                    && let Some(ReferenceOr::Reference { reference }) = all_of.first()
+                    && let Some(reference) = reference.strip_prefix("#/components/schemas/io.k8s.")
+                {
+                    if let Some(existing_list_type) = result.list_map_keys.get(field_path_joined)
+                        && existing_list_type != list_keys
+                    {
+                        return Err(format!(
+                    "Conflicting map keys for `{reference}`: field={field_path:?}, existing={existing_list_type:?}, new={list_type:?}"
+                )
+                .into());
+                    }
+                    result
+                        .list_map_keys
+                        .insert(reference.to_owned(), list_keys.clone());
+                } else {
+                    return Err(format!("Unsupported list mapping for {field_path:?}").into());
+                }
+            }
+            result
+                .list_type
+                .insert(field_path_joined.to_owned(), list_type);
         }
         // continue recursion
         match item {
