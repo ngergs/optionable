@@ -23,7 +23,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             template: Some(PodTemplateSpecAc {
                 spec: Some(PodSpecAc {
                     containers: Some(vec![ContainerAc {
-                        name: Some("app".to_owned()),
+                        name: "app".to_owned(),
                         image_pull_policy: Some("Always".to_owned()),
                         ..Default::default()
                     }]),
