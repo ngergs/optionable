@@ -186,6 +186,8 @@ pub use optionable_derive::Optionable;
 
 mod optionable;
 
+pub mod merge;
+
 #[cfg(feature = "chrono04")]
 mod chrono04;
 #[cfg(feature = "jiff02")]

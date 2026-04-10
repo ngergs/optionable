@@ -257,10 +257,10 @@ fn derive_option_field() {
     #[derive(Optionable)]
     #[optionable(no_convert)]
     struct DeriveExample<'a> {
-        el: Option<&'a str>,
+        _el: Option<&'a str>,
     }
 
-    let _ = DeriveExampleOpt { el: Some("a") };
+    let _ = DeriveExampleOpt { _el: Some("a") };
 }
 
 /// Just that we add an outer `Option` for an already optional field if `option_wrap` is set.
