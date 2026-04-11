@@ -318,6 +318,13 @@ where
     }
 }
 
+impl<T: OptionableConvert, const N: usize> crate::OptionedConvert<[T; N]> for [T::Optioned; N]
+where
+    T::Optioned: Sized,
+{
+    impl_optioned_from_optionable!([T; N]);
+}
+
 impl<T: Optionable> Optionable for [T]
 where
     T::Optioned: Sized,
@@ -349,6 +356,13 @@ where
     }
 }
 
+impl<T: OptionableConvert> crate::OptionedConvert<Option<T>> for Option<T::Optioned>
+where
+    T::Optioned: Sized,
+{
+    impl_optioned_from_optionable!(Option<T>);
+}
+
 #[cfg(any(feature = "alloc", feature = "std"))]
 impl<'a, T: ?Sized + Optionable + ToOwned> Optionable for Cow<'a, T>
 where
@@ -376,6 +390,14 @@ where
 }
 
 #[cfg(any(feature = "alloc", feature = "std"))]
+impl<'a, T: OptionableConvert + Clone> crate::OptionedConvert<Cow<'a, T>> for Cow<'a, T::Optioned>
+where
+    T::Optioned: Clone,
+{
+    impl_optioned_from_optionable!(Cow<'a, T>);
+}
+
+#[cfg(any(feature = "alloc", feature = "std"))]
 impl<T: OptionableConvert> OptionableConvert for Box<T>
 where
     T::Optioned: Sized,
@@ -396,6 +418,14 @@ where
         inner.merge(other_inner)?;
         Ok(())
     }
+}
+
+#[cfg(any(feature = "alloc", feature = "std"))]
+impl<T: OptionableConvert> crate::OptionedConvert<Box<T>> for Box<T::Optioned>
+where
+    T::Optioned: Sized,
+{
+    impl_optioned_from_optionable!(Box<T>);
 }
 
 impl<T: Optionable, E> Optionable for Result<T, E>
@@ -420,6 +450,16 @@ where
     T::Optioned: Sized + Eq + Hash,
 {
     inner_impl_convert_into_iter!(HashSet<T,S>);
+}
+
+#[cfg(feature = "std")]
+impl<T: OptionableConvert, S: Default + BuildHasher> crate::OptionedConvert<HashSet<T, S>>
+    for HashSet<T::Optioned, S>
+where
+    T: Ord + Hash,
+    T::Optioned: Sized + Eq + Hash,
+{
+    impl_optioned_from_optionable!(HashSet<T, S>);
 }
 
 #[cfg(any(feature = "alloc", feature = "std"))]
@@ -468,6 +508,15 @@ where
     inner_impl_convert_map!(BTreeMap<K, T::Optioned>);
 }
 
+#[cfg(any(feature = "alloc", feature = "std"))]
+impl<K: Ord, T: OptionableConvert> crate::OptionedConvert<BTreeMap<K, T>>
+    for BTreeMap<K, T::Optioned>
+where
+    T::Optioned: Sized,
+{
+    impl_optioned_from_optionable!(BTreeMap<K, T>);
+}
+
 #[cfg(feature = "std")]
 impl<K, T: Optionable, S> Optionable for HashMap<K, T, S>
 where
@@ -484,6 +533,16 @@ where
 {
     inner_impl_convert_map!(HashMap<K, T::Optioned, S>);
 }
+
+#[cfg(feature = "std")]
+impl<K: Ord + Hash, T: OptionableConvert, S: BuildHasher + Default>
+    crate::OptionedConvert<HashMap<K, T, S>> for HashMap<K, T::Optioned, S>
+where
+    T::Optioned: Sized,
+{
+    impl_optioned_from_optionable!(HashMap<K, T, S>);
+}
+
 macro_rules! impl_tuple {
     // For tuples of length 2: (T1, T2)
     ($(($T:ident, $i:tt)),*) => {
@@ -518,6 +577,16 @@ macro_rules! impl_tuple {
                 $(if let Some(other_value) = other.$i { self.$i.merge(other_value)?; })*
                 Ok(())
             }
+        }
+
+        impl<$($T),*> crate::OptionedConvert<($($T),*)> for <($($T),*) as Optionable>::Optioned
+        where
+            $(
+                $T: OptionableConvert,
+                $T::Optioned: Sized
+            ),*
+        {
+            impl_optioned_from_optionable!(($($T),*));
         }
     };
 }
