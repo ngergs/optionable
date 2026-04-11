@@ -1,4 +1,4 @@
-#![cfg(feature = "std")]
+#![cfg(any(feature = "alloc", feature = "std"))]
 
 use optionable::{
     Optionable,

@@ -1,4 +1,4 @@
-use crate::{Optionable, OptionableConvert, OptionedConvert};
+use crate::{Optionable, OptionableConvert};
 
 /// Merges `other` into `target` using Kubernetes-style `set` merge logic.
 /// This means that all elements from `other` which are already present in `target` are discarded
