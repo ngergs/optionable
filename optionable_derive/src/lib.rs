@@ -76,6 +76,7 @@ use proc_macro::TokenStream;
 ///     #[optionable(optioned_type=MyInt)]
 ///     number: i32; // will be a `MyInt` in the derived `MyStructOpt`.
 ///   }
+/// - **`merge`**: //todo
 ///   ```
 ///
 /// ### Kubernetes type-level attributes (on the struct/enum level)

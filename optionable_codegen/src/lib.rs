@@ -118,7 +118,8 @@ pub(crate) struct FieldAttributeToCopy {
 }
 
 #[derive(FromMeta, Default, Clone, Debug)]
-enum MergeType {
+/// How entries should be merged for `OptionableConvert`.
+enum MergeBehaviour {
     // Standard merge behaviour, requires the corresponding field to be `impl OptionableConvert`
     #[default]
     OptionableConvert,
@@ -143,7 +144,7 @@ struct FieldHelperAttributes {
     optioned_ty: Option<Path>,
     /// Specifies how to merge entries for `OptionableConvert`.
     #[darling(default)]
-    merge_type: MergeType,
+    merge: MergeBehaviour,
 }
 
 #[derive(FromDeriveInput, Debug, Clone)]
@@ -904,7 +905,7 @@ fn merge_fields(
             let crate_name = &struct_parsed.crate_name;
             // todo add error handling for incompatible merge_type settings
             let is_self_resolving_ty= is_self_resolving_optioned(ty);
-            if !matches!(merge_type,MergeType::OptionableConvert) && (!matches!(handling,FieldHandling::Other) || is_self_resolving_ty){
+            if !matches!(merge_type,MergeBehaviour::OptionableConvert) && (!matches!(handling,FieldHandling::Other) || is_self_resolving_ty){
                 return Some(error("Unsupported combination of custom merge type {merge_type:?} and field type. If you expect this specific case to work, pls open a bug for `optionable`."));
             }
             match (handling, is_self_resolving_ty) {
@@ -929,22 +930,22 @@ fn merge_fields(
                 })),
                 (FieldHandling::Other, false) =>  {
                     let merge_fn=match merge_type{
-                        MergeType::OptionableConvert => {
+                        MergeBehaviour::OptionableConvert => {
                             quote!(
                                 #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, other_value)?;
                              )
                         },
-                        MergeType::Atomic => {
+                        MergeBehaviour::Atomic => {
                             quote!(
                                 #deref_modifier #self_selector = other_value;
                             )
                         },
-                        MergeType::Set => {
+                        MergeBehaviour::Set => {
                             quote!(
                                 #crate_name::merge::merge_set(#self_merge_mut_modifier #self_selector, #other_selector);
                             )
                         },
-                        MergeType::Map => {
+                        MergeBehaviour::Map => {
                             quote!(
                                 #crate_name::merge::try_merge_optioned_map(#self_merge_mut_modifier #self_selector, #other_selector)?;
                             )
