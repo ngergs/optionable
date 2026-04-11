@@ -44,7 +44,7 @@ fn get_others() -> Vec<EnvVarOpt> {
 }
 
 #[test]
-fn merge_map() {
+fn merge_map_no_wrapper() {
     let mut targets = get_targets();
     try_merge_optioned_map(&mut targets, get_others()).unwrap();
     assert_eq!(
@@ -101,7 +101,7 @@ fn merge_optionable_convert() {
 }
 
 #[test]
-fn merge_optionable_atomic() {
+fn merge_atomic() {
     use optionable::OptionableConvert;
 
     #[derive(Optionable, PartialEq, Debug)]
@@ -135,7 +135,7 @@ fn merge_optionable_atomic() {
 }
 
 #[test]
-fn merge_optionable_set() {
+fn merge_set() {
     use optionable::OptionableConvert;
 
     #[derive(Optionable, PartialEq, Debug)]
@@ -177,7 +177,7 @@ fn merge_optionable_set() {
 }
 
 #[test]
-fn merge_optionable_map() {
+fn merge_map() {
     use optionable::OptionableConvert;
 
     #[derive(Optionable, PartialEq, Debug)]
