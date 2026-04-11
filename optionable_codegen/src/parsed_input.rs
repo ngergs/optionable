@@ -31,7 +31,7 @@ pub(crate) enum StructType {
 pub(crate) struct FieldParsed {
     pub field: Field,
     pub handling: FieldHandling,
-    pub merge_type: MergeBehaviour,
+    pub merge_behaviour: MergeBehaviour,
 }
 
 /// Fields with extracted data how we want to handle them and most relevant struct/enum associated
@@ -81,7 +81,7 @@ pub(crate) fn into_field_handling(
             } else {
                 Other
             };
-            Ok::<_, Error>(FieldParsed { field, handling, merge_type: attrs.merge })
+            Ok::<_, Error>(FieldParsed { field, handling, merge_behaviour: attrs.merge })
         })
         .collect::<Result<Vec<_>, _>>()?;
 
