@@ -3,6 +3,9 @@ use crate::{Optionable, OptionableConvert, OptionedConvert};
 /// Merges `other` into `target` using Kubernetes-style `set` merge logic.
 /// This means that all elements from `other` which are already present in `target` are discarded
 /// and the other ones that are missing in `target` get appended.
+///
+/// # Errors
+/// - When appending (creating a full type from an optioned one) via `OptionableConvert::try_into_optionable` fails.
 pub fn try_merge_optioned_set<TARGET, OTHER, T>(
     target: &mut TARGET,
     other: OTHER,
