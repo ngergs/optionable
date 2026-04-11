@@ -17,18 +17,18 @@ mod where_clause;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s::{
-    error_missing_features, k8s_adjust_fields, k8s_openapi_derives, k8s_openapi_impl_metadata,
-    k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr, ResourceType,
+    ResourceType, error_missing_features, k8s_adjust_fields, k8s_openapi_derives,
+    k8s_openapi_impl_metadata, k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr,
 };
 use crate::parsed_input::{
-    into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
+    FieldHandling, FieldParsed, StructParsed, StructType, into_field_handling,
 };
-use crate::where_clause::{where_clauses, WhereClauses};
+use crate::where_clause::{WhereClauses, where_clauses};
 use darling::util::PathList;
 use darling::{FromAttributes, FromDeriveInput, FromMeta};
 use itertools::MultiUnzip;
 use proc_macro2::{Ident, Literal, TokenStream};
-use quote::{format_ident, quote, ToTokens};
+use quote::{ToTokens, format_ident, quote};
 use std::borrow::Cow;
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::default::Default;
@@ -37,9 +37,9 @@ use syn::parse::Parser;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::{
-    parse_quote, AttrStyle, Attribute, Data, DataEnum, DataStruct, DeriveInput, Error, Field,
-    Fields, GenericArgument, Generics, ImplGenerics, LitStr, Meta, MetaList, Path, PathArguments,
-    Token, Type, TypeGenerics, TypePath, WhereClause,
+    AttrStyle, Attribute, Data, DataEnum, DataStruct, DeriveInput, Error, Field, Fields,
+    GenericArgument, Generics, ImplGenerics, LitStr, Meta, MetaList, Path, PathArguments, Token,
+    Type, TypeGenerics, TypePath, WhereClause, parse_quote,
 };
 
 const HELPER_IDENT: &str = "optionable";
@@ -1205,10 +1205,10 @@ fn forwarded_attributes(
 
 #[cfg(test)]
 mod tests {
-    use crate::{derive_optionable, CodegenSettings};
+    use crate::{CodegenSettings, derive_optionable};
     use darling::FromMeta;
     use quote::quote;
-    use syn::{parse_quote, Path};
+    use syn::{Path, parse_quote};
 
     fn normalize_token_str(s: String) -> String {
         // `quote!` literals and interpolated token streams differ in whether adjacent `>>`
@@ -1469,7 +1469,9 @@ mod tests {
                         if let Some(other_value) = other.name {
                             self.name =  other_value;
                         }
-                        self.middle_name = other.middle_name;
+                        if other.middle_name.is_some() {
+                            self.middle_name = other.middle_name;
+                        }
                         if let Some(other_value) = other.surname {
                             self.surname =  other_value;
                         }
