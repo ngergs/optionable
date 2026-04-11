@@ -85,6 +85,21 @@ macro_rules! impl_optional_self {
         )*
     };
 }
+
+macro_rules! impl_optioned_from_optionable {
+    ($t:ty) => {
+        fn from_optionable(value: $t) -> Self {
+            OptionableConvert::into_optioned(value)
+        }
+        fn try_into_optionable(self) -> Result<$t, Error> {
+            OptionableConvert::try_from_optioned(self)
+        }
+        fn merge_into(self, other: &mut $t) -> Result<(), Error> {
+            OptionableConvert::merge(other, self)
+        }
+    };
+}
+
 #[cfg(any(feature = "chrono04", feature = "jiff02", feature = "serde_json"))]
 pub(crate) use impl_optional_self;
 
@@ -147,8 +162,9 @@ macro_rules! impl_container{
                 where T::Optioned: Sized
             {
                 type Optioned = $t<T::Optioned>;
-        })*
-    };
+            }
+        )*
+};
 }
 
 /// Helper macro to generate an impl for `Optionable` for Containers that do not require the wrapped value to be sized.
@@ -160,7 +176,8 @@ macro_rules! impl_container_unsized {
             impl<T: Optionable> Optionable for $t<T>
             {
                 type Optioned = $t<T::Optioned>;
-        })*
+            }
+        )*
     };
 }
 
@@ -191,9 +208,16 @@ macro_rules! impl_container_convert_linear {
         $(
             #[cfg(any(feature = "alloc", feature = "std"))]
             impl<T: OptionableConvert> OptionableConvert for $t<T>
-            where T::Optioned: Sized{
-            inner_impl_convert_into_iter!($t<T>);
-        })*
+                where T::Optioned: Sized{
+                inner_impl_convert_into_iter!($t<T>);
+            }
+
+            #[cfg(any(feature = "alloc", feature = "std"))]
+            impl<T: OptionableConvert> crate::OptionedConvert<$t<T>> for <$t<T> as Optionable>::Optioned
+                where T::Optioned: Sized{
+                impl_optioned_from_optionable!($t<T>);
+            }
+        )*
     };
 }
 
@@ -207,8 +231,16 @@ macro_rules! impl_container_convert_linear_ord {
             impl<T: OptionableConvert> OptionableConvert for $t<T>
             where T: Ord,
                   T::Optioned: Sized+Ord{
-            inner_impl_convert_into_iter!($t<T>);
-        })*
+                inner_impl_convert_into_iter!($t<T>);
+            }
+
+            #[cfg(any(feature = "alloc", feature = "std"))]
+            impl<T: OptionableConvert> crate::OptionedConvert<$t<T>> for <$t<T> as Optionable>::Optioned
+                where T: Ord,
+                      T::Optioned: Sized+Ord{
+                impl_optioned_from_optionable!($t<T>);
+            }
+        )*
     };
 }
 
