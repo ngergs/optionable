@@ -52,8 +52,10 @@ where
     Ok(())
 }
 
+#[cfg(feature = "std")]
 #[cfg(test)]
 mod test {
+
     #[test]
     fn merge_set() {
         let mut target = vec![0, 1, 2];

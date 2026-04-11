@@ -17,18 +17,18 @@ mod where_clause;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s::{
-    ResourceType, error_missing_features, k8s_adjust_fields, k8s_openapi_derives,
-    k8s_openapi_impl_metadata, k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr,
+    error_missing_features, k8s_adjust_fields, k8s_openapi_derives, k8s_openapi_impl_metadata,
+    k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr, ResourceType,
 };
 use crate::parsed_input::{
-    FieldHandling, FieldParsed, StructParsed, StructType, into_field_handling,
+    into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
 };
-use crate::where_clause::{WhereClauses, where_clauses};
+use crate::where_clause::{where_clauses, WhereClauses};
 use darling::util::PathList;
 use darling::{FromAttributes, FromDeriveInput, FromMeta};
 use itertools::MultiUnzip;
 use proc_macro2::{Ident, Literal, TokenStream};
-use quote::{ToTokens, format_ident, quote};
+use quote::{format_ident, quote, ToTokens};
 use std::borrow::Cow;
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::default::Default;
@@ -37,9 +37,9 @@ use syn::parse::Parser;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::{
-    AttrStyle, Attribute, Data, DataEnum, DataStruct, DeriveInput, Error, Field, Fields,
-    GenericArgument, Generics, ImplGenerics, LitStr, Meta, MetaList, Path, PathArguments, Token,
-    Type, TypeGenerics, TypePath, WhereClause, parse_quote,
+    parse_quote, AttrStyle, Attribute, Data, DataEnum, DataStruct, DeriveInput, Error, Field,
+    Fields, GenericArgument, Generics, ImplGenerics, LitStr, Meta, MetaList, Path, PathArguments,
+    Token, Type, TypeGenerics, TypePath, WhereClause,
 };
 
 const HELPER_IDENT: &str = "optionable";
@@ -112,9 +112,23 @@ pub(crate) struct TypeHelperAttributesKube {
 /// Forwards the specified `attr` to the definition of the optioned type.
 /// If `sub_names` is set it filters the configuration of the forwarded attribure for the specified configuration names.
 /// E.g. `attr=serde,sub_names=rename` will only forward the `rename`sub-attribute of serde.
-pub struct FieldAttributeToCopy {
+pub(crate) struct FieldAttributeToCopy {
     pub attr: Path,
     pub key: Option<Path>,
+}
+
+#[derive(FromMeta, Default, Clone, Debug)]
+enum MergeType {
+    // Standard merge behaviour, requires the corresponding field to be `impl OptionableConvert`
+    #[default]
+    OptionableConvert,
+    // Completly overrides the field with the given merge candidate if present
+    Atomic,
+    // Appens entries not already present in the target, requires the corresponding field to be `impl Extent<T>+IntoIter<Item=T> where T: PartialEq`
+    Set,
+    // Merges entries that are already present in the target using `OptionableConvert`, appends those that are not.
+    // Requires the correspond field to be `impl Extend<T>+IntoIter<Item=T> where T: MapKeysEq+OptionableConvert`
+    Map,
 }
 
 #[derive(FromAttributes)]
@@ -127,6 +141,9 @@ struct FieldHelperAttributes {
     /// If `no_convert` is not set the provided type has to implement `OptionedConvert<O>` where `O` is the type of this field in the original type.
     #[darling(rename = "optioned_type")]
     optioned_ty: Option<Path>,
+    /// Specifies how to merge entries for `OptionableConvert`.
+    #[darling(default)]
+    merge_type: MergeType,
 }
 
 #[derive(FromDeriveInput, Debug, Clone)]
@@ -589,8 +606,8 @@ fn process_struct_data(
             |selector| quote! { self.#selector },
             |selector| quote! { other.#selector },
             true,
-        );
-        quote! {
+        )?;
+        Ok::<_,Error>(quote! {
             #[automatically_derived]
             impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_optionable_convert {
                 fn into_optioned(self) -> #ty_ident_opt #ty_generics {
@@ -606,8 +623,8 @@ fn process_struct_data(
                     Ok(())
                 }
             }
-        }
-    });
+        })
+    }).transpose()?;
     Ok(Derived {
         enum_struct: quote! {struct},
         fields: quote! {#optioned_fields #unnamed_struct_semicolon},
@@ -697,7 +714,7 @@ fn process_enum_data(ctx: DataProcessingContext<'_>, data_enum: DataEnum) -> syn
                             |selector| format_ident!("{self_prefix}{selector}").to_token_stream(),
                             |selector| format_ident!("{other_prefix}{selector}").to_token_stream(),
                             false,
-                        );
+                        )?;
                         let self_destructure = destructure(struct_parsed, &self_prefix)?;
                         let other_destructure = destructure(struct_parsed, &other_prefix)?;
                         Ok::<_, Error>((
@@ -761,6 +778,7 @@ fn optioned_fields(
         |FieldParsed {
              field: Field { attrs, vis, ident, ty, .. },
              handling,
+            merge_type:_,
          }| {
             let forwarded_attrs = forwarded_attributes(attrs, field_attr_forwards)?;
             let optioned_ty = optioned_ty(&fields.crate_name, ty);
@@ -783,7 +801,7 @@ fn into_optioned(
     struct_parsed: &StructParsed,
     self_selector_fn: impl Fn(&TokenStream) -> TokenStream,
 ) -> TokenStream {
-    let fields_token = struct_parsed.fields.iter().enumerate().map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling })| {
+    let fields_token = struct_parsed.fields.iter().enumerate().map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling,            merge_type:_})| {
         let colon = ident.as_ref().map(|_| quote! {:});
         let selector = ident.as_ref().map_or_else(|| {
             let i = Literal::usize_unsuffixed(i);
@@ -810,7 +828,7 @@ fn try_from_optioned(
     struct_parsed: &StructParsed,
     value_selector_fn: impl Fn(&TokenStream) -> TokenStream,
 ) -> TokenStream {
-    let fields_token = struct_parsed.fields.iter().enumerate().filter_map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling })| {
+    let fields_token = struct_parsed.fields.iter().enumerate().filter_map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling,            merge_type:_})| {
         let colon = ident.as_ref().map(|_| quote! {:});
         let selector = ident.as_ref().map_or_else(|| {
             let i = Literal::usize_unsuffixed(i);
@@ -862,13 +880,14 @@ fn merge_fields(
     self_selector_fn: impl Fn(&TokenStream) -> TokenStream,
     other_selector_fn: impl Fn(&TokenStream) -> TokenStream,
     merge_self_mut: bool,
-) -> TokenStream {
+) -> Result<TokenStream, Error> {
     let fields_token = struct_parsed.fields.iter().enumerate().filter_map(
         |(
              i,
              FieldParsed {
                  field: Field { ident, ty, .. },
                  handling,
+                 merge_type,
              },
          )| {
             let selector = ident.as_ref().map_or_else(
@@ -883,34 +902,51 @@ fn merge_fields(
             let self_selector = self_selector_fn(&selector);
             let other_selector = other_selector_fn(&selector);
             let crate_name = &struct_parsed.crate_name;
+            // todo add error handling for incompatible merge_type settings
             match (handling, is_self_resolving_optioned(ty)) {
-                (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => Some(quote! {#deref_modifier #self_selector = #other_selector;}),
-                (FieldHandling::ManualOptioned(_), _) =>  Some(quote! {
+                (FieldHandling::Required, _)  => Some(Ok::<_,Error>(quote! {#deref_modifier #self_selector = #other_selector;})),
+                (FieldHandling::IsOption, true) => Some(Ok(quote! {
+                    if #other_selector.is_some(){
+                        #deref_modifier #self_selector = #other_selector;
+                    }
+                })),
+                (FieldHandling::ManualOptioned(_), _) =>  Some(Ok(quote! {
                     if let Some(other_value)=#other_selector{
                         #crate_name::OptionedConvert::merge_into(other_value, #self_merge_mut_modifier #self_selector)?;
                     }
-                }),
-                (FieldHandling::IsOption, false) =>  Some(quote! {
+                })),
+                (FieldHandling::IsOption, false) => Some(Ok::<_,Error>(quote! {
                     #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
-                }),
-                (FieldHandling::Other, true) =>  Some(quote! {
+                })),
+                (FieldHandling::Other, true) => Some(Ok(quote! {
                     if let Some(other_value)=#other_selector{
                         #deref_modifier #self_selector = other_value;
                     }
-                }),
-                (FieldHandling::Other, false) =>  Some(quote! {
-                    if let Some(other_value)=#other_selector{
-                        #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, other_value)?;
-                    }
-                }),
+                })),
+                (FieldHandling::Other, false) =>  {
+                    // todo: add other merge_types
+                    let merge_fn=match merge_type{
+                        MergeType::OptionableConvert => {
+                            quote!(
+                                #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, other_value)?;
+                             )
+                        },
+                        _ => return Some(error("missing implementation"))
+                    };
+                    Some(Ok(quote! {
+                        if let Some(other_value)=#other_selector{
+                            #merge_fn
+                        }
+                    }))
+                },
                 (FieldHandling::OptionedOnly, _) =>None,
             }
         },
-    );
+    ).collect::<Result<Vec<_>,_>>()?;
 
-    quote! {
+    Ok(quote! {
         #(#fields_token)*
-    }
+    })
 }
 /// Tries to resolve the optioned type analogous to what we do in the main crate.
 /// Due to limitations to macro resolving (no order guaranteed) we have to have an explicit
@@ -1169,10 +1205,10 @@ fn forwarded_attributes(
 
 #[cfg(test)]
 mod tests {
-    use crate::{CodegenSettings, derive_optionable};
+    use crate::{derive_optionable, CodegenSettings};
     use darling::FromMeta;
     use quote::quote;
-    use syn::{Path, parse_quote};
+    use syn::{parse_quote, Path};
 
     fn normalize_token_str(s: String) -> String {
         // `quote!` literals and interpolated token streams differ in whether adjacent `>>`

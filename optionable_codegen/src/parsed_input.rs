@@ -1,6 +1,6 @@
-use crate::FieldHelperAttributes;
 use crate::helper::{error, is_option, type_path_replace_crate};
 use crate::parsed_input::FieldHandling::{IsOption, ManualOptioned, Other, Required};
+use crate::{FieldHelperAttributes, MergeType};
 use darling::FromAttributes;
 use proc_macro2::Ident;
 use std::iter;
@@ -31,6 +31,7 @@ pub(crate) enum StructType {
 pub(crate) struct FieldParsed {
     pub field: Field,
     pub handling: FieldHandling,
+    pub merge_type: MergeType,
 }
 
 /// Fields with extracted data how we want to handle them and most relevant struct/enum associated
@@ -80,7 +81,7 @@ pub(crate) fn into_field_handling(
             } else {
                 Other
             };
-            Ok::<_, Error>(FieldParsed { field, handling })
+            Ok::<_, Error>(FieldParsed { field, handling, merge_type: attrs.merge_type })
         })
         .collect::<Result<Vec<_>, _>>()?;
 

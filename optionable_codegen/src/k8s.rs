@@ -1,13 +1,14 @@
 use crate::helper::{error, is_serde};
 use crate::parsed_input::FieldHandling::{OptionedOnly, Required};
 use crate::parsed_input::{FieldParsed, StructParsed};
+use crate::MergeType::OptionableConvert;
 use crate::{TypeHelperAttributesK8sOpenapi, TypeHelperAttributesKube};
 use proc_macro2::{Ident, TokenStream};
-use quote::{ToTokens, quote};
+use quote::{quote, ToTokens};
 use std::borrow::Cow;
 use std::collections::BTreeSet;
 use syn::{
-    Attribute, Data, Error, Field, ImplGenerics, Path, TypeGenerics, WhereClause, parse_quote,
+    parse_quote, Attribute, Data, Error, Field, ImplGenerics, Path, TypeGenerics, WhereClause,
 };
 
 /// We have two useful `Resource` traits and dependent on the user needs we will use one
@@ -256,10 +257,13 @@ fn k8s_openapi_field_resource_add_api_envelope(
             FieldParsed {
                 field: api_version_field,
                 handling: OptionedOnly,
+                // todo: make atomic
+                merge_type: OptionableConvert,
             },
             FieldParsed {
                 field: kind_field,
                 handling: OptionedOnly,
+                merge_type: OptionableConvert,
             },
         ],
     );
