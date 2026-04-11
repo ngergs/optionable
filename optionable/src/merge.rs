@@ -3,18 +3,24 @@ use crate::{Optionable, OptionableConvert, OptionedConvert};
 /// Merges `other` into `target` using Kubernetes-style `set` merge logic.
 /// This means that all elements from `other` which are already present in `target` are discarded
 /// and the other ones that are missing in `target` get appended.
-pub fn merge_set<TARGET, OTHER, T>(target: &mut TARGET, other: OTHER)
+pub fn try_merge_optioned_set<TARGET, OTHER, T>(
+    target: &mut TARGET,
+    other: OTHER,
+) -> Result<(), crate::Error>
 where
     TARGET: Extend<T>,
     for<'a> &'a TARGET: IntoIterator<Item = &'a T>,
-    OTHER: IntoIterator<Item = T>,
-    T: PartialEq,
+    OTHER: IntoIterator<Item = T::Optioned>,
+    T: Optionable + PartialEq,
+    T::Optioned: OptionedConvert<T>,
 {
     for el in other {
+        let el = el.try_into_optionable()?;
         if !target.into_iter().any(|el_target| &el == el_target) {
             target.extend(Some(el));
         }
     }
+    Ok(())
 }
 
 /// Trait for `try_merge_map` to check if the map keys for the respective merge candidate are equal.
@@ -59,13 +65,13 @@ mod test {
     #[test]
     fn merge_set() {
         let mut target = vec![0, 1, 2];
-        super::merge_set(&mut target, vec![3]);
+        super::try_merge_optioned_set(&mut target, vec![3]).unwrap();
         assert_eq!(&target, &vec![0, 1, 2, 3]);
-        super::merge_set(&mut target, vec![0, 2, 4, 6, 8]);
+        super::try_merge_optioned_set(&mut target, vec![0, 2, 4, 6, 8]).unwrap();
         assert_eq!(&target, &vec![0, 1, 2, 3, 4, 6, 8]);
-        super::merge_set(&mut target, vec![0, 5, 9]);
+        super::try_merge_optioned_set(&mut target, vec![0, 5, 9]).unwrap();
         assert_eq!(&target, &vec![0, 1, 2, 3, 4, 6, 8, 5, 9]);
     }
 
-    // `try_merge_map` is tested in ../tests/try_merge_map.rs
+    // `try_merge_map` is tested in ../tests/merge.rs
 }

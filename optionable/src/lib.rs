@@ -110,6 +110,7 @@
 //! {
 //!     fn from_optionable(value: T) -> Self;
 //!     fn try_into_optionable(self) -> Result<T, Error>;
+//!     fn merge_into(self, other: &mut T) -> Result<(), Error>;
 //! }
 //! ```
 //!

@@ -65,7 +65,24 @@ macro_rules! impl_optional_self {
                     *self = other;
                     Ok(())
                 }
-        })*
+            }
+
+            $(#[$attr])?
+            impl crate::OptionedConvert<$t> for $t{
+                fn from_optionable(value: $t) -> Self {
+                    value
+                }
+
+                fn try_into_optionable(self) -> Result<$t, crate::Error> {
+                    Ok(self)
+                }
+
+                fn merge_into(self, other: &mut $t) -> Result<(), crate::Error>{
+                    *other = self;
+                    Ok(())
+                }
+            }
+        )*
     };
 }
 #[cfg(any(feature = "chrono04", feature = "jiff02", feature = "serde_json"))]
