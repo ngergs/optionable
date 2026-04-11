@@ -903,7 +903,11 @@ fn merge_fields(
             let other_selector = other_selector_fn(&selector);
             let crate_name = &struct_parsed.crate_name;
             // todo add error handling for incompatible merge_type settings
-            match (handling, is_self_resolving_optioned(ty)) {
+            let is_self_resolving_ty= is_self_resolving_optioned(ty);
+            if !matches!(merge_type,MergeType::OptionableConvert) && (!matches!(handling,FieldHandling::Other) || is_self_resolving_ty){
+                return Some(error("Unsupported combination of custom merge type {merge_type:?} and field type. If you expect this specific case to work, pls open a bug for `optionable`."));
+            }
+            match (handling, is_self_resolving_ty) {
                 (FieldHandling::Required, _)  => Some(Ok::<_,Error>(quote! {#deref_modifier #self_selector = #other_selector;})),
                 (FieldHandling::IsOption, true) => Some(Ok(quote! {
                     if #other_selector.is_some(){
