@@ -924,14 +924,27 @@ fn merge_fields(
                     }
                 })),
                 (FieldHandling::Other, false) =>  {
-                    // todo: add other merge_types
                     let merge_fn=match merge_type{
                         MergeType::OptionableConvert => {
                             quote!(
                                 #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, other_value)?;
                              )
                         },
-                        _ => return Some(error("missing implementation"))
+                        MergeType::Atomic => {
+                            quote!(
+                                #deref_modifier #self_selector = other_value;
+                            )
+                        },
+                        MergeType::Set => {
+                            quote!(
+                                #crate_name::merge::merge_set(#self_merge_mut_modifier #self_selector, #other_selector);
+                            )
+                        },
+                        MergeType::Map => {
+                            quote!(
+                                #crate_name::merge::try_merge_optioned_map(#self_merge_mut_modifier #self_selector, #other_selector)?;
+                            )
+                        }
                     };
                     Some(Ok(quote! {
                         if let Some(other_value)=#other_selector{
