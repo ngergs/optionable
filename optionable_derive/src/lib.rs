@@ -67,6 +67,7 @@ use proc_macro::TokenStream;
 ///     #[optionable(required)]
 ///     number: u32; // will also be a u32 in the derived `MyStructOpt`.
 ///   }
+///   ```
 /// - **`optioned_type`**: For circumvention of the orphan rule. Uses the provided type for the optioned variant of the field.
 ///   If `no_convert` is not set the provided type has to implement `OptionedConvert<O>` where `O` is the type of this field in the original type.
 ///   ```rust,ignore
@@ -76,8 +77,12 @@ use proc_macro::TokenStream;
 ///     #[optionable(optioned_type=MyInt)]
 ///     number: i32; // will be a `MyInt` in the derived `MyStructOpt`.
 ///   }
-/// - **`merge`**: //todo
-///   ```
+///   ````
+/// - **`merge`**: Customize the merge behaviour for the derived `OptionableConvert::merge` implementation. The following values are supported (e.g. as `#[merge(Atomic)]`):
+///     - `OptionableConvert` Default behavior, just call `OptionableConvert::merge` for the given field entry.
+///     - `Atomic` Always override the field completly when present in the optioned type.
+///     - `Set` Kubernetes `set` merge logic. Appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: PartialEq`.
+///     - `Map` Kubernetes `map` merge logic. Identifies if entries belong together via the `optionable::merge::MapKeysEq` trait. Merges entries that belong together (short-circuit, first match is merged) and appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: MapKeysEq + OptionableConvert`.
 ///
 /// ### Kubernetes type-level attributes (on the struct/enum level)
 /// Specialized Kubernetes specific type attributes to help deriving optioned types (in go called `ApplyConfiguration`)
