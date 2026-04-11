@@ -11,11 +11,11 @@ where
     TARGET: Extend<T>,
     for<'a> &'a TARGET: IntoIterator<Item = &'a T>,
     OTHER: IntoIterator<Item = T::Optioned>,
-    T: Optionable + PartialEq,
-    T::Optioned: OptionedConvert<T>,
+    T: OptionableConvert + PartialEq,
+    T::Optioned: Sized,
 {
     for el in other {
-        let el = el.try_into_optionable()?;
+        let el = T::try_from_optioned(el)?;
         if !target.into_iter().any(|el_target| &el == el_target) {
             target.extend(Some(el));
         }
@@ -46,13 +46,13 @@ where
     for<'a> &'a mut TARGET: IntoIterator<Item = &'a mut T>,
     OTHER: IntoIterator<Item = T::Optioned>,
     T: OptionableConvert + MapKeysEq,
-    T::Optioned: OptionedConvert<T>,
+    T::Optioned: Sized,
 {
     for el in other {
         if let Some(el_target) = target.into_iter().find(|el_target| el_target.keys_eq(&el)) {
-            el.merge_into(el_target)?;
+            el_target.merge(el)?;
         } else {
-            target.extend(Some(el.try_into_optionable()?));
+            target.extend(Some(T::try_from_optioned(el)?));
         }
     }
     Ok(())
