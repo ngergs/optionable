@@ -971,12 +971,16 @@ fn merge_fields(
                     }))
                 },
                 FieldHandling::Other =>  {
-                let merge=merge_fn(quote!(other_value));
-                    Some(Ok(quote! {
-                        if let Some(other_value)=#other_selector{
-                            #merge
-                        }
-                    }))
+                    if matches!(merge_behaviour,MergeBehaviour::OptionableConvert|MergeBehaviour::Atomic){
+                           Some(Ok(quote!(#deref_modifier #self_selector = #other_selector)))
+                    } else {
+                        let merge=merge_fn(quote!(other_value));
+                        Some(Ok(quote! {
+                            if let Some(other_value)=#other_selector{
+                                #merge
+                            }
+                        }))
+                    }
                 },
                 FieldHandling::OptionedOnly =>None,
             }
