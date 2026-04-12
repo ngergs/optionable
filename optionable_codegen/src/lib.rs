@@ -921,7 +921,7 @@ fn merge_fields(
             let other_selector = other_selector_fn(&selector);
             let crate_name = &struct_parsed.crate_name;
             let is_self_resolving_ty= is_self_resolving_optioned(ty);
-            let err=|| {Some(error(format!("Unsupported combination of custom merge behaviour `{merge_behaviour:?}` for the field `{}`. If you expect this specific case to work, pls open an issue for `optionable`. Case handling={handling:?},self_resolving={is_self_resolving_ty}",ident.to_token_stream())))};
+            let err=|| {Some(error(format!("Unsupported combination of custom merge behaviour `{merge_behaviour:?}` for the field `{}`. If you expect this specific case to work, pls open an issue for `optionable` with your use case and this information: handling={handling:?},self_resolving={is_self_resolving_ty}",ident.to_token_stream())))};
             let merge_fn=|other_selector|{
                     match merge_behaviour{
                         MergeBehaviour::OptionableConvert => {
