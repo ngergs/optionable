@@ -70,7 +70,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::HTTPIngre
         if let Some(other_value) = other.backend {
             crate::OptionableConvert::merge(&mut self.backend, other_value)?;
         }
-        self.path = other.path;
+        if other.path.is_some() {
+            self.path = other.path;
+        }
         if let Some(other_value) = other.path_type {
             self.path_type = other_value;
         }

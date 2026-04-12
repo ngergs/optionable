@@ -75,10 +75,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Secret {
     }
     fn merge(&mut self, other: SecretAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.data, other.data)?;
-        self.immutable = other.immutable;
+        if other.immutable.is_some() {
+            self.immutable = other.immutable;
+        }
         self.metadata = other.metadata;
-        self.string_data = other.string_data;
-        self.type_ = other.type_;
+        if other.string_data.is_some() {
+            self.string_data = other.string_data;
+        }
+        if other.type_.is_some() {
+            self.type_ = other.type_;
+        }
         Ok(())
     }
 }

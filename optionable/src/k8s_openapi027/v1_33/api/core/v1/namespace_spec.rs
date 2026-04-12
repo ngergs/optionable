@@ -35,7 +35,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceSpec {
         })
     }
     fn merge(&mut self, other: NamespaceSpecAc) -> Result<(), crate::Error> {
-        self.finalizers = other.finalizers;
+        if other.finalizers.is_some() {
+            self.finalizers = other.finalizers;
+        }
         Ok(())
     }
 }

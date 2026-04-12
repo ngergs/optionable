@@ -48,9 +48,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceHealth 
         })
     }
     fn merge(&mut self, other: ResourceHealthAc) -> Result<(), crate::Error> {
-        self.health = other.health;
+        if other.health.is_some() {
+            self.health = other.health;
+        }
         self.resource_id = other.resource_id;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::core::v1::ResourceHealth {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.resource_id == other.resource_id
     }
 }
 #[automatically_derived]

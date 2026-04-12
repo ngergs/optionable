@@ -57,7 +57,9 @@ for k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy {
             &mut self.max_unavailable,
             other.max_unavailable,
         )?;
-        self.partition = other.partition;
+        if other.partition.is_some() {
+            self.partition = other.partition;
+        }
         Ok(())
     }
 }

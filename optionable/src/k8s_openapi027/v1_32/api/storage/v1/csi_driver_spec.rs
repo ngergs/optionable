@@ -119,14 +119,28 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIDriverSpe
         })
     }
     fn merge(&mut self, other: CSIDriverSpecAc) -> Result<(), crate::Error> {
-        self.attach_required = other.attach_required;
-        self.fs_group_policy = other.fs_group_policy;
-        self.pod_info_on_mount = other.pod_info_on_mount;
-        self.requires_republish = other.requires_republish;
-        self.se_linux_mount = other.se_linux_mount;
-        self.storage_capacity = other.storage_capacity;
+        if other.attach_required.is_some() {
+            self.attach_required = other.attach_required;
+        }
+        if other.fs_group_policy.is_some() {
+            self.fs_group_policy = other.fs_group_policy;
+        }
+        if other.pod_info_on_mount.is_some() {
+            self.pod_info_on_mount = other.pod_info_on_mount;
+        }
+        if other.requires_republish.is_some() {
+            self.requires_republish = other.requires_republish;
+        }
+        if other.se_linux_mount.is_some() {
+            self.se_linux_mount = other.se_linux_mount;
+        }
+        if other.storage_capacity.is_some() {
+            self.storage_capacity = other.storage_capacity;
+        }
         crate::OptionableConvert::merge(&mut self.token_requests, other.token_requests)?;
-        self.volume_lifecycle_modes = other.volume_lifecycle_modes;
+        if other.volume_lifecycle_modes.is_some() {
+            self.volume_lifecycle_modes = other.volume_lifecycle_modes;
+        }
         Ok(())
     }
 }

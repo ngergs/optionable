@@ -53,9 +53,15 @@ for k8s_openapi027::api::authentication::v1::TokenReviewStatus {
         })
     }
     fn merge(&mut self, other: TokenReviewStatusAc) -> Result<(), crate::Error> {
-        self.audiences = other.audiences;
-        self.authenticated = other.authenticated;
-        self.error = other.error;
+        if other.audiences.is_some() {
+            self.audiences = other.audiences;
+        }
+        if other.authenticated.is_some() {
+            self.authenticated = other.authenticated;
+        }
+        if other.error.is_some() {
+            self.error = other.error;
+        }
         crate::OptionableConvert::merge(&mut self.user, other.user)?;
         Ok(())
     }

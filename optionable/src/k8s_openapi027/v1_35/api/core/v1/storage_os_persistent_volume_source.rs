@@ -64,11 +64,19 @@ for k8s_openapi027::api::core::v1::StorageOSPersistentVolumeSource {
         &mut self,
         other: StorageOSPersistentVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        self.fs_type = other.fs_type;
-        self.read_only = other.read_only;
+        if other.fs_type.is_some() {
+            self.fs_type = other.fs_type;
+        }
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
-        self.volume_name = other.volume_name;
-        self.volume_namespace = other.volume_namespace;
+        if other.volume_name.is_some() {
+            self.volume_name = other.volume_name;
+        }
+        if other.volume_namespace.is_some() {
+            self.volume_namespace = other.volume_namespace;
+        }
         Ok(())
     }
 }

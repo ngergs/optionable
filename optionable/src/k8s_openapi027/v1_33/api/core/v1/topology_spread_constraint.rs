@@ -91,16 +91,32 @@ for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
     }
     fn merge(&mut self, other: TopologySpreadConstraintAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
-        self.match_label_keys = other.match_label_keys;
+        if other.match_label_keys.is_some() {
+            self.match_label_keys = other.match_label_keys;
+        }
         if let Some(other_value) = other.max_skew {
             self.max_skew = other_value;
         }
-        self.min_domains = other.min_domains;
-        self.node_affinity_policy = other.node_affinity_policy;
-        self.node_taints_policy = other.node_taints_policy;
+        if other.min_domains.is_some() {
+            self.min_domains = other.min_domains;
+        }
+        if other.node_affinity_policy.is_some() {
+            self.node_affinity_policy = other.node_affinity_policy;
+        }
+        if other.node_taints_policy.is_some() {
+            self.node_taints_policy = other.node_taints_policy;
+        }
         self.topology_key = other.topology_key;
         self.when_unsatisfiable = other.when_unsatisfiable;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.topology_key == other.topology_key
+            && self.when_unsatisfiable == other.when_unsatisfiable
     }
 }
 #[automatically_derived]

@@ -143,27 +143,51 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
         })
     }
     fn merge(&mut self, other: JobSpecAc) -> Result<(), crate::Error> {
-        self.active_deadline_seconds = other.active_deadline_seconds;
-        self.backoff_limit = other.backoff_limit;
-        self.backoff_limit_per_index = other.backoff_limit_per_index;
-        self.completion_mode = other.completion_mode;
-        self.completions = other.completions;
-        self.managed_by = other.managed_by;
-        self.manual_selector = other.manual_selector;
-        self.max_failed_indexes = other.max_failed_indexes;
-        self.parallelism = other.parallelism;
+        if other.active_deadline_seconds.is_some() {
+            self.active_deadline_seconds = other.active_deadline_seconds;
+        }
+        if other.backoff_limit.is_some() {
+            self.backoff_limit = other.backoff_limit;
+        }
+        if other.backoff_limit_per_index.is_some() {
+            self.backoff_limit_per_index = other.backoff_limit_per_index;
+        }
+        if other.completion_mode.is_some() {
+            self.completion_mode = other.completion_mode;
+        }
+        if other.completions.is_some() {
+            self.completions = other.completions;
+        }
+        if other.managed_by.is_some() {
+            self.managed_by = other.managed_by;
+        }
+        if other.manual_selector.is_some() {
+            self.manual_selector = other.manual_selector;
+        }
+        if other.max_failed_indexes.is_some() {
+            self.max_failed_indexes = other.max_failed_indexes;
+        }
+        if other.parallelism.is_some() {
+            self.parallelism = other.parallelism;
+        }
         crate::OptionableConvert::merge(
             &mut self.pod_failure_policy,
             other.pod_failure_policy,
         )?;
-        self.pod_replacement_policy = other.pod_replacement_policy;
+        if other.pod_replacement_policy.is_some() {
+            self.pod_replacement_policy = other.pod_replacement_policy;
+        }
         crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
         crate::OptionableConvert::merge(&mut self.success_policy, other.success_policy)?;
-        self.suspend = other.suspend;
+        if other.suspend.is_some() {
+            self.suspend = other.suspend;
+        }
         if let Some(other_value) = other.template {
             crate::OptionableConvert::merge(&mut self.template, other_value)?;
         }
-        self.ttl_seconds_after_finished = other.ttl_seconds_after_finished;
+        if other.ttl_seconds_after_finished.is_some() {
+            self.ttl_seconds_after_finished = other.ttl_seconds_after_finished;
+        }
         Ok(())
     }
 }

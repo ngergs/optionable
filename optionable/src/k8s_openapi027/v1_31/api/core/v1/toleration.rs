@@ -55,11 +55,21 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Toleration {
         })
     }
     fn merge(&mut self, other: TolerationAc) -> Result<(), crate::Error> {
-        self.effect = other.effect;
-        self.key = other.key;
-        self.operator = other.operator;
-        self.toleration_seconds = other.toleration_seconds;
-        self.value = other.value;
+        if other.effect.is_some() {
+            self.effect = other.effect;
+        }
+        if other.key.is_some() {
+            self.key = other.key;
+        }
+        if other.operator.is_some() {
+            self.operator = other.operator;
+        }
+        if other.toleration_seconds.is_some() {
+            self.toleration_seconds = other.toleration_seconds;
+        }
+        if other.value.is_some() {
+            self.value = other.value;
+        }
         Ok(())
     }
 }

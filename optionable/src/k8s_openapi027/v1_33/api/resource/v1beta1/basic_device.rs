@@ -111,14 +111,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::BasicD
         })
     }
     fn merge(&mut self, other: BasicDeviceAc) -> Result<(), crate::Error> {
-        self.all_nodes = other.all_nodes;
+        if other.all_nodes.is_some() {
+            self.all_nodes = other.all_nodes;
+        }
         crate::OptionableConvert::merge(&mut self.attributes, other.attributes)?;
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
         crate::OptionableConvert::merge(
             &mut self.consumes_counters,
             other.consumes_counters,
         )?;
-        self.node_name = other.node_name;
+        if other.node_name.is_some() {
+            self.node_name = other.node_name;
+        }
         crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
         crate::OptionableConvert::merge(&mut self.taints, other.taints)?;
         Ok(())

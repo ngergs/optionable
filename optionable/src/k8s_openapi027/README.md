@@ -4,7 +4,7 @@ The codegen generates optioned types and implements the `Optionable`-trait for t
 
 To regenerate the files run:
 ```bash
-./codegen.sh <path to git root of the cloned k8s-openapi repo>
+./codegen.sh <path to git root of the cloned k8s-openapi repo> <path to `api/openapi-spec/v3` folder of the kubernetes repo>
 ```
 
 ## Limitations

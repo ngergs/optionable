@@ -68,13 +68,21 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::QuobyteVolumeSo
         })
     }
     fn merge(&mut self, other: QuobyteVolumeSourceAc) -> Result<(), crate::Error> {
-        self.group = other.group;
-        self.read_only = other.read_only;
+        if other.group.is_some() {
+            self.group = other.group;
+        }
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         if let Some(other_value) = other.registry {
             self.registry = other_value;
         }
-        self.tenant = other.tenant;
-        self.user = other.user;
+        if other.tenant.is_some() {
+            self.tenant = other.tenant;
+        }
+        if other.user.is_some() {
+            self.user = other.user;
+        }
         if let Some(other_value) = other.volume {
             self.volume = other_value;
         }

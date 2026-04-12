@@ -57,9 +57,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeMountStat
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        self.read_only = other.read_only;
-        self.recursive_read_only = other.recursive_read_only;
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
+        if other.recursive_read_only.is_some() {
+            self.recursive_read_only = other.recursive_read_only;
+        }
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::core::v1::VolumeMountStatus {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.mount_path == other.mount_path
     }
 }
 #[automatically_derived]

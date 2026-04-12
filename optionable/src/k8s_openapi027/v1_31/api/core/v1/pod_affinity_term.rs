@@ -75,13 +75,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodAffinityTerm
     }
     fn merge(&mut self, other: PodAffinityTermAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
-        self.match_label_keys = other.match_label_keys;
-        self.mismatch_label_keys = other.mismatch_label_keys;
+        if other.match_label_keys.is_some() {
+            self.match_label_keys = other.match_label_keys;
+        }
+        if other.mismatch_label_keys.is_some() {
+            self.mismatch_label_keys = other.mismatch_label_keys;
+        }
         crate::OptionableConvert::merge(
             &mut self.namespace_selector,
             other.namespace_selector,
         )?;
-        self.namespaces = other.namespaces;
+        if other.namespaces.is_some() {
+            self.namespaces = other.namespaces;
+        }
         if let Some(other_value) = other.topology_key {
             self.topology_key = other_value;
         }

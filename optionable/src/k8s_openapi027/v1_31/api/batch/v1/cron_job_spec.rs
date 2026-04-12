@@ -86,18 +86,30 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobSpec {
         })
     }
     fn merge(&mut self, other: CronJobSpecAc) -> Result<(), crate::Error> {
-        self.concurrency_policy = other.concurrency_policy;
-        self.failed_jobs_history_limit = other.failed_jobs_history_limit;
+        if other.concurrency_policy.is_some() {
+            self.concurrency_policy = other.concurrency_policy;
+        }
+        if other.failed_jobs_history_limit.is_some() {
+            self.failed_jobs_history_limit = other.failed_jobs_history_limit;
+        }
         if let Some(other_value) = other.job_template {
             crate::OptionableConvert::merge(&mut self.job_template, other_value)?;
         }
         if let Some(other_value) = other.schedule {
             self.schedule = other_value;
         }
-        self.starting_deadline_seconds = other.starting_deadline_seconds;
-        self.successful_jobs_history_limit = other.successful_jobs_history_limit;
-        self.suspend = other.suspend;
-        self.time_zone = other.time_zone;
+        if other.starting_deadline_seconds.is_some() {
+            self.starting_deadline_seconds = other.starting_deadline_seconds;
+        }
+        if other.successful_jobs_history_limit.is_some() {
+            self.successful_jobs_history_limit = other.successful_jobs_history_limit;
+        }
+        if other.suspend.is_some() {
+            self.suspend = other.suspend;
+        }
+        if other.time_zone.is_some() {
+            self.time_zone = other.time_zone;
+        }
         Ok(())
     }
 }

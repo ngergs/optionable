@@ -56,7 +56,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceQuotaSp
     fn merge(&mut self, other: ResourceQuotaSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.hard, other.hard)?;
         crate::OptionableConvert::merge(&mut self.scope_selector, other.scope_selector)?;
-        self.scopes = other.scopes;
+        if other.scopes.is_some() {
+            self.scopes = other.scopes;
+        }
         Ok(())
     }
 }

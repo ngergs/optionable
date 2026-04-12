@@ -79,8 +79,12 @@ for k8s_openapi027::api::core::v1::ConfigMapNodeConfigSource {
         if let Some(other_value) = other.namespace {
             self.namespace = other_value;
         }
-        self.resource_version = other.resource_version;
-        self.uid = other.uid;
+        if other.resource_version.is_some() {
+            self.resource_version = other.resource_version;
+        }
+        if other.uid.is_some() {
+            self.uid = other.uid;
+        }
         Ok(())
     }
 }

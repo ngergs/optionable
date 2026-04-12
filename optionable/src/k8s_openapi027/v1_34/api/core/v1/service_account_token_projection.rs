@@ -55,8 +55,12 @@ for k8s_openapi027::api::core::v1::ServiceAccountTokenProjection {
         &mut self,
         other: ServiceAccountTokenProjectionAc,
     ) -> Result<(), crate::Error> {
-        self.audience = other.audience;
-        self.expiration_seconds = other.expiration_seconds;
+        if other.audience.is_some() {
+            self.audience = other.audience;
+        }
+        if other.expiration_seconds.is_some() {
+            self.expiration_seconds = other.expiration_seconds;
+        }
         if let Some(other_value) = other.path {
             self.path = other_value;
         }

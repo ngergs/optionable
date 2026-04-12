@@ -123,19 +123,29 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
         })
     }
     fn merge(&mut self, other: StatefulSetSpecAc) -> Result<(), crate::Error> {
-        self.min_ready_seconds = other.min_ready_seconds;
+        if other.min_ready_seconds.is_some() {
+            self.min_ready_seconds = other.min_ready_seconds;
+        }
         crate::OptionableConvert::merge(&mut self.ordinals, other.ordinals)?;
         crate::OptionableConvert::merge(
             &mut self.persistent_volume_claim_retention_policy,
             other.persistent_volume_claim_retention_policy,
         )?;
-        self.pod_management_policy = other.pod_management_policy;
-        self.replicas = other.replicas;
-        self.revision_history_limit = other.revision_history_limit;
+        if other.pod_management_policy.is_some() {
+            self.pod_management_policy = other.pod_management_policy;
+        }
+        if other.replicas.is_some() {
+            self.replicas = other.replicas;
+        }
+        if other.revision_history_limit.is_some() {
+            self.revision_history_limit = other.revision_history_limit;
+        }
         if let Some(other_value) = other.selector {
             crate::OptionableConvert::merge(&mut self.selector, other_value)?;
         }
-        self.service_name = other.service_name;
+        if other.service_name.is_some() {
+            self.service_name = other.service_name;
+        }
         if let Some(other_value) = other.template {
             crate::OptionableConvert::merge(&mut self.template, other_value)?;
         }

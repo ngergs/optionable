@@ -118,19 +118,33 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobStatus {
         })
     }
     fn merge(&mut self, other: JobStatusAc) -> Result<(), crate::Error> {
-        self.active = other.active;
-        self.completed_indexes = other.completed_indexes;
+        if other.active.is_some() {
+            self.active = other.active;
+        }
+        if other.completed_indexes.is_some() {
+            self.completed_indexes = other.completed_indexes;
+        }
         crate::OptionableConvert::merge(
             &mut self.completion_time,
             other.completion_time,
         )?;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        self.failed = other.failed;
-        self.failed_indexes = other.failed_indexes;
-        self.ready = other.ready;
+        if other.failed.is_some() {
+            self.failed = other.failed;
+        }
+        if other.failed_indexes.is_some() {
+            self.failed_indexes = other.failed_indexes;
+        }
+        if other.ready.is_some() {
+            self.ready = other.ready;
+        }
         crate::OptionableConvert::merge(&mut self.start_time, other.start_time)?;
-        self.succeeded = other.succeeded;
-        self.terminating = other.terminating;
+        if other.succeeded.is_some() {
+            self.succeeded = other.succeeded;
+        }
+        if other.terminating.is_some() {
+            self.terminating = other.terminating;
+        }
         crate::OptionableConvert::merge(
             &mut self.uncounted_terminated_pods,
             other.uncounted_terminated_pods,

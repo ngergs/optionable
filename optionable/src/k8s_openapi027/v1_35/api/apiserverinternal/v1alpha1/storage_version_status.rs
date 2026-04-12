@@ -59,7 +59,9 @@ for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionStatus {
         })
     }
     fn merge(&mut self, other: StorageVersionStatusAc) -> Result<(), crate::Error> {
-        self.common_encoding_version = other.common_encoding_version;
+        if other.common_encoding_version.is_some() {
+            self.common_encoding_version = other.common_encoding_version;
+        }
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(
             &mut self.storage_versions,

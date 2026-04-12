@@ -40,8 +40,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStateW
         })
     }
     fn merge(&mut self, other: ContainerStateWaitingAc) -> Result<(), crate::Error> {
-        self.message = other.message;
-        self.reason = other.reason;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         Ok(())
     }
 }

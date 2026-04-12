@@ -43,7 +43,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeRuntimeHand
     }
     fn merge(&mut self, other: NodeRuntimeHandlerAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.features, other.features)?;
-        self.name = other.name;
+        if other.name.is_some() {
+            self.name = other.name;
+        }
         Ok(())
     }
 }

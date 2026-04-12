@@ -46,7 +46,9 @@ for k8s_openapi027::api::authorization::v1::NonResourceRule {
         })
     }
     fn merge(&mut self, other: NonResourceRuleAc) -> Result<(), crate::Error> {
-        self.non_resource_urls = other.non_resource_urls;
+        if other.non_resource_urls.is_some() {
+            self.non_resource_urls = other.non_resource_urls;
+        }
         if let Some(other_value) = other.verbs {
             self.verbs = other_value;
         }

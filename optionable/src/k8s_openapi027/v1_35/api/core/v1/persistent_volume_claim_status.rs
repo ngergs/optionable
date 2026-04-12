@@ -139,21 +139,29 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus {
         &mut self,
         other: PersistentVolumeClaimStatusAc,
     ) -> Result<(), crate::Error> {
-        self.access_modes = other.access_modes;
-        self.allocated_resource_statuses = other.allocated_resource_statuses;
+        if other.access_modes.is_some() {
+            self.access_modes = other.access_modes;
+        }
+        if other.allocated_resource_statuses.is_some() {
+            self.allocated_resource_statuses = other.allocated_resource_statuses;
+        }
         crate::OptionableConvert::merge(
             &mut self.allocated_resources,
             other.allocated_resources,
         )?;
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        self.current_volume_attributes_class_name = other
-            .current_volume_attributes_class_name;
+        if other.current_volume_attributes_class_name.is_some() {
+            self.current_volume_attributes_class_name = other
+                .current_volume_attributes_class_name;
+        }
         crate::OptionableConvert::merge(
             &mut self.modify_volume_status,
             other.modify_volume_status,
         )?;
-        self.phase = other.phase;
+        if other.phase.is_some() {
+            self.phase = other.phase;
+        }
         Ok(())
     }
 }

@@ -95,7 +95,9 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestStatus {
             &mut self.begin_refresh_at,
             other.begin_refresh_at,
         )?;
-        self.certificate_chain = other.certificate_chain;
+        if other.certificate_chain.is_some() {
+            self.certificate_chain = other.certificate_chain;
+        }
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         crate::OptionableConvert::merge(&mut self.not_after, other.not_after)?;
         crate::OptionableConvert::merge(&mut self.not_before, other.not_before)?;

@@ -69,16 +69,24 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AzureDiskVolume
         })
     }
     fn merge(&mut self, other: AzureDiskVolumeSourceAc) -> Result<(), crate::Error> {
-        self.caching_mode = other.caching_mode;
+        if other.caching_mode.is_some() {
+            self.caching_mode = other.caching_mode;
+        }
         if let Some(other_value) = other.disk_name {
             self.disk_name = other_value;
         }
         if let Some(other_value) = other.disk_uri {
             self.disk_uri = other_value;
         }
-        self.fs_type = other.fs_type;
-        self.kind = other.kind;
-        self.read_only = other.read_only;
+        if other.fs_type.is_some() {
+            self.fs_type = other.fs_type;
+        }
+        if other.kind.is_some() {
+            self.kind = other.kind;
+        }
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         Ok(())
     }
 }

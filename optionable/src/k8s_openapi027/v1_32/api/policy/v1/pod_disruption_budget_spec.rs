@@ -81,7 +81,9 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec {
         )?;
         crate::OptionableConvert::merge(&mut self.min_available, other.min_available)?;
         crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
-        self.unhealthy_pod_eviction_policy = other.unhealthy_pod_eviction_policy;
+        if other.unhealthy_pod_eviction_policy.is_some() {
+            self.unhealthy_pod_eviction_policy = other.unhealthy_pod_eviction_policy;
+        }
         Ok(())
     }
 }

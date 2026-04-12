@@ -87,7 +87,9 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerSpec {
             self.max_replicas = other_value;
         }
         crate::OptionableConvert::merge(&mut self.metrics, other.metrics)?;
-        self.min_replicas = other.min_replicas;
+        if other.min_replicas.is_some() {
+            self.min_replicas = other.min_replicas;
+        }
         if let Some(other_value) = other.scale_target_ref {
             crate::OptionableConvert::merge(&mut self.scale_target_ref, other_value)?;
         }

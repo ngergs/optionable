@@ -67,8 +67,12 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
     ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.accepted_names, other.accepted_names)?;
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        self.observed_generation = other.observed_generation;
-        self.stored_versions = other.stored_versions;
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
+        if other.stored_versions.is_some() {
+            self.stored_versions = other.stored_versions;
+        }
         Ok(())
     }
 }

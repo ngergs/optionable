@@ -69,7 +69,9 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimConsumerReference {
         &mut self,
         other: ResourceClaimConsumerReferenceAc,
     ) -> Result<(), crate::Error> {
-        self.api_group = other.api_group;
+        if other.api_group.is_some() {
+            self.api_group = other.api_group;
+        }
         if let Some(other_value) = other.name {
             self.name = other_value;
         }

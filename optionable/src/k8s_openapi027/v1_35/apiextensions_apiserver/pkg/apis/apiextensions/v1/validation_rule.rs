@@ -104,11 +104,21 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Valid
         })
     }
     fn merge(&mut self, other: ValidationRuleAc) -> Result<(), crate::Error> {
-        self.field_path = other.field_path;
-        self.message = other.message;
-        self.message_expression = other.message_expression;
-        self.optional_old_self = other.optional_old_self;
-        self.reason = other.reason;
+        if other.field_path.is_some() {
+            self.field_path = other.field_path;
+        }
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.message_expression.is_some() {
+            self.message_expression = other.message_expression;
+        }
+        if other.optional_old_self.is_some() {
+            self.optional_old_self = other.optional_old_self;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         if let Some(other_value) = other.rule {
             self.rule = other_value;
         }

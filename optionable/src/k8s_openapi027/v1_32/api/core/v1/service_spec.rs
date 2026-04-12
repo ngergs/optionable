@@ -151,29 +151,66 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
         })
     }
     fn merge(&mut self, other: ServiceSpecAc) -> Result<(), crate::Error> {
-        self.allocate_load_balancer_node_ports = other.allocate_load_balancer_node_ports;
-        self.cluster_ip = other.cluster_ip;
-        self.cluster_ips = other.cluster_ips;
-        self.external_ips = other.external_ips;
-        self.external_name = other.external_name;
-        self.external_traffic_policy = other.external_traffic_policy;
-        self.health_check_node_port = other.health_check_node_port;
-        self.internal_traffic_policy = other.internal_traffic_policy;
-        self.ip_families = other.ip_families;
-        self.ip_family_policy = other.ip_family_policy;
-        self.load_balancer_class = other.load_balancer_class;
-        self.load_balancer_ip = other.load_balancer_ip;
-        self.load_balancer_source_ranges = other.load_balancer_source_ranges;
+        if other.allocate_load_balancer_node_ports.is_some() {
+            self.allocate_load_balancer_node_ports = other
+                .allocate_load_balancer_node_ports;
+        }
+        if other.cluster_ip.is_some() {
+            self.cluster_ip = other.cluster_ip;
+        }
+        if other.cluster_ips.is_some() {
+            self.cluster_ips = other.cluster_ips;
+        }
+        if other.external_ips.is_some() {
+            self.external_ips = other.external_ips;
+        }
+        if other.external_name.is_some() {
+            self.external_name = other.external_name;
+        }
+        if other.external_traffic_policy.is_some() {
+            self.external_traffic_policy = other.external_traffic_policy;
+        }
+        if other.health_check_node_port.is_some() {
+            self.health_check_node_port = other.health_check_node_port;
+        }
+        if other.internal_traffic_policy.is_some() {
+            self.internal_traffic_policy = other.internal_traffic_policy;
+        }
+        if other.ip_families.is_some() {
+            self.ip_families = other.ip_families;
+        }
+        if other.ip_family_policy.is_some() {
+            self.ip_family_policy = other.ip_family_policy;
+        }
+        if other.load_balancer_class.is_some() {
+            self.load_balancer_class = other.load_balancer_class;
+        }
+        if other.load_balancer_ip.is_some() {
+            self.load_balancer_ip = other.load_balancer_ip;
+        }
+        if other.load_balancer_source_ranges.is_some() {
+            self.load_balancer_source_ranges = other.load_balancer_source_ranges;
+        }
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
-        self.publish_not_ready_addresses = other.publish_not_ready_addresses;
-        self.selector = other.selector;
-        self.session_affinity = other.session_affinity;
+        if other.publish_not_ready_addresses.is_some() {
+            self.publish_not_ready_addresses = other.publish_not_ready_addresses;
+        }
+        if other.selector.is_some() {
+            self.selector = other.selector;
+        }
+        if other.session_affinity.is_some() {
+            self.session_affinity = other.session_affinity;
+        }
         crate::OptionableConvert::merge(
             &mut self.session_affinity_config,
             other.session_affinity_config,
         )?;
-        self.traffic_distribution = other.traffic_distribution;
-        self.type_ = other.type_;
+        if other.traffic_distribution.is_some() {
+            self.traffic_distribution = other.traffic_distribution;
+        }
+        if other.type_.is_some() {
+            self.type_ = other.type_;
+        }
         Ok(())
     }
 }

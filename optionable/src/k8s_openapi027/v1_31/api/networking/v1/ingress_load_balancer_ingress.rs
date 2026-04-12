@@ -56,8 +56,12 @@ for k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress {
         &mut self,
         other: IngressLoadBalancerIngressAc,
     ) -> Result<(), crate::Error> {
-        self.hostname = other.hostname;
-        self.ip = other.ip;
+        if other.hostname.is_some() {
+            self.hostname = other.hostname;
+        }
+        if other.ip.is_some() {
+            self.ip = other.ip;
+        }
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
         Ok(())
     }

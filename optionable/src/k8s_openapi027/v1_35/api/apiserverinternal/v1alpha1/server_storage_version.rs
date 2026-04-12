@@ -53,10 +53,23 @@ for k8s_openapi027::api::apiserverinternal::v1alpha1::ServerStorageVersion {
     }
     fn merge(&mut self, other: ServerStorageVersionAc) -> Result<(), crate::Error> {
         self.api_server_id = other.api_server_id;
-        self.decodable_versions = other.decodable_versions;
-        self.encoding_version = other.encoding_version;
-        self.served_versions = other.served_versions;
+        if other.decodable_versions.is_some() {
+            self.decodable_versions = other.decodable_versions;
+        }
+        if other.encoding_version.is_some() {
+            self.encoding_version = other.encoding_version;
+        }
+        if other.served_versions.is_some() {
+            self.served_versions = other.served_versions;
+        }
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::apiserverinternal::v1alpha1::ServerStorageVersion {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.api_server_id == other.api_server_id
     }
 }
 #[automatically_derived]

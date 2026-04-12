@@ -79,13 +79,19 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceS
     }
     fn merge(&mut self, other: APIServiceSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
-        self.group = other.group;
+        if other.group.is_some() {
+            self.group = other.group;
+        }
         if let Some(other_value) = other.group_priority_minimum {
             self.group_priority_minimum = other_value;
         }
-        self.insecure_skip_tls_verify = other.insecure_skip_tls_verify;
+        if other.insecure_skip_tls_verify.is_some() {
+            self.insecure_skip_tls_verify = other.insecure_skip_tls_verify;
+        }
         crate::OptionableConvert::merge(&mut self.service, other.service)?;
-        self.version = other.version;
+        if other.version.is_some() {
+            self.version = other.version;
+        }
         if let Some(other_value) = other.version_priority {
             self.version_priority = other_value;
         }

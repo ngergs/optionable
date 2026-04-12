@@ -188,12 +188,16 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
         if let Some(other_value) = other.client_config {
             crate::OptionableConvert::merge(&mut self.client_config, other_value)?;
         }
-        self.failure_policy = other.failure_policy;
+        if other.failure_policy.is_some() {
+            self.failure_policy = other.failure_policy;
+        }
         crate::OptionableConvert::merge(
             &mut self.match_conditions,
             other.match_conditions,
         )?;
-        self.match_policy = other.match_policy;
+        if other.match_policy.is_some() {
+            self.match_policy = other.match_policy;
+        }
         self.name = other.name;
         crate::OptionableConvert::merge(
             &mut self.namespace_selector,
@@ -203,13 +207,24 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
             &mut self.object_selector,
             other.object_selector,
         )?;
-        self.reinvocation_policy = other.reinvocation_policy;
+        if other.reinvocation_policy.is_some() {
+            self.reinvocation_policy = other.reinvocation_policy;
+        }
         crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
         if let Some(other_value) = other.side_effects {
             self.side_effects = other_value;
         }
-        self.timeout_seconds = other.timeout_seconds;
+        if other.timeout_seconds.is_some() {
+            self.timeout_seconds = other.timeout_seconds;
+        }
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
     }
 }
 #[automatically_derived]

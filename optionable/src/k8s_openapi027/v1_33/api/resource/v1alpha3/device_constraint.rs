@@ -47,8 +47,12 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceConstraint {
         })
     }
     fn merge(&mut self, other: DeviceConstraintAc) -> Result<(), crate::Error> {
-        self.match_attribute = other.match_attribute;
-        self.requests = other.requests;
+        if other.match_attribute.is_some() {
+            self.match_attribute = other.match_attribute;
+        }
+        if other.requests.is_some() {
+            self.requests = other.requests;
+        }
         Ok(())
     }
 }

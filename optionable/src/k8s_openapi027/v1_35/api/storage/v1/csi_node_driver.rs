@@ -61,8 +61,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSINodeDrive
         if let Some(other_value) = other.node_id {
             self.node_id = other_value;
         }
-        self.topology_keys = other.topology_keys;
+        if other.topology_keys.is_some() {
+            self.topology_keys = other.topology_keys;
+        }
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::storage::v1::CSINodeDriver {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
     }
 }
 #[automatically_derived]

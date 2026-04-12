@@ -48,7 +48,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::GRPCAction {
         if let Some(other_value) = other.port {
             self.port = other_value;
         }
-        self.service = other.service;
+        if other.service.is_some() {
+            self.service = other.service;
+        }
         Ok(())
     }
 }

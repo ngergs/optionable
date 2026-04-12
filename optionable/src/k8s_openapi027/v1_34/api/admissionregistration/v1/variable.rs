@@ -52,6 +52,13 @@ for k8s_openapi027::api::admissionregistration::v1::Variable {
     }
 }
 #[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::admissionregistration::v1::Variable {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
+    }
+}
+#[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::admissionregistration::v1::Variable>
 for VariableAc {

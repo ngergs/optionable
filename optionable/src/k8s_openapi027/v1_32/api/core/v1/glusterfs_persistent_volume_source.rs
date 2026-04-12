@@ -68,11 +68,15 @@ for k8s_openapi027::api::core::v1::GlusterfsPersistentVolumeSource {
         if let Some(other_value) = other.endpoints {
             self.endpoints = other_value;
         }
-        self.endpoints_namespace = other.endpoints_namespace;
+        if other.endpoints_namespace.is_some() {
+            self.endpoints_namespace = other.endpoints_namespace;
+        }
         if let Some(other_value) = other.path {
             self.path = other_value;
         }
-        self.read_only = other.read_only;
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         Ok(())
     }
 }

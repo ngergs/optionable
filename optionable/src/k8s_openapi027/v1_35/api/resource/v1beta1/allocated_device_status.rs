@@ -95,6 +95,14 @@ for k8s_openapi027::api::resource::v1beta1::AllocatedDeviceStatus {
     }
 }
 #[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::resource::v1beta1::AllocatedDeviceStatus {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.device == other.device && self.driver == other.driver
+            && self.pool == other.pool && self.share_id == other.share_id
+    }
+}
+#[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<
     k8s_openapi027::api::resource::v1beta1::AllocatedDeviceStatus,

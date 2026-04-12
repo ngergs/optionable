@@ -48,7 +48,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HostPathVolumeS
         if let Some(other_value) = other.path {
             self.path = other_value;
         }
-        self.type_ = other.type_;
+        if other.type_.is_some() {
+            self.type_ = other.type_;
+        }
         Ok(())
     }
 }

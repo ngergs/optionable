@@ -47,9 +47,15 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::ServiceRefe
         })
     }
     fn merge(&mut self, other: ServiceReferenceAc) -> Result<(), crate::Error> {
-        self.name = other.name;
-        self.namespace = other.namespace;
-        self.port = other.port;
+        if other.name.is_some() {
+            self.name = other.name;
+        }
+        if other.namespace.is_some() {
+            self.namespace = other.namespace;
+        }
+        if other.port.is_some() {
+            self.port = other.port;
+        }
         Ok(())
     }
 }

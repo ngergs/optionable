@@ -89,13 +89,21 @@ for k8s_openapi027::api::core::v1::PodCertificateProjection {
         })
     }
     fn merge(&mut self, other: PodCertificateProjectionAc) -> Result<(), crate::Error> {
-        self.certificate_chain_path = other.certificate_chain_path;
-        self.credential_bundle_path = other.credential_bundle_path;
-        self.key_path = other.key_path;
+        if other.certificate_chain_path.is_some() {
+            self.certificate_chain_path = other.certificate_chain_path;
+        }
+        if other.credential_bundle_path.is_some() {
+            self.credential_bundle_path = other.credential_bundle_path;
+        }
+        if other.key_path.is_some() {
+            self.key_path = other.key_path;
+        }
         if let Some(other_value) = other.key_type {
             self.key_type = other_value;
         }
-        self.max_expiration_seconds = other.max_expiration_seconds;
+        if other.max_expiration_seconds.is_some() {
+            self.max_expiration_seconds = other.max_expiration_seconds;
+        }
         if let Some(other_value) = other.signer_name {
             self.signer_name = other_value;
         }

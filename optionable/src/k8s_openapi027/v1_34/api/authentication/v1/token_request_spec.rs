@@ -63,7 +63,9 @@ for k8s_openapi027::api::authentication::v1::TokenRequestSpec {
             &mut self.bound_object_ref,
             other.bound_object_ref,
         )?;
-        self.expiration_seconds = other.expiration_seconds;
+        if other.expiration_seconds.is_some() {
+            self.expiration_seconds = other.expiration_seconds;
+        }
         Ok(())
     }
 }

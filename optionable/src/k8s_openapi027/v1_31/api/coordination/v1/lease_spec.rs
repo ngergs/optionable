@@ -72,12 +72,22 @@ impl crate::OptionableConvert for k8s_openapi027::api::coordination::v1::LeaseSp
     }
     fn merge(&mut self, other: LeaseSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.acquire_time, other.acquire_time)?;
-        self.holder_identity = other.holder_identity;
-        self.lease_duration_seconds = other.lease_duration_seconds;
-        self.lease_transitions = other.lease_transitions;
-        self.preferred_holder = other.preferred_holder;
+        if other.holder_identity.is_some() {
+            self.holder_identity = other.holder_identity;
+        }
+        if other.lease_duration_seconds.is_some() {
+            self.lease_duration_seconds = other.lease_duration_seconds;
+        }
+        if other.lease_transitions.is_some() {
+            self.lease_transitions = other.lease_transitions;
+        }
+        if other.preferred_holder.is_some() {
+            self.preferred_holder = other.preferred_holder;
+        }
         crate::OptionableConvert::merge(&mut self.renew_time, other.renew_time)?;
-        self.strategy = other.strategy;
+        if other.strategy.is_some() {
+            self.strategy = other.strategy;
+        }
         Ok(())
     }
 }

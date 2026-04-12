@@ -56,7 +56,9 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector {
             &mut self.match_expressions,
             other.match_expressions,
         )?;
-        self.match_labels = other.match_labels;
+        if other.match_labels.is_some() {
+            self.match_labels = other.match_labels;
+        }
         Ok(())
     }
 }

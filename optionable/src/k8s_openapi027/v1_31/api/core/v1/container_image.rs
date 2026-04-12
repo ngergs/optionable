@@ -40,8 +40,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerImage 
         })
     }
     fn merge(&mut self, other: ContainerImageAc) -> Result<(), crate::Error> {
-        self.names = other.names;
-        self.size_bytes = other.size_bytes;
+        if other.names.is_some() {
+            self.names = other.names;
+        }
+        if other.size_bytes.is_some() {
+            self.size_bytes = other.size_bytes;
+        }
         Ok(())
     }
 }

@@ -127,7 +127,9 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
             &mut self.audit_annotations,
             other.audit_annotations,
         )?;
-        self.failure_policy = other.failure_policy;
+        if other.failure_policy.is_some() {
+            self.failure_policy = other.failure_policy;
+        }
         crate::OptionableConvert::merge(
             &mut self.match_conditions,
             other.match_conditions,

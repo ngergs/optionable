@@ -151,30 +151,52 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta {
         })
     }
     fn merge(&mut self, other: ObjectMetaAc) -> Result<(), crate::Error> {
-        self.annotations = other.annotations;
+        if other.annotations.is_some() {
+            self.annotations = other.annotations;
+        }
         crate::OptionableConvert::merge(
             &mut self.creation_timestamp,
             other.creation_timestamp,
         )?;
-        self.deletion_grace_period_seconds = other.deletion_grace_period_seconds;
+        if other.deletion_grace_period_seconds.is_some() {
+            self.deletion_grace_period_seconds = other.deletion_grace_period_seconds;
+        }
         crate::OptionableConvert::merge(
             &mut self.deletion_timestamp,
             other.deletion_timestamp,
         )?;
-        self.finalizers = other.finalizers;
-        self.generate_name = other.generate_name;
-        self.generation = other.generation;
-        self.labels = other.labels;
+        if other.finalizers.is_some() {
+            self.finalizers = other.finalizers;
+        }
+        if other.generate_name.is_some() {
+            self.generate_name = other.generate_name;
+        }
+        if other.generation.is_some() {
+            self.generation = other.generation;
+        }
+        if other.labels.is_some() {
+            self.labels = other.labels;
+        }
         crate::OptionableConvert::merge(&mut self.managed_fields, other.managed_fields)?;
-        self.name = other.name;
-        self.namespace = other.namespace;
+        if other.name.is_some() {
+            self.name = other.name;
+        }
+        if other.namespace.is_some() {
+            self.namespace = other.namespace;
+        }
         crate::OptionableConvert::merge(
             &mut self.owner_references,
             other.owner_references,
         )?;
-        self.resource_version = other.resource_version;
-        self.self_link = other.self_link;
-        self.uid = other.uid;
+        if other.resource_version.is_some() {
+            self.resource_version = other.resource_version;
+        }
+        if other.self_link.is_some() {
+            self.self_link = other.self_link;
+        }
+        if other.uid.is_some() {
+            self.uid = other.uid;
+        }
         Ok(())
     }
 }

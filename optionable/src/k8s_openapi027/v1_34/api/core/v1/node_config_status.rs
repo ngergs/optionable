@@ -62,7 +62,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeConfigStatu
     fn merge(&mut self, other: NodeConfigStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.active, other.active)?;
         crate::OptionableConvert::merge(&mut self.assigned, other.assigned)?;
-        self.error = other.error;
+        if other.error.is_some() {
+            self.error = other.error;
+        }
         crate::OptionableConvert::merge(
             &mut self.last_known_good,
             other.last_known_good,

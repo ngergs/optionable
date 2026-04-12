@@ -36,7 +36,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetOrdi
         Ok(Self { start: value.start })
     }
     fn merge(&mut self, other: StatefulSetOrdinalsAc) -> Result<(), crate::Error> {
-        self.start = other.start;
+        if other.start.is_some() {
+            self.start = other.start;
+        }
         Ok(())
     }
 }

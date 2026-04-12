@@ -102,22 +102,36 @@ for k8s_openapi027::api::core::v1::ScaleIOPersistentVolumeSource {
         &mut self,
         other: ScaleIOPersistentVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        self.fs_type = other.fs_type;
+        if other.fs_type.is_some() {
+            self.fs_type = other.fs_type;
+        }
         if let Some(other_value) = other.gateway {
             self.gateway = other_value;
         }
-        self.protection_domain = other.protection_domain;
-        self.read_only = other.read_only;
+        if other.protection_domain.is_some() {
+            self.protection_domain = other.protection_domain;
+        }
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         if let Some(other_value) = other.secret_ref {
             crate::OptionableConvert::merge(&mut self.secret_ref, other_value)?;
         }
-        self.ssl_enabled = other.ssl_enabled;
-        self.storage_mode = other.storage_mode;
-        self.storage_pool = other.storage_pool;
+        if other.ssl_enabled.is_some() {
+            self.ssl_enabled = other.ssl_enabled;
+        }
+        if other.storage_mode.is_some() {
+            self.storage_mode = other.storage_mode;
+        }
+        if other.storage_pool.is_some() {
+            self.storage_pool = other.storage_pool;
+        }
         if let Some(other_value) = other.system {
             self.system = other_value;
         }
-        self.volume_name = other.volume_name;
+        if other.volume_name.is_some() {
+            self.volume_name = other.volume_name;
+        }
         Ok(())
     }
 }

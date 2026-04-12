@@ -34,7 +34,9 @@ for k8s_openapi027::api::networking::v1beta1::ServiceCIDRSpec {
         Ok(Self { cidrs: value.cidrs })
     }
     fn merge(&mut self, other: ServiceCIDRSpecAc) -> Result<(), crate::Error> {
-        self.cidrs = other.cidrs;
+        if other.cidrs.is_some() {
+            self.cidrs = other.cidrs;
+        }
         Ok(())
     }
 }

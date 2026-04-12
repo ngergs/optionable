@@ -58,7 +58,9 @@ for k8s_openapi027::api::certificates::v1alpha1::ClusterTrustBundleSpec {
         })
     }
     fn merge(&mut self, other: ClusterTrustBundleSpecAc) -> Result<(), crate::Error> {
-        self.signer_name = other.signer_name;
+        if other.signer_name.is_some() {
+            self.signer_name = other.signer_name;
+        }
         if let Some(other_value) = other.trust_bundle {
             self.trust_bundle = other_value;
         }

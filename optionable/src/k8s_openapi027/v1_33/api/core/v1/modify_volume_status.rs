@@ -57,8 +57,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ModifyVolumeSta
         if let Some(other_value) = other.status {
             self.status = other_value;
         }
-        self.target_volume_attributes_class_name = other
-            .target_volume_attributes_class_name;
+        if other.target_volume_attributes_class_name.is_some() {
+            self.target_volume_attributes_class_name = other
+                .target_volume_attributes_class_name;
+        }
         Ok(())
     }
 }

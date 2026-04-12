@@ -145,8 +145,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
         })
     }
     fn merge(&mut self, other: EventAc) -> Result<(), crate::Error> {
-        self.action = other.action;
-        self.count = other.count;
+        if other.action.is_some() {
+            self.action = other.action;
+        }
+        if other.count.is_some() {
+            self.count = other.count;
+        }
         crate::OptionableConvert::merge(&mut self.event_time, other.event_time)?;
         crate::OptionableConvert::merge(
             &mut self.first_timestamp,
@@ -156,15 +160,25 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
             crate::OptionableConvert::merge(&mut self.involved_object, other_value)?;
         }
         crate::OptionableConvert::merge(&mut self.last_timestamp, other.last_timestamp)?;
-        self.message = other.message;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
         self.metadata = other.metadata;
-        self.reason = other.reason;
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         crate::OptionableConvert::merge(&mut self.related, other.related)?;
-        self.reporting_component = other.reporting_component;
-        self.reporting_instance = other.reporting_instance;
+        if other.reporting_component.is_some() {
+            self.reporting_component = other.reporting_component;
+        }
+        if other.reporting_instance.is_some() {
+            self.reporting_instance = other.reporting_instance;
+        }
         crate::OptionableConvert::merge(&mut self.series, other.series)?;
         crate::OptionableConvert::merge(&mut self.source, other.source)?;
-        self.type_ = other.type_;
+        if other.type_.is_some() {
+            self.type_ = other.type_;
+        }
         Ok(())
     }
 }

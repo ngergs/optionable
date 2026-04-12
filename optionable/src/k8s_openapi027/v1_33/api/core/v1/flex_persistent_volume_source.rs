@@ -72,9 +72,15 @@ for k8s_openapi027::api::core::v1::FlexPersistentVolumeSource {
         if let Some(other_value) = other.driver {
             self.driver = other_value;
         }
-        self.fs_type = other.fs_type;
-        self.options = other.options;
-        self.read_only = other.read_only;
+        if other.fs_type.is_some() {
+            self.fs_type = other.fs_type;
+        }
+        if other.options.is_some() {
+            self.options = other.options;
+        }
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
         Ok(())
     }

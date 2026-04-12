@@ -55,10 +55,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::authentication::v1::UserI
         })
     }
     fn merge(&mut self, other: UserInfoAc) -> Result<(), crate::Error> {
-        self.extra = other.extra;
-        self.groups = other.groups;
-        self.uid = other.uid;
-        self.username = other.username;
+        if other.extra.is_some() {
+            self.extra = other.extra;
+        }
+        if other.groups.is_some() {
+            self.groups = other.groups;
+        }
+        if other.uid.is_some() {
+            self.uid = other.uid;
+        }
+        if other.username.is_some() {
+            self.username = other.username;
+        }
         Ok(())
     }
 }

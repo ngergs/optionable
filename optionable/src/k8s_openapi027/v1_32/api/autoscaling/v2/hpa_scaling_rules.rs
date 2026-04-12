@@ -50,8 +50,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::HPAScali
     }
     fn merge(&mut self, other: HPAScalingRulesAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.policies, other.policies)?;
-        self.select_policy = other.select_policy;
-        self.stabilization_window_seconds = other.stabilization_window_seconds;
+        if other.select_policy.is_some() {
+            self.select_policy = other.select_policy;
+        }
+        if other.stabilization_window_seconds.is_some() {
+            self.stabilization_window_seconds = other.stabilization_window_seconds;
+        }
         Ok(())
     }
 }

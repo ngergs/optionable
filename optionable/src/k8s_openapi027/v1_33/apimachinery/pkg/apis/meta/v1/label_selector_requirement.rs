@@ -63,7 +63,9 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelectorRequirement 
         if let Some(other_value) = other.operator {
             self.operator = other_value;
         }
-        self.values = other.values;
+        if other.values.is_some() {
+            self.values = other.values;
+        }
         Ok(())
     }
 }

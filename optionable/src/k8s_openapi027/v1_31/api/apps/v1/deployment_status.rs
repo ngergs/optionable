@@ -74,14 +74,28 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentStatu
         })
     }
     fn merge(&mut self, other: DeploymentStatusAc) -> Result<(), crate::Error> {
-        self.available_replicas = other.available_replicas;
-        self.collision_count = other.collision_count;
+        if other.available_replicas.is_some() {
+            self.available_replicas = other.available_replicas;
+        }
+        if other.collision_count.is_some() {
+            self.collision_count = other.collision_count;
+        }
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        self.observed_generation = other.observed_generation;
-        self.ready_replicas = other.ready_replicas;
-        self.replicas = other.replicas;
-        self.unavailable_replicas = other.unavailable_replicas;
-        self.updated_replicas = other.updated_replicas;
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
+        if other.ready_replicas.is_some() {
+            self.ready_replicas = other.ready_replicas;
+        }
+        if other.replicas.is_some() {
+            self.replicas = other.replicas;
+        }
+        if other.unavailable_replicas.is_some() {
+            self.unavailable_replicas = other.unavailable_replicas;
+        }
+        if other.updated_replicas.is_some() {
+            self.updated_replicas = other.updated_replicas;
+        }
         Ok(())
     }
 }

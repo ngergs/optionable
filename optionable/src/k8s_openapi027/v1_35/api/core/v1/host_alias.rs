@@ -39,9 +39,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HostAlias {
         })
     }
     fn merge(&mut self, other: HostAliasAc) -> Result<(), crate::Error> {
-        self.hostnames = other.hostnames;
+        if other.hostnames.is_some() {
+            self.hostnames = other.hostnames;
+        }
         self.ip = other.ip;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq for k8s_openapi027::api::core::v1::HostAlias {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.ip == other.ip
     }
 }
 #[automatically_derived]

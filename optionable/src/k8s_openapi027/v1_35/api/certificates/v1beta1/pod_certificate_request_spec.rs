@@ -166,7 +166,9 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
         })
     }
     fn merge(&mut self, other: PodCertificateRequestSpecAc) -> Result<(), crate::Error> {
-        self.max_expiration_seconds = other.max_expiration_seconds;
+        if other.max_expiration_seconds.is_some() {
+            self.max_expiration_seconds = other.max_expiration_seconds;
+        }
         if let Some(other_value) = other.node_name {
             self.node_name = other_value;
         }
@@ -194,7 +196,9 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
         if let Some(other_value) = other.signer_name {
             self.signer_name = other_value;
         }
-        self.unverified_user_annotations = other.unverified_user_annotations;
+        if other.unverified_user_annotations.is_some() {
+            self.unverified_user_annotations = other.unverified_user_annotations;
+        }
         Ok(())
     }
 }

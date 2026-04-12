@@ -102,7 +102,9 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         if let Some(other_value) = other.names {
             crate::OptionableConvert::merge(&mut self.names, other_value)?;
         }
-        self.preserve_unknown_fields = other.preserve_unknown_fields;
+        if other.preserve_unknown_fields.is_some() {
+            self.preserve_unknown_fields = other.preserve_unknown_fields;
+        }
         if let Some(other_value) = other.scope {
             self.scope = other_value;
         }

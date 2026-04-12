@@ -89,7 +89,9 @@ for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionCondition {
         if let Some(other_value) = other.message {
             self.message = other_value;
         }
-        self.observed_generation = other.observed_generation;
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
         if let Some(other_value) = other.reason {
             self.reason = other_value;
         }
@@ -98,6 +100,13 @@ for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionCondition {
         }
         self.type_ = other.type_;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionCondition {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.type_ == other.type_
     }
 }
 #[automatically_derived]

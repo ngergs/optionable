@@ -81,8 +81,12 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewSpec {
         })
     }
     fn merge(&mut self, other: SubjectAccessReviewSpecAc) -> Result<(), crate::Error> {
-        self.extra = other.extra;
-        self.groups = other.groups;
+        if other.extra.is_some() {
+            self.extra = other.extra;
+        }
+        if other.groups.is_some() {
+            self.groups = other.groups;
+        }
         crate::OptionableConvert::merge(
             &mut self.non_resource_attributes,
             other.non_resource_attributes,
@@ -91,8 +95,12 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewSpec {
             &mut self.resource_attributes,
             other.resource_attributes,
         )?;
-        self.uid = other.uid;
-        self.user = other.user;
+        if other.uid.is_some() {
+            self.uid = other.uid;
+        }
+        if other.user.is_some() {
+            self.user = other.user;
+        }
         Ok(())
     }
 }

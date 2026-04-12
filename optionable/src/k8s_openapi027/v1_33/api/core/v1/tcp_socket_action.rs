@@ -48,7 +48,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TCPSocketAction
         })
     }
     fn merge(&mut self, other: TCPSocketActionAc) -> Result<(), crate::Error> {
-        self.host = other.host;
+        if other.host.is_some() {
+            self.host = other.host;
+        }
         if let Some(other_value) = other.port {
             crate::OptionableConvert::merge(&mut self.port, other_value)?;
         }

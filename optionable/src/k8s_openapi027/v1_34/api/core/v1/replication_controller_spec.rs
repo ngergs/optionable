@@ -57,9 +57,15 @@ for k8s_openapi027::api::core::v1::ReplicationControllerSpec {
         })
     }
     fn merge(&mut self, other: ReplicationControllerSpecAc) -> Result<(), crate::Error> {
-        self.min_ready_seconds = other.min_ready_seconds;
-        self.replicas = other.replicas;
-        self.selector = other.selector;
+        if other.min_ready_seconds.is_some() {
+            self.min_ready_seconds = other.min_ready_seconds;
+        }
+        if other.replicas.is_some() {
+            self.replicas = other.replicas;
+        }
+        if other.selector.is_some() {
+            self.selector = other.selector;
+        }
         crate::OptionableConvert::merge(&mut self.template, other.template)?;
         Ok(())
     }

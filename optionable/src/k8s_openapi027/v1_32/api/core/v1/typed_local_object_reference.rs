@@ -56,7 +56,9 @@ for k8s_openapi027::api::core::v1::TypedLocalObjectReference {
         })
     }
     fn merge(&mut self, other: TypedLocalObjectReferenceAc) -> Result<(), crate::Error> {
-        self.api_group = other.api_group;
+        if other.api_group.is_some() {
+            self.api_group = other.api_group;
+        }
         if let Some(other_value) = other.kind {
             self.kind = other_value;
         }

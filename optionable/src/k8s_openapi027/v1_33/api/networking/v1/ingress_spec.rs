@@ -68,7 +68,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressSp
             &mut self.default_backend,
             other.default_backend,
         )?;
-        self.ingress_class_name = other.ingress_class_name;
+        if other.ingress_class_name.is_some() {
+            self.ingress_class_name = other.ingress_class_name;
+        }
         crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
         crate::OptionableConvert::merge(&mut self.tls, other.tls)?;
         Ok(())

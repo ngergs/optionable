@@ -118,18 +118,32 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecurityContext
         })
     }
     fn merge(&mut self, other: SecurityContextAc) -> Result<(), crate::Error> {
-        self.allow_privilege_escalation = other.allow_privilege_escalation;
+        if other.allow_privilege_escalation.is_some() {
+            self.allow_privilege_escalation = other.allow_privilege_escalation;
+        }
         crate::OptionableConvert::merge(
             &mut self.app_armor_profile,
             other.app_armor_profile,
         )?;
         crate::OptionableConvert::merge(&mut self.capabilities, other.capabilities)?;
-        self.privileged = other.privileged;
-        self.proc_mount = other.proc_mount;
-        self.read_only_root_filesystem = other.read_only_root_filesystem;
-        self.run_as_group = other.run_as_group;
-        self.run_as_non_root = other.run_as_non_root;
-        self.run_as_user = other.run_as_user;
+        if other.privileged.is_some() {
+            self.privileged = other.privileged;
+        }
+        if other.proc_mount.is_some() {
+            self.proc_mount = other.proc_mount;
+        }
+        if other.read_only_root_filesystem.is_some() {
+            self.read_only_root_filesystem = other.read_only_root_filesystem;
+        }
+        if other.run_as_group.is_some() {
+            self.run_as_group = other.run_as_group;
+        }
+        if other.run_as_non_root.is_some() {
+            self.run_as_non_root = other.run_as_non_root;
+        }
+        if other.run_as_user.is_some() {
+            self.run_as_user = other.run_as_user;
+        }
         crate::OptionableConvert::merge(
             &mut self.se_linux_options,
             other.se_linux_options,

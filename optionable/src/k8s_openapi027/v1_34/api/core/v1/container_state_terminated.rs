@@ -77,14 +77,22 @@ for k8s_openapi027::api::core::v1::ContainerStateTerminated {
         })
     }
     fn merge(&mut self, other: ContainerStateTerminatedAc) -> Result<(), crate::Error> {
-        self.container_id = other.container_id;
+        if other.container_id.is_some() {
+            self.container_id = other.container_id;
+        }
         if let Some(other_value) = other.exit_code {
             self.exit_code = other_value;
         }
         crate::OptionableConvert::merge(&mut self.finished_at, other.finished_at)?;
-        self.message = other.message;
-        self.reason = other.reason;
-        self.signal = other.signal;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
+        if other.signal.is_some() {
+            self.signal = other.signal;
+        }
         crate::OptionableConvert::merge(&mut self.started_at, other.started_at)?;
         Ok(())
     }

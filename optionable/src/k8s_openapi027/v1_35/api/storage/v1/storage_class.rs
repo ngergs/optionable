@@ -97,19 +97,29 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::StorageClass
         })
     }
     fn merge(&mut self, other: StorageClassAc) -> Result<(), crate::Error> {
-        self.allow_volume_expansion = other.allow_volume_expansion;
+        if other.allow_volume_expansion.is_some() {
+            self.allow_volume_expansion = other.allow_volume_expansion;
+        }
         crate::OptionableConvert::merge(
             &mut self.allowed_topologies,
             other.allowed_topologies,
         )?;
         self.metadata = other.metadata;
-        self.mount_options = other.mount_options;
-        self.parameters = other.parameters;
+        if other.mount_options.is_some() {
+            self.mount_options = other.mount_options;
+        }
+        if other.parameters.is_some() {
+            self.parameters = other.parameters;
+        }
         if let Some(other_value) = other.provisioner {
             self.provisioner = other_value;
         }
-        self.reclaim_policy = other.reclaim_policy;
-        self.volume_binding_mode = other.volume_binding_mode;
+        if other.reclaim_policy.is_some() {
+            self.reclaim_policy = other.reclaim_policy;
+        }
+        if other.volume_binding_mode.is_some() {
+            self.volume_binding_mode = other.volume_binding_mode;
+        }
         Ok(())
     }
 }

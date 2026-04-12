@@ -51,7 +51,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Lifecycle {
     fn merge(&mut self, other: LifecycleAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.post_start, other.post_start)?;
         crate::OptionableConvert::merge(&mut self.pre_stop, other.pre_stop)?;
-        self.stop_signal = other.stop_signal;
+        if other.stop_signal.is_some() {
+            self.stop_signal = other.stop_signal;
+        }
         Ok(())
     }
 }

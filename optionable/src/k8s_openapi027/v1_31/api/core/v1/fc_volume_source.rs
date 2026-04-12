@@ -56,11 +56,21 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FCVolumeSource 
         })
     }
     fn merge(&mut self, other: FCVolumeSourceAc) -> Result<(), crate::Error> {
-        self.fs_type = other.fs_type;
-        self.lun = other.lun;
-        self.read_only = other.read_only;
-        self.target_wwns = other.target_wwns;
-        self.wwids = other.wwids;
+        if other.fs_type.is_some() {
+            self.fs_type = other.fs_type;
+        }
+        if other.lun.is_some() {
+            self.lun = other.lun;
+        }
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
+        if other.target_wwns.is_some() {
+            self.target_wwns = other.target_wwns;
+        }
+        if other.wwids.is_some() {
+            self.wwids = other.wwids;
+        }
         Ok(())
     }
 }

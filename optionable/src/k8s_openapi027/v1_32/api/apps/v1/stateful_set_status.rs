@@ -88,18 +88,34 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetStat
         })
     }
     fn merge(&mut self, other: StatefulSetStatusAc) -> Result<(), crate::Error> {
-        self.available_replicas = other.available_replicas;
-        self.collision_count = other.collision_count;
+        if other.available_replicas.is_some() {
+            self.available_replicas = other.available_replicas;
+        }
+        if other.collision_count.is_some() {
+            self.collision_count = other.collision_count;
+        }
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        self.current_replicas = other.current_replicas;
-        self.current_revision = other.current_revision;
-        self.observed_generation = other.observed_generation;
-        self.ready_replicas = other.ready_replicas;
+        if other.current_replicas.is_some() {
+            self.current_replicas = other.current_replicas;
+        }
+        if other.current_revision.is_some() {
+            self.current_revision = other.current_revision;
+        }
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
+        if other.ready_replicas.is_some() {
+            self.ready_replicas = other.ready_replicas;
+        }
         if let Some(other_value) = other.replicas {
             self.replicas = other_value;
         }
-        self.update_revision = other.update_revision;
-        self.updated_replicas = other.updated_replicas;
+        if other.update_revision.is_some() {
+            self.update_revision = other.update_revision;
+        }
+        if other.updated_replicas.is_some() {
+            self.updated_replicas = other.updated_replicas;
+        }
         Ok(())
     }
 }

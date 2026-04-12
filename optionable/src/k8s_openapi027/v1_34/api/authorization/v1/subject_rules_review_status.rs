@@ -82,7 +82,9 @@ for k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus {
         })
     }
     fn merge(&mut self, other: SubjectRulesReviewStatusAc) -> Result<(), crate::Error> {
-        self.evaluation_error = other.evaluation_error;
+        if other.evaluation_error.is_some() {
+            self.evaluation_error = other.evaluation_error;
+        }
         if let Some(other_value) = other.incomplete {
             self.incomplete = other_value;
         }

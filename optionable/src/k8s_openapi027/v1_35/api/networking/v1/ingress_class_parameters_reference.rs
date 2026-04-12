@@ -70,15 +70,21 @@ for k8s_openapi027::api::networking::v1::IngressClassParametersReference {
         &mut self,
         other: IngressClassParametersReferenceAc,
     ) -> Result<(), crate::Error> {
-        self.api_group = other.api_group;
+        if other.api_group.is_some() {
+            self.api_group = other.api_group;
+        }
         if let Some(other_value) = other.kind {
             self.kind = other_value;
         }
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        self.namespace = other.namespace;
-        self.scope = other.scope;
+        if other.namespace.is_some() {
+            self.namespace = other.namespace;
+        }
+        if other.scope.is_some() {
+            self.scope = other.scope;
+        }
         Ok(())
     }
 }

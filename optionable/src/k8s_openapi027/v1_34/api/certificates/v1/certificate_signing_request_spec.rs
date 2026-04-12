@@ -136,18 +136,30 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
         &mut self,
         other: CertificateSigningRequestSpecAc,
     ) -> Result<(), crate::Error> {
-        self.expiration_seconds = other.expiration_seconds;
-        self.extra = other.extra;
-        self.groups = other.groups;
+        if other.expiration_seconds.is_some() {
+            self.expiration_seconds = other.expiration_seconds;
+        }
+        if other.extra.is_some() {
+            self.extra = other.extra;
+        }
+        if other.groups.is_some() {
+            self.groups = other.groups;
+        }
         if let Some(other_value) = other.request {
             crate::OptionableConvert::merge(&mut self.request, other_value)?;
         }
         if let Some(other_value) = other.signer_name {
             self.signer_name = other_value;
         }
-        self.uid = other.uid;
-        self.usages = other.usages;
-        self.username = other.username;
+        if other.uid.is_some() {
+            self.uid = other.uid;
+        }
+        if other.usages.is_some() {
+            self.usages = other.usages;
+        }
+        if other.username.is_some() {
+            self.username = other.username;
+        }
         Ok(())
     }
 }

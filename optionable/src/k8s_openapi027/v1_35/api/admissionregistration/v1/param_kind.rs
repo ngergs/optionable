@@ -41,8 +41,12 @@ for k8s_openapi027::api::admissionregistration::v1::ParamKind {
         })
     }
     fn merge(&mut self, other: ParamKindAc) -> Result<(), crate::Error> {
-        self.api_version = other.api_version;
-        self.kind = other.kind;
+        if other.api_version.is_some() {
+            self.api_version = other.api_version;
+        }
+        if other.kind.is_some() {
+            self.kind = other.kind;
+        }
         Ok(())
     }
 }

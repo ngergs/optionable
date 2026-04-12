@@ -40,7 +40,9 @@ for k8s_openapi027::api::authorization::v1::SelfSubjectRulesReviewSpec {
         &mut self,
         other: SelfSubjectRulesReviewSpecAc,
     ) -> Result<(), crate::Error> {
-        self.namespace = other.namespace;
+        if other.namespace.is_some() {
+            self.namespace = other.namespace;
+        }
         Ok(())
     }
 }

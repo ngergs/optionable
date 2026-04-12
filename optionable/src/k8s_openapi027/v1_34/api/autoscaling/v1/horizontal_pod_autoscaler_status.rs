@@ -77,8 +77,10 @@ for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
         &mut self,
         other: HorizontalPodAutoscalerStatusAc,
     ) -> Result<(), crate::Error> {
-        self.current_cpu_utilization_percentage = other
-            .current_cpu_utilization_percentage;
+        if other.current_cpu_utilization_percentage.is_some() {
+            self.current_cpu_utilization_percentage = other
+                .current_cpu_utilization_percentage;
+        }
         if let Some(other_value) = other.current_replicas {
             self.current_replicas = other_value;
         }
@@ -89,7 +91,9 @@ for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
             &mut self.last_scale_time,
             other.last_scale_time,
         )?;
-        self.observed_generation = other.observed_generation;
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
         Ok(())
     }
 }

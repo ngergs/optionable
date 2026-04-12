@@ -41,8 +41,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FlockerVolumeSo
         })
     }
     fn merge(&mut self, other: FlockerVolumeSourceAc) -> Result<(), crate::Error> {
-        self.dataset_name = other.dataset_name;
-        self.dataset_uuid = other.dataset_uuid;
+        if other.dataset_name.is_some() {
+            self.dataset_name = other.dataset_name;
+        }
+        if other.dataset_uuid.is_some() {
+            self.dataset_uuid = other.dataset_uuid;
+        }
         Ok(())
     }
 }

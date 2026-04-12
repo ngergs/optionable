@@ -70,10 +70,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1::PriorityC
         })
     }
     fn merge(&mut self, other: PriorityClassAc) -> Result<(), crate::Error> {
-        self.description = other.description;
-        self.global_default = other.global_default;
+        if other.description.is_some() {
+            self.description = other.description;
+        }
+        if other.global_default.is_some() {
+            self.global_default = other.global_default;
+        }
         self.metadata = other.metadata;
-        self.preemption_policy = other.preemption_policy;
+        if other.preemption_policy.is_some() {
+            self.preemption_policy = other.preemption_policy;
+        }
         if let Some(other_value) = other.value {
             self.value = other_value;
         }

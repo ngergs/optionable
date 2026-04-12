@@ -54,7 +54,9 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimVolumeSource {
         if let Some(other_value) = other.claim_name {
             self.claim_name = other_value;
         }
-        self.read_only = other.read_only;
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         Ok(())
     }
 }

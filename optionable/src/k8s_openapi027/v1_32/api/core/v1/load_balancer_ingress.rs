@@ -54,9 +54,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LoadBalancerIng
         })
     }
     fn merge(&mut self, other: LoadBalancerIngressAc) -> Result<(), crate::Error> {
-        self.hostname = other.hostname;
-        self.ip = other.ip;
-        self.ip_mode = other.ip_mode;
+        if other.hostname.is_some() {
+            self.hostname = other.hostname;
+        }
+        if other.ip.is_some() {
+            self.ip = other.ip;
+        }
+        if other.ip_mode.is_some() {
+            self.ip_mode = other.ip_mode;
+        }
         crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
         Ok(())
     }

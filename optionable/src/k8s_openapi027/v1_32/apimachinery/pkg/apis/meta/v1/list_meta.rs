@@ -52,10 +52,18 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ListMeta {
         })
     }
     fn merge(&mut self, other: ListMetaAc) -> Result<(), crate::Error> {
-        self.continue_ = other.continue_;
-        self.remaining_item_count = other.remaining_item_count;
-        self.resource_version = other.resource_version;
-        self.self_link = other.self_link;
+        if other.continue_.is_some() {
+            self.continue_ = other.continue_;
+        }
+        if other.remaining_item_count.is_some() {
+            self.remaining_item_count = other.remaining_item_count;
+        }
+        if other.resource_version.is_some() {
+            self.resource_version = other.resource_version;
+        }
+        if other.self_link.is_some() {
+            self.self_link = other.self_link;
+        }
         Ok(())
     }
 }

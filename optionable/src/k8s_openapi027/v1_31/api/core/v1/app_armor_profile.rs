@@ -48,7 +48,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AppArmorProfile
         })
     }
     fn merge(&mut self, other: AppArmorProfileAc) -> Result<(), crate::Error> {
-        self.localhost_profile = other.localhost_profile;
+        if other.localhost_profile.is_some() {
+            self.localhost_profile = other.localhost_profile;
+        }
         if let Some(other_value) = other.type_ {
             self.type_ = other_value;
         }

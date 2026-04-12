@@ -60,7 +60,9 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         &mut self,
         other: CustomResourceSubresourceScaleAc,
     ) -> Result<(), crate::Error> {
-        self.label_selector_path = other.label_selector_path;
+        if other.label_selector_path.is_some() {
+            self.label_selector_path = other.label_selector_path;
+        }
         if let Some(other_value) = other.spec_replicas_path {
             self.spec_replicas_path = other_value;
         }

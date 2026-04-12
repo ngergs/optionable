@@ -40,8 +40,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressTL
         })
     }
     fn merge(&mut self, other: IngressTLSAc) -> Result<(), crate::Error> {
-        self.hosts = other.hosts;
-        self.secret_name = other.secret_name;
+        if other.hosts.is_some() {
+            self.hosts = other.hosts;
+        }
+        if other.secret_name.is_some() {
+            self.secret_name = other.secret_name;
+        }
         Ok(())
     }
 }

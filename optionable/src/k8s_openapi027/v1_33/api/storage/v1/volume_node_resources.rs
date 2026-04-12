@@ -33,7 +33,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::VolumeNodeRe
         Ok(Self { count: value.count })
     }
     fn merge(&mut self, other: VolumeNodeResourcesAc) -> Result<(), crate::Error> {
-        self.count = other.count;
+        if other.count.is_some() {
+            self.count = other.count;
+        }
         Ok(())
     }
 }

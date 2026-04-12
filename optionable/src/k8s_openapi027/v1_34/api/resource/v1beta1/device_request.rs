@@ -144,11 +144,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Device
         })
     }
     fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::Error> {
-        self.admin_access = other.admin_access;
-        self.allocation_mode = other.allocation_mode;
+        if other.admin_access.is_some() {
+            self.admin_access = other.admin_access;
+        }
+        if other.allocation_mode.is_some() {
+            self.allocation_mode = other.allocation_mode;
+        }
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
-        self.count = other.count;
-        self.device_class_name = other.device_class_name;
+        if other.count.is_some() {
+            self.count = other.count;
+        }
+        if other.device_class_name.is_some() {
+            self.device_class_name = other.device_class_name;
+        }
         crate::OptionableConvert::merge(
             &mut self.first_available,
             other.first_available,

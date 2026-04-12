@@ -63,11 +63,21 @@ for k8s_openapi027::api::admissionregistration::v1::RuleWithOperations {
         })
     }
     fn merge(&mut self, other: RuleWithOperationsAc) -> Result<(), crate::Error> {
-        self.api_groups = other.api_groups;
-        self.api_versions = other.api_versions;
-        self.operations = other.operations;
-        self.resources = other.resources;
-        self.scope = other.scope;
+        if other.api_groups.is_some() {
+            self.api_groups = other.api_groups;
+        }
+        if other.api_versions.is_some() {
+            self.api_versions = other.api_versions;
+        }
+        if other.operations.is_some() {
+            self.operations = other.operations;
+        }
+        if other.resources.is_some() {
+            self.resources = other.resources;
+        }
+        if other.scope.is_some() {
+            self.scope = other.scope;
+        }
         Ok(())
     }
 }

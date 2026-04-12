@@ -88,8 +88,12 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
             other.match_resources,
         )?;
         crate::OptionableConvert::merge(&mut self.param_ref, other.param_ref)?;
-        self.policy_name = other.policy_name;
-        self.validation_actions = other.validation_actions;
+        if other.policy_name.is_some() {
+            self.policy_name = other.policy_name;
+        }
+        if other.validation_actions.is_some() {
+            self.validation_actions = other.validation_actions;
+        }
         Ok(())
     }
 }

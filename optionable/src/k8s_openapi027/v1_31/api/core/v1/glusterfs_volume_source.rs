@@ -59,7 +59,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::GlusterfsVolume
         if let Some(other_value) = other.path {
             self.path = other_value;
         }
-        self.read_only = other.read_only;
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         Ok(())
     }
 }

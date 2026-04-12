@@ -143,8 +143,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::events::v1::Event {
         })
     }
     fn merge(&mut self, other: EventAc) -> Result<(), crate::Error> {
-        self.action = other.action;
-        self.deprecated_count = other.deprecated_count;
+        if other.action.is_some() {
+            self.action = other.action;
+        }
+        if other.deprecated_count.is_some() {
+            self.deprecated_count = other.deprecated_count;
+        }
         crate::OptionableConvert::merge(
             &mut self.deprecated_first_timestamp,
             other.deprecated_first_timestamp,
@@ -159,14 +163,24 @@ impl crate::OptionableConvert for k8s_openapi027::api::events::v1::Event {
         )?;
         crate::OptionableConvert::merge(&mut self.event_time, other.event_time)?;
         self.metadata = other.metadata;
-        self.note = other.note;
-        self.reason = other.reason;
+        if other.note.is_some() {
+            self.note = other.note;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         crate::OptionableConvert::merge(&mut self.regarding, other.regarding)?;
         crate::OptionableConvert::merge(&mut self.related, other.related)?;
-        self.reporting_controller = other.reporting_controller;
-        self.reporting_instance = other.reporting_instance;
+        if other.reporting_controller.is_some() {
+            self.reporting_controller = other.reporting_controller;
+        }
+        if other.reporting_instance.is_some() {
+            self.reporting_instance = other.reporting_instance;
+        }
         crate::OptionableConvert::merge(&mut self.series, other.series)?;
-        self.type_ = other.type_;
+        if other.type_.is_some() {
+            self.type_ = other.type_;
+        }
         Ok(())
     }
 }

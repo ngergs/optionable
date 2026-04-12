@@ -63,8 +63,12 @@ for k8s_openapi027::api::core::v1::CinderPersistentVolumeSource {
         &mut self,
         other: CinderPersistentVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        self.fs_type = other.fs_type;
-        self.read_only = other.read_only;
+        if other.fs_type.is_some() {
+            self.fs_type = other.fs_type;
+        }
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
         if let Some(other_value) = other.volume_id {
             self.volume_id = other_value;

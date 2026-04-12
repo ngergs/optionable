@@ -83,9 +83,15 @@ for k8s_openapi027::api::admissionregistration::v1::Validation {
         if let Some(other_value) = other.expression {
             self.expression = other_value;
         }
-        self.message = other.message;
-        self.message_expression = other.message_expression;
-        self.reason = other.reason;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.message_expression.is_some() {
+            self.message_expression = other.message_expression;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         Ok(())
     }
 }

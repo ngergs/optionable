@@ -48,9 +48,13 @@ for k8s_openapi027::api::networking::v1::NetworkPolicyPort {
         })
     }
     fn merge(&mut self, other: NetworkPolicyPortAc) -> Result<(), crate::Error> {
-        self.end_port = other.end_port;
+        if other.end_port.is_some() {
+            self.end_port = other.end_port;
+        }
         crate::OptionableConvert::merge(&mut self.port, other.port)?;
-        self.protocol = other.protocol;
+        if other.protocol.is_some() {
+            self.protocol = other.protocol;
+        }
         Ok(())
     }
 }

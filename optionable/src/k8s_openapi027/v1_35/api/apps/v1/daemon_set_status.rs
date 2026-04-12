@@ -100,7 +100,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetStatus
         })
     }
     fn merge(&mut self, other: DaemonSetStatusAc) -> Result<(), crate::Error> {
-        self.collision_count = other.collision_count;
+        if other.collision_count.is_some() {
+            self.collision_count = other.collision_count;
+        }
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         if let Some(other_value) = other.current_number_scheduled {
             self.current_number_scheduled = other_value;
@@ -108,16 +110,24 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetStatus
         if let Some(other_value) = other.desired_number_scheduled {
             self.desired_number_scheduled = other_value;
         }
-        self.number_available = other.number_available;
+        if other.number_available.is_some() {
+            self.number_available = other.number_available;
+        }
         if let Some(other_value) = other.number_misscheduled {
             self.number_misscheduled = other_value;
         }
         if let Some(other_value) = other.number_ready {
             self.number_ready = other_value;
         }
-        self.number_unavailable = other.number_unavailable;
-        self.observed_generation = other.observed_generation;
-        self.updated_number_scheduled = other.updated_number_scheduled;
+        if other.number_unavailable.is_some() {
+            self.number_unavailable = other.number_unavailable;
+        }
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
+        if other.updated_number_scheduled.is_some() {
+            self.updated_number_scheduled = other.updated_number_scheduled;
+        }
         Ok(())
     }
 }

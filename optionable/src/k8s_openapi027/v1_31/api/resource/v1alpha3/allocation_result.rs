@@ -56,7 +56,9 @@ for k8s_openapi027::api::resource::v1alpha3::AllocationResult {
         })
     }
     fn merge(&mut self, other: AllocationResultAc) -> Result<(), crate::Error> {
-        self.controller = other.controller;
+        if other.controller.is_some() {
+            self.controller = other.controller;
+        }
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
         crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
         Ok(())

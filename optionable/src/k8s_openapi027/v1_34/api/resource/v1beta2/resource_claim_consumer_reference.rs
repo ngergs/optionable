@@ -64,7 +64,9 @@ for k8s_openapi027::api::resource::v1beta2::ResourceClaimConsumerReference {
         &mut self,
         other: ResourceClaimConsumerReferenceAc,
     ) -> Result<(), crate::Error> {
-        self.api_group = other.api_group;
+        if other.api_group.is_some() {
+            self.api_group = other.api_group;
+        }
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
@@ -73,6 +75,13 @@ for k8s_openapi027::api::resource::v1beta2::ResourceClaimConsumerReference {
         }
         self.uid = other.uid;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::resource::v1beta2::ResourceClaimConsumerReference {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.uid == other.uid
     }
 }
 #[automatically_derived]

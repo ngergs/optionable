@@ -56,7 +56,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LinuxContainerU
         if let Some(other_value) = other.gid {
             self.gid = other_value;
         }
-        self.supplemental_groups = other.supplemental_groups;
+        if other.supplemental_groups.is_some() {
+            self.supplemental_groups = other.supplemental_groups;
+        }
         if let Some(other_value) = other.uid {
             self.uid = other_value;
         }

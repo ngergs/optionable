@@ -47,7 +47,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::TokenRequest
         if let Some(other_value) = other.audience {
             self.audience = other_value;
         }
-        self.expiration_seconds = other.expiration_seconds;
+        if other.expiration_seconds.is_some() {
+            self.expiration_seconds = other.expiration_seconds;
+        }
         Ok(())
     }
 }

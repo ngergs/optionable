@@ -43,8 +43,12 @@ for k8s_openapi027::api::batch::v1::UncountedTerminatedPods {
         })
     }
     fn merge(&mut self, other: UncountedTerminatedPodsAc) -> Result<(), crate::Error> {
-        self.failed = other.failed;
-        self.succeeded = other.succeeded;
+        if other.failed.is_some() {
+            self.failed = other.failed;
+        }
+        if other.succeeded.is_some() {
+            self.succeeded = other.succeeded;
+        }
         Ok(())
     }
 }

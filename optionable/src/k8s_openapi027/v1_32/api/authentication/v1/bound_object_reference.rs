@@ -52,10 +52,18 @@ for k8s_openapi027::api::authentication::v1::BoundObjectReference {
         })
     }
     fn merge(&mut self, other: BoundObjectReferenceAc) -> Result<(), crate::Error> {
-        self.api_version = other.api_version;
-        self.kind = other.kind;
-        self.name = other.name;
-        self.uid = other.uid;
+        if other.api_version.is_some() {
+            self.api_version = other.api_version;
+        }
+        if other.kind.is_some() {
+            self.kind = other.kind;
+        }
+        if other.name.is_some() {
+            self.name = other.name;
+        }
+        if other.uid.is_some() {
+            self.uid = other.uid;
+        }
         Ok(())
     }
 }

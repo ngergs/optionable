@@ -77,8 +77,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetSpec {
         })
     }
     fn merge(&mut self, other: DaemonSetSpecAc) -> Result<(), crate::Error> {
-        self.min_ready_seconds = other.min_ready_seconds;
-        self.revision_history_limit = other.revision_history_limit;
+        if other.min_ready_seconds.is_some() {
+            self.min_ready_seconds = other.min_ready_seconds;
+        }
+        if other.revision_history_limit.is_some() {
+            self.revision_history_limit = other.revision_history_limit;
+        }
         if let Some(other_value) = other.selector {
             crate::OptionableConvert::merge(&mut self.selector, other_value)?;
         }

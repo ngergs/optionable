@@ -45,7 +45,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceStatus
     }
     fn merge(&mut self, other: NamespaceStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        self.phase = other.phase;
+        if other.phase.is_some() {
+            self.phase = other.phase;
+        }
         Ok(())
     }
 }

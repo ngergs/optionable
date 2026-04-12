@@ -89,8 +89,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobCondition {
             &mut self.last_transition_time,
             other.last_transition_time,
         )?;
-        self.message = other.message;
-        self.reason = other.reason;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         if let Some(other_value) = other.status {
             self.status = other_value;
         }

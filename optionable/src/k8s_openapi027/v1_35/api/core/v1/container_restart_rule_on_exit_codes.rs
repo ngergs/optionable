@@ -57,7 +57,9 @@ for k8s_openapi027::api::core::v1::ContainerRestartRuleOnExitCodes {
         if let Some(other_value) = other.operator {
             self.operator = other_value;
         }
-        self.values = other.values;
+        if other.values.is_some() {
+            self.values = other.values;
+        }
         Ok(())
     }
 }

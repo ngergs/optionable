@@ -68,11 +68,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ReplicaSetStatu
         })
     }
     fn merge(&mut self, other: ReplicaSetStatusAc) -> Result<(), crate::Error> {
-        self.available_replicas = other.available_replicas;
+        if other.available_replicas.is_some() {
+            self.available_replicas = other.available_replicas;
+        }
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        self.fully_labeled_replicas = other.fully_labeled_replicas;
-        self.observed_generation = other.observed_generation;
-        self.ready_replicas = other.ready_replicas;
+        if other.fully_labeled_replicas.is_some() {
+            self.fully_labeled_replicas = other.fully_labeled_replicas;
+        }
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
+        if other.ready_replicas.is_some() {
+            self.ready_replicas = other.ready_replicas;
+        }
         if let Some(other_value) = other.replicas {
             self.replicas = other_value;
         }

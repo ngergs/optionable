@@ -41,8 +41,12 @@ for k8s_openapi027::api::networking::v1::ServiceBackendPort {
         })
     }
     fn merge(&mut self, other: ServiceBackendPortAc) -> Result<(), crate::Error> {
-        self.name = other.name;
-        self.number = other.number;
+        if other.name.is_some() {
+            self.name = other.name;
+        }
+        if other.number.is_some() {
+            self.number = other.number;
+        }
         Ok(())
     }
 }

@@ -86,12 +86,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::Endpoint {
             self.addresses = other_value;
         }
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        self.deprecated_topology = other.deprecated_topology;
+        if other.deprecated_topology.is_some() {
+            self.deprecated_topology = other.deprecated_topology;
+        }
         crate::OptionableConvert::merge(&mut self.hints, other.hints)?;
-        self.hostname = other.hostname;
-        self.node_name = other.node_name;
+        if other.hostname.is_some() {
+            self.hostname = other.hostname;
+        }
+        if other.node_name.is_some() {
+            self.node_name = other.node_name;
+        }
         crate::OptionableConvert::merge(&mut self.target_ref, other.target_ref)?;
-        self.zone = other.zone;
+        if other.zone.is_some() {
+            self.zone = other.zone;
+        }
         Ok(())
     }
 }

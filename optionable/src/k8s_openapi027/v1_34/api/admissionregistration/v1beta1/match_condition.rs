@@ -63,6 +63,13 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MatchCondition {
     }
 }
 #[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::admissionregistration::v1beta1::MatchCondition {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
+    }
+}
+#[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<
     k8s_openapi027::api::admissionregistration::v1beta1::MatchCondition,

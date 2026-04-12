@@ -218,21 +218,39 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodStatus {
             &mut self.extended_resource_claim_status,
             other.extended_resource_claim_status,
         )?;
-        self.host_ip = other.host_ip;
+        if other.host_ip.is_some() {
+            self.host_ip = other.host_ip;
+        }
         crate::OptionableConvert::merge(&mut self.host_ips, other.host_ips)?;
         crate::OptionableConvert::merge(
             &mut self.init_container_statuses,
             other.init_container_statuses,
         )?;
-        self.message = other.message;
-        self.nominated_node_name = other.nominated_node_name;
-        self.observed_generation = other.observed_generation;
-        self.phase = other.phase;
-        self.pod_ip = other.pod_ip;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.nominated_node_name.is_some() {
+            self.nominated_node_name = other.nominated_node_name;
+        }
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
+        if other.phase.is_some() {
+            self.phase = other.phase;
+        }
+        if other.pod_ip.is_some() {
+            self.pod_ip = other.pod_ip;
+        }
         crate::OptionableConvert::merge(&mut self.pod_ips, other.pod_ips)?;
-        self.qos_class = other.qos_class;
-        self.reason = other.reason;
-        self.resize = other.resize;
+        if other.qos_class.is_some() {
+            self.qos_class = other.qos_class;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
+        if other.resize.is_some() {
+            self.resize = other.resize;
+        }
         crate::OptionableConvert::merge(
             &mut self.resource_claim_statuses,
             other.resource_claim_statuses,

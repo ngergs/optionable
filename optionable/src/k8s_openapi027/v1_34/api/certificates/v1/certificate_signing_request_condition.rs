@@ -101,13 +101,24 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition {
             &mut self.last_update_time,
             other.last_update_time,
         )?;
-        self.message = other.message;
-        self.reason = other.reason;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         if let Some(other_value) = other.status {
             self.status = other_value;
         }
         self.type_ = other.type_;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.type_ == other.type_
     }
 }
 #[automatically_derived]

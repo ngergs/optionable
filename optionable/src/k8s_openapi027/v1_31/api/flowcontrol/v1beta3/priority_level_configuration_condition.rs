@@ -73,10 +73,18 @@ for k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationConditi
             &mut self.last_transition_time,
             other.last_transition_time,
         )?;
-        self.message = other.message;
-        self.reason = other.reason;
-        self.status = other.status;
-        self.type_ = other.type_;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
+        if other.status.is_some() {
+            self.status = other.status;
+        }
+        if other.type_.is_some() {
+            self.type_ = other.type_;
+        }
         Ok(())
     }
 }

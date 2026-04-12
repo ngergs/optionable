@@ -58,14 +58,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::Subject {
         })
     }
     fn merge(&mut self, other: SubjectAc) -> Result<(), crate::Error> {
-        self.api_group = other.api_group;
+        if other.api_group.is_some() {
+            self.api_group = other.api_group;
+        }
         if let Some(other_value) = other.kind {
             self.kind = other_value;
         }
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        self.namespace = other.namespace;
+        if other.namespace.is_some() {
+            self.namespace = other.namespace;
+        }
         Ok(())
     }
 }

@@ -40,8 +40,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceClaim {
     }
     fn merge(&mut self, other: ResourceClaimAc) -> Result<(), crate::Error> {
         self.name = other.name;
-        self.request = other.request;
+        if other.request.is_some() {
+            self.request = other.request;
+        }
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq for k8s_openapi027::api::core::v1::ResourceClaim {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
     }
 }
 #[automatically_derived]

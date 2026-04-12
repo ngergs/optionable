@@ -126,11 +126,21 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSecurityCont
             &mut self.app_armor_profile,
             other.app_armor_profile,
         )?;
-        self.fs_group = other.fs_group;
-        self.fs_group_change_policy = other.fs_group_change_policy;
-        self.run_as_group = other.run_as_group;
-        self.run_as_non_root = other.run_as_non_root;
-        self.run_as_user = other.run_as_user;
+        if other.fs_group.is_some() {
+            self.fs_group = other.fs_group;
+        }
+        if other.fs_group_change_policy.is_some() {
+            self.fs_group_change_policy = other.fs_group_change_policy;
+        }
+        if other.run_as_group.is_some() {
+            self.run_as_group = other.run_as_group;
+        }
+        if other.run_as_non_root.is_some() {
+            self.run_as_non_root = other.run_as_non_root;
+        }
+        if other.run_as_user.is_some() {
+            self.run_as_user = other.run_as_user;
+        }
         crate::OptionableConvert::merge(
             &mut self.se_linux_options,
             other.se_linux_options,
@@ -139,8 +149,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSecurityCont
             &mut self.seccomp_profile,
             other.seccomp_profile,
         )?;
-        self.supplemental_groups = other.supplemental_groups;
-        self.supplemental_groups_policy = other.supplemental_groups_policy;
+        if other.supplemental_groups.is_some() {
+            self.supplemental_groups = other.supplemental_groups;
+        }
+        if other.supplemental_groups_policy.is_some() {
+            self.supplemental_groups_policy = other.supplemental_groups_policy;
+        }
         crate::OptionableConvert::merge(&mut self.sysctls, other.sysctls)?;
         crate::OptionableConvert::merge(
             &mut self.windows_options,

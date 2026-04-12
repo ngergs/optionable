@@ -70,12 +70,18 @@ for k8s_openapi027::api::core::v1::ClusterTrustBundleProjection {
         other: ClusterTrustBundleProjectionAc,
     ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
-        self.name = other.name;
-        self.optional = other.optional;
+        if other.name.is_some() {
+            self.name = other.name;
+        }
+        if other.optional.is_some() {
+            self.optional = other.optional;
+        }
         if let Some(other_value) = other.path {
             self.path = other_value;
         }
-        self.signer_name = other.signer_name;
+        if other.signer_name.is_some() {
+            self.signer_name = other.signer_name;
+        }
         Ok(())
     }
 }

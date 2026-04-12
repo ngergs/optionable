@@ -65,7 +65,9 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimStatus {
     }
     fn merge(&mut self, other: ResourceClaimStatusAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.allocation, other.allocation)?;
-        self.deallocation_requested = other.deallocation_requested;
+        if other.deallocation_requested.is_some() {
+            self.deallocation_requested = other.deallocation_requested;
+        }
         crate::OptionableConvert::merge(&mut self.reserved_for, other.reserved_for)?;
         Ok(())
     }

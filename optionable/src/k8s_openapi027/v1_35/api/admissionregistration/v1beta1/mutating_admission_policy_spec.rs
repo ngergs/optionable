@@ -117,7 +117,9 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
         &mut self,
         other: MutatingAdmissionPolicySpecAc,
     ) -> Result<(), crate::Error> {
-        self.failure_policy = other.failure_policy;
+        if other.failure_policy.is_some() {
+            self.failure_policy = other.failure_policy;
+        }
         crate::OptionableConvert::merge(
             &mut self.match_conditions,
             other.match_conditions,
@@ -128,7 +130,9 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
         )?;
         crate::OptionableConvert::merge(&mut self.mutations, other.mutations)?;
         crate::OptionableConvert::merge(&mut self.param_kind, other.param_kind)?;
-        self.reinvocation_policy = other.reinvocation_policy;
+        if other.reinvocation_policy.is_some() {
+            self.reinvocation_policy = other.reinvocation_policy;
+        }
         crate::OptionableConvert::merge(&mut self.variables, other.variables)?;
         Ok(())
     }

@@ -47,9 +47,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvVar {
     }
     fn merge(&mut self, other: EnvVarAc) -> Result<(), crate::Error> {
         self.name = other.name;
-        self.value = other.value;
+        if other.value.is_some() {
+            self.value = other.value;
+        }
         crate::OptionableConvert::merge(&mut self.value_from, other.value_from)?;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq for k8s_openapi027::api::core::v1::EnvVar {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
     }
 }
 #[automatically_derived]

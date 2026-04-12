@@ -334,8 +334,12 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         })
     }
     fn merge(&mut self, other: JSONSchemaPropsAc) -> Result<(), crate::Error> {
-        self.ref_path = other.ref_path;
-        self.schema = other.schema;
+        if other.ref_path.is_some() {
+            self.ref_path = other.ref_path;
+        }
+        if other.schema.is_some() {
+            self.schema = other.schema;
+        }
         crate::OptionableConvert::merge(
             &mut self.additional_items,
             other.additional_items,
@@ -349,44 +353,96 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         crate::OptionableConvert::merge(&mut self.default, other.default)?;
         crate::OptionableConvert::merge(&mut self.definitions, other.definitions)?;
         crate::OptionableConvert::merge(&mut self.dependencies, other.dependencies)?;
-        self.description = other.description;
+        if other.description.is_some() {
+            self.description = other.description;
+        }
         crate::OptionableConvert::merge(&mut self.enum_, other.enum_)?;
         crate::OptionableConvert::merge(&mut self.example, other.example)?;
-        self.exclusive_maximum = other.exclusive_maximum;
-        self.exclusive_minimum = other.exclusive_minimum;
+        if other.exclusive_maximum.is_some() {
+            self.exclusive_maximum = other.exclusive_maximum;
+        }
+        if other.exclusive_minimum.is_some() {
+            self.exclusive_minimum = other.exclusive_minimum;
+        }
         crate::OptionableConvert::merge(&mut self.external_docs, other.external_docs)?;
-        self.format = other.format;
-        self.id = other.id;
+        if other.format.is_some() {
+            self.format = other.format;
+        }
+        if other.id.is_some() {
+            self.id = other.id;
+        }
         crate::OptionableConvert::merge(&mut self.items, other.items)?;
-        self.max_items = other.max_items;
-        self.max_length = other.max_length;
-        self.max_properties = other.max_properties;
-        self.maximum = other.maximum;
-        self.min_items = other.min_items;
-        self.min_length = other.min_length;
-        self.min_properties = other.min_properties;
-        self.minimum = other.minimum;
-        self.multiple_of = other.multiple_of;
+        if other.max_items.is_some() {
+            self.max_items = other.max_items;
+        }
+        if other.max_length.is_some() {
+            self.max_length = other.max_length;
+        }
+        if other.max_properties.is_some() {
+            self.max_properties = other.max_properties;
+        }
+        if other.maximum.is_some() {
+            self.maximum = other.maximum;
+        }
+        if other.min_items.is_some() {
+            self.min_items = other.min_items;
+        }
+        if other.min_length.is_some() {
+            self.min_length = other.min_length;
+        }
+        if other.min_properties.is_some() {
+            self.min_properties = other.min_properties;
+        }
+        if other.minimum.is_some() {
+            self.minimum = other.minimum;
+        }
+        if other.multiple_of.is_some() {
+            self.multiple_of = other.multiple_of;
+        }
         crate::OptionableConvert::merge(&mut self.not, other.not)?;
-        self.nullable = other.nullable;
+        if other.nullable.is_some() {
+            self.nullable = other.nullable;
+        }
         crate::OptionableConvert::merge(&mut self.one_of, other.one_of)?;
-        self.pattern = other.pattern;
+        if other.pattern.is_some() {
+            self.pattern = other.pattern;
+        }
         crate::OptionableConvert::merge(
             &mut self.pattern_properties,
             other.pattern_properties,
         )?;
         crate::OptionableConvert::merge(&mut self.properties, other.properties)?;
-        self.required = other.required;
-        self.title = other.title;
-        self.type_ = other.type_;
-        self.unique_items = other.unique_items;
-        self.x_kubernetes_embedded_resource = other.x_kubernetes_embedded_resource;
-        self.x_kubernetes_int_or_string = other.x_kubernetes_int_or_string;
-        self.x_kubernetes_list_map_keys = other.x_kubernetes_list_map_keys;
-        self.x_kubernetes_list_type = other.x_kubernetes_list_type;
-        self.x_kubernetes_map_type = other.x_kubernetes_map_type;
-        self.x_kubernetes_preserve_unknown_fields = other
-            .x_kubernetes_preserve_unknown_fields;
+        if other.required.is_some() {
+            self.required = other.required;
+        }
+        if other.title.is_some() {
+            self.title = other.title;
+        }
+        if other.type_.is_some() {
+            self.type_ = other.type_;
+        }
+        if other.unique_items.is_some() {
+            self.unique_items = other.unique_items;
+        }
+        if other.x_kubernetes_embedded_resource.is_some() {
+            self.x_kubernetes_embedded_resource = other.x_kubernetes_embedded_resource;
+        }
+        if other.x_kubernetes_int_or_string.is_some() {
+            self.x_kubernetes_int_or_string = other.x_kubernetes_int_or_string;
+        }
+        if other.x_kubernetes_list_map_keys.is_some() {
+            self.x_kubernetes_list_map_keys = other.x_kubernetes_list_map_keys;
+        }
+        if other.x_kubernetes_list_type.is_some() {
+            self.x_kubernetes_list_type = other.x_kubernetes_list_type;
+        }
+        if other.x_kubernetes_map_type.is_some() {
+            self.x_kubernetes_map_type = other.x_kubernetes_map_type;
+        }
+        if other.x_kubernetes_preserve_unknown_fields.is_some() {
+            self.x_kubernetes_preserve_unknown_fields = other
+                .x_kubernetes_preserve_unknown_fields;
+        }
         crate::OptionableConvert::merge(
             &mut self.x_kubernetes_validations,
             other.x_kubernetes_validations,

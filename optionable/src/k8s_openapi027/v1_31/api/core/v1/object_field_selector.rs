@@ -44,7 +44,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ObjectFieldSele
         })
     }
     fn merge(&mut self, other: ObjectFieldSelectorAc) -> Result<(), crate::Error> {
-        self.api_version = other.api_version;
+        if other.api_version.is_some() {
+            self.api_version = other.api_version;
+        }
         if let Some(other_value) = other.field_path {
             self.field_path = other_value;
         }

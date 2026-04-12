@@ -80,18 +80,28 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::RBDVolumeSource
         })
     }
     fn merge(&mut self, other: RBDVolumeSourceAc) -> Result<(), crate::Error> {
-        self.fs_type = other.fs_type;
+        if other.fs_type.is_some() {
+            self.fs_type = other.fs_type;
+        }
         if let Some(other_value) = other.image {
             self.image = other_value;
         }
-        self.keyring = other.keyring;
+        if other.keyring.is_some() {
+            self.keyring = other.keyring;
+        }
         if let Some(other_value) = other.monitors {
             self.monitors = other_value;
         }
-        self.pool = other.pool;
-        self.read_only = other.read_only;
+        if other.pool.is_some() {
+            self.pool = other.pool;
+        }
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
-        self.user = other.user;
+        if other.user.is_some() {
+            self.user = other.user;
+        }
         Ok(())
     }
 }

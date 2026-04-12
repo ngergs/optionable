@@ -42,8 +42,12 @@ for k8s_openapi027::api::authorization::v1::NonResourceAttributes {
         })
     }
     fn merge(&mut self, other: NonResourceAttributesAc) -> Result<(), crate::Error> {
-        self.path = other.path;
-        self.verb = other.verb;
+        if other.path.is_some() {
+            self.path = other.path;
+        }
+        if other.verb.is_some() {
+            self.verb = other.verb;
+        }
         Ok(())
     }
 }

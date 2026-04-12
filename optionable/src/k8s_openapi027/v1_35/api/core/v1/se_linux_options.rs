@@ -51,10 +51,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SELinuxOptions 
         })
     }
     fn merge(&mut self, other: SELinuxOptionsAc) -> Result<(), crate::Error> {
-        self.level = other.level;
-        self.role = other.role;
-        self.type_ = other.type_;
-        self.user = other.user;
+        if other.level.is_some() {
+            self.level = other.level;
+        }
+        if other.role.is_some() {
+            self.role = other.role;
+        }
+        if other.type_.is_some() {
+            self.type_ = other.type_;
+        }
+        if other.user.is_some() {
+            self.user = other.user;
+        }
         Ok(())
     }
 }

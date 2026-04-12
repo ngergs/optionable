@@ -97,7 +97,9 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimSpec {
         })
     }
     fn merge(&mut self, other: PersistentVolumeClaimSpecAc) -> Result<(), crate::Error> {
-        self.access_modes = other.access_modes;
+        if other.access_modes.is_some() {
+            self.access_modes = other.access_modes;
+        }
         crate::OptionableConvert::merge(&mut self.data_source, other.data_source)?;
         crate::OptionableConvert::merge(
             &mut self.data_source_ref,
@@ -105,10 +107,18 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimSpec {
         )?;
         crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
         crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
-        self.storage_class_name = other.storage_class_name;
-        self.volume_attributes_class_name = other.volume_attributes_class_name;
-        self.volume_mode = other.volume_mode;
-        self.volume_name = other.volume_name;
+        if other.storage_class_name.is_some() {
+            self.storage_class_name = other.storage_class_name;
+        }
+        if other.volume_attributes_class_name.is_some() {
+            self.volume_attributes_class_name = other.volume_attributes_class_name;
+        }
+        if other.volume_mode.is_some() {
+            self.volume_mode = other.volume_mode;
+        }
+        if other.volume_name.is_some() {
+            self.volume_name = other.volume_name;
+        }
         Ok(())
     }
 }

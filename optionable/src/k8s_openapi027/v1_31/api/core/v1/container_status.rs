@@ -163,7 +163,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
             &mut self.allocated_resources_status,
             other.allocated_resources_status,
         )?;
-        self.container_id = other.container_id;
+        if other.container_id.is_some() {
+            self.container_id = other.container_id;
+        }
         if let Some(other_value) = other.image {
             self.image = other_value;
         }
@@ -181,7 +183,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
         if let Some(other_value) = other.restart_count {
             self.restart_count = other_value;
         }
-        self.started = other.started;
+        if other.started.is_some() {
+            self.started = other.started;
+        }
         crate::OptionableConvert::merge(&mut self.state, other.state)?;
         crate::OptionableConvert::merge(&mut self.user, other.user)?;
         crate::OptionableConvert::merge(&mut self.volume_mounts, other.volume_mounts)?;

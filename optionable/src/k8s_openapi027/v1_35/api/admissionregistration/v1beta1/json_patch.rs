@@ -90,7 +90,9 @@ for k8s_openapi027::api::admissionregistration::v1beta1::JSONPatch {
         })
     }
     fn merge(&mut self, other: JSONPatchAc) -> Result<(), crate::Error> {
-        self.expression = other.expression;
+        if other.expression.is_some() {
+            self.expression = other.expression;
+        }
         Ok(())
     }
 }

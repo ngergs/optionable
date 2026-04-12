@@ -94,7 +94,9 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
             &mut self.current_metrics,
             other.current_metrics,
         )?;
-        self.current_replicas = other.current_replicas;
+        if other.current_replicas.is_some() {
+            self.current_replicas = other.current_replicas;
+        }
         if let Some(other_value) = other.desired_replicas {
             self.desired_replicas = other_value;
         }
@@ -102,7 +104,9 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
             &mut self.last_scale_time,
             other.last_scale_time,
         )?;
-        self.observed_generation = other.observed_generation;
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
         Ok(())
     }
 }

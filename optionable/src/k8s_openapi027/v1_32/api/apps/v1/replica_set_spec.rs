@@ -60,8 +60,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ReplicaSetSpec 
         })
     }
     fn merge(&mut self, other: ReplicaSetSpecAc) -> Result<(), crate::Error> {
-        self.min_ready_seconds = other.min_ready_seconds;
-        self.replicas = other.replicas;
+        if other.min_ready_seconds.is_some() {
+            self.min_ready_seconds = other.min_ready_seconds;
+        }
+        if other.replicas.is_some() {
+            self.replicas = other.replicas;
+        }
         if let Some(other_value) = other.selector {
             crate::OptionableConvert::merge(&mut self.selector, other_value)?;
         }

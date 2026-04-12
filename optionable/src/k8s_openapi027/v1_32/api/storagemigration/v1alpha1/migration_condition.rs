@@ -76,8 +76,12 @@ for k8s_openapi027::api::storagemigration::v1alpha1::MigrationCondition {
             &mut self.last_update_time,
             other.last_update_time,
         )?;
-        self.message = other.message;
-        self.reason = other.reason;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         if let Some(other_value) = other.status {
             self.status = other_value;
         }

@@ -99,7 +99,9 @@ for k8s_openapi027::api::resource::v1beta2::DeviceRequestAllocationResult {
         &mut self,
         other: DeviceRequestAllocationResultAc,
     ) -> Result<(), crate::Error> {
-        self.admin_access = other.admin_access;
+        if other.admin_access.is_some() {
+            self.admin_access = other.admin_access;
+        }
         if let Some(other_value) = other.device {
             self.device = other_value;
         }

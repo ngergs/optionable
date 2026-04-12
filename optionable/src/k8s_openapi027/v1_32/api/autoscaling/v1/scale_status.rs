@@ -47,7 +47,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v1::ScaleSta
         if let Some(other_value) = other.replicas {
             self.replicas = other_value;
         }
-        self.selector = other.selector;
+        if other.selector.is_some() {
+            self.selector = other.selector;
+        }
         Ok(())
     }
 }

@@ -66,8 +66,12 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Servi
         if let Some(other_value) = other.namespace {
             self.namespace = other_value;
         }
-        self.path = other.path;
-        self.port = other.port;
+        if other.path.is_some() {
+            self.path = other.path;
+        }
+        if other.port.is_some() {
+            self.port = other.port;
+        }
         Ok(())
     }
 }

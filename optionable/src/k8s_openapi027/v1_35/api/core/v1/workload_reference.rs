@@ -59,7 +59,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::WorkloadReferen
         if let Some(other_value) = other.pod_group {
             self.pod_group = other_value;
         }
-        self.pod_group_replica_key = other.pod_group_replica_key;
+        if other.pod_group_replica_key.is_some() {
+            self.pod_group_replica_key = other.pod_group_replica_key;
+        }
         Ok(())
     }
 }

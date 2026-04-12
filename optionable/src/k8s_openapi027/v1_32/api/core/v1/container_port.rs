@@ -55,11 +55,23 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerPort {
     }
     fn merge(&mut self, other: ContainerPortAc) -> Result<(), crate::Error> {
         self.container_port = other.container_port;
-        self.host_ip = other.host_ip;
-        self.host_port = other.host_port;
-        self.name = other.name;
+        if other.host_ip.is_some() {
+            self.host_ip = other.host_ip;
+        }
+        if other.host_port.is_some() {
+            self.host_port = other.host_port;
+        }
+        if other.name.is_some() {
+            self.name = other.name;
+        }
         self.protocol = other.protocol;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq for k8s_openapi027::api::core::v1::ContainerPort {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.container_port == other.container_port && self.protocol == other.protocol
     }
 }
 #[automatically_derived]

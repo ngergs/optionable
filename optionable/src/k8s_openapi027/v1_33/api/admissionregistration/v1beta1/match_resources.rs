@@ -123,7 +123,9 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MatchResources {
             &mut self.exclude_resource_rules,
             other.exclude_resource_rules,
         )?;
-        self.match_policy = other.match_policy;
+        if other.match_policy.is_some() {
+            self.match_policy = other.match_policy;
+        }
         crate::OptionableConvert::merge(
             &mut self.namespace_selector,
             other.namespace_selector,

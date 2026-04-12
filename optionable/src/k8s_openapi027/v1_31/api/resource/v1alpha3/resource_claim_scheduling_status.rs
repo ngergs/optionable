@@ -56,7 +56,9 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSchedulingStatus {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        self.unsuitable_nodes = other.unsuitable_nodes;
+        if other.unsuitable_nodes.is_some() {
+            self.unsuitable_nodes = other.unsuitable_nodes;
+        }
         Ok(())
     }
 }

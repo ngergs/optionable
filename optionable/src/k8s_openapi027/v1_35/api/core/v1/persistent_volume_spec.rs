@@ -259,7 +259,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
         })
     }
     fn merge(&mut self, other: PersistentVolumeSpecAc) -> Result<(), crate::Error> {
-        self.access_modes = other.access_modes;
+        if other.access_modes.is_some() {
+            self.access_modes = other.access_modes;
+        }
         crate::OptionableConvert::merge(
             &mut self.aws_elastic_block_store,
             other.aws_elastic_block_store,
@@ -282,10 +284,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
         crate::OptionableConvert::merge(&mut self.host_path, other.host_path)?;
         crate::OptionableConvert::merge(&mut self.iscsi, other.iscsi)?;
         crate::OptionableConvert::merge(&mut self.local, other.local)?;
-        self.mount_options = other.mount_options;
+        if other.mount_options.is_some() {
+            self.mount_options = other.mount_options;
+        }
         crate::OptionableConvert::merge(&mut self.nfs, other.nfs)?;
         crate::OptionableConvert::merge(&mut self.node_affinity, other.node_affinity)?;
-        self.persistent_volume_reclaim_policy = other.persistent_volume_reclaim_policy;
+        if other.persistent_volume_reclaim_policy.is_some() {
+            self.persistent_volume_reclaim_policy = other
+                .persistent_volume_reclaim_policy;
+        }
         crate::OptionableConvert::merge(
             &mut self.photon_persistent_disk,
             other.photon_persistent_disk,
@@ -297,10 +304,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
         crate::OptionableConvert::merge(&mut self.quobyte, other.quobyte)?;
         crate::OptionableConvert::merge(&mut self.rbd, other.rbd)?;
         crate::OptionableConvert::merge(&mut self.scale_io, other.scale_io)?;
-        self.storage_class_name = other.storage_class_name;
+        if other.storage_class_name.is_some() {
+            self.storage_class_name = other.storage_class_name;
+        }
         crate::OptionableConvert::merge(&mut self.storageos, other.storageos)?;
-        self.volume_attributes_class_name = other.volume_attributes_class_name;
-        self.volume_mode = other.volume_mode;
+        if other.volume_attributes_class_name.is_some() {
+            self.volume_attributes_class_name = other.volume_attributes_class_name;
+        }
+        if other.volume_mode.is_some() {
+            self.volume_mode = other.volume_mode;
+        }
         crate::OptionableConvert::merge(&mut self.vsphere_volume, other.vsphere_volume)?;
         Ok(())
     }

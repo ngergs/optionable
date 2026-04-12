@@ -53,7 +53,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AzureFileVolume
         })
     }
     fn merge(&mut self, other: AzureFileVolumeSourceAc) -> Result<(), crate::Error> {
-        self.read_only = other.read_only;
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         if let Some(other_value) = other.secret_name {
             self.secret_name = other_value;
         }

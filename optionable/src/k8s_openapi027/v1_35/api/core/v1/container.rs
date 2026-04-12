@@ -216,12 +216,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
         })
     }
     fn merge(&mut self, other: ContainerAc) -> Result<(), crate::Error> {
-        self.args = other.args;
-        self.command = other.command;
+        if other.args.is_some() {
+            self.args = other.args;
+        }
+        if other.command.is_some() {
+            self.command = other.command;
+        }
         crate::OptionableConvert::merge(&mut self.env, other.env)?;
         crate::OptionableConvert::merge(&mut self.env_from, other.env_from)?;
-        self.image = other.image;
-        self.image_pull_policy = other.image_pull_policy;
+        if other.image.is_some() {
+            self.image = other.image;
+        }
+        if other.image_pull_policy.is_some() {
+            self.image_pull_policy = other.image_pull_policy;
+        }
         crate::OptionableConvert::merge(&mut self.lifecycle, other.lifecycle)?;
         crate::OptionableConvert::merge(&mut self.liveness_probe, other.liveness_probe)?;
         self.name = other.name;
@@ -232,7 +240,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
         )?;
         crate::OptionableConvert::merge(&mut self.resize_policy, other.resize_policy)?;
         crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
-        self.restart_policy = other.restart_policy;
+        if other.restart_policy.is_some() {
+            self.restart_policy = other.restart_policy;
+        }
         crate::OptionableConvert::merge(
             &mut self.restart_policy_rules,
             other.restart_policy_rules,
@@ -242,15 +252,33 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Container {
             other.security_context,
         )?;
         crate::OptionableConvert::merge(&mut self.startup_probe, other.startup_probe)?;
-        self.stdin = other.stdin;
-        self.stdin_once = other.stdin_once;
-        self.termination_message_path = other.termination_message_path;
-        self.termination_message_policy = other.termination_message_policy;
-        self.tty = other.tty;
+        if other.stdin.is_some() {
+            self.stdin = other.stdin;
+        }
+        if other.stdin_once.is_some() {
+            self.stdin_once = other.stdin_once;
+        }
+        if other.termination_message_path.is_some() {
+            self.termination_message_path = other.termination_message_path;
+        }
+        if other.termination_message_policy.is_some() {
+            self.termination_message_policy = other.termination_message_policy;
+        }
+        if other.tty.is_some() {
+            self.tty = other.tty;
+        }
         crate::OptionableConvert::merge(&mut self.volume_devices, other.volume_devices)?;
         crate::OptionableConvert::merge(&mut self.volume_mounts, other.volume_mounts)?;
-        self.working_dir = other.working_dir;
+        if other.working_dir.is_some() {
+            self.working_dir = other.working_dir;
+        }
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq for k8s_openapi027::api::core::v1::Container {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
     }
 }
 #[automatically_derived]

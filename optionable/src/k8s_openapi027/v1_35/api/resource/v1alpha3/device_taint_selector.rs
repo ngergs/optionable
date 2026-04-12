@@ -50,9 +50,15 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceTaintSelector {
         })
     }
     fn merge(&mut self, other: DeviceTaintSelectorAc) -> Result<(), crate::Error> {
-        self.device = other.device;
-        self.driver = other.driver;
-        self.pool = other.pool;
+        if other.device.is_some() {
+            self.device = other.device;
+        }
+        if other.driver.is_some() {
+            self.driver = other.driver;
+        }
+        if other.pool.is_some() {
+            self.pool = other.pool;
+        }
         Ok(())
     }
 }

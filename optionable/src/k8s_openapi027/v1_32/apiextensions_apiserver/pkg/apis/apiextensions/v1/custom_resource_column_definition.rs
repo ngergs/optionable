@@ -80,15 +80,21 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         &mut self,
         other: CustomResourceColumnDefinitionAc,
     ) -> Result<(), crate::Error> {
-        self.description = other.description;
-        self.format = other.format;
+        if other.description.is_some() {
+            self.description = other.description;
+        }
+        if other.format.is_some() {
+            self.format = other.format;
+        }
         if let Some(other_value) = other.json_path {
             self.json_path = other_value;
         }
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        self.priority = other.priority;
+        if other.priority.is_some() {
+            self.priority = other.priority;
+        }
         if let Some(other_value) = other.type_ {
             self.type_ = other_value;
         }

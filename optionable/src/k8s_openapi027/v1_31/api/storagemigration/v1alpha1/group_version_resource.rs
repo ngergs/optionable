@@ -47,9 +47,15 @@ for k8s_openapi027::api::storagemigration::v1alpha1::GroupVersionResource {
         })
     }
     fn merge(&mut self, other: GroupVersionResourceAc) -> Result<(), crate::Error> {
-        self.group = other.group;
-        self.resource = other.resource;
-        self.version = other.version;
+        if other.group.is_some() {
+            self.group = other.group;
+        }
+        if other.resource.is_some() {
+            self.resource = other.resource;
+        }
+        if other.version.is_some() {
+            self.version = other.version;
+        }
         Ok(())
     }
 }

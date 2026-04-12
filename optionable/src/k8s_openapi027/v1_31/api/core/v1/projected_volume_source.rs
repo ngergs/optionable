@@ -44,7 +44,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ProjectedVolume
         })
     }
     fn merge(&mut self, other: ProjectedVolumeSourceAc) -> Result<(), crate::Error> {
-        self.default_mode = other.default_mode;
+        if other.default_mode.is_some() {
+            self.default_mode = other.default_mode;
+        }
         crate::OptionableConvert::merge(&mut self.sources, other.sources)?;
         Ok(())
     }

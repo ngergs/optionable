@@ -94,9 +94,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Device
         })
     }
     fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::Error> {
-        self.admin_access = other.admin_access;
-        self.allocation_mode = other.allocation_mode;
-        self.count = other.count;
+        if other.admin_access.is_some() {
+            self.admin_access = other.admin_access;
+        }
+        if other.allocation_mode.is_some() {
+            self.allocation_mode = other.allocation_mode;
+        }
+        if other.count.is_some() {
+            self.count = other.count;
+        }
         if let Some(other_value) = other.device_class_name {
             self.device_class_name = other_value;
         }

@@ -117,7 +117,9 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetStatus {
         if let Some(other_value) = other.expected_pods {
             self.expected_pods = other_value;
         }
-        self.observed_generation = other.observed_generation;
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
         Ok(())
     }
 }

@@ -75,11 +75,19 @@ for k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource {
         if let Some(other_value) = other.monitors {
             self.monitors = other_value;
         }
-        self.path = other.path;
-        self.read_only = other.read_only;
-        self.secret_file = other.secret_file;
+        if other.path.is_some() {
+            self.path = other.path;
+        }
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
+        if other.secret_file.is_some() {
+            self.secret_file = other.secret_file;
+        }
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
-        self.user = other.user;
+        if other.user.is_some() {
+            self.user = other.user;
+        }
         Ok(())
     }
 }

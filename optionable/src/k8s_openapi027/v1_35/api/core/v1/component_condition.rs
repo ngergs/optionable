@@ -54,13 +54,24 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ComponentCondit
         })
     }
     fn merge(&mut self, other: ComponentConditionAc) -> Result<(), crate::Error> {
-        self.error = other.error;
-        self.message = other.message;
+        if other.error.is_some() {
+            self.error = other.error;
+        }
+        if other.message.is_some() {
+            self.message = other.message;
+        }
         if let Some(other_value) = other.status {
             self.status = other_value;
         }
         self.type_ = other.type_;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::core::v1::ComponentCondition {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.type_ == other.type_
     }
 }
 #[automatically_derived]

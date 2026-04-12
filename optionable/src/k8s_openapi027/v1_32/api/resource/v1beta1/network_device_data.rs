@@ -50,9 +50,15 @@ for k8s_openapi027::api::resource::v1beta1::NetworkDeviceData {
         })
     }
     fn merge(&mut self, other: NetworkDeviceDataAc) -> Result<(), crate::Error> {
-        self.hardware_address = other.hardware_address;
-        self.interface_name = other.interface_name;
-        self.ips = other.ips;
+        if other.hardware_address.is_some() {
+            self.hardware_address = other.hardware_address;
+        }
+        if other.interface_name.is_some() {
+            self.interface_name = other.interface_name;
+        }
+        if other.ips.is_some() {
+            self.ips = other.ips;
+        }
         Ok(())
     }
 }

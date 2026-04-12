@@ -78,15 +78,29 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
         })
     }
     fn merge(&mut self, other: DeleteOptionsAc) -> Result<(), crate::Error> {
-        self.api_version = other.api_version;
-        self.dry_run = other.dry_run;
-        self.grace_period_seconds = other.grace_period_seconds;
-        self.ignore_store_read_error_with_cluster_breaking_potential = other
-            .ignore_store_read_error_with_cluster_breaking_potential;
-        self.kind = other.kind;
-        self.orphan_dependents = other.orphan_dependents;
+        if other.api_version.is_some() {
+            self.api_version = other.api_version;
+        }
+        if other.dry_run.is_some() {
+            self.dry_run = other.dry_run;
+        }
+        if other.grace_period_seconds.is_some() {
+            self.grace_period_seconds = other.grace_period_seconds;
+        }
+        if other.ignore_store_read_error_with_cluster_breaking_potential.is_some() {
+            self.ignore_store_read_error_with_cluster_breaking_potential = other
+                .ignore_store_read_error_with_cluster_breaking_potential;
+        }
+        if other.kind.is_some() {
+            self.kind = other.kind;
+        }
+        if other.orphan_dependents.is_some() {
+            self.orphan_dependents = other.orphan_dependents;
+        }
         crate::OptionableConvert::merge(&mut self.preconditions, other.preconditions)?;
-        self.propagation_policy = other.propagation_policy;
+        if other.propagation_policy.is_some() {
+            self.propagation_policy = other.propagation_policy;
+        }
         Ok(())
     }
 }

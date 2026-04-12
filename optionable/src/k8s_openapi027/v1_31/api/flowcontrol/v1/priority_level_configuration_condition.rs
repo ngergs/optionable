@@ -72,11 +72,24 @@ for k8s_openapi027::api::flowcontrol::v1::PriorityLevelConfigurationCondition {
             &mut self.last_transition_time,
             other.last_transition_time,
         )?;
-        self.message = other.message;
-        self.reason = other.reason;
-        self.status = other.status;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
+        if other.status.is_some() {
+            self.status = other.status;
+        }
         self.type_ = other.type_;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::flowcontrol::v1::PriorityLevelConfigurationCondition {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.type_ == other.type_
     }
 }
 #[automatically_derived]

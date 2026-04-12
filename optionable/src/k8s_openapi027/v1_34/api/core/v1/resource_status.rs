@@ -49,6 +49,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceStatus 
     }
 }
 #[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::core::v1::ResourceStatus {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
+    }
+}
+#[automatically_derived]
 #[cfg(feature = "k8s_openapi_convert")]
 impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ResourceStatus>
 for ResourceStatusAc {

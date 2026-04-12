@@ -56,10 +56,18 @@ for k8s_openapi027::api::core::v1::WindowsSecurityContextOptions {
         &mut self,
         other: WindowsSecurityContextOptionsAc,
     ) -> Result<(), crate::Error> {
-        self.gmsa_credential_spec = other.gmsa_credential_spec;
-        self.gmsa_credential_spec_name = other.gmsa_credential_spec_name;
-        self.host_process = other.host_process;
-        self.run_as_user_name = other.run_as_user_name;
+        if other.gmsa_credential_spec.is_some() {
+            self.gmsa_credential_spec = other.gmsa_credential_spec;
+        }
+        if other.gmsa_credential_spec_name.is_some() {
+            self.gmsa_credential_spec_name = other.gmsa_credential_spec_name;
+        }
+        if other.host_process.is_some() {
+            self.host_process = other.host_process;
+        }
+        if other.run_as_user_name.is_some() {
+            self.run_as_user_name = other.run_as_user_name;
+        }
         Ok(())
     }
 }

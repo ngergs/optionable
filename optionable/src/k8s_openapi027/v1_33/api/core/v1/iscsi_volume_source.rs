@@ -99,19 +99,33 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ISCSIVolumeSour
         })
     }
     fn merge(&mut self, other: ISCSIVolumeSourceAc) -> Result<(), crate::Error> {
-        self.chap_auth_discovery = other.chap_auth_discovery;
-        self.chap_auth_session = other.chap_auth_session;
-        self.fs_type = other.fs_type;
-        self.initiator_name = other.initiator_name;
+        if other.chap_auth_discovery.is_some() {
+            self.chap_auth_discovery = other.chap_auth_discovery;
+        }
+        if other.chap_auth_session.is_some() {
+            self.chap_auth_session = other.chap_auth_session;
+        }
+        if other.fs_type.is_some() {
+            self.fs_type = other.fs_type;
+        }
+        if other.initiator_name.is_some() {
+            self.initiator_name = other.initiator_name;
+        }
         if let Some(other_value) = other.iqn {
             self.iqn = other_value;
         }
-        self.iscsi_interface = other.iscsi_interface;
+        if other.iscsi_interface.is_some() {
+            self.iscsi_interface = other.iscsi_interface;
+        }
         if let Some(other_value) = other.lun {
             self.lun = other_value;
         }
-        self.portals = other.portals;
-        self.read_only = other.read_only;
+        if other.portals.is_some() {
+            self.portals = other.portals;
+        }
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
         if let Some(other_value) = other.target_portal {
             self.target_portal = other_value;

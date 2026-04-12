@@ -62,12 +62,18 @@ for k8s_openapi027::api::core::v1::GCEPersistentDiskVolumeSource {
         &mut self,
         other: GCEPersistentDiskVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        self.fs_type = other.fs_type;
-        self.partition = other.partition;
+        if other.fs_type.is_some() {
+            self.fs_type = other.fs_type;
+        }
+        if other.partition.is_some() {
+            self.partition = other.partition;
+        }
         if let Some(other_value) = other.pd_name {
             self.pd_name = other_value;
         }
-        self.read_only = other.read_only;
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
         Ok(())
     }
 }

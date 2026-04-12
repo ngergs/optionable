@@ -63,7 +63,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::DownwardAPIVolu
     }
     fn merge(&mut self, other: DownwardAPIVolumeFileAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.field_ref, other.field_ref)?;
-        self.mode = other.mode;
+        if other.mode.is_some() {
+            self.mode = other.mode;
+        }
         if let Some(other_value) = other.path {
             self.path = other_value;
         }

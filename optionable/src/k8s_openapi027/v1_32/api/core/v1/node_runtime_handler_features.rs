@@ -46,8 +46,12 @@ for k8s_openapi027::api::core::v1::NodeRuntimeHandlerFeatures {
         &mut self,
         other: NodeRuntimeHandlerFeaturesAc,
     ) -> Result<(), crate::Error> {
-        self.recursive_read_only_mounts = other.recursive_read_only_mounts;
-        self.user_namespaces = other.user_namespaces;
+        if other.recursive_read_only_mounts.is_some() {
+            self.recursive_read_only_mounts = other.recursive_read_only_mounts;
+        }
+        if other.user_namespaces.is_some() {
+            self.user_namespaces = other.user_namespaces;
+        }
         Ok(())
     }
 }

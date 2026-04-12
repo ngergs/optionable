@@ -63,7 +63,9 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Webho
     fn merge(&mut self, other: WebhookClientConfigAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
         crate::OptionableConvert::merge(&mut self.service, other.service)?;
-        self.url = other.url;
+        if other.url.is_some() {
+            self.url = other.url;
+        }
         Ok(())
     }
 }

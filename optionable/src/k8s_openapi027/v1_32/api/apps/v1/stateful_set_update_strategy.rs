@@ -49,7 +49,9 @@ for k8s_openapi027::api::apps::v1::StatefulSetUpdateStrategy {
     }
     fn merge(&mut self, other: StatefulSetUpdateStrategyAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.rolling_update, other.rolling_update)?;
-        self.type_ = other.type_;
+        if other.type_.is_some() {
+            self.type_ = other.type_;
+        }
         Ok(())
     }
 }

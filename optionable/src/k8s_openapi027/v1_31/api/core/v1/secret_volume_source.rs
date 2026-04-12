@@ -56,10 +56,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretVolumeSou
         })
     }
     fn merge(&mut self, other: SecretVolumeSourceAc) -> Result<(), crate::Error> {
-        self.default_mode = other.default_mode;
+        if other.default_mode.is_some() {
+            self.default_mode = other.default_mode;
+        }
         crate::OptionableConvert::merge(&mut self.items, other.items)?;
-        self.optional = other.optional;
-        self.secret_name = other.secret_name;
+        if other.optional.is_some() {
+            self.optional = other.optional;
+        }
+        if other.secret_name.is_some() {
+            self.secret_name = other.secret_name;
+        }
         Ok(())
     }
 }

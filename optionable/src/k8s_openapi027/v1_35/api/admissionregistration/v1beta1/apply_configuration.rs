@@ -64,7 +64,9 @@ for k8s_openapi027::api::admissionregistration::v1beta1::ApplyConfiguration {
         })
     }
     fn merge(&mut self, other: ApplyConfigurationAc) -> Result<(), crate::Error> {
-        self.expression = other.expression;
+        if other.expression.is_some() {
+            self.expression = other.expression;
+        }
         Ok(())
     }
 }

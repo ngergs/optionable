@@ -137,9 +137,15 @@ for k8s_openapi027::api::resource::v1beta2::DeviceRequestAllocationResult {
         &mut self,
         other: DeviceRequestAllocationResultAc,
     ) -> Result<(), crate::Error> {
-        self.admin_access = other.admin_access;
-        self.binding_conditions = other.binding_conditions;
-        self.binding_failure_conditions = other.binding_failure_conditions;
+        if other.admin_access.is_some() {
+            self.admin_access = other.admin_access;
+        }
+        if other.binding_conditions.is_some() {
+            self.binding_conditions = other.binding_conditions;
+        }
+        if other.binding_failure_conditions.is_some() {
+            self.binding_failure_conditions = other.binding_failure_conditions;
+        }
         crate::OptionableConvert::merge(
             &mut self.consumed_capacity,
             other.consumed_capacity,
@@ -156,7 +162,9 @@ for k8s_openapi027::api::resource::v1beta2::DeviceRequestAllocationResult {
         if let Some(other_value) = other.request {
             self.request = other_value;
         }
-        self.share_id = other.share_id;
+        if other.share_id.is_some() {
+            self.share_id = other.share_id;
+        }
         crate::OptionableConvert::merge(&mut self.tolerations, other.tolerations)?;
         Ok(())
     }

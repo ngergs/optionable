@@ -46,7 +46,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::node::v1::Scheduling {
         })
     }
     fn merge(&mut self, other: SchedulingAc) -> Result<(), crate::Error> {
-        self.node_selector = other.node_selector;
+        if other.node_selector.is_some() {
+            self.node_selector = other.node_selector;
+        }
         crate::OptionableConvert::merge(&mut self.tolerations, other.tolerations)?;
         Ok(())
     }

@@ -40,8 +40,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretReference
         })
     }
     fn merge(&mut self, other: SecretReferenceAc) -> Result<(), crate::Error> {
-        self.name = other.name;
-        self.namespace = other.namespace;
+        if other.name.is_some() {
+            self.name = other.name;
+        }
+        if other.namespace.is_some() {
+            self.namespace = other.namespace;
+        }
         Ok(())
     }
 }

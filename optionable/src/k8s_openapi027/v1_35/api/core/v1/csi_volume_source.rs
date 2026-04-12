@@ -70,13 +70,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::CSIVolumeSource
         if let Some(other_value) = other.driver {
             self.driver = other_value;
         }
-        self.fs_type = other.fs_type;
+        if other.fs_type.is_some() {
+            self.fs_type = other.fs_type;
+        }
         crate::OptionableConvert::merge(
             &mut self.node_publish_secret_ref,
             other.node_publish_secret_ref,
         )?;
-        self.read_only = other.read_only;
-        self.volume_attributes = other.volume_attributes;
+        if other.read_only.is_some() {
+            self.read_only = other.read_only;
+        }
+        if other.volume_attributes.is_some() {
+            self.volume_attributes = other.volume_attributes;
+        }
         Ok(())
     }
 }

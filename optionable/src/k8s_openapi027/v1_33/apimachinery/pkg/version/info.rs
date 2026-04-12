@@ -130,8 +130,12 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::version::In
         if let Some(other_value) = other.compiler {
             self.compiler = other_value;
         }
-        self.emulation_major = other.emulation_major;
-        self.emulation_minor = other.emulation_minor;
+        if other.emulation_major.is_some() {
+            self.emulation_major = other.emulation_major;
+        }
+        if other.emulation_minor.is_some() {
+            self.emulation_minor = other.emulation_minor;
+        }
         if let Some(other_value) = other.git_commit {
             self.git_commit = other_value;
         }
@@ -147,8 +151,12 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::version::In
         if let Some(other_value) = other.major {
             self.major = other_value;
         }
-        self.min_compatibility_major = other.min_compatibility_major;
-        self.min_compatibility_minor = other.min_compatibility_minor;
+        if other.min_compatibility_major.is_some() {
+            self.min_compatibility_major = other.min_compatibility_major;
+        }
+        if other.min_compatibility_minor.is_some() {
+            self.min_compatibility_minor = other.min_compatibility_minor;
+        }
         if let Some(other_value) = other.minor {
             self.minor = other_value;
         }

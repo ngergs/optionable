@@ -55,7 +55,9 @@ for k8s_openapi027::api::storagemigration::v1alpha1::StorageVersionMigrationSpec
         &mut self,
         other: StorageVersionMigrationSpecAc,
     ) -> Result<(), crate::Error> {
-        self.continue_token = other.continue_token;
+        if other.continue_token.is_some() {
+            self.continue_token = other.continue_token;
+        }
         if let Some(other_value) = other.resource {
             crate::OptionableConvert::merge(&mut self.resource, other_value)?;
         }

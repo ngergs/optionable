@@ -69,7 +69,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Device
             self.key = other_value;
         }
         crate::OptionableConvert::merge(&mut self.time_added, other.time_added)?;
-        self.value = other.value;
+        if other.value.is_some() {
+            self.value = other.value;
+        }
         Ok(())
     }
 }

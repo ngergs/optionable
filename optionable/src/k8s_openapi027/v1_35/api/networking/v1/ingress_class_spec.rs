@@ -42,7 +42,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressCl
         })
     }
     fn merge(&mut self, other: IngressClassSpecAc) -> Result<(), crate::Error> {
-        self.controller = other.controller;
+        if other.controller.is_some() {
+            self.controller = other.controller;
+        }
         crate::OptionableConvert::merge(&mut self.parameters, other.parameters)?;
         Ok(())
     }

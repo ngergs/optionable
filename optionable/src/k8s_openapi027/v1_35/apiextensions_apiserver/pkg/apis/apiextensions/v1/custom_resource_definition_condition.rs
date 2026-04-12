@@ -86,9 +86,15 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             &mut self.last_transition_time,
             other.last_transition_time,
         )?;
-        self.message = other.message;
-        self.observed_generation = other.observed_generation;
-        self.reason = other.reason;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         if let Some(other_value) = other.status {
             self.status = other_value;
         }

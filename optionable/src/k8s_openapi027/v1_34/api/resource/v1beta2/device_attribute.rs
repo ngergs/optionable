@@ -51,10 +51,18 @@ for k8s_openapi027::api::resource::v1beta2::DeviceAttribute {
         })
     }
     fn merge(&mut self, other: DeviceAttributeAc) -> Result<(), crate::Error> {
-        self.bool = other.bool;
-        self.int = other.int;
-        self.string = other.string;
-        self.version = other.version;
+        if other.bool.is_some() {
+            self.bool = other.bool;
+        }
+        if other.int.is_some() {
+            self.int = other.int;
+        }
+        if other.string.is_some() {
+            self.string = other.string;
+        }
+        if other.version.is_some() {
+            self.version = other.version;
+        }
         Ok(())
     }
 }

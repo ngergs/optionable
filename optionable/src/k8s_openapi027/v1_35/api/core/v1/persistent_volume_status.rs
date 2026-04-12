@@ -60,9 +60,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
             &mut self.last_phase_transition_time,
             other.last_phase_transition_time,
         )?;
-        self.message = other.message;
-        self.phase = other.phase;
-        self.reason = other.reason;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.phase.is_some() {
+            self.phase = other.phase;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         Ok(())
     }
 }

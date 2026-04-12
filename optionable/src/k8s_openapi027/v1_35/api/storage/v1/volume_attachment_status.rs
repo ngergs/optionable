@@ -69,7 +69,9 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentStatus {
         if let Some(other_value) = other.attached {
             self.attached = other_value;
         }
-        self.attachment_metadata = other.attachment_metadata;
+        if other.attachment_metadata.is_some() {
+            self.attachment_metadata = other.attachment_metadata;
+        }
         crate::OptionableConvert::merge(&mut self.detach_error, other.detach_error)?;
         Ok(())
     }

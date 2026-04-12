@@ -64,14 +64,33 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ObjectReference
         })
     }
     fn merge(&mut self, other: ObjectReferenceAc) -> Result<(), crate::Error> {
-        self.api_version = other.api_version;
-        self.field_path = other.field_path;
-        self.kind = other.kind;
+        if other.api_version.is_some() {
+            self.api_version = other.api_version;
+        }
+        if other.field_path.is_some() {
+            self.field_path = other.field_path;
+        }
+        if other.kind.is_some() {
+            self.kind = other.kind;
+        }
         self.name = other.name;
-        self.namespace = other.namespace;
-        self.resource_version = other.resource_version;
-        self.uid = other.uid;
+        if other.namespace.is_some() {
+            self.namespace = other.namespace;
+        }
+        if other.resource_version.is_some() {
+            self.resource_version = other.resource_version;
+        }
+        if other.uid.is_some() {
+            self.uid = other.uid;
+        }
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::core::v1::ObjectReference {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
     }
 }
 #[automatically_derived]

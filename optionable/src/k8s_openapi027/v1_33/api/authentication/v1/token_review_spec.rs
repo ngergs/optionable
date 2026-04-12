@@ -41,8 +41,12 @@ for k8s_openapi027::api::authentication::v1::TokenReviewSpec {
         })
     }
     fn merge(&mut self, other: TokenReviewSpecAc) -> Result<(), crate::Error> {
-        self.audiences = other.audiences;
-        self.token = other.token;
+        if other.audiences.is_some() {
+            self.audiences = other.audiences;
+        }
+        if other.token.is_some() {
+            self.token = other.token;
+        }
         Ok(())
     }
 }

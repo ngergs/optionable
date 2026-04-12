@@ -68,7 +68,9 @@ for k8s_openapi027::api::batch::v1::PodFailurePolicyOnExitCodesRequirement {
         &mut self,
         other: PodFailurePolicyOnExitCodesRequirementAc,
     ) -> Result<(), crate::Error> {
-        self.container_name = other.container_name;
+        if other.container_name.is_some() {
+            self.container_name = other.container_name;
+        }
         if let Some(other_value) = other.operator {
             self.operator = other_value;
         }

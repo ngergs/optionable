@@ -47,7 +47,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IPBlock {
         if let Some(other_value) = other.cidr {
             self.cidr = other_value;
         }
-        self.except = other.except;
+        if other.except.is_some() {
+            self.except = other.except;
+        }
         Ok(())
     }
 }

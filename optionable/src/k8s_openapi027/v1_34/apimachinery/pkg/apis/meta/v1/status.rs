@@ -74,12 +74,20 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status {
         })
     }
     fn merge(&mut self, other: StatusAc) -> Result<(), crate::Error> {
-        self.code = other.code;
+        if other.code.is_some() {
+            self.code = other.code;
+        }
         crate::OptionableConvert::merge(&mut self.details, other.details)?;
-        self.message = other.message;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
         self.metadata = other.metadata;
-        self.reason = other.reason;
-        self.status = other.status;
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
+        if other.status.is_some() {
+            self.status = other.status;
+        }
         Ok(())
     }
 }

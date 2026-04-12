@@ -60,10 +60,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::PolicyRule {
         })
     }
     fn merge(&mut self, other: PolicyRuleAc) -> Result<(), crate::Error> {
-        self.api_groups = other.api_groups;
-        self.non_resource_urls = other.non_resource_urls;
-        self.resource_names = other.resource_names;
-        self.resources = other.resources;
+        if other.api_groups.is_some() {
+            self.api_groups = other.api_groups;
+        }
+        if other.non_resource_urls.is_some() {
+            self.non_resource_urls = other.non_resource_urls;
+        }
+        if other.resource_names.is_some() {
+            self.resource_names = other.resource_names;
+        }
+        if other.resources.is_some() {
+            self.resources = other.resources;
+        }
         if let Some(other_value) = other.verbs {
             self.verbs = other_value;
         }

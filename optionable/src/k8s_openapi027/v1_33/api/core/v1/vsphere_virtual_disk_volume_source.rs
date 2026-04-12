@@ -62,9 +62,15 @@ for k8s_openapi027::api::core::v1::VsphereVirtualDiskVolumeSource {
         &mut self,
         other: VsphereVirtualDiskVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        self.fs_type = other.fs_type;
-        self.storage_policy_id = other.storage_policy_id;
-        self.storage_policy_name = other.storage_policy_name;
+        if other.fs_type.is_some() {
+            self.fs_type = other.fs_type;
+        }
+        if other.storage_policy_id.is_some() {
+            self.storage_policy_id = other.storage_policy_id;
+        }
+        if other.storage_policy_name.is_some() {
+            self.storage_policy_name = other.storage_policy_name;
+        }
         if let Some(other_value) = other.volume_path {
             self.volume_path = other_value;
         }

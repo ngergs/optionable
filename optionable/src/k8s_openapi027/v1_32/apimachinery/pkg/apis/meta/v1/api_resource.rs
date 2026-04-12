@@ -102,8 +102,12 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource {
         })
     }
     fn merge(&mut self, other: APIResourceAc) -> Result<(), crate::Error> {
-        self.categories = other.categories;
-        self.group = other.group;
+        if other.categories.is_some() {
+            self.categories = other.categories;
+        }
+        if other.group.is_some() {
+            self.group = other.group;
+        }
         if let Some(other_value) = other.kind {
             self.kind = other_value;
         }
@@ -113,15 +117,21 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource {
         if let Some(other_value) = other.namespaced {
             self.namespaced = other_value;
         }
-        self.short_names = other.short_names;
+        if other.short_names.is_some() {
+            self.short_names = other.short_names;
+        }
         if let Some(other_value) = other.singular_name {
             self.singular_name = other_value;
         }
-        self.storage_version_hash = other.storage_version_hash;
+        if other.storage_version_hash.is_some() {
+            self.storage_version_hash = other.storage_version_hash;
+        }
         if let Some(other_value) = other.verbs {
             self.verbs = other_value;
         }
-        self.version = other.version;
+        if other.version.is_some() {
+            self.version = other.version;
+        }
         Ok(())
     }
 }

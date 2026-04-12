@@ -66,7 +66,9 @@ for k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement {
         if let Some(other_value) = other.scope_name {
             self.scope_name = other_value;
         }
-        self.values = other.values;
+        if other.values.is_some() {
+            self.values = other.values;
+        }
         Ok(())
     }
 }

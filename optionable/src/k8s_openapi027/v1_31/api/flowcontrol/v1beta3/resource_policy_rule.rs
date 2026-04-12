@@ -72,8 +72,12 @@ for k8s_openapi027::api::flowcontrol::v1beta3::ResourcePolicyRule {
         if let Some(other_value) = other.api_groups {
             self.api_groups = other_value;
         }
-        self.cluster_scope = other.cluster_scope;
-        self.namespaces = other.namespaces;
+        if other.cluster_scope.is_some() {
+            self.cluster_scope = other.cluster_scope;
+        }
+        if other.namespaces.is_some() {
+            self.namespaces = other.namespaces;
+        }
         if let Some(other_value) = other.resources {
             self.resources = other_value;
         }

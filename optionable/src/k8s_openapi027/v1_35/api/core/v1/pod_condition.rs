@@ -89,14 +89,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodCondition {
             &mut self.last_transition_time,
             other.last_transition_time,
         )?;
-        self.message = other.message;
-        self.observed_generation = other.observed_generation;
-        self.reason = other.reason;
+        if other.message.is_some() {
+            self.message = other.message;
+        }
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         if let Some(other_value) = other.status {
             self.status = other_value;
         }
         self.type_ = other.type_;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq for k8s_openapi027::api::core::v1::PodCondition {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.type_ == other.type_
     }
 }
 #[automatically_derived]

@@ -51,7 +51,9 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentSource {
             &mut self.inline_volume_spec,
             other.inline_volume_spec,
         )?;
-        self.persistent_volume_name = other.persistent_volume_name;
+        if other.persistent_volume_name.is_some() {
+            self.persistent_volume_name = other.persistent_volume_name;
+        }
         Ok(())
     }
 }

@@ -89,15 +89,28 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Probe {
     }
     fn merge(&mut self, other: ProbeAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.exec, other.exec)?;
-        self.failure_threshold = other.failure_threshold;
+        if other.failure_threshold.is_some() {
+            self.failure_threshold = other.failure_threshold;
+        }
         crate::OptionableConvert::merge(&mut self.grpc, other.grpc)?;
         crate::OptionableConvert::merge(&mut self.http_get, other.http_get)?;
-        self.initial_delay_seconds = other.initial_delay_seconds;
-        self.period_seconds = other.period_seconds;
-        self.success_threshold = other.success_threshold;
+        if other.initial_delay_seconds.is_some() {
+            self.initial_delay_seconds = other.initial_delay_seconds;
+        }
+        if other.period_seconds.is_some() {
+            self.period_seconds = other.period_seconds;
+        }
+        if other.success_threshold.is_some() {
+            self.success_threshold = other.success_threshold;
+        }
         crate::OptionableConvert::merge(&mut self.tcp_socket, other.tcp_socket)?;
-        self.termination_grace_period_seconds = other.termination_grace_period_seconds;
-        self.timeout_seconds = other.timeout_seconds;
+        if other.termination_grace_period_seconds.is_some() {
+            self.termination_grace_period_seconds = other
+                .termination_grace_period_seconds;
+        }
+        if other.timeout_seconds.is_some() {
+            self.timeout_seconds = other.timeout_seconds;
+        }
         Ok(())
     }
 }

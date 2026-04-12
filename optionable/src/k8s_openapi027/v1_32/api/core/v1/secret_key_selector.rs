@@ -59,7 +59,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretKeySelect
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        self.optional = other.optional;
+        if other.optional.is_some() {
+            self.optional = other.optional;
+        }
         Ok(())
     }
 }

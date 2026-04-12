@@ -77,7 +77,9 @@ for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec {
             &mut self.distinguisher_method,
             other.distinguisher_method,
         )?;
-        self.matching_precedence = other.matching_precedence;
+        if other.matching_precedence.is_some() {
+            self.matching_precedence = other.matching_precedence;
+        }
         if let Some(other_value) = other.priority_level_configuration {
             crate::OptionableConvert::merge(
                 &mut self.priority_level_configuration,

@@ -67,11 +67,21 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusDetails {
     }
     fn merge(&mut self, other: StatusDetailsAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.causes, other.causes)?;
-        self.group = other.group;
-        self.kind = other.kind;
-        self.name = other.name;
-        self.retry_after_seconds = other.retry_after_seconds;
-        self.uid = other.uid;
+        if other.group.is_some() {
+            self.group = other.group;
+        }
+        if other.kind.is_some() {
+            self.kind = other.kind;
+        }
+        if other.name.is_some() {
+            self.name = other.name;
+        }
+        if other.retry_after_seconds.is_some() {
+            self.retry_after_seconds = other.retry_after_seconds;
+        }
+        if other.uid.is_some() {
+            self.uid = other.uid;
+        }
         Ok(())
     }
 }

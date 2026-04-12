@@ -65,7 +65,9 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
             other.match_resources,
         )?;
         crate::OptionableConvert::merge(&mut self.param_ref, other.param_ref)?;
-        self.policy_name = other.policy_name;
+        if other.policy_name.is_some() {
+            self.policy_name = other.policy_name;
+        }
         Ok(())
     }
 }

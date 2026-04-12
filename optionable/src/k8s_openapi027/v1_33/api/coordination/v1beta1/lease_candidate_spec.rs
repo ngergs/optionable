@@ -81,7 +81,9 @@ for k8s_openapi027::api::coordination::v1beta1::LeaseCandidateSpec {
         if let Some(other_value) = other.binary_version {
             self.binary_version = other_value;
         }
-        self.emulation_version = other.emulation_version;
+        if other.emulation_version.is_some() {
+            self.emulation_version = other.emulation_version;
+        }
         if let Some(other_value) = other.lease_name {
             self.lease_name = other_value;
         }

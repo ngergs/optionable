@@ -78,12 +78,22 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSpec {
     }
     fn merge(&mut self, other: NodeSpecAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.config_source, other.config_source)?;
-        self.external_id = other.external_id;
-        self.pod_cidr = other.pod_cidr;
-        self.pod_cidrs = other.pod_cidrs;
-        self.provider_id = other.provider_id;
+        if other.external_id.is_some() {
+            self.external_id = other.external_id;
+        }
+        if other.pod_cidr.is_some() {
+            self.pod_cidr = other.pod_cidr;
+        }
+        if other.pod_cidrs.is_some() {
+            self.pod_cidrs = other.pod_cidrs;
+        }
+        if other.provider_id.is_some() {
+            self.provider_id = other.provider_id;
+        }
         crate::OptionableConvert::merge(&mut self.taints, other.taints)?;
-        self.unschedulable = other.unschedulable;
+        if other.unschedulable.is_some() {
+            self.unschedulable = other.unschedulable;
+        }
         Ok(())
     }
 }

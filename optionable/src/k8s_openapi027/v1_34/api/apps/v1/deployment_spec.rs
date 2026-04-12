@@ -88,11 +88,21 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentSpec 
         })
     }
     fn merge(&mut self, other: DeploymentSpecAc) -> Result<(), crate::Error> {
-        self.min_ready_seconds = other.min_ready_seconds;
-        self.paused = other.paused;
-        self.progress_deadline_seconds = other.progress_deadline_seconds;
-        self.replicas = other.replicas;
-        self.revision_history_limit = other.revision_history_limit;
+        if other.min_ready_seconds.is_some() {
+            self.min_ready_seconds = other.min_ready_seconds;
+        }
+        if other.paused.is_some() {
+            self.paused = other.paused;
+        }
+        if other.progress_deadline_seconds.is_some() {
+            self.progress_deadline_seconds = other.progress_deadline_seconds;
+        }
+        if other.replicas.is_some() {
+            self.replicas = other.replicas;
+        }
+        if other.revision_history_limit.is_some() {
+            self.revision_history_limit = other.revision_history_limit;
+        }
         if let Some(other_value) = other.selector {
             crate::OptionableConvert::merge(&mut self.selector, other_value)?;
         }

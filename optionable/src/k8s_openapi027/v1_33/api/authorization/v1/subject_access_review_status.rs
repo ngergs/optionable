@@ -61,9 +61,15 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewStatus {
         if let Some(other_value) = other.allowed {
             self.allowed = other_value;
         }
-        self.denied = other.denied;
-        self.evaluation_error = other.evaluation_error;
-        self.reason = other.reason;
+        if other.denied.is_some() {
+            self.denied = other.denied;
+        }
+        if other.evaluation_error.is_some() {
+            self.evaluation_error = other.evaluation_error;
+        }
+        if other.reason.is_some() {
+            self.reason = other.reason;
+        }
         Ok(())
     }
 }

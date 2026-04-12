@@ -42,8 +42,12 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Preconditions {
         })
     }
     fn merge(&mut self, other: PreconditionsAc) -> Result<(), crate::Error> {
-        self.resource_version = other.resource_version;
-        self.uid = other.uid;
+        if other.resource_version.is_some() {
+            self.resource_version = other.resource_version;
+        }
+        if other.uid.is_some() {
+            self.uid = other.uid;
+        }
         Ok(())
     }
 }

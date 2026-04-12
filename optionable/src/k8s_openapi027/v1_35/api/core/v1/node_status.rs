@@ -159,11 +159,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeStatus {
             &mut self.daemon_endpoints,
             other.daemon_endpoints,
         )?;
-        self.declared_features = other.declared_features;
+        if other.declared_features.is_some() {
+            self.declared_features = other.declared_features;
+        }
         crate::OptionableConvert::merge(&mut self.features, other.features)?;
         crate::OptionableConvert::merge(&mut self.images, other.images)?;
         crate::OptionableConvert::merge(&mut self.node_info, other.node_info)?;
-        self.phase = other.phase;
+        if other.phase.is_some() {
+            self.phase = other.phase;
+        }
         crate::OptionableConvert::merge(
             &mut self.runtime_handlers,
             other.runtime_handlers,
@@ -172,7 +176,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeStatus {
             &mut self.volumes_attached,
             other.volumes_attached,
         )?;
-        self.volumes_in_use = other.volumes_in_use;
+        if other.volumes_in_use.is_some() {
+            self.volumes_in_use = other.volumes_in_use;
+        }
         Ok(())
     }
 }

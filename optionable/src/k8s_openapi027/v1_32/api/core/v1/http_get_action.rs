@@ -69,13 +69,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HTTPGetAction {
         })
     }
     fn merge(&mut self, other: HTTPGetActionAc) -> Result<(), crate::Error> {
-        self.host = other.host;
+        if other.host.is_some() {
+            self.host = other.host;
+        }
         crate::OptionableConvert::merge(&mut self.http_headers, other.http_headers)?;
-        self.path = other.path;
+        if other.path.is_some() {
+            self.path = other.path;
+        }
         if let Some(other_value) = other.port {
             crate::OptionableConvert::merge(&mut self.port, other_value)?;
         }
-        self.scheme = other.scheme;
+        if other.scheme.is_some() {
+            self.scheme = other.scheme;
+        }
         Ok(())
     }
 }

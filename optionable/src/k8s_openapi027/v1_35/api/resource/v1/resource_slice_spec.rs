@@ -122,14 +122,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::ResourceSli
         })
     }
     fn merge(&mut self, other: ResourceSliceSpecAc) -> Result<(), crate::Error> {
-        self.all_nodes = other.all_nodes;
+        if other.all_nodes.is_some() {
+            self.all_nodes = other.all_nodes;
+        }
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
         if let Some(other_value) = other.driver {
             self.driver = other_value;
         }
-        self.node_name = other.node_name;
+        if other.node_name.is_some() {
+            self.node_name = other.node_name;
+        }
         crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
-        self.per_device_node_selection = other.per_device_node_selection;
+        if other.per_device_node_selection.is_some() {
+            self.per_device_node_selection = other.per_device_node_selection;
+        }
         if let Some(other_value) = other.pool {
             crate::OptionableConvert::merge(&mut self.pool, other_value)?;
         }

@@ -46,7 +46,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentStrat
     }
     fn merge(&mut self, other: DeploymentStrategyAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.rolling_update, other.rolling_update)?;
-        self.type_ = other.type_;
+        if other.type_.is_some() {
+            self.type_ = other.type_;
+        }
         Ok(())
     }
 }

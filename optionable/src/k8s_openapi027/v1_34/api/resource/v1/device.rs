@@ -156,12 +156,22 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::Device {
         })
     }
     fn merge(&mut self, other: DeviceAc) -> Result<(), crate::Error> {
-        self.all_nodes = other.all_nodes;
-        self.allow_multiple_allocations = other.allow_multiple_allocations;
+        if other.all_nodes.is_some() {
+            self.all_nodes = other.all_nodes;
+        }
+        if other.allow_multiple_allocations.is_some() {
+            self.allow_multiple_allocations = other.allow_multiple_allocations;
+        }
         crate::OptionableConvert::merge(&mut self.attributes, other.attributes)?;
-        self.binding_conditions = other.binding_conditions;
-        self.binding_failure_conditions = other.binding_failure_conditions;
-        self.binds_to_node = other.binds_to_node;
+        if other.binding_conditions.is_some() {
+            self.binding_conditions = other.binding_conditions;
+        }
+        if other.binding_failure_conditions.is_some() {
+            self.binding_failure_conditions = other.binding_failure_conditions;
+        }
+        if other.binds_to_node.is_some() {
+            self.binds_to_node = other.binds_to_node;
+        }
         crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
         crate::OptionableConvert::merge(
             &mut self.consumes_counters,
@@ -170,7 +180,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::Device {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        self.node_name = other.node_name;
+        if other.node_name.is_some() {
+            self.node_name = other.node_name;
+        }
         crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
         crate::OptionableConvert::merge(&mut self.taints, other.taints)?;
         Ok(())

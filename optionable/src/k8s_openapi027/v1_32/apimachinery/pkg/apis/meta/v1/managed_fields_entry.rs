@@ -71,12 +71,22 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
         })
     }
     fn merge(&mut self, other: ManagedFieldsEntryAc) -> Result<(), crate::Error> {
-        self.api_version = other.api_version;
-        self.fields_type = other.fields_type;
+        if other.api_version.is_some() {
+            self.api_version = other.api_version;
+        }
+        if other.fields_type.is_some() {
+            self.fields_type = other.fields_type;
+        }
         crate::OptionableConvert::merge(&mut self.fields_v1, other.fields_v1)?;
-        self.manager = other.manager;
-        self.operation = other.operation;
-        self.subresource = other.subresource;
+        if other.manager.is_some() {
+            self.manager = other.manager;
+        }
+        if other.operation.is_some() {
+            self.operation = other.operation;
+        }
+        if other.subresource.is_some() {
+            self.subresource = other.subresource;
+        }
         crate::OptionableConvert::merge(&mut self.time, other.time)?;
         Ok(())
     }

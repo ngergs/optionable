@@ -46,9 +46,15 @@ for k8s_openapi027::api::discovery::v1::EndpointConditions {
         })
     }
     fn merge(&mut self, other: EndpointConditionsAc) -> Result<(), crate::Error> {
-        self.ready = other.ready;
-        self.serving = other.serving;
-        self.terminating = other.terminating;
+        if other.ready.is_some() {
+            self.ready = other.ready;
+        }
+        if other.serving.is_some() {
+            self.serving = other.serving;
+        }
+        if other.terminating.is_some() {
+            self.terminating = other.terminating;
+        }
         Ok(())
     }
 }

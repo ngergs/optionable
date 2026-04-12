@@ -76,8 +76,12 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
         if let Some(other_value) = other.api_version {
             self.api_version = other_value;
         }
-        self.block_owner_deletion = other.block_owner_deletion;
-        self.controller = other.controller;
+        if other.block_owner_deletion.is_some() {
+            self.block_owner_deletion = other.block_owner_deletion;
+        }
+        if other.controller.is_some() {
+            self.controller = other.controller;
+        }
         if let Some(other_value) = other.kind {
             self.kind = other_value;
         }
@@ -86,6 +90,13 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
         }
         self.uid = other.uid;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.uid == other.uid
     }
 }
 #[automatically_derived]

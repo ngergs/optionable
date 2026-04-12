@@ -77,10 +77,16 @@ for k8s_openapi027::api::flowcontrol::v1::LimitedPriorityLevelConfiguration {
         &mut self,
         other: LimitedPriorityLevelConfigurationAc,
     ) -> Result<(), crate::Error> {
-        self.borrowing_limit_percent = other.borrowing_limit_percent;
-        self.lendable_percent = other.lendable_percent;
+        if other.borrowing_limit_percent.is_some() {
+            self.borrowing_limit_percent = other.borrowing_limit_percent;
+        }
+        if other.lendable_percent.is_some() {
+            self.lendable_percent = other.lendable_percent;
+        }
         crate::OptionableConvert::merge(&mut self.limit_response, other.limit_response)?;
-        self.nominal_concurrency_shares = other.nominal_concurrency_shares;
+        if other.nominal_concurrency_shares.is_some() {
+            self.nominal_concurrency_shares = other.nominal_concurrency_shares;
+        }
         Ok(())
     }
 }

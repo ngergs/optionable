@@ -78,8 +78,12 @@ for k8s_openapi027::api::coordination::v1alpha1::LeaseCandidateSpec {
         })
     }
     fn merge(&mut self, other: LeaseCandidateSpecAc) -> Result<(), crate::Error> {
-        self.binary_version = other.binary_version;
-        self.emulation_version = other.emulation_version;
+        if other.binary_version.is_some() {
+            self.binary_version = other.binary_version;
+        }
+        if other.emulation_version.is_some() {
+            self.emulation_version = other.emulation_version;
+        }
         if let Some(other_value) = other.lease_name {
             self.lease_name = other_value;
         }

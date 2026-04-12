@@ -73,7 +73,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceAccount 
         })
     }
     fn merge(&mut self, other: ServiceAccountAc) -> Result<(), crate::Error> {
-        self.automount_service_account_token = other.automount_service_account_token;
+        if other.automount_service_account_token.is_some() {
+            self.automount_service_account_token = other.automount_service_account_token;
+        }
         crate::OptionableConvert::merge(
             &mut self.image_pull_secrets,
             other.image_pull_secrets,

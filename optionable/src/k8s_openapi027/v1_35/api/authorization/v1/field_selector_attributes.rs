@@ -50,7 +50,9 @@ for k8s_openapi027::api::authorization::v1::FieldSelectorAttributes {
         })
     }
     fn merge(&mut self, other: FieldSelectorAttributesAc) -> Result<(), crate::Error> {
-        self.raw_selector = other.raw_selector;
+        if other.raw_selector.is_some() {
+            self.raw_selector = other.raw_selector;
+        }
         crate::OptionableConvert::merge(&mut self.requirements, other.requirements)?;
         Ok(())
     }

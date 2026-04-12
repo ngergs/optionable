@@ -33,7 +33,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ExecAction {
         Ok(Self { command: value.command })
     }
     fn merge(&mut self, other: ExecActionAc) -> Result<(), crate::Error> {
-        self.command = other.command;
+        if other.command.is_some() {
+            self.command = other.command;
+        }
         Ok(())
     }
 }

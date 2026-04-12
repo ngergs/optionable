@@ -121,8 +121,12 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             &mut self.additional_printer_columns,
             other.additional_printer_columns,
         )?;
-        self.deprecated = other.deprecated;
-        self.deprecation_warning = other.deprecation_warning;
+        if other.deprecated.is_some() {
+            self.deprecated = other.deprecated;
+        }
+        if other.deprecation_warning.is_some() {
+            self.deprecation_warning = other.deprecation_warning;
+        }
         if let Some(other_value) = other.name {
             self.name = other_value;
         }

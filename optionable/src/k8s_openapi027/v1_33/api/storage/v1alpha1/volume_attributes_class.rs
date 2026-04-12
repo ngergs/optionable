@@ -70,7 +70,9 @@ for k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass {
             self.driver_name = other_value;
         }
         self.metadata = other.metadata;
-        self.parameters = other.parameters;
+        if other.parameters.is_some() {
+            self.parameters = other.parameters;
+        }
         Ok(())
     }
 }

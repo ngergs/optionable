@@ -64,10 +64,18 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceTaintSelector {
         })
     }
     fn merge(&mut self, other: DeviceTaintSelectorAc) -> Result<(), crate::Error> {
-        self.device = other.device;
-        self.device_class_name = other.device_class_name;
-        self.driver = other.driver;
-        self.pool = other.pool;
+        if other.device.is_some() {
+            self.device = other.device;
+        }
+        if other.device_class_name.is_some() {
+            self.device_class_name = other.device_class_name;
+        }
+        if other.driver.is_some() {
+            self.driver = other.driver;
+        }
+        if other.pool.is_some() {
+            self.pool = other.pool;
+        }
         crate::OptionableConvert::merge(&mut self.selectors, other.selectors)?;
         Ok(())
     }

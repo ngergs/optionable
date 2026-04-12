@@ -39,8 +39,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodDNSConfigOpt
         })
     }
     fn merge(&mut self, other: PodDNSConfigOptionAc) -> Result<(), crate::Error> {
-        self.name = other.name;
-        self.value = other.value;
+        if other.name.is_some() {
+            self.name = other.name;
+        }
+        if other.value.is_some() {
+            self.value = other.value;
+        }
         Ok(())
     }
 }

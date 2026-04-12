@@ -89,14 +89,28 @@ for k8s_openapi027::api::authorization::v1::ResourceAttributes {
     }
     fn merge(&mut self, other: ResourceAttributesAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.field_selector, other.field_selector)?;
-        self.group = other.group;
+        if other.group.is_some() {
+            self.group = other.group;
+        }
         crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
-        self.name = other.name;
-        self.namespace = other.namespace;
-        self.resource = other.resource;
-        self.subresource = other.subresource;
-        self.verb = other.verb;
-        self.version = other.version;
+        if other.name.is_some() {
+            self.name = other.name;
+        }
+        if other.namespace.is_some() {
+            self.namespace = other.namespace;
+        }
+        if other.resource.is_some() {
+            self.resource = other.resource;
+        }
+        if other.subresource.is_some() {
+            self.subresource = other.subresource;
+        }
+        if other.verb.is_some() {
+            self.verb = other.verb;
+        }
+        if other.version.is_some() {
+            self.version = other.version;
+        }
         Ok(())
     }
 }

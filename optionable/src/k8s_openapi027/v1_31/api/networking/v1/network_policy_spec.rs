@@ -66,7 +66,9 @@ for k8s_openapi027::api::networking::v1::NetworkPolicySpec {
         crate::OptionableConvert::merge(&mut self.egress, other.egress)?;
         crate::OptionableConvert::merge(&mut self.ingress, other.ingress)?;
         crate::OptionableConvert::merge(&mut self.pod_selector, other.pod_selector)?;
-        self.policy_types = other.policy_types;
+        if other.policy_types.is_some() {
+            self.policy_types = other.policy_types;
+        }
         Ok(())
     }
 }

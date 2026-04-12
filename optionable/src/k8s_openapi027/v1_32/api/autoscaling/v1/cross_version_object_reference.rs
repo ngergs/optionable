@@ -60,7 +60,9 @@ for k8s_openapi027::api::autoscaling::v1::CrossVersionObjectReference {
         &mut self,
         other: CrossVersionObjectReferenceAc,
     ) -> Result<(), crate::Error> {
-        self.api_version = other.api_version;
+        if other.api_version.is_some() {
+            self.api_version = other.api_version;
+        }
         if let Some(other_value) = other.kind {
             self.kind = other_value;
         }

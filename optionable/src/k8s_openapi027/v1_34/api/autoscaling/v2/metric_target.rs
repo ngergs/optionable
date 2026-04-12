@@ -61,7 +61,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricTa
         })
     }
     fn merge(&mut self, other: MetricTargetAc) -> Result<(), crate::Error> {
-        self.average_utilization = other.average_utilization;
+        if other.average_utilization.is_some() {
+            self.average_utilization = other.average_utilization;
+        }
         crate::OptionableConvert::merge(&mut self.average_value, other.average_value)?;
         if let Some(other_value) = other.type_ {
             self.type_ = other_value;

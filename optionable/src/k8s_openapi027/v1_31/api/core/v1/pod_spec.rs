@@ -337,25 +337,43 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
         })
     }
     fn merge(&mut self, other: PodSpecAc) -> Result<(), crate::Error> {
-        self.active_deadline_seconds = other.active_deadline_seconds;
+        if other.active_deadline_seconds.is_some() {
+            self.active_deadline_seconds = other.active_deadline_seconds;
+        }
         crate::OptionableConvert::merge(&mut self.affinity, other.affinity)?;
-        self.automount_service_account_token = other.automount_service_account_token;
+        if other.automount_service_account_token.is_some() {
+            self.automount_service_account_token = other.automount_service_account_token;
+        }
         if let Some(other_value) = other.containers {
             crate::OptionableConvert::merge(&mut self.containers, other_value)?;
         }
         crate::OptionableConvert::merge(&mut self.dns_config, other.dns_config)?;
-        self.dns_policy = other.dns_policy;
-        self.enable_service_links = other.enable_service_links;
+        if other.dns_policy.is_some() {
+            self.dns_policy = other.dns_policy;
+        }
+        if other.enable_service_links.is_some() {
+            self.enable_service_links = other.enable_service_links;
+        }
         crate::OptionableConvert::merge(
             &mut self.ephemeral_containers,
             other.ephemeral_containers,
         )?;
         crate::OptionableConvert::merge(&mut self.host_aliases, other.host_aliases)?;
-        self.host_ipc = other.host_ipc;
-        self.host_network = other.host_network;
-        self.host_pid = other.host_pid;
-        self.host_users = other.host_users;
-        self.hostname = other.hostname;
+        if other.host_ipc.is_some() {
+            self.host_ipc = other.host_ipc;
+        }
+        if other.host_network.is_some() {
+            self.host_network = other.host_network;
+        }
+        if other.host_pid.is_some() {
+            self.host_pid = other.host_pid;
+        }
+        if other.host_users.is_some() {
+            self.host_users = other.host_users;
+        }
+        if other.hostname.is_some() {
+            self.hostname = other.hostname;
+        }
         crate::OptionableConvert::merge(
             &mut self.image_pull_secrets,
             other.image_pull_secrets,
@@ -364,13 +382,23 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             &mut self.init_containers,
             other.init_containers,
         )?;
-        self.node_name = other.node_name;
-        self.node_selector = other.node_selector;
+        if other.node_name.is_some() {
+            self.node_name = other.node_name;
+        }
+        if other.node_selector.is_some() {
+            self.node_selector = other.node_selector;
+        }
         crate::OptionableConvert::merge(&mut self.os, other.os)?;
         crate::OptionableConvert::merge(&mut self.overhead, other.overhead)?;
-        self.preemption_policy = other.preemption_policy;
-        self.priority = other.priority;
-        self.priority_class_name = other.priority_class_name;
+        if other.preemption_policy.is_some() {
+            self.preemption_policy = other.preemption_policy;
+        }
+        if other.priority.is_some() {
+            self.priority = other.priority;
+        }
+        if other.priority_class_name.is_some() {
+            self.priority_class_name = other.priority_class_name;
+        }
         crate::OptionableConvert::merge(
             &mut self.readiness_gates,
             other.readiness_gates,
@@ -379,9 +407,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             &mut self.resource_claims,
             other.resource_claims,
         )?;
-        self.restart_policy = other.restart_policy;
-        self.runtime_class_name = other.runtime_class_name;
-        self.scheduler_name = other.scheduler_name;
+        if other.restart_policy.is_some() {
+            self.restart_policy = other.restart_policy;
+        }
+        if other.runtime_class_name.is_some() {
+            self.runtime_class_name = other.runtime_class_name;
+        }
+        if other.scheduler_name.is_some() {
+            self.scheduler_name = other.scheduler_name;
+        }
         crate::OptionableConvert::merge(
             &mut self.scheduling_gates,
             other.scheduling_gates,
@@ -390,12 +424,25 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             &mut self.security_context,
             other.security_context,
         )?;
-        self.service_account = other.service_account;
-        self.service_account_name = other.service_account_name;
-        self.set_hostname_as_fqdn = other.set_hostname_as_fqdn;
-        self.share_process_namespace = other.share_process_namespace;
-        self.subdomain = other.subdomain;
-        self.termination_grace_period_seconds = other.termination_grace_period_seconds;
+        if other.service_account.is_some() {
+            self.service_account = other.service_account;
+        }
+        if other.service_account_name.is_some() {
+            self.service_account_name = other.service_account_name;
+        }
+        if other.set_hostname_as_fqdn.is_some() {
+            self.set_hostname_as_fqdn = other.set_hostname_as_fqdn;
+        }
+        if other.share_process_namespace.is_some() {
+            self.share_process_namespace = other.share_process_namespace;
+        }
+        if other.subdomain.is_some() {
+            self.subdomain = other.subdomain;
+        }
+        if other.termination_grace_period_seconds.is_some() {
+            self.termination_grace_period_seconds = other
+                .termination_grace_period_seconds;
+        }
         crate::OptionableConvert::merge(&mut self.tolerations, other.tolerations)?;
         crate::OptionableConvert::merge(
             &mut self.topology_spread_constraints,

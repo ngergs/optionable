@@ -61,7 +61,9 @@ for k8s_openapi027::api::admissionregistration::v1beta1::ValidatingAdmissionPoli
         other: ValidatingAdmissionPolicyStatusAc,
     ) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        self.observed_generation = other.observed_generation;
+        if other.observed_generation.is_some() {
+            self.observed_generation = other.observed_generation;
+        }
         crate::OptionableConvert::merge(&mut self.type_checking, other.type_checking)?;
         Ok(())
     }

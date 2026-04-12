@@ -47,7 +47,9 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSpec {
         })
     }
     fn merge(&mut self, other: ResourceClaimSpecAc) -> Result<(), crate::Error> {
-        self.controller = other.controller;
+        if other.controller.is_some() {
+            self.controller = other.controller;
+        }
         crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
         Ok(())
     }

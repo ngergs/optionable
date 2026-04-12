@@ -69,8 +69,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMap {
     }
     fn merge(&mut self, other: ConfigMapAc) -> Result<(), crate::Error> {
         crate::OptionableConvert::merge(&mut self.binary_data, other.binary_data)?;
-        self.data = other.data;
-        self.immutable = other.immutable;
+        if other.data.is_some() {
+            self.data = other.data;
+        }
+        if other.immutable.is_some() {
+            self.immutable = other.immutable;
+        }
         self.metadata = other.metadata;
         Ok(())
     }

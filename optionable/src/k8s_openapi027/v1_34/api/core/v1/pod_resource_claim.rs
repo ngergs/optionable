@@ -55,9 +55,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodResourceClai
     }
     fn merge(&mut self, other: PodResourceClaimAc) -> Result<(), crate::Error> {
         self.name = other.name;
-        self.resource_claim_name = other.resource_claim_name;
-        self.resource_claim_template_name = other.resource_claim_template_name;
+        if other.resource_claim_name.is_some() {
+            self.resource_claim_name = other.resource_claim_name;
+        }
+        if other.resource_claim_template_name.is_some() {
+            self.resource_claim_template_name = other.resource_claim_template_name;
+        }
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::core::v1::PodResourceClaim {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
     }
 }
 #[automatically_derived]

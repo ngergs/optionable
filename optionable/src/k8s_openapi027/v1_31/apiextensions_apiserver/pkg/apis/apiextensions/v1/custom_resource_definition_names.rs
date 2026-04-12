@@ -75,16 +75,24 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         &mut self,
         other: CustomResourceDefinitionNamesAc,
     ) -> Result<(), crate::Error> {
-        self.categories = other.categories;
+        if other.categories.is_some() {
+            self.categories = other.categories;
+        }
         if let Some(other_value) = other.kind {
             self.kind = other_value;
         }
-        self.list_kind = other.list_kind;
+        if other.list_kind.is_some() {
+            self.list_kind = other.list_kind;
+        }
         if let Some(other_value) = other.plural {
             self.plural = other_value;
         }
-        self.short_names = other.short_names;
-        self.singular = other.singular;
+        if other.short_names.is_some() {
+            self.short_names = other.short_names;
+        }
+        if other.singular.is_some() {
+            self.singular = other.singular;
+        }
         Ok(())
     }
 }
