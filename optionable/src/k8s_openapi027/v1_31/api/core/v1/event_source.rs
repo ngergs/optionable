@@ -44,13 +44,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EventSource {
             self.component = crate::OptionableConvert::try_from_optioned(
                 other.component,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.component, other.component)?;
+        } else if let Some(self_value) = self.component.as_mut()
+            && let Some(other_value) = other.component
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.host.is_none() {
             self.host = crate::OptionableConvert::try_from_optioned(other.host)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.host, other.host)?;
+        } else if let Some(self_value) = self.host.as_mut()
+            && let Some(other_value) = other.host
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -56,8 +56,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodTemplate {
         self.metadata = other.metadata;
         if self.template.is_none() {
             self.template = crate::OptionableConvert::try_from_optioned(other.template)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.template, other.template)?;
+        } else if let Some(self_value) = self.template.as_mut()
+            && let Some(other_value) = other.template
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

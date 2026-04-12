@@ -69,8 +69,10 @@ for k8s_openapi027::api::core::v1::AzureFilePersistentVolumeSource {
             self.read_only = crate::OptionableConvert::try_from_optioned(
                 other.read_only,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        } else if let Some(self_value) = self.read_only.as_mut()
+            && let Some(other_value) = other.read_only
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.secret_name {
             self.secret_name = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -79,11 +81,10 @@ for k8s_openapi027::api::core::v1::AzureFilePersistentVolumeSource {
             self.secret_namespace = crate::OptionableConvert::try_from_optioned(
                 other.secret_namespace,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.secret_namespace,
-                other.secret_namespace,
-            )?;
+        } else if let Some(self_value) = self.secret_namespace.as_mut()
+            && let Some(other_value) = other.secret_namespace
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.share_name {
             self.share_name = crate::OptionableConvert::try_from_optioned(other_value)?;

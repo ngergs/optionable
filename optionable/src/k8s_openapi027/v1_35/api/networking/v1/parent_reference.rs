@@ -60,8 +60,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::ParentRef
     fn merge(&mut self, other: ParentReferenceAc) -> Result<(), crate::Error> {
         if self.group.is_none() {
             self.group = crate::OptionableConvert::try_from_optioned(other.group)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.group, other.group)?;
+        } else if let Some(self_value) = self.group.as_mut()
+            && let Some(other_value) = other.group
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.name {
             self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -70,8 +72,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::ParentRef
             self.namespace = crate::OptionableConvert::try_from_optioned(
                 other.namespace,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
+        } else if let Some(self_value) = self.namespace.as_mut()
+            && let Some(other_value) = other.namespace
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.resource {
             self.resource = crate::OptionableConvert::try_from_optioned(other_value)?;

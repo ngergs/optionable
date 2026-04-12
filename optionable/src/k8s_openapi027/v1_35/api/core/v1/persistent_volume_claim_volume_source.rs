@@ -58,8 +58,10 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimVolumeSource {
             self.read_only = crate::OptionableConvert::try_from_optioned(
                 other.read_only,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        } else if let Some(self_value) = self.read_only.as_mut()
+            && let Some(other_value) = other.read_only
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

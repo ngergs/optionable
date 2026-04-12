@@ -86,11 +86,10 @@ for k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus {
             self.evaluation_error = crate::OptionableConvert::try_from_optioned(
                 other.evaluation_error,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.evaluation_error,
-                other.evaluation_error,
-            )?;
+        } else if let Some(self_value) = self.evaluation_error.as_mut()
+            && let Some(other_value) = other.evaluation_error
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.incomplete {
             self.incomplete = crate::OptionableConvert::try_from_optioned(other_value)?;

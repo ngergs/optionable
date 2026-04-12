@@ -41,8 +41,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::DownwardAPIProj
     fn merge(&mut self, other: DownwardAPIProjectionAc) -> Result<(), crate::Error> {
         if self.items.is_none() {
             self.items = crate::OptionableConvert::try_from_optioned(other.items)?;
-        } else {
-            self.items = crate::OptionableConvert::try_from_optioned(other.items)?;
+        } else if let Some(self_value) = self.items.as_mut()
+            && let Some(other_value) = other.items
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

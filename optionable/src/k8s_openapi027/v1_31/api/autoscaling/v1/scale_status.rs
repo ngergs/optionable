@@ -49,8 +49,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v1::ScaleSta
         }
         if self.selector.is_none() {
             self.selector = crate::OptionableConvert::try_from_optioned(other.selector)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
+        } else if let Some(self_value) = self.selector.as_mut()
+            && let Some(other_value) = other.selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

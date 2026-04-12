@@ -50,20 +50,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::node::v1::Scheduling {
             self.node_selector = crate::OptionableConvert::try_from_optioned(
                 other.node_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.node_selector,
-                other.node_selector,
-            )?;
+        } else if let Some(self_value) = self.node_selector.as_mut()
+            && let Some(other_value) = other.node_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.tolerations.is_none() {
             self.tolerations = crate::OptionableConvert::try_from_optioned(
                 other.tolerations,
             )?;
-        } else {
-            self.tolerations = crate::OptionableConvert::try_from_optioned(
-                other.tolerations,
-            )?;
+        } else if let Some(self_value) = self.tolerations.as_mut()
+            && let Some(other_value) = other.tolerations
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -63,31 +63,28 @@ for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionStatus {
             self.common_encoding_version = crate::OptionableConvert::try_from_optioned(
                 other.common_encoding_version,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.common_encoding_version,
-                other.common_encoding_version,
-            )?;
+        } else if let Some(self_value) = self.common_encoding_version.as_mut()
+            && let Some(other_value) = other.common_encoding_version
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.conditions.is_none() {
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.conditions,
-                other.conditions,
-            )?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.storage_versions.is_none() {
             self.storage_versions = crate::OptionableConvert::try_from_optioned(
                 other.storage_versions,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.storage_versions,
-                other.storage_versions,
-            )?;
+        } else if let Some(self_value) = self.storage_versions.as_mut()
+            && let Some(other_value) = other.storage_versions
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         Ok(())
     }

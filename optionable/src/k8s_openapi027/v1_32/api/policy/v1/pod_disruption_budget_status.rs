@@ -107,11 +107,10 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetStatus {
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.conditions,
-                other.conditions,
-            )?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if let Some(other_value) = other.current_healthy {
             self.current_healthy = crate::OptionableConvert::try_from_optioned(
@@ -127,11 +126,10 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetStatus {
             self.disrupted_pods = crate::OptionableConvert::try_from_optioned(
                 other.disrupted_pods,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.disrupted_pods,
-                other.disrupted_pods,
-            )?;
+        } else if let Some(self_value) = self.disrupted_pods.as_mut()
+            && let Some(other_value) = other.disrupted_pods
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.disruptions_allowed {
             self.disruptions_allowed = crate::OptionableConvert::try_from_optioned(
@@ -147,11 +145,10 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetStatus {
             self.observed_generation = crate::OptionableConvert::try_from_optioned(
                 other.observed_generation,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.observed_generation,
-                other.observed_generation,
-            )?;
+        } else if let Some(self_value) = self.observed_generation.as_mut()
+            && let Some(other_value) = other.observed_generation
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

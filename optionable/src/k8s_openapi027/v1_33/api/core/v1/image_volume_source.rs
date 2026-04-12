@@ -44,15 +44,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ImageVolumeSour
             self.pull_policy = crate::OptionableConvert::try_from_optioned(
                 other.pull_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.pull_policy, other.pull_policy)?;
+        } else if let Some(self_value) = self.pull_policy.as_mut()
+            && let Some(other_value) = other.pull_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.reference.is_none() {
             self.reference = crate::OptionableConvert::try_from_optioned(
                 other.reference,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.reference, other.reference)?;
+        } else if let Some(self_value) = self.reference.as_mut()
+            && let Some(other_value) = other.reference
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

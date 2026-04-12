@@ -49,11 +49,10 @@ for k8s_openapi027::api::admissionregistration::v1beta1::TypeChecking {
             self.expression_warnings = crate::OptionableConvert::try_from_optioned(
                 other.expression_warnings,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.expression_warnings,
-                other.expression_warnings,
-            )?;
+        } else if let Some(self_value) = self.expression_warnings.as_mut()
+            && let Some(other_value) = other.expression_warnings
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

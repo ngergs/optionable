@@ -65,8 +65,10 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::FieldSelectorRequirement 
         }
         if self.values.is_none() {
             self.values = crate::OptionableConvert::try_from_optioned(other.values)?;
-        } else {
-            self.values = crate::OptionableConvert::try_from_optioned(other.values)?;
+        } else if let Some(self_value) = self.values.as_mut()
+            && let Some(other_value) = other.values
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

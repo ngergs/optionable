@@ -47,10 +47,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TopologySelecto
             self.match_label_expressions = crate::OptionableConvert::try_from_optioned(
                 other.match_label_expressions,
             )?;
-        } else {
-            self.match_label_expressions = crate::OptionableConvert::try_from_optioned(
-                other.match_label_expressions,
-            )?;
+        } else if let Some(self_value) = self.match_label_expressions.as_mut()
+            && let Some(other_value) = other.match_label_expressions
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

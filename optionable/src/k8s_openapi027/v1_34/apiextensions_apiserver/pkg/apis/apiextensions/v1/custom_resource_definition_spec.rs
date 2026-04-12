@@ -99,8 +99,10 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             self.conversion = crate::OptionableConvert::try_from_optioned(
                 other.conversion,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.conversion, other.conversion)?;
+        } else if let Some(self_value) = self.conversion.as_mut()
+            && let Some(other_value) = other.conversion
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.group {
             self.group = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -112,11 +114,10 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             self.preserve_unknown_fields = crate::OptionableConvert::try_from_optioned(
                 other.preserve_unknown_fields,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.preserve_unknown_fields,
-                other.preserve_unknown_fields,
-            )?;
+        } else if let Some(self_value) = self.preserve_unknown_fields.as_mut()
+            && let Some(other_value) = other.preserve_unknown_fields
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.scope {
             self.scope = crate::OptionableConvert::try_from_optioned(other_value)?;

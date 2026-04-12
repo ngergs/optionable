@@ -73,8 +73,10 @@ for k8s_openapi027::api::storage::v1beta1::VolumeAttributesClass {
             self.parameters = crate::OptionableConvert::try_from_optioned(
                 other.parameters,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.parameters, other.parameters)?;
+        } else if let Some(self_value) = self.parameters.as_mut()
+            && let Some(other_value) = other.parameters
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

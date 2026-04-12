@@ -57,20 +57,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerPort {
         self.container_port = other.container_port;
         if self.host_ip.is_none() {
             self.host_ip = crate::OptionableConvert::try_from_optioned(other.host_ip)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.host_ip, other.host_ip)?;
+        } else if let Some(self_value) = self.host_ip.as_mut()
+            && let Some(other_value) = other.host_ip
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.host_port.is_none() {
             self.host_port = crate::OptionableConvert::try_from_optioned(
                 other.host_port,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.host_port, other.host_port)?;
+        } else if let Some(self_value) = self.host_port.as_mut()
+            && let Some(other_value) = other.host_port
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.name.is_none() {
             self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.name, other.name)?;
+        } else if let Some(self_value) = self.name.as_mut()
+            && let Some(other_value) = other.name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         self.protocol = other.protocol;
         Ok(())

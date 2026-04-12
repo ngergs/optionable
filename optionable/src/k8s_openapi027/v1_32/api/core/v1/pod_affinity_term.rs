@@ -78,48 +78,46 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodAffinityTerm
             self.label_selector = crate::OptionableConvert::try_from_optioned(
                 other.label_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.label_selector,
-                other.label_selector,
-            )?;
+        } else if let Some(self_value) = self.label_selector.as_mut()
+            && let Some(other_value) = other.label_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.match_label_keys.is_none() {
             self.match_label_keys = crate::OptionableConvert::try_from_optioned(
                 other.match_label_keys,
             )?;
-        } else {
-            self.match_label_keys = crate::OptionableConvert::try_from_optioned(
-                other.match_label_keys,
-            )?;
+        } else if let Some(self_value) = self.match_label_keys.as_mut()
+            && let Some(other_value) = other.match_label_keys
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.mismatch_label_keys.is_none() {
             self.mismatch_label_keys = crate::OptionableConvert::try_from_optioned(
                 other.mismatch_label_keys,
             )?;
-        } else {
-            self.mismatch_label_keys = crate::OptionableConvert::try_from_optioned(
-                other.mismatch_label_keys,
-            )?;
+        } else if let Some(self_value) = self.mismatch_label_keys.as_mut()
+            && let Some(other_value) = other.mismatch_label_keys
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.namespace_selector.is_none() {
             self.namespace_selector = crate::OptionableConvert::try_from_optioned(
                 other.namespace_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.namespace_selector,
-                other.namespace_selector,
-            )?;
+        } else if let Some(self_value) = self.namespace_selector.as_mut()
+            && let Some(other_value) = other.namespace_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.namespaces.is_none() {
             self.namespaces = crate::OptionableConvert::try_from_optioned(
                 other.namespaces,
             )?;
-        } else {
-            self.namespaces = crate::OptionableConvert::try_from_optioned(
-                other.namespaces,
-            )?;
+        } else if let Some(self_value) = self.namespaces.as_mut()
+            && let Some(other_value) = other.namespaces
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.topology_key {
             self.topology_key = crate::OptionableConvert::try_from_optioned(

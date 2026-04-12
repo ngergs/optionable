@@ -58,13 +58,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Basic
             self.attributes = crate::OptionableConvert::try_from_optioned(
                 other.attributes,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.attributes, other.attributes)?;
+        } else if let Some(self_value) = self.attributes.as_mut()
+            && let Some(other_value) = other.attributes
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.capacity.is_none() {
             self.capacity = crate::OptionableConvert::try_from_optioned(other.capacity)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
+        } else if let Some(self_value) = self.capacity.as_mut()
+            && let Some(other_value) = other.capacity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

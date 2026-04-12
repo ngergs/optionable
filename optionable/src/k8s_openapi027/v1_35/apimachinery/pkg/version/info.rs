@@ -134,21 +134,19 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::version::In
             self.emulation_major = crate::OptionableConvert::try_from_optioned(
                 other.emulation_major,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.emulation_major,
-                other.emulation_major,
-            )?;
+        } else if let Some(self_value) = self.emulation_major.as_mut()
+            && let Some(other_value) = other.emulation_major
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.emulation_minor.is_none() {
             self.emulation_minor = crate::OptionableConvert::try_from_optioned(
                 other.emulation_minor,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.emulation_minor,
-                other.emulation_minor,
-            )?;
+        } else if let Some(self_value) = self.emulation_minor.as_mut()
+            && let Some(other_value) = other.emulation_minor
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.git_commit {
             self.git_commit = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -171,21 +169,19 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::version::In
             self.min_compatibility_major = crate::OptionableConvert::try_from_optioned(
                 other.min_compatibility_major,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.min_compatibility_major,
-                other.min_compatibility_major,
-            )?;
+        } else if let Some(self_value) = self.min_compatibility_major.as_mut()
+            && let Some(other_value) = other.min_compatibility_major
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.min_compatibility_minor.is_none() {
             self.min_compatibility_minor = crate::OptionableConvert::try_from_optioned(
                 other.min_compatibility_minor,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.min_compatibility_minor,
-                other.min_compatibility_minor,
-            )?;
+        } else if let Some(self_value) = self.min_compatibility_minor.as_mut()
+            && let Some(other_value) = other.min_compatibility_minor
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.minor {
             self.minor = crate::OptionableConvert::try_from_optioned(other_value)?;

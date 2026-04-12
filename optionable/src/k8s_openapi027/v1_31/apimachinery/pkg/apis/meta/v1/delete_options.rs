@@ -75,58 +75,60 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
             self.api_version = crate::OptionableConvert::try_from_optioned(
                 other.api_version,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
+        } else if let Some(self_value) = self.api_version.as_mut()
+            && let Some(other_value) = other.api_version
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.dry_run.is_none() {
             self.dry_run = crate::OptionableConvert::try_from_optioned(other.dry_run)?;
-        } else {
-            self.dry_run = crate::OptionableConvert::try_from_optioned(other.dry_run)?;
+        } else if let Some(self_value) = self.dry_run.as_mut()
+            && let Some(other_value) = other.dry_run
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.grace_period_seconds.is_none() {
             self.grace_period_seconds = crate::OptionableConvert::try_from_optioned(
                 other.grace_period_seconds,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.grace_period_seconds,
-                other.grace_period_seconds,
-            )?;
+        } else if let Some(self_value) = self.grace_period_seconds.as_mut()
+            && let Some(other_value) = other.grace_period_seconds
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.kind.is_none() {
             self.kind = crate::OptionableConvert::try_from_optioned(other.kind)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
+        } else if let Some(self_value) = self.kind.as_mut()
+            && let Some(other_value) = other.kind
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.orphan_dependents.is_none() {
             self.orphan_dependents = crate::OptionableConvert::try_from_optioned(
                 other.orphan_dependents,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.orphan_dependents,
-                other.orphan_dependents,
-            )?;
+        } else if let Some(self_value) = self.orphan_dependents.as_mut()
+            && let Some(other_value) = other.orphan_dependents
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.preconditions.is_none() {
             self.preconditions = crate::OptionableConvert::try_from_optioned(
                 other.preconditions,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.preconditions,
-                other.preconditions,
-            )?;
+        } else if let Some(self_value) = self.preconditions.as_mut()
+            && let Some(other_value) = other.preconditions
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.propagation_policy.is_none() {
             self.propagation_policy = crate::OptionableConvert::try_from_optioned(
                 other.propagation_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.propagation_policy,
-                other.propagation_policy,
-            )?;
+        } else if let Some(self_value) = self.propagation_policy.as_mut()
+            && let Some(other_value) = other.propagation_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

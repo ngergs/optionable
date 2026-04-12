@@ -48,18 +48,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EventSeries {
     fn merge(&mut self, other: EventSeriesAc) -> Result<(), crate::Error> {
         if self.count.is_none() {
             self.count = crate::OptionableConvert::try_from_optioned(other.count)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.count, other.count)?;
+        } else if let Some(self_value) = self.count.as_mut()
+            && let Some(other_value) = other.count
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.last_observed_time.is_none() {
             self.last_observed_time = crate::OptionableConvert::try_from_optioned(
                 other.last_observed_time,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.last_observed_time,
-                other.last_observed_time,
-            )?;
+        } else if let Some(self_value) = self.last_observed_time.as_mut()
+            && let Some(other_value) = other.last_observed_time
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

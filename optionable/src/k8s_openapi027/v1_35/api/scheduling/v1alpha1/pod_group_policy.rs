@@ -47,13 +47,17 @@ for k8s_openapi027::api::scheduling::v1alpha1::PodGroupPolicy {
     fn merge(&mut self, other: PodGroupPolicyAc) -> Result<(), crate::Error> {
         if self.basic.is_none() {
             self.basic = crate::OptionableConvert::try_from_optioned(other.basic)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.basic, other.basic)?;
+        } else if let Some(self_value) = self.basic.as_mut()
+            && let Some(other_value) = other.basic
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.gang.is_none() {
             self.gang = crate::OptionableConvert::try_from_optioned(other.gang)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.gang, other.gang)?;
+        } else if let Some(self_value) = self.gang.as_mut()
+            && let Some(other_value) = other.gang
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -50,8 +50,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TCPSocketAction
     fn merge(&mut self, other: TCPSocketActionAc) -> Result<(), crate::Error> {
         if self.host.is_none() {
             self.host = crate::OptionableConvert::try_from_optioned(other.host)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.host, other.host)?;
+        } else if let Some(self_value) = self.host.as_mut()
+            && let Some(other_value) = other.host
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.port {
             self.port = crate::OptionableConvert::try_from_optioned(other_value)?;

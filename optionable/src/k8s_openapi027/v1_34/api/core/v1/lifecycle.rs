@@ -53,20 +53,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Lifecycle {
             self.post_start = crate::OptionableConvert::try_from_optioned(
                 other.post_start,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.post_start, other.post_start)?;
+        } else if let Some(self_value) = self.post_start.as_mut()
+            && let Some(other_value) = other.post_start
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.pre_stop.is_none() {
             self.pre_stop = crate::OptionableConvert::try_from_optioned(other.pre_stop)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.pre_stop, other.pre_stop)?;
+        } else if let Some(self_value) = self.pre_stop.as_mut()
+            && let Some(other_value) = other.pre_stop
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.stop_signal.is_none() {
             self.stop_signal = crate::OptionableConvert::try_from_optioned(
                 other.stop_signal,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.stop_signal, other.stop_signal)?;
+        } else if let Some(self_value) = self.stop_signal.as_mut()
+            && let Some(other_value) = other.stop_signal
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

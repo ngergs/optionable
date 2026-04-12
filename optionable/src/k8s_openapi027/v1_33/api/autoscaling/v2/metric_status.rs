@@ -83,31 +83,38 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricSt
             self.container_resource = crate::OptionableConvert::try_from_optioned(
                 other.container_resource,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.container_resource,
-                other.container_resource,
-            )?;
+        } else if let Some(self_value) = self.container_resource.as_mut()
+            && let Some(other_value) = other.container_resource
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.external.is_none() {
             self.external = crate::OptionableConvert::try_from_optioned(other.external)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.external, other.external)?;
+        } else if let Some(self_value) = self.external.as_mut()
+            && let Some(other_value) = other.external
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.object.is_none() {
             self.object = crate::OptionableConvert::try_from_optioned(other.object)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.object, other.object)?;
+        } else if let Some(self_value) = self.object.as_mut()
+            && let Some(other_value) = other.object
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.pods.is_none() {
             self.pods = crate::OptionableConvert::try_from_optioned(other.pods)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.pods, other.pods)?;
+        } else if let Some(self_value) = self.pods.as_mut()
+            && let Some(other_value) = other.pods
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.resource.is_none() {
             self.resource = crate::OptionableConvert::try_from_optioned(other.resource)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
+        } else if let Some(self_value) = self.resource.as_mut()
+            && let Some(other_value) = other.resource
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.type_ {
             self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;

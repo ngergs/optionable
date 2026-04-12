@@ -56,23 +56,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceQuotaSp
     fn merge(&mut self, other: ResourceQuotaSpecAc) -> Result<(), crate::Error> {
         if self.hard.is_none() {
             self.hard = crate::OptionableConvert::try_from_optioned(other.hard)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.hard, other.hard)?;
+        } else if let Some(self_value) = self.hard.as_mut()
+            && let Some(other_value) = other.hard
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.scope_selector.is_none() {
             self.scope_selector = crate::OptionableConvert::try_from_optioned(
                 other.scope_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.scope_selector,
-                other.scope_selector,
-            )?;
+        } else if let Some(self_value) = self.scope_selector.as_mut()
+            && let Some(other_value) = other.scope_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.scopes.is_none() {
             self.scopes = crate::OptionableConvert::try_from_optioned(other.scopes)?;
-        } else {
-            self.scopes = crate::OptionableConvert::try_from_optioned(other.scopes)?;
+        } else if let Some(self_value) = self.scopes.as_mut()
+            && let Some(other_value) = other.scopes
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

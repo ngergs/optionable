@@ -45,15 +45,17 @@ for k8s_openapi027::api::authentication::v1::TokenReviewSpec {
             self.audiences = crate::OptionableConvert::try_from_optioned(
                 other.audiences,
             )?;
-        } else {
-            self.audiences = crate::OptionableConvert::try_from_optioned(
-                other.audiences,
-            )?;
+        } else if let Some(self_value) = self.audiences.as_mut()
+            && let Some(other_value) = other.audiences
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.token.is_none() {
             self.token = crate::OptionableConvert::try_from_optioned(other.token)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.token, other.token)?;
+        } else if let Some(self_value) = self.token.as_mut()
+            && let Some(other_value) = other.token
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

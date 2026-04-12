@@ -88,8 +88,10 @@ for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult {
             self.admin_access = crate::OptionableConvert::try_from_optioned(
                 other.admin_access,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
+        } else if let Some(self_value) = self.admin_access.as_mut()
+            && let Some(other_value) = other.admin_access
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.device {
             self.device = crate::OptionableConvert::try_from_optioned(other_value)?;

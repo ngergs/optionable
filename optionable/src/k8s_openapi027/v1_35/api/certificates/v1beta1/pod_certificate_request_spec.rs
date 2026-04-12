@@ -170,11 +170,10 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
             self.max_expiration_seconds = crate::OptionableConvert::try_from_optioned(
                 other.max_expiration_seconds,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.max_expiration_seconds,
-                other.max_expiration_seconds,
-            )?;
+        } else if let Some(self_value) = self.max_expiration_seconds.as_mut()
+            && let Some(other_value) = other.max_expiration_seconds
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.node_name {
             self.node_name = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -215,11 +214,10 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
             self.unverified_user_annotations = crate::OptionableConvert::try_from_optioned(
                 other.unverified_user_annotations,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.unverified_user_annotations,
-                other.unverified_user_annotations,
-            )?;
+        } else if let Some(self_value) = self.unverified_user_annotations.as_mut()
+            && let Some(other_value) = other.unverified_user_annotations
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -53,13 +53,17 @@ for k8s_openapi027::api::networking::v1::NetworkPolicyEgressRule {
     fn merge(&mut self, other: NetworkPolicyEgressRuleAc) -> Result<(), crate::Error> {
         if self.ports.is_none() {
             self.ports = crate::OptionableConvert::try_from_optioned(other.ports)?;
-        } else {
-            self.ports = crate::OptionableConvert::try_from_optioned(other.ports)?;
+        } else if let Some(self_value) = self.ports.as_mut()
+            && let Some(other_value) = other.ports
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.to.is_none() {
             self.to = crate::OptionableConvert::try_from_optioned(other.to)?;
-        } else {
-            self.to = crate::OptionableConvert::try_from_optioned(other.to)?;
+        } else if let Some(self_value) = self.to.as_mut()
+            && let Some(other_value) = other.to
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

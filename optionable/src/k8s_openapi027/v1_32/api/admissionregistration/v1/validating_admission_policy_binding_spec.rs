@@ -87,35 +87,37 @@ for k8s_openapi027::api::admissionregistration::v1::ValidatingAdmissionPolicyBin
             self.match_resources = crate::OptionableConvert::try_from_optioned(
                 other.match_resources,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.match_resources,
-                other.match_resources,
-            )?;
+        } else if let Some(self_value) = self.match_resources.as_mut()
+            && let Some(other_value) = other.match_resources
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.param_ref.is_none() {
             self.param_ref = crate::OptionableConvert::try_from_optioned(
                 other.param_ref,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.param_ref, other.param_ref)?;
+        } else if let Some(self_value) = self.param_ref.as_mut()
+            && let Some(other_value) = other.param_ref
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.policy_name.is_none() {
             self.policy_name = crate::OptionableConvert::try_from_optioned(
                 other.policy_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.policy_name, other.policy_name)?;
+        } else if let Some(self_value) = self.policy_name.as_mut()
+            && let Some(other_value) = other.policy_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.validation_actions.is_none() {
             self.validation_actions = crate::OptionableConvert::try_from_optioned(
                 other.validation_actions,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_set(
-                &mut self.validation_actions,
-                other.validation_actions,
-            )?;
+        } else if let Some(self_value) = self.validation_actions.as_mut()
+            && let Some(other_value) = other.validation_actions
+        {
+            crate::merge::try_merge_optioned_set(self_value, other_value)?;
         }
         Ok(())
     }

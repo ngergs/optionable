@@ -53,23 +53,31 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SELinuxOptions 
     fn merge(&mut self, other: SELinuxOptionsAc) -> Result<(), crate::Error> {
         if self.level.is_none() {
             self.level = crate::OptionableConvert::try_from_optioned(other.level)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.level, other.level)?;
+        } else if let Some(self_value) = self.level.as_mut()
+            && let Some(other_value) = other.level
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.role.is_none() {
             self.role = crate::OptionableConvert::try_from_optioned(other.role)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.role, other.role)?;
+        } else if let Some(self_value) = self.role.as_mut()
+            && let Some(other_value) = other.role
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.type_.is_none() {
             self.type_ = crate::OptionableConvert::try_from_optioned(other.type_)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
+        } else if let Some(self_value) = self.type_.as_mut()
+            && let Some(other_value) = other.type_
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.user.is_none() {
             self.user = crate::OptionableConvert::try_from_optioned(other.user)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.user, other.user)?;
+        } else if let Some(self_value) = self.user.as_mut()
+            && let Some(other_value) = other.user
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

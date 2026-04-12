@@ -39,8 +39,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeNodeAffin
     fn merge(&mut self, other: VolumeNodeAffinityAc) -> Result<(), crate::Error> {
         if self.required.is_none() {
             self.required = crate::OptionableConvert::try_from_optioned(other.required)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.required, other.required)?;
+        } else if let Some(self_value) = self.required.as_mut()
+            && let Some(other_value) = other.required
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

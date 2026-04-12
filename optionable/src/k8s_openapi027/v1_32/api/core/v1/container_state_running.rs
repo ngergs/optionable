@@ -41,8 +41,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStateR
             self.started_at = crate::OptionableConvert::try_from_optioned(
                 other.started_at,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.started_at, other.started_at)?;
+        } else if let Some(self_value) = self.started_at.as_mut()
+            && let Some(other_value) = other.started_at
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

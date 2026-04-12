@@ -68,31 +68,33 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressSp
             self.default_backend = crate::OptionableConvert::try_from_optioned(
                 other.default_backend,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.default_backend,
-                other.default_backend,
-            )?;
+        } else if let Some(self_value) = self.default_backend.as_mut()
+            && let Some(other_value) = other.default_backend
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.ingress_class_name.is_none() {
             self.ingress_class_name = crate::OptionableConvert::try_from_optioned(
                 other.ingress_class_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.ingress_class_name,
-                other.ingress_class_name,
-            )?;
+        } else if let Some(self_value) = self.ingress_class_name.as_mut()
+            && let Some(other_value) = other.ingress_class_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.rules.is_none() {
             self.rules = crate::OptionableConvert::try_from_optioned(other.rules)?;
-        } else {
-            self.rules = crate::OptionableConvert::try_from_optioned(other.rules)?;
+        } else if let Some(self_value) = self.rules.as_mut()
+            && let Some(other_value) = other.rules
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.tls.is_none() {
             self.tls = crate::OptionableConvert::try_from_optioned(other.tls)?;
-        } else {
-            self.tls = crate::OptionableConvert::try_from_optioned(other.tls)?;
+        } else if let Some(self_value) = self.tls.as_mut()
+            && let Some(other_value) = other.tls
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

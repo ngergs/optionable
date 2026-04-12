@@ -140,21 +140,24 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
             self.expiration_seconds = crate::OptionableConvert::try_from_optioned(
                 other.expiration_seconds,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.expiration_seconds,
-                other.expiration_seconds,
-            )?;
+        } else if let Some(self_value) = self.expiration_seconds.as_mut()
+            && let Some(other_value) = other.expiration_seconds
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.extra.is_none() {
             self.extra = crate::OptionableConvert::try_from_optioned(other.extra)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.extra, other.extra)?;
+        } else if let Some(self_value) = self.extra.as_mut()
+            && let Some(other_value) = other.extra
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.groups.is_none() {
             self.groups = crate::OptionableConvert::try_from_optioned(other.groups)?;
-        } else {
-            self.groups = crate::OptionableConvert::try_from_optioned(other.groups)?;
+        } else if let Some(self_value) = self.groups.as_mut()
+            && let Some(other_value) = other.groups
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.request {
             self.request = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -164,18 +167,24 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
         }
         if self.uid.is_none() {
             self.uid = crate::OptionableConvert::try_from_optioned(other.uid)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
+        } else if let Some(self_value) = self.uid.as_mut()
+            && let Some(other_value) = other.uid
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.usages.is_none() {
             self.usages = crate::OptionableConvert::try_from_optioned(other.usages)?;
-        } else {
-            self.usages = crate::OptionableConvert::try_from_optioned(other.usages)?;
+        } else if let Some(self_value) = self.usages.as_mut()
+            && let Some(other_value) = other.usages
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.username.is_none() {
             self.username = crate::OptionableConvert::try_from_optioned(other.username)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.username, other.username)?;
+        } else if let Some(self_value) = self.username.as_mut()
+            && let Some(other_value) = other.username
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

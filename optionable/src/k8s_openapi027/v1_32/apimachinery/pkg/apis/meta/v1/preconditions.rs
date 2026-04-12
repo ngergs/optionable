@@ -46,16 +46,17 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Preconditions {
             self.resource_version = crate::OptionableConvert::try_from_optioned(
                 other.resource_version,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.resource_version,
-                other.resource_version,
-            )?;
+        } else if let Some(self_value) = self.resource_version.as_mut()
+            && let Some(other_value) = other.resource_version
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.uid.is_none() {
             self.uid = crate::OptionableConvert::try_from_optioned(other.uid)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
+        } else if let Some(self_value) = self.uid.as_mut()
+            && let Some(other_value) = other.uid
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

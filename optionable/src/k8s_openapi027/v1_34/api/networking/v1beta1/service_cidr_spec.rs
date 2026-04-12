@@ -36,8 +36,10 @@ for k8s_openapi027::api::networking::v1beta1::ServiceCIDRSpec {
     fn merge(&mut self, other: ServiceCIDRSpecAc) -> Result<(), crate::Error> {
         if self.cidrs.is_none() {
             self.cidrs = crate::OptionableConvert::try_from_optioned(other.cidrs)?;
-        } else {
-            self.cidrs = crate::OptionableConvert::try_from_optioned(other.cidrs)?;
+        } else if let Some(self_value) = self.cidrs.as_mut()
+            && let Some(other_value) = other.cidrs
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

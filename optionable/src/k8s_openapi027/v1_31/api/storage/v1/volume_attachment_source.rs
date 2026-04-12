@@ -51,21 +51,19 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentSource {
             self.inline_volume_spec = crate::OptionableConvert::try_from_optioned(
                 other.inline_volume_spec,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.inline_volume_spec,
-                other.inline_volume_spec,
-            )?;
+        } else if let Some(self_value) = self.inline_volume_spec.as_mut()
+            && let Some(other_value) = other.inline_volume_spec
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.persistent_volume_name.is_none() {
             self.persistent_volume_name = crate::OptionableConvert::try_from_optioned(
                 other.persistent_volume_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.persistent_volume_name,
-                other.persistent_volume_name,
-            )?;
+        } else if let Some(self_value) = self.persistent_volume_name.as_mut()
+            && let Some(other_value) = other.persistent_volume_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

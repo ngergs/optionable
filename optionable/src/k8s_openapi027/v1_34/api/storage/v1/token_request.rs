@@ -51,11 +51,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::TokenRequest
             self.expiration_seconds = crate::OptionableConvert::try_from_optioned(
                 other.expiration_seconds,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.expiration_seconds,
-                other.expiration_seconds,
-            )?;
+        } else if let Some(self_value) = self.expiration_seconds.as_mut()
+            && let Some(other_value) = other.expiration_seconds
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -73,20 +73,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServicePort {
             self.app_protocol = crate::OptionableConvert::try_from_optioned(
                 other.app_protocol,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.app_protocol, other.app_protocol)?;
+        } else if let Some(self_value) = self.app_protocol.as_mut()
+            && let Some(other_value) = other.app_protocol
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.name.is_none() {
             self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.name, other.name)?;
+        } else if let Some(self_value) = self.name.as_mut()
+            && let Some(other_value) = other.name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.node_port.is_none() {
             self.node_port = crate::OptionableConvert::try_from_optioned(
                 other.node_port,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.node_port, other.node_port)?;
+        } else if let Some(self_value) = self.node_port.as_mut()
+            && let Some(other_value) = other.node_port
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         self.port = other.port;
         self.protocol = other.protocol;
@@ -94,8 +100,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServicePort {
             self.target_port = crate::OptionableConvert::try_from_optioned(
                 other.target_port,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.target_port, other.target_port)?;
+        } else if let Some(self_value) = self.target_port.as_mut()
+            && let Some(other_value) = other.target_port
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

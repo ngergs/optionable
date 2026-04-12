@@ -58,13 +58,17 @@ for k8s_openapi027::api::core::v1::VolumeResourceRequirements {
     ) -> Result<(), crate::Error> {
         if self.limits.is_none() {
             self.limits = crate::OptionableConvert::try_from_optioned(other.limits)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.limits, other.limits)?;
+        } else if let Some(self_value) = self.limits.as_mut()
+            && let Some(other_value) = other.limits
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.requests.is_none() {
             self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
+        } else if let Some(self_value) = self.requests.as_mut()
+            && let Some(other_value) = other.requests
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

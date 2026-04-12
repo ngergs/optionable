@@ -59,11 +59,10 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec {
             self.device_selector = crate::OptionableConvert::try_from_optioned(
                 other.device_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.device_selector,
-                other.device_selector,
-            )?;
+        } else if let Some(self_value) = self.device_selector.as_mut()
+            && let Some(other_value) = other.device_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.taint {
             self.taint = crate::OptionableConvert::try_from_optioned(other_value)?;

@@ -50,10 +50,10 @@ for k8s_openapi027::api::authorization::v1::NonResourceRule {
             self.non_resource_urls = crate::OptionableConvert::try_from_optioned(
                 other.non_resource_urls,
             )?;
-        } else {
-            self.non_resource_urls = crate::OptionableConvert::try_from_optioned(
-                other.non_resource_urls,
-            )?;
+        } else if let Some(self_value) = self.non_resource_urls.as_mut()
+            && let Some(other_value) = other.non_resource_urls
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.verbs {
             self.verbs = crate::OptionableConvert::try_from_optioned(other_value)?;

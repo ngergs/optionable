@@ -35,8 +35,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v1::ScaleSpe
     fn merge(&mut self, other: ScaleSpecAc) -> Result<(), crate::Error> {
         if self.replicas.is_none() {
             self.replicas = crate::OptionableConvert::try_from_optioned(other.replicas)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.replicas, other.replicas)?;
+        } else if let Some(self_value) = self.replicas.as_mut()
+            && let Some(other_value) = other.replicas
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -50,8 +50,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceHealth 
     fn merge(&mut self, other: ResourceHealthAc) -> Result<(), crate::Error> {
         if self.health.is_none() {
             self.health = crate::OptionableConvert::try_from_optioned(other.health)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.health, other.health)?;
+        } else if let Some(self_value) = self.health.as_mut()
+            && let Some(other_value) = other.health
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         self.resource_id = other.resource_id;
         Ok(())

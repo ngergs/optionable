@@ -84,13 +84,17 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             self.description = crate::OptionableConvert::try_from_optioned(
                 other.description,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.description, other.description)?;
+        } else if let Some(self_value) = self.description.as_mut()
+            && let Some(other_value) = other.description
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.format.is_none() {
             self.format = crate::OptionableConvert::try_from_optioned(other.format)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.format, other.format)?;
+        } else if let Some(self_value) = self.format.as_mut()
+            && let Some(other_value) = other.format
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.json_path {
             self.json_path = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -100,8 +104,10 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         }
         if self.priority.is_none() {
             self.priority = crate::OptionableConvert::try_from_optioned(other.priority)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.priority, other.priority)?;
+        } else if let Some(self_value) = self.priority.as_mut()
+            && let Some(other_value) = other.priority
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.type_ {
             self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;

@@ -59,8 +59,10 @@ for k8s_openapi027::api::core::v1::ContainerRestartRuleOnExitCodes {
         }
         if self.values.is_none() {
             self.values = crate::OptionableConvert::try_from_optioned(other.values)?;
-        } else {
-            crate::merge::try_merge_optioned_set(&mut self.values, other.values)?;
+        } else if let Some(self_value) = self.values.as_mut()
+            && let Some(other_value) = other.values
+        {
+            crate::merge::try_merge_optioned_set(self_value, other_value)?;
         }
         Ok(())
     }

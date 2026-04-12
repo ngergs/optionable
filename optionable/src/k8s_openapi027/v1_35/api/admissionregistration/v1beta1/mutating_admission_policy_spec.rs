@@ -121,66 +121,64 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
             self.failure_policy = crate::OptionableConvert::try_from_optioned(
                 other.failure_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.failure_policy,
-                other.failure_policy,
-            )?;
+        } else if let Some(self_value) = self.failure_policy.as_mut()
+            && let Some(other_value) = other.failure_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.match_conditions.is_none() {
             self.match_conditions = crate::OptionableConvert::try_from_optioned(
                 other.match_conditions,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.match_conditions,
-                other.match_conditions,
-            )?;
+        } else if let Some(self_value) = self.match_conditions.as_mut()
+            && let Some(other_value) = other.match_conditions
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.match_constraints.is_none() {
             self.match_constraints = crate::OptionableConvert::try_from_optioned(
                 other.match_constraints,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.match_constraints,
-                other.match_constraints,
-            )?;
+        } else if let Some(self_value) = self.match_constraints.as_mut()
+            && let Some(other_value) = other.match_constraints
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.mutations.is_none() {
             self.mutations = crate::OptionableConvert::try_from_optioned(
                 other.mutations,
             )?;
-        } else {
-            self.mutations = crate::OptionableConvert::try_from_optioned(
-                other.mutations,
-            )?;
+        } else if let Some(self_value) = self.mutations.as_mut()
+            && let Some(other_value) = other.mutations
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.param_kind.is_none() {
             self.param_kind = crate::OptionableConvert::try_from_optioned(
                 other.param_kind,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.param_kind, other.param_kind)?;
+        } else if let Some(self_value) = self.param_kind.as_mut()
+            && let Some(other_value) = other.param_kind
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.reinvocation_policy.is_none() {
             self.reinvocation_policy = crate::OptionableConvert::try_from_optioned(
                 other.reinvocation_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.reinvocation_policy,
-                other.reinvocation_policy,
-            )?;
+        } else if let Some(self_value) = self.reinvocation_policy.as_mut()
+            && let Some(other_value) = other.reinvocation_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.variables.is_none() {
             self.variables = crate::OptionableConvert::try_from_optioned(
                 other.variables,
             )?;
-        } else {
-            self.variables = crate::OptionableConvert::try_from_optioned(
-                other.variables,
-            )?;
+        } else if let Some(self_value) = self.variables.as_mut()
+            && let Some(other_value) = other.variables
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

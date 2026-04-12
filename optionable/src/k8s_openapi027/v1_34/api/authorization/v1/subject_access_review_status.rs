@@ -63,23 +63,26 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewStatus {
         }
         if self.denied.is_none() {
             self.denied = crate::OptionableConvert::try_from_optioned(other.denied)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.denied, other.denied)?;
+        } else if let Some(self_value) = self.denied.as_mut()
+            && let Some(other_value) = other.denied
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.evaluation_error.is_none() {
             self.evaluation_error = crate::OptionableConvert::try_from_optioned(
                 other.evaluation_error,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.evaluation_error,
-                other.evaluation_error,
-            )?;
+        } else if let Some(self_value) = self.evaluation_error.as_mut()
+            && let Some(other_value) = other.evaluation_error
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.reason.is_none() {
             self.reason = crate::OptionableConvert::try_from_optioned(other.reason)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
+        } else if let Some(self_value) = self.reason.as_mut()
+            && let Some(other_value) = other.reason
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

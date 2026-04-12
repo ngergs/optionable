@@ -64,25 +64,28 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::MutatingAdmissionPolic
             self.match_resources = crate::OptionableConvert::try_from_optioned(
                 other.match_resources,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.match_resources,
-                other.match_resources,
-            )?;
+        } else if let Some(self_value) = self.match_resources.as_mut()
+            && let Some(other_value) = other.match_resources
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.param_ref.is_none() {
             self.param_ref = crate::OptionableConvert::try_from_optioned(
                 other.param_ref,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.param_ref, other.param_ref)?;
+        } else if let Some(self_value) = self.param_ref.as_mut()
+            && let Some(other_value) = other.param_ref
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.policy_name.is_none() {
             self.policy_name = crate::OptionableConvert::try_from_optioned(
                 other.policy_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.policy_name, other.policy_name)?;
+        } else if let Some(self_value) = self.policy_name.as_mut()
+            && let Some(other_value) = other.policy_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -72,51 +72,46 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ReplicaSetStatu
             self.available_replicas = crate::OptionableConvert::try_from_optioned(
                 other.available_replicas,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.available_replicas,
-                other.available_replicas,
-            )?;
+        } else if let Some(self_value) = self.available_replicas.as_mut()
+            && let Some(other_value) = other.available_replicas
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.conditions.is_none() {
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.conditions,
-                other.conditions,
-            )?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.fully_labeled_replicas.is_none() {
             self.fully_labeled_replicas = crate::OptionableConvert::try_from_optioned(
                 other.fully_labeled_replicas,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.fully_labeled_replicas,
-                other.fully_labeled_replicas,
-            )?;
+        } else if let Some(self_value) = self.fully_labeled_replicas.as_mut()
+            && let Some(other_value) = other.fully_labeled_replicas
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.observed_generation.is_none() {
             self.observed_generation = crate::OptionableConvert::try_from_optioned(
                 other.observed_generation,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.observed_generation,
-                other.observed_generation,
-            )?;
+        } else if let Some(self_value) = self.observed_generation.as_mut()
+            && let Some(other_value) = other.observed_generation
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.ready_replicas.is_none() {
             self.ready_replicas = crate::OptionableConvert::try_from_optioned(
                 other.ready_replicas,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.ready_replicas,
-                other.ready_replicas,
-            )?;
+        } else if let Some(self_value) = self.ready_replicas.as_mut()
+            && let Some(other_value) = other.ready_replicas
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.replicas {
             self.replicas = crate::OptionableConvert::try_from_optioned(other_value)?;

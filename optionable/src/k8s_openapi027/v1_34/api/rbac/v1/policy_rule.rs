@@ -64,37 +64,37 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::PolicyRule {
             self.api_groups = crate::OptionableConvert::try_from_optioned(
                 other.api_groups,
             )?;
-        } else {
-            self.api_groups = crate::OptionableConvert::try_from_optioned(
-                other.api_groups,
-            )?;
+        } else if let Some(self_value) = self.api_groups.as_mut()
+            && let Some(other_value) = other.api_groups
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.non_resource_urls.is_none() {
             self.non_resource_urls = crate::OptionableConvert::try_from_optioned(
                 other.non_resource_urls,
             )?;
-        } else {
-            self.non_resource_urls = crate::OptionableConvert::try_from_optioned(
-                other.non_resource_urls,
-            )?;
+        } else if let Some(self_value) = self.non_resource_urls.as_mut()
+            && let Some(other_value) = other.non_resource_urls
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.resource_names.is_none() {
             self.resource_names = crate::OptionableConvert::try_from_optioned(
                 other.resource_names,
             )?;
-        } else {
-            self.resource_names = crate::OptionableConvert::try_from_optioned(
-                other.resource_names,
-            )?;
+        } else if let Some(self_value) = self.resource_names.as_mut()
+            && let Some(other_value) = other.resource_names
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.resources.is_none() {
             self.resources = crate::OptionableConvert::try_from_optioned(
                 other.resources,
             )?;
-        } else {
-            self.resources = crate::OptionableConvert::try_from_optioned(
-                other.resources,
-            )?;
+        } else if let Some(self_value) = self.resources.as_mut()
+            && let Some(other_value) = other.resources
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.verbs {
             self.verbs = crate::OptionableConvert::try_from_optioned(other_value)?;

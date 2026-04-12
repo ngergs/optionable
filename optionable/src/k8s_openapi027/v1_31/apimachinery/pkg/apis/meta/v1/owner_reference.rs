@@ -80,18 +80,19 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
             self.block_owner_deletion = crate::OptionableConvert::try_from_optioned(
                 other.block_owner_deletion,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.block_owner_deletion,
-                other.block_owner_deletion,
-            )?;
+        } else if let Some(self_value) = self.block_owner_deletion.as_mut()
+            && let Some(other_value) = other.block_owner_deletion
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.controller.is_none() {
             self.controller = crate::OptionableConvert::try_from_optioned(
                 other.controller,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.controller, other.controller)?;
+        } else if let Some(self_value) = self.controller.as_mut()
+            && let Some(other_value) = other.controller
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;

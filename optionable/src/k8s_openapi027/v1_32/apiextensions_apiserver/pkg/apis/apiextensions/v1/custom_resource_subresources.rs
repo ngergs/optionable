@@ -53,13 +53,17 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
     ) -> Result<(), crate::Error> {
         if self.scale.is_none() {
             self.scale = crate::OptionableConvert::try_from_optioned(other.scale)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.scale, other.scale)?;
+        } else if let Some(self_value) = self.scale.as_mut()
+            && let Some(other_value) = other.scale
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.status.is_none() {
             self.status = crate::OptionableConvert::try_from_optioned(other.status)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.status, other.status)?;
+        } else if let Some(self_value) = self.status.as_mut()
+            && let Some(other_value) = other.status
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -41,8 +41,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LoadBalancerSta
     fn merge(&mut self, other: LoadBalancerStatusAc) -> Result<(), crate::Error> {
         if self.ingress.is_none() {
             self.ingress = crate::OptionableConvert::try_from_optioned(other.ingress)?;
-        } else {
-            self.ingress = crate::OptionableConvert::try_from_optioned(other.ingress)?;
+        } else if let Some(self_value) = self.ingress.as_mut()
+            && let Some(other_value) = other.ingress
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

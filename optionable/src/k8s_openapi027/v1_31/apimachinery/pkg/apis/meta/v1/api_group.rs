@@ -99,20 +99,19 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup {
             self.preferred_version = crate::OptionableConvert::try_from_optioned(
                 other.preferred_version,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.preferred_version,
-                other.preferred_version,
-            )?;
+        } else if let Some(self_value) = self.preferred_version.as_mut()
+            && let Some(other_value) = other.preferred_version
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.server_address_by_client_cidrs.is_none() {
             self.server_address_by_client_cidrs = crate::OptionableConvert::try_from_optioned(
                 other.server_address_by_client_cidrs,
             )?;
-        } else {
-            self.server_address_by_client_cidrs = crate::OptionableConvert::try_from_optioned(
-                other.server_address_by_client_cidrs,
-            )?;
+        } else if let Some(self_value) = self.server_address_by_client_cidrs.as_mut()
+            && let Some(other_value) = other.server_address_by_client_cidrs
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.versions {
             self.versions = crate::OptionableConvert::try_from_optioned(other_value)?;

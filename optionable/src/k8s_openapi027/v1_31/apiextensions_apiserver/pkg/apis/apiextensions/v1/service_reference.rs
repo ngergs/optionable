@@ -68,13 +68,17 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Servi
         }
         if self.path.is_none() {
             self.path = crate::OptionableConvert::try_from_optioned(other.path)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.path, other.path)?;
+        } else if let Some(self_value) = self.path.as_mut()
+            && let Some(other_value) = other.path
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.port.is_none() {
             self.port = crate::OptionableConvert::try_from_optioned(other.port)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.port, other.port)?;
+        } else if let Some(self_value) = self.port.as_mut()
+            && let Some(other_value) = other.port
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

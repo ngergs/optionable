@@ -81,11 +81,10 @@ for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
             self.current_cpu_utilization_percentage = crate::OptionableConvert::try_from_optioned(
                 other.current_cpu_utilization_percentage,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.current_cpu_utilization_percentage,
-                other.current_cpu_utilization_percentage,
-            )?;
+        } else if let Some(self_value) = self.current_cpu_utilization_percentage.as_mut()
+            && let Some(other_value) = other.current_cpu_utilization_percentage
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.current_replicas {
             self.current_replicas = crate::OptionableConvert::try_from_optioned(
@@ -101,21 +100,19 @@ for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
             self.last_scale_time = crate::OptionableConvert::try_from_optioned(
                 other.last_scale_time,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.last_scale_time,
-                other.last_scale_time,
-            )?;
+        } else if let Some(self_value) = self.last_scale_time.as_mut()
+            && let Some(other_value) = other.last_scale_time
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.observed_generation.is_none() {
             self.observed_generation = crate::OptionableConvert::try_from_optioned(
                 other.observed_generation,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.observed_generation,
-                other.observed_generation,
-            )?;
+        } else if let Some(self_value) = self.observed_generation.as_mut()
+            && let Some(other_value) = other.observed_generation
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

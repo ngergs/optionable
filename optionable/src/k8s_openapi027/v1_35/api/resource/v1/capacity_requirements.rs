@@ -53,8 +53,10 @@ for k8s_openapi027::api::resource::v1::CapacityRequirements {
     fn merge(&mut self, other: CapacityRequirementsAc) -> Result<(), crate::Error> {
         if self.requests.is_none() {
             self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
+        } else if let Some(self_value) = self.requests.as_mut()
+            && let Some(other_value) = other.requests
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

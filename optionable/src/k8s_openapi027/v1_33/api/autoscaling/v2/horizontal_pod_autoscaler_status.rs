@@ -93,30 +93,28 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.conditions,
-                other.conditions,
-            )?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.current_metrics.is_none() {
             self.current_metrics = crate::OptionableConvert::try_from_optioned(
                 other.current_metrics,
             )?;
-        } else {
-            self.current_metrics = crate::OptionableConvert::try_from_optioned(
-                other.current_metrics,
-            )?;
+        } else if let Some(self_value) = self.current_metrics.as_mut()
+            && let Some(other_value) = other.current_metrics
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.current_replicas.is_none() {
             self.current_replicas = crate::OptionableConvert::try_from_optioned(
                 other.current_replicas,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.current_replicas,
-                other.current_replicas,
-            )?;
+        } else if let Some(self_value) = self.current_replicas.as_mut()
+            && let Some(other_value) = other.current_replicas
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.desired_replicas {
             self.desired_replicas = crate::OptionableConvert::try_from_optioned(
@@ -127,21 +125,19 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
             self.last_scale_time = crate::OptionableConvert::try_from_optioned(
                 other.last_scale_time,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.last_scale_time,
-                other.last_scale_time,
-            )?;
+        } else if let Some(self_value) = self.last_scale_time.as_mut()
+            && let Some(other_value) = other.last_scale_time
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.observed_generation.is_none() {
             self.observed_generation = crate::OptionableConvert::try_from_optioned(
                 other.observed_generation,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.observed_generation,
-                other.observed_generation,
-            )?;
+        } else if let Some(self_value) = self.observed_generation.as_mut()
+            && let Some(other_value) = other.observed_generation
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -97,31 +97,33 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestCondition {
             self.last_transition_time = crate::OptionableConvert::try_from_optioned(
                 other.last_transition_time,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.last_transition_time,
-                other.last_transition_time,
-            )?;
+        } else if let Some(self_value) = self.last_transition_time.as_mut()
+            && let Some(other_value) = other.last_transition_time
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.last_update_time.is_none() {
             self.last_update_time = crate::OptionableConvert::try_from_optioned(
                 other.last_update_time,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.last_update_time,
-                other.last_update_time,
-            )?;
+        } else if let Some(self_value) = self.last_update_time.as_mut()
+            && let Some(other_value) = other.last_update_time
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.message.is_none() {
             self.message = crate::OptionableConvert::try_from_optioned(other.message)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.message, other.message)?;
+        } else if let Some(self_value) = self.message.as_mut()
+            && let Some(other_value) = other.message
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.reason.is_none() {
             self.reason = crate::OptionableConvert::try_from_optioned(other.reason)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
+        } else if let Some(self_value) = self.reason.as_mut()
+            && let Some(other_value) = other.reason
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.status {
             self.status = crate::OptionableConvert::try_from_optioned(other_value)?;

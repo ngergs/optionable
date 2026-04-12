@@ -49,8 +49,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IPBlock {
         }
         if self.except.is_none() {
             self.except = crate::OptionableConvert::try_from_optioned(other.except)?;
-        } else {
-            self.except = crate::OptionableConvert::try_from_optioned(other.except)?;
+        } else if let Some(self_value) = self.except.as_mut()
+            && let Some(other_value) = other.except
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

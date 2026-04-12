@@ -44,8 +44,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::node::v1::Overhead {
             self.pod_fixed = crate::OptionableConvert::try_from_optioned(
                 other.pod_fixed,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.pod_fixed, other.pod_fixed)?;
+        } else if let Some(self_value) = self.pod_fixed.as_mut()
+            && let Some(other_value) = other.pod_fixed
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

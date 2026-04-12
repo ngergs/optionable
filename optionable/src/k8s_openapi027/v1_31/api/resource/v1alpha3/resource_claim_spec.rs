@@ -51,13 +51,17 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSpec {
             self.controller = crate::OptionableConvert::try_from_optioned(
                 other.controller,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.controller, other.controller)?;
+        } else if let Some(self_value) = self.controller.as_mut()
+            && let Some(other_value) = other.controller
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.devices.is_none() {
             self.devices = crate::OptionableConvert::try_from_optioned(other.devices)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
+        } else if let Some(self_value) = self.devices.as_mut()
+            && let Some(other_value) = other.devices
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

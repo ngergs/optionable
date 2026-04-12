@@ -58,8 +58,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::Role {
         self.metadata = other.metadata;
         if self.rules.is_none() {
             self.rules = crate::OptionableConvert::try_from_optioned(other.rules)?;
-        } else {
-            self.rules = crate::OptionableConvert::try_from_optioned(other.rules)?;
+        } else if let Some(self_value) = self.rules.as_mut()
+            && let Some(other_value) = other.rules
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -64,11 +64,10 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             self.label_selector_path = crate::OptionableConvert::try_from_optioned(
                 other.label_selector_path,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.label_selector_path,
-                other.label_selector_path,
-            )?;
+        } else if let Some(self_value) = self.label_selector_path.as_mut()
+            && let Some(other_value) = other.label_selector_path
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.spec_replicas_path {
             self.spec_replicas_path = crate::OptionableConvert::try_from_optioned(

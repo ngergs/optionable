@@ -51,11 +51,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EphemeralVolume
             self.volume_claim_template = crate::OptionableConvert::try_from_optioned(
                 other.volume_claim_template,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.volume_claim_template,
-                other.volume_claim_template,
-            )?;
+        } else if let Some(self_value) = self.volume_claim_template.as_mut()
+            && let Some(other_value) = other.volume_claim_template
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

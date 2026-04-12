@@ -51,15 +51,19 @@ for k8s_openapi027::api::apps::v1::StatefulSetPersistentVolumeClaimRetentionPoli
             self.when_deleted = crate::OptionableConvert::try_from_optioned(
                 other.when_deleted,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.when_deleted, other.when_deleted)?;
+        } else if let Some(self_value) = self.when_deleted.as_mut()
+            && let Some(other_value) = other.when_deleted
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.when_scaled.is_none() {
             self.when_scaled = crate::OptionableConvert::try_from_optioned(
                 other.when_scaled,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.when_scaled, other.when_scaled)?;
+        } else if let Some(self_value) = self.when_scaled.as_mut()
+            && let Some(other_value) = other.when_scaled
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

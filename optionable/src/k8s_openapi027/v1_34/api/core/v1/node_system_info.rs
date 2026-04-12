@@ -171,8 +171,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSystemInfo 
         }
         if self.swap.is_none() {
             self.swap = crate::OptionableConvert::try_from_optioned(other.swap)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.swap, other.swap)?;
+        } else if let Some(self_value) = self.swap.as_mut()
+            && let Some(other_value) = other.swap
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.system_uuid {
             self.system_uuid = crate::OptionableConvert::try_from_optioned(other_value)?;

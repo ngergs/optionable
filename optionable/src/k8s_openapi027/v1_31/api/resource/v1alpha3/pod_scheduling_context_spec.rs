@@ -50,21 +50,19 @@ for k8s_openapi027::api::resource::v1alpha3::PodSchedulingContextSpec {
             self.potential_nodes = crate::OptionableConvert::try_from_optioned(
                 other.potential_nodes,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.potential_nodes,
-                other.potential_nodes,
-            )?;
+        } else if let Some(self_value) = self.potential_nodes.as_mut()
+            && let Some(other_value) = other.potential_nodes
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.selected_node.is_none() {
             self.selected_node = crate::OptionableConvert::try_from_optioned(
                 other.selected_node,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.selected_node,
-                other.selected_node,
-            )?;
+        } else if let Some(self_value) = self.selected_node.as_mut()
+            && let Some(other_value) = other.selected_node
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

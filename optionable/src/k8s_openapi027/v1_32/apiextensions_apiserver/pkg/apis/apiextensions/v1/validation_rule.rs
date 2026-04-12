@@ -108,38 +108,42 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Valid
             self.field_path = crate::OptionableConvert::try_from_optioned(
                 other.field_path,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.field_path, other.field_path)?;
+        } else if let Some(self_value) = self.field_path.as_mut()
+            && let Some(other_value) = other.field_path
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.message.is_none() {
             self.message = crate::OptionableConvert::try_from_optioned(other.message)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.message, other.message)?;
+        } else if let Some(self_value) = self.message.as_mut()
+            && let Some(other_value) = other.message
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.message_expression.is_none() {
             self.message_expression = crate::OptionableConvert::try_from_optioned(
                 other.message_expression,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.message_expression,
-                other.message_expression,
-            )?;
+        } else if let Some(self_value) = self.message_expression.as_mut()
+            && let Some(other_value) = other.message_expression
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.optional_old_self.is_none() {
             self.optional_old_self = crate::OptionableConvert::try_from_optioned(
                 other.optional_old_self,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.optional_old_self,
-                other.optional_old_self,
-            )?;
+        } else if let Some(self_value) = self.optional_old_self.as_mut()
+            && let Some(other_value) = other.optional_old_self
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.reason.is_none() {
             self.reason = crate::OptionableConvert::try_from_optioned(other.reason)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
+        } else if let Some(self_value) = self.reason.as_mut()
+            && let Some(other_value) = other.reason
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.rule {
             self.rule = crate::OptionableConvert::try_from_optioned(other_value)?;

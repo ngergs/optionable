@@ -47,10 +47,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::AggregationRule
             self.cluster_role_selectors = crate::OptionableConvert::try_from_optioned(
                 other.cluster_role_selectors,
             )?;
-        } else {
-            self.cluster_role_selectors = crate::OptionableConvert::try_from_optioned(
-                other.cluster_role_selectors,
-            )?;
+        } else if let Some(self_value) = self.cluster_role_selectors.as_mut()
+            && let Some(other_value) = other.cluster_role_selectors
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -58,34 +58,42 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FCVolumeSource 
     fn merge(&mut self, other: FCVolumeSourceAc) -> Result<(), crate::Error> {
         if self.fs_type.is_none() {
             self.fs_type = crate::OptionableConvert::try_from_optioned(other.fs_type)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
+        } else if let Some(self_value) = self.fs_type.as_mut()
+            && let Some(other_value) = other.fs_type
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.lun.is_none() {
             self.lun = crate::OptionableConvert::try_from_optioned(other.lun)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.lun, other.lun)?;
+        } else if let Some(self_value) = self.lun.as_mut()
+            && let Some(other_value) = other.lun
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.read_only.is_none() {
             self.read_only = crate::OptionableConvert::try_from_optioned(
                 other.read_only,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        } else if let Some(self_value) = self.read_only.as_mut()
+            && let Some(other_value) = other.read_only
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.target_wwns.is_none() {
             self.target_wwns = crate::OptionableConvert::try_from_optioned(
                 other.target_wwns,
             )?;
-        } else {
-            self.target_wwns = crate::OptionableConvert::try_from_optioned(
-                other.target_wwns,
-            )?;
+        } else if let Some(self_value) = self.target_wwns.as_mut()
+            && let Some(other_value) = other.target_wwns
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.wwids.is_none() {
             self.wwids = crate::OptionableConvert::try_from_optioned(other.wwids)?;
-        } else {
-            self.wwids = crate::OptionableConvert::try_from_optioned(other.wwids)?;
+        } else if let Some(self_value) = self.wwids.as_mut()
+            && let Some(other_value) = other.wwids
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

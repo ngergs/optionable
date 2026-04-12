@@ -44,8 +44,10 @@ for k8s_openapi027::api::authorization::v1::SelfSubjectRulesReviewSpec {
             self.namespace = crate::OptionableConvert::try_from_optioned(
                 other.namespace,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
+        } else if let Some(self_value) = self.namespace.as_mut()
+            && let Some(other_value) = other.namespace
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

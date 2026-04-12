@@ -98,23 +98,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Device
             self.admin_access = crate::OptionableConvert::try_from_optioned(
                 other.admin_access,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
+        } else if let Some(self_value) = self.admin_access.as_mut()
+            && let Some(other_value) = other.admin_access
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.allocation_mode.is_none() {
             self.allocation_mode = crate::OptionableConvert::try_from_optioned(
                 other.allocation_mode,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.allocation_mode,
-                other.allocation_mode,
-            )?;
+        } else if let Some(self_value) = self.allocation_mode.as_mut()
+            && let Some(other_value) = other.allocation_mode
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.count.is_none() {
             self.count = crate::OptionableConvert::try_from_optioned(other.count)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.count, other.count)?;
+        } else if let Some(self_value) = self.count.as_mut()
+            && let Some(other_value) = other.count
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.device_class_name {
             self.device_class_name = crate::OptionableConvert::try_from_optioned(
@@ -128,10 +131,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Device
             self.selectors = crate::OptionableConvert::try_from_optioned(
                 other.selectors,
             )?;
-        } else {
-            self.selectors = crate::OptionableConvert::try_from_optioned(
-                other.selectors,
-            )?;
+        } else if let Some(self_value) = self.selectors.as_mut()
+            && let Some(other_value) = other.selectors
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

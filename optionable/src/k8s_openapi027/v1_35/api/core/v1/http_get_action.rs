@@ -71,30 +71,36 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HTTPGetAction {
     fn merge(&mut self, other: HTTPGetActionAc) -> Result<(), crate::Error> {
         if self.host.is_none() {
             self.host = crate::OptionableConvert::try_from_optioned(other.host)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.host, other.host)?;
+        } else if let Some(self_value) = self.host.as_mut()
+            && let Some(other_value) = other.host
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.http_headers.is_none() {
             self.http_headers = crate::OptionableConvert::try_from_optioned(
                 other.http_headers,
             )?;
-        } else {
-            self.http_headers = crate::OptionableConvert::try_from_optioned(
-                other.http_headers,
-            )?;
+        } else if let Some(self_value) = self.http_headers.as_mut()
+            && let Some(other_value) = other.http_headers
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.path.is_none() {
             self.path = crate::OptionableConvert::try_from_optioned(other.path)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.path, other.path)?;
+        } else if let Some(self_value) = self.path.as_mut()
+            && let Some(other_value) = other.path
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.port {
             self.port = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.scheme.is_none() {
             self.scheme = crate::OptionableConvert::try_from_optioned(other.scheme)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.scheme, other.scheme)?;
+        } else if let Some(self_value) = self.scheme.as_mut()
+            && let Some(other_value) = other.scheme
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

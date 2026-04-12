@@ -57,18 +57,19 @@ for k8s_openapi027::api::core::v1::ServiceAccountTokenProjection {
     ) -> Result<(), crate::Error> {
         if self.audience.is_none() {
             self.audience = crate::OptionableConvert::try_from_optioned(other.audience)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.audience, other.audience)?;
+        } else if let Some(self_value) = self.audience.as_mut()
+            && let Some(other_value) = other.audience
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.expiration_seconds.is_none() {
             self.expiration_seconds = crate::OptionableConvert::try_from_optioned(
                 other.expiration_seconds,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.expiration_seconds,
-                other.expiration_seconds,
-            )?;
+        } else if let Some(self_value) = self.expiration_seconds.as_mut()
+            && let Some(other_value) = other.expiration_seconds
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.path {
             self.path = crate::OptionableConvert::try_from_optioned(other_value)?;

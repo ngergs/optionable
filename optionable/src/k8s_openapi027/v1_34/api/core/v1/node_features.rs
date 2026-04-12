@@ -39,11 +39,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeFeatures {
             self.supplemental_groups_policy = crate::OptionableConvert::try_from_optioned(
                 other.supplemental_groups_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.supplemental_groups_policy,
-                other.supplemental_groups_policy,
-            )?;
+        } else if let Some(self_value) = self.supplemental_groups_policy.as_mut()
+            && let Some(other_value) = other.supplemental_groups_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

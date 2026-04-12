@@ -58,33 +58,40 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceToleration {
     fn merge(&mut self, other: DeviceTolerationAc) -> Result<(), crate::Error> {
         if self.effect.is_none() {
             self.effect = crate::OptionableConvert::try_from_optioned(other.effect)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.effect, other.effect)?;
+        } else if let Some(self_value) = self.effect.as_mut()
+            && let Some(other_value) = other.effect
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.key.is_none() {
             self.key = crate::OptionableConvert::try_from_optioned(other.key)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.key, other.key)?;
+        } else if let Some(self_value) = self.key.as_mut()
+            && let Some(other_value) = other.key
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.operator.is_none() {
             self.operator = crate::OptionableConvert::try_from_optioned(other.operator)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.operator, other.operator)?;
+        } else if let Some(self_value) = self.operator.as_mut()
+            && let Some(other_value) = other.operator
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.toleration_seconds.is_none() {
             self.toleration_seconds = crate::OptionableConvert::try_from_optioned(
                 other.toleration_seconds,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.toleration_seconds,
-                other.toleration_seconds,
-            )?;
+        } else if let Some(self_value) = self.toleration_seconds.as_mut()
+            && let Some(other_value) = other.toleration_seconds
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.value.is_none() {
             self.value = crate::OptionableConvert::try_from_optioned(other.value)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.value, other.value)?;
+        } else if let Some(self_value) = self.value.as_mut()
+            && let Some(other_value) = other.value
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

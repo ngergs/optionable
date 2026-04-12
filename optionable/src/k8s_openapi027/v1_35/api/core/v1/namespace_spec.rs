@@ -39,10 +39,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceSpec {
             self.finalizers = crate::OptionableConvert::try_from_optioned(
                 other.finalizers,
             )?;
-        } else {
-            self.finalizers = crate::OptionableConvert::try_from_optioned(
-                other.finalizers,
-            )?;
+        } else if let Some(self_value) = self.finalizers.as_mut()
+            && let Some(other_value) = other.finalizers
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

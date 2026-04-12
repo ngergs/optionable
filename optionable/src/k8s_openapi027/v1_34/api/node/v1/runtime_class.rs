@@ -76,15 +76,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::node::v1::RuntimeClass {
         self.metadata = other.metadata;
         if self.overhead.is_none() {
             self.overhead = crate::OptionableConvert::try_from_optioned(other.overhead)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.overhead, other.overhead)?;
+        } else if let Some(self_value) = self.overhead.as_mut()
+            && let Some(other_value) = other.overhead
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.scheduling.is_none() {
             self.scheduling = crate::OptionableConvert::try_from_optioned(
                 other.scheduling,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.scheduling, other.scheduling)?;
+        } else if let Some(self_value) = self.scheduling.as_mut()
+            && let Some(other_value) = other.scheduling
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

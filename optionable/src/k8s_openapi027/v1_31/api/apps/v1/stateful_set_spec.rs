@@ -127,51 +127,53 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
             self.min_ready_seconds = crate::OptionableConvert::try_from_optioned(
                 other.min_ready_seconds,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.min_ready_seconds,
-                other.min_ready_seconds,
-            )?;
+        } else if let Some(self_value) = self.min_ready_seconds.as_mut()
+            && let Some(other_value) = other.min_ready_seconds
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.ordinals.is_none() {
             self.ordinals = crate::OptionableConvert::try_from_optioned(other.ordinals)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.ordinals, other.ordinals)?;
+        } else if let Some(self_value) = self.ordinals.as_mut()
+            && let Some(other_value) = other.ordinals
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.persistent_volume_claim_retention_policy.is_none() {
             self.persistent_volume_claim_retention_policy = crate::OptionableConvert::try_from_optioned(
                 other.persistent_volume_claim_retention_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.persistent_volume_claim_retention_policy,
-                other.persistent_volume_claim_retention_policy,
-            )?;
+        } else if let Some(self_value) = self
+            .persistent_volume_claim_retention_policy
+            .as_mut()
+            && let Some(other_value) = other.persistent_volume_claim_retention_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.pod_management_policy.is_none() {
             self.pod_management_policy = crate::OptionableConvert::try_from_optioned(
                 other.pod_management_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.pod_management_policy,
-                other.pod_management_policy,
-            )?;
+        } else if let Some(self_value) = self.pod_management_policy.as_mut()
+            && let Some(other_value) = other.pod_management_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.replicas.is_none() {
             self.replicas = crate::OptionableConvert::try_from_optioned(other.replicas)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.replicas, other.replicas)?;
+        } else if let Some(self_value) = self.replicas.as_mut()
+            && let Some(other_value) = other.replicas
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.revision_history_limit.is_none() {
             self.revision_history_limit = crate::OptionableConvert::try_from_optioned(
                 other.revision_history_limit,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.revision_history_limit,
-                other.revision_history_limit,
-            )?;
+        } else if let Some(self_value) = self.revision_history_limit.as_mut()
+            && let Some(other_value) = other.revision_history_limit
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.selector {
             self.selector = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -180,8 +182,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
             self.service_name = crate::OptionableConvert::try_from_optioned(
                 other.service_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.service_name, other.service_name)?;
+        } else if let Some(self_value) = self.service_name.as_mut()
+            && let Some(other_value) = other.service_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.template {
             self.template = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -190,20 +194,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
             self.update_strategy = crate::OptionableConvert::try_from_optioned(
                 other.update_strategy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.update_strategy,
-                other.update_strategy,
-            )?;
+        } else if let Some(self_value) = self.update_strategy.as_mut()
+            && let Some(other_value) = other.update_strategy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.volume_claim_templates.is_none() {
             self.volume_claim_templates = crate::OptionableConvert::try_from_optioned(
                 other.volume_claim_templates,
             )?;
-        } else {
-            self.volume_claim_templates = crate::OptionableConvert::try_from_optioned(
-                other.volume_claim_templates,
-            )?;
+        } else if let Some(self_value) = self.volume_claim_templates.as_mut()
+            && let Some(other_value) = other.volume_claim_templates
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

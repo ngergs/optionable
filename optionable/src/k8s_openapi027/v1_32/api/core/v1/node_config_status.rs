@@ -62,28 +62,33 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeConfigStatu
     fn merge(&mut self, other: NodeConfigStatusAc) -> Result<(), crate::Error> {
         if self.active.is_none() {
             self.active = crate::OptionableConvert::try_from_optioned(other.active)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.active, other.active)?;
+        } else if let Some(self_value) = self.active.as_mut()
+            && let Some(other_value) = other.active
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.assigned.is_none() {
             self.assigned = crate::OptionableConvert::try_from_optioned(other.assigned)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.assigned, other.assigned)?;
+        } else if let Some(self_value) = self.assigned.as_mut()
+            && let Some(other_value) = other.assigned
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.error.is_none() {
             self.error = crate::OptionableConvert::try_from_optioned(other.error)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.error, other.error)?;
+        } else if let Some(self_value) = self.error.as_mut()
+            && let Some(other_value) = other.error
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.last_known_good.is_none() {
             self.last_known_good = crate::OptionableConvert::try_from_optioned(
                 other.last_known_good,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.last_known_good,
-                other.last_known_good,
-            )?;
+        } else if let Some(self_value) = self.last_known_good.as_mut()
+            && let Some(other_value) = other.last_known_good
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

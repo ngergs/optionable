@@ -51,23 +51,26 @@ for k8s_openapi027::api::flowcontrol::v1beta3::QueuingConfiguration {
             self.hand_size = crate::OptionableConvert::try_from_optioned(
                 other.hand_size,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.hand_size, other.hand_size)?;
+        } else if let Some(self_value) = self.hand_size.as_mut()
+            && let Some(other_value) = other.hand_size
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.queue_length_limit.is_none() {
             self.queue_length_limit = crate::OptionableConvert::try_from_optioned(
                 other.queue_length_limit,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.queue_length_limit,
-                other.queue_length_limit,
-            )?;
+        } else if let Some(self_value) = self.queue_length_limit.as_mut()
+            && let Some(other_value) = other.queue_length_limit
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.queues.is_none() {
             self.queues = crate::OptionableConvert::try_from_optioned(other.queues)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.queues, other.queues)?;
+        } else if let Some(self_value) = self.queues.as_mut()
+            && let Some(other_value) = other.queues
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -82,21 +82,19 @@ for k8s_openapi027::api::coordination::v1alpha1::LeaseCandidateSpec {
             self.binary_version = crate::OptionableConvert::try_from_optioned(
                 other.binary_version,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.binary_version,
-                other.binary_version,
-            )?;
+        } else if let Some(self_value) = self.binary_version.as_mut()
+            && let Some(other_value) = other.binary_version
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.emulation_version.is_none() {
             self.emulation_version = crate::OptionableConvert::try_from_optioned(
                 other.emulation_version,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.emulation_version,
-                other.emulation_version,
-            )?;
+        } else if let Some(self_value) = self.emulation_version.as_mut()
+            && let Some(other_value) = other.emulation_version
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.lease_name {
             self.lease_name = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -105,8 +103,10 @@ for k8s_openapi027::api::coordination::v1alpha1::LeaseCandidateSpec {
             self.ping_time = crate::OptionableConvert::try_from_optioned(
                 other.ping_time,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.ping_time, other.ping_time)?;
+        } else if let Some(self_value) = self.ping_time.as_mut()
+            && let Some(other_value) = other.ping_time
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.preferred_strategies {
             self.preferred_strategies = crate::OptionableConvert::try_from_optioned(
@@ -117,8 +117,10 @@ for k8s_openapi027::api::coordination::v1alpha1::LeaseCandidateSpec {
             self.renew_time = crate::OptionableConvert::try_from_optioned(
                 other.renew_time,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.renew_time, other.renew_time)?;
+        } else if let Some(self_value) = self.renew_time.as_mut()
+            && let Some(other_value) = other.renew_time
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

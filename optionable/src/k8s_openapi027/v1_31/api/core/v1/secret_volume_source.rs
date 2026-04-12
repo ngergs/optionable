@@ -60,25 +60,33 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretVolumeSou
             self.default_mode = crate::OptionableConvert::try_from_optioned(
                 other.default_mode,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.default_mode, other.default_mode)?;
+        } else if let Some(self_value) = self.default_mode.as_mut()
+            && let Some(other_value) = other.default_mode
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.items.is_none() {
             self.items = crate::OptionableConvert::try_from_optioned(other.items)?;
-        } else {
-            self.items = crate::OptionableConvert::try_from_optioned(other.items)?;
+        } else if let Some(self_value) = self.items.as_mut()
+            && let Some(other_value) = other.items
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.optional.is_none() {
             self.optional = crate::OptionableConvert::try_from_optioned(other.optional)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.optional, other.optional)?;
+        } else if let Some(self_value) = self.optional.as_mut()
+            && let Some(other_value) = other.optional
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.secret_name.is_none() {
             self.secret_name = crate::OptionableConvert::try_from_optioned(
                 other.secret_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.secret_name, other.secret_name)?;
+        } else if let Some(self_value) = self.secret_name.as_mut()
+            && let Some(other_value) = other.secret_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

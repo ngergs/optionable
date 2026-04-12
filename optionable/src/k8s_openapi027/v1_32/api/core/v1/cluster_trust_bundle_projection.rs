@@ -73,21 +73,24 @@ for k8s_openapi027::api::core::v1::ClusterTrustBundleProjection {
             self.label_selector = crate::OptionableConvert::try_from_optioned(
                 other.label_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.label_selector,
-                other.label_selector,
-            )?;
+        } else if let Some(self_value) = self.label_selector.as_mut()
+            && let Some(other_value) = other.label_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.name.is_none() {
             self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.name, other.name)?;
+        } else if let Some(self_value) = self.name.as_mut()
+            && let Some(other_value) = other.name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.optional.is_none() {
             self.optional = crate::OptionableConvert::try_from_optioned(other.optional)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.optional, other.optional)?;
+        } else if let Some(self_value) = self.optional.as_mut()
+            && let Some(other_value) = other.optional
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.path {
             self.path = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -96,8 +99,10 @@ for k8s_openapi027::api::core::v1::ClusterTrustBundleProjection {
             self.signer_name = crate::OptionableConvert::try_from_optioned(
                 other.signer_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.signer_name, other.signer_name)?;
+        } else if let Some(self_value) = self.signer_name.as_mut()
+            && let Some(other_value) = other.signer_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -63,11 +63,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::WorkloadReferen
             self.pod_group_replica_key = crate::OptionableConvert::try_from_optioned(
                 other.pod_group_replica_key,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.pod_group_replica_key,
-                other.pod_group_replica_key,
-            )?;
+        } else if let Some(self_value) = self.pod_group_replica_key.as_mut()
+            && let Some(other_value) = other.pod_group_replica_key
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

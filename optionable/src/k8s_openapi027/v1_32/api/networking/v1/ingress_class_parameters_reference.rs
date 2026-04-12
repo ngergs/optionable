@@ -74,8 +74,10 @@ for k8s_openapi027::api::networking::v1::IngressClassParametersReference {
             self.api_group = crate::OptionableConvert::try_from_optioned(
                 other.api_group,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
+        } else if let Some(self_value) = self.api_group.as_mut()
+            && let Some(other_value) = other.api_group
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -87,13 +89,17 @@ for k8s_openapi027::api::networking::v1::IngressClassParametersReference {
             self.namespace = crate::OptionableConvert::try_from_optioned(
                 other.namespace,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
+        } else if let Some(self_value) = self.namespace.as_mut()
+            && let Some(other_value) = other.namespace
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.scope.is_none() {
             self.scope = crate::OptionableConvert::try_from_optioned(other.scope)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.scope, other.scope)?;
+        } else if let Some(self_value) = self.scope.as_mut()
+            && let Some(other_value) = other.scope
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

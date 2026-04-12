@@ -94,8 +94,10 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::JSONPatch {
             self.expression = crate::OptionableConvert::try_from_optioned(
                 other.expression,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.expression, other.expression)?;
+        } else if let Some(self_value) = self.expression.as_mut()
+            && let Some(other_value) = other.expression
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -48,10 +48,10 @@ for k8s_openapi027::api::admissionregistration::v1::TypeChecking {
             self.expression_warnings = crate::OptionableConvert::try_from_optioned(
                 other.expression_warnings,
             )?;
-        } else {
-            self.expression_warnings = crate::OptionableConvert::try_from_optioned(
-                other.expression_warnings,
-            )?;
+        } else if let Some(self_value) = self.expression_warnings.as_mut()
+            && let Some(other_value) = other.expression_warnings
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

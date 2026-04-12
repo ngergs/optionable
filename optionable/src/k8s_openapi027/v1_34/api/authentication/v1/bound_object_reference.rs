@@ -56,23 +56,31 @@ for k8s_openapi027::api::authentication::v1::BoundObjectReference {
             self.api_version = crate::OptionableConvert::try_from_optioned(
                 other.api_version,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
+        } else if let Some(self_value) = self.api_version.as_mut()
+            && let Some(other_value) = other.api_version
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.kind.is_none() {
             self.kind = crate::OptionableConvert::try_from_optioned(other.kind)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
+        } else if let Some(self_value) = self.kind.as_mut()
+            && let Some(other_value) = other.kind
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.name.is_none() {
             self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.name, other.name)?;
+        } else if let Some(self_value) = self.name.as_mut()
+            && let Some(other_value) = other.name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.uid.is_none() {
             self.uid = crate::OptionableConvert::try_from_optioned(other.uid)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
+        } else if let Some(self_value) = self.uid.as_mut()
+            && let Some(other_value) = other.uid
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

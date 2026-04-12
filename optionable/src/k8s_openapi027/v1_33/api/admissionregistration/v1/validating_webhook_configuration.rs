@@ -65,8 +65,10 @@ for k8s_openapi027::api::admissionregistration::v1::ValidatingWebhookConfigurati
         self.metadata = other.metadata;
         if self.webhooks.is_none() {
             self.webhooks = crate::OptionableConvert::try_from_optioned(other.webhooks)?;
-        } else {
-            crate::merge::try_merge_optioned_map(&mut self.webhooks, other.webhooks)?;
+        } else if let Some(self_value) = self.webhooks.as_mut()
+            && let Some(other_value) = other.webhooks
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         Ok(())
     }

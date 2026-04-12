@@ -55,18 +55,19 @@ for k8s_openapi027::api::storagemigration::v1alpha1::StorageVersionMigrationStat
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.resource_version.is_none() {
             self.resource_version = crate::OptionableConvert::try_from_optioned(
                 other.resource_version,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.resource_version,
-                other.resource_version,
-            )?;
+        } else if let Some(self_value) = self.resource_version.as_mut()
+            && let Some(other_value) = other.resource_version
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

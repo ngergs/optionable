@@ -54,17 +54,19 @@ for k8s_openapi027::api::authorization::v1::LabelSelectorAttributes {
             self.raw_selector = crate::OptionableConvert::try_from_optioned(
                 other.raw_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.raw_selector, other.raw_selector)?;
+        } else if let Some(self_value) = self.raw_selector.as_mut()
+            && let Some(other_value) = other.raw_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.requirements.is_none() {
             self.requirements = crate::OptionableConvert::try_from_optioned(
                 other.requirements,
             )?;
-        } else {
-            self.requirements = crate::OptionableConvert::try_from_optioned(
-                other.requirements,
-            )?;
+        } else if let Some(self_value) = self.requirements.as_mut()
+            && let Some(other_value) = other.requirements
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

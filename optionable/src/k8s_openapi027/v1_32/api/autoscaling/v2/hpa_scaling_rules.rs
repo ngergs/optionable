@@ -51,28 +51,28 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::HPAScali
     fn merge(&mut self, other: HPAScalingRulesAc) -> Result<(), crate::Error> {
         if self.policies.is_none() {
             self.policies = crate::OptionableConvert::try_from_optioned(other.policies)?;
-        } else {
-            self.policies = crate::OptionableConvert::try_from_optioned(other.policies)?;
+        } else if let Some(self_value) = self.policies.as_mut()
+            && let Some(other_value) = other.policies
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.select_policy.is_none() {
             self.select_policy = crate::OptionableConvert::try_from_optioned(
                 other.select_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.select_policy,
-                other.select_policy,
-            )?;
+        } else if let Some(self_value) = self.select_policy.as_mut()
+            && let Some(other_value) = other.select_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.stabilization_window_seconds.is_none() {
             self.stabilization_window_seconds = crate::OptionableConvert::try_from_optioned(
                 other.stabilization_window_seconds,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.stabilization_window_seconds,
-                other.stabilization_window_seconds,
-            )?;
+        } else if let Some(self_value) = self.stabilization_window_seconds.as_mut()
+            && let Some(other_value) = other.stabilization_window_seconds
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

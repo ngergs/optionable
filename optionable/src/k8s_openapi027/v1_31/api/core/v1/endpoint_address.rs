@@ -58,8 +58,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointAddress
     fn merge(&mut self, other: EndpointAddressAc) -> Result<(), crate::Error> {
         if self.hostname.is_none() {
             self.hostname = crate::OptionableConvert::try_from_optioned(other.hostname)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
+        } else if let Some(self_value) = self.hostname.as_mut()
+            && let Some(other_value) = other.hostname
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.ip {
             self.ip = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -68,15 +70,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointAddress
             self.node_name = crate::OptionableConvert::try_from_optioned(
                 other.node_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.node_name, other.node_name)?;
+        } else if let Some(self_value) = self.node_name.as_mut()
+            && let Some(other_value) = other.node_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.target_ref.is_none() {
             self.target_ref = crate::OptionableConvert::try_from_optioned(
                 other.target_ref,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.target_ref, other.target_ref)?;
+        } else if let Some(self_value) = self.target_ref.as_mut()
+            && let Some(other_value) = other.target_ref
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

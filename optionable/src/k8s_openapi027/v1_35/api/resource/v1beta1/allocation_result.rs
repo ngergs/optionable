@@ -64,26 +64,26 @@ for k8s_openapi027::api::resource::v1beta1::AllocationResult {
             self.allocation_timestamp = crate::OptionableConvert::try_from_optioned(
                 other.allocation_timestamp,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.allocation_timestamp,
-                other.allocation_timestamp,
-            )?;
+        } else if let Some(self_value) = self.allocation_timestamp.as_mut()
+            && let Some(other_value) = other.allocation_timestamp
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.devices.is_none() {
             self.devices = crate::OptionableConvert::try_from_optioned(other.devices)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
+        } else if let Some(self_value) = self.devices.as_mut()
+            && let Some(other_value) = other.devices
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.node_selector.is_none() {
             self.node_selector = crate::OptionableConvert::try_from_optioned(
                 other.node_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.node_selector,
-                other.node_selector,
-            )?;
+        } else if let Some(self_value) = self.node_selector.as_mut()
+            && let Some(other_value) = other.node_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -50,8 +50,10 @@ for k8s_openapi027::api::flowcontrol::v1beta3::LimitResponse {
     fn merge(&mut self, other: LimitResponseAc) -> Result<(), crate::Error> {
         if self.queuing.is_none() {
             self.queuing = crate::OptionableConvert::try_from_optioned(other.queuing)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.queuing, other.queuing)?;
+        } else if let Some(self_value) = self.queuing.as_mut()
+            && let Some(other_value) = other.queuing
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.type_ {
             self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;

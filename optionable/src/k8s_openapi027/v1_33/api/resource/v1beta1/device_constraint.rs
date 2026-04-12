@@ -51,16 +51,17 @@ for k8s_openapi027::api::resource::v1beta1::DeviceConstraint {
             self.match_attribute = crate::OptionableConvert::try_from_optioned(
                 other.match_attribute,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.match_attribute,
-                other.match_attribute,
-            )?;
+        } else if let Some(self_value) = self.match_attribute.as_mut()
+            && let Some(other_value) = other.match_attribute
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.requests.is_none() {
             self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
-        } else {
-            self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
+        } else if let Some(self_value) = self.requests.as_mut()
+            && let Some(other_value) = other.requests
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

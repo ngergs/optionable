@@ -45,8 +45,10 @@ for k8s_openapi027::api::authentication::v1beta1::SelfSubjectReviewStatus {
             self.user_info = crate::OptionableConvert::try_from_optioned(
                 other.user_info,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.user_info, other.user_info)?;
+        } else if let Some(self_value) = self.user_info.as_mut()
+            && let Some(other_value) = other.user_info
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

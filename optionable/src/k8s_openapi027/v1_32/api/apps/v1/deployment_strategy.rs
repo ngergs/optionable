@@ -49,16 +49,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentStrat
             self.rolling_update = crate::OptionableConvert::try_from_optioned(
                 other.rolling_update,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.rolling_update,
-                other.rolling_update,
-            )?;
+        } else if let Some(self_value) = self.rolling_update.as_mut()
+            && let Some(other_value) = other.rolling_update
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.type_.is_none() {
             self.type_ = crate::OptionableConvert::try_from_optioned(other.type_)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
+        } else if let Some(self_value) = self.type_.as_mut()
+            && let Some(other_value) = other.type_
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

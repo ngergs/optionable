@@ -63,28 +63,28 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Affinity {
             self.node_affinity = crate::OptionableConvert::try_from_optioned(
                 other.node_affinity,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.node_affinity,
-                other.node_affinity,
-            )?;
+        } else if let Some(self_value) = self.node_affinity.as_mut()
+            && let Some(other_value) = other.node_affinity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.pod_affinity.is_none() {
             self.pod_affinity = crate::OptionableConvert::try_from_optioned(
                 other.pod_affinity,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.pod_affinity, other.pod_affinity)?;
+        } else if let Some(self_value) = self.pod_affinity.as_mut()
+            && let Some(other_value) = other.pod_affinity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.pod_anti_affinity.is_none() {
             self.pod_anti_affinity = crate::OptionableConvert::try_from_optioned(
                 other.pod_anti_affinity,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.pod_anti_affinity,
-                other.pod_anti_affinity,
-            )?;
+        } else if let Some(self_value) = self.pod_anti_affinity.as_mut()
+            && let Some(other_value) = other.pod_anti_affinity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -81,52 +81,60 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSpec {
             self.config_source = crate::OptionableConvert::try_from_optioned(
                 other.config_source,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.config_source,
-                other.config_source,
-            )?;
+        } else if let Some(self_value) = self.config_source.as_mut()
+            && let Some(other_value) = other.config_source
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.external_id.is_none() {
             self.external_id = crate::OptionableConvert::try_from_optioned(
                 other.external_id,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.external_id, other.external_id)?;
+        } else if let Some(self_value) = self.external_id.as_mut()
+            && let Some(other_value) = other.external_id
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.pod_cidr.is_none() {
             self.pod_cidr = crate::OptionableConvert::try_from_optioned(other.pod_cidr)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.pod_cidr, other.pod_cidr)?;
+        } else if let Some(self_value) = self.pod_cidr.as_mut()
+            && let Some(other_value) = other.pod_cidr
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.pod_cidrs.is_none() {
             self.pod_cidrs = crate::OptionableConvert::try_from_optioned(
                 other.pod_cidrs,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_set(&mut self.pod_cidrs, other.pod_cidrs)?;
+        } else if let Some(self_value) = self.pod_cidrs.as_mut()
+            && let Some(other_value) = other.pod_cidrs
+        {
+            crate::merge::try_merge_optioned_set(self_value, other_value)?;
         }
         if self.provider_id.is_none() {
             self.provider_id = crate::OptionableConvert::try_from_optioned(
                 other.provider_id,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.provider_id, other.provider_id)?;
+        } else if let Some(self_value) = self.provider_id.as_mut()
+            && let Some(other_value) = other.provider_id
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.taints.is_none() {
             self.taints = crate::OptionableConvert::try_from_optioned(other.taints)?;
-        } else {
-            self.taints = crate::OptionableConvert::try_from_optioned(other.taints)?;
+        } else if let Some(self_value) = self.taints.as_mut()
+            && let Some(other_value) = other.taints
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.unschedulable.is_none() {
             self.unschedulable = crate::OptionableConvert::try_from_optioned(
                 other.unschedulable,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.unschedulable,
-                other.unschedulable,
-            )?;
+        } else if let Some(self_value) = self.unschedulable.as_mut()
+            && let Some(other_value) = other.unschedulable
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

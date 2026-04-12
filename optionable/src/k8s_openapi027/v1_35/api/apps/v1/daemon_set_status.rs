@@ -104,21 +104,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetStatus
             self.collision_count = crate::OptionableConvert::try_from_optioned(
                 other.collision_count,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.collision_count,
-                other.collision_count,
-            )?;
+        } else if let Some(self_value) = self.collision_count.as_mut()
+            && let Some(other_value) = other.collision_count
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.conditions.is_none() {
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.conditions,
-                other.conditions,
-            )?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if let Some(other_value) = other.current_number_scheduled {
             self.current_number_scheduled = crate::OptionableConvert::try_from_optioned(
@@ -134,11 +132,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetStatus
             self.number_available = crate::OptionableConvert::try_from_optioned(
                 other.number_available,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.number_available,
-                other.number_available,
-            )?;
+        } else if let Some(self_value) = self.number_available.as_mut()
+            && let Some(other_value) = other.number_available
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.number_misscheduled {
             self.number_misscheduled = crate::OptionableConvert::try_from_optioned(
@@ -154,31 +151,28 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetStatus
             self.number_unavailable = crate::OptionableConvert::try_from_optioned(
                 other.number_unavailable,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.number_unavailable,
-                other.number_unavailable,
-            )?;
+        } else if let Some(self_value) = self.number_unavailable.as_mut()
+            && let Some(other_value) = other.number_unavailable
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.observed_generation.is_none() {
             self.observed_generation = crate::OptionableConvert::try_from_optioned(
                 other.observed_generation,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.observed_generation,
-                other.observed_generation,
-            )?;
+        } else if let Some(self_value) = self.observed_generation.as_mut()
+            && let Some(other_value) = other.observed_generation
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.updated_number_scheduled.is_none() {
             self.updated_number_scheduled = crate::OptionableConvert::try_from_optioned(
                 other.updated_number_scheduled,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.updated_number_scheduled,
-                other.updated_number_scheduled,
-            )?;
+        } else if let Some(self_value) = self.updated_number_scheduled.as_mut()
+            && let Some(other_value) = other.updated_number_scheduled
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

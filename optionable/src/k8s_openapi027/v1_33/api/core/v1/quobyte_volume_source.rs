@@ -70,28 +70,36 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::QuobyteVolumeSo
     fn merge(&mut self, other: QuobyteVolumeSourceAc) -> Result<(), crate::Error> {
         if self.group.is_none() {
             self.group = crate::OptionableConvert::try_from_optioned(other.group)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.group, other.group)?;
+        } else if let Some(self_value) = self.group.as_mut()
+            && let Some(other_value) = other.group
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.read_only.is_none() {
             self.read_only = crate::OptionableConvert::try_from_optioned(
                 other.read_only,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        } else if let Some(self_value) = self.read_only.as_mut()
+            && let Some(other_value) = other.read_only
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.registry {
             self.registry = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.tenant.is_none() {
             self.tenant = crate::OptionableConvert::try_from_optioned(other.tenant)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.tenant, other.tenant)?;
+        } else if let Some(self_value) = self.tenant.as_mut()
+            && let Some(other_value) = other.tenant
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.user.is_none() {
             self.user = crate::OptionableConvert::try_from_optioned(other.user)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.user, other.user)?;
+        } else if let Some(self_value) = self.user.as_mut()
+            && let Some(other_value) = other.user
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.volume {
             self.volume = crate::OptionableConvert::try_from_optioned(other_value)?;

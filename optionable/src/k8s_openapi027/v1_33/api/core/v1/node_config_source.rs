@@ -41,8 +41,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeConfigSourc
             self.config_map = crate::OptionableConvert::try_from_optioned(
                 other.config_map,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.config_map, other.config_map)?;
+        } else if let Some(self_value) = self.config_map.as_mut()
+            && let Some(other_value) = other.config_map
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -79,16 +79,20 @@ for k8s_openapi027::api::resource::v1::CapacityRequestPolicyRange {
     ) -> Result<(), crate::Error> {
         if self.max.is_none() {
             self.max = crate::OptionableConvert::try_from_optioned(other.max)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.max, other.max)?;
+        } else if let Some(self_value) = self.max.as_mut()
+            && let Some(other_value) = other.max
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.min {
             self.min = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.step.is_none() {
             self.step = crate::OptionableConvert::try_from_optioned(other.step)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.step, other.step)?;
+        } else if let Some(self_value) = self.step.as_mut()
+            && let Some(other_value) = other.step
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

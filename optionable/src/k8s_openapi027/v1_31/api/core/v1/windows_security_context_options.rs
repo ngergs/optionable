@@ -60,38 +60,37 @@ for k8s_openapi027::api::core::v1::WindowsSecurityContextOptions {
             self.gmsa_credential_spec = crate::OptionableConvert::try_from_optioned(
                 other.gmsa_credential_spec,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.gmsa_credential_spec,
-                other.gmsa_credential_spec,
-            )?;
+        } else if let Some(self_value) = self.gmsa_credential_spec.as_mut()
+            && let Some(other_value) = other.gmsa_credential_spec
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.gmsa_credential_spec_name.is_none() {
             self.gmsa_credential_spec_name = crate::OptionableConvert::try_from_optioned(
                 other.gmsa_credential_spec_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.gmsa_credential_spec_name,
-                other.gmsa_credential_spec_name,
-            )?;
+        } else if let Some(self_value) = self.gmsa_credential_spec_name.as_mut()
+            && let Some(other_value) = other.gmsa_credential_spec_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.host_process.is_none() {
             self.host_process = crate::OptionableConvert::try_from_optioned(
                 other.host_process,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.host_process, other.host_process)?;
+        } else if let Some(self_value) = self.host_process.as_mut()
+            && let Some(other_value) = other.host_process
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.run_as_user_name.is_none() {
             self.run_as_user_name = crate::OptionableConvert::try_from_optioned(
                 other.run_as_user_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.run_as_user_name,
-                other.run_as_user_name,
-            )?;
+        } else if let Some(self_value) = self.run_as_user_name.as_mut()
+            && let Some(other_value) = other.run_as_user_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

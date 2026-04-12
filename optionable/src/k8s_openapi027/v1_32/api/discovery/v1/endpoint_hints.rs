@@ -43,10 +43,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointHi
             self.for_zones = crate::OptionableConvert::try_from_optioned(
                 other.for_zones,
             )?;
-        } else {
-            self.for_zones = crate::OptionableConvert::try_from_optioned(
-                other.for_zones,
-            )?;
+        } else if let Some(self_value) = self.for_zones.as_mut()
+            && let Some(other_value) = other.for_zones
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

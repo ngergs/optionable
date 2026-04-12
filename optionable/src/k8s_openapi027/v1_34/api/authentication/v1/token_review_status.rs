@@ -57,30 +57,33 @@ for k8s_openapi027::api::authentication::v1::TokenReviewStatus {
             self.audiences = crate::OptionableConvert::try_from_optioned(
                 other.audiences,
             )?;
-        } else {
-            self.audiences = crate::OptionableConvert::try_from_optioned(
-                other.audiences,
-            )?;
+        } else if let Some(self_value) = self.audiences.as_mut()
+            && let Some(other_value) = other.audiences
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.authenticated.is_none() {
             self.authenticated = crate::OptionableConvert::try_from_optioned(
                 other.authenticated,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.authenticated,
-                other.authenticated,
-            )?;
+        } else if let Some(self_value) = self.authenticated.as_mut()
+            && let Some(other_value) = other.authenticated
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.error.is_none() {
             self.error = crate::OptionableConvert::try_from_optioned(other.error)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.error, other.error)?;
+        } else if let Some(self_value) = self.error.as_mut()
+            && let Some(other_value) = other.error
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.user.is_none() {
             self.user = crate::OptionableConvert::try_from_optioned(other.user)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.user, other.user)?;
+        } else if let Some(self_value) = self.user.as_mut()
+            && let Some(other_value) = other.user
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -80,20 +80,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::PodFailurePoli
             self.on_exit_codes = crate::OptionableConvert::try_from_optioned(
                 other.on_exit_codes,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.on_exit_codes,
-                other.on_exit_codes,
-            )?;
+        } else if let Some(self_value) = self.on_exit_codes.as_mut()
+            && let Some(other_value) = other.on_exit_codes
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.on_pod_conditions.is_none() {
             self.on_pod_conditions = crate::OptionableConvert::try_from_optioned(
                 other.on_pod_conditions,
             )?;
-        } else {
-            self.on_pod_conditions = crate::OptionableConvert::try_from_optioned(
-                other.on_pod_conditions,
-            )?;
+        } else if let Some(self_value) = self.on_pod_conditions.as_mut()
+            && let Some(other_value) = other.on_pod_conditions
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

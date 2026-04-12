@@ -68,25 +68,28 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimStatus {
             self.allocation = crate::OptionableConvert::try_from_optioned(
                 other.allocation,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.allocation, other.allocation)?;
+        } else if let Some(self_value) = self.allocation.as_mut()
+            && let Some(other_value) = other.allocation
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.deallocation_requested.is_none() {
             self.deallocation_requested = crate::OptionableConvert::try_from_optioned(
                 other.deallocation_requested,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.deallocation_requested,
-                other.deallocation_requested,
-            )?;
+        } else if let Some(self_value) = self.deallocation_requested.as_mut()
+            && let Some(other_value) = other.deallocation_requested
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.reserved_for.is_none() {
             self.reserved_for = crate::OptionableConvert::try_from_optioned(
                 other.reserved_for,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.reserved_for, other.reserved_for)?;
+        } else if let Some(self_value) = self.reserved_for.as_mut()
+            && let Some(other_value) = other.reserved_for
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

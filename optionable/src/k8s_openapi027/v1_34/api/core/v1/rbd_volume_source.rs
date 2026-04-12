@@ -82,43 +82,55 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::RBDVolumeSource
     fn merge(&mut self, other: RBDVolumeSourceAc) -> Result<(), crate::Error> {
         if self.fs_type.is_none() {
             self.fs_type = crate::OptionableConvert::try_from_optioned(other.fs_type)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
+        } else if let Some(self_value) = self.fs_type.as_mut()
+            && let Some(other_value) = other.fs_type
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.image {
             self.image = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.keyring.is_none() {
             self.keyring = crate::OptionableConvert::try_from_optioned(other.keyring)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.keyring, other.keyring)?;
+        } else if let Some(self_value) = self.keyring.as_mut()
+            && let Some(other_value) = other.keyring
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.monitors {
             self.monitors = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.pool.is_none() {
             self.pool = crate::OptionableConvert::try_from_optioned(other.pool)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.pool, other.pool)?;
+        } else if let Some(self_value) = self.pool.as_mut()
+            && let Some(other_value) = other.pool
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.read_only.is_none() {
             self.read_only = crate::OptionableConvert::try_from_optioned(
                 other.read_only,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        } else if let Some(self_value) = self.read_only.as_mut()
+            && let Some(other_value) = other.read_only
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.secret_ref.is_none() {
             self.secret_ref = crate::OptionableConvert::try_from_optioned(
                 other.secret_ref,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
+        } else if let Some(self_value) = self.secret_ref.as_mut()
+            && let Some(other_value) = other.secret_ref
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.user.is_none() {
             self.user = crate::OptionableConvert::try_from_optioned(other.user)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.user, other.user)?;
+        } else if let Some(self_value) = self.user.as_mut()
+            && let Some(other_value) = other.user
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

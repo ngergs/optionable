@@ -48,20 +48,26 @@ for k8s_openapi027::api::discovery::v1::EndpointConditions {
     fn merge(&mut self, other: EndpointConditionsAc) -> Result<(), crate::Error> {
         if self.ready.is_none() {
             self.ready = crate::OptionableConvert::try_from_optioned(other.ready)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.ready, other.ready)?;
+        } else if let Some(self_value) = self.ready.as_mut()
+            && let Some(other_value) = other.ready
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.serving.is_none() {
             self.serving = crate::OptionableConvert::try_from_optioned(other.serving)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.serving, other.serving)?;
+        } else if let Some(self_value) = self.serving.as_mut()
+            && let Some(other_value) = other.serving
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.terminating.is_none() {
             self.terminating = crate::OptionableConvert::try_from_optioned(
                 other.terminating,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.terminating, other.terminating)?;
+        } else if let Some(self_value) = self.terminating.as_mut()
+            && let Some(other_value) = other.terminating
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

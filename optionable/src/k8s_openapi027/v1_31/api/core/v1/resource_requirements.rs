@@ -65,18 +65,24 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceRequire
     fn merge(&mut self, other: ResourceRequirementsAc) -> Result<(), crate::Error> {
         if self.claims.is_none() {
             self.claims = crate::OptionableConvert::try_from_optioned(other.claims)?;
-        } else {
-            crate::merge::try_merge_optioned_map(&mut self.claims, other.claims)?;
+        } else if let Some(self_value) = self.claims.as_mut()
+            && let Some(other_value) = other.claims
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.limits.is_none() {
             self.limits = crate::OptionableConvert::try_from_optioned(other.limits)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.limits, other.limits)?;
+        } else if let Some(self_value) = self.limits.as_mut()
+            && let Some(other_value) = other.limits
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.requests.is_none() {
             self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
+        } else if let Some(self_value) = self.requests.as_mut()
+            && let Some(other_value) = other.requests
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

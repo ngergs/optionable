@@ -141,36 +141,37 @@ for k8s_openapi027::api::resource::v1::DeviceRequestAllocationResult {
             self.admin_access = crate::OptionableConvert::try_from_optioned(
                 other.admin_access,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
+        } else if let Some(self_value) = self.admin_access.as_mut()
+            && let Some(other_value) = other.admin_access
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.binding_conditions.is_none() {
             self.binding_conditions = crate::OptionableConvert::try_from_optioned(
                 other.binding_conditions,
             )?;
-        } else {
-            self.binding_conditions = crate::OptionableConvert::try_from_optioned(
-                other.binding_conditions,
-            )?;
+        } else if let Some(self_value) = self.binding_conditions.as_mut()
+            && let Some(other_value) = other.binding_conditions
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.binding_failure_conditions.is_none() {
             self.binding_failure_conditions = crate::OptionableConvert::try_from_optioned(
                 other.binding_failure_conditions,
             )?;
-        } else {
-            self.binding_failure_conditions = crate::OptionableConvert::try_from_optioned(
-                other.binding_failure_conditions,
-            )?;
+        } else if let Some(self_value) = self.binding_failure_conditions.as_mut()
+            && let Some(other_value) = other.binding_failure_conditions
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.consumed_capacity.is_none() {
             self.consumed_capacity = crate::OptionableConvert::try_from_optioned(
                 other.consumed_capacity,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.consumed_capacity,
-                other.consumed_capacity,
-            )?;
+        } else if let Some(self_value) = self.consumed_capacity.as_mut()
+            && let Some(other_value) = other.consumed_capacity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.device {
             self.device = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -186,17 +187,19 @@ for k8s_openapi027::api::resource::v1::DeviceRequestAllocationResult {
         }
         if self.share_id.is_none() {
             self.share_id = crate::OptionableConvert::try_from_optioned(other.share_id)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.share_id, other.share_id)?;
+        } else if let Some(self_value) = self.share_id.as_mut()
+            && let Some(other_value) = other.share_id
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.tolerations.is_none() {
             self.tolerations = crate::OptionableConvert::try_from_optioned(
                 other.tolerations,
             )?;
-        } else {
-            self.tolerations = crate::OptionableConvert::try_from_optioned(
-                other.tolerations,
-            )?;
+        } else if let Some(self_value) = self.tolerations.as_mut()
+            && let Some(other_value) = other.tolerations
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -44,15 +44,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EmptyDirVolumeS
     fn merge(&mut self, other: EmptyDirVolumeSourceAc) -> Result<(), crate::Error> {
         if self.medium.is_none() {
             self.medium = crate::OptionableConvert::try_from_optioned(other.medium)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.medium, other.medium)?;
+        } else if let Some(self_value) = self.medium.as_mut()
+            && let Some(other_value) = other.medium
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.size_limit.is_none() {
             self.size_limit = crate::OptionableConvert::try_from_optioned(
                 other.size_limit,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.size_limit, other.size_limit)?;
+        } else if let Some(self_value) = self.size_limit.as_mut()
+            && let Some(other_value) = other.size_limit
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

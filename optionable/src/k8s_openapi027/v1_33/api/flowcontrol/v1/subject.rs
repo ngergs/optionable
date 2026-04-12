@@ -66,8 +66,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::Subject 
     fn merge(&mut self, other: SubjectAc) -> Result<(), crate::Error> {
         if self.group.is_none() {
             self.group = crate::OptionableConvert::try_from_optioned(other.group)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.group, other.group)?;
+        } else if let Some(self_value) = self.group.as_mut()
+            && let Some(other_value) = other.group
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -76,16 +78,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::Subject 
             self.service_account = crate::OptionableConvert::try_from_optioned(
                 other.service_account,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.service_account,
-                other.service_account,
-            )?;
+        } else if let Some(self_value) = self.service_account.as_mut()
+            && let Some(other_value) = other.service_account
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.user.is_none() {
             self.user = crate::OptionableConvert::try_from_optioned(other.user)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.user, other.user)?;
+        } else if let Some(self_value) = self.user.as_mut()
+            && let Some(other_value) = other.user
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

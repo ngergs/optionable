@@ -52,19 +52,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointHi
             self.for_nodes = crate::OptionableConvert::try_from_optioned(
                 other.for_nodes,
             )?;
-        } else {
-            self.for_nodes = crate::OptionableConvert::try_from_optioned(
-                other.for_nodes,
-            )?;
+        } else if let Some(self_value) = self.for_nodes.as_mut()
+            && let Some(other_value) = other.for_nodes
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.for_zones.is_none() {
             self.for_zones = crate::OptionableConvert::try_from_optioned(
                 other.for_zones,
             )?;
-        } else {
-            self.for_zones = crate::OptionableConvert::try_from_optioned(
-                other.for_zones,
-            )?;
+        } else if let Some(self_value) = self.for_zones.as_mut()
+            && let Some(other_value) = other.for_zones
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -86,40 +86,44 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeProjectio
             self.cluster_trust_bundle = crate::OptionableConvert::try_from_optioned(
                 other.cluster_trust_bundle,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.cluster_trust_bundle,
-                other.cluster_trust_bundle,
-            )?;
+        } else if let Some(self_value) = self.cluster_trust_bundle.as_mut()
+            && let Some(other_value) = other.cluster_trust_bundle
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.config_map.is_none() {
             self.config_map = crate::OptionableConvert::try_from_optioned(
                 other.config_map,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.config_map, other.config_map)?;
+        } else if let Some(self_value) = self.config_map.as_mut()
+            && let Some(other_value) = other.config_map
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.downward_api.is_none() {
             self.downward_api = crate::OptionableConvert::try_from_optioned(
                 other.downward_api,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.downward_api, other.downward_api)?;
+        } else if let Some(self_value) = self.downward_api.as_mut()
+            && let Some(other_value) = other.downward_api
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.secret.is_none() {
             self.secret = crate::OptionableConvert::try_from_optioned(other.secret)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.secret, other.secret)?;
+        } else if let Some(self_value) = self.secret.as_mut()
+            && let Some(other_value) = other.secret
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.service_account_token.is_none() {
             self.service_account_token = crate::OptionableConvert::try_from_optioned(
                 other.service_account_token,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.service_account_token,
-                other.service_account_token,
-            )?;
+        } else if let Some(self_value) = self.service_account_token.as_mut()
+            && let Some(other_value) = other.service_account_token
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

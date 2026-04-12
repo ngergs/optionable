@@ -59,11 +59,10 @@ for k8s_openapi027::api::storagemigration::v1alpha1::StorageVersionMigrationSpec
             self.continue_token = crate::OptionableConvert::try_from_optioned(
                 other.continue_token,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.continue_token,
-                other.continue_token,
-            )?;
+        } else if let Some(self_value) = self.continue_token.as_mut()
+            && let Some(other_value) = other.continue_token
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.resource {
             self.resource = crate::OptionableConvert::try_from_optioned(other_value)?;

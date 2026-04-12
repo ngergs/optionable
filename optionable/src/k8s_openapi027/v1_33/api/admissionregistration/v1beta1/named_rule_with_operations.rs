@@ -74,51 +74,53 @@ for k8s_openapi027::api::admissionregistration::v1beta1::NamedRuleWithOperations
             self.api_groups = crate::OptionableConvert::try_from_optioned(
                 other.api_groups,
             )?;
-        } else {
-            self.api_groups = crate::OptionableConvert::try_from_optioned(
-                other.api_groups,
-            )?;
+        } else if let Some(self_value) = self.api_groups.as_mut()
+            && let Some(other_value) = other.api_groups
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.api_versions.is_none() {
             self.api_versions = crate::OptionableConvert::try_from_optioned(
                 other.api_versions,
             )?;
-        } else {
-            self.api_versions = crate::OptionableConvert::try_from_optioned(
-                other.api_versions,
-            )?;
+        } else if let Some(self_value) = self.api_versions.as_mut()
+            && let Some(other_value) = other.api_versions
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.operations.is_none() {
             self.operations = crate::OptionableConvert::try_from_optioned(
                 other.operations,
             )?;
-        } else {
-            self.operations = crate::OptionableConvert::try_from_optioned(
-                other.operations,
-            )?;
+        } else if let Some(self_value) = self.operations.as_mut()
+            && let Some(other_value) = other.operations
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.resource_names.is_none() {
             self.resource_names = crate::OptionableConvert::try_from_optioned(
                 other.resource_names,
             )?;
-        } else {
-            self.resource_names = crate::OptionableConvert::try_from_optioned(
-                other.resource_names,
-            )?;
+        } else if let Some(self_value) = self.resource_names.as_mut()
+            && let Some(other_value) = other.resource_names
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.resources.is_none() {
             self.resources = crate::OptionableConvert::try_from_optioned(
                 other.resources,
             )?;
-        } else {
-            self.resources = crate::OptionableConvert::try_from_optioned(
-                other.resources,
-            )?;
+        } else if let Some(self_value) = self.resources.as_mut()
+            && let Some(other_value) = other.resources
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.scope.is_none() {
             self.scope = crate::OptionableConvert::try_from_optioned(other.scope)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.scope, other.scope)?;
+        } else if let Some(self_value) = self.scope.as_mut()
+            && let Some(other_value) = other.scope
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

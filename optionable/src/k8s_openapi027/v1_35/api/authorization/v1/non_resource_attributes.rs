@@ -44,13 +44,17 @@ for k8s_openapi027::api::authorization::v1::NonResourceAttributes {
     fn merge(&mut self, other: NonResourceAttributesAc) -> Result<(), crate::Error> {
         if self.path.is_none() {
             self.path = crate::OptionableConvert::try_from_optioned(other.path)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.path, other.path)?;
+        } else if let Some(self_value) = self.path.as_mut()
+            && let Some(other_value) = other.path
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.verb.is_none() {
             self.verb = crate::OptionableConvert::try_from_optioned(other.verb)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.verb, other.verb)?;
+        } else if let Some(self_value) = self.verb.as_mut()
+            && let Some(other_value) = other.verb
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

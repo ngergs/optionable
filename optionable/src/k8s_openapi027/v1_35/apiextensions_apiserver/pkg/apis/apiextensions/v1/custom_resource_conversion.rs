@@ -56,8 +56,10 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         }
         if self.webhook.is_none() {
             self.webhook = crate::OptionableConvert::try_from_optioned(other.webhook)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.webhook, other.webhook)?;
+        } else if let Some(self_value) = self.webhook.as_mut()
+            && let Some(other_value) = other.webhook
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

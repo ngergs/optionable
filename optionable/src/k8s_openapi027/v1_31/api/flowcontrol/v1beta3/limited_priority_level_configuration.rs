@@ -77,41 +77,37 @@ for k8s_openapi027::api::flowcontrol::v1beta3::LimitedPriorityLevelConfiguration
             self.borrowing_limit_percent = crate::OptionableConvert::try_from_optioned(
                 other.borrowing_limit_percent,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.borrowing_limit_percent,
-                other.borrowing_limit_percent,
-            )?;
+        } else if let Some(self_value) = self.borrowing_limit_percent.as_mut()
+            && let Some(other_value) = other.borrowing_limit_percent
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.lendable_percent.is_none() {
             self.lendable_percent = crate::OptionableConvert::try_from_optioned(
                 other.lendable_percent,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.lendable_percent,
-                other.lendable_percent,
-            )?;
+        } else if let Some(self_value) = self.lendable_percent.as_mut()
+            && let Some(other_value) = other.lendable_percent
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.limit_response.is_none() {
             self.limit_response = crate::OptionableConvert::try_from_optioned(
                 other.limit_response,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.limit_response,
-                other.limit_response,
-            )?;
+        } else if let Some(self_value) = self.limit_response.as_mut()
+            && let Some(other_value) = other.limit_response
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.nominal_concurrency_shares.is_none() {
             self.nominal_concurrency_shares = crate::OptionableConvert::try_from_optioned(
                 other.nominal_concurrency_shares,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.nominal_concurrency_shares,
-                other.nominal_concurrency_shares,
-            )?;
+        } else if let Some(self_value) = self.nominal_concurrency_shares.as_mut()
+            && let Some(other_value) = other.nominal_concurrency_shares
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

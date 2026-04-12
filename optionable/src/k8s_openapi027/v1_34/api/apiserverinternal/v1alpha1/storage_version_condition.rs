@@ -86,11 +86,10 @@ for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionCondition {
             self.last_transition_time = crate::OptionableConvert::try_from_optioned(
                 other.last_transition_time,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.last_transition_time,
-                other.last_transition_time,
-            )?;
+        } else if let Some(self_value) = self.last_transition_time.as_mut()
+            && let Some(other_value) = other.last_transition_time
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.message {
             self.message = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -99,11 +98,10 @@ for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionCondition {
             self.observed_generation = crate::OptionableConvert::try_from_optioned(
                 other.observed_generation,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.observed_generation,
-                other.observed_generation,
-            )?;
+        } else if let Some(self_value) = self.observed_generation.as_mut()
+            && let Some(other_value) = other.observed_generation
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.reason {
             self.reason = crate::OptionableConvert::try_from_optioned(other_value)?;

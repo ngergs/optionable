@@ -54,11 +54,10 @@ for k8s_openapi027::api::resource::v1alpha3::PodSchedulingContextStatus {
             self.resource_claims = crate::OptionableConvert::try_from_optioned(
                 other.resource_claims,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.resource_claims,
-                other.resource_claims,
-            )?;
+        } else if let Some(self_value) = self.resource_claims.as_mut()
+            && let Some(other_value) = other.resource_claims
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

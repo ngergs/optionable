@@ -59,20 +59,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Devic
     fn merge(&mut self, other: DeviceClaimAc) -> Result<(), crate::Error> {
         if self.config.is_none() {
             self.config = crate::OptionableConvert::try_from_optioned(other.config)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.config, other.config)?;
+        } else if let Some(self_value) = self.config.as_mut()
+            && let Some(other_value) = other.config
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.constraints.is_none() {
             self.constraints = crate::OptionableConvert::try_from_optioned(
                 other.constraints,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.constraints, other.constraints)?;
+        } else if let Some(self_value) = self.constraints.as_mut()
+            && let Some(other_value) = other.constraints
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.requests.is_none() {
             self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
+        } else if let Some(self_value) = self.requests.as_mut()
+            && let Some(other_value) = other.requests
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

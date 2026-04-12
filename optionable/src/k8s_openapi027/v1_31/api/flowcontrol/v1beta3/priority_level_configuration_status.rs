@@ -50,8 +50,10 @@ for k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationStatus 
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

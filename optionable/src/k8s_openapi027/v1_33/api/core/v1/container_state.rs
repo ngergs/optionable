@@ -53,20 +53,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerState 
     fn merge(&mut self, other: ContainerStateAc) -> Result<(), crate::Error> {
         if self.running.is_none() {
             self.running = crate::OptionableConvert::try_from_optioned(other.running)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.running, other.running)?;
+        } else if let Some(self_value) = self.running.as_mut()
+            && let Some(other_value) = other.running
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.terminated.is_none() {
             self.terminated = crate::OptionableConvert::try_from_optioned(
                 other.terminated,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.terminated, other.terminated)?;
+        } else if let Some(self_value) = self.terminated.as_mut()
+            && let Some(other_value) = other.terminated
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.waiting.is_none() {
             self.waiting = crate::OptionableConvert::try_from_optioned(other.waiting)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.waiting, other.waiting)?;
+        } else if let Some(self_value) = self.waiting.as_mut()
+            && let Some(other_value) = other.waiting
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -61,11 +61,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ModifyVolumeSta
             self.target_volume_attributes_class_name = crate::OptionableConvert::try_from_optioned(
                 other.target_volume_attributes_class_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.target_volume_attributes_class_name,
-                other.target_volume_attributes_class_name,
-            )?;
+        } else if let Some(self_value) = self
+            .target_volume_attributes_class_name
+            .as_mut()
+            && let Some(other_value) = other.target_volume_attributes_class_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

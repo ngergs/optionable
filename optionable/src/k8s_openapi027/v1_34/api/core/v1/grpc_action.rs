@@ -51,8 +51,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::GRPCAction {
         }
         if self.service.is_none() {
             self.service = crate::OptionableConvert::try_from_optioned(other.service)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.service, other.service)?;
+        } else if let Some(self_value) = self.service.as_mut()
+            && let Some(other_value) = other.service
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

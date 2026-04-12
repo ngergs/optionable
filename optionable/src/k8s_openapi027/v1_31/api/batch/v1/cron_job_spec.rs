@@ -90,21 +90,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobSpec {
             self.concurrency_policy = crate::OptionableConvert::try_from_optioned(
                 other.concurrency_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.concurrency_policy,
-                other.concurrency_policy,
-            )?;
+        } else if let Some(self_value) = self.concurrency_policy.as_mut()
+            && let Some(other_value) = other.concurrency_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.failed_jobs_history_limit.is_none() {
             self.failed_jobs_history_limit = crate::OptionableConvert::try_from_optioned(
                 other.failed_jobs_history_limit,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.failed_jobs_history_limit,
-                other.failed_jobs_history_limit,
-            )?;
+        } else if let Some(self_value) = self.failed_jobs_history_limit.as_mut()
+            && let Some(other_value) = other.failed_jobs_history_limit
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.job_template {
             self.job_template = crate::OptionableConvert::try_from_optioned(
@@ -118,33 +116,35 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobSpec {
             self.starting_deadline_seconds = crate::OptionableConvert::try_from_optioned(
                 other.starting_deadline_seconds,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.starting_deadline_seconds,
-                other.starting_deadline_seconds,
-            )?;
+        } else if let Some(self_value) = self.starting_deadline_seconds.as_mut()
+            && let Some(other_value) = other.starting_deadline_seconds
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.successful_jobs_history_limit.is_none() {
             self.successful_jobs_history_limit = crate::OptionableConvert::try_from_optioned(
                 other.successful_jobs_history_limit,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.successful_jobs_history_limit,
-                other.successful_jobs_history_limit,
-            )?;
+        } else if let Some(self_value) = self.successful_jobs_history_limit.as_mut()
+            && let Some(other_value) = other.successful_jobs_history_limit
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.suspend.is_none() {
             self.suspend = crate::OptionableConvert::try_from_optioned(other.suspend)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.suspend, other.suspend)?;
+        } else if let Some(self_value) = self.suspend.as_mut()
+            && let Some(other_value) = other.suspend
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.time_zone.is_none() {
             self.time_zone = crate::OptionableConvert::try_from_optioned(
                 other.time_zone,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.time_zone, other.time_zone)?;
+        } else if let Some(self_value) = self.time_zone.as_mut()
+            && let Some(other_value) = other.time_zone
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

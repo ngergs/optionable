@@ -60,27 +60,28 @@ for k8s_openapi027::api::resource::v1beta1::DeviceClassSpec {
     fn merge(&mut self, other: DeviceClassSpecAc) -> Result<(), crate::Error> {
         if self.config.is_none() {
             self.config = crate::OptionableConvert::try_from_optioned(other.config)?;
-        } else {
-            self.config = crate::OptionableConvert::try_from_optioned(other.config)?;
+        } else if let Some(self_value) = self.config.as_mut()
+            && let Some(other_value) = other.config
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.extended_resource_name.is_none() {
             self.extended_resource_name = crate::OptionableConvert::try_from_optioned(
                 other.extended_resource_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.extended_resource_name,
-                other.extended_resource_name,
-            )?;
+        } else if let Some(self_value) = self.extended_resource_name.as_mut()
+            && let Some(other_value) = other.extended_resource_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.selectors.is_none() {
             self.selectors = crate::OptionableConvert::try_from_optioned(
                 other.selectors,
             )?;
-        } else {
-            self.selectors = crate::OptionableConvert::try_from_optioned(
-                other.selectors,
-            )?;
+        } else if let Some(self_value) = self.selectors.as_mut()
+            && let Some(other_value) = other.selectors
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

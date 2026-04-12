@@ -72,8 +72,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::HTTPIngre
         }
         if self.path.is_none() {
             self.path = crate::OptionableConvert::try_from_optioned(other.path)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.path, other.path)?;
+        } else if let Some(self_value) = self.path.as_mut()
+            && let Some(other_value) = other.path
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.path_type {
             self.path_type = crate::OptionableConvert::try_from_optioned(other_value)?;

@@ -60,8 +60,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSINodeDrive
             self.allocatable = crate::OptionableConvert::try_from_optioned(
                 other.allocatable,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.allocatable, other.allocatable)?;
+        } else if let Some(self_value) = self.allocatable.as_mut()
+            && let Some(other_value) = other.allocatable
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         self.name = other.name;
         if let Some(other_value) = other.node_id {
@@ -71,10 +73,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSINodeDrive
             self.topology_keys = crate::OptionableConvert::try_from_optioned(
                 other.topology_keys,
             )?;
-        } else {
-            self.topology_keys = crate::OptionableConvert::try_from_optioned(
-                other.topology_keys,
-            )?;
+        } else if let Some(self_value) = self.topology_keys.as_mut()
+            && let Some(other_value) = other.topology_keys
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

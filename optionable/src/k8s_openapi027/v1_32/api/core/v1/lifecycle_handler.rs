@@ -60,25 +60,33 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LifecycleHandle
     fn merge(&mut self, other: LifecycleHandlerAc) -> Result<(), crate::Error> {
         if self.exec.is_none() {
             self.exec = crate::OptionableConvert::try_from_optioned(other.exec)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.exec, other.exec)?;
+        } else if let Some(self_value) = self.exec.as_mut()
+            && let Some(other_value) = other.exec
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.http_get.is_none() {
             self.http_get = crate::OptionableConvert::try_from_optioned(other.http_get)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.http_get, other.http_get)?;
+        } else if let Some(self_value) = self.http_get.as_mut()
+            && let Some(other_value) = other.http_get
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.sleep.is_none() {
             self.sleep = crate::OptionableConvert::try_from_optioned(other.sleep)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.sleep, other.sleep)?;
+        } else if let Some(self_value) = self.sleep.as_mut()
+            && let Some(other_value) = other.sleep
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.tcp_socket.is_none() {
             self.tcp_socket = crate::OptionableConvert::try_from_optioned(
                 other.tcp_socket,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.tcp_socket, other.tcp_socket)?;
+        } else if let Some(self_value) = self.tcp_socket.as_mut()
+            && let Some(other_value) = other.tcp_socket
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -64,28 +64,28 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.observed_generation.is_none() {
             self.observed_generation = crate::OptionableConvert::try_from_optioned(
                 other.observed_generation,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.observed_generation,
-                other.observed_generation,
-            )?;
+        } else if let Some(self_value) = self.observed_generation.as_mut()
+            && let Some(other_value) = other.observed_generation
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.type_checking.is_none() {
             self.type_checking = crate::OptionableConvert::try_from_optioned(
                 other.type_checking,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.type_checking,
-                other.type_checking,
-            )?;
+        } else if let Some(self_value) = self.type_checking.as_mut()
+            && let Some(other_value) = other.type_checking
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

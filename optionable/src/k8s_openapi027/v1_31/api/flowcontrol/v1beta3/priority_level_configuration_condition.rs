@@ -73,31 +73,38 @@ for k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationConditi
             self.last_transition_time = crate::OptionableConvert::try_from_optioned(
                 other.last_transition_time,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.last_transition_time,
-                other.last_transition_time,
-            )?;
+        } else if let Some(self_value) = self.last_transition_time.as_mut()
+            && let Some(other_value) = other.last_transition_time
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.message.is_none() {
             self.message = crate::OptionableConvert::try_from_optioned(other.message)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.message, other.message)?;
+        } else if let Some(self_value) = self.message.as_mut()
+            && let Some(other_value) = other.message
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.reason.is_none() {
             self.reason = crate::OptionableConvert::try_from_optioned(other.reason)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
+        } else if let Some(self_value) = self.reason.as_mut()
+            && let Some(other_value) = other.reason
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.status.is_none() {
             self.status = crate::OptionableConvert::try_from_optioned(other.status)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.status, other.status)?;
+        } else if let Some(self_value) = self.status.as_mut()
+            && let Some(other_value) = other.status
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.type_.is_none() {
             self.type_ = crate::OptionableConvert::try_from_optioned(other.type_)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
+        } else if let Some(self_value) = self.type_.as_mut()
+            && let Some(other_value) = other.type_
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

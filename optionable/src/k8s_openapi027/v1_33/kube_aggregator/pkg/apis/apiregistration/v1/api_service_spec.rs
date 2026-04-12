@@ -82,13 +82,17 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceS
             self.ca_bundle = crate::OptionableConvert::try_from_optioned(
                 other.ca_bundle,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
+        } else if let Some(self_value) = self.ca_bundle.as_mut()
+            && let Some(other_value) = other.ca_bundle
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.group.is_none() {
             self.group = crate::OptionableConvert::try_from_optioned(other.group)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.group, other.group)?;
+        } else if let Some(self_value) = self.group.as_mut()
+            && let Some(other_value) = other.group
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.group_priority_minimum {
             self.group_priority_minimum = crate::OptionableConvert::try_from_optioned(
@@ -99,21 +103,24 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceS
             self.insecure_skip_tls_verify = crate::OptionableConvert::try_from_optioned(
                 other.insecure_skip_tls_verify,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.insecure_skip_tls_verify,
-                other.insecure_skip_tls_verify,
-            )?;
+        } else if let Some(self_value) = self.insecure_skip_tls_verify.as_mut()
+            && let Some(other_value) = other.insecure_skip_tls_verify
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.service.is_none() {
             self.service = crate::OptionableConvert::try_from_optioned(other.service)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.service, other.service)?;
+        } else if let Some(self_value) = self.service.as_mut()
+            && let Some(other_value) = other.service
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.version.is_none() {
             self.version = crate::OptionableConvert::try_from_optioned(other.version)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.version, other.version)?;
+        } else if let Some(self_value) = self.version.as_mut()
+            && let Some(other_value) = other.version
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.version_priority {
             self.version_priority = crate::OptionableConvert::try_from_optioned(

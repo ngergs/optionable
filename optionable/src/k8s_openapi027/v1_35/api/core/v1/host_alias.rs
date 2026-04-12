@@ -43,10 +43,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HostAlias {
             self.hostnames = crate::OptionableConvert::try_from_optioned(
                 other.hostnames,
             )?;
-        } else {
-            self.hostnames = crate::OptionableConvert::try_from_optioned(
-                other.hostnames,
-            )?;
+        } else if let Some(self_value) = self.hostnames.as_mut()
+            && let Some(other_value) = other.hostnames
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         self.ip = other.ip;
         Ok(())

@@ -352,26 +352,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             self.active_deadline_seconds = crate::OptionableConvert::try_from_optioned(
                 other.active_deadline_seconds,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.active_deadline_seconds,
-                other.active_deadline_seconds,
-            )?;
+        } else if let Some(self_value) = self.active_deadline_seconds.as_mut()
+            && let Some(other_value) = other.active_deadline_seconds
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.affinity.is_none() {
             self.affinity = crate::OptionableConvert::try_from_optioned(other.affinity)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.affinity, other.affinity)?;
+        } else if let Some(self_value) = self.affinity.as_mut()
+            && let Some(other_value) = other.affinity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.automount_service_account_token.is_none() {
             self.automount_service_account_token = crate::OptionableConvert::try_from_optioned(
                 other.automount_service_account_token,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.automount_service_account_token,
-                other.automount_service_account_token,
-            )?;
+        } else if let Some(self_value) = self.automount_service_account_token.as_mut()
+            && let Some(other_value) = other.automount_service_account_token
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.containers {
             crate::merge::try_merge_optioned_map(&mut self.containers, other_value)?;
@@ -380,303 +380,311 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
             self.dns_config = crate::OptionableConvert::try_from_optioned(
                 other.dns_config,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.dns_config, other.dns_config)?;
+        } else if let Some(self_value) = self.dns_config.as_mut()
+            && let Some(other_value) = other.dns_config
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.dns_policy.is_none() {
             self.dns_policy = crate::OptionableConvert::try_from_optioned(
                 other.dns_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.dns_policy, other.dns_policy)?;
+        } else if let Some(self_value) = self.dns_policy.as_mut()
+            && let Some(other_value) = other.dns_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.enable_service_links.is_none() {
             self.enable_service_links = crate::OptionableConvert::try_from_optioned(
                 other.enable_service_links,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.enable_service_links,
-                other.enable_service_links,
-            )?;
+        } else if let Some(self_value) = self.enable_service_links.as_mut()
+            && let Some(other_value) = other.enable_service_links
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.ephemeral_containers.is_none() {
             self.ephemeral_containers = crate::OptionableConvert::try_from_optioned(
                 other.ephemeral_containers,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.ephemeral_containers,
-                other.ephemeral_containers,
-            )?;
+        } else if let Some(self_value) = self.ephemeral_containers.as_mut()
+            && let Some(other_value) = other.ephemeral_containers
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.host_aliases.is_none() {
             self.host_aliases = crate::OptionableConvert::try_from_optioned(
                 other.host_aliases,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.host_aliases,
-                other.host_aliases,
-            )?;
+        } else if let Some(self_value) = self.host_aliases.as_mut()
+            && let Some(other_value) = other.host_aliases
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.host_ipc.is_none() {
             self.host_ipc = crate::OptionableConvert::try_from_optioned(other.host_ipc)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.host_ipc, other.host_ipc)?;
+        } else if let Some(self_value) = self.host_ipc.as_mut()
+            && let Some(other_value) = other.host_ipc
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.host_network.is_none() {
             self.host_network = crate::OptionableConvert::try_from_optioned(
                 other.host_network,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.host_network, other.host_network)?;
+        } else if let Some(self_value) = self.host_network.as_mut()
+            && let Some(other_value) = other.host_network
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.host_pid.is_none() {
             self.host_pid = crate::OptionableConvert::try_from_optioned(other.host_pid)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.host_pid, other.host_pid)?;
+        } else if let Some(self_value) = self.host_pid.as_mut()
+            && let Some(other_value) = other.host_pid
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.host_users.is_none() {
             self.host_users = crate::OptionableConvert::try_from_optioned(
                 other.host_users,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.host_users, other.host_users)?;
+        } else if let Some(self_value) = self.host_users.as_mut()
+            && let Some(other_value) = other.host_users
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.hostname.is_none() {
             self.hostname = crate::OptionableConvert::try_from_optioned(other.hostname)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
+        } else if let Some(self_value) = self.hostname.as_mut()
+            && let Some(other_value) = other.hostname
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.image_pull_secrets.is_none() {
             self.image_pull_secrets = crate::OptionableConvert::try_from_optioned(
                 other.image_pull_secrets,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.image_pull_secrets,
-                other.image_pull_secrets,
-            )?;
+        } else if let Some(self_value) = self.image_pull_secrets.as_mut()
+            && let Some(other_value) = other.image_pull_secrets
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.init_containers.is_none() {
             self.init_containers = crate::OptionableConvert::try_from_optioned(
                 other.init_containers,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.init_containers,
-                other.init_containers,
-            )?;
+        } else if let Some(self_value) = self.init_containers.as_mut()
+            && let Some(other_value) = other.init_containers
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.node_name.is_none() {
             self.node_name = crate::OptionableConvert::try_from_optioned(
                 other.node_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.node_name, other.node_name)?;
+        } else if let Some(self_value) = self.node_name.as_mut()
+            && let Some(other_value) = other.node_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.node_selector.is_none() {
             self.node_selector = crate::OptionableConvert::try_from_optioned(
                 other.node_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.node_selector,
-                other.node_selector,
-            )?;
+        } else if let Some(self_value) = self.node_selector.as_mut()
+            && let Some(other_value) = other.node_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.os.is_none() {
             self.os = crate::OptionableConvert::try_from_optioned(other.os)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.os, other.os)?;
+        } else if let Some(self_value) = self.os.as_mut()
+            && let Some(other_value) = other.os
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.overhead.is_none() {
             self.overhead = crate::OptionableConvert::try_from_optioned(other.overhead)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.overhead, other.overhead)?;
+        } else if let Some(self_value) = self.overhead.as_mut()
+            && let Some(other_value) = other.overhead
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.preemption_policy.is_none() {
             self.preemption_policy = crate::OptionableConvert::try_from_optioned(
                 other.preemption_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.preemption_policy,
-                other.preemption_policy,
-            )?;
+        } else if let Some(self_value) = self.preemption_policy.as_mut()
+            && let Some(other_value) = other.preemption_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.priority.is_none() {
             self.priority = crate::OptionableConvert::try_from_optioned(other.priority)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.priority, other.priority)?;
+        } else if let Some(self_value) = self.priority.as_mut()
+            && let Some(other_value) = other.priority
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.priority_class_name.is_none() {
             self.priority_class_name = crate::OptionableConvert::try_from_optioned(
                 other.priority_class_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.priority_class_name,
-                other.priority_class_name,
-            )?;
+        } else if let Some(self_value) = self.priority_class_name.as_mut()
+            && let Some(other_value) = other.priority_class_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.readiness_gates.is_none() {
             self.readiness_gates = crate::OptionableConvert::try_from_optioned(
                 other.readiness_gates,
             )?;
-        } else {
-            self.readiness_gates = crate::OptionableConvert::try_from_optioned(
-                other.readiness_gates,
-            )?;
+        } else if let Some(self_value) = self.readiness_gates.as_mut()
+            && let Some(other_value) = other.readiness_gates
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.resource_claims.is_none() {
             self.resource_claims = crate::OptionableConvert::try_from_optioned(
                 other.resource_claims,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.resource_claims,
-                other.resource_claims,
-            )?;
+        } else if let Some(self_value) = self.resource_claims.as_mut()
+            && let Some(other_value) = other.resource_claims
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.resources.is_none() {
             self.resources = crate::OptionableConvert::try_from_optioned(
                 other.resources,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
+        } else if let Some(self_value) = self.resources.as_mut()
+            && let Some(other_value) = other.resources
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.restart_policy.is_none() {
             self.restart_policy = crate::OptionableConvert::try_from_optioned(
                 other.restart_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.restart_policy,
-                other.restart_policy,
-            )?;
+        } else if let Some(self_value) = self.restart_policy.as_mut()
+            && let Some(other_value) = other.restart_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.runtime_class_name.is_none() {
             self.runtime_class_name = crate::OptionableConvert::try_from_optioned(
                 other.runtime_class_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.runtime_class_name,
-                other.runtime_class_name,
-            )?;
+        } else if let Some(self_value) = self.runtime_class_name.as_mut()
+            && let Some(other_value) = other.runtime_class_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.scheduler_name.is_none() {
             self.scheduler_name = crate::OptionableConvert::try_from_optioned(
                 other.scheduler_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.scheduler_name,
-                other.scheduler_name,
-            )?;
+        } else if let Some(self_value) = self.scheduler_name.as_mut()
+            && let Some(other_value) = other.scheduler_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.scheduling_gates.is_none() {
             self.scheduling_gates = crate::OptionableConvert::try_from_optioned(
                 other.scheduling_gates,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.scheduling_gates,
-                other.scheduling_gates,
-            )?;
+        } else if let Some(self_value) = self.scheduling_gates.as_mut()
+            && let Some(other_value) = other.scheduling_gates
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.security_context.is_none() {
             self.security_context = crate::OptionableConvert::try_from_optioned(
                 other.security_context,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.security_context,
-                other.security_context,
-            )?;
+        } else if let Some(self_value) = self.security_context.as_mut()
+            && let Some(other_value) = other.security_context
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.service_account.is_none() {
             self.service_account = crate::OptionableConvert::try_from_optioned(
                 other.service_account,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.service_account,
-                other.service_account,
-            )?;
+        } else if let Some(self_value) = self.service_account.as_mut()
+            && let Some(other_value) = other.service_account
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.service_account_name.is_none() {
             self.service_account_name = crate::OptionableConvert::try_from_optioned(
                 other.service_account_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.service_account_name,
-                other.service_account_name,
-            )?;
+        } else if let Some(self_value) = self.service_account_name.as_mut()
+            && let Some(other_value) = other.service_account_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.set_hostname_as_fqdn.is_none() {
             self.set_hostname_as_fqdn = crate::OptionableConvert::try_from_optioned(
                 other.set_hostname_as_fqdn,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.set_hostname_as_fqdn,
-                other.set_hostname_as_fqdn,
-            )?;
+        } else if let Some(self_value) = self.set_hostname_as_fqdn.as_mut()
+            && let Some(other_value) = other.set_hostname_as_fqdn
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.share_process_namespace.is_none() {
             self.share_process_namespace = crate::OptionableConvert::try_from_optioned(
                 other.share_process_namespace,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.share_process_namespace,
-                other.share_process_namespace,
-            )?;
+        } else if let Some(self_value) = self.share_process_namespace.as_mut()
+            && let Some(other_value) = other.share_process_namespace
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.subdomain.is_none() {
             self.subdomain = crate::OptionableConvert::try_from_optioned(
                 other.subdomain,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.subdomain, other.subdomain)?;
+        } else if let Some(self_value) = self.subdomain.as_mut()
+            && let Some(other_value) = other.subdomain
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.termination_grace_period_seconds.is_none() {
             self.termination_grace_period_seconds = crate::OptionableConvert::try_from_optioned(
                 other.termination_grace_period_seconds,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.termination_grace_period_seconds,
-                other.termination_grace_period_seconds,
-            )?;
+        } else if let Some(self_value) = self.termination_grace_period_seconds.as_mut()
+            && let Some(other_value) = other.termination_grace_period_seconds
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.tolerations.is_none() {
             self.tolerations = crate::OptionableConvert::try_from_optioned(
                 other.tolerations,
             )?;
-        } else {
-            self.tolerations = crate::OptionableConvert::try_from_optioned(
-                other.tolerations,
-            )?;
+        } else if let Some(self_value) = self.tolerations.as_mut()
+            && let Some(other_value) = other.tolerations
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.topology_spread_constraints.is_none() {
             self.topology_spread_constraints = crate::OptionableConvert::try_from_optioned(
                 other.topology_spread_constraints,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.topology_spread_constraints,
-                other.topology_spread_constraints,
-            )?;
+        } else if let Some(self_value) = self.topology_spread_constraints.as_mut()
+            && let Some(other_value) = other.topology_spread_constraints
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.volumes.is_none() {
             self.volumes = crate::OptionableConvert::try_from_optioned(other.volumes)?;
-        } else {
-            crate::merge::try_merge_optioned_map(&mut self.volumes, other.volumes)?;
+        } else if let Some(self_value) = self.volumes.as_mut()
+            && let Some(other_value) = other.volumes
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         Ok(())
     }

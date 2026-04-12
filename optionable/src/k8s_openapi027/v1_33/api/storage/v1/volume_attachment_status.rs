@@ -69,8 +69,10 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentStatus {
             self.attach_error = crate::OptionableConvert::try_from_optioned(
                 other.attach_error,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.attach_error, other.attach_error)?;
+        } else if let Some(self_value) = self.attach_error.as_mut()
+            && let Some(other_value) = other.attach_error
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.attached {
             self.attached = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -79,18 +81,19 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentStatus {
             self.attachment_metadata = crate::OptionableConvert::try_from_optioned(
                 other.attachment_metadata,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.attachment_metadata,
-                other.attachment_metadata,
-            )?;
+        } else if let Some(self_value) = self.attachment_metadata.as_mut()
+            && let Some(other_value) = other.attachment_metadata
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.detach_error.is_none() {
             self.detach_error = crate::OptionableConvert::try_from_optioned(
                 other.detach_error,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.detach_error, other.detach_error)?;
+        } else if let Some(self_value) = self.detach_error.as_mut()
+            && let Some(other_value) = other.detach_error
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

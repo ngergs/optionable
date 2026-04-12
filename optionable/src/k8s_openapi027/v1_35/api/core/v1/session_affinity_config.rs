@@ -42,8 +42,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SessionAffinity
             self.client_ip = crate::OptionableConvert::try_from_optioned(
                 other.client_ip,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.client_ip, other.client_ip)?;
+        } else if let Some(self_value) = self.client_ip.as_mut()
+            && let Some(other_value) = other.client_ip
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

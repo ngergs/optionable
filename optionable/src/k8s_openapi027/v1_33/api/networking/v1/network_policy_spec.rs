@@ -65,29 +65,35 @@ for k8s_openapi027::api::networking::v1::NetworkPolicySpec {
     fn merge(&mut self, other: NetworkPolicySpecAc) -> Result<(), crate::Error> {
         if self.egress.is_none() {
             self.egress = crate::OptionableConvert::try_from_optioned(other.egress)?;
-        } else {
-            self.egress = crate::OptionableConvert::try_from_optioned(other.egress)?;
+        } else if let Some(self_value) = self.egress.as_mut()
+            && let Some(other_value) = other.egress
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.ingress.is_none() {
             self.ingress = crate::OptionableConvert::try_from_optioned(other.ingress)?;
-        } else {
-            self.ingress = crate::OptionableConvert::try_from_optioned(other.ingress)?;
+        } else if let Some(self_value) = self.ingress.as_mut()
+            && let Some(other_value) = other.ingress
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.pod_selector.is_none() {
             self.pod_selector = crate::OptionableConvert::try_from_optioned(
                 other.pod_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.pod_selector, other.pod_selector)?;
+        } else if let Some(self_value) = self.pod_selector.as_mut()
+            && let Some(other_value) = other.pod_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.policy_types.is_none() {
             self.policy_types = crate::OptionableConvert::try_from_optioned(
                 other.policy_types,
             )?;
-        } else {
-            self.policy_types = crate::OptionableConvert::try_from_optioned(
-                other.policy_types,
-            )?;
+        } else if let Some(self_value) = self.policy_types.as_mut()
+            && let Some(other_value) = other.policy_types
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

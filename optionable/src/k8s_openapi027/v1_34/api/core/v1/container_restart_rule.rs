@@ -53,8 +53,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerRestar
             self.exit_codes = crate::OptionableConvert::try_from_optioned(
                 other.exit_codes,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.exit_codes, other.exit_codes)?;
+        } else if let Some(self_value) = self.exit_codes.as_mut()
+            && let Some(other_value) = other.exit_codes
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

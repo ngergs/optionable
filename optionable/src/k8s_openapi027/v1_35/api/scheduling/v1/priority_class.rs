@@ -74,29 +74,29 @@ impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1::PriorityC
             self.description = crate::OptionableConvert::try_from_optioned(
                 other.description,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.description, other.description)?;
+        } else if let Some(self_value) = self.description.as_mut()
+            && let Some(other_value) = other.description
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.global_default.is_none() {
             self.global_default = crate::OptionableConvert::try_from_optioned(
                 other.global_default,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.global_default,
-                other.global_default,
-            )?;
+        } else if let Some(self_value) = self.global_default.as_mut()
+            && let Some(other_value) = other.global_default
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         self.metadata = other.metadata;
         if self.preemption_policy.is_none() {
             self.preemption_policy = crate::OptionableConvert::try_from_optioned(
                 other.preemption_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.preemption_policy,
-                other.preemption_policy,
-            )?;
+        } else if let Some(self_value) = self.preemption_policy.as_mut()
+            && let Some(other_value) = other.preemption_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.value {
             self.value = crate::OptionableConvert::try_from_optioned(other_value)?;

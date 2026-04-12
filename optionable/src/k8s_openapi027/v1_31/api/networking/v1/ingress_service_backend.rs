@@ -52,8 +52,10 @@ for k8s_openapi027::api::networking::v1::IngressServiceBackend {
         }
         if self.port.is_none() {
             self.port = crate::OptionableConvert::try_from_optioned(other.port)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.port, other.port)?;
+        } else if let Some(self_value) = self.port.as_mut()
+            && let Some(other_value) = other.port
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

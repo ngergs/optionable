@@ -58,19 +58,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSelectorTer
             self.match_expressions = crate::OptionableConvert::try_from_optioned(
                 other.match_expressions,
             )?;
-        } else {
-            self.match_expressions = crate::OptionableConvert::try_from_optioned(
-                other.match_expressions,
-            )?;
+        } else if let Some(self_value) = self.match_expressions.as_mut()
+            && let Some(other_value) = other.match_expressions
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.match_fields.is_none() {
             self.match_fields = crate::OptionableConvert::try_from_optioned(
                 other.match_fields,
             )?;
-        } else {
-            self.match_fields = crate::OptionableConvert::try_from_optioned(
-                other.match_fields,
-            )?;
+        } else if let Some(self_value) = self.match_fields.as_mut()
+            && let Some(other_value) = other.match_fields
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

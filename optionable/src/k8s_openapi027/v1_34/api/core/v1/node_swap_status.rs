@@ -35,8 +35,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSwapStatus 
     fn merge(&mut self, other: NodeSwapStatusAc) -> Result<(), crate::Error> {
         if self.capacity.is_none() {
             self.capacity = crate::OptionableConvert::try_from_optioned(other.capacity)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
+        } else if let Some(self_value) = self.capacity.as_mut()
+            && let Some(other_value) = other.capacity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

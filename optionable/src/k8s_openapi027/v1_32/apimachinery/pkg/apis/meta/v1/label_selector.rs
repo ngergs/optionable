@@ -56,17 +56,19 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector {
             self.match_expressions = crate::OptionableConvert::try_from_optioned(
                 other.match_expressions,
             )?;
-        } else {
-            self.match_expressions = crate::OptionableConvert::try_from_optioned(
-                other.match_expressions,
-            )?;
+        } else if let Some(self_value) = self.match_expressions.as_mut()
+            && let Some(other_value) = other.match_expressions
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.match_labels.is_none() {
             self.match_labels = crate::OptionableConvert::try_from_optioned(
                 other.match_labels,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.match_labels, other.match_labels)?;
+        } else if let Some(self_value) = self.match_labels.as_mut()
+            && let Some(other_value) = other.match_labels
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

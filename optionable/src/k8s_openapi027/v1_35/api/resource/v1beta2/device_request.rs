@@ -69,17 +69,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta2::Device
     fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::Error> {
         if self.exactly.is_none() {
             self.exactly = crate::OptionableConvert::try_from_optioned(other.exactly)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.exactly, other.exactly)?;
+        } else if let Some(self_value) = self.exactly.as_mut()
+            && let Some(other_value) = other.exactly
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.first_available.is_none() {
             self.first_available = crate::OptionableConvert::try_from_optioned(
                 other.first_available,
             )?;
-        } else {
-            self.first_available = crate::OptionableConvert::try_from_optioned(
-                other.first_available,
-            )?;
+        } else if let Some(self_value) = self.first_available.as_mut()
+            && let Some(other_value) = other.first_available
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.name {
             self.name = crate::OptionableConvert::try_from_optioned(other_value)?;

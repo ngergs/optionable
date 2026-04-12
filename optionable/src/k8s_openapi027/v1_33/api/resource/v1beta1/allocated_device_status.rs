@@ -81,16 +81,17 @@ for k8s_openapi027::api::resource::v1beta1::AllocatedDeviceStatus {
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.conditions,
-                other.conditions,
-            )?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.data.is_none() {
             self.data = crate::OptionableConvert::try_from_optioned(other.data)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.data, other.data)?;
+        } else if let Some(self_value) = self.data.as_mut()
+            && let Some(other_value) = other.data
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         self.device = other.device;
         self.driver = other.driver;
@@ -98,8 +99,10 @@ for k8s_openapi027::api::resource::v1beta1::AllocatedDeviceStatus {
             self.network_data = crate::OptionableConvert::try_from_optioned(
                 other.network_data,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.network_data, other.network_data)?;
+        } else if let Some(self_value) = self.network_data.as_mut()
+            && let Some(other_value) = other.network_data
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         self.pool = other.pool;
         Ok(())

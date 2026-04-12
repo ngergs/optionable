@@ -48,13 +48,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ProjectedVolume
             self.default_mode = crate::OptionableConvert::try_from_optioned(
                 other.default_mode,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.default_mode, other.default_mode)?;
+        } else if let Some(self_value) = self.default_mode.as_mut()
+            && let Some(other_value) = other.default_mode
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.sources.is_none() {
             self.sources = crate::OptionableConvert::try_from_optioned(other.sources)?;
-        } else {
-            self.sources = crate::OptionableConvert::try_from_optioned(other.sources)?;
+        } else if let Some(self_value) = self.sources.as_mut()
+            && let Some(other_value) = other.sources
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

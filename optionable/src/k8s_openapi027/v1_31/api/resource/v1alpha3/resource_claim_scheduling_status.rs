@@ -60,11 +60,10 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSchedulingStatus {
             self.unsuitable_nodes = crate::OptionableConvert::try_from_optioned(
                 other.unsuitable_nodes,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.unsuitable_nodes,
-                other.unsuitable_nodes,
-            )?;
+        } else if let Some(self_value) = self.unsuitable_nodes.as_mut()
+            && let Some(other_value) = other.unsuitable_nodes
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

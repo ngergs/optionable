@@ -64,28 +64,28 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             self.accepted_names = crate::OptionableConvert::try_from_optioned(
                 other.accepted_names,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.accepted_names,
-                other.accepted_names,
-            )?;
+        } else if let Some(self_value) = self.accepted_names.as_mut()
+            && let Some(other_value) = other.accepted_names
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.conditions.is_none() {
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.stored_versions.is_none() {
             self.stored_versions = crate::OptionableConvert::try_from_optioned(
                 other.stored_versions,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.stored_versions,
-                other.stored_versions,
-            )?;
+        } else if let Some(self_value) = self.stored_versions.as_mut()
+            && let Some(other_value) = other.stored_versions
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

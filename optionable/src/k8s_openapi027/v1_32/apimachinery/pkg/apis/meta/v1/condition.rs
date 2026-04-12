@@ -95,11 +95,10 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition {
             self.observed_generation = crate::OptionableConvert::try_from_optioned(
                 other.observed_generation,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.observed_generation,
-                other.observed_generation,
-            )?;
+        } else if let Some(self_value) = self.observed_generation.as_mut()
+            && let Some(other_value) = other.observed_generation
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.reason {
             self.reason = crate::OptionableConvert::try_from_optioned(other_value)?;

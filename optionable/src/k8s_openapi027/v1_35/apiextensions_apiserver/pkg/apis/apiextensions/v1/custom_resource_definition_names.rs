@@ -79,8 +79,10 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             self.categories = crate::OptionableConvert::try_from_optioned(
                 other.categories,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.categories, other.categories)?;
+        } else if let Some(self_value) = self.categories.as_mut()
+            && let Some(other_value) = other.categories
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -89,8 +91,10 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             self.list_kind = crate::OptionableConvert::try_from_optioned(
                 other.list_kind,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.list_kind, other.list_kind)?;
+        } else if let Some(self_value) = self.list_kind.as_mut()
+            && let Some(other_value) = other.list_kind
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.plural {
             self.plural = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -99,13 +103,17 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             self.short_names = crate::OptionableConvert::try_from_optioned(
                 other.short_names,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.short_names, other.short_names)?;
+        } else if let Some(self_value) = self.short_names.as_mut()
+            && let Some(other_value) = other.short_names
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.singular.is_none() {
             self.singular = crate::OptionableConvert::try_from_optioned(other.singular)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.singular, other.singular)?;
+        } else if let Some(self_value) = self.singular.as_mut()
+            && let Some(other_value) = other.singular
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

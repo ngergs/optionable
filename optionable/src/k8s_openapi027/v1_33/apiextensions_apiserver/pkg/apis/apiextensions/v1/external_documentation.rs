@@ -44,13 +44,17 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Exter
             self.description = crate::OptionableConvert::try_from_optioned(
                 other.description,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.description, other.description)?;
+        } else if let Some(self_value) = self.description.as_mut()
+            && let Some(other_value) = other.description
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.url.is_none() {
             self.url = crate::OptionableConvert::try_from_optioned(other.url)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.url, other.url)?;
+        } else if let Some(self_value) = self.url.as_mut()
+            && let Some(other_value) = other.url
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

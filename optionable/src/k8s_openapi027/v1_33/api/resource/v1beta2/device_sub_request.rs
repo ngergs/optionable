@@ -109,16 +109,17 @@ for k8s_openapi027::api::resource::v1beta2::DeviceSubRequest {
             self.allocation_mode = crate::OptionableConvert::try_from_optioned(
                 other.allocation_mode,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.allocation_mode,
-                other.allocation_mode,
-            )?;
+        } else if let Some(self_value) = self.allocation_mode.as_mut()
+            && let Some(other_value) = other.allocation_mode
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.count.is_none() {
             self.count = crate::OptionableConvert::try_from_optioned(other.count)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.count, other.count)?;
+        } else if let Some(self_value) = self.count.as_mut()
+            && let Some(other_value) = other.count
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.device_class_name {
             self.device_class_name = crate::OptionableConvert::try_from_optioned(
@@ -132,19 +133,19 @@ for k8s_openapi027::api::resource::v1beta2::DeviceSubRequest {
             self.selectors = crate::OptionableConvert::try_from_optioned(
                 other.selectors,
             )?;
-        } else {
-            self.selectors = crate::OptionableConvert::try_from_optioned(
-                other.selectors,
-            )?;
+        } else if let Some(self_value) = self.selectors.as_mut()
+            && let Some(other_value) = other.selectors
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.tolerations.is_none() {
             self.tolerations = crate::OptionableConvert::try_from_optioned(
                 other.tolerations,
             )?;
-        } else {
-            self.tolerations = crate::OptionableConvert::try_from_optioned(
-                other.tolerations,
-            )?;
+        } else if let Some(self_value) = self.tolerations.as_mut()
+            && let Some(other_value) = other.tolerations
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

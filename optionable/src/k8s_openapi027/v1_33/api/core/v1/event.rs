@@ -147,30 +147,35 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
     fn merge(&mut self, other: EventAc) -> Result<(), crate::Error> {
         if self.action.is_none() {
             self.action = crate::OptionableConvert::try_from_optioned(other.action)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.action, other.action)?;
+        } else if let Some(self_value) = self.action.as_mut()
+            && let Some(other_value) = other.action
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.count.is_none() {
             self.count = crate::OptionableConvert::try_from_optioned(other.count)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.count, other.count)?;
+        } else if let Some(self_value) = self.count.as_mut()
+            && let Some(other_value) = other.count
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.event_time.is_none() {
             self.event_time = crate::OptionableConvert::try_from_optioned(
                 other.event_time,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.event_time, other.event_time)?;
+        } else if let Some(self_value) = self.event_time.as_mut()
+            && let Some(other_value) = other.event_time
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.first_timestamp.is_none() {
             self.first_timestamp = crate::OptionableConvert::try_from_optioned(
                 other.first_timestamp,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.first_timestamp,
-                other.first_timestamp,
-            )?;
+        } else if let Some(self_value) = self.first_timestamp.as_mut()
+            && let Some(other_value) = other.first_timestamp
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.involved_object {
             self.involved_object = crate::OptionableConvert::try_from_optioned(
@@ -181,62 +186,71 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
             self.last_timestamp = crate::OptionableConvert::try_from_optioned(
                 other.last_timestamp,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.last_timestamp,
-                other.last_timestamp,
-            )?;
+        } else if let Some(self_value) = self.last_timestamp.as_mut()
+            && let Some(other_value) = other.last_timestamp
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.message.is_none() {
             self.message = crate::OptionableConvert::try_from_optioned(other.message)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.message, other.message)?;
+        } else if let Some(self_value) = self.message.as_mut()
+            && let Some(other_value) = other.message
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         self.metadata = other.metadata;
         if self.reason.is_none() {
             self.reason = crate::OptionableConvert::try_from_optioned(other.reason)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
+        } else if let Some(self_value) = self.reason.as_mut()
+            && let Some(other_value) = other.reason
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.related.is_none() {
             self.related = crate::OptionableConvert::try_from_optioned(other.related)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.related, other.related)?;
+        } else if let Some(self_value) = self.related.as_mut()
+            && let Some(other_value) = other.related
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.reporting_component.is_none() {
             self.reporting_component = crate::OptionableConvert::try_from_optioned(
                 other.reporting_component,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.reporting_component,
-                other.reporting_component,
-            )?;
+        } else if let Some(self_value) = self.reporting_component.as_mut()
+            && let Some(other_value) = other.reporting_component
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.reporting_instance.is_none() {
             self.reporting_instance = crate::OptionableConvert::try_from_optioned(
                 other.reporting_instance,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.reporting_instance,
-                other.reporting_instance,
-            )?;
+        } else if let Some(self_value) = self.reporting_instance.as_mut()
+            && let Some(other_value) = other.reporting_instance
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.series.is_none() {
             self.series = crate::OptionableConvert::try_from_optioned(other.series)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.series, other.series)?;
+        } else if let Some(self_value) = self.series.as_mut()
+            && let Some(other_value) = other.series
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.source.is_none() {
             self.source = crate::OptionableConvert::try_from_optioned(other.source)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.source, other.source)?;
+        } else if let Some(self_value) = self.source.as_mut()
+            && let Some(other_value) = other.source
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.type_.is_none() {
             self.type_ = crate::OptionableConvert::try_from_optioned(other.type_)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
+        } else if let Some(self_value) = self.type_.as_mut()
+            && let Some(other_value) = other.type_
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

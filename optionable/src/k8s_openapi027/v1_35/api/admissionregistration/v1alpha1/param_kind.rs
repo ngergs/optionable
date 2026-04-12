@@ -46,13 +46,17 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ParamKind {
             self.api_version = crate::OptionableConvert::try_from_optioned(
                 other.api_version,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
+        } else if let Some(self_value) = self.api_version.as_mut()
+            && let Some(other_value) = other.api_version
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.kind.is_none() {
             self.kind = crate::OptionableConvert::try_from_optioned(other.kind)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
+        } else if let Some(self_value) = self.kind.as_mut()
+            && let Some(other_value) = other.kind
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -45,15 +45,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FlockerVolumeSo
             self.dataset_name = crate::OptionableConvert::try_from_optioned(
                 other.dataset_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.dataset_name, other.dataset_name)?;
+        } else if let Some(self_value) = self.dataset_name.as_mut()
+            && let Some(other_value) = other.dataset_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.dataset_uuid.is_none() {
             self.dataset_uuid = crate::OptionableConvert::try_from_optioned(
                 other.dataset_uuid,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.dataset_uuid, other.dataset_uuid)?;
+        } else if let Some(self_value) = self.dataset_uuid.as_mut()
+            && let Some(other_value) = other.dataset_uuid
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -100,29 +100,29 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIStorageCa
     fn merge(&mut self, other: CSIStorageCapacityAc) -> Result<(), crate::Error> {
         if self.capacity.is_none() {
             self.capacity = crate::OptionableConvert::try_from_optioned(other.capacity)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
+        } else if let Some(self_value) = self.capacity.as_mut()
+            && let Some(other_value) = other.capacity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.maximum_volume_size.is_none() {
             self.maximum_volume_size = crate::OptionableConvert::try_from_optioned(
                 other.maximum_volume_size,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.maximum_volume_size,
-                other.maximum_volume_size,
-            )?;
+        } else if let Some(self_value) = self.maximum_volume_size.as_mut()
+            && let Some(other_value) = other.maximum_volume_size
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         self.metadata = other.metadata;
         if self.node_topology.is_none() {
             self.node_topology = crate::OptionableConvert::try_from_optioned(
                 other.node_topology,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.node_topology,
-                other.node_topology,
-            )?;
+        } else if let Some(self_value) = self.node_topology.as_mut()
+            && let Some(other_value) = other.node_topology
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.storage_class_name {
             self.storage_class_name = crate::OptionableConvert::try_from_optioned(

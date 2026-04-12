@@ -81,45 +81,46 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvVarSource {
             self.config_map_key_ref = crate::OptionableConvert::try_from_optioned(
                 other.config_map_key_ref,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.config_map_key_ref,
-                other.config_map_key_ref,
-            )?;
+        } else if let Some(self_value) = self.config_map_key_ref.as_mut()
+            && let Some(other_value) = other.config_map_key_ref
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.field_ref.is_none() {
             self.field_ref = crate::OptionableConvert::try_from_optioned(
                 other.field_ref,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.field_ref, other.field_ref)?;
+        } else if let Some(self_value) = self.field_ref.as_mut()
+            && let Some(other_value) = other.field_ref
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.file_key_ref.is_none() {
             self.file_key_ref = crate::OptionableConvert::try_from_optioned(
                 other.file_key_ref,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.file_key_ref, other.file_key_ref)?;
+        } else if let Some(self_value) = self.file_key_ref.as_mut()
+            && let Some(other_value) = other.file_key_ref
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.resource_field_ref.is_none() {
             self.resource_field_ref = crate::OptionableConvert::try_from_optioned(
                 other.resource_field_ref,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.resource_field_ref,
-                other.resource_field_ref,
-            )?;
+        } else if let Some(self_value) = self.resource_field_ref.as_mut()
+            && let Some(other_value) = other.resource_field_ref
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.secret_key_ref.is_none() {
             self.secret_key_ref = crate::OptionableConvert::try_from_optioned(
                 other.secret_key_ref,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.secret_key_ref,
-                other.secret_key_ref,
-            )?;
+        } else if let Some(self_value) = self.secret_key_ref.as_mut()
+            && let Some(other_value) = other.secret_key_ref
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

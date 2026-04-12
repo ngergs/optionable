@@ -84,8 +84,10 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerSpec {
     ) -> Result<(), crate::Error> {
         if self.behavior.is_none() {
             self.behavior = crate::OptionableConvert::try_from_optioned(other.behavior)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.behavior, other.behavior)?;
+        } else if let Some(self_value) = self.behavior.as_mut()
+            && let Some(other_value) = other.behavior
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.max_replicas {
             self.max_replicas = crate::OptionableConvert::try_from_optioned(
@@ -94,15 +96,19 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerSpec {
         }
         if self.metrics.is_none() {
             self.metrics = crate::OptionableConvert::try_from_optioned(other.metrics)?;
-        } else {
-            self.metrics = crate::OptionableConvert::try_from_optioned(other.metrics)?;
+        } else if let Some(self_value) = self.metrics.as_mut()
+            && let Some(other_value) = other.metrics
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.min_replicas.is_none() {
             self.min_replicas = crate::OptionableConvert::try_from_optioned(
                 other.min_replicas,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.min_replicas, other.min_replicas)?;
+        } else if let Some(self_value) = self.min_replicas.as_mut()
+            && let Some(other_value) = other.min_replicas
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.scale_target_ref {
             self.scale_target_ref = crate::OptionableConvert::try_from_optioned(

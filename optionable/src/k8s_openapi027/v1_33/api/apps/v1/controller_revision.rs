@@ -64,8 +64,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ControllerRevis
     fn merge(&mut self, other: ControllerRevisionAc) -> Result<(), crate::Error> {
         if self.data.is_none() {
             self.data = crate::OptionableConvert::try_from_optioned(other.data)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.data, other.data)?;
+        } else if let Some(self_value) = self.data.as_mut()
+            && let Some(other_value) = other.data
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         self.metadata = other.metadata;
         if let Some(other_value) = other.revision {

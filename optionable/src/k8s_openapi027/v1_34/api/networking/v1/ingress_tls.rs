@@ -42,15 +42,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressTL
     fn merge(&mut self, other: IngressTLSAc) -> Result<(), crate::Error> {
         if self.hosts.is_none() {
             self.hosts = crate::OptionableConvert::try_from_optioned(other.hosts)?;
-        } else {
-            self.hosts = crate::OptionableConvert::try_from_optioned(other.hosts)?;
+        } else if let Some(self_value) = self.hosts.as_mut()
+            && let Some(other_value) = other.hosts
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.secret_name.is_none() {
             self.secret_name = crate::OptionableConvert::try_from_optioned(
                 other.secret_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.secret_name, other.secret_name)?;
+        } else if let Some(self_value) = self.secret_name.as_mut()
+            && let Some(other_value) = other.secret_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

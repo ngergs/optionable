@@ -51,11 +51,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SeccompProfile 
             self.localhost_profile = crate::OptionableConvert::try_from_optioned(
                 other.localhost_profile,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.localhost_profile,
-                other.localhost_profile,
-            )?;
+        } else if let Some(self_value) = self.localhost_profile.as_mut()
+            && let Some(other_value) = other.localhost_profile
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.type_ {
             self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;

@@ -60,10 +60,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LinuxContainerU
             self.supplemental_groups = crate::OptionableConvert::try_from_optioned(
                 other.supplemental_groups,
             )?;
-        } else {
-            self.supplemental_groups = crate::OptionableConvert::try_from_optioned(
-                other.supplemental_groups,
-            )?;
+        } else if let Some(self_value) = self.supplemental_groups.as_mut()
+            && let Some(other_value) = other.supplemental_groups
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.uid {
             self.uid = crate::OptionableConvert::try_from_optioned(other_value)?;

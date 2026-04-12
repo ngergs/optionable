@@ -100,38 +100,42 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LimitRangeItem 
     fn merge(&mut self, other: LimitRangeItemAc) -> Result<(), crate::Error> {
         if self.default.is_none() {
             self.default = crate::OptionableConvert::try_from_optioned(other.default)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.default, other.default)?;
+        } else if let Some(self_value) = self.default.as_mut()
+            && let Some(other_value) = other.default
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.default_request.is_none() {
             self.default_request = crate::OptionableConvert::try_from_optioned(
                 other.default_request,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.default_request,
-                other.default_request,
-            )?;
+        } else if let Some(self_value) = self.default_request.as_mut()
+            && let Some(other_value) = other.default_request
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.max.is_none() {
             self.max = crate::OptionableConvert::try_from_optioned(other.max)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.max, other.max)?;
+        } else if let Some(self_value) = self.max.as_mut()
+            && let Some(other_value) = other.max
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.max_limit_request_ratio.is_none() {
             self.max_limit_request_ratio = crate::OptionableConvert::try_from_optioned(
                 other.max_limit_request_ratio,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.max_limit_request_ratio,
-                other.max_limit_request_ratio,
-            )?;
+        } else if let Some(self_value) = self.max_limit_request_ratio.as_mut()
+            && let Some(other_value) = other.max_limit_request_ratio
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.min.is_none() {
             self.min = crate::OptionableConvert::try_from_optioned(other.min)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.min, other.min)?;
+        } else if let Some(self_value) = self.min.as_mut()
+            && let Some(other_value) = other.min
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.type_ {
             self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;

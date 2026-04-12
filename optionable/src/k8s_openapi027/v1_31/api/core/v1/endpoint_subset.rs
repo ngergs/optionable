@@ -75,24 +75,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointSubset 
             self.addresses = crate::OptionableConvert::try_from_optioned(
                 other.addresses,
             )?;
-        } else {
-            self.addresses = crate::OptionableConvert::try_from_optioned(
-                other.addresses,
-            )?;
+        } else if let Some(self_value) = self.addresses.as_mut()
+            && let Some(other_value) = other.addresses
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.not_ready_addresses.is_none() {
             self.not_ready_addresses = crate::OptionableConvert::try_from_optioned(
                 other.not_ready_addresses,
             )?;
-        } else {
-            self.not_ready_addresses = crate::OptionableConvert::try_from_optioned(
-                other.not_ready_addresses,
-            )?;
+        } else if let Some(self_value) = self.not_ready_addresses.as_mut()
+            && let Some(other_value) = other.not_ready_addresses
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.ports.is_none() {
             self.ports = crate::OptionableConvert::try_from_optioned(other.ports)?;
-        } else {
-            self.ports = crate::OptionableConvert::try_from_optioned(other.ports)?;
+        } else if let Some(self_value) = self.ports.as_mut()
+            && let Some(other_value) = other.ports
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -50,18 +50,24 @@ for k8s_openapi027::api::networking::v1::NetworkPolicyPort {
     fn merge(&mut self, other: NetworkPolicyPortAc) -> Result<(), crate::Error> {
         if self.end_port.is_none() {
             self.end_port = crate::OptionableConvert::try_from_optioned(other.end_port)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.end_port, other.end_port)?;
+        } else if let Some(self_value) = self.end_port.as_mut()
+            && let Some(other_value) = other.end_port
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.port.is_none() {
             self.port = crate::OptionableConvert::try_from_optioned(other.port)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.port, other.port)?;
+        } else if let Some(self_value) = self.port.as_mut()
+            && let Some(other_value) = other.port
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.protocol.is_none() {
             self.protocol = crate::OptionableConvert::try_from_optioned(other.protocol)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.protocol, other.protocol)?;
+        } else if let Some(self_value) = self.protocol.as_mut()
+            && let Some(other_value) = other.protocol
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

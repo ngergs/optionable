@@ -50,11 +50,10 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             self.open_api_v3_schema = crate::OptionableConvert::try_from_optioned(
                 other.open_api_v3_schema,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.open_api_v3_schema,
-                other.open_api_v3_schema,
-            )?;
+        } else if let Some(self_value) = self.open_api_v3_schema.as_mut()
+            && let Some(other_value) = other.open_api_v3_schema
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

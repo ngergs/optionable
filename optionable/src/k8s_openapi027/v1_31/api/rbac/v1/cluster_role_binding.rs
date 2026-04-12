@@ -74,8 +74,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::ClusterRoleBind
         }
         if self.subjects.is_none() {
             self.subjects = crate::OptionableConvert::try_from_optioned(other.subjects)?;
-        } else {
-            self.subjects = crate::OptionableConvert::try_from_optioned(other.subjects)?;
+        } else if let Some(self_value) = self.subjects.as_mut()
+            && let Some(other_value) = other.subjects
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

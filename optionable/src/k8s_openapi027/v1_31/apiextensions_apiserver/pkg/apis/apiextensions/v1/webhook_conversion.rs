@@ -54,11 +54,10 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Webho
             self.client_config = crate::OptionableConvert::try_from_optioned(
                 other.client_config,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.client_config,
-                other.client_config,
-            )?;
+        } else if let Some(self_value) = self.client_config.as_mut()
+            && let Some(other_value) = other.client_config
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.conversion_review_versions {
             self.conversion_review_versions = crate::OptionableConvert::try_from_optioned(

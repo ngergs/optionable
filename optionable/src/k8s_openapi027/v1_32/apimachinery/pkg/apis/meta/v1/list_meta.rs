@@ -56,35 +56,37 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ListMeta {
             self.continue_ = crate::OptionableConvert::try_from_optioned(
                 other.continue_,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.continue_, other.continue_)?;
+        } else if let Some(self_value) = self.continue_.as_mut()
+            && let Some(other_value) = other.continue_
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.remaining_item_count.is_none() {
             self.remaining_item_count = crate::OptionableConvert::try_from_optioned(
                 other.remaining_item_count,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.remaining_item_count,
-                other.remaining_item_count,
-            )?;
+        } else if let Some(self_value) = self.remaining_item_count.as_mut()
+            && let Some(other_value) = other.remaining_item_count
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.resource_version.is_none() {
             self.resource_version = crate::OptionableConvert::try_from_optioned(
                 other.resource_version,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.resource_version,
-                other.resource_version,
-            )?;
+        } else if let Some(self_value) = self.resource_version.as_mut()
+            && let Some(other_value) = other.resource_version
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.self_link.is_none() {
             self.self_link = crate::OptionableConvert::try_from_optioned(
                 other.self_link,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.self_link, other.self_link)?;
+        } else if let Some(self_value) = self.self_link.as_mut()
+            && let Some(other_value) = other.self_link
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -63,13 +63,17 @@ for k8s_openapi027::api::flowcontrol::v1::PriorityLevelConfigurationSpec {
     ) -> Result<(), crate::Error> {
         if self.exempt.is_none() {
             self.exempt = crate::OptionableConvert::try_from_optioned(other.exempt)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.exempt, other.exempt)?;
+        } else if let Some(self_value) = self.exempt.as_mut()
+            && let Some(other_value) = other.exempt
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.limited.is_none() {
             self.limited = crate::OptionableConvert::try_from_optioned(other.limited)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.limited, other.limited)?;
+        } else if let Some(self_value) = self.limited.as_mut()
+            && let Some(other_value) = other.limited
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.type_ {
             self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;

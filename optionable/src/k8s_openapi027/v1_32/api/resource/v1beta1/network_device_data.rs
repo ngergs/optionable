@@ -54,26 +54,26 @@ for k8s_openapi027::api::resource::v1beta1::NetworkDeviceData {
             self.hardware_address = crate::OptionableConvert::try_from_optioned(
                 other.hardware_address,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.hardware_address,
-                other.hardware_address,
-            )?;
+        } else if let Some(self_value) = self.hardware_address.as_mut()
+            && let Some(other_value) = other.hardware_address
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.interface_name.is_none() {
             self.interface_name = crate::OptionableConvert::try_from_optioned(
                 other.interface_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.interface_name,
-                other.interface_name,
-            )?;
+        } else if let Some(self_value) = self.interface_name.as_mut()
+            && let Some(other_value) = other.interface_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.ips.is_none() {
             self.ips = crate::OptionableConvert::try_from_optioned(other.ips)?;
-        } else {
-            self.ips = crate::OptionableConvert::try_from_optioned(other.ips)?;
+        } else if let Some(self_value) = self.ips.as_mut()
+            && let Some(other_value) = other.ips
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

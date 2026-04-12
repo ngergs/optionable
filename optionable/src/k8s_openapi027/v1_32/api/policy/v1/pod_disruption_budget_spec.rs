@@ -79,36 +79,35 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec {
             self.max_unavailable = crate::OptionableConvert::try_from_optioned(
                 other.max_unavailable,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.max_unavailable,
-                other.max_unavailable,
-            )?;
+        } else if let Some(self_value) = self.max_unavailable.as_mut()
+            && let Some(other_value) = other.max_unavailable
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.min_available.is_none() {
             self.min_available = crate::OptionableConvert::try_from_optioned(
                 other.min_available,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.min_available,
-                other.min_available,
-            )?;
+        } else if let Some(self_value) = self.min_available.as_mut()
+            && let Some(other_value) = other.min_available
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.selector.is_none() {
             self.selector = crate::OptionableConvert::try_from_optioned(other.selector)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
+        } else if let Some(self_value) = self.selector.as_mut()
+            && let Some(other_value) = other.selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.unhealthy_pod_eviction_policy.is_none() {
             self.unhealthy_pod_eviction_policy = crate::OptionableConvert::try_from_optioned(
                 other.unhealthy_pod_eviction_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.unhealthy_pod_eviction_policy,
-                other.unhealthy_pod_eviction_policy,
-            )?;
+        } else if let Some(self_value) = self.unhealthy_pod_eviction_policy.as_mut()
+            && let Some(other_value) = other.unhealthy_pod_eviction_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

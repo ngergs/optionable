@@ -99,13 +99,17 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceSliceSpec {
             self.all_nodes = crate::OptionableConvert::try_from_optioned(
                 other.all_nodes,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.all_nodes, other.all_nodes)?;
+        } else if let Some(self_value) = self.all_nodes.as_mut()
+            && let Some(other_value) = other.all_nodes
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.devices.is_none() {
             self.devices = crate::OptionableConvert::try_from_optioned(other.devices)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
+        } else if let Some(self_value) = self.devices.as_mut()
+            && let Some(other_value) = other.devices
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.driver {
             self.driver = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -114,18 +118,19 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceSliceSpec {
             self.node_name = crate::OptionableConvert::try_from_optioned(
                 other.node_name,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.node_name, other.node_name)?;
+        } else if let Some(self_value) = self.node_name.as_mut()
+            && let Some(other_value) = other.node_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.node_selector.is_none() {
             self.node_selector = crate::OptionableConvert::try_from_optioned(
                 other.node_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.node_selector,
-                other.node_selector,
-            )?;
+        } else if let Some(self_value) = self.node_selector.as_mut()
+            && let Some(other_value) = other.node_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.pool {
             self.pool = crate::OptionableConvert::try_from_optioned(other_value)?;

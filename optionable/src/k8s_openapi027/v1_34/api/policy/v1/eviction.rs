@@ -59,11 +59,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::policy::v1::Eviction {
             self.delete_options = crate::OptionableConvert::try_from_optioned(
                 other.delete_options,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.delete_options,
-                other.delete_options,
-            )?;
+        } else if let Some(self_value) = self.delete_options.as_mut()
+            && let Some(other_value) = other.delete_options
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         self.metadata = other.metadata;
         Ok(())

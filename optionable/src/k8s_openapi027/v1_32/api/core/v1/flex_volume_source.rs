@@ -68,27 +68,35 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FlexVolumeSourc
         }
         if self.fs_type.is_none() {
             self.fs_type = crate::OptionableConvert::try_from_optioned(other.fs_type)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
+        } else if let Some(self_value) = self.fs_type.as_mut()
+            && let Some(other_value) = other.fs_type
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.options.is_none() {
             self.options = crate::OptionableConvert::try_from_optioned(other.options)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.options, other.options)?;
+        } else if let Some(self_value) = self.options.as_mut()
+            && let Some(other_value) = other.options
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.read_only.is_none() {
             self.read_only = crate::OptionableConvert::try_from_optioned(
                 other.read_only,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
+        } else if let Some(self_value) = self.read_only.as_mut()
+            && let Some(other_value) = other.read_only
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.secret_ref.is_none() {
             self.secret_ref = crate::OptionableConvert::try_from_optioned(
                 other.secret_ref,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
+        } else if let Some(self_value) = self.secret_ref.as_mut()
+            && let Some(other_value) = other.secret_ref
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

@@ -123,46 +123,46 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MatchResources {
             self.exclude_resource_rules = crate::OptionableConvert::try_from_optioned(
                 other.exclude_resource_rules,
             )?;
-        } else {
-            self.exclude_resource_rules = crate::OptionableConvert::try_from_optioned(
-                other.exclude_resource_rules,
-            )?;
+        } else if let Some(self_value) = self.exclude_resource_rules.as_mut()
+            && let Some(other_value) = other.exclude_resource_rules
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.match_policy.is_none() {
             self.match_policy = crate::OptionableConvert::try_from_optioned(
                 other.match_policy,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.match_policy, other.match_policy)?;
+        } else if let Some(self_value) = self.match_policy.as_mut()
+            && let Some(other_value) = other.match_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.namespace_selector.is_none() {
             self.namespace_selector = crate::OptionableConvert::try_from_optioned(
                 other.namespace_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.namespace_selector,
-                other.namespace_selector,
-            )?;
+        } else if let Some(self_value) = self.namespace_selector.as_mut()
+            && let Some(other_value) = other.namespace_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.object_selector.is_none() {
             self.object_selector = crate::OptionableConvert::try_from_optioned(
                 other.object_selector,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.object_selector,
-                other.object_selector,
-            )?;
+        } else if let Some(self_value) = self.object_selector.as_mut()
+            && let Some(other_value) = other.object_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.resource_rules.is_none() {
             self.resource_rules = crate::OptionableConvert::try_from_optioned(
                 other.resource_rules,
             )?;
-        } else {
-            self.resource_rules = crate::OptionableConvert::try_from_optioned(
-                other.resource_rules,
-            )?;
+        } else if let Some(self_value) = self.resource_rules.as_mut()
+            && let Some(other_value) = other.resource_rules
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

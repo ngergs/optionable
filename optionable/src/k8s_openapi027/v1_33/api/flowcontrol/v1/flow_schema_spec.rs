@@ -76,21 +76,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::FlowSche
             self.distinguisher_method = crate::OptionableConvert::try_from_optioned(
                 other.distinguisher_method,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.distinguisher_method,
-                other.distinguisher_method,
-            )?;
+        } else if let Some(self_value) = self.distinguisher_method.as_mut()
+            && let Some(other_value) = other.distinguisher_method
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.matching_precedence.is_none() {
             self.matching_precedence = crate::OptionableConvert::try_from_optioned(
                 other.matching_precedence,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.matching_precedence,
-                other.matching_precedence,
-            )?;
+        } else if let Some(self_value) = self.matching_precedence.as_mut()
+            && let Some(other_value) = other.matching_precedence
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.priority_level_configuration {
             self.priority_level_configuration = crate::OptionableConvert::try_from_optioned(
@@ -99,8 +97,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::FlowSche
         }
         if self.rules.is_none() {
             self.rules = crate::OptionableConvert::try_from_optioned(other.rules)?;
-        } else {
-            self.rules = crate::OptionableConvert::try_from_optioned(other.rules)?;
+        } else if let Some(self_value) = self.rules.as_mut()
+            && let Some(other_value) = other.rules
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

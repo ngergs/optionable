@@ -52,21 +52,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceStatus {
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.conditions,
-                other.conditions,
-            )?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.load_balancer.is_none() {
             self.load_balancer = crate::OptionableConvert::try_from_optioned(
                 other.load_balancer,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.load_balancer,
-                other.load_balancer,
-            )?;
+        } else if let Some(self_value) = self.load_balancer.as_mut()
+            && let Some(other_value) = other.load_balancer
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

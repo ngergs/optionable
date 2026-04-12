@@ -92,71 +92,64 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetStat
             self.available_replicas = crate::OptionableConvert::try_from_optioned(
                 other.available_replicas,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.available_replicas,
-                other.available_replicas,
-            )?;
+        } else if let Some(self_value) = self.available_replicas.as_mut()
+            && let Some(other_value) = other.available_replicas
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.collision_count.is_none() {
             self.collision_count = crate::OptionableConvert::try_from_optioned(
                 other.collision_count,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.collision_count,
-                other.collision_count,
-            )?;
+        } else if let Some(self_value) = self.collision_count.as_mut()
+            && let Some(other_value) = other.collision_count
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.conditions.is_none() {
             self.conditions = crate::OptionableConvert::try_from_optioned(
                 other.conditions,
             )?;
-        } else {
-            crate::merge::try_merge_optioned_map(
-                &mut self.conditions,
-                other.conditions,
-            )?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.current_replicas.is_none() {
             self.current_replicas = crate::OptionableConvert::try_from_optioned(
                 other.current_replicas,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.current_replicas,
-                other.current_replicas,
-            )?;
+        } else if let Some(self_value) = self.current_replicas.as_mut()
+            && let Some(other_value) = other.current_replicas
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.current_revision.is_none() {
             self.current_revision = crate::OptionableConvert::try_from_optioned(
                 other.current_revision,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.current_revision,
-                other.current_revision,
-            )?;
+        } else if let Some(self_value) = self.current_revision.as_mut()
+            && let Some(other_value) = other.current_revision
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.observed_generation.is_none() {
             self.observed_generation = crate::OptionableConvert::try_from_optioned(
                 other.observed_generation,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.observed_generation,
-                other.observed_generation,
-            )?;
+        } else if let Some(self_value) = self.observed_generation.as_mut()
+            && let Some(other_value) = other.observed_generation
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.ready_replicas.is_none() {
             self.ready_replicas = crate::OptionableConvert::try_from_optioned(
                 other.ready_replicas,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.ready_replicas,
-                other.ready_replicas,
-            )?;
+        } else if let Some(self_value) = self.ready_replicas.as_mut()
+            && let Some(other_value) = other.ready_replicas
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.replicas {
             self.replicas = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -165,21 +158,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetStat
             self.update_revision = crate::OptionableConvert::try_from_optioned(
                 other.update_revision,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.update_revision,
-                other.update_revision,
-            )?;
+        } else if let Some(self_value) = self.update_revision.as_mut()
+            && let Some(other_value) = other.update_revision
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.updated_replicas.is_none() {
             self.updated_replicas = crate::OptionableConvert::try_from_optioned(
                 other.updated_replicas,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.updated_replicas,
-                other.updated_replicas,
-            )?;
+        } else if let Some(self_value) = self.updated_replicas.as_mut()
+            && let Some(other_value) = other.updated_replicas
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

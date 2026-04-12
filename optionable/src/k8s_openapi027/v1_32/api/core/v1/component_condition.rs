@@ -56,13 +56,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ComponentCondit
     fn merge(&mut self, other: ComponentConditionAc) -> Result<(), crate::Error> {
         if self.error.is_none() {
             self.error = crate::OptionableConvert::try_from_optioned(other.error)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.error, other.error)?;
+        } else if let Some(self_value) = self.error.as_mut()
+            && let Some(other_value) = other.error
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.message.is_none() {
             self.message = crate::OptionableConvert::try_from_optioned(other.message)?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.message, other.message)?;
+        } else if let Some(self_value) = self.message.as_mut()
+            && let Some(other_value) = other.message
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.status {
             self.status = crate::OptionableConvert::try_from_optioned(other_value)?;

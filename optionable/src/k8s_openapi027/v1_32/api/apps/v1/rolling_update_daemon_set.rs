@@ -52,18 +52,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::RollingUpdateDa
             self.max_surge = crate::OptionableConvert::try_from_optioned(
                 other.max_surge,
             )?;
-        } else {
-            crate::OptionableConvert::merge(&mut self.max_surge, other.max_surge)?;
+        } else if let Some(self_value) = self.max_surge.as_mut()
+            && let Some(other_value) = other.max_surge
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.max_unavailable.is_none() {
             self.max_unavailable = crate::OptionableConvert::try_from_optioned(
                 other.max_unavailable,
             )?;
-        } else {
-            crate::OptionableConvert::merge(
-                &mut self.max_unavailable,
-                other.max_unavailable,
-            )?;
+        } else if let Some(self_value) = self.max_unavailable.as_mut()
+            && let Some(other_value) = other.max_unavailable
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }
