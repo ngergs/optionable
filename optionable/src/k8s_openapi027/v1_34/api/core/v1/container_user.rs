@@ -37,7 +37,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerUser {
         })
     }
     fn merge(&mut self, other: ContainerUserAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.linux, other.linux)?;
+        if self.linux.is_none() {
+            self.linux = other.linux;
+        }
+        if let Some(other_value) = other.linux {
+            crate::OptionableConvert::merge(&mut self.linux, other_value)?;
+        }
         Ok(())
     }
 }

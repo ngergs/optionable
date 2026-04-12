@@ -61,14 +61,23 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewStatus {
         if let Some(other_value) = other.allowed {
             self.allowed = other_value;
         }
-        if other.denied.is_some() {
+        if self.denied.is_none() {
             self.denied = other.denied;
         }
-        if other.evaluation_error.is_some() {
+        if let Some(other_value) = other.denied {
+            crate::OptionableConvert::merge(&mut self.denied, other_value)?;
+        }
+        if self.evaluation_error.is_none() {
             self.evaluation_error = other.evaluation_error;
         }
-        if other.reason.is_some() {
+        if let Some(other_value) = other.evaluation_error {
+            crate::OptionableConvert::merge(&mut self.evaluation_error, other_value)?;
+        }
+        if self.reason.is_none() {
             self.reason = other.reason;
+        }
+        if let Some(other_value) = other.reason {
+            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
         }
         Ok(())
     }

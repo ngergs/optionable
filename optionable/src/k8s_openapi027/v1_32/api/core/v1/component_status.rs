@@ -55,7 +55,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ComponentStatus
         })
     }
     fn merge(&mut self, other: ComponentStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+        }
         self.metadata = other.metadata;
         Ok(())
     }

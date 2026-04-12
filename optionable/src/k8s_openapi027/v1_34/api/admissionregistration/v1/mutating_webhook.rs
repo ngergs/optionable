@@ -186,36 +186,62 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
             self.admission_review_versions = other_value;
         }
         if let Some(other_value) = other.client_config {
-            crate::OptionableConvert::merge(&mut self.client_config, other_value)?;
+            self.client_config = other_value;
         }
-        if other.failure_policy.is_some() {
+        if self.failure_policy.is_none() {
             self.failure_policy = other.failure_policy;
         }
-        crate::OptionableConvert::merge(
-            &mut self.match_conditions,
-            other.match_conditions,
-        )?;
-        if other.match_policy.is_some() {
+        if let Some(other_value) = other.failure_policy {
+            crate::OptionableConvert::merge(&mut self.failure_policy, other_value)?;
+        }
+        if self.match_conditions.is_none() {
+            self.match_conditions = other.match_conditions;
+        }
+        if let Some(other_value) = other.match_conditions {
+            crate::merge::try_merge_optioned_map(
+                &mut self.match_conditions,
+                other_value,
+            )?;
+        }
+        if self.match_policy.is_none() {
             self.match_policy = other.match_policy;
         }
+        if let Some(other_value) = other.match_policy {
+            crate::OptionableConvert::merge(&mut self.match_policy, other_value)?;
+        }
         self.name = other.name;
-        crate::OptionableConvert::merge(
-            &mut self.namespace_selector,
-            other.namespace_selector,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.object_selector,
-            other.object_selector,
-        )?;
-        if other.reinvocation_policy.is_some() {
+        if self.namespace_selector.is_none() {
+            self.namespace_selector = other.namespace_selector;
+        }
+        if let Some(other_value) = other.namespace_selector {
+            crate::OptionableConvert::merge(&mut self.namespace_selector, other_value)?;
+        }
+        if self.object_selector.is_none() {
+            self.object_selector = other.object_selector;
+        }
+        if let Some(other_value) = other.object_selector {
+            crate::OptionableConvert::merge(&mut self.object_selector, other_value)?;
+        }
+        if self.reinvocation_policy.is_none() {
             self.reinvocation_policy = other.reinvocation_policy;
         }
-        crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
+        if let Some(other_value) = other.reinvocation_policy {
+            crate::OptionableConvert::merge(&mut self.reinvocation_policy, other_value)?;
+        }
+        if self.rules.is_none() {
+            self.rules = other.rules;
+        }
+        if let Some(other_value) = other.rules {
+            self.rules = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
         if let Some(other_value) = other.side_effects {
             self.side_effects = other_value;
         }
-        if other.timeout_seconds.is_some() {
+        if self.timeout_seconds.is_none() {
             self.timeout_seconds = other.timeout_seconds;
+        }
+        if let Some(other_value) = other.timeout_seconds {
+            crate::OptionableConvert::merge(&mut self.timeout_seconds, other_value)?;
         }
         Ok(())
     }

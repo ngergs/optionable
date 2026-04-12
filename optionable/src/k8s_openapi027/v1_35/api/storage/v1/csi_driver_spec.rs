@@ -143,35 +143,78 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIDriverSpe
         })
     }
     fn merge(&mut self, other: CSIDriverSpecAc) -> Result<(), crate::Error> {
-        if other.attach_required.is_some() {
+        if self.attach_required.is_none() {
             self.attach_required = other.attach_required;
         }
-        if other.fs_group_policy.is_some() {
+        if let Some(other_value) = other.attach_required {
+            crate::OptionableConvert::merge(&mut self.attach_required, other_value)?;
+        }
+        if self.fs_group_policy.is_none() {
             self.fs_group_policy = other.fs_group_policy;
         }
-        if other.node_allocatable_update_period_seconds.is_some() {
+        if let Some(other_value) = other.fs_group_policy {
+            crate::OptionableConvert::merge(&mut self.fs_group_policy, other_value)?;
+        }
+        if self.node_allocatable_update_period_seconds.is_none() {
             self.node_allocatable_update_period_seconds = other
                 .node_allocatable_update_period_seconds;
         }
-        if other.pod_info_on_mount.is_some() {
+        if let Some(other_value) = other.node_allocatable_update_period_seconds {
+            crate::OptionableConvert::merge(
+                &mut self.node_allocatable_update_period_seconds,
+                other_value,
+            )?;
+        }
+        if self.pod_info_on_mount.is_none() {
             self.pod_info_on_mount = other.pod_info_on_mount;
         }
-        if other.requires_republish.is_some() {
+        if let Some(other_value) = other.pod_info_on_mount {
+            crate::OptionableConvert::merge(&mut self.pod_info_on_mount, other_value)?;
+        }
+        if self.requires_republish.is_none() {
             self.requires_republish = other.requires_republish;
         }
-        if other.se_linux_mount.is_some() {
+        if let Some(other_value) = other.requires_republish {
+            crate::OptionableConvert::merge(&mut self.requires_republish, other_value)?;
+        }
+        if self.se_linux_mount.is_none() {
             self.se_linux_mount = other.se_linux_mount;
         }
-        if other.service_account_token_in_secrets.is_some() {
+        if let Some(other_value) = other.se_linux_mount {
+            crate::OptionableConvert::merge(&mut self.se_linux_mount, other_value)?;
+        }
+        if self.service_account_token_in_secrets.is_none() {
             self.service_account_token_in_secrets = other
                 .service_account_token_in_secrets;
         }
-        if other.storage_capacity.is_some() {
+        if let Some(other_value) = other.service_account_token_in_secrets {
+            crate::OptionableConvert::merge(
+                &mut self.service_account_token_in_secrets,
+                other_value,
+            )?;
+        }
+        if self.storage_capacity.is_none() {
             self.storage_capacity = other.storage_capacity;
         }
-        crate::OptionableConvert::merge(&mut self.token_requests, other.token_requests)?;
-        if other.volume_lifecycle_modes.is_some() {
+        if let Some(other_value) = other.storage_capacity {
+            crate::OptionableConvert::merge(&mut self.storage_capacity, other_value)?;
+        }
+        if self.token_requests.is_none() {
+            self.token_requests = other.token_requests;
+        }
+        if let Some(other_value) = other.token_requests {
+            self.token_requests = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.volume_lifecycle_modes.is_none() {
             self.volume_lifecycle_modes = other.volume_lifecycle_modes;
+        }
+        if let Some(other_value) = other.volume_lifecycle_modes {
+            crate::merge::try_merge_optioned_set(
+                &mut self.volume_lifecycle_modes,
+                other_value,
+            )?;
         }
         Ok(())
     }

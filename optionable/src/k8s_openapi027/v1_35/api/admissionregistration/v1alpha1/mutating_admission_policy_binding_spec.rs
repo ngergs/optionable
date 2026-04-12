@@ -60,13 +60,23 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::MutatingAdmissionPolic
         &mut self,
         other: MutatingAdmissionPolicyBindingSpecAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.match_resources,
-            other.match_resources,
-        )?;
-        crate::OptionableConvert::merge(&mut self.param_ref, other.param_ref)?;
-        if other.policy_name.is_some() {
+        if self.match_resources.is_none() {
+            self.match_resources = other.match_resources;
+        }
+        if let Some(other_value) = other.match_resources {
+            crate::OptionableConvert::merge(&mut self.match_resources, other_value)?;
+        }
+        if self.param_ref.is_none() {
+            self.param_ref = other.param_ref;
+        }
+        if let Some(other_value) = other.param_ref {
+            crate::OptionableConvert::merge(&mut self.param_ref, other_value)?;
+        }
+        if self.policy_name.is_none() {
             self.policy_name = other.policy_name;
+        }
+        if let Some(other_value) = other.policy_name {
+            crate::OptionableConvert::merge(&mut self.policy_name, other_value)?;
         }
         Ok(())
     }

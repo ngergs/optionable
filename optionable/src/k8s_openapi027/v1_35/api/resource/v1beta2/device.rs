@@ -156,35 +156,84 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta2::Device
         })
     }
     fn merge(&mut self, other: DeviceAc) -> Result<(), crate::Error> {
-        if other.all_nodes.is_some() {
+        if self.all_nodes.is_none() {
             self.all_nodes = other.all_nodes;
         }
-        if other.allow_multiple_allocations.is_some() {
+        if let Some(other_value) = other.all_nodes {
+            crate::OptionableConvert::merge(&mut self.all_nodes, other_value)?;
+        }
+        if self.allow_multiple_allocations.is_none() {
             self.allow_multiple_allocations = other.allow_multiple_allocations;
         }
-        crate::OptionableConvert::merge(&mut self.attributes, other.attributes)?;
-        if other.binding_conditions.is_some() {
+        if let Some(other_value) = other.allow_multiple_allocations {
+            crate::OptionableConvert::merge(
+                &mut self.allow_multiple_allocations,
+                other_value,
+            )?;
+        }
+        if self.attributes.is_none() {
+            self.attributes = other.attributes;
+        }
+        if let Some(other_value) = other.attributes {
+            crate::OptionableConvert::merge(&mut self.attributes, other_value)?;
+        }
+        if self.binding_conditions.is_none() {
             self.binding_conditions = other.binding_conditions;
         }
-        if other.binding_failure_conditions.is_some() {
+        if let Some(other_value) = other.binding_conditions {
+            self.binding_conditions = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.binding_failure_conditions.is_none() {
             self.binding_failure_conditions = other.binding_failure_conditions;
         }
-        if other.binds_to_node.is_some() {
+        if let Some(other_value) = other.binding_failure_conditions {
+            self.binding_failure_conditions = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.binds_to_node.is_none() {
             self.binds_to_node = other.binds_to_node;
         }
-        crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
-        crate::OptionableConvert::merge(
-            &mut self.consumes_counters,
-            other.consumes_counters,
-        )?;
+        if let Some(other_value) = other.binds_to_node {
+            crate::OptionableConvert::merge(&mut self.binds_to_node, other_value)?;
+        }
+        if self.capacity.is_none() {
+            self.capacity = other.capacity;
+        }
+        if let Some(other_value) = other.capacity {
+            crate::OptionableConvert::merge(&mut self.capacity, other_value)?;
+        }
+        if self.consumes_counters.is_none() {
+            self.consumes_counters = other.consumes_counters;
+        }
+        if let Some(other_value) = other.consumes_counters {
+            self.consumes_counters = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        if other.node_name.is_some() {
+        if self.node_name.is_none() {
             self.node_name = other.node_name;
         }
-        crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
-        crate::OptionableConvert::merge(&mut self.taints, other.taints)?;
+        if let Some(other_value) = other.node_name {
+            crate::OptionableConvert::merge(&mut self.node_name, other_value)?;
+        }
+        if self.node_selector.is_none() {
+            self.node_selector = other.node_selector;
+        }
+        if let Some(other_value) = other.node_selector {
+            crate::OptionableConvert::merge(&mut self.node_selector, other_value)?;
+        }
+        if self.taints.is_none() {
+            self.taints = other.taints;
+        }
+        if let Some(other_value) = other.taints {
+            self.taints = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
         Ok(())
     }
 }

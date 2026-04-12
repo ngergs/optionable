@@ -52,8 +52,11 @@ for k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
         &mut self,
         other: PodFailurePolicyOnPodConditionsPatternAc,
     ) -> Result<(), crate::Error> {
-        if other.status.is_some() {
+        if self.status.is_none() {
             self.status = other.status;
+        }
+        if let Some(other_value) = other.status {
+            crate::OptionableConvert::merge(&mut self.status, other_value)?;
         }
         if let Some(other_value) = other.type_ {
             self.type_ = other_value;

@@ -155,16 +155,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
         })
     }
     fn merge(&mut self, other: ContainerStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.allocated_resources,
-            other.allocated_resources,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.allocated_resources_status,
-            other.allocated_resources_status,
-        )?;
-        if other.container_id.is_some() {
+        if self.allocated_resources.is_none() {
+            self.allocated_resources = other.allocated_resources;
+        }
+        if let Some(other_value) = other.allocated_resources {
+            crate::OptionableConvert::merge(&mut self.allocated_resources, other_value)?;
+        }
+        if self.allocated_resources_status.is_none() {
+            self.allocated_resources_status = other.allocated_resources_status;
+        }
+        if let Some(other_value) = other.allocated_resources_status {
+            crate::merge::try_merge_optioned_map(
+                &mut self.allocated_resources_status,
+                other_value,
+            )?;
+        }
+        if self.container_id.is_none() {
             self.container_id = other.container_id;
+        }
+        if let Some(other_value) = other.container_id {
+            crate::OptionableConvert::merge(&mut self.container_id, other_value)?;
         }
         if let Some(other_value) = other.image {
             self.image = other_value;
@@ -172,23 +182,51 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStatus
         if let Some(other_value) = other.image_id {
             self.image_id = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.last_state, other.last_state)?;
+        if self.last_state.is_none() {
+            self.last_state = other.last_state;
+        }
+        if let Some(other_value) = other.last_state {
+            crate::OptionableConvert::merge(&mut self.last_state, other_value)?;
+        }
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
         if let Some(other_value) = other.ready {
             self.ready = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
+        if self.resources.is_none() {
+            self.resources = other.resources;
+        }
+        if let Some(other_value) = other.resources {
+            crate::OptionableConvert::merge(&mut self.resources, other_value)?;
+        }
         if let Some(other_value) = other.restart_count {
             self.restart_count = other_value;
         }
-        if other.started.is_some() {
+        if self.started.is_none() {
             self.started = other.started;
         }
-        crate::OptionableConvert::merge(&mut self.state, other.state)?;
-        crate::OptionableConvert::merge(&mut self.user, other.user)?;
-        crate::OptionableConvert::merge(&mut self.volume_mounts, other.volume_mounts)?;
+        if let Some(other_value) = other.started {
+            crate::OptionableConvert::merge(&mut self.started, other_value)?;
+        }
+        if self.state.is_none() {
+            self.state = other.state;
+        }
+        if let Some(other_value) = other.state {
+            crate::OptionableConvert::merge(&mut self.state, other_value)?;
+        }
+        if self.user.is_none() {
+            self.user = other.user;
+        }
+        if let Some(other_value) = other.user {
+            crate::OptionableConvert::merge(&mut self.user, other_value)?;
+        }
+        if self.volume_mounts.is_none() {
+            self.volume_mounts = other.volume_mounts;
+        }
+        if let Some(other_value) = other.volume_mounts {
+            crate::merge::try_merge_optioned_map(&mut self.volume_mounts, other_value)?;
+        }
         Ok(())
     }
 }

@@ -46,14 +46,23 @@ for k8s_openapi027::api::flowcontrol::v1::QueuingConfiguration {
         })
     }
     fn merge(&mut self, other: QueuingConfigurationAc) -> Result<(), crate::Error> {
-        if other.hand_size.is_some() {
+        if self.hand_size.is_none() {
             self.hand_size = other.hand_size;
         }
-        if other.queue_length_limit.is_some() {
+        if let Some(other_value) = other.hand_size {
+            crate::OptionableConvert::merge(&mut self.hand_size, other_value)?;
+        }
+        if self.queue_length_limit.is_none() {
             self.queue_length_limit = other.queue_length_limit;
         }
-        if other.queues.is_some() {
+        if let Some(other_value) = other.queue_length_limit {
+            crate::OptionableConvert::merge(&mut self.queue_length_limit, other_value)?;
+        }
+        if self.queues.is_none() {
             self.queues = other.queues;
+        }
+        if let Some(other_value) = other.queues {
+            crate::OptionableConvert::merge(&mut self.queues, other_value)?;
         }
         Ok(())
     }

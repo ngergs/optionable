@@ -38,7 +38,12 @@ for k8s_openapi027::api::resource::v1beta1::DeviceSelector {
         })
     }
     fn merge(&mut self, other: DeviceSelectorAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.cel, other.cel)?;
+        if self.cel.is_none() {
+            self.cel = other.cel;
+        }
+        if let Some(other_value) = other.cel {
+            crate::OptionableConvert::merge(&mut self.cel, other_value)?;
+        }
         Ok(())
     }
 }

@@ -51,11 +51,18 @@ for k8s_openapi027::api::apps::v1::RollingUpdateDeployment {
         })
     }
     fn merge(&mut self, other: RollingUpdateDeploymentAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.max_surge, other.max_surge)?;
-        crate::OptionableConvert::merge(
-            &mut self.max_unavailable,
-            other.max_unavailable,
-        )?;
+        if self.max_surge.is_none() {
+            self.max_surge = other.max_surge;
+        }
+        if let Some(other_value) = other.max_surge {
+            crate::OptionableConvert::merge(&mut self.max_surge, other_value)?;
+        }
+        if self.max_unavailable.is_none() {
+            self.max_unavailable = other.max_unavailable;
+        }
+        if let Some(other_value) = other.max_unavailable {
+            crate::OptionableConvert::merge(&mut self.max_unavailable, other_value)?;
+        }
         Ok(())
     }
 }

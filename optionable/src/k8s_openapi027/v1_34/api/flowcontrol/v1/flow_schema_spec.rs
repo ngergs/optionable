@@ -72,20 +72,30 @@ impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::FlowSche
         })
     }
     fn merge(&mut self, other: FlowSchemaSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.distinguisher_method,
-            other.distinguisher_method,
-        )?;
-        if other.matching_precedence.is_some() {
-            self.matching_precedence = other.matching_precedence;
+        if self.distinguisher_method.is_none() {
+            self.distinguisher_method = other.distinguisher_method;
         }
-        if let Some(other_value) = other.priority_level_configuration {
+        if let Some(other_value) = other.distinguisher_method {
             crate::OptionableConvert::merge(
-                &mut self.priority_level_configuration,
+                &mut self.distinguisher_method,
                 other_value,
             )?;
         }
-        crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
+        if self.matching_precedence.is_none() {
+            self.matching_precedence = other.matching_precedence;
+        }
+        if let Some(other_value) = other.matching_precedence {
+            crate::OptionableConvert::merge(&mut self.matching_precedence, other_value)?;
+        }
+        if let Some(other_value) = other.priority_level_configuration {
+            self.priority_level_configuration = other_value;
+        }
+        if self.rules.is_none() {
+            self.rules = other.rules;
+        }
+        if let Some(other_value) = other.rules {
+            self.rules = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
         Ok(())
     }
 }

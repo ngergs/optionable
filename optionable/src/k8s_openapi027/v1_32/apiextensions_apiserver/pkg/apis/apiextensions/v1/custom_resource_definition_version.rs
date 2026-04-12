@@ -117,31 +117,54 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         &mut self,
         other: CustomResourceDefinitionVersionAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.additional_printer_columns,
-            other.additional_printer_columns,
-        )?;
-        if other.deprecated.is_some() {
+        if self.additional_printer_columns.is_none() {
+            self.additional_printer_columns = other.additional_printer_columns;
+        }
+        if let Some(other_value) = other.additional_printer_columns {
+            crate::OptionableConvert::merge(
+                &mut self.additional_printer_columns,
+                other_value,
+            )?;
+        }
+        if self.deprecated.is_none() {
             self.deprecated = other.deprecated;
         }
-        if other.deprecation_warning.is_some() {
+        if let Some(other_value) = other.deprecated {
+            crate::OptionableConvert::merge(&mut self.deprecated, other_value)?;
+        }
+        if self.deprecation_warning.is_none() {
             self.deprecation_warning = other.deprecation_warning;
+        }
+        if let Some(other_value) = other.deprecation_warning {
+            crate::OptionableConvert::merge(&mut self.deprecation_warning, other_value)?;
         }
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.schema, other.schema)?;
-        crate::OptionableConvert::merge(
-            &mut self.selectable_fields,
-            other.selectable_fields,
-        )?;
+        if self.schema.is_none() {
+            self.schema = other.schema;
+        }
+        if let Some(other_value) = other.schema {
+            crate::OptionableConvert::merge(&mut self.schema, other_value)?;
+        }
+        if self.selectable_fields.is_none() {
+            self.selectable_fields = other.selectable_fields;
+        }
+        if let Some(other_value) = other.selectable_fields {
+            crate::OptionableConvert::merge(&mut self.selectable_fields, other_value)?;
+        }
         if let Some(other_value) = other.served {
             self.served = other_value;
         }
         if let Some(other_value) = other.storage {
             self.storage = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.subresources, other.subresources)?;
+        if self.subresources.is_none() {
+            self.subresources = other.subresources;
+        }
+        if let Some(other_value) = other.subresources {
+            crate::OptionableConvert::merge(&mut self.subresources, other_value)?;
+        }
         Ok(())
     }
 }

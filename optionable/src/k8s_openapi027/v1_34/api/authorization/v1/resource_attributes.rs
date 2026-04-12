@@ -84,28 +84,59 @@ for k8s_openapi027::api::authorization::v1::ResourceAttributes {
         })
     }
     fn merge(&mut self, other: ResourceAttributesAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.field_selector, other.field_selector)?;
-        if other.group.is_some() {
+        if self.field_selector.is_none() {
+            self.field_selector = other.field_selector;
+        }
+        if let Some(other_value) = other.field_selector {
+            crate::OptionableConvert::merge(&mut self.field_selector, other_value)?;
+        }
+        if self.group.is_none() {
             self.group = other.group;
         }
-        crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
-        if other.name.is_some() {
+        if let Some(other_value) = other.group {
+            crate::OptionableConvert::merge(&mut self.group, other_value)?;
+        }
+        if self.label_selector.is_none() {
+            self.label_selector = other.label_selector;
+        }
+        if let Some(other_value) = other.label_selector {
+            crate::OptionableConvert::merge(&mut self.label_selector, other_value)?;
+        }
+        if self.name.is_none() {
             self.name = other.name;
         }
-        if other.namespace.is_some() {
+        if let Some(other_value) = other.name {
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+        }
+        if self.namespace.is_none() {
             self.namespace = other.namespace;
         }
-        if other.resource.is_some() {
+        if let Some(other_value) = other.namespace {
+            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
+        }
+        if self.resource.is_none() {
             self.resource = other.resource;
         }
-        if other.subresource.is_some() {
+        if let Some(other_value) = other.resource {
+            crate::OptionableConvert::merge(&mut self.resource, other_value)?;
+        }
+        if self.subresource.is_none() {
             self.subresource = other.subresource;
         }
-        if other.verb.is_some() {
+        if let Some(other_value) = other.subresource {
+            crate::OptionableConvert::merge(&mut self.subresource, other_value)?;
+        }
+        if self.verb.is_none() {
             self.verb = other.verb;
         }
-        if other.version.is_some() {
+        if let Some(other_value) = other.verb {
+            crate::OptionableConvert::merge(&mut self.verb, other_value)?;
+        }
+        if self.version.is_none() {
             self.version = other.version;
+        }
+        if let Some(other_value) = other.version {
+            crate::OptionableConvert::merge(&mut self.version, other_value)?;
         }
         Ok(())
     }

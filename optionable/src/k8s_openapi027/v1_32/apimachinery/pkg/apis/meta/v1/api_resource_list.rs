@@ -72,7 +72,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResourceList {
             self.group_version = other_value;
         }
         if let Some(other_value) = other.resources {
-            crate::OptionableConvert::merge(&mut self.resources, other_value)?;
+            self.resources = other_value;
         }
         Ok(())
     }

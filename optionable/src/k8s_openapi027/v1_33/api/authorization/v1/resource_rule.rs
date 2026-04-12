@@ -55,14 +55,25 @@ impl crate::OptionableConvert for k8s_openapi027::api::authorization::v1::Resour
         })
     }
     fn merge(&mut self, other: ResourceRuleAc) -> Result<(), crate::Error> {
-        if other.api_groups.is_some() {
+        if self.api_groups.is_none() {
             self.api_groups = other.api_groups;
         }
-        if other.resource_names.is_some() {
+        if let Some(other_value) = other.api_groups {
+            self.api_groups = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.resource_names.is_none() {
             self.resource_names = other.resource_names;
         }
-        if other.resources.is_some() {
+        if let Some(other_value) = other.resource_names {
+            self.resource_names = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.resources.is_none() {
             self.resources = other.resources;
+        }
+        if let Some(other_value) = other.resources {
+            self.resources = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.verbs {
             self.verbs = other_value;

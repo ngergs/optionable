@@ -70,23 +70,45 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::NamedRuleWithOperation
         })
     }
     fn merge(&mut self, other: NamedRuleWithOperationsAc) -> Result<(), crate::Error> {
-        if other.api_groups.is_some() {
+        if self.api_groups.is_none() {
             self.api_groups = other.api_groups;
         }
-        if other.api_versions.is_some() {
+        if let Some(other_value) = other.api_groups {
+            self.api_groups = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.api_versions.is_none() {
             self.api_versions = other.api_versions;
         }
-        if other.operations.is_some() {
+        if let Some(other_value) = other.api_versions {
+            self.api_versions = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.operations.is_none() {
             self.operations = other.operations;
         }
-        if other.resource_names.is_some() {
+        if let Some(other_value) = other.operations {
+            self.operations = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.resource_names.is_none() {
             self.resource_names = other.resource_names;
         }
-        if other.resources.is_some() {
+        if let Some(other_value) = other.resource_names {
+            self.resource_names = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.resources.is_none() {
             self.resources = other.resources;
         }
-        if other.scope.is_some() {
+        if let Some(other_value) = other.resources {
+            self.resources = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.scope.is_none() {
             self.scope = other.scope;
+        }
+        if let Some(other_value) = other.scope {
+            crate::OptionableConvert::merge(&mut self.scope, other_value)?;
         }
         Ok(())
     }

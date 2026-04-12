@@ -81,14 +81,27 @@ for k8s_openapi027::api::coordination::v1alpha2::LeaseCandidateSpec {
         if let Some(other_value) = other.binary_version {
             self.binary_version = other_value;
         }
-        if other.emulation_version.is_some() {
+        if self.emulation_version.is_none() {
             self.emulation_version = other.emulation_version;
+        }
+        if let Some(other_value) = other.emulation_version {
+            crate::OptionableConvert::merge(&mut self.emulation_version, other_value)?;
         }
         if let Some(other_value) = other.lease_name {
             self.lease_name = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.ping_time, other.ping_time)?;
-        crate::OptionableConvert::merge(&mut self.renew_time, other.renew_time)?;
+        if self.ping_time.is_none() {
+            self.ping_time = other.ping_time;
+        }
+        if let Some(other_value) = other.ping_time {
+            crate::OptionableConvert::merge(&mut self.ping_time, other_value)?;
+        }
+        if self.renew_time.is_none() {
+            self.renew_time = other.renew_time;
+        }
+        if let Some(other_value) = other.renew_time {
+            crate::OptionableConvert::merge(&mut self.renew_time, other_value)?;
+        }
         if let Some(other_value) = other.strategy {
             self.strategy = other_value;
         }

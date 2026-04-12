@@ -62,12 +62,24 @@ for k8s_openapi027::api::networking::v1::NetworkPolicyPeer {
         })
     }
     fn merge(&mut self, other: NetworkPolicyPeerAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.ip_block, other.ip_block)?;
-        crate::OptionableConvert::merge(
-            &mut self.namespace_selector,
-            other.namespace_selector,
-        )?;
-        crate::OptionableConvert::merge(&mut self.pod_selector, other.pod_selector)?;
+        if self.ip_block.is_none() {
+            self.ip_block = other.ip_block;
+        }
+        if let Some(other_value) = other.ip_block {
+            crate::OptionableConvert::merge(&mut self.ip_block, other_value)?;
+        }
+        if self.namespace_selector.is_none() {
+            self.namespace_selector = other.namespace_selector;
+        }
+        if let Some(other_value) = other.namespace_selector {
+            crate::OptionableConvert::merge(&mut self.namespace_selector, other_value)?;
+        }
+        if self.pod_selector.is_none() {
+            self.pod_selector = other.pod_selector;
+        }
+        if let Some(other_value) = other.pod_selector {
+            crate::OptionableConvert::merge(&mut self.pod_selector, other_value)?;
+        }
         Ok(())
     }
 }

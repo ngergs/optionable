@@ -40,11 +40,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EventSource {
         })
     }
     fn merge(&mut self, other: EventSourceAc) -> Result<(), crate::Error> {
-        if other.component.is_some() {
+        if self.component.is_none() {
             self.component = other.component;
         }
-        if other.host.is_some() {
+        if let Some(other_value) = other.component {
+            crate::OptionableConvert::merge(&mut self.component, other_value)?;
+        }
+        if self.host.is_none() {
             self.host = other.host;
+        }
+        if let Some(other_value) = other.host {
+            crate::OptionableConvert::merge(&mut self.host, other_value)?;
         }
         Ok(())
     }

@@ -93,14 +93,23 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceRequest {
         })
     }
     fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::Error> {
-        if other.admin_access.is_some() {
+        if self.admin_access.is_none() {
             self.admin_access = other.admin_access;
         }
-        if other.allocation_mode.is_some() {
+        if let Some(other_value) = other.admin_access {
+            crate::OptionableConvert::merge(&mut self.admin_access, other_value)?;
+        }
+        if self.allocation_mode.is_none() {
             self.allocation_mode = other.allocation_mode;
         }
-        if other.count.is_some() {
+        if let Some(other_value) = other.allocation_mode {
+            crate::OptionableConvert::merge(&mut self.allocation_mode, other_value)?;
+        }
+        if self.count.is_none() {
             self.count = other.count;
+        }
+        if let Some(other_value) = other.count {
+            crate::OptionableConvert::merge(&mut self.count, other_value)?;
         }
         if let Some(other_value) = other.device_class_name {
             self.device_class_name = other_value;
@@ -108,7 +117,12 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceRequest {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.selectors, other.selectors)?;
+        if self.selectors.is_none() {
+            self.selectors = other.selectors;
+        }
+        if let Some(other_value) = other.selectors {
+            crate::OptionableConvert::merge(&mut self.selectors, other_value)?;
+        }
         Ok(())
     }
 }

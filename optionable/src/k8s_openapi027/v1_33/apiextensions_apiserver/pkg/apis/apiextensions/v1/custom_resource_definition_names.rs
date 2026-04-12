@@ -75,23 +75,35 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         &mut self,
         other: CustomResourceDefinitionNamesAc,
     ) -> Result<(), crate::Error> {
-        if other.categories.is_some() {
+        if self.categories.is_none() {
             self.categories = other.categories;
+        }
+        if let Some(other_value) = other.categories {
+            crate::OptionableConvert::merge(&mut self.categories, other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = other_value;
         }
-        if other.list_kind.is_some() {
+        if self.list_kind.is_none() {
             self.list_kind = other.list_kind;
+        }
+        if let Some(other_value) = other.list_kind {
+            crate::OptionableConvert::merge(&mut self.list_kind, other_value)?;
         }
         if let Some(other_value) = other.plural {
             self.plural = other_value;
         }
-        if other.short_names.is_some() {
+        if self.short_names.is_none() {
             self.short_names = other.short_names;
         }
-        if other.singular.is_some() {
+        if let Some(other_value) = other.short_names {
+            crate::OptionableConvert::merge(&mut self.short_names, other_value)?;
+        }
+        if self.singular.is_none() {
             self.singular = other.singular;
+        }
+        if let Some(other_value) = other.singular {
+            crate::OptionableConvert::merge(&mut self.singular, other_value)?;
         }
         Ok(())
     }

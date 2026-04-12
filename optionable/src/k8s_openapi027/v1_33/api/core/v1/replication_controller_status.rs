@@ -74,18 +74,38 @@ for k8s_openapi027::api::core::v1::ReplicationControllerStatus {
         &mut self,
         other: ReplicationControllerStatusAc,
     ) -> Result<(), crate::Error> {
-        if other.available_replicas.is_some() {
+        if self.available_replicas.is_none() {
             self.available_replicas = other.available_replicas;
         }
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        if other.fully_labeled_replicas.is_some() {
+        if let Some(other_value) = other.available_replicas {
+            crate::OptionableConvert::merge(&mut self.available_replicas, other_value)?;
+        }
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+        }
+        if self.fully_labeled_replicas.is_none() {
             self.fully_labeled_replicas = other.fully_labeled_replicas;
         }
-        if other.observed_generation.is_some() {
+        if let Some(other_value) = other.fully_labeled_replicas {
+            crate::OptionableConvert::merge(
+                &mut self.fully_labeled_replicas,
+                other_value,
+            )?;
+        }
+        if self.observed_generation.is_none() {
             self.observed_generation = other.observed_generation;
         }
-        if other.ready_replicas.is_some() {
+        if let Some(other_value) = other.observed_generation {
+            crate::OptionableConvert::merge(&mut self.observed_generation, other_value)?;
+        }
+        if self.ready_replicas.is_none() {
             self.ready_replicas = other.ready_replicas;
+        }
+        if let Some(other_value) = other.ready_replicas {
+            crate::OptionableConvert::merge(&mut self.ready_replicas, other_value)?;
         }
         if let Some(other_value) = other.replicas {
             self.replicas = other_value;

@@ -104,20 +104,35 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Valid
         })
     }
     fn merge(&mut self, other: ValidationRuleAc) -> Result<(), crate::Error> {
-        if other.field_path.is_some() {
+        if self.field_path.is_none() {
             self.field_path = other.field_path;
         }
-        if other.message.is_some() {
+        if let Some(other_value) = other.field_path {
+            crate::OptionableConvert::merge(&mut self.field_path, other_value)?;
+        }
+        if self.message.is_none() {
             self.message = other.message;
         }
-        if other.message_expression.is_some() {
+        if let Some(other_value) = other.message {
+            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+        }
+        if self.message_expression.is_none() {
             self.message_expression = other.message_expression;
         }
-        if other.optional_old_self.is_some() {
+        if let Some(other_value) = other.message_expression {
+            crate::OptionableConvert::merge(&mut self.message_expression, other_value)?;
+        }
+        if self.optional_old_self.is_none() {
             self.optional_old_self = other.optional_old_self;
         }
-        if other.reason.is_some() {
+        if let Some(other_value) = other.optional_old_self {
+            crate::OptionableConvert::merge(&mut self.optional_old_self, other_value)?;
+        }
+        if self.reason.is_none() {
             self.reason = other.reason;
+        }
+        if let Some(other_value) = other.reason {
+            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
         }
         if let Some(other_value) = other.rule {
             self.rule = other_value;

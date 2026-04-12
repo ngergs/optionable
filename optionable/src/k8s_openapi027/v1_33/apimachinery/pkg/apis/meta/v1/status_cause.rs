@@ -51,14 +51,23 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause {
         })
     }
     fn merge(&mut self, other: StatusCauseAc) -> Result<(), crate::Error> {
-        if other.field.is_some() {
+        if self.field.is_none() {
             self.field = other.field;
         }
-        if other.message.is_some() {
+        if let Some(other_value) = other.field {
+            crate::OptionableConvert::merge(&mut self.field, other_value)?;
+        }
+        if self.message.is_none() {
             self.message = other.message;
         }
-        if other.reason.is_some() {
+        if let Some(other_value) = other.message {
+            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+        }
+        if self.reason.is_none() {
             self.reason = other.reason;
+        }
+        if let Some(other_value) = other.reason {
+            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
         }
         Ok(())
     }

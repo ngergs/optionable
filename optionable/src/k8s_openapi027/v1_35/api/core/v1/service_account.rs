@@ -73,15 +73,30 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceAccount 
         })
     }
     fn merge(&mut self, other: ServiceAccountAc) -> Result<(), crate::Error> {
-        if other.automount_service_account_token.is_some() {
+        if self.automount_service_account_token.is_none() {
             self.automount_service_account_token = other.automount_service_account_token;
         }
-        crate::OptionableConvert::merge(
-            &mut self.image_pull_secrets,
-            other.image_pull_secrets,
-        )?;
+        if let Some(other_value) = other.automount_service_account_token {
+            crate::OptionableConvert::merge(
+                &mut self.automount_service_account_token,
+                other_value,
+            )?;
+        }
+        if self.image_pull_secrets.is_none() {
+            self.image_pull_secrets = other.image_pull_secrets;
+        }
+        if let Some(other_value) = other.image_pull_secrets {
+            self.image_pull_secrets = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.secrets, other.secrets)?;
+        if self.secrets.is_none() {
+            self.secrets = other.secrets;
+        }
+        if let Some(other_value) = other.secrets {
+            crate::merge::try_merge_optioned_map(&mut self.secrets, other_value)?;
+        }
         Ok(())
     }
 }

@@ -72,11 +72,17 @@ for k8s_openapi027::api::flowcontrol::v1beta3::ResourcePolicyRule {
         if let Some(other_value) = other.api_groups {
             self.api_groups = other_value;
         }
-        if other.cluster_scope.is_some() {
+        if self.cluster_scope.is_none() {
             self.cluster_scope = other.cluster_scope;
         }
-        if other.namespaces.is_some() {
+        if let Some(other_value) = other.cluster_scope {
+            crate::OptionableConvert::merge(&mut self.cluster_scope, other_value)?;
+        }
+        if self.namespaces.is_none() {
             self.namespaces = other.namespaces;
+        }
+        if let Some(other_value) = other.namespaces {
+            crate::OptionableConvert::merge(&mut self.namespaces, other_value)?;
         }
         if let Some(other_value) = other.resources {
             self.resources = other_value;

@@ -77,23 +77,38 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeMount {
     }
     fn merge(&mut self, other: VolumeMountAc) -> Result<(), crate::Error> {
         self.mount_path = other.mount_path;
-        if other.mount_propagation.is_some() {
+        if self.mount_propagation.is_none() {
             self.mount_propagation = other.mount_propagation;
+        }
+        if let Some(other_value) = other.mount_propagation {
+            crate::OptionableConvert::merge(&mut self.mount_propagation, other_value)?;
         }
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        if other.read_only.is_some() {
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
         }
-        if other.recursive_read_only.is_some() {
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+        }
+        if self.recursive_read_only.is_none() {
             self.recursive_read_only = other.recursive_read_only;
         }
-        if other.sub_path.is_some() {
+        if let Some(other_value) = other.recursive_read_only {
+            crate::OptionableConvert::merge(&mut self.recursive_read_only, other_value)?;
+        }
+        if self.sub_path.is_none() {
             self.sub_path = other.sub_path;
         }
-        if other.sub_path_expr.is_some() {
+        if let Some(other_value) = other.sub_path {
+            crate::OptionableConvert::merge(&mut self.sub_path, other_value)?;
+        }
+        if self.sub_path_expr.is_none() {
             self.sub_path_expr = other.sub_path_expr;
+        }
+        if let Some(other_value) = other.sub_path_expr {
+            crate::OptionableConvert::merge(&mut self.sub_path_expr, other_value)?;
         }
         Ok(())
     }

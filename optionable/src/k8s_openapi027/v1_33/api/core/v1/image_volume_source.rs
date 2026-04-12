@@ -40,11 +40,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ImageVolumeSour
         })
     }
     fn merge(&mut self, other: ImageVolumeSourceAc) -> Result<(), crate::Error> {
-        if other.pull_policy.is_some() {
+        if self.pull_policy.is_none() {
             self.pull_policy = other.pull_policy;
         }
-        if other.reference.is_some() {
+        if let Some(other_value) = other.pull_policy {
+            crate::OptionableConvert::merge(&mut self.pull_policy, other_value)?;
+        }
+        if self.reference.is_none() {
             self.reference = other.reference;
+        }
+        if let Some(other_value) = other.reference {
+            crate::OptionableConvert::merge(&mut self.reference, other_value)?;
         }
         Ok(())
     }

@@ -70,8 +70,11 @@ for k8s_openapi027::api::networking::v1::IngressClassParametersReference {
         &mut self,
         other: IngressClassParametersReferenceAc,
     ) -> Result<(), crate::Error> {
-        if other.api_group.is_some() {
+        if self.api_group.is_none() {
             self.api_group = other.api_group;
+        }
+        if let Some(other_value) = other.api_group {
+            crate::OptionableConvert::merge(&mut self.api_group, other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = other_value;
@@ -79,11 +82,17 @@ for k8s_openapi027::api::networking::v1::IngressClassParametersReference {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        if other.namespace.is_some() {
+        if self.namespace.is_none() {
             self.namespace = other.namespace;
         }
-        if other.scope.is_some() {
+        if let Some(other_value) = other.namespace {
+            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
+        }
+        if self.scope.is_none() {
             self.scope = other.scope;
+        }
+        if let Some(other_value) = other.scope {
+            crate::OptionableConvert::merge(&mut self.scope, other_value)?;
         }
         Ok(())
     }

@@ -54,8 +54,18 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerBehavior {
         &mut self,
         other: HorizontalPodAutoscalerBehaviorAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.scale_down, other.scale_down)?;
-        crate::OptionableConvert::merge(&mut self.scale_up, other.scale_up)?;
+        if self.scale_down.is_none() {
+            self.scale_down = other.scale_down;
+        }
+        if let Some(other_value) = other.scale_down {
+            crate::OptionableConvert::merge(&mut self.scale_down, other_value)?;
+        }
+        if self.scale_up.is_none() {
+            self.scale_up = other.scale_up;
+        }
+        if let Some(other_value) = other.scale_up {
+            crate::OptionableConvert::merge(&mut self.scale_up, other_value)?;
+        }
         Ok(())
     }
 }

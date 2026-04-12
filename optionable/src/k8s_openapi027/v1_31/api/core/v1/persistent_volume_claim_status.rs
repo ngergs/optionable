@@ -143,28 +143,65 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimStatus {
         &mut self,
         other: PersistentVolumeClaimStatusAc,
     ) -> Result<(), crate::Error> {
-        if other.access_modes.is_some() {
+        if self.access_modes.is_none() {
             self.access_modes = other.access_modes;
         }
-        if other.allocated_resource_statuses.is_some() {
+        if let Some(other_value) = other.access_modes {
+            self.access_modes = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.allocated_resource_statuses.is_none() {
             self.allocated_resource_statuses = other.allocated_resource_statuses;
         }
-        crate::OptionableConvert::merge(
-            &mut self.allocated_resources,
-            other.allocated_resources,
-        )?;
-        crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        if other.current_volume_attributes_class_name.is_some() {
+        if let Some(other_value) = other.allocated_resource_statuses {
+            crate::OptionableConvert::merge(
+                &mut self.allocated_resource_statuses,
+                other_value,
+            )?;
+        }
+        if self.allocated_resources.is_none() {
+            self.allocated_resources = other.allocated_resources;
+        }
+        if let Some(other_value) = other.allocated_resources {
+            crate::OptionableConvert::merge(&mut self.allocated_resources, other_value)?;
+        }
+        if self.capacity.is_none() {
+            self.capacity = other.capacity;
+        }
+        if let Some(other_value) = other.capacity {
+            crate::OptionableConvert::merge(&mut self.capacity, other_value)?;
+        }
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+        }
+        if self.current_volume_attributes_class_name.is_none() {
             self.current_volume_attributes_class_name = other
                 .current_volume_attributes_class_name;
         }
-        crate::OptionableConvert::merge(
-            &mut self.modify_volume_status,
-            other.modify_volume_status,
-        )?;
-        if other.phase.is_some() {
+        if let Some(other_value) = other.current_volume_attributes_class_name {
+            crate::OptionableConvert::merge(
+                &mut self.current_volume_attributes_class_name,
+                other_value,
+            )?;
+        }
+        if self.modify_volume_status.is_none() {
+            self.modify_volume_status = other.modify_volume_status;
+        }
+        if let Some(other_value) = other.modify_volume_status {
+            crate::OptionableConvert::merge(
+                &mut self.modify_volume_status,
+                other_value,
+            )?;
+        }
+        if self.phase.is_none() {
             self.phase = other.phase;
+        }
+        if let Some(other_value) = other.phase {
+            crate::OptionableConvert::merge(&mut self.phase, other_value)?;
         }
         Ok(())
     }

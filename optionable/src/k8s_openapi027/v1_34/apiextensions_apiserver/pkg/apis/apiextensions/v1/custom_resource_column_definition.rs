@@ -80,11 +80,17 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         &mut self,
         other: CustomResourceColumnDefinitionAc,
     ) -> Result<(), crate::Error> {
-        if other.description.is_some() {
+        if self.description.is_none() {
             self.description = other.description;
         }
-        if other.format.is_some() {
+        if let Some(other_value) = other.description {
+            crate::OptionableConvert::merge(&mut self.description, other_value)?;
+        }
+        if self.format.is_none() {
             self.format = other.format;
+        }
+        if let Some(other_value) = other.format {
+            crate::OptionableConvert::merge(&mut self.format, other_value)?;
         }
         if let Some(other_value) = other.json_path {
             self.json_path = other_value;
@@ -92,8 +98,11 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        if other.priority.is_some() {
+        if self.priority.is_none() {
             self.priority = other.priority;
+        }
+        if let Some(other_value) = other.priority {
+            crate::OptionableConvert::merge(&mut self.priority, other_value)?;
         }
         if let Some(other_value) = other.type_ {
             self.type_ = other_value;

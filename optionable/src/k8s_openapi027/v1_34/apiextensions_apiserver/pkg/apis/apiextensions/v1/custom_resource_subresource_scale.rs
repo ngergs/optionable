@@ -60,8 +60,11 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         &mut self,
         other: CustomResourceSubresourceScaleAc,
     ) -> Result<(), crate::Error> {
-        if other.label_selector_path.is_some() {
+        if self.label_selector_path.is_none() {
             self.label_selector_path = other.label_selector_path;
+        }
+        if let Some(other_value) = other.label_selector_path {
+            crate::OptionableConvert::merge(&mut self.label_selector_path, other_value)?;
         }
         if let Some(other_value) = other.spec_replicas_path {
             self.spec_replicas_path = other_value;

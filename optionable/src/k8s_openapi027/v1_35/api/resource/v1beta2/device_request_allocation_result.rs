@@ -137,19 +137,34 @@ for k8s_openapi027::api::resource::v1beta2::DeviceRequestAllocationResult {
         &mut self,
         other: DeviceRequestAllocationResultAc,
     ) -> Result<(), crate::Error> {
-        if other.admin_access.is_some() {
+        if self.admin_access.is_none() {
             self.admin_access = other.admin_access;
         }
-        if other.binding_conditions.is_some() {
+        if let Some(other_value) = other.admin_access {
+            crate::OptionableConvert::merge(&mut self.admin_access, other_value)?;
+        }
+        if self.binding_conditions.is_none() {
             self.binding_conditions = other.binding_conditions;
         }
-        if other.binding_failure_conditions.is_some() {
+        if let Some(other_value) = other.binding_conditions {
+            self.binding_conditions = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.binding_failure_conditions.is_none() {
             self.binding_failure_conditions = other.binding_failure_conditions;
         }
-        crate::OptionableConvert::merge(
-            &mut self.consumed_capacity,
-            other.consumed_capacity,
-        )?;
+        if let Some(other_value) = other.binding_failure_conditions {
+            self.binding_failure_conditions = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.consumed_capacity.is_none() {
+            self.consumed_capacity = other.consumed_capacity;
+        }
+        if let Some(other_value) = other.consumed_capacity {
+            crate::OptionableConvert::merge(&mut self.consumed_capacity, other_value)?;
+        }
         if let Some(other_value) = other.device {
             self.device = other_value;
         }
@@ -162,10 +177,18 @@ for k8s_openapi027::api::resource::v1beta2::DeviceRequestAllocationResult {
         if let Some(other_value) = other.request {
             self.request = other_value;
         }
-        if other.share_id.is_some() {
+        if self.share_id.is_none() {
             self.share_id = other.share_id;
         }
-        crate::OptionableConvert::merge(&mut self.tolerations, other.tolerations)?;
+        if let Some(other_value) = other.share_id {
+            crate::OptionableConvert::merge(&mut self.share_id, other_value)?;
+        }
+        if self.tolerations.is_none() {
+            self.tolerations = other.tolerations;
+        }
+        if let Some(other_value) = other.tolerations {
+            self.tolerations = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
         Ok(())
     }
 }

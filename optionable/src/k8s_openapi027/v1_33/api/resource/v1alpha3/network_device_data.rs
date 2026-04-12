@@ -52,14 +52,23 @@ for k8s_openapi027::api::resource::v1alpha3::NetworkDeviceData {
         })
     }
     fn merge(&mut self, other: NetworkDeviceDataAc) -> Result<(), crate::Error> {
-        if other.hardware_address.is_some() {
+        if self.hardware_address.is_none() {
             self.hardware_address = other.hardware_address;
         }
-        if other.interface_name.is_some() {
+        if let Some(other_value) = other.hardware_address {
+            crate::OptionableConvert::merge(&mut self.hardware_address, other_value)?;
+        }
+        if self.interface_name.is_none() {
             self.interface_name = other.interface_name;
         }
-        if other.ips.is_some() {
+        if let Some(other_value) = other.interface_name {
+            crate::OptionableConvert::merge(&mut self.interface_name, other_value)?;
+        }
+        if self.ips.is_none() {
             self.ips = other.ips;
+        }
+        if let Some(other_value) = other.ips {
+            crate::OptionableConvert::merge(&mut self.ips, other_value)?;
         }
         Ok(())
     }

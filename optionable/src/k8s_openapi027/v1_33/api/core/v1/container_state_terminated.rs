@@ -77,23 +77,45 @@ for k8s_openapi027::api::core::v1::ContainerStateTerminated {
         })
     }
     fn merge(&mut self, other: ContainerStateTerminatedAc) -> Result<(), crate::Error> {
-        if other.container_id.is_some() {
+        if self.container_id.is_none() {
             self.container_id = other.container_id;
+        }
+        if let Some(other_value) = other.container_id {
+            crate::OptionableConvert::merge(&mut self.container_id, other_value)?;
         }
         if let Some(other_value) = other.exit_code {
             self.exit_code = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.finished_at, other.finished_at)?;
-        if other.message.is_some() {
+        if self.finished_at.is_none() {
+            self.finished_at = other.finished_at;
+        }
+        if let Some(other_value) = other.finished_at {
+            crate::OptionableConvert::merge(&mut self.finished_at, other_value)?;
+        }
+        if self.message.is_none() {
             self.message = other.message;
         }
-        if other.reason.is_some() {
+        if let Some(other_value) = other.message {
+            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+        }
+        if self.reason.is_none() {
             self.reason = other.reason;
         }
-        if other.signal.is_some() {
+        if let Some(other_value) = other.reason {
+            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
+        }
+        if self.signal.is_none() {
             self.signal = other.signal;
         }
-        crate::OptionableConvert::merge(&mut self.started_at, other.started_at)?;
+        if let Some(other_value) = other.signal {
+            crate::OptionableConvert::merge(&mut self.signal, other_value)?;
+        }
+        if self.started_at.is_none() {
+            self.started_at = other.started_at;
+        }
+        if let Some(other_value) = other.started_at {
+            crate::OptionableConvert::merge(&mut self.started_at, other_value)?;
+        }
         Ok(())
     }
 }

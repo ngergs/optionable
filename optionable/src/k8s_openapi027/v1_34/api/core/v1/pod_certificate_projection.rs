@@ -89,20 +89,41 @@ for k8s_openapi027::api::core::v1::PodCertificateProjection {
         })
     }
     fn merge(&mut self, other: PodCertificateProjectionAc) -> Result<(), crate::Error> {
-        if other.certificate_chain_path.is_some() {
+        if self.certificate_chain_path.is_none() {
             self.certificate_chain_path = other.certificate_chain_path;
         }
-        if other.credential_bundle_path.is_some() {
+        if let Some(other_value) = other.certificate_chain_path {
+            crate::OptionableConvert::merge(
+                &mut self.certificate_chain_path,
+                other_value,
+            )?;
+        }
+        if self.credential_bundle_path.is_none() {
             self.credential_bundle_path = other.credential_bundle_path;
         }
-        if other.key_path.is_some() {
+        if let Some(other_value) = other.credential_bundle_path {
+            crate::OptionableConvert::merge(
+                &mut self.credential_bundle_path,
+                other_value,
+            )?;
+        }
+        if self.key_path.is_none() {
             self.key_path = other.key_path;
+        }
+        if let Some(other_value) = other.key_path {
+            crate::OptionableConvert::merge(&mut self.key_path, other_value)?;
         }
         if let Some(other_value) = other.key_type {
             self.key_type = other_value;
         }
-        if other.max_expiration_seconds.is_some() {
+        if self.max_expiration_seconds.is_none() {
             self.max_expiration_seconds = other.max_expiration_seconds;
+        }
+        if let Some(other_value) = other.max_expiration_seconds {
+            crate::OptionableConvert::merge(
+                &mut self.max_expiration_seconds,
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.signer_name {
             self.signer_name = other_value;

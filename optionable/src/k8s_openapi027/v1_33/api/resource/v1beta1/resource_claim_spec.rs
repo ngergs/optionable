@@ -38,7 +38,12 @@ for k8s_openapi027::api::resource::v1beta1::ResourceClaimSpec {
         })
     }
     fn merge(&mut self, other: ResourceClaimSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
+        if self.devices.is_none() {
+            self.devices = other.devices;
+        }
+        if let Some(other_value) = other.devices {
+            crate::OptionableConvert::merge(&mut self.devices, other_value)?;
+        }
         Ok(())
     }
 }

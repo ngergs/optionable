@@ -41,11 +41,17 @@ for k8s_openapi027::api::networking::v1::ServiceBackendPort {
         })
     }
     fn merge(&mut self, other: ServiceBackendPortAc) -> Result<(), crate::Error> {
-        if other.name.is_some() {
+        if self.name.is_none() {
             self.name = other.name;
         }
-        if other.number.is_some() {
+        if let Some(other_value) = other.name {
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+        }
+        if self.number.is_none() {
             self.number = other.number;
+        }
+        if let Some(other_value) = other.number {
+            crate::OptionableConvert::merge(&mut self.number, other_value)?;
         }
         Ok(())
     }

@@ -45,7 +45,7 @@ for k8s_openapi027::api::networking::v1beta1::IPAddressSpec {
     }
     fn merge(&mut self, other: IPAddressSpecAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.parent_ref {
-            crate::OptionableConvert::merge(&mut self.parent_ref, other_value)?;
+            self.parent_ref = other_value;
         }
         Ok(())
     }

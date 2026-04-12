@@ -57,11 +57,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeMountStat
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        if other.read_only.is_some() {
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
         }
-        if other.recursive_read_only.is_some() {
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+        }
+        if self.recursive_read_only.is_none() {
             self.recursive_read_only = other.recursive_read_only;
+        }
+        if let Some(other_value) = other.recursive_read_only {
+            crate::OptionableConvert::merge(&mut self.recursive_read_only, other_value)?;
         }
         Ok(())
     }

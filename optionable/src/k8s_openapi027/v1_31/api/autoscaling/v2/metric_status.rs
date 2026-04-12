@@ -79,14 +79,36 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricSt
         })
     }
     fn merge(&mut self, other: MetricStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.container_resource,
-            other.container_resource,
-        )?;
-        crate::OptionableConvert::merge(&mut self.external, other.external)?;
-        crate::OptionableConvert::merge(&mut self.object, other.object)?;
-        crate::OptionableConvert::merge(&mut self.pods, other.pods)?;
-        crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
+        if self.container_resource.is_none() {
+            self.container_resource = other.container_resource;
+        }
+        if let Some(other_value) = other.container_resource {
+            crate::OptionableConvert::merge(&mut self.container_resource, other_value)?;
+        }
+        if self.external.is_none() {
+            self.external = other.external;
+        }
+        if let Some(other_value) = other.external {
+            crate::OptionableConvert::merge(&mut self.external, other_value)?;
+        }
+        if self.object.is_none() {
+            self.object = other.object;
+        }
+        if let Some(other_value) = other.object {
+            crate::OptionableConvert::merge(&mut self.object, other_value)?;
+        }
+        if self.pods.is_none() {
+            self.pods = other.pods;
+        }
+        if let Some(other_value) = other.pods {
+            crate::OptionableConvert::merge(&mut self.pods, other_value)?;
+        }
+        if self.resource.is_none() {
+            self.resource = other.resource;
+        }
+        if let Some(other_value) = other.resource {
+            crate::OptionableConvert::merge(&mut self.resource, other_value)?;
+        }
         if let Some(other_value) = other.type_ {
             self.type_ = other_value;
         }

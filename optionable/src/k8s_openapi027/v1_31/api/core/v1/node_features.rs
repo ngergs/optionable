@@ -35,8 +35,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeFeatures {
         })
     }
     fn merge(&mut self, other: NodeFeaturesAc) -> Result<(), crate::Error> {
-        if other.supplemental_groups_policy.is_some() {
+        if self.supplemental_groups_policy.is_none() {
             self.supplemental_groups_policy = other.supplemental_groups_policy;
+        }
+        if let Some(other_value) = other.supplemental_groups_policy {
+            crate::OptionableConvert::merge(
+                &mut self.supplemental_groups_policy,
+                other_value,
+            )?;
         }
         Ok(())
     }

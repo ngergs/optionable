@@ -83,22 +83,49 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::Endpoint {
     }
     fn merge(&mut self, other: EndpointAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.addresses {
-            self.addresses = other_value;
+            crate::merge::try_merge_optioned_set(&mut self.addresses, other_value)?;
         }
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        if other.deprecated_topology.is_some() {
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::OptionableConvert::merge(&mut self.conditions, other_value)?;
+        }
+        if self.deprecated_topology.is_none() {
             self.deprecated_topology = other.deprecated_topology;
         }
-        crate::OptionableConvert::merge(&mut self.hints, other.hints)?;
-        if other.hostname.is_some() {
+        if let Some(other_value) = other.deprecated_topology {
+            crate::OptionableConvert::merge(&mut self.deprecated_topology, other_value)?;
+        }
+        if self.hints.is_none() {
+            self.hints = other.hints;
+        }
+        if let Some(other_value) = other.hints {
+            crate::OptionableConvert::merge(&mut self.hints, other_value)?;
+        }
+        if self.hostname.is_none() {
             self.hostname = other.hostname;
         }
-        if other.node_name.is_some() {
+        if let Some(other_value) = other.hostname {
+            crate::OptionableConvert::merge(&mut self.hostname, other_value)?;
+        }
+        if self.node_name.is_none() {
             self.node_name = other.node_name;
         }
-        crate::OptionableConvert::merge(&mut self.target_ref, other.target_ref)?;
-        if other.zone.is_some() {
+        if let Some(other_value) = other.node_name {
+            crate::OptionableConvert::merge(&mut self.node_name, other_value)?;
+        }
+        if self.target_ref.is_none() {
+            self.target_ref = other.target_ref;
+        }
+        if let Some(other_value) = other.target_ref {
+            crate::OptionableConvert::merge(&mut self.target_ref, other_value)?;
+        }
+        if self.zone.is_none() {
             self.zone = other.zone;
+        }
+        if let Some(other_value) = other.zone {
+            crate::OptionableConvert::merge(&mut self.zone, other_value)?;
         }
         Ok(())
     }

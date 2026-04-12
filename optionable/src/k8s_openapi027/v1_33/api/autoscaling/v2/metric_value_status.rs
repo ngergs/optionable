@@ -52,11 +52,24 @@ for k8s_openapi027::api::autoscaling::v2::MetricValueStatus {
         })
     }
     fn merge(&mut self, other: MetricValueStatusAc) -> Result<(), crate::Error> {
-        if other.average_utilization.is_some() {
+        if self.average_utilization.is_none() {
             self.average_utilization = other.average_utilization;
         }
-        crate::OptionableConvert::merge(&mut self.average_value, other.average_value)?;
-        crate::OptionableConvert::merge(&mut self.value, other.value)?;
+        if let Some(other_value) = other.average_utilization {
+            crate::OptionableConvert::merge(&mut self.average_utilization, other_value)?;
+        }
+        if self.average_value.is_none() {
+            self.average_value = other.average_value;
+        }
+        if let Some(other_value) = other.average_value {
+            crate::OptionableConvert::merge(&mut self.average_value, other_value)?;
+        }
+        if self.value.is_none() {
+            self.value = other.value;
+        }
+        if let Some(other_value) = other.value {
+            crate::OptionableConvert::merge(&mut self.value, other_value)?;
+        }
         Ok(())
     }
 }

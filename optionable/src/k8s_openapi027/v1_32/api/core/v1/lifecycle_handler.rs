@@ -58,10 +58,30 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LifecycleHandle
         })
     }
     fn merge(&mut self, other: LifecycleHandlerAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.exec, other.exec)?;
-        crate::OptionableConvert::merge(&mut self.http_get, other.http_get)?;
-        crate::OptionableConvert::merge(&mut self.sleep, other.sleep)?;
-        crate::OptionableConvert::merge(&mut self.tcp_socket, other.tcp_socket)?;
+        if self.exec.is_none() {
+            self.exec = other.exec;
+        }
+        if let Some(other_value) = other.exec {
+            crate::OptionableConvert::merge(&mut self.exec, other_value)?;
+        }
+        if self.http_get.is_none() {
+            self.http_get = other.http_get;
+        }
+        if let Some(other_value) = other.http_get {
+            crate::OptionableConvert::merge(&mut self.http_get, other_value)?;
+        }
+        if self.sleep.is_none() {
+            self.sleep = other.sleep;
+        }
+        if let Some(other_value) = other.sleep {
+            crate::OptionableConvert::merge(&mut self.sleep, other_value)?;
+        }
+        if self.tcp_socket.is_none() {
+            self.tcp_socket = other.tcp_socket;
+        }
+        if let Some(other_value) = other.tcp_socket {
+            crate::OptionableConvert::merge(&mut self.tcp_socket, other_value)?;
+        }
         Ok(())
     }
 }

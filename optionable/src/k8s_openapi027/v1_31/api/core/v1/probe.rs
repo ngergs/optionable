@@ -88,28 +88,72 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Probe {
         })
     }
     fn merge(&mut self, other: ProbeAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.exec, other.exec)?;
-        if other.failure_threshold.is_some() {
+        if self.exec.is_none() {
+            self.exec = other.exec;
+        }
+        if let Some(other_value) = other.exec {
+            crate::OptionableConvert::merge(&mut self.exec, other_value)?;
+        }
+        if self.failure_threshold.is_none() {
             self.failure_threshold = other.failure_threshold;
         }
-        crate::OptionableConvert::merge(&mut self.grpc, other.grpc)?;
-        crate::OptionableConvert::merge(&mut self.http_get, other.http_get)?;
-        if other.initial_delay_seconds.is_some() {
+        if let Some(other_value) = other.failure_threshold {
+            crate::OptionableConvert::merge(&mut self.failure_threshold, other_value)?;
+        }
+        if self.grpc.is_none() {
+            self.grpc = other.grpc;
+        }
+        if let Some(other_value) = other.grpc {
+            crate::OptionableConvert::merge(&mut self.grpc, other_value)?;
+        }
+        if self.http_get.is_none() {
+            self.http_get = other.http_get;
+        }
+        if let Some(other_value) = other.http_get {
+            crate::OptionableConvert::merge(&mut self.http_get, other_value)?;
+        }
+        if self.initial_delay_seconds.is_none() {
             self.initial_delay_seconds = other.initial_delay_seconds;
         }
-        if other.period_seconds.is_some() {
+        if let Some(other_value) = other.initial_delay_seconds {
+            crate::OptionableConvert::merge(
+                &mut self.initial_delay_seconds,
+                other_value,
+            )?;
+        }
+        if self.period_seconds.is_none() {
             self.period_seconds = other.period_seconds;
         }
-        if other.success_threshold.is_some() {
+        if let Some(other_value) = other.period_seconds {
+            crate::OptionableConvert::merge(&mut self.period_seconds, other_value)?;
+        }
+        if self.success_threshold.is_none() {
             self.success_threshold = other.success_threshold;
         }
-        crate::OptionableConvert::merge(&mut self.tcp_socket, other.tcp_socket)?;
-        if other.termination_grace_period_seconds.is_some() {
+        if let Some(other_value) = other.success_threshold {
+            crate::OptionableConvert::merge(&mut self.success_threshold, other_value)?;
+        }
+        if self.tcp_socket.is_none() {
+            self.tcp_socket = other.tcp_socket;
+        }
+        if let Some(other_value) = other.tcp_socket {
+            crate::OptionableConvert::merge(&mut self.tcp_socket, other_value)?;
+        }
+        if self.termination_grace_period_seconds.is_none() {
             self.termination_grace_period_seconds = other
                 .termination_grace_period_seconds;
         }
-        if other.timeout_seconds.is_some() {
+        if let Some(other_value) = other.termination_grace_period_seconds {
+            crate::OptionableConvert::merge(
+                &mut self.termination_grace_period_seconds,
+                other_value,
+            )?;
+        }
+        if self.timeout_seconds.is_none() {
             self.timeout_seconds = other.timeout_seconds;
+        }
+        if let Some(other_value) = other.timeout_seconds {
+            crate::OptionableConvert::merge(&mut self.timeout_seconds, other_value)?;
         }
         Ok(())
     }

@@ -65,14 +65,20 @@ for k8s_openapi027::api::core::v1::AzureFilePersistentVolumeSource {
         &mut self,
         other: AzureFilePersistentVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        if other.read_only.is_some() {
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
+        }
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
         }
         if let Some(other_value) = other.secret_name {
             self.secret_name = other_value;
         }
-        if other.secret_namespace.is_some() {
+        if self.secret_namespace.is_none() {
             self.secret_namespace = other.secret_namespace;
+        }
+        if let Some(other_value) = other.secret_namespace {
+            crate::OptionableConvert::merge(&mut self.secret_namespace, other_value)?;
         }
         if let Some(other_value) = other.share_name {
             self.share_name = other_value;

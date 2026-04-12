@@ -57,16 +57,30 @@ for k8s_openapi027::api::core::v1::ReplicationControllerSpec {
         })
     }
     fn merge(&mut self, other: ReplicationControllerSpecAc) -> Result<(), crate::Error> {
-        if other.min_ready_seconds.is_some() {
+        if self.min_ready_seconds.is_none() {
             self.min_ready_seconds = other.min_ready_seconds;
         }
-        if other.replicas.is_some() {
+        if let Some(other_value) = other.min_ready_seconds {
+            crate::OptionableConvert::merge(&mut self.min_ready_seconds, other_value)?;
+        }
+        if self.replicas.is_none() {
             self.replicas = other.replicas;
         }
-        if other.selector.is_some() {
+        if let Some(other_value) = other.replicas {
+            crate::OptionableConvert::merge(&mut self.replicas, other_value)?;
+        }
+        if self.selector.is_none() {
             self.selector = other.selector;
         }
-        crate::OptionableConvert::merge(&mut self.template, other.template)?;
+        if let Some(other_value) = other.selector {
+            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
+        }
+        if self.template.is_none() {
+            self.template = other.template;
+        }
+        if let Some(other_value) = other.template {
+            crate::OptionableConvert::merge(&mut self.template, other_value)?;
+        }
         Ok(())
     }
 }

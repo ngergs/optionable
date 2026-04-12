@@ -51,8 +51,18 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec {
         })
     }
     fn merge(&mut self, other: DeviceClassSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.config, other.config)?;
-        crate::OptionableConvert::merge(&mut self.selectors, other.selectors)?;
+        if self.config.is_none() {
+            self.config = other.config;
+        }
+        if let Some(other_value) = other.config {
+            crate::OptionableConvert::merge(&mut self.config, other_value)?;
+        }
+        if self.selectors.is_none() {
+            self.selectors = other.selectors;
+        }
+        if let Some(other_value) = other.selectors {
+            crate::OptionableConvert::merge(&mut self.selectors, other_value)?;
+        }
         Ok(())
     }
 }

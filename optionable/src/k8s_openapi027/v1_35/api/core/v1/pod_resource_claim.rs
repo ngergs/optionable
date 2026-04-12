@@ -55,11 +55,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodResourceClai
     }
     fn merge(&mut self, other: PodResourceClaimAc) -> Result<(), crate::Error> {
         self.name = other.name;
-        if other.resource_claim_name.is_some() {
+        if self.resource_claim_name.is_none() {
             self.resource_claim_name = other.resource_claim_name;
         }
-        if other.resource_claim_template_name.is_some() {
+        if let Some(other_value) = other.resource_claim_name {
+            crate::OptionableConvert::merge(&mut self.resource_claim_name, other_value)?;
+        }
+        if self.resource_claim_template_name.is_none() {
             self.resource_claim_template_name = other.resource_claim_template_name;
+        }
+        if let Some(other_value) = other.resource_claim_template_name {
+            crate::OptionableConvert::merge(
+                &mut self.resource_claim_template_name,
+                other_value,
+            )?;
         }
         Ok(())
     }

@@ -46,11 +46,20 @@ for k8s_openapi027::api::core::v1::NodeRuntimeHandlerFeatures {
         &mut self,
         other: NodeRuntimeHandlerFeaturesAc,
     ) -> Result<(), crate::Error> {
-        if other.recursive_read_only_mounts.is_some() {
+        if self.recursive_read_only_mounts.is_none() {
             self.recursive_read_only_mounts = other.recursive_read_only_mounts;
         }
-        if other.user_namespaces.is_some() {
+        if let Some(other_value) = other.recursive_read_only_mounts {
+            crate::OptionableConvert::merge(
+                &mut self.recursive_read_only_mounts,
+                other_value,
+            )?;
+        }
+        if self.user_namespaces.is_none() {
             self.user_namespaces = other.user_namespaces;
+        }
+        if let Some(other_value) = other.user_namespaces {
+            crate::OptionableConvert::merge(&mut self.user_namespaces, other_value)?;
         }
         Ok(())
     }

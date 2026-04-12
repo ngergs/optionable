@@ -58,8 +58,11 @@ for k8s_openapi027::api::certificates::v1beta1::ClusterTrustBundleSpec {
         })
     }
     fn merge(&mut self, other: ClusterTrustBundleSpecAc) -> Result<(), crate::Error> {
-        if other.signer_name.is_some() {
+        if self.signer_name.is_none() {
             self.signer_name = other.signer_name;
+        }
+        if let Some(other_value) = other.signer_name {
+            crate::OptionableConvert::merge(&mut self.signer_name, other_value)?;
         }
         if let Some(other_value) = other.trust_bundle {
             self.trust_bundle = other_value;

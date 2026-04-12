@@ -47,8 +47,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v1::ScaleSta
         if let Some(other_value) = other.replicas {
             self.replicas = other_value;
         }
-        if other.selector.is_some() {
+        if self.selector.is_none() {
             self.selector = other.selector;
+        }
+        if let Some(other_value) = other.selector {
+            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
         }
         Ok(())
     }

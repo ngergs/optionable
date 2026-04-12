@@ -57,8 +57,11 @@ for k8s_openapi027::api::networking::v1::IngressPortStatus {
         })
     }
     fn merge(&mut self, other: IngressPortStatusAc) -> Result<(), crate::Error> {
-        if other.error.is_some() {
+        if self.error.is_none() {
             self.error = other.error;
+        }
+        if let Some(other_value) = other.error {
+            crate::OptionableConvert::merge(&mut self.error, other_value)?;
         }
         if let Some(other_value) = other.port {
             self.port = other_value;

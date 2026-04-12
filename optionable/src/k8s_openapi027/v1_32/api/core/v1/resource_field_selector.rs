@@ -51,10 +51,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceFieldSe
         })
     }
     fn merge(&mut self, other: ResourceFieldSelectorAc) -> Result<(), crate::Error> {
-        if other.container_name.is_some() {
+        if self.container_name.is_none() {
             self.container_name = other.container_name;
         }
-        crate::OptionableConvert::merge(&mut self.divisor, other.divisor)?;
+        if let Some(other_value) = other.container_name {
+            crate::OptionableConvert::merge(&mut self.container_name, other_value)?;
+        }
+        if self.divisor.is_none() {
+            self.divisor = other.divisor;
+        }
+        if let Some(other_value) = other.divisor {
+            crate::OptionableConvert::merge(&mut self.divisor, other_value)?;
+        }
         if let Some(other_value) = other.resource {
             self.resource = other_value;
         }

@@ -33,8 +33,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ExecAction {
         Ok(Self { command: value.command })
     }
     fn merge(&mut self, other: ExecActionAc) -> Result<(), crate::Error> {
-        if other.command.is_some() {
+        if self.command.is_none() {
             self.command = other.command;
+        }
+        if let Some(other_value) = other.command {
+            self.command = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

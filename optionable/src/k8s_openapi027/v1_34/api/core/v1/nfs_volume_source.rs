@@ -56,8 +56,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NFSVolumeSource
         if let Some(other_value) = other.path {
             self.path = other_value;
         }
-        if other.read_only.is_some() {
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
+        }
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
         }
         if let Some(other_value) = other.server {
             self.server = other_value;

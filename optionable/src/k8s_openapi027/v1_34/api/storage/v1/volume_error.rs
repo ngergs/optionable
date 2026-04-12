@@ -49,13 +49,24 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::VolumeError 
         })
     }
     fn merge(&mut self, other: VolumeErrorAc) -> Result<(), crate::Error> {
-        if other.error_code.is_some() {
+        if self.error_code.is_none() {
             self.error_code = other.error_code;
         }
-        if other.message.is_some() {
+        if let Some(other_value) = other.error_code {
+            crate::OptionableConvert::merge(&mut self.error_code, other_value)?;
+        }
+        if self.message.is_none() {
             self.message = other.message;
         }
-        crate::OptionableConvert::merge(&mut self.time, other.time)?;
+        if let Some(other_value) = other.message {
+            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+        }
+        if self.time.is_none() {
+            self.time = other.time;
+        }
+        if let Some(other_value) = other.time {
+            crate::OptionableConvert::merge(&mut self.time, other_value)?;
+        }
         Ok(())
     }
 }

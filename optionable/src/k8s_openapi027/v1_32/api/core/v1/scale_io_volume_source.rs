@@ -96,35 +96,56 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ScaleIOVolumeSo
         })
     }
     fn merge(&mut self, other: ScaleIOVolumeSourceAc) -> Result<(), crate::Error> {
-        if other.fs_type.is_some() {
+        if self.fs_type.is_none() {
             self.fs_type = other.fs_type;
+        }
+        if let Some(other_value) = other.fs_type {
+            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
         }
         if let Some(other_value) = other.gateway {
             self.gateway = other_value;
         }
-        if other.protection_domain.is_some() {
+        if self.protection_domain.is_none() {
             self.protection_domain = other.protection_domain;
         }
-        if other.read_only.is_some() {
+        if let Some(other_value) = other.protection_domain {
+            crate::OptionableConvert::merge(&mut self.protection_domain, other_value)?;
+        }
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
         }
-        if let Some(other_value) = other.secret_ref {
-            crate::OptionableConvert::merge(&mut self.secret_ref, other_value)?;
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
         }
-        if other.ssl_enabled.is_some() {
+        if let Some(other_value) = other.secret_ref {
+            self.secret_ref = other_value;
+        }
+        if self.ssl_enabled.is_none() {
             self.ssl_enabled = other.ssl_enabled;
         }
-        if other.storage_mode.is_some() {
+        if let Some(other_value) = other.ssl_enabled {
+            crate::OptionableConvert::merge(&mut self.ssl_enabled, other_value)?;
+        }
+        if self.storage_mode.is_none() {
             self.storage_mode = other.storage_mode;
         }
-        if other.storage_pool.is_some() {
+        if let Some(other_value) = other.storage_mode {
+            crate::OptionableConvert::merge(&mut self.storage_mode, other_value)?;
+        }
+        if self.storage_pool.is_none() {
             self.storage_pool = other.storage_pool;
+        }
+        if let Some(other_value) = other.storage_pool {
+            crate::OptionableConvert::merge(&mut self.storage_pool, other_value)?;
         }
         if let Some(other_value) = other.system {
             self.system = other_value;
         }
-        if other.volume_name.is_some() {
+        if self.volume_name.is_none() {
             self.volume_name = other.volume_name;
+        }
+        if let Some(other_value) = other.volume_name {
+            crate::OptionableConvert::merge(&mut self.volume_name, other_value)?;
         }
         Ok(())
     }

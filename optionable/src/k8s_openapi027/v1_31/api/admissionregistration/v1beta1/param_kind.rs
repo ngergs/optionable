@@ -42,11 +42,17 @@ for k8s_openapi027::api::admissionregistration::v1beta1::ParamKind {
         })
     }
     fn merge(&mut self, other: ParamKindAc) -> Result<(), crate::Error> {
-        if other.api_version.is_some() {
+        if self.api_version.is_none() {
             self.api_version = other.api_version;
         }
-        if other.kind.is_some() {
+        if let Some(other_value) = other.api_version {
+            crate::OptionableConvert::merge(&mut self.api_version, other_value)?;
+        }
+        if self.kind.is_none() {
             self.kind = other.kind;
+        }
+        if let Some(other_value) = other.kind {
+            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
         }
         Ok(())
     }

@@ -88,27 +88,53 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentSpec 
         })
     }
     fn merge(&mut self, other: DeploymentSpecAc) -> Result<(), crate::Error> {
-        if other.min_ready_seconds.is_some() {
+        if self.min_ready_seconds.is_none() {
             self.min_ready_seconds = other.min_ready_seconds;
         }
-        if other.paused.is_some() {
+        if let Some(other_value) = other.min_ready_seconds {
+            crate::OptionableConvert::merge(&mut self.min_ready_seconds, other_value)?;
+        }
+        if self.paused.is_none() {
             self.paused = other.paused;
         }
-        if other.progress_deadline_seconds.is_some() {
+        if let Some(other_value) = other.paused {
+            crate::OptionableConvert::merge(&mut self.paused, other_value)?;
+        }
+        if self.progress_deadline_seconds.is_none() {
             self.progress_deadline_seconds = other.progress_deadline_seconds;
         }
-        if other.replicas.is_some() {
+        if let Some(other_value) = other.progress_deadline_seconds {
+            crate::OptionableConvert::merge(
+                &mut self.progress_deadline_seconds,
+                other_value,
+            )?;
+        }
+        if self.replicas.is_none() {
             self.replicas = other.replicas;
         }
-        if other.revision_history_limit.is_some() {
+        if let Some(other_value) = other.replicas {
+            crate::OptionableConvert::merge(&mut self.replicas, other_value)?;
+        }
+        if self.revision_history_limit.is_none() {
             self.revision_history_limit = other.revision_history_limit;
         }
-        if let Some(other_value) = other.selector {
-            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
+        if let Some(other_value) = other.revision_history_limit {
+            crate::OptionableConvert::merge(
+                &mut self.revision_history_limit,
+                other_value,
+            )?;
         }
-        crate::OptionableConvert::merge(&mut self.strategy, other.strategy)?;
+        if let Some(other_value) = other.selector {
+            self.selector = other_value;
+        }
+        if self.strategy.is_none() {
+            self.strategy = other.strategy;
+        }
+        if let Some(other_value) = other.strategy {
+            crate::OptionableConvert::merge(&mut self.strategy, other_value)?;
+        }
         if let Some(other_value) = other.template {
-            crate::OptionableConvert::merge(&mut self.template, other_value)?;
+            self.template = other_value;
         }
         Ok(())
     }

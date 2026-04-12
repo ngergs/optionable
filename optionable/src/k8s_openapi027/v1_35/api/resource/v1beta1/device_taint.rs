@@ -68,9 +68,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Device
         if let Some(other_value) = other.key {
             self.key = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.time_added, other.time_added)?;
-        if other.value.is_some() {
+        if self.time_added.is_none() {
+            self.time_added = other.time_added;
+        }
+        if let Some(other_value) = other.time_added {
+            crate::OptionableConvert::merge(&mut self.time_added, other_value)?;
+        }
+        if self.value.is_none() {
             self.value = other.value;
+        }
+        if let Some(other_value) = other.value {
+            crate::OptionableConvert::merge(&mut self.value, other_value)?;
         }
         Ok(())
     }

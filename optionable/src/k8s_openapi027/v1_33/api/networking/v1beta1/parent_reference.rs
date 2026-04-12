@@ -59,14 +59,20 @@ for k8s_openapi027::api::networking::v1beta1::ParentReference {
         })
     }
     fn merge(&mut self, other: ParentReferenceAc) -> Result<(), crate::Error> {
-        if other.group.is_some() {
+        if self.group.is_none() {
             self.group = other.group;
+        }
+        if let Some(other_value) = other.group {
+            crate::OptionableConvert::merge(&mut self.group, other_value)?;
         }
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        if other.namespace.is_some() {
+        if self.namespace.is_none() {
             self.namespace = other.namespace;
+        }
+        if let Some(other_value) = other.namespace {
+            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
         }
         if let Some(other_value) = other.resource {
             self.resource = other_value;

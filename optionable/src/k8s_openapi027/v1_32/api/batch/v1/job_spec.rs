@@ -145,50 +145,110 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
         })
     }
     fn merge(&mut self, other: JobSpecAc) -> Result<(), crate::Error> {
-        if other.active_deadline_seconds.is_some() {
+        if self.active_deadline_seconds.is_none() {
             self.active_deadline_seconds = other.active_deadline_seconds;
         }
-        if other.backoff_limit.is_some() {
+        if let Some(other_value) = other.active_deadline_seconds {
+            crate::OptionableConvert::merge(
+                &mut self.active_deadline_seconds,
+                other_value,
+            )?;
+        }
+        if self.backoff_limit.is_none() {
             self.backoff_limit = other.backoff_limit;
         }
-        if other.backoff_limit_per_index.is_some() {
+        if let Some(other_value) = other.backoff_limit {
+            crate::OptionableConvert::merge(&mut self.backoff_limit, other_value)?;
+        }
+        if self.backoff_limit_per_index.is_none() {
             self.backoff_limit_per_index = other.backoff_limit_per_index;
         }
-        if other.completion_mode.is_some() {
+        if let Some(other_value) = other.backoff_limit_per_index {
+            crate::OptionableConvert::merge(
+                &mut self.backoff_limit_per_index,
+                other_value,
+            )?;
+        }
+        if self.completion_mode.is_none() {
             self.completion_mode = other.completion_mode;
         }
-        if other.completions.is_some() {
+        if let Some(other_value) = other.completion_mode {
+            crate::OptionableConvert::merge(&mut self.completion_mode, other_value)?;
+        }
+        if self.completions.is_none() {
             self.completions = other.completions;
         }
-        if other.managed_by.is_some() {
+        if let Some(other_value) = other.completions {
+            crate::OptionableConvert::merge(&mut self.completions, other_value)?;
+        }
+        if self.managed_by.is_none() {
             self.managed_by = other.managed_by;
         }
-        if other.manual_selector.is_some() {
+        if let Some(other_value) = other.managed_by {
+            crate::OptionableConvert::merge(&mut self.managed_by, other_value)?;
+        }
+        if self.manual_selector.is_none() {
             self.manual_selector = other.manual_selector;
         }
-        if other.max_failed_indexes.is_some() {
+        if let Some(other_value) = other.manual_selector {
+            crate::OptionableConvert::merge(&mut self.manual_selector, other_value)?;
+        }
+        if self.max_failed_indexes.is_none() {
             self.max_failed_indexes = other.max_failed_indexes;
         }
-        if other.parallelism.is_some() {
+        if let Some(other_value) = other.max_failed_indexes {
+            crate::OptionableConvert::merge(&mut self.max_failed_indexes, other_value)?;
+        }
+        if self.parallelism.is_none() {
             self.parallelism = other.parallelism;
         }
-        crate::OptionableConvert::merge(
-            &mut self.pod_failure_policy,
-            other.pod_failure_policy,
-        )?;
-        if other.pod_replacement_policy.is_some() {
+        if let Some(other_value) = other.parallelism {
+            crate::OptionableConvert::merge(&mut self.parallelism, other_value)?;
+        }
+        if self.pod_failure_policy.is_none() {
+            self.pod_failure_policy = other.pod_failure_policy;
+        }
+        if let Some(other_value) = other.pod_failure_policy {
+            crate::OptionableConvert::merge(&mut self.pod_failure_policy, other_value)?;
+        }
+        if self.pod_replacement_policy.is_none() {
             self.pod_replacement_policy = other.pod_replacement_policy;
         }
-        crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
-        crate::OptionableConvert::merge(&mut self.success_policy, other.success_policy)?;
-        if other.suspend.is_some() {
+        if let Some(other_value) = other.pod_replacement_policy {
+            crate::OptionableConvert::merge(
+                &mut self.pod_replacement_policy,
+                other_value,
+            )?;
+        }
+        if self.selector.is_none() {
+            self.selector = other.selector;
+        }
+        if let Some(other_value) = other.selector {
+            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
+        }
+        if self.success_policy.is_none() {
+            self.success_policy = other.success_policy;
+        }
+        if let Some(other_value) = other.success_policy {
+            crate::OptionableConvert::merge(&mut self.success_policy, other_value)?;
+        }
+        if self.suspend.is_none() {
             self.suspend = other.suspend;
         }
-        if let Some(other_value) = other.template {
-            crate::OptionableConvert::merge(&mut self.template, other_value)?;
+        if let Some(other_value) = other.suspend {
+            crate::OptionableConvert::merge(&mut self.suspend, other_value)?;
         }
-        if other.ttl_seconds_after_finished.is_some() {
+        if let Some(other_value) = other.template {
+            self.template = other_value;
+        }
+        if self.ttl_seconds_after_finished.is_none() {
             self.ttl_seconds_after_finished = other.ttl_seconds_after_finished;
+        }
+        if let Some(other_value) = other.ttl_seconds_after_finished {
+            crate::OptionableConvert::merge(
+                &mut self.ttl_seconds_after_finished,
+                other_value,
+            )?;
         }
         Ok(())
     }

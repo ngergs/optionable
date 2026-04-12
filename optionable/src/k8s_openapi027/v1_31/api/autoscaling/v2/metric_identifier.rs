@@ -50,7 +50,12 @@ for k8s_openapi027::api::autoscaling::v2::MetricIdentifier {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
+        if self.selector.is_none() {
+            self.selector = other.selector;
+        }
+        if let Some(other_value) = other.selector {
+            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
+        }
         Ok(())
     }
 }

@@ -54,7 +54,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressCl
     }
     fn merge(&mut self, other: IngressClassAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
+        if self.spec.is_none() {
+            self.spec = other.spec;
+        }
+        if let Some(other_value) = other.spec {
+            crate::OptionableConvert::merge(&mut self.spec, other_value)?;
+        }
         Ok(())
     }
 }

@@ -59,9 +59,14 @@ for k8s_openapi027::api::resource::v1beta1::DeviceCapacity {
         })
     }
     fn merge(&mut self, other: DeviceCapacityAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.request_policy, other.request_policy)?;
+        if self.request_policy.is_none() {
+            self.request_policy = other.request_policy;
+        }
+        if let Some(other_value) = other.request_policy {
+            crate::OptionableConvert::merge(&mut self.request_policy, other_value)?;
+        }
         if let Some(other_value) = other.value {
-            crate::OptionableConvert::merge(&mut self.value, other_value)?;
+            self.value = other_value;
         }
         Ok(())
     }

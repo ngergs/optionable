@@ -102,11 +102,17 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource {
         })
     }
     fn merge(&mut self, other: APIResourceAc) -> Result<(), crate::Error> {
-        if other.categories.is_some() {
+        if self.categories.is_none() {
             self.categories = other.categories;
         }
-        if other.group.is_some() {
+        if let Some(other_value) = other.categories {
+            self.categories = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.group.is_none() {
             self.group = other.group;
+        }
+        if let Some(other_value) = other.group {
+            crate::OptionableConvert::merge(&mut self.group, other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = other_value;
@@ -117,20 +123,32 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource {
         if let Some(other_value) = other.namespaced {
             self.namespaced = other_value;
         }
-        if other.short_names.is_some() {
+        if self.short_names.is_none() {
             self.short_names = other.short_names;
+        }
+        if let Some(other_value) = other.short_names {
+            self.short_names = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.singular_name {
             self.singular_name = other_value;
         }
-        if other.storage_version_hash.is_some() {
+        if self.storage_version_hash.is_none() {
             self.storage_version_hash = other.storage_version_hash;
+        }
+        if let Some(other_value) = other.storage_version_hash {
+            crate::OptionableConvert::merge(
+                &mut self.storage_version_hash,
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.verbs {
             self.verbs = other_value;
         }
-        if other.version.is_some() {
+        if self.version.is_none() {
             self.version = other.version;
+        }
+        if let Some(other_value) = other.version {
+            crate::OptionableConvert::merge(&mut self.version, other_value)?;
         }
         Ok(())
     }

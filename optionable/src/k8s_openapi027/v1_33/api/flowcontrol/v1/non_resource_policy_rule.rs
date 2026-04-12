@@ -57,10 +57,13 @@ for k8s_openapi027::api::flowcontrol::v1::NonResourcePolicyRule {
     }
     fn merge(&mut self, other: NonResourcePolicyRuleAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.non_resource_urls {
-            self.non_resource_urls = other_value;
+            crate::merge::try_merge_optioned_set(
+                &mut self.non_resource_urls,
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.verbs {
-            self.verbs = other_value;
+            crate::merge::try_merge_optioned_set(&mut self.verbs, other_value)?;
         }
         Ok(())
     }

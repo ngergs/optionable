@@ -58,7 +58,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::events::v1::EventSeries {
             self.count = other_value;
         }
         if let Some(other_value) = other.last_observed_time {
-            crate::OptionableConvert::merge(&mut self.last_observed_time, other_value)?;
+            self.last_observed_time = other_value;
         }
         Ok(())
     }

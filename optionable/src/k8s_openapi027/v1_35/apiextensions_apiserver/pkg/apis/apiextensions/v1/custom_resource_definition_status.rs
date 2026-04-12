@@ -65,13 +65,29 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         &mut self,
         other: CustomResourceDefinitionStatusAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.accepted_names, other.accepted_names)?;
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        if other.observed_generation.is_some() {
+        if self.accepted_names.is_none() {
+            self.accepted_names = other.accepted_names;
+        }
+        if let Some(other_value) = other.accepted_names {
+            crate::OptionableConvert::merge(&mut self.accepted_names, other_value)?;
+        }
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::OptionableConvert::merge(&mut self.conditions, other_value)?;
+        }
+        if self.observed_generation.is_none() {
             self.observed_generation = other.observed_generation;
         }
-        if other.stored_versions.is_some() {
+        if let Some(other_value) = other.observed_generation {
+            crate::OptionableConvert::merge(&mut self.observed_generation, other_value)?;
+        }
+        if self.stored_versions.is_none() {
             self.stored_versions = other.stored_versions;
+        }
+        if let Some(other_value) = other.stored_versions {
+            crate::OptionableConvert::merge(&mut self.stored_versions, other_value)?;
         }
         Ok(())
     }

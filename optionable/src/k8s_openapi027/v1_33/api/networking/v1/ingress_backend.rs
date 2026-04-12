@@ -44,8 +44,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressBa
         })
     }
     fn merge(&mut self, other: IngressBackendAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
-        crate::OptionableConvert::merge(&mut self.service, other.service)?;
+        if self.resource.is_none() {
+            self.resource = other.resource;
+        }
+        if let Some(other_value) = other.resource {
+            crate::OptionableConvert::merge(&mut self.resource, other_value)?;
+        }
+        if self.service.is_none() {
+            self.service = other.service;
+        }
+        if let Some(other_value) = other.service {
+            crate::OptionableConvert::merge(&mut self.service, other_value)?;
+        }
         Ok(())
     }
 }

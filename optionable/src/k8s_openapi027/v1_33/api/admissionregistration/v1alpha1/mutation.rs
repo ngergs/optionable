@@ -59,11 +59,18 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::Mutation {
         })
     }
     fn merge(&mut self, other: MutationAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.apply_configuration,
-            other.apply_configuration,
-        )?;
-        crate::OptionableConvert::merge(&mut self.json_patch, other.json_patch)?;
+        if self.apply_configuration.is_none() {
+            self.apply_configuration = other.apply_configuration;
+        }
+        if let Some(other_value) = other.apply_configuration {
+            crate::OptionableConvert::merge(&mut self.apply_configuration, other_value)?;
+        }
+        if self.json_patch.is_none() {
+            self.json_patch = other.json_patch;
+        }
+        if let Some(other_value) = other.json_patch {
+            crate::OptionableConvert::merge(&mut self.json_patch, other_value)?;
+        }
         if let Some(other_value) = other.patch_type {
             self.patch_type = other_value;
         }

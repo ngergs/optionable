@@ -46,7 +46,12 @@ for k8s_openapi027::api::flowcontrol::v1beta3::PriorityLevelConfigurationStatus 
         &mut self,
         other: PriorityLevelConfigurationStatusAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::OptionableConvert::merge(&mut self.conditions, other_value)?;
+        }
         Ok(())
     }
 }

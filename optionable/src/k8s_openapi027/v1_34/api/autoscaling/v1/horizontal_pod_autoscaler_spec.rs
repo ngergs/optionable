@@ -75,15 +75,24 @@ for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerSpec {
         if let Some(other_value) = other.max_replicas {
             self.max_replicas = other_value;
         }
-        if other.min_replicas.is_some() {
+        if self.min_replicas.is_none() {
             self.min_replicas = other.min_replicas;
         }
-        if let Some(other_value) = other.scale_target_ref {
-            crate::OptionableConvert::merge(&mut self.scale_target_ref, other_value)?;
+        if let Some(other_value) = other.min_replicas {
+            crate::OptionableConvert::merge(&mut self.min_replicas, other_value)?;
         }
-        if other.target_cpu_utilization_percentage.is_some() {
+        if let Some(other_value) = other.scale_target_ref {
+            self.scale_target_ref = other_value;
+        }
+        if self.target_cpu_utilization_percentage.is_none() {
             self.target_cpu_utilization_percentage = other
                 .target_cpu_utilization_percentage;
+        }
+        if let Some(other_value) = other.target_cpu_utilization_percentage {
+            crate::OptionableConvert::merge(
+                &mut self.target_cpu_utilization_percentage,
+                other_value,
+            )?;
         }
         Ok(())
     }

@@ -75,18 +75,35 @@ for k8s_openapi027::api::core::v1::CephFSPersistentVolumeSource {
         if let Some(other_value) = other.monitors {
             self.monitors = other_value;
         }
-        if other.path.is_some() {
+        if self.path.is_none() {
             self.path = other.path;
         }
-        if other.read_only.is_some() {
+        if let Some(other_value) = other.path {
+            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+        }
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
         }
-        if other.secret_file.is_some() {
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+        }
+        if self.secret_file.is_none() {
             self.secret_file = other.secret_file;
         }
-        crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
-        if other.user.is_some() {
+        if let Some(other_value) = other.secret_file {
+            crate::OptionableConvert::merge(&mut self.secret_file, other_value)?;
+        }
+        if self.secret_ref.is_none() {
+            self.secret_ref = other.secret_ref;
+        }
+        if let Some(other_value) = other.secret_ref {
+            crate::OptionableConvert::merge(&mut self.secret_ref, other_value)?;
+        }
+        if self.user.is_none() {
             self.user = other.user;
+        }
+        if let Some(other_value) = other.user {
+            crate::OptionableConvert::merge(&mut self.user, other_value)?;
         }
         Ok(())
     }

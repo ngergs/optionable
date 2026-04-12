@@ -50,7 +50,12 @@ for k8s_openapi027::api::networking::v1::IngressServiceBackend {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.port, other.port)?;
+        if self.port.is_none() {
+            self.port = other.port;
+        }
+        if let Some(other_value) = other.port {
+            crate::OptionableConvert::merge(&mut self.port, other_value)?;
+        }
         Ok(())
     }
 }

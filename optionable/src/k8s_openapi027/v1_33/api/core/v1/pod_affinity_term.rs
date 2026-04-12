@@ -74,19 +74,39 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodAffinityTerm
         })
     }
     fn merge(&mut self, other: PodAffinityTermAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
-        if other.match_label_keys.is_some() {
+        if self.label_selector.is_none() {
+            self.label_selector = other.label_selector;
+        }
+        if let Some(other_value) = other.label_selector {
+            crate::OptionableConvert::merge(&mut self.label_selector, other_value)?;
+        }
+        if self.match_label_keys.is_none() {
             self.match_label_keys = other.match_label_keys;
         }
-        if other.mismatch_label_keys.is_some() {
+        if let Some(other_value) = other.match_label_keys {
+            self.match_label_keys = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.mismatch_label_keys.is_none() {
             self.mismatch_label_keys = other.mismatch_label_keys;
         }
-        crate::OptionableConvert::merge(
-            &mut self.namespace_selector,
-            other.namespace_selector,
-        )?;
-        if other.namespaces.is_some() {
+        if let Some(other_value) = other.mismatch_label_keys {
+            self.mismatch_label_keys = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.namespace_selector.is_none() {
+            self.namespace_selector = other.namespace_selector;
+        }
+        if let Some(other_value) = other.namespace_selector {
+            crate::OptionableConvert::merge(&mut self.namespace_selector, other_value)?;
+        }
+        if self.namespaces.is_none() {
             self.namespaces = other.namespaces;
+        }
+        if let Some(other_value) = other.namespaces {
+            self.namespaces = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.topology_key {
             self.topology_key = other_value;

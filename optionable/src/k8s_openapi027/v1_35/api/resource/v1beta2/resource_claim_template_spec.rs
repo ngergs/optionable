@@ -54,9 +54,14 @@ for k8s_openapi027::api::resource::v1beta2::ResourceClaimTemplateSpec {
         })
     }
     fn merge(&mut self, other: ResourceClaimTemplateSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.metadata, other.metadata)?;
+        if self.metadata.is_none() {
+            self.metadata = other.metadata;
+        }
+        if let Some(other_value) = other.metadata {
+            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
+        }
         if let Some(other_value) = other.spec {
-            crate::OptionableConvert::merge(&mut self.spec, other_value)?;
+            self.spec = other_value;
         }
         Ok(())
     }

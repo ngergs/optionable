@@ -95,19 +95,35 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceSliceSpec {
         })
     }
     fn merge(&mut self, other: ResourceSliceSpecAc) -> Result<(), crate::Error> {
-        if other.all_nodes.is_some() {
+        if self.all_nodes.is_none() {
             self.all_nodes = other.all_nodes;
         }
-        crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
+        if let Some(other_value) = other.all_nodes {
+            crate::OptionableConvert::merge(&mut self.all_nodes, other_value)?;
+        }
+        if self.devices.is_none() {
+            self.devices = other.devices;
+        }
+        if let Some(other_value) = other.devices {
+            crate::OptionableConvert::merge(&mut self.devices, other_value)?;
+        }
         if let Some(other_value) = other.driver {
             self.driver = other_value;
         }
-        if other.node_name.is_some() {
+        if self.node_name.is_none() {
             self.node_name = other.node_name;
         }
-        crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
+        if let Some(other_value) = other.node_name {
+            crate::OptionableConvert::merge(&mut self.node_name, other_value)?;
+        }
+        if self.node_selector.is_none() {
+            self.node_selector = other.node_selector;
+        }
+        if let Some(other_value) = other.node_selector {
+            crate::OptionableConvert::merge(&mut self.node_selector, other_value)?;
+        }
         if let Some(other_value) = other.pool {
-            crate::OptionableConvert::merge(&mut self.pool, other_value)?;
+            self.pool = other_value;
         }
         Ok(())
     }

@@ -56,7 +56,7 @@ for k8s_openapi027::api::core::v1::PreferredSchedulingTerm {
     }
     fn merge(&mut self, other: PreferredSchedulingTermAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.preference {
-            crate::OptionableConvert::merge(&mut self.preference, other_value)?;
+            self.preference = other_value;
         }
         if let Some(other_value) = other.weight {
             self.weight = other_value;

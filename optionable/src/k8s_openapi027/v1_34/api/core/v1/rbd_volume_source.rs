@@ -80,27 +80,47 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::RBDVolumeSource
         })
     }
     fn merge(&mut self, other: RBDVolumeSourceAc) -> Result<(), crate::Error> {
-        if other.fs_type.is_some() {
+        if self.fs_type.is_none() {
             self.fs_type = other.fs_type;
+        }
+        if let Some(other_value) = other.fs_type {
+            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
         }
         if let Some(other_value) = other.image {
             self.image = other_value;
         }
-        if other.keyring.is_some() {
+        if self.keyring.is_none() {
             self.keyring = other.keyring;
+        }
+        if let Some(other_value) = other.keyring {
+            crate::OptionableConvert::merge(&mut self.keyring, other_value)?;
         }
         if let Some(other_value) = other.monitors {
             self.monitors = other_value;
         }
-        if other.pool.is_some() {
+        if self.pool.is_none() {
             self.pool = other.pool;
         }
-        if other.read_only.is_some() {
+        if let Some(other_value) = other.pool {
+            crate::OptionableConvert::merge(&mut self.pool, other_value)?;
+        }
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
         }
-        crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
-        if other.user.is_some() {
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+        }
+        if self.secret_ref.is_none() {
+            self.secret_ref = other.secret_ref;
+        }
+        if let Some(other_value) = other.secret_ref {
+            crate::OptionableConvert::merge(&mut self.secret_ref, other_value)?;
+        }
+        if self.user.is_none() {
             self.user = other.user;
+        }
+        if let Some(other_value) = other.user {
+            crate::OptionableConvert::merge(&mut self.user, other_value)?;
         }
         Ok(())
     }

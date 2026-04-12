@@ -71,22 +71,50 @@ impl crate::OptionableConvert for k8s_openapi027::api::coordination::v1::LeaseSp
         })
     }
     fn merge(&mut self, other: LeaseSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.acquire_time, other.acquire_time)?;
-        if other.holder_identity.is_some() {
+        if self.acquire_time.is_none() {
+            self.acquire_time = other.acquire_time;
+        }
+        if let Some(other_value) = other.acquire_time {
+            crate::OptionableConvert::merge(&mut self.acquire_time, other_value)?;
+        }
+        if self.holder_identity.is_none() {
             self.holder_identity = other.holder_identity;
         }
-        if other.lease_duration_seconds.is_some() {
+        if let Some(other_value) = other.holder_identity {
+            crate::OptionableConvert::merge(&mut self.holder_identity, other_value)?;
+        }
+        if self.lease_duration_seconds.is_none() {
             self.lease_duration_seconds = other.lease_duration_seconds;
         }
-        if other.lease_transitions.is_some() {
+        if let Some(other_value) = other.lease_duration_seconds {
+            crate::OptionableConvert::merge(
+                &mut self.lease_duration_seconds,
+                other_value,
+            )?;
+        }
+        if self.lease_transitions.is_none() {
             self.lease_transitions = other.lease_transitions;
         }
-        if other.preferred_holder.is_some() {
+        if let Some(other_value) = other.lease_transitions {
+            crate::OptionableConvert::merge(&mut self.lease_transitions, other_value)?;
+        }
+        if self.preferred_holder.is_none() {
             self.preferred_holder = other.preferred_holder;
         }
-        crate::OptionableConvert::merge(&mut self.renew_time, other.renew_time)?;
-        if other.strategy.is_some() {
+        if let Some(other_value) = other.preferred_holder {
+            crate::OptionableConvert::merge(&mut self.preferred_holder, other_value)?;
+        }
+        if self.renew_time.is_none() {
+            self.renew_time = other.renew_time;
+        }
+        if let Some(other_value) = other.renew_time {
+            crate::OptionableConvert::merge(&mut self.renew_time, other_value)?;
+        }
+        if self.strategy.is_none() {
             self.strategy = other.strategy;
+        }
+        if let Some(other_value) = other.strategy {
+            crate::OptionableConvert::merge(&mut self.strategy, other_value)?;
         }
         Ok(())
     }

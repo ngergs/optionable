@@ -76,11 +76,20 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
         if let Some(other_value) = other.api_version {
             self.api_version = other_value;
         }
-        if other.block_owner_deletion.is_some() {
+        if self.block_owner_deletion.is_none() {
             self.block_owner_deletion = other.block_owner_deletion;
         }
-        if other.controller.is_some() {
+        if let Some(other_value) = other.block_owner_deletion {
+            crate::OptionableConvert::merge(
+                &mut self.block_owner_deletion,
+                other_value,
+            )?;
+        }
+        if self.controller.is_none() {
             self.controller = other.controller;
+        }
+        if let Some(other_value) = other.controller {
+            crate::OptionableConvert::merge(&mut self.controller, other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = other_value;

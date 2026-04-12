@@ -136,29 +136,47 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
         &mut self,
         other: CertificateSigningRequestSpecAc,
     ) -> Result<(), crate::Error> {
-        if other.expiration_seconds.is_some() {
+        if self.expiration_seconds.is_none() {
             self.expiration_seconds = other.expiration_seconds;
         }
-        if other.extra.is_some() {
+        if let Some(other_value) = other.expiration_seconds {
+            crate::OptionableConvert::merge(&mut self.expiration_seconds, other_value)?;
+        }
+        if self.extra.is_none() {
             self.extra = other.extra;
         }
-        if other.groups.is_some() {
+        if let Some(other_value) = other.extra {
+            crate::OptionableConvert::merge(&mut self.extra, other_value)?;
+        }
+        if self.groups.is_none() {
             self.groups = other.groups;
         }
+        if let Some(other_value) = other.groups {
+            self.groups = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
         if let Some(other_value) = other.request {
-            crate::OptionableConvert::merge(&mut self.request, other_value)?;
+            self.request = other_value;
         }
         if let Some(other_value) = other.signer_name {
             self.signer_name = other_value;
         }
-        if other.uid.is_some() {
+        if self.uid.is_none() {
             self.uid = other.uid;
         }
-        if other.usages.is_some() {
+        if let Some(other_value) = other.uid {
+            crate::OptionableConvert::merge(&mut self.uid, other_value)?;
+        }
+        if self.usages.is_none() {
             self.usages = other.usages;
         }
-        if other.username.is_some() {
+        if let Some(other_value) = other.usages {
+            self.usages = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.username.is_none() {
             self.username = other.username;
+        }
+        if let Some(other_value) = other.username {
+            crate::OptionableConvert::merge(&mut self.username, other_value)?;
         }
         Ok(())
     }

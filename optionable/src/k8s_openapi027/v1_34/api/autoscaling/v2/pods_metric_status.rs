@@ -58,10 +58,10 @@ for k8s_openapi027::api::autoscaling::v2::PodsMetricStatus {
     }
     fn merge(&mut self, other: PodsMetricStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.current {
-            crate::OptionableConvert::merge(&mut self.current, other_value)?;
+            self.current = other_value;
         }
         if let Some(other_value) = other.metric {
-            crate::OptionableConvert::merge(&mut self.metric, other_value)?;
+            self.metric = other_value;
         }
         Ok(())
     }

@@ -90,8 +90,11 @@ for k8s_openapi027::api::admissionregistration::v1beta1::JSONPatch {
         })
     }
     fn merge(&mut self, other: JSONPatchAc) -> Result<(), crate::Error> {
-        if other.expression.is_some() {
+        if self.expression.is_none() {
             self.expression = other.expression;
+        }
+        if let Some(other_value) = other.expression {
+            crate::OptionableConvert::merge(&mut self.expression, other_value)?;
         }
         Ok(())
     }

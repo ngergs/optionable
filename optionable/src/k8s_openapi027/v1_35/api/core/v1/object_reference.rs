@@ -64,24 +64,42 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ObjectReference
         })
     }
     fn merge(&mut self, other: ObjectReferenceAc) -> Result<(), crate::Error> {
-        if other.api_version.is_some() {
+        if self.api_version.is_none() {
             self.api_version = other.api_version;
         }
-        if other.field_path.is_some() {
+        if let Some(other_value) = other.api_version {
+            crate::OptionableConvert::merge(&mut self.api_version, other_value)?;
+        }
+        if self.field_path.is_none() {
             self.field_path = other.field_path;
         }
-        if other.kind.is_some() {
+        if let Some(other_value) = other.field_path {
+            crate::OptionableConvert::merge(&mut self.field_path, other_value)?;
+        }
+        if self.kind.is_none() {
             self.kind = other.kind;
         }
+        if let Some(other_value) = other.kind {
+            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
+        }
         self.name = other.name;
-        if other.namespace.is_some() {
+        if self.namespace.is_none() {
             self.namespace = other.namespace;
         }
-        if other.resource_version.is_some() {
+        if let Some(other_value) = other.namespace {
+            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
+        }
+        if self.resource_version.is_none() {
             self.resource_version = other.resource_version;
         }
-        if other.uid.is_some() {
+        if let Some(other_value) = other.resource_version {
+            crate::OptionableConvert::merge(&mut self.resource_version, other_value)?;
+        }
+        if self.uid.is_none() {
             self.uid = other.uid;
+        }
+        if let Some(other_value) = other.uid {
+            crate::OptionableConvert::merge(&mut self.uid, other_value)?;
         }
         Ok(())
     }

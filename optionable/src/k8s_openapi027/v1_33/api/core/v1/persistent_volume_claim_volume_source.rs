@@ -54,8 +54,11 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimVolumeSource {
         if let Some(other_value) = other.claim_name {
             self.claim_name = other_value;
         }
-        if other.read_only.is_some() {
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
+        }
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
         }
         Ok(())
     }

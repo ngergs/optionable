@@ -130,11 +130,17 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::version::In
         if let Some(other_value) = other.compiler {
             self.compiler = other_value;
         }
-        if other.emulation_major.is_some() {
+        if self.emulation_major.is_none() {
             self.emulation_major = other.emulation_major;
         }
-        if other.emulation_minor.is_some() {
+        if let Some(other_value) = other.emulation_major {
+            crate::OptionableConvert::merge(&mut self.emulation_major, other_value)?;
+        }
+        if self.emulation_minor.is_none() {
             self.emulation_minor = other.emulation_minor;
+        }
+        if let Some(other_value) = other.emulation_minor {
+            crate::OptionableConvert::merge(&mut self.emulation_minor, other_value)?;
         }
         if let Some(other_value) = other.git_commit {
             self.git_commit = other_value;
@@ -151,11 +157,23 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::version::In
         if let Some(other_value) = other.major {
             self.major = other_value;
         }
-        if other.min_compatibility_major.is_some() {
+        if self.min_compatibility_major.is_none() {
             self.min_compatibility_major = other.min_compatibility_major;
         }
-        if other.min_compatibility_minor.is_some() {
+        if let Some(other_value) = other.min_compatibility_major {
+            crate::OptionableConvert::merge(
+                &mut self.min_compatibility_major,
+                other_value,
+            )?;
+        }
+        if self.min_compatibility_minor.is_none() {
             self.min_compatibility_minor = other.min_compatibility_minor;
+        }
+        if let Some(other_value) = other.min_compatibility_minor {
+            crate::OptionableConvert::merge(
+                &mut self.min_compatibility_minor,
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.minor {
             self.minor = other_value;

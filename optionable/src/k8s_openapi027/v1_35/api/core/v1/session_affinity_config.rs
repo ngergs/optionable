@@ -38,7 +38,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SessionAffinity
         })
     }
     fn merge(&mut self, other: SessionAffinityConfigAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.client_ip, other.client_ip)?;
+        if self.client_ip.is_none() {
+            self.client_ip = other.client_ip;
+        }
+        if let Some(other_value) = other.client_ip {
+            crate::OptionableConvert::merge(&mut self.client_ip, other_value)?;
+        }
         Ok(())
     }
 }

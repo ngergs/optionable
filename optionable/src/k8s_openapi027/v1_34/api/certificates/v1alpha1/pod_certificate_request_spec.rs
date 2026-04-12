@@ -155,8 +155,14 @@ for k8s_openapi027::api::certificates::v1alpha1::PodCertificateRequestSpec {
         })
     }
     fn merge(&mut self, other: PodCertificateRequestSpecAc) -> Result<(), crate::Error> {
-        if other.max_expiration_seconds.is_some() {
+        if self.max_expiration_seconds.is_none() {
             self.max_expiration_seconds = other.max_expiration_seconds;
+        }
+        if let Some(other_value) = other.max_expiration_seconds {
+            crate::OptionableConvert::merge(
+                &mut self.max_expiration_seconds,
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.node_name {
             self.node_name = other_value;
@@ -165,7 +171,7 @@ for k8s_openapi027::api::certificates::v1alpha1::PodCertificateRequestSpec {
             self.node_uid = other_value;
         }
         if let Some(other_value) = other.pkix_public_key {
-            crate::OptionableConvert::merge(&mut self.pkix_public_key, other_value)?;
+            self.pkix_public_key = other_value;
         }
         if let Some(other_value) = other.pod_name {
             self.pod_name = other_value;
@@ -174,7 +180,7 @@ for k8s_openapi027::api::certificates::v1alpha1::PodCertificateRequestSpec {
             self.pod_uid = other_value;
         }
         if let Some(other_value) = other.proof_of_possession {
-            crate::OptionableConvert::merge(&mut self.proof_of_possession, other_value)?;
+            self.proof_of_possession = other_value;
         }
         if let Some(other_value) = other.service_account_name {
             self.service_account_name = other_value;

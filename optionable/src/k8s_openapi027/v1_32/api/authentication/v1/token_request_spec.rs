@@ -59,12 +59,17 @@ for k8s_openapi027::api::authentication::v1::TokenRequestSpec {
         if let Some(other_value) = other.audiences {
             self.audiences = other_value;
         }
-        crate::OptionableConvert::merge(
-            &mut self.bound_object_ref,
-            other.bound_object_ref,
-        )?;
-        if other.expiration_seconds.is_some() {
+        if self.bound_object_ref.is_none() {
+            self.bound_object_ref = other.bound_object_ref;
+        }
+        if let Some(other_value) = other.bound_object_ref {
+            crate::OptionableConvert::merge(&mut self.bound_object_ref, other_value)?;
+        }
+        if self.expiration_seconds.is_none() {
             self.expiration_seconds = other.expiration_seconds;
+        }
+        if let Some(other_value) = other.expiration_seconds {
+            crate::OptionableConvert::merge(&mut self.expiration_seconds, other_value)?;
         }
         Ok(())
     }

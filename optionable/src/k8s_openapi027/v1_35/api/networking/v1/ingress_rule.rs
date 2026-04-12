@@ -48,10 +48,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressRu
         })
     }
     fn merge(&mut self, other: IngressRuleAc) -> Result<(), crate::Error> {
-        if other.host.is_some() {
+        if self.host.is_none() {
             self.host = other.host;
         }
-        crate::OptionableConvert::merge(&mut self.http, other.http)?;
+        if let Some(other_value) = other.host {
+            crate::OptionableConvert::merge(&mut self.host, other_value)?;
+        }
+        if self.http.is_none() {
+            self.http = other.http;
+        }
+        if let Some(other_value) = other.http {
+            crate::OptionableConvert::merge(&mut self.http, other_value)?;
+        }
         Ok(())
     }
 }

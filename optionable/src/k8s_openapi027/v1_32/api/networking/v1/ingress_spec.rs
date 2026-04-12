@@ -64,15 +64,30 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressSp
         })
     }
     fn merge(&mut self, other: IngressSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.default_backend,
-            other.default_backend,
-        )?;
-        if other.ingress_class_name.is_some() {
+        if self.default_backend.is_none() {
+            self.default_backend = other.default_backend;
+        }
+        if let Some(other_value) = other.default_backend {
+            crate::OptionableConvert::merge(&mut self.default_backend, other_value)?;
+        }
+        if self.ingress_class_name.is_none() {
             self.ingress_class_name = other.ingress_class_name;
         }
-        crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
-        crate::OptionableConvert::merge(&mut self.tls, other.tls)?;
+        if let Some(other_value) = other.ingress_class_name {
+            crate::OptionableConvert::merge(&mut self.ingress_class_name, other_value)?;
+        }
+        if self.rules.is_none() {
+            self.rules = other.rules;
+        }
+        if let Some(other_value) = other.rules {
+            self.rules = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.tls.is_none() {
+            self.tls = other.tls;
+        }
+        if let Some(other_value) = other.tls {
+            self.tls = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
         Ok(())
     }
 }

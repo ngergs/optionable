@@ -45,7 +45,7 @@ for k8s_openapi027::api::resource::v1beta1::DeviceCapacity {
     }
     fn merge(&mut self, other: DeviceCapacityAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.value {
-            crate::OptionableConvert::merge(&mut self.value, other_value)?;
+            self.value = other_value;
         }
         Ok(())
     }

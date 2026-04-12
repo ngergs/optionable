@@ -123,24 +123,48 @@ for k8s_openapi027::api::admissionregistration::v1beta1::ValidatingAdmissionPoli
         &mut self,
         other: ValidatingAdmissionPolicySpecAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.audit_annotations,
-            other.audit_annotations,
-        )?;
-        if other.failure_policy.is_some() {
+        if self.audit_annotations.is_none() {
+            self.audit_annotations = other.audit_annotations;
+        }
+        if let Some(other_value) = other.audit_annotations {
+            crate::OptionableConvert::merge(&mut self.audit_annotations, other_value)?;
+        }
+        if self.failure_policy.is_none() {
             self.failure_policy = other.failure_policy;
         }
-        crate::OptionableConvert::merge(
-            &mut self.match_conditions,
-            other.match_conditions,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.match_constraints,
-            other.match_constraints,
-        )?;
-        crate::OptionableConvert::merge(&mut self.param_kind, other.param_kind)?;
-        crate::OptionableConvert::merge(&mut self.validations, other.validations)?;
-        crate::OptionableConvert::merge(&mut self.variables, other.variables)?;
+        if let Some(other_value) = other.failure_policy {
+            crate::OptionableConvert::merge(&mut self.failure_policy, other_value)?;
+        }
+        if self.match_conditions.is_none() {
+            self.match_conditions = other.match_conditions;
+        }
+        if let Some(other_value) = other.match_conditions {
+            crate::OptionableConvert::merge(&mut self.match_conditions, other_value)?;
+        }
+        if self.match_constraints.is_none() {
+            self.match_constraints = other.match_constraints;
+        }
+        if let Some(other_value) = other.match_constraints {
+            crate::OptionableConvert::merge(&mut self.match_constraints, other_value)?;
+        }
+        if self.param_kind.is_none() {
+            self.param_kind = other.param_kind;
+        }
+        if let Some(other_value) = other.param_kind {
+            crate::OptionableConvert::merge(&mut self.param_kind, other_value)?;
+        }
+        if self.validations.is_none() {
+            self.validations = other.validations;
+        }
+        if let Some(other_value) = other.validations {
+            crate::OptionableConvert::merge(&mut self.validations, other_value)?;
+        }
+        if self.variables.is_none() {
+            self.variables = other.variables;
+        }
+        if let Some(other_value) = other.variables {
+            crate::OptionableConvert::merge(&mut self.variables, other_value)?;
+        }
         Ok(())
     }
 }

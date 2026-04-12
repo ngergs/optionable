@@ -105,21 +105,48 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeProjectio
         })
     }
     fn merge(&mut self, other: VolumeProjectionAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.cluster_trust_bundle,
-            other.cluster_trust_bundle,
-        )?;
-        crate::OptionableConvert::merge(&mut self.config_map, other.config_map)?;
-        crate::OptionableConvert::merge(&mut self.downward_api, other.downward_api)?;
-        crate::OptionableConvert::merge(
-            &mut self.pod_certificate,
-            other.pod_certificate,
-        )?;
-        crate::OptionableConvert::merge(&mut self.secret, other.secret)?;
-        crate::OptionableConvert::merge(
-            &mut self.service_account_token,
-            other.service_account_token,
-        )?;
+        if self.cluster_trust_bundle.is_none() {
+            self.cluster_trust_bundle = other.cluster_trust_bundle;
+        }
+        if let Some(other_value) = other.cluster_trust_bundle {
+            crate::OptionableConvert::merge(
+                &mut self.cluster_trust_bundle,
+                other_value,
+            )?;
+        }
+        if self.config_map.is_none() {
+            self.config_map = other.config_map;
+        }
+        if let Some(other_value) = other.config_map {
+            crate::OptionableConvert::merge(&mut self.config_map, other_value)?;
+        }
+        if self.downward_api.is_none() {
+            self.downward_api = other.downward_api;
+        }
+        if let Some(other_value) = other.downward_api {
+            crate::OptionableConvert::merge(&mut self.downward_api, other_value)?;
+        }
+        if self.pod_certificate.is_none() {
+            self.pod_certificate = other.pod_certificate;
+        }
+        if let Some(other_value) = other.pod_certificate {
+            crate::OptionableConvert::merge(&mut self.pod_certificate, other_value)?;
+        }
+        if self.secret.is_none() {
+            self.secret = other.secret;
+        }
+        if let Some(other_value) = other.secret {
+            crate::OptionableConvert::merge(&mut self.secret, other_value)?;
+        }
+        if self.service_account_token.is_none() {
+            self.service_account_token = other.service_account_token;
+        }
+        if let Some(other_value) = other.service_account_token {
+            crate::OptionableConvert::merge(
+                &mut self.service_account_token,
+                other_value,
+            )?;
+        }
         Ok(())
     }
 }

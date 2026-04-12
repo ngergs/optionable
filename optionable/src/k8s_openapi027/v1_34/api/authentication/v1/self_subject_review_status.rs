@@ -41,7 +41,12 @@ for k8s_openapi027::api::authentication::v1::SelfSubjectReviewStatus {
         })
     }
     fn merge(&mut self, other: SelfSubjectReviewStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.user_info, other.user_info)?;
+        if self.user_info.is_none() {
+            self.user_info = other.user_info;
+        }
+        if let Some(other_value) = other.user_info {
+            crate::OptionableConvert::merge(&mut self.user_info, other_value)?;
+        }
         Ok(())
     }
 }

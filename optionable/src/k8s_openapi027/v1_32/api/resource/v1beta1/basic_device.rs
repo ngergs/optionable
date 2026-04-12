@@ -54,8 +54,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::BasicD
         })
     }
     fn merge(&mut self, other: BasicDeviceAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.attributes, other.attributes)?;
-        crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
+        if self.attributes.is_none() {
+            self.attributes = other.attributes;
+        }
+        if let Some(other_value) = other.attributes {
+            crate::OptionableConvert::merge(&mut self.attributes, other_value)?;
+        }
+        if self.capacity.is_none() {
+            self.capacity = other.capacity;
+        }
+        if let Some(other_value) = other.capacity {
+            crate::OptionableConvert::merge(&mut self.capacity, other_value)?;
+        }
         Ok(())
     }
 }
