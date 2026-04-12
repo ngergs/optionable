@@ -1,14 +1,10 @@
 #![cfg(any(feature = "alloc", feature = "std"))]
 
-use optionable::{
-    Optionable,
-    merge::{OptionableMapKeysEq, try_merge_optioned_map},
-};
+use optionable::{Optionable, merge::try_merge_optioned_map};
 
-#[derive(Optionable, OptionableMapKeysEq, Debug, PartialEq)]
+#[derive(Optionable, Debug, PartialEq)]
 struct EnvVar {
-    #[optionable(required)]
-    #[map_key]
+    #[optionable(merge_map_key)]
     name: String,
     value: String,
 }

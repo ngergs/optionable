@@ -1,9 +1,5 @@
 use crate::{Optionable, OptionableConvert};
 
-#[cfg(feature = "derive")]
-#[doc(inline)]
-pub use optionable_derive::OptionableMapKeysEq;
-
 /// Merges `other` into `target` using Kubernetes-style `set` merge logic.
 /// This means that all elements from `other` which are already present in `target` are discarded
 /// and the other ones that are missing in `target` get appended.

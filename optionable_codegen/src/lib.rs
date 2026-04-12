@@ -16,13 +16,13 @@ mod parsed_input;
 mod where_clause;
 
 mod map_keys_eq;
-pub use map_keys_eq::derive_optionable_map_keys_eq;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s::{
     ResourceType, error_missing_features, k8s_adjust_fields, k8s_openapi_derives,
     k8s_openapi_impl_metadata, k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr,
 };
+use crate::map_keys_eq::map_keys_eq_impl;
 use crate::parsed_input::{
     FieldHandling, FieldParsed, StructParsed, StructType, into_field_handling,
 };
@@ -148,6 +148,9 @@ struct FieldHelperAttributes {
     /// Specifies how to merge entries for `OptionableConvert`.
     #[darling(default)]
     merge: MergeBehaviour,
+    /// Given field is a map key when being used as an element of an `impl IntoIterator` field with `merge: map`.
+    /// Implies `required` for the given field.
+    merge_map_key: Option<()>,
 }
 
 #[derive(FromDeriveInput, Debug, Clone)]
@@ -601,6 +604,7 @@ fn process_struct_data(
     let ty_ident = ctx.ty_ident;
     let ty_ident_opt = ctx.ty_ident_opt;
     let impl_optionable_convert = ctx.attr_no_convert.is_none().then(|| {
+           let map_keys_eq_impl = map_keys_eq_impl(&struct_parsed.fields);
         let into_optioned_fields =
             into_optioned(&struct_parsed, |selector| quote! { self.#selector });
         let try_from_optioned_fields =
@@ -611,6 +615,14 @@ fn process_struct_data(
             |selector| quote! { other.#selector },
             true,
         )?;
+        let map_keys_eq_impl = map_keys_eq_impl.map(|map_keys_eq_impl|quote! {
+            #[automatically_derived]
+            impl #impl_generics #crate_name::merge::OptionableMapKeysEq for #ty_ident #ty_generics #where_clause_optionable_convert {
+                fn keys_eq(&self, other: &<Self as #crate_name::Optionable>::Optioned) -> bool {
+                    #map_keys_eq_impl
+                }
+            }
+        });
         Ok::<_,Error>(quote! {
             #[automatically_derived]
             impl #impl_generics #crate_name::OptionableConvert for #ty_ident #ty_generics #where_clause_optionable_convert {
@@ -627,6 +639,8 @@ fn process_struct_data(
                     Ok(())
                 }
             }
+
+            #map_keys_eq_impl
         })
     }).transpose()?;
     Ok(Derived {
@@ -788,7 +802,7 @@ fn optioned_fields(
             let optioned_ty = optioned_ty(&fields.crate_name, ty);
             let colon = ident.as_ref().map(|_| quote! {:});
             Ok::<_, Error>(match handling {
-                FieldHandling::Required | FieldHandling::OptionedOnly => quote! {#forwarded_attrs #vis #ident #colon #ty},
+                FieldHandling::MapKey | FieldHandling::Required | FieldHandling::OptionedOnly => quote! {#forwarded_attrs #vis #ident #colon #ty},
                 FieldHandling::ManualOptioned(ty_opt) => quote! {#forwarded_attrs #vis #ident #colon Option<#ty_opt>},
                 FieldHandling::IsOption => quote! {#forwarded_attrs #serde_attributes #vis #ident #colon #optioned_ty},
                 FieldHandling::Other => quote! {#forwarded_attrs #serde_attributes #vis #ident #colon Option<#optioned_ty>},
@@ -814,7 +828,7 @@ fn into_optioned(
         let self_selector = self_selector_fn(&selector);
         let crate_name = &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
-            (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon #self_selector},
+            (FieldHandling::MapKey|FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon #self_selector},
             (FieldHandling::ManualOptioned(_), _) => quote! {#ident #colon Some(#crate_name::OptionedConvert::from_optionable(#self_selector))},
             (FieldHandling::IsOption, false) => quote! {#ident #colon #crate_name::OptionableConvert::into_optioned(#self_selector)},
             (FieldHandling::Other, true) => quote! {#ident #colon Some(#self_selector)},
@@ -841,7 +855,7 @@ fn try_from_optioned(
         let value_selector = value_selector_fn(&selector);
         let crate_name = &struct_parsed.crate_name;
         match (handling, is_self_resolving_optioned(ty)) {
-            (FieldHandling::Required, _) | (FieldHandling::IsOption, true) => Some(quote! {#ident #colon value.#selector}),
+            (FieldHandling::MapKey|FieldHandling::Required, _) | (FieldHandling::IsOption, true) => Some(quote! {#ident #colon value.#selector}),
             (FieldHandling::ManualOptioned(_), _) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 Some(quote! {
@@ -912,7 +926,7 @@ fn merge_fields(
                 return Some(error(format!("Unsupported combination of custom merge behaviour `{merge_behaviour:?}` for the field `{}`. If you expect this specific case to work, pls open an issue for `optionable`.",ident.to_token_stream().to_string())));
             }
             match (handling, is_self_resolving_ty) {
-                (FieldHandling::Required, _)  => Some(Ok::<_,Error>(quote! {#deref_modifier #self_selector = #other_selector;})),
+                (FieldHandling::MapKey|FieldHandling::Required, _)  => Some(Ok::<_,Error>(quote! {#deref_modifier #self_selector = #other_selector;})),
                 (FieldHandling::IsOption, true) => Some(Ok(quote! {
                     if #other_selector.is_some(){
                         #deref_modifier #self_selector = #other_selector;
@@ -1231,7 +1245,7 @@ mod tests {
     use quote::quote;
     use syn::{Path, parse_quote};
 
-    fn normalize_token_str(s: String) -> String {
+    fn normalize_token_str(s: &str) -> String {
         // `quote!` literals and interpolated token streams differ in whether adjacent `>>`
         // closing angle brackets are rendered with or without a space. Normalize to `> >`.
         s.replace(">>", "> >")
@@ -1241,8 +1255,8 @@ mod tests {
         let parsed = syn::parse2(input).unwrap();
         let output = derive_optionable(parsed, None).unwrap();
         assert_eq!(
-            normalize_token_str(expected.to_string()),
-            normalize_token_str(output.to_string())
+            normalize_token_str(&expected.to_string()),
+            normalize_token_str(&output.to_string())
         );
     }
 
@@ -1354,8 +1368,10 @@ mod tests {
                 #[derive(Optionable)]
                 struct DeriveExample {
                     name: String,
-                    #[optionable(required)]
+                    #[optionable(merge_map_key)]
                     pub surname: String,
+                    #[optionable(required)]
+                    pub surname2: String,
                     #[optionable(optioned_type=MyInt)]
                     pub id: i32,
                 }
@@ -1364,6 +1380,7 @@ mod tests {
                 struct DeriveExampleOpt {
                     name: Option<String>,
                     pub surname: String,
+                    pub surname2: String,
                     pub id: Option<MyInt>
                 }
 
@@ -1383,6 +1400,7 @@ mod tests {
                         DeriveExampleOpt  {
                             name: Some(self.name),
                             surname: self.surname,
+                            surname2: self.surname2,
                             id: Some (::optionable::OptionedConvert::from_optionable(self.id))
                         }
                     }
@@ -1391,6 +1409,7 @@ mod tests {
                         Ok (Self {
                             name: value.name.ok_or(::optionable::Error { missing_field: "name" })?,
                             surname: value.surname,
+                            surname2: value.surname2,
                             id: ::optionable::OptionedConvert::try_into_optionable(value.id.ok_or(::optionable::Error{ missing_field: "id" })?)?
                         })
                     }
@@ -1400,6 +1419,7 @@ mod tests {
                             self.name = other_value;
                         }
                         self.surname = other.surname;
+                        self.surname2 = other.surname2;
                         if let Some (other_value) = other.id {
                             ::optionable::OptionedConvert::merge_into(other_value, &mut self.id)?;
                         }
@@ -1407,6 +1427,12 @@ mod tests {
                     }
                 }
 
+                #[automatically_derived]
+                impl ::optionable::merge::OptionableMapKeysEq for DeriveExample {
+                    fn keys_eq(&self, other: &<Self as ::optionable::Optionable>::Optioned) -> bool {
+                        self.surname == other.surname
+                    }
+                }
 
                 #[automatically_derived]
                 impl ::optionable::OptionedConvert<DeriveExample> for DeriveExampleOpt {
@@ -2173,8 +2199,8 @@ mod tests {
         )
         .unwrap();
         assert_eq!(
-            normalize_token_str(expected.to_string()),
-            normalize_token_str(output.to_string())
+            normalize_token_str(&expected.to_string()),
+            normalize_token_str(&output.to_string())
         );
     }
 }

@@ -1,5 +1,5 @@
 use crate::helper::{error, is_option, type_path_replace_crate};
-use crate::parsed_input::FieldHandling::{IsOption, ManualOptioned, Other, Required};
+use crate::parsed_input::FieldHandling::{IsOption, ManualOptioned, MapKey, Other, Required};
 use crate::{FieldHelperAttributes, MergeBehaviour};
 use darling::FromAttributes;
 use proc_macro2::Ident;
@@ -12,6 +12,7 @@ use syn::{Error, Field, Fields, Path};
 #[allow(dead_code)] // used by k8s_openapi feature and splitting the enum over this is not worth it
 pub(crate) enum FieldHandling {
     Required,
+    MapKey,
     ManualOptioned(Path),
     IsOption,
     OptionedOnly,
@@ -72,7 +73,9 @@ pub(crate) fn into_field_handling(
             if attrs.required.is_some() && attrs.optioned_ty.is_some(){
                 return error("Setting `required` and `optioned` together is not supported. You don't need to set `optioned` for `required` fields.");
             }
-            let handling = if attrs.required.is_some() {
+            let handling = if attrs.merge_map_key.is_some(){
+                MapKey
+            } else if attrs.required.is_some() {
                 Required
             } else if let Some(ty)=attrs.optioned_ty {
                 ManualOptioned(ty)
