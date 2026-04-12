@@ -60,11 +60,24 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
         &mut self,
         other: ValidatingAdmissionPolicyStatusAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        if other.observed_generation.is_some() {
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::OptionableConvert::merge(&mut self.conditions, other_value)?;
+        }
+        if self.observed_generation.is_none() {
             self.observed_generation = other.observed_generation;
         }
-        crate::OptionableConvert::merge(&mut self.type_checking, other.type_checking)?;
+        if let Some(other_value) = other.observed_generation {
+            crate::OptionableConvert::merge(&mut self.observed_generation, other_value)?;
+        }
+        if self.type_checking.is_none() {
+            self.type_checking = other.type_checking;
+        }
+        if let Some(other_value) = other.type_checking {
+            crate::OptionableConvert::merge(&mut self.type_checking, other_value)?;
+        }
         Ok(())
     }
 }

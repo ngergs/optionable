@@ -81,25 +81,44 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewSpec {
         })
     }
     fn merge(&mut self, other: SubjectAccessReviewSpecAc) -> Result<(), crate::Error> {
-        if other.extra.is_some() {
+        if self.extra.is_none() {
             self.extra = other.extra;
         }
-        if other.groups.is_some() {
+        if let Some(other_value) = other.extra {
+            crate::OptionableConvert::merge(&mut self.extra, other_value)?;
+        }
+        if self.groups.is_none() {
             self.groups = other.groups;
         }
-        crate::OptionableConvert::merge(
-            &mut self.non_resource_attributes,
-            other.non_resource_attributes,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.resource_attributes,
-            other.resource_attributes,
-        )?;
-        if other.uid.is_some() {
+        if let Some(other_value) = other.groups {
+            self.groups = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.non_resource_attributes.is_none() {
+            self.non_resource_attributes = other.non_resource_attributes;
+        }
+        if let Some(other_value) = other.non_resource_attributes {
+            crate::OptionableConvert::merge(
+                &mut self.non_resource_attributes,
+                other_value,
+            )?;
+        }
+        if self.resource_attributes.is_none() {
+            self.resource_attributes = other.resource_attributes;
+        }
+        if let Some(other_value) = other.resource_attributes {
+            crate::OptionableConvert::merge(&mut self.resource_attributes, other_value)?;
+        }
+        if self.uid.is_none() {
             self.uid = other.uid;
         }
-        if other.user.is_some() {
+        if let Some(other_value) = other.uid {
+            crate::OptionableConvert::merge(&mut self.uid, other_value)?;
+        }
+        if self.user.is_none() {
             self.user = other.user;
+        }
+        if let Some(other_value) = other.user {
+            crate::OptionableConvert::merge(&mut self.user, other_value)?;
         }
         Ok(())
     }

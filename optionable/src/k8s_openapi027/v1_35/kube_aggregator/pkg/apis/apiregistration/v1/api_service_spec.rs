@@ -78,19 +78,41 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceS
         })
     }
     fn merge(&mut self, other: APIServiceSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
-        if other.group.is_some() {
+        if self.ca_bundle.is_none() {
+            self.ca_bundle = other.ca_bundle;
+        }
+        if let Some(other_value) = other.ca_bundle {
+            crate::OptionableConvert::merge(&mut self.ca_bundle, other_value)?;
+        }
+        if self.group.is_none() {
             self.group = other.group;
+        }
+        if let Some(other_value) = other.group {
+            crate::OptionableConvert::merge(&mut self.group, other_value)?;
         }
         if let Some(other_value) = other.group_priority_minimum {
             self.group_priority_minimum = other_value;
         }
-        if other.insecure_skip_tls_verify.is_some() {
+        if self.insecure_skip_tls_verify.is_none() {
             self.insecure_skip_tls_verify = other.insecure_skip_tls_verify;
         }
-        crate::OptionableConvert::merge(&mut self.service, other.service)?;
-        if other.version.is_some() {
+        if let Some(other_value) = other.insecure_skip_tls_verify {
+            crate::OptionableConvert::merge(
+                &mut self.insecure_skip_tls_verify,
+                other_value,
+            )?;
+        }
+        if self.service.is_none() {
+            self.service = other.service;
+        }
+        if let Some(other_value) = other.service {
+            crate::OptionableConvert::merge(&mut self.service, other_value)?;
+        }
+        if self.version.is_none() {
             self.version = other.version;
+        }
+        if let Some(other_value) = other.version {
+            crate::OptionableConvert::merge(&mut self.version, other_value)?;
         }
         if let Some(other_value) = other.version_priority {
             self.version_priority = other_value;

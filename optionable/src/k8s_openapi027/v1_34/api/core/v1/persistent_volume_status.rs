@@ -56,18 +56,32 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
         })
     }
     fn merge(&mut self, other: PersistentVolumeStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.last_phase_transition_time,
-            other.last_phase_transition_time,
-        )?;
-        if other.message.is_some() {
+        if self.last_phase_transition_time.is_none() {
+            self.last_phase_transition_time = other.last_phase_transition_time;
+        }
+        if let Some(other_value) = other.last_phase_transition_time {
+            crate::OptionableConvert::merge(
+                &mut self.last_phase_transition_time,
+                other_value,
+            )?;
+        }
+        if self.message.is_none() {
             self.message = other.message;
         }
-        if other.phase.is_some() {
+        if let Some(other_value) = other.message {
+            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+        }
+        if self.phase.is_none() {
             self.phase = other.phase;
         }
-        if other.reason.is_some() {
+        if let Some(other_value) = other.phase {
+            crate::OptionableConvert::merge(&mut self.phase, other_value)?;
+        }
+        if self.reason.is_none() {
             self.reason = other.reason;
+        }
+        if let Some(other_value) = other.reason {
+            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
         }
         Ok(())
     }

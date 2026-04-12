@@ -53,12 +53,17 @@ for k8s_openapi027::api::apps::v1::RollingUpdateStatefulSetStrategy {
         &mut self,
         other: RollingUpdateStatefulSetStrategyAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.max_unavailable,
-            other.max_unavailable,
-        )?;
-        if other.partition.is_some() {
+        if self.max_unavailable.is_none() {
+            self.max_unavailable = other.max_unavailable;
+        }
+        if let Some(other_value) = other.max_unavailable {
+            crate::OptionableConvert::merge(&mut self.max_unavailable, other_value)?;
+        }
+        if self.partition.is_none() {
             self.partition = other.partition;
+        }
+        if let Some(other_value) = other.partition {
+            crate::OptionableConvert::merge(&mut self.partition, other_value)?;
         }
         Ok(())
     }

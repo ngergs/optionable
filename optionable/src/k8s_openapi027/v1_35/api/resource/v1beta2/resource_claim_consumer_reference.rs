@@ -64,8 +64,11 @@ for k8s_openapi027::api::resource::v1beta2::ResourceClaimConsumerReference {
         &mut self,
         other: ResourceClaimConsumerReferenceAc,
     ) -> Result<(), crate::Error> {
-        if other.api_group.is_some() {
+        if self.api_group.is_none() {
             self.api_group = other.api_group;
+        }
+        if let Some(other_value) = other.api_group {
+            crate::OptionableConvert::merge(&mut self.api_group, other_value)?;
         }
         if let Some(other_value) = other.name {
             self.name = other_value;

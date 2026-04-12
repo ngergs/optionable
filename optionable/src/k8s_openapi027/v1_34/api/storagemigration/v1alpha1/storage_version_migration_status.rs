@@ -51,9 +51,17 @@ for k8s_openapi027::api::storagemigration::v1alpha1::StorageVersionMigrationStat
         &mut self,
         other: StorageVersionMigrationStatusAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        if other.resource_version.is_some() {
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::OptionableConvert::merge(&mut self.conditions, other_value)?;
+        }
+        if self.resource_version.is_none() {
             self.resource_version = other.resource_version;
+        }
+        if let Some(other_value) = other.resource_version {
+            crate::OptionableConvert::merge(&mut self.resource_version, other_value)?;
         }
         Ok(())
     }

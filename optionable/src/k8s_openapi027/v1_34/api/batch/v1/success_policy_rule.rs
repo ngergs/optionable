@@ -40,11 +40,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::SuccessPolicyR
         })
     }
     fn merge(&mut self, other: SuccessPolicyRuleAc) -> Result<(), crate::Error> {
-        if other.succeeded_count.is_some() {
+        if self.succeeded_count.is_none() {
             self.succeeded_count = other.succeeded_count;
         }
-        if other.succeeded_indexes.is_some() {
+        if let Some(other_value) = other.succeeded_count {
+            crate::OptionableConvert::merge(&mut self.succeeded_count, other_value)?;
+        }
+        if self.succeeded_indexes.is_none() {
             self.succeeded_indexes = other.succeeded_indexes;
+        }
+        if let Some(other_value) = other.succeeded_indexes {
+            crate::OptionableConvert::merge(&mut self.succeeded_indexes, other_value)?;
         }
         Ok(())
     }

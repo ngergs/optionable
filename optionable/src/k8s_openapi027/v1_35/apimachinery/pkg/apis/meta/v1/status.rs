@@ -74,19 +74,36 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status {
         })
     }
     fn merge(&mut self, other: StatusAc) -> Result<(), crate::Error> {
-        if other.code.is_some() {
+        if self.code.is_none() {
             self.code = other.code;
         }
-        crate::OptionableConvert::merge(&mut self.details, other.details)?;
-        if other.message.is_some() {
+        if let Some(other_value) = other.code {
+            crate::OptionableConvert::merge(&mut self.code, other_value)?;
+        }
+        if self.details.is_none() {
+            self.details = other.details;
+        }
+        if let Some(other_value) = other.details {
+            crate::OptionableConvert::merge(&mut self.details, other_value)?;
+        }
+        if self.message.is_none() {
             self.message = other.message;
         }
+        if let Some(other_value) = other.message {
+            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+        }
         self.metadata = other.metadata;
-        if other.reason.is_some() {
+        if self.reason.is_none() {
             self.reason = other.reason;
         }
-        if other.status.is_some() {
+        if let Some(other_value) = other.reason {
+            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
+        }
+        if self.status.is_none() {
             self.status = other.status;
+        }
+        if let Some(other_value) = other.status {
+            crate::OptionableConvert::merge(&mut self.status, other_value)?;
         }
         Ok(())
     }

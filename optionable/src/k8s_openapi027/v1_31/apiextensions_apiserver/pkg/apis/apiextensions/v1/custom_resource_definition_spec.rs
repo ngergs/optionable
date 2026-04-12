@@ -95,21 +95,32 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         &mut self,
         other: CustomResourceDefinitionSpecAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conversion, other.conversion)?;
+        if self.conversion.is_none() {
+            self.conversion = other.conversion;
+        }
+        if let Some(other_value) = other.conversion {
+            crate::OptionableConvert::merge(&mut self.conversion, other_value)?;
+        }
         if let Some(other_value) = other.group {
             self.group = other_value;
         }
         if let Some(other_value) = other.names {
-            crate::OptionableConvert::merge(&mut self.names, other_value)?;
+            self.names = other_value;
         }
-        if other.preserve_unknown_fields.is_some() {
+        if self.preserve_unknown_fields.is_none() {
             self.preserve_unknown_fields = other.preserve_unknown_fields;
+        }
+        if let Some(other_value) = other.preserve_unknown_fields {
+            crate::OptionableConvert::merge(
+                &mut self.preserve_unknown_fields,
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.scope {
             self.scope = other_value;
         }
         if let Some(other_value) = other.versions {
-            crate::OptionableConvert::merge(&mut self.versions, other_value)?;
+            self.versions = other_value;
         }
         Ok(())
     }

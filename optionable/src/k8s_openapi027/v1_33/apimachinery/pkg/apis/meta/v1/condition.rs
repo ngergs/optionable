@@ -84,16 +84,16 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition {
     }
     fn merge(&mut self, other: ConditionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.last_transition_time {
-            crate::OptionableConvert::merge(
-                &mut self.last_transition_time,
-                other_value,
-            )?;
+            self.last_transition_time = other_value;
         }
         if let Some(other_value) = other.message {
             self.message = other_value;
         }
-        if other.observed_generation.is_some() {
+        if self.observed_generation.is_none() {
             self.observed_generation = other.observed_generation;
+        }
+        if let Some(other_value) = other.observed_generation {
+            crate::OptionableConvert::merge(&mut self.observed_generation, other_value)?;
         }
         if let Some(other_value) = other.reason {
             self.reason = other_value;

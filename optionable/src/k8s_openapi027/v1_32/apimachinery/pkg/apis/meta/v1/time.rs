@@ -38,7 +38,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Time {
     }
     fn merge(&mut self, other: TimeAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.0 {
-            crate::OptionableConvert::merge(&mut self.0, other_value)?;
+            self.0 = other_value;
         }
         Ok(())
     }

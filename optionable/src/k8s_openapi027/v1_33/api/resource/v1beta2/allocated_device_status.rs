@@ -77,11 +77,26 @@ for k8s_openapi027::api::resource::v1beta2::AllocatedDeviceStatus {
         })
     }
     fn merge(&mut self, other: AllocatedDeviceStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        crate::OptionableConvert::merge(&mut self.data, other.data)?;
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+        }
+        if self.data.is_none() {
+            self.data = other.data;
+        }
+        if let Some(other_value) = other.data {
+            crate::OptionableConvert::merge(&mut self.data, other_value)?;
+        }
         self.device = other.device;
         self.driver = other.driver;
-        crate::OptionableConvert::merge(&mut self.network_data, other.network_data)?;
+        if self.network_data.is_none() {
+            self.network_data = other.network_data;
+        }
+        if let Some(other_value) = other.network_data {
+            crate::OptionableConvert::merge(&mut self.network_data, other_value)?;
+        }
         self.pool = other.pool;
         Ok(())
     }

@@ -39,7 +39,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointHi
         })
     }
     fn merge(&mut self, other: EndpointHintsAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.for_zones, other.for_zones)?;
+        if self.for_zones.is_none() {
+            self.for_zones = other.for_zones;
+        }
+        if let Some(other_value) = other.for_zones {
+            self.for_zones = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
         Ok(())
     }
 }

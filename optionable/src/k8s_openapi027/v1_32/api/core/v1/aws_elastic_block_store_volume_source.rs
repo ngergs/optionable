@@ -64,14 +64,23 @@ for k8s_openapi027::api::core::v1::AWSElasticBlockStoreVolumeSource {
         &mut self,
         other: AWSElasticBlockStoreVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        if other.fs_type.is_some() {
+        if self.fs_type.is_none() {
             self.fs_type = other.fs_type;
         }
-        if other.partition.is_some() {
+        if let Some(other_value) = other.fs_type {
+            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
+        }
+        if self.partition.is_none() {
             self.partition = other.partition;
         }
-        if other.read_only.is_some() {
+        if let Some(other_value) = other.partition {
+            crate::OptionableConvert::merge(&mut self.partition, other_value)?;
+        }
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
+        }
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
         }
         if let Some(other_value) = other.volume_id {
             self.volume_id = other_value;

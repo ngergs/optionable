@@ -71,24 +71,50 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
         })
     }
     fn merge(&mut self, other: DeleteOptionsAc) -> Result<(), crate::Error> {
-        if other.api_version.is_some() {
+        if self.api_version.is_none() {
             self.api_version = other.api_version;
         }
-        if other.dry_run.is_some() {
+        if let Some(other_value) = other.api_version {
+            crate::OptionableConvert::merge(&mut self.api_version, other_value)?;
+        }
+        if self.dry_run.is_none() {
             self.dry_run = other.dry_run;
         }
-        if other.grace_period_seconds.is_some() {
+        if let Some(other_value) = other.dry_run {
+            self.dry_run = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.grace_period_seconds.is_none() {
             self.grace_period_seconds = other.grace_period_seconds;
         }
-        if other.kind.is_some() {
+        if let Some(other_value) = other.grace_period_seconds {
+            crate::OptionableConvert::merge(
+                &mut self.grace_period_seconds,
+                other_value,
+            )?;
+        }
+        if self.kind.is_none() {
             self.kind = other.kind;
         }
-        if other.orphan_dependents.is_some() {
+        if let Some(other_value) = other.kind {
+            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
+        }
+        if self.orphan_dependents.is_none() {
             self.orphan_dependents = other.orphan_dependents;
         }
-        crate::OptionableConvert::merge(&mut self.preconditions, other.preconditions)?;
-        if other.propagation_policy.is_some() {
+        if let Some(other_value) = other.orphan_dependents {
+            crate::OptionableConvert::merge(&mut self.orphan_dependents, other_value)?;
+        }
+        if self.preconditions.is_none() {
+            self.preconditions = other.preconditions;
+        }
+        if let Some(other_value) = other.preconditions {
+            crate::OptionableConvert::merge(&mut self.preconditions, other_value)?;
+        }
+        if self.propagation_policy.is_none() {
             self.propagation_policy = other.propagation_policy;
+        }
+        if let Some(other_value) = other.propagation_policy {
+            crate::OptionableConvert::merge(&mut self.propagation_policy, other_value)?;
         }
         Ok(())
     }

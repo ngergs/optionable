@@ -60,12 +60,27 @@ for k8s_openapi027::api::resource::v1beta2::AllocationResult {
         })
     }
     fn merge(&mut self, other: AllocationResultAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.allocation_timestamp,
-            other.allocation_timestamp,
-        )?;
-        crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
-        crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
+        if self.allocation_timestamp.is_none() {
+            self.allocation_timestamp = other.allocation_timestamp;
+        }
+        if let Some(other_value) = other.allocation_timestamp {
+            crate::OptionableConvert::merge(
+                &mut self.allocation_timestamp,
+                other_value,
+            )?;
+        }
+        if self.devices.is_none() {
+            self.devices = other.devices;
+        }
+        if let Some(other_value) = other.devices {
+            crate::OptionableConvert::merge(&mut self.devices, other_value)?;
+        }
+        if self.node_selector.is_none() {
+            self.node_selector = other.node_selector;
+        }
+        if let Some(other_value) = other.node_selector {
+            crate::OptionableConvert::merge(&mut self.node_selector, other_value)?;
+        }
         Ok(())
     }
 }

@@ -86,29 +86,56 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobSpec {
         })
     }
     fn merge(&mut self, other: CronJobSpecAc) -> Result<(), crate::Error> {
-        if other.concurrency_policy.is_some() {
+        if self.concurrency_policy.is_none() {
             self.concurrency_policy = other.concurrency_policy;
         }
-        if other.failed_jobs_history_limit.is_some() {
+        if let Some(other_value) = other.concurrency_policy {
+            crate::OptionableConvert::merge(&mut self.concurrency_policy, other_value)?;
+        }
+        if self.failed_jobs_history_limit.is_none() {
             self.failed_jobs_history_limit = other.failed_jobs_history_limit;
         }
+        if let Some(other_value) = other.failed_jobs_history_limit {
+            crate::OptionableConvert::merge(
+                &mut self.failed_jobs_history_limit,
+                other_value,
+            )?;
+        }
         if let Some(other_value) = other.job_template {
-            crate::OptionableConvert::merge(&mut self.job_template, other_value)?;
+            self.job_template = other_value;
         }
         if let Some(other_value) = other.schedule {
             self.schedule = other_value;
         }
-        if other.starting_deadline_seconds.is_some() {
+        if self.starting_deadline_seconds.is_none() {
             self.starting_deadline_seconds = other.starting_deadline_seconds;
         }
-        if other.successful_jobs_history_limit.is_some() {
+        if let Some(other_value) = other.starting_deadline_seconds {
+            crate::OptionableConvert::merge(
+                &mut self.starting_deadline_seconds,
+                other_value,
+            )?;
+        }
+        if self.successful_jobs_history_limit.is_none() {
             self.successful_jobs_history_limit = other.successful_jobs_history_limit;
         }
-        if other.suspend.is_some() {
+        if let Some(other_value) = other.successful_jobs_history_limit {
+            crate::OptionableConvert::merge(
+                &mut self.successful_jobs_history_limit,
+                other_value,
+            )?;
+        }
+        if self.suspend.is_none() {
             self.suspend = other.suspend;
         }
-        if other.time_zone.is_some() {
+        if let Some(other_value) = other.suspend {
+            crate::OptionableConvert::merge(&mut self.suspend, other_value)?;
+        }
+        if self.time_zone.is_none() {
             self.time_zone = other.time_zone;
+        }
+        if let Some(other_value) = other.time_zone {
+            crate::OptionableConvert::merge(&mut self.time_zone, other_value)?;
         }
         Ok(())
     }

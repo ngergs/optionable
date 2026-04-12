@@ -82,18 +82,32 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         &mut self,
         other: CustomResourceDefinitionConditionAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.last_transition_time,
-            other.last_transition_time,
-        )?;
-        if other.message.is_some() {
+        if self.last_transition_time.is_none() {
+            self.last_transition_time = other.last_transition_time;
+        }
+        if let Some(other_value) = other.last_transition_time {
+            crate::OptionableConvert::merge(
+                &mut self.last_transition_time,
+                other_value,
+            )?;
+        }
+        if self.message.is_none() {
             self.message = other.message;
         }
-        if other.observed_generation.is_some() {
+        if let Some(other_value) = other.message {
+            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+        }
+        if self.observed_generation.is_none() {
             self.observed_generation = other.observed_generation;
         }
-        if other.reason.is_some() {
+        if let Some(other_value) = other.observed_generation {
+            crate::OptionableConvert::merge(&mut self.observed_generation, other_value)?;
+        }
+        if self.reason.is_none() {
             self.reason = other.reason;
+        }
+        if let Some(other_value) = other.reason {
+            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
         }
         if let Some(other_value) = other.status {
             self.status = other_value;

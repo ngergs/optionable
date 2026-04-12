@@ -56,16 +56,27 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointAddress
         })
     }
     fn merge(&mut self, other: EndpointAddressAc) -> Result<(), crate::Error> {
-        if other.hostname.is_some() {
+        if self.hostname.is_none() {
             self.hostname = other.hostname;
+        }
+        if let Some(other_value) = other.hostname {
+            crate::OptionableConvert::merge(&mut self.hostname, other_value)?;
         }
         if let Some(other_value) = other.ip {
             self.ip = other_value;
         }
-        if other.node_name.is_some() {
+        if self.node_name.is_none() {
             self.node_name = other.node_name;
         }
-        crate::OptionableConvert::merge(&mut self.target_ref, other.target_ref)?;
+        if let Some(other_value) = other.node_name {
+            crate::OptionableConvert::merge(&mut self.node_name, other_value)?;
+        }
+        if self.target_ref.is_none() {
+            self.target_ref = other.target_ref;
+        }
+        if let Some(other_value) = other.target_ref {
+            crate::OptionableConvert::merge(&mut self.target_ref, other_value)?;
+        }
         Ok(())
     }
 }

@@ -122,44 +122,86 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSecurityCont
         })
     }
     fn merge(&mut self, other: PodSecurityContextAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.app_armor_profile,
-            other.app_armor_profile,
-        )?;
-        if other.fs_group.is_some() {
+        if self.app_armor_profile.is_none() {
+            self.app_armor_profile = other.app_armor_profile;
+        }
+        if let Some(other_value) = other.app_armor_profile {
+            crate::OptionableConvert::merge(&mut self.app_armor_profile, other_value)?;
+        }
+        if self.fs_group.is_none() {
             self.fs_group = other.fs_group;
         }
-        if other.fs_group_change_policy.is_some() {
+        if let Some(other_value) = other.fs_group {
+            crate::OptionableConvert::merge(&mut self.fs_group, other_value)?;
+        }
+        if self.fs_group_change_policy.is_none() {
             self.fs_group_change_policy = other.fs_group_change_policy;
         }
-        if other.run_as_group.is_some() {
+        if let Some(other_value) = other.fs_group_change_policy {
+            crate::OptionableConvert::merge(
+                &mut self.fs_group_change_policy,
+                other_value,
+            )?;
+        }
+        if self.run_as_group.is_none() {
             self.run_as_group = other.run_as_group;
         }
-        if other.run_as_non_root.is_some() {
+        if let Some(other_value) = other.run_as_group {
+            crate::OptionableConvert::merge(&mut self.run_as_group, other_value)?;
+        }
+        if self.run_as_non_root.is_none() {
             self.run_as_non_root = other.run_as_non_root;
         }
-        if other.run_as_user.is_some() {
+        if let Some(other_value) = other.run_as_non_root {
+            crate::OptionableConvert::merge(&mut self.run_as_non_root, other_value)?;
+        }
+        if self.run_as_user.is_none() {
             self.run_as_user = other.run_as_user;
         }
-        crate::OptionableConvert::merge(
-            &mut self.se_linux_options,
-            other.se_linux_options,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.seccomp_profile,
-            other.seccomp_profile,
-        )?;
-        if other.supplemental_groups.is_some() {
+        if let Some(other_value) = other.run_as_user {
+            crate::OptionableConvert::merge(&mut self.run_as_user, other_value)?;
+        }
+        if self.se_linux_options.is_none() {
+            self.se_linux_options = other.se_linux_options;
+        }
+        if let Some(other_value) = other.se_linux_options {
+            crate::OptionableConvert::merge(&mut self.se_linux_options, other_value)?;
+        }
+        if self.seccomp_profile.is_none() {
+            self.seccomp_profile = other.seccomp_profile;
+        }
+        if let Some(other_value) = other.seccomp_profile {
+            crate::OptionableConvert::merge(&mut self.seccomp_profile, other_value)?;
+        }
+        if self.supplemental_groups.is_none() {
             self.supplemental_groups = other.supplemental_groups;
         }
-        if other.supplemental_groups_policy.is_some() {
+        if let Some(other_value) = other.supplemental_groups {
+            self.supplemental_groups = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.supplemental_groups_policy.is_none() {
             self.supplemental_groups_policy = other.supplemental_groups_policy;
         }
-        crate::OptionableConvert::merge(&mut self.sysctls, other.sysctls)?;
-        crate::OptionableConvert::merge(
-            &mut self.windows_options,
-            other.windows_options,
-        )?;
+        if let Some(other_value) = other.supplemental_groups_policy {
+            crate::OptionableConvert::merge(
+                &mut self.supplemental_groups_policy,
+                other_value,
+            )?;
+        }
+        if self.sysctls.is_none() {
+            self.sysctls = other.sysctls;
+        }
+        if let Some(other_value) = other.sysctls {
+            self.sysctls = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.windows_options.is_none() {
+            self.windows_options = other.windows_options;
+        }
+        if let Some(other_value) = other.windows_options {
+            crate::OptionableConvert::merge(&mut self.windows_options, other_value)?;
+        }
         Ok(())
     }
 }

@@ -63,11 +63,31 @@ for k8s_openapi027::api::networking::v1::NetworkPolicySpec {
         })
     }
     fn merge(&mut self, other: NetworkPolicySpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.egress, other.egress)?;
-        crate::OptionableConvert::merge(&mut self.ingress, other.ingress)?;
-        crate::OptionableConvert::merge(&mut self.pod_selector, other.pod_selector)?;
-        if other.policy_types.is_some() {
+        if self.egress.is_none() {
+            self.egress = other.egress;
+        }
+        if let Some(other_value) = other.egress {
+            self.egress = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.ingress.is_none() {
+            self.ingress = other.ingress;
+        }
+        if let Some(other_value) = other.ingress {
+            self.ingress = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.pod_selector.is_none() {
+            self.pod_selector = other.pod_selector;
+        }
+        if let Some(other_value) = other.pod_selector {
+            crate::OptionableConvert::merge(&mut self.pod_selector, other_value)?;
+        }
+        if self.policy_types.is_none() {
             self.policy_types = other.policy_types;
+        }
+        if let Some(other_value) = other.policy_types {
+            self.policy_types = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

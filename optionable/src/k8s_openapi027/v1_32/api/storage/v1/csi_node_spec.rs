@@ -46,7 +46,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSINodeSpec 
     }
     fn merge(&mut self, other: CSINodeSpecAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.drivers {
-            crate::OptionableConvert::merge(&mut self.drivers, other_value)?;
+            crate::merge::try_merge_optioned_map(&mut self.drivers, other_value)?;
         }
         Ok(())
     }

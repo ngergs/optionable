@@ -77,9 +77,15 @@ for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
         &mut self,
         other: HorizontalPodAutoscalerStatusAc,
     ) -> Result<(), crate::Error> {
-        if other.current_cpu_utilization_percentage.is_some() {
+        if self.current_cpu_utilization_percentage.is_none() {
             self.current_cpu_utilization_percentage = other
                 .current_cpu_utilization_percentage;
+        }
+        if let Some(other_value) = other.current_cpu_utilization_percentage {
+            crate::OptionableConvert::merge(
+                &mut self.current_cpu_utilization_percentage,
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.current_replicas {
             self.current_replicas = other_value;
@@ -87,12 +93,17 @@ for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerStatus {
         if let Some(other_value) = other.desired_replicas {
             self.desired_replicas = other_value;
         }
-        crate::OptionableConvert::merge(
-            &mut self.last_scale_time,
-            other.last_scale_time,
-        )?;
-        if other.observed_generation.is_some() {
+        if self.last_scale_time.is_none() {
+            self.last_scale_time = other.last_scale_time;
+        }
+        if let Some(other_value) = other.last_scale_time {
+            crate::OptionableConvert::merge(&mut self.last_scale_time, other_value)?;
+        }
+        if self.observed_generation.is_none() {
             self.observed_generation = other.observed_generation;
+        }
+        if let Some(other_value) = other.observed_generation {
+            crate::OptionableConvert::merge(&mut self.observed_generation, other_value)?;
         }
         Ok(())
     }

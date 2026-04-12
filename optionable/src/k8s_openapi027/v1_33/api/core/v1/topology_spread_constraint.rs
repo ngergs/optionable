@@ -90,21 +90,43 @@ for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
         })
     }
     fn merge(&mut self, other: TopologySpreadConstraintAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.label_selector, other.label_selector)?;
-        if other.match_label_keys.is_some() {
+        if self.label_selector.is_none() {
+            self.label_selector = other.label_selector;
+        }
+        if let Some(other_value) = other.label_selector {
+            crate::OptionableConvert::merge(&mut self.label_selector, other_value)?;
+        }
+        if self.match_label_keys.is_none() {
             self.match_label_keys = other.match_label_keys;
+        }
+        if let Some(other_value) = other.match_label_keys {
+            self.match_label_keys = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.max_skew {
             self.max_skew = other_value;
         }
-        if other.min_domains.is_some() {
+        if self.min_domains.is_none() {
             self.min_domains = other.min_domains;
         }
-        if other.node_affinity_policy.is_some() {
+        if let Some(other_value) = other.min_domains {
+            crate::OptionableConvert::merge(&mut self.min_domains, other_value)?;
+        }
+        if self.node_affinity_policy.is_none() {
             self.node_affinity_policy = other.node_affinity_policy;
         }
-        if other.node_taints_policy.is_some() {
+        if let Some(other_value) = other.node_affinity_policy {
+            crate::OptionableConvert::merge(
+                &mut self.node_affinity_policy,
+                other_value,
+            )?;
+        }
+        if self.node_taints_policy.is_none() {
             self.node_taints_policy = other.node_taints_policy;
+        }
+        if let Some(other_value) = other.node_taints_policy {
+            crate::OptionableConvert::merge(&mut self.node_taints_policy, other_value)?;
         }
         self.topology_key = other.topology_key;
         self.when_unsatisfiable = other.when_unsatisfiable;

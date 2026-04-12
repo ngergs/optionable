@@ -57,11 +57,27 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceClass
         })
     }
     fn merge(&mut self, other: DeviceClassSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.config, other.config)?;
-        if other.extended_resource_name.is_some() {
+        if self.config.is_none() {
+            self.config = other.config;
+        }
+        if let Some(other_value) = other.config {
+            self.config = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.extended_resource_name.is_none() {
             self.extended_resource_name = other.extended_resource_name;
         }
-        crate::OptionableConvert::merge(&mut self.selectors, other.selectors)?;
+        if let Some(other_value) = other.extended_resource_name {
+            crate::OptionableConvert::merge(
+                &mut self.extended_resource_name,
+                other_value,
+            )?;
+        }
+        if self.selectors.is_none() {
+            self.selectors = other.selectors;
+        }
+        if let Some(other_value) = other.selectors {
+            self.selectors = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
         Ok(())
     }
 }

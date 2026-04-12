@@ -58,10 +58,10 @@ for k8s_openapi027::api::autoscaling::v2::ExternalMetricSource {
     }
     fn merge(&mut self, other: ExternalMetricSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.metric {
-            crate::OptionableConvert::merge(&mut self.metric, other_value)?;
+            self.metric = other_value;
         }
         if let Some(other_value) = other.target {
-            crate::OptionableConvert::merge(&mut self.target, other_value)?;
+            self.target = other_value;
         }
         Ok(())
     }

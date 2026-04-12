@@ -83,10 +83,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointSl
             self.address_type = other_value;
         }
         if let Some(other_value) = other.endpoints {
-            crate::OptionableConvert::merge(&mut self.endpoints, other_value)?;
+            self.endpoints = other_value;
         }
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.ports, other.ports)?;
+        if self.ports.is_none() {
+            self.ports = other.ports;
+        }
+        if let Some(other_value) = other.ports {
+            self.ports = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
         Ok(())
     }
 }

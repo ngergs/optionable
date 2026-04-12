@@ -57,9 +57,24 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Devic
         })
     }
     fn merge(&mut self, other: DeviceClaimAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.config, other.config)?;
-        crate::OptionableConvert::merge(&mut self.constraints, other.constraints)?;
-        crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
+        if self.config.is_none() {
+            self.config = other.config;
+        }
+        if let Some(other_value) = other.config {
+            crate::OptionableConvert::merge(&mut self.config, other_value)?;
+        }
+        if self.constraints.is_none() {
+            self.constraints = other.constraints;
+        }
+        if let Some(other_value) = other.constraints {
+            crate::OptionableConvert::merge(&mut self.constraints, other_value)?;
+        }
+        if self.requests.is_none() {
+            self.requests = other.requests;
+        }
+        if let Some(other_value) = other.requests {
+            crate::OptionableConvert::merge(&mut self.requests, other_value)?;
+        }
         Ok(())
     }
 }

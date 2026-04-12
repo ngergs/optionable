@@ -50,8 +50,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceQuotaSt
         })
     }
     fn merge(&mut self, other: ResourceQuotaStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.hard, other.hard)?;
-        crate::OptionableConvert::merge(&mut self.used, other.used)?;
+        if self.hard.is_none() {
+            self.hard = other.hard;
+        }
+        if let Some(other_value) = other.hard {
+            crate::OptionableConvert::merge(&mut self.hard, other_value)?;
+        }
+        if self.used.is_none() {
+            self.used = other.used;
+        }
+        if let Some(other_value) = other.used {
+            crate::OptionableConvert::merge(&mut self.used, other_value)?;
+        }
         Ok(())
     }
 }

@@ -64,7 +64,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRule {
     fn merge(&mut self, other: DeviceTaintRuleAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
-            crate::OptionableConvert::merge(&mut self.spec, other_value)?;
+            self.spec = other_value;
         }
         Ok(())
     }

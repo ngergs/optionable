@@ -55,14 +55,23 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerPort {
     }
     fn merge(&mut self, other: ContainerPortAc) -> Result<(), crate::Error> {
         self.container_port = other.container_port;
-        if other.host_ip.is_some() {
+        if self.host_ip.is_none() {
             self.host_ip = other.host_ip;
         }
-        if other.host_port.is_some() {
+        if let Some(other_value) = other.host_ip {
+            crate::OptionableConvert::merge(&mut self.host_ip, other_value)?;
+        }
+        if self.host_port.is_none() {
             self.host_port = other.host_port;
         }
-        if other.name.is_some() {
+        if let Some(other_value) = other.host_port {
+            crate::OptionableConvert::merge(&mut self.host_port, other_value)?;
+        }
+        if self.name.is_none() {
             self.name = other.name;
+        }
+        if let Some(other_value) = other.name {
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
         }
         self.protocol = other.protocol;
         Ok(())

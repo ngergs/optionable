@@ -47,8 +47,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::TokenRequest
         if let Some(other_value) = other.audience {
             self.audience = other_value;
         }
-        if other.expiration_seconds.is_some() {
+        if self.expiration_seconds.is_none() {
             self.expiration_seconds = other.expiration_seconds;
+        }
+        if let Some(other_value) = other.expiration_seconds {
+            crate::OptionableConvert::merge(&mut self.expiration_seconds, other_value)?;
         }
         Ok(())
     }

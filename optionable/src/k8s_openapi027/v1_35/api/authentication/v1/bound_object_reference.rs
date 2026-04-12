@@ -52,17 +52,29 @@ for k8s_openapi027::api::authentication::v1::BoundObjectReference {
         })
     }
     fn merge(&mut self, other: BoundObjectReferenceAc) -> Result<(), crate::Error> {
-        if other.api_version.is_some() {
+        if self.api_version.is_none() {
             self.api_version = other.api_version;
         }
-        if other.kind.is_some() {
+        if let Some(other_value) = other.api_version {
+            crate::OptionableConvert::merge(&mut self.api_version, other_value)?;
+        }
+        if self.kind.is_none() {
             self.kind = other.kind;
         }
-        if other.name.is_some() {
+        if let Some(other_value) = other.kind {
+            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
+        }
+        if self.name.is_none() {
             self.name = other.name;
         }
-        if other.uid.is_some() {
+        if let Some(other_value) = other.name {
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+        }
+        if self.uid.is_none() {
             self.uid = other.uid;
+        }
+        if let Some(other_value) = other.uid {
+            crate::OptionableConvert::merge(&mut self.uid, other_value)?;
         }
         Ok(())
     }

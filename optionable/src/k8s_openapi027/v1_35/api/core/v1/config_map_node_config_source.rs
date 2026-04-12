@@ -79,11 +79,17 @@ for k8s_openapi027::api::core::v1::ConfigMapNodeConfigSource {
         if let Some(other_value) = other.namespace {
             self.namespace = other_value;
         }
-        if other.resource_version.is_some() {
+        if self.resource_version.is_none() {
             self.resource_version = other.resource_version;
         }
-        if other.uid.is_some() {
+        if let Some(other_value) = other.resource_version {
+            crate::OptionableConvert::merge(&mut self.resource_version, other_value)?;
+        }
+        if self.uid.is_none() {
             self.uid = other.uid;
+        }
+        if let Some(other_value) = other.uid {
+            crate::OptionableConvert::merge(&mut self.uid, other_value)?;
         }
         Ok(())
     }

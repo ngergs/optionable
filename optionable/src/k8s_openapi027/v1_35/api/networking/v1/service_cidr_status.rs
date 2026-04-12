@@ -40,7 +40,12 @@ for k8s_openapi027::api::networking::v1::ServiceCIDRStatus {
         })
     }
     fn merge(&mut self, other: ServiceCIDRStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+        }
         Ok(())
     }
 }

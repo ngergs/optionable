@@ -70,8 +70,11 @@ for k8s_openapi027::api::storage::v1alpha1::VolumeAttributesClass {
             self.driver_name = other_value;
         }
         self.metadata = other.metadata;
-        if other.parameters.is_some() {
+        if self.parameters.is_none() {
             self.parameters = other.parameters;
+        }
+        if let Some(other_value) = other.parameters {
+            crate::OptionableConvert::merge(&mut self.parameters, other_value)?;
         }
         Ok(())
     }

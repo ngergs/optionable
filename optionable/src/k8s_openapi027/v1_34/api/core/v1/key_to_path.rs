@@ -56,8 +56,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::KeyToPath {
         if let Some(other_value) = other.key {
             self.key = other_value;
         }
-        if other.mode.is_some() {
+        if self.mode.is_none() {
             self.mode = other.mode;
+        }
+        if let Some(other_value) = other.mode {
+            crate::OptionableConvert::merge(&mut self.mode, other_value)?;
         }
         if let Some(other_value) = other.path {
             self.path = other_value;

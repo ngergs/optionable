@@ -51,7 +51,12 @@ for k8s_openapi027::api::resource::v1beta1::CapacityRequirements {
         })
     }
     fn merge(&mut self, other: CapacityRequirementsAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
+        if self.requests.is_none() {
+            self.requests = other.requests;
+        }
+        if let Some(other_value) = other.requests {
+            crate::OptionableConvert::merge(&mut self.requests, other_value)?;
+        }
         Ok(())
     }
 }

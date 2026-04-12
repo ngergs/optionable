@@ -56,20 +56,35 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceToleration {
         })
     }
     fn merge(&mut self, other: DeviceTolerationAc) -> Result<(), crate::Error> {
-        if other.effect.is_some() {
+        if self.effect.is_none() {
             self.effect = other.effect;
         }
-        if other.key.is_some() {
+        if let Some(other_value) = other.effect {
+            crate::OptionableConvert::merge(&mut self.effect, other_value)?;
+        }
+        if self.key.is_none() {
             self.key = other.key;
         }
-        if other.operator.is_some() {
+        if let Some(other_value) = other.key {
+            crate::OptionableConvert::merge(&mut self.key, other_value)?;
+        }
+        if self.operator.is_none() {
             self.operator = other.operator;
         }
-        if other.toleration_seconds.is_some() {
+        if let Some(other_value) = other.operator {
+            crate::OptionableConvert::merge(&mut self.operator, other_value)?;
+        }
+        if self.toleration_seconds.is_none() {
             self.toleration_seconds = other.toleration_seconds;
         }
-        if other.value.is_some() {
+        if let Some(other_value) = other.toleration_seconds {
+            crate::OptionableConvert::merge(&mut self.toleration_seconds, other_value)?;
+        }
+        if self.value.is_none() {
             self.value = other.value;
+        }
+        if let Some(other_value) = other.value {
+            crate::OptionableConvert::merge(&mut self.value, other_value)?;
         }
         Ok(())
     }

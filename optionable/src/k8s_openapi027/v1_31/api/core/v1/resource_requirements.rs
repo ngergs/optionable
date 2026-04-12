@@ -63,9 +63,24 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceRequire
         })
     }
     fn merge(&mut self, other: ResourceRequirementsAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.claims, other.claims)?;
-        crate::OptionableConvert::merge(&mut self.limits, other.limits)?;
-        crate::OptionableConvert::merge(&mut self.requests, other.requests)?;
+        if self.claims.is_none() {
+            self.claims = other.claims;
+        }
+        if let Some(other_value) = other.claims {
+            crate::merge::try_merge_optioned_map(&mut self.claims, other_value)?;
+        }
+        if self.limits.is_none() {
+            self.limits = other.limits;
+        }
+        if let Some(other_value) = other.limits {
+            crate::OptionableConvert::merge(&mut self.limits, other_value)?;
+        }
+        if self.requests.is_none() {
+            self.requests = other.requests;
+        }
+        if let Some(other_value) = other.requests {
+            crate::OptionableConvert::merge(&mut self.requests, other_value)?;
+        }
         Ok(())
     }
 }

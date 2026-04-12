@@ -64,14 +64,33 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::HPAScali
         })
     }
     fn merge(&mut self, other: HPAScalingRulesAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.policies, other.policies)?;
-        if other.select_policy.is_some() {
+        if self.policies.is_none() {
+            self.policies = other.policies;
+        }
+        if let Some(other_value) = other.policies {
+            self.policies = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.select_policy.is_none() {
             self.select_policy = other.select_policy;
         }
-        if other.stabilization_window_seconds.is_some() {
+        if let Some(other_value) = other.select_policy {
+            crate::OptionableConvert::merge(&mut self.select_policy, other_value)?;
+        }
+        if self.stabilization_window_seconds.is_none() {
             self.stabilization_window_seconds = other.stabilization_window_seconds;
         }
-        crate::OptionableConvert::merge(&mut self.tolerance, other.tolerance)?;
+        if let Some(other_value) = other.stabilization_window_seconds {
+            crate::OptionableConvert::merge(
+                &mut self.stabilization_window_seconds,
+                other_value,
+            )?;
+        }
+        if self.tolerance.is_none() {
+            self.tolerance = other.tolerance;
+        }
+        if let Some(other_value) = other.tolerance {
+            crate::OptionableConvert::merge(&mut self.tolerance, other_value)?;
+        }
         Ok(())
     }
 }

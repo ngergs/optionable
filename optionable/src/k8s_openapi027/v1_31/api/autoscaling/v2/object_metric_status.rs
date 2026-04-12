@@ -73,13 +73,13 @@ for k8s_openapi027::api::autoscaling::v2::ObjectMetricStatus {
     }
     fn merge(&mut self, other: ObjectMetricStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.current {
-            crate::OptionableConvert::merge(&mut self.current, other_value)?;
+            self.current = other_value;
         }
         if let Some(other_value) = other.described_object {
-            crate::OptionableConvert::merge(&mut self.described_object, other_value)?;
+            self.described_object = other_value;
         }
         if let Some(other_value) = other.metric {
-            crate::OptionableConvert::merge(&mut self.metric, other_value)?;
+            self.metric = other_value;
         }
         Ok(())
     }

@@ -54,7 +54,12 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         if let Some(other_value) = other.strategy {
             self.strategy = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.webhook, other.webhook)?;
+        if self.webhook.is_none() {
+            self.webhook = other.webhook;
+        }
+        if let Some(other_value) = other.webhook {
+            crate::OptionableConvert::merge(&mut self.webhook, other_value)?;
+        }
         Ok(())
     }
 }

@@ -105,34 +105,60 @@ for k8s_openapi027::api::core::v1::ISCSIPersistentVolumeSource {
         &mut self,
         other: ISCSIPersistentVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        if other.chap_auth_discovery.is_some() {
+        if self.chap_auth_discovery.is_none() {
             self.chap_auth_discovery = other.chap_auth_discovery;
         }
-        if other.chap_auth_session.is_some() {
+        if let Some(other_value) = other.chap_auth_discovery {
+            crate::OptionableConvert::merge(&mut self.chap_auth_discovery, other_value)?;
+        }
+        if self.chap_auth_session.is_none() {
             self.chap_auth_session = other.chap_auth_session;
         }
-        if other.fs_type.is_some() {
+        if let Some(other_value) = other.chap_auth_session {
+            crate::OptionableConvert::merge(&mut self.chap_auth_session, other_value)?;
+        }
+        if self.fs_type.is_none() {
             self.fs_type = other.fs_type;
         }
-        if other.initiator_name.is_some() {
+        if let Some(other_value) = other.fs_type {
+            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
+        }
+        if self.initiator_name.is_none() {
             self.initiator_name = other.initiator_name;
+        }
+        if let Some(other_value) = other.initiator_name {
+            crate::OptionableConvert::merge(&mut self.initiator_name, other_value)?;
         }
         if let Some(other_value) = other.iqn {
             self.iqn = other_value;
         }
-        if other.iscsi_interface.is_some() {
+        if self.iscsi_interface.is_none() {
             self.iscsi_interface = other.iscsi_interface;
+        }
+        if let Some(other_value) = other.iscsi_interface {
+            crate::OptionableConvert::merge(&mut self.iscsi_interface, other_value)?;
         }
         if let Some(other_value) = other.lun {
             self.lun = other_value;
         }
-        if other.portals.is_some() {
+        if self.portals.is_none() {
             self.portals = other.portals;
         }
-        if other.read_only.is_some() {
+        if let Some(other_value) = other.portals {
+            self.portals = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
         }
-        crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+        }
+        if self.secret_ref.is_none() {
+            self.secret_ref = other.secret_ref;
+        }
+        if let Some(other_value) = other.secret_ref {
+            crate::OptionableConvert::merge(&mut self.secret_ref, other_value)?;
+        }
         if let Some(other_value) = other.target_portal {
             self.target_portal = other_value;
         }

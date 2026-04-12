@@ -69,18 +69,32 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServicePort {
         })
     }
     fn merge(&mut self, other: ServicePortAc) -> Result<(), crate::Error> {
-        if other.app_protocol.is_some() {
+        if self.app_protocol.is_none() {
             self.app_protocol = other.app_protocol;
         }
-        if other.name.is_some() {
+        if let Some(other_value) = other.app_protocol {
+            crate::OptionableConvert::merge(&mut self.app_protocol, other_value)?;
+        }
+        if self.name.is_none() {
             self.name = other.name;
         }
-        if other.node_port.is_some() {
+        if let Some(other_value) = other.name {
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+        }
+        if self.node_port.is_none() {
             self.node_port = other.node_port;
+        }
+        if let Some(other_value) = other.node_port {
+            crate::OptionableConvert::merge(&mut self.node_port, other_value)?;
         }
         self.port = other.port;
         self.protocol = other.protocol;
-        crate::OptionableConvert::merge(&mut self.target_port, other.target_port)?;
+        if self.target_port.is_none() {
+            self.target_port = other.target_port;
+        }
+        if let Some(other_value) = other.target_port {
+            crate::OptionableConvert::merge(&mut self.target_port, other_value)?;
+        }
         Ok(())
     }
 }

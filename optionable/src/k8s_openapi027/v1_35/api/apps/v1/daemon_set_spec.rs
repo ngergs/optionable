@@ -77,22 +77,33 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetSpec {
         })
     }
     fn merge(&mut self, other: DaemonSetSpecAc) -> Result<(), crate::Error> {
-        if other.min_ready_seconds.is_some() {
+        if self.min_ready_seconds.is_none() {
             self.min_ready_seconds = other.min_ready_seconds;
         }
-        if other.revision_history_limit.is_some() {
+        if let Some(other_value) = other.min_ready_seconds {
+            crate::OptionableConvert::merge(&mut self.min_ready_seconds, other_value)?;
+        }
+        if self.revision_history_limit.is_none() {
             self.revision_history_limit = other.revision_history_limit;
         }
+        if let Some(other_value) = other.revision_history_limit {
+            crate::OptionableConvert::merge(
+                &mut self.revision_history_limit,
+                other_value,
+            )?;
+        }
         if let Some(other_value) = other.selector {
-            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
+            self.selector = other_value;
         }
         if let Some(other_value) = other.template {
-            crate::OptionableConvert::merge(&mut self.template, other_value)?;
+            self.template = other_value;
         }
-        crate::OptionableConvert::merge(
-            &mut self.update_strategy,
-            other.update_strategy,
-        )?;
+        if self.update_strategy.is_none() {
+            self.update_strategy = other.update_strategy;
+        }
+        if let Some(other_value) = other.update_strategy {
+            crate::OptionableConvert::merge(&mut self.update_strategy, other_value)?;
+        }
         Ok(())
     }
 }

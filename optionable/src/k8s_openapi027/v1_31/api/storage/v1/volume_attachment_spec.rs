@@ -69,7 +69,7 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentSpec {
             self.node_name = other_value;
         }
         if let Some(other_value) = other.source {
-            crate::OptionableConvert::merge(&mut self.source, other_value)?;
+            self.source = other_value;
         }
         Ok(())
     }

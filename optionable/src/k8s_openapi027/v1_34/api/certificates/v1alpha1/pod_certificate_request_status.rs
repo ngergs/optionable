@@ -91,16 +91,36 @@ for k8s_openapi027::api::certificates::v1alpha1::PodCertificateRequestStatus {
         &mut self,
         other: PodCertificateRequestStatusAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.begin_refresh_at,
-            other.begin_refresh_at,
-        )?;
-        if other.certificate_chain.is_some() {
+        if self.begin_refresh_at.is_none() {
+            self.begin_refresh_at = other.begin_refresh_at;
+        }
+        if let Some(other_value) = other.begin_refresh_at {
+            crate::OptionableConvert::merge(&mut self.begin_refresh_at, other_value)?;
+        }
+        if self.certificate_chain.is_none() {
             self.certificate_chain = other.certificate_chain;
         }
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        crate::OptionableConvert::merge(&mut self.not_after, other.not_after)?;
-        crate::OptionableConvert::merge(&mut self.not_before, other.not_before)?;
+        if let Some(other_value) = other.certificate_chain {
+            crate::OptionableConvert::merge(&mut self.certificate_chain, other_value)?;
+        }
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::OptionableConvert::merge(&mut self.conditions, other_value)?;
+        }
+        if self.not_after.is_none() {
+            self.not_after = other.not_after;
+        }
+        if let Some(other_value) = other.not_after {
+            crate::OptionableConvert::merge(&mut self.not_after, other_value)?;
+        }
+        if self.not_before.is_none() {
+            self.not_before = other.not_before;
+        }
+        if let Some(other_value) = other.not_before {
+            crate::OptionableConvert::merge(&mut self.not_before, other_value)?;
+        }
         Ok(())
     }
 }

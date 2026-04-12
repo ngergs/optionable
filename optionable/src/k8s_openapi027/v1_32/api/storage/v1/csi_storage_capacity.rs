@@ -98,13 +98,25 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIStorageCa
         })
     }
     fn merge(&mut self, other: CSIStorageCapacityAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
-        crate::OptionableConvert::merge(
-            &mut self.maximum_volume_size,
-            other.maximum_volume_size,
-        )?;
+        if self.capacity.is_none() {
+            self.capacity = other.capacity;
+        }
+        if let Some(other_value) = other.capacity {
+            crate::OptionableConvert::merge(&mut self.capacity, other_value)?;
+        }
+        if self.maximum_volume_size.is_none() {
+            self.maximum_volume_size = other.maximum_volume_size;
+        }
+        if let Some(other_value) = other.maximum_volume_size {
+            crate::OptionableConvert::merge(&mut self.maximum_volume_size, other_value)?;
+        }
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.node_topology, other.node_topology)?;
+        if self.node_topology.is_none() {
+            self.node_topology = other.node_topology;
+        }
+        if let Some(other_value) = other.node_topology {
+            crate::OptionableConvert::merge(&mut self.node_topology, other_value)?;
+        }
         if let Some(other_value) = other.storage_class_name {
             self.storage_class_name = other_value;
         }

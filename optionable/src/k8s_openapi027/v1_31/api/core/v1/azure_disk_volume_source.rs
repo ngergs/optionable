@@ -69,8 +69,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AzureDiskVolume
         })
     }
     fn merge(&mut self, other: AzureDiskVolumeSourceAc) -> Result<(), crate::Error> {
-        if other.caching_mode.is_some() {
+        if self.caching_mode.is_none() {
             self.caching_mode = other.caching_mode;
+        }
+        if let Some(other_value) = other.caching_mode {
+            crate::OptionableConvert::merge(&mut self.caching_mode, other_value)?;
         }
         if let Some(other_value) = other.disk_name {
             self.disk_name = other_value;
@@ -78,14 +81,23 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AzureDiskVolume
         if let Some(other_value) = other.disk_uri {
             self.disk_uri = other_value;
         }
-        if other.fs_type.is_some() {
+        if self.fs_type.is_none() {
             self.fs_type = other.fs_type;
         }
-        if other.kind.is_some() {
+        if let Some(other_value) = other.fs_type {
+            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
+        }
+        if self.kind.is_none() {
             self.kind = other.kind;
         }
-        if other.read_only.is_some() {
+        if let Some(other_value) = other.kind {
+            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
+        }
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
+        }
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
         }
         Ok(())
     }

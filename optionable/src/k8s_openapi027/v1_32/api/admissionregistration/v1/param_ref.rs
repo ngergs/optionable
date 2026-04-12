@@ -71,16 +71,33 @@ for k8s_openapi027::api::admissionregistration::v1::ParamRef {
         })
     }
     fn merge(&mut self, other: ParamRefAc) -> Result<(), crate::Error> {
-        if other.name.is_some() {
+        if self.name.is_none() {
             self.name = other.name;
         }
-        if other.namespace.is_some() {
+        if let Some(other_value) = other.name {
+            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+        }
+        if self.namespace.is_none() {
             self.namespace = other.namespace;
         }
-        if other.parameter_not_found_action.is_some() {
+        if let Some(other_value) = other.namespace {
+            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
+        }
+        if self.parameter_not_found_action.is_none() {
             self.parameter_not_found_action = other.parameter_not_found_action;
         }
-        crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
+        if let Some(other_value) = other.parameter_not_found_action {
+            crate::OptionableConvert::merge(
+                &mut self.parameter_not_found_action,
+                other_value,
+            )?;
+        }
+        if self.selector.is_none() {
+            self.selector = other.selector;
+        }
+        if let Some(other_value) = other.selector {
+            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
+        }
         Ok(())
     }
 }

@@ -58,8 +58,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TypedObjectRefe
         })
     }
     fn merge(&mut self, other: TypedObjectReferenceAc) -> Result<(), crate::Error> {
-        if other.api_group.is_some() {
+        if self.api_group.is_none() {
             self.api_group = other.api_group;
+        }
+        if let Some(other_value) = other.api_group {
+            crate::OptionableConvert::merge(&mut self.api_group, other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = other_value;
@@ -67,8 +70,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TypedObjectRefe
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        if other.namespace.is_some() {
+        if self.namespace.is_none() {
             self.namespace = other.namespace;
+        }
+        if let Some(other_value) = other.namespace {
+            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
         }
         Ok(())
     }

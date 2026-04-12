@@ -75,14 +75,32 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec {
         })
     }
     fn merge(&mut self, other: PodDisruptionBudgetSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.max_unavailable,
-            other.max_unavailable,
-        )?;
-        crate::OptionableConvert::merge(&mut self.min_available, other.min_available)?;
-        crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
-        if other.unhealthy_pod_eviction_policy.is_some() {
+        if self.max_unavailable.is_none() {
+            self.max_unavailable = other.max_unavailable;
+        }
+        if let Some(other_value) = other.max_unavailable {
+            crate::OptionableConvert::merge(&mut self.max_unavailable, other_value)?;
+        }
+        if self.min_available.is_none() {
+            self.min_available = other.min_available;
+        }
+        if let Some(other_value) = other.min_available {
+            crate::OptionableConvert::merge(&mut self.min_available, other_value)?;
+        }
+        if self.selector.is_none() {
+            self.selector = other.selector;
+        }
+        if let Some(other_value) = other.selector {
+            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
+        }
+        if self.unhealthy_pod_eviction_policy.is_none() {
             self.unhealthy_pod_eviction_policy = other.unhealthy_pod_eviction_policy;
+        }
+        if let Some(other_value) = other.unhealthy_pod_eviction_policy {
+            crate::OptionableConvert::merge(
+                &mut self.unhealthy_pod_eviction_policy,
+                other_value,
+            )?;
         }
         Ok(())
     }

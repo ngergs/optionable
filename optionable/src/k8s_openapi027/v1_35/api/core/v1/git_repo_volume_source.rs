@@ -51,14 +51,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::GitRepoVolumeSo
         })
     }
     fn merge(&mut self, other: GitRepoVolumeSourceAc) -> Result<(), crate::Error> {
-        if other.directory.is_some() {
+        if self.directory.is_none() {
             self.directory = other.directory;
+        }
+        if let Some(other_value) = other.directory {
+            crate::OptionableConvert::merge(&mut self.directory, other_value)?;
         }
         if let Some(other_value) = other.repository {
             self.repository = other_value;
         }
-        if other.revision.is_some() {
+        if self.revision.is_none() {
             self.revision = other.revision;
+        }
+        if let Some(other_value) = other.revision {
+            crate::OptionableConvert::merge(&mut self.revision, other_value)?;
         }
         Ok(())
     }

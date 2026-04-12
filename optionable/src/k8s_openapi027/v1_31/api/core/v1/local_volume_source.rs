@@ -44,8 +44,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LocalVolumeSour
         })
     }
     fn merge(&mut self, other: LocalVolumeSourceAc) -> Result<(), crate::Error> {
-        if other.fs_type.is_some() {
+        if self.fs_type.is_none() {
             self.fs_type = other.fs_type;
+        }
+        if let Some(other_value) = other.fs_type {
+            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
         }
         if let Some(other_value) = other.path {
             self.path = other_value;

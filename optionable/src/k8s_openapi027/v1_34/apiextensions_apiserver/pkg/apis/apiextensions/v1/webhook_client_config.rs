@@ -61,10 +61,23 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Webho
         })
     }
     fn merge(&mut self, other: WebhookClientConfigAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
-        crate::OptionableConvert::merge(&mut self.service, other.service)?;
-        if other.url.is_some() {
+        if self.ca_bundle.is_none() {
+            self.ca_bundle = other.ca_bundle;
+        }
+        if let Some(other_value) = other.ca_bundle {
+            crate::OptionableConvert::merge(&mut self.ca_bundle, other_value)?;
+        }
+        if self.service.is_none() {
+            self.service = other.service;
+        }
+        if let Some(other_value) = other.service {
+            crate::OptionableConvert::merge(&mut self.service, other_value)?;
+        }
+        if self.url.is_none() {
             self.url = other.url;
+        }
+        if let Some(other_value) = other.url {
+            crate::OptionableConvert::merge(&mut self.url, other_value)?;
         }
         Ok(())
     }

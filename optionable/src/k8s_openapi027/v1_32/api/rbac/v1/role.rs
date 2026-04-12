@@ -56,7 +56,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::Role {
     }
     fn merge(&mut self, other: RoleAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
+        if self.rules.is_none() {
+            self.rules = other.rules;
+        }
+        if let Some(other_value) = other.rules {
+            self.rules = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
         Ok(())
     }
 }

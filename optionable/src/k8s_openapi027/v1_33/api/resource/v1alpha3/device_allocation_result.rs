@@ -52,8 +52,18 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceAllocationResult {
         })
     }
     fn merge(&mut self, other: DeviceAllocationResultAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.config, other.config)?;
-        crate::OptionableConvert::merge(&mut self.results, other.results)?;
+        if self.config.is_none() {
+            self.config = other.config;
+        }
+        if let Some(other_value) = other.config {
+            crate::OptionableConvert::merge(&mut self.config, other_value)?;
+        }
+        if self.results.is_none() {
+            self.results = other.results;
+        }
+        if let Some(other_value) = other.results {
+            crate::OptionableConvert::merge(&mut self.results, other_value)?;
+        }
         Ok(())
     }
 }

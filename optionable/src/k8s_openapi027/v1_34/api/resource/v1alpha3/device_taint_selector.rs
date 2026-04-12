@@ -64,19 +64,36 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceTaintSelector {
         })
     }
     fn merge(&mut self, other: DeviceTaintSelectorAc) -> Result<(), crate::Error> {
-        if other.device.is_some() {
+        if self.device.is_none() {
             self.device = other.device;
         }
-        if other.device_class_name.is_some() {
+        if let Some(other_value) = other.device {
+            crate::OptionableConvert::merge(&mut self.device, other_value)?;
+        }
+        if self.device_class_name.is_none() {
             self.device_class_name = other.device_class_name;
         }
-        if other.driver.is_some() {
+        if let Some(other_value) = other.device_class_name {
+            crate::OptionableConvert::merge(&mut self.device_class_name, other_value)?;
+        }
+        if self.driver.is_none() {
             self.driver = other.driver;
         }
-        if other.pool.is_some() {
+        if let Some(other_value) = other.driver {
+            crate::OptionableConvert::merge(&mut self.driver, other_value)?;
+        }
+        if self.pool.is_none() {
             self.pool = other.pool;
         }
-        crate::OptionableConvert::merge(&mut self.selectors, other.selectors)?;
+        if let Some(other_value) = other.pool {
+            crate::OptionableConvert::merge(&mut self.pool, other_value)?;
+        }
+        if self.selectors.is_none() {
+            self.selectors = other.selectors;
+        }
+        if let Some(other_value) = other.selectors {
+            crate::OptionableConvert::merge(&mut self.selectors, other_value)?;
+        }
         Ok(())
     }
 }

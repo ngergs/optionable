@@ -145,39 +145,87 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
         })
     }
     fn merge(&mut self, other: EventAc) -> Result<(), crate::Error> {
-        if other.action.is_some() {
+        if self.action.is_none() {
             self.action = other.action;
         }
-        if other.count.is_some() {
+        if let Some(other_value) = other.action {
+            crate::OptionableConvert::merge(&mut self.action, other_value)?;
+        }
+        if self.count.is_none() {
             self.count = other.count;
         }
-        crate::OptionableConvert::merge(&mut self.event_time, other.event_time)?;
-        crate::OptionableConvert::merge(
-            &mut self.first_timestamp,
-            other.first_timestamp,
-        )?;
-        if let Some(other_value) = other.involved_object {
-            crate::OptionableConvert::merge(&mut self.involved_object, other_value)?;
+        if let Some(other_value) = other.count {
+            crate::OptionableConvert::merge(&mut self.count, other_value)?;
         }
-        crate::OptionableConvert::merge(&mut self.last_timestamp, other.last_timestamp)?;
-        if other.message.is_some() {
+        if self.event_time.is_none() {
+            self.event_time = other.event_time;
+        }
+        if let Some(other_value) = other.event_time {
+            crate::OptionableConvert::merge(&mut self.event_time, other_value)?;
+        }
+        if self.first_timestamp.is_none() {
+            self.first_timestamp = other.first_timestamp;
+        }
+        if let Some(other_value) = other.first_timestamp {
+            crate::OptionableConvert::merge(&mut self.first_timestamp, other_value)?;
+        }
+        if let Some(other_value) = other.involved_object {
+            self.involved_object = other_value;
+        }
+        if self.last_timestamp.is_none() {
+            self.last_timestamp = other.last_timestamp;
+        }
+        if let Some(other_value) = other.last_timestamp {
+            crate::OptionableConvert::merge(&mut self.last_timestamp, other_value)?;
+        }
+        if self.message.is_none() {
             self.message = other.message;
         }
+        if let Some(other_value) = other.message {
+            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+        }
         self.metadata = other.metadata;
-        if other.reason.is_some() {
+        if self.reason.is_none() {
             self.reason = other.reason;
         }
-        crate::OptionableConvert::merge(&mut self.related, other.related)?;
-        if other.reporting_component.is_some() {
+        if let Some(other_value) = other.reason {
+            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
+        }
+        if self.related.is_none() {
+            self.related = other.related;
+        }
+        if let Some(other_value) = other.related {
+            crate::OptionableConvert::merge(&mut self.related, other_value)?;
+        }
+        if self.reporting_component.is_none() {
             self.reporting_component = other.reporting_component;
         }
-        if other.reporting_instance.is_some() {
+        if let Some(other_value) = other.reporting_component {
+            crate::OptionableConvert::merge(&mut self.reporting_component, other_value)?;
+        }
+        if self.reporting_instance.is_none() {
             self.reporting_instance = other.reporting_instance;
         }
-        crate::OptionableConvert::merge(&mut self.series, other.series)?;
-        crate::OptionableConvert::merge(&mut self.source, other.source)?;
-        if other.type_.is_some() {
+        if let Some(other_value) = other.reporting_instance {
+            crate::OptionableConvert::merge(&mut self.reporting_instance, other_value)?;
+        }
+        if self.series.is_none() {
+            self.series = other.series;
+        }
+        if let Some(other_value) = other.series {
+            crate::OptionableConvert::merge(&mut self.series, other_value)?;
+        }
+        if self.source.is_none() {
+            self.source = other.source;
+        }
+        if let Some(other_value) = other.source {
+            crate::OptionableConvert::merge(&mut self.source, other_value)?;
+        }
+        if self.type_.is_none() {
             self.type_ = other.type_;
+        }
+        if let Some(other_value) = other.type_ {
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
         Ok(())
     }

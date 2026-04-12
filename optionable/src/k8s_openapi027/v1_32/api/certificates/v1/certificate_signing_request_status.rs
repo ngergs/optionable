@@ -74,8 +74,18 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestStatus {
         &mut self,
         other: CertificateSigningRequestStatusAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.certificate, other.certificate)?;
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
+        if self.certificate.is_none() {
+            self.certificate = other.certificate;
+        }
+        if let Some(other_value) = other.certificate {
+            crate::OptionableConvert::merge(&mut self.certificate, other_value)?;
+        }
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+        }
         Ok(())
     }
 }

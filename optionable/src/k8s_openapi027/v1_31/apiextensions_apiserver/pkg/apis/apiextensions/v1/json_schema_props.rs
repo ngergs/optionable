@@ -334,119 +334,295 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         })
     }
     fn merge(&mut self, other: JSONSchemaPropsAc) -> Result<(), crate::Error> {
-        if other.ref_path.is_some() {
+        if self.ref_path.is_none() {
             self.ref_path = other.ref_path;
         }
-        if other.schema.is_some() {
+        if let Some(other_value) = other.ref_path {
+            crate::OptionableConvert::merge(&mut self.ref_path, other_value)?;
+        }
+        if self.schema.is_none() {
             self.schema = other.schema;
         }
-        crate::OptionableConvert::merge(
-            &mut self.additional_items,
-            other.additional_items,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.additional_properties,
-            other.additional_properties,
-        )?;
-        crate::OptionableConvert::merge(&mut self.all_of, other.all_of)?;
-        crate::OptionableConvert::merge(&mut self.any_of, other.any_of)?;
-        crate::OptionableConvert::merge(&mut self.default, other.default)?;
-        crate::OptionableConvert::merge(&mut self.definitions, other.definitions)?;
-        crate::OptionableConvert::merge(&mut self.dependencies, other.dependencies)?;
-        if other.description.is_some() {
+        if let Some(other_value) = other.schema {
+            crate::OptionableConvert::merge(&mut self.schema, other_value)?;
+        }
+        if self.additional_items.is_none() {
+            self.additional_items = other.additional_items;
+        }
+        if let Some(other_value) = other.additional_items {
+            crate::OptionableConvert::merge(&mut self.additional_items, other_value)?;
+        }
+        if self.additional_properties.is_none() {
+            self.additional_properties = other.additional_properties;
+        }
+        if let Some(other_value) = other.additional_properties {
+            crate::OptionableConvert::merge(
+                &mut self.additional_properties,
+                other_value,
+            )?;
+        }
+        if self.all_of.is_none() {
+            self.all_of = other.all_of;
+        }
+        if let Some(other_value) = other.all_of {
+            crate::OptionableConvert::merge(&mut self.all_of, other_value)?;
+        }
+        if self.any_of.is_none() {
+            self.any_of = other.any_of;
+        }
+        if let Some(other_value) = other.any_of {
+            crate::OptionableConvert::merge(&mut self.any_of, other_value)?;
+        }
+        if self.default.is_none() {
+            self.default = other.default;
+        }
+        if let Some(other_value) = other.default {
+            crate::OptionableConvert::merge(&mut self.default, other_value)?;
+        }
+        if self.definitions.is_none() {
+            self.definitions = other.definitions;
+        }
+        if let Some(other_value) = other.definitions {
+            crate::OptionableConvert::merge(&mut self.definitions, other_value)?;
+        }
+        if self.dependencies.is_none() {
+            self.dependencies = other.dependencies;
+        }
+        if let Some(other_value) = other.dependencies {
+            crate::OptionableConvert::merge(&mut self.dependencies, other_value)?;
+        }
+        if self.description.is_none() {
             self.description = other.description;
         }
-        crate::OptionableConvert::merge(&mut self.enum_, other.enum_)?;
-        crate::OptionableConvert::merge(&mut self.example, other.example)?;
-        if other.exclusive_maximum.is_some() {
+        if let Some(other_value) = other.description {
+            crate::OptionableConvert::merge(&mut self.description, other_value)?;
+        }
+        if self.enum_.is_none() {
+            self.enum_ = other.enum_;
+        }
+        if let Some(other_value) = other.enum_ {
+            crate::OptionableConvert::merge(&mut self.enum_, other_value)?;
+        }
+        if self.example.is_none() {
+            self.example = other.example;
+        }
+        if let Some(other_value) = other.example {
+            crate::OptionableConvert::merge(&mut self.example, other_value)?;
+        }
+        if self.exclusive_maximum.is_none() {
             self.exclusive_maximum = other.exclusive_maximum;
         }
-        if other.exclusive_minimum.is_some() {
+        if let Some(other_value) = other.exclusive_maximum {
+            crate::OptionableConvert::merge(&mut self.exclusive_maximum, other_value)?;
+        }
+        if self.exclusive_minimum.is_none() {
             self.exclusive_minimum = other.exclusive_minimum;
         }
-        crate::OptionableConvert::merge(&mut self.external_docs, other.external_docs)?;
-        if other.format.is_some() {
+        if let Some(other_value) = other.exclusive_minimum {
+            crate::OptionableConvert::merge(&mut self.exclusive_minimum, other_value)?;
+        }
+        if self.external_docs.is_none() {
+            self.external_docs = other.external_docs;
+        }
+        if let Some(other_value) = other.external_docs {
+            crate::OptionableConvert::merge(&mut self.external_docs, other_value)?;
+        }
+        if self.format.is_none() {
             self.format = other.format;
         }
-        if other.id.is_some() {
+        if let Some(other_value) = other.format {
+            crate::OptionableConvert::merge(&mut self.format, other_value)?;
+        }
+        if self.id.is_none() {
             self.id = other.id;
         }
-        crate::OptionableConvert::merge(&mut self.items, other.items)?;
-        if other.max_items.is_some() {
+        if let Some(other_value) = other.id {
+            crate::OptionableConvert::merge(&mut self.id, other_value)?;
+        }
+        if self.items.is_none() {
+            self.items = other.items;
+        }
+        if let Some(other_value) = other.items {
+            crate::OptionableConvert::merge(&mut self.items, other_value)?;
+        }
+        if self.max_items.is_none() {
             self.max_items = other.max_items;
         }
-        if other.max_length.is_some() {
+        if let Some(other_value) = other.max_items {
+            crate::OptionableConvert::merge(&mut self.max_items, other_value)?;
+        }
+        if self.max_length.is_none() {
             self.max_length = other.max_length;
         }
-        if other.max_properties.is_some() {
+        if let Some(other_value) = other.max_length {
+            crate::OptionableConvert::merge(&mut self.max_length, other_value)?;
+        }
+        if self.max_properties.is_none() {
             self.max_properties = other.max_properties;
         }
-        if other.maximum.is_some() {
+        if let Some(other_value) = other.max_properties {
+            crate::OptionableConvert::merge(&mut self.max_properties, other_value)?;
+        }
+        if self.maximum.is_none() {
             self.maximum = other.maximum;
         }
-        if other.min_items.is_some() {
+        if let Some(other_value) = other.maximum {
+            crate::OptionableConvert::merge(&mut self.maximum, other_value)?;
+        }
+        if self.min_items.is_none() {
             self.min_items = other.min_items;
         }
-        if other.min_length.is_some() {
+        if let Some(other_value) = other.min_items {
+            crate::OptionableConvert::merge(&mut self.min_items, other_value)?;
+        }
+        if self.min_length.is_none() {
             self.min_length = other.min_length;
         }
-        if other.min_properties.is_some() {
+        if let Some(other_value) = other.min_length {
+            crate::OptionableConvert::merge(&mut self.min_length, other_value)?;
+        }
+        if self.min_properties.is_none() {
             self.min_properties = other.min_properties;
         }
-        if other.minimum.is_some() {
+        if let Some(other_value) = other.min_properties {
+            crate::OptionableConvert::merge(&mut self.min_properties, other_value)?;
+        }
+        if self.minimum.is_none() {
             self.minimum = other.minimum;
         }
-        if other.multiple_of.is_some() {
+        if let Some(other_value) = other.minimum {
+            crate::OptionableConvert::merge(&mut self.minimum, other_value)?;
+        }
+        if self.multiple_of.is_none() {
             self.multiple_of = other.multiple_of;
         }
-        crate::OptionableConvert::merge(&mut self.not, other.not)?;
-        if other.nullable.is_some() {
+        if let Some(other_value) = other.multiple_of {
+            crate::OptionableConvert::merge(&mut self.multiple_of, other_value)?;
+        }
+        if self.not.is_none() {
+            self.not = other.not;
+        }
+        if let Some(other_value) = other.not {
+            crate::OptionableConvert::merge(&mut self.not, other_value)?;
+        }
+        if self.nullable.is_none() {
             self.nullable = other.nullable;
         }
-        crate::OptionableConvert::merge(&mut self.one_of, other.one_of)?;
-        if other.pattern.is_some() {
+        if let Some(other_value) = other.nullable {
+            crate::OptionableConvert::merge(&mut self.nullable, other_value)?;
+        }
+        if self.one_of.is_none() {
+            self.one_of = other.one_of;
+        }
+        if let Some(other_value) = other.one_of {
+            crate::OptionableConvert::merge(&mut self.one_of, other_value)?;
+        }
+        if self.pattern.is_none() {
             self.pattern = other.pattern;
         }
-        crate::OptionableConvert::merge(
-            &mut self.pattern_properties,
-            other.pattern_properties,
-        )?;
-        crate::OptionableConvert::merge(&mut self.properties, other.properties)?;
-        if other.required.is_some() {
+        if let Some(other_value) = other.pattern {
+            crate::OptionableConvert::merge(&mut self.pattern, other_value)?;
+        }
+        if self.pattern_properties.is_none() {
+            self.pattern_properties = other.pattern_properties;
+        }
+        if let Some(other_value) = other.pattern_properties {
+            crate::OptionableConvert::merge(&mut self.pattern_properties, other_value)?;
+        }
+        if self.properties.is_none() {
+            self.properties = other.properties;
+        }
+        if let Some(other_value) = other.properties {
+            crate::OptionableConvert::merge(&mut self.properties, other_value)?;
+        }
+        if self.required.is_none() {
             self.required = other.required;
         }
-        if other.title.is_some() {
+        if let Some(other_value) = other.required {
+            crate::OptionableConvert::merge(&mut self.required, other_value)?;
+        }
+        if self.title.is_none() {
             self.title = other.title;
         }
-        if other.type_.is_some() {
+        if let Some(other_value) = other.title {
+            crate::OptionableConvert::merge(&mut self.title, other_value)?;
+        }
+        if self.type_.is_none() {
             self.type_ = other.type_;
         }
-        if other.unique_items.is_some() {
+        if let Some(other_value) = other.type_ {
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+        }
+        if self.unique_items.is_none() {
             self.unique_items = other.unique_items;
         }
-        if other.x_kubernetes_embedded_resource.is_some() {
+        if let Some(other_value) = other.unique_items {
+            crate::OptionableConvert::merge(&mut self.unique_items, other_value)?;
+        }
+        if self.x_kubernetes_embedded_resource.is_none() {
             self.x_kubernetes_embedded_resource = other.x_kubernetes_embedded_resource;
         }
-        if other.x_kubernetes_int_or_string.is_some() {
+        if let Some(other_value) = other.x_kubernetes_embedded_resource {
+            crate::OptionableConvert::merge(
+                &mut self.x_kubernetes_embedded_resource,
+                other_value,
+            )?;
+        }
+        if self.x_kubernetes_int_or_string.is_none() {
             self.x_kubernetes_int_or_string = other.x_kubernetes_int_or_string;
         }
-        if other.x_kubernetes_list_map_keys.is_some() {
+        if let Some(other_value) = other.x_kubernetes_int_or_string {
+            crate::OptionableConvert::merge(
+                &mut self.x_kubernetes_int_or_string,
+                other_value,
+            )?;
+        }
+        if self.x_kubernetes_list_map_keys.is_none() {
             self.x_kubernetes_list_map_keys = other.x_kubernetes_list_map_keys;
         }
-        if other.x_kubernetes_list_type.is_some() {
+        if let Some(other_value) = other.x_kubernetes_list_map_keys {
+            crate::OptionableConvert::merge(
+                &mut self.x_kubernetes_list_map_keys,
+                other_value,
+            )?;
+        }
+        if self.x_kubernetes_list_type.is_none() {
             self.x_kubernetes_list_type = other.x_kubernetes_list_type;
         }
-        if other.x_kubernetes_map_type.is_some() {
+        if let Some(other_value) = other.x_kubernetes_list_type {
+            crate::OptionableConvert::merge(
+                &mut self.x_kubernetes_list_type,
+                other_value,
+            )?;
+        }
+        if self.x_kubernetes_map_type.is_none() {
             self.x_kubernetes_map_type = other.x_kubernetes_map_type;
         }
-        if other.x_kubernetes_preserve_unknown_fields.is_some() {
+        if let Some(other_value) = other.x_kubernetes_map_type {
+            crate::OptionableConvert::merge(
+                &mut self.x_kubernetes_map_type,
+                other_value,
+            )?;
+        }
+        if self.x_kubernetes_preserve_unknown_fields.is_none() {
             self.x_kubernetes_preserve_unknown_fields = other
                 .x_kubernetes_preserve_unknown_fields;
         }
-        crate::OptionableConvert::merge(
-            &mut self.x_kubernetes_validations,
-            other.x_kubernetes_validations,
-        )?;
+        if let Some(other_value) = other.x_kubernetes_preserve_unknown_fields {
+            crate::OptionableConvert::merge(
+                &mut self.x_kubernetes_preserve_unknown_fields,
+                other_value,
+            )?;
+        }
+        if self.x_kubernetes_validations.is_none() {
+            self.x_kubernetes_validations = other.x_kubernetes_validations;
+        }
+        if let Some(other_value) = other.x_kubernetes_validations {
+            crate::OptionableConvert::merge(
+                &mut self.x_kubernetes_validations,
+                other_value,
+            )?;
+        }
         Ok(())
     }
 }

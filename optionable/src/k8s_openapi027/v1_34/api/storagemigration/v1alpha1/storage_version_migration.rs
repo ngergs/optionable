@@ -65,8 +65,18 @@ for k8s_openapi027::api::storagemigration::v1alpha1::StorageVersionMigration {
     }
     fn merge(&mut self, other: StorageVersionMigrationAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
-        crate::OptionableConvert::merge(&mut self.status, other.status)?;
+        if self.spec.is_none() {
+            self.spec = other.spec;
+        }
+        if let Some(other_value) = other.spec {
+            crate::OptionableConvert::merge(&mut self.spec, other_value)?;
+        }
+        if self.status.is_none() {
+            self.status = other.status;
+        }
+        if let Some(other_value) = other.status {
+            crate::OptionableConvert::merge(&mut self.status, other_value)?;
+        }
         Ok(())
     }
 }

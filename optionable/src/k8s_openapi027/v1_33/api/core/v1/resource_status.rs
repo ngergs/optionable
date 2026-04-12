@@ -44,7 +44,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceStatus 
     }
     fn merge(&mut self, other: ResourceStatusAc) -> Result<(), crate::Error> {
         self.name = other.name;
-        crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
+        if self.resources.is_none() {
+            self.resources = other.resources;
+        }
+        if let Some(other_value) = other.resources {
+            crate::merge::try_merge_optioned_map(&mut self.resources, other_value)?;
+        }
         Ok(())
     }
 }

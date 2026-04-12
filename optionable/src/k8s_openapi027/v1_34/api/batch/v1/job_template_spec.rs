@@ -44,8 +44,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobTemplateSpe
         })
     }
     fn merge(&mut self, other: JobTemplateSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.metadata, other.metadata)?;
-        crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
+        if self.metadata.is_none() {
+            self.metadata = other.metadata;
+        }
+        if let Some(other_value) = other.metadata {
+            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
+        }
+        if self.spec.is_none() {
+            self.spec = other.spec;
+        }
+        if let Some(other_value) = other.spec {
+            crate::OptionableConvert::merge(&mut self.spec, other_value)?;
+        }
         Ok(())
     }
 }

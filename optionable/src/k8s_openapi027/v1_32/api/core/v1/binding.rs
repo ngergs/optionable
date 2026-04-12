@@ -61,7 +61,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Binding {
     fn merge(&mut self, other: BindingAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.target {
-            crate::OptionableConvert::merge(&mut self.target, other_value)?;
+            self.target = other_value;
         }
         Ok(())
     }

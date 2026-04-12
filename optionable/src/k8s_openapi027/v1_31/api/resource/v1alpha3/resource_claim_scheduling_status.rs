@@ -56,8 +56,11 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSchedulingStatus {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        if other.unsuitable_nodes.is_some() {
+        if self.unsuitable_nodes.is_none() {
             self.unsuitable_nodes = other.unsuitable_nodes;
+        }
+        if let Some(other_value) = other.unsuitable_nodes {
+            crate::OptionableConvert::merge(&mut self.unsuitable_nodes, other_value)?;
         }
         Ok(())
     }

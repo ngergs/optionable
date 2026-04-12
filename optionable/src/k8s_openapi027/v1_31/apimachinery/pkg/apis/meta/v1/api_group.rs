@@ -95,16 +95,22 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup {
         if let Some(other_value) = other.name {
             self.name = other_value;
         }
-        crate::OptionableConvert::merge(
-            &mut self.preferred_version,
-            other.preferred_version,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.server_address_by_client_cidrs,
-            other.server_address_by_client_cidrs,
-        )?;
+        if self.preferred_version.is_none() {
+            self.preferred_version = other.preferred_version;
+        }
+        if let Some(other_value) = other.preferred_version {
+            crate::OptionableConvert::merge(&mut self.preferred_version, other_value)?;
+        }
+        if self.server_address_by_client_cidrs.is_none() {
+            self.server_address_by_client_cidrs = other.server_address_by_client_cidrs;
+        }
+        if let Some(other_value) = other.server_address_by_client_cidrs {
+            self.server_address_by_client_cidrs = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
         if let Some(other_value) = other.versions {
-            crate::OptionableConvert::merge(&mut self.versions, other_value)?;
+            self.versions = other_value;
         }
         Ok(())
     }

@@ -66,8 +66,11 @@ for k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement {
         if let Some(other_value) = other.scope_name {
             self.scope_name = other_value;
         }
-        if other.values.is_some() {
+        if self.values.is_none() {
             self.values = other.values;
+        }
+        if let Some(other_value) = other.values {
+            self.values = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

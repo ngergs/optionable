@@ -52,17 +52,32 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ListMeta {
         })
     }
     fn merge(&mut self, other: ListMetaAc) -> Result<(), crate::Error> {
-        if other.continue_.is_some() {
+        if self.continue_.is_none() {
             self.continue_ = other.continue_;
         }
-        if other.remaining_item_count.is_some() {
+        if let Some(other_value) = other.continue_ {
+            crate::OptionableConvert::merge(&mut self.continue_, other_value)?;
+        }
+        if self.remaining_item_count.is_none() {
             self.remaining_item_count = other.remaining_item_count;
         }
-        if other.resource_version.is_some() {
+        if let Some(other_value) = other.remaining_item_count {
+            crate::OptionableConvert::merge(
+                &mut self.remaining_item_count,
+                other_value,
+            )?;
+        }
+        if self.resource_version.is_none() {
             self.resource_version = other.resource_version;
         }
-        if other.self_link.is_some() {
+        if let Some(other_value) = other.resource_version {
+            crate::OptionableConvert::merge(&mut self.resource_version, other_value)?;
+        }
+        if self.self_link.is_none() {
             self.self_link = other.self_link;
+        }
+        if let Some(other_value) = other.self_link {
+            crate::OptionableConvert::merge(&mut self.self_link, other_value)?;
         }
         Ok(())
     }

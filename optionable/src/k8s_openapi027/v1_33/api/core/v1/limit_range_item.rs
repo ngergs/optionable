@@ -98,17 +98,39 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LimitRangeItem 
         })
     }
     fn merge(&mut self, other: LimitRangeItemAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.default, other.default)?;
-        crate::OptionableConvert::merge(
-            &mut self.default_request,
-            other.default_request,
-        )?;
-        crate::OptionableConvert::merge(&mut self.max, other.max)?;
-        crate::OptionableConvert::merge(
-            &mut self.max_limit_request_ratio,
-            other.max_limit_request_ratio,
-        )?;
-        crate::OptionableConvert::merge(&mut self.min, other.min)?;
+        if self.default.is_none() {
+            self.default = other.default;
+        }
+        if let Some(other_value) = other.default {
+            crate::OptionableConvert::merge(&mut self.default, other_value)?;
+        }
+        if self.default_request.is_none() {
+            self.default_request = other.default_request;
+        }
+        if let Some(other_value) = other.default_request {
+            crate::OptionableConvert::merge(&mut self.default_request, other_value)?;
+        }
+        if self.max.is_none() {
+            self.max = other.max;
+        }
+        if let Some(other_value) = other.max {
+            crate::OptionableConvert::merge(&mut self.max, other_value)?;
+        }
+        if self.max_limit_request_ratio.is_none() {
+            self.max_limit_request_ratio = other.max_limit_request_ratio;
+        }
+        if let Some(other_value) = other.max_limit_request_ratio {
+            crate::OptionableConvert::merge(
+                &mut self.max_limit_request_ratio,
+                other_value,
+            )?;
+        }
+        if self.min.is_none() {
+            self.min = other.min;
+        }
+        if let Some(other_value) = other.min {
+            crate::OptionableConvert::merge(&mut self.min, other_value)?;
+        }
         if let Some(other_value) = other.type_ {
             self.type_ = other_value;
         }

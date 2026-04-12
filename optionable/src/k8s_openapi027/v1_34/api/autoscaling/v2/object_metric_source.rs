@@ -73,13 +73,13 @@ for k8s_openapi027::api::autoscaling::v2::ObjectMetricSource {
     }
     fn merge(&mut self, other: ObjectMetricSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.described_object {
-            crate::OptionableConvert::merge(&mut self.described_object, other_value)?;
+            self.described_object = other_value;
         }
         if let Some(other_value) = other.metric {
-            crate::OptionableConvert::merge(&mut self.metric, other_value)?;
+            self.metric = other_value;
         }
         if let Some(other_value) = other.target {
-            crate::OptionableConvert::merge(&mut self.target, other_value)?;
+            self.target = other_value;
         }
         Ok(())
     }

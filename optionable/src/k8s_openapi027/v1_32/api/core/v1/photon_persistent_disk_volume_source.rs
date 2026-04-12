@@ -52,8 +52,11 @@ for k8s_openapi027::api::core::v1::PhotonPersistentDiskVolumeSource {
         &mut self,
         other: PhotonPersistentDiskVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        if other.fs_type.is_some() {
+        if self.fs_type.is_none() {
             self.fs_type = other.fs_type;
+        }
+        if let Some(other_value) = other.fs_type {
+            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
         }
         if let Some(other_value) = other.pd_id {
             self.pd_id = other_value;

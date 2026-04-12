@@ -77,9 +77,14 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequest {
     fn merge(&mut self, other: CertificateSigningRequestAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
-            crate::OptionableConvert::merge(&mut self.spec, other_value)?;
+            self.spec = other_value;
         }
-        crate::OptionableConvert::merge(&mut self.status, other.status)?;
+        if self.status.is_none() {
+            self.status = other.status;
+        }
+        if let Some(other_value) = other.status {
+            crate::OptionableConvert::merge(&mut self.status, other_value)?;
+        }
         Ok(())
     }
 }

@@ -66,11 +66,17 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Servi
         if let Some(other_value) = other.namespace {
             self.namespace = other_value;
         }
-        if other.path.is_some() {
+        if self.path.is_none() {
             self.path = other.path;
         }
-        if other.port.is_some() {
+        if let Some(other_value) = other.path {
+            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+        }
+        if self.port.is_none() {
             self.port = other.port;
+        }
+        if let Some(other_value) = other.port {
+            crate::OptionableConvert::merge(&mut self.port, other_value)?;
         }
         Ok(())
     }

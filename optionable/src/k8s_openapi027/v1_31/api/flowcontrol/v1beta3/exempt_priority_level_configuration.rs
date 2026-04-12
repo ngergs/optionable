@@ -53,11 +53,20 @@ for k8s_openapi027::api::flowcontrol::v1beta3::ExemptPriorityLevelConfiguration 
         &mut self,
         other: ExemptPriorityLevelConfigurationAc,
     ) -> Result<(), crate::Error> {
-        if other.lendable_percent.is_some() {
+        if self.lendable_percent.is_none() {
             self.lendable_percent = other.lendable_percent;
         }
-        if other.nominal_concurrency_shares.is_some() {
+        if let Some(other_value) = other.lendable_percent {
+            crate::OptionableConvert::merge(&mut self.lendable_percent, other_value)?;
+        }
+        if self.nominal_concurrency_shares.is_none() {
             self.nominal_concurrency_shares = other.nominal_concurrency_shares;
+        }
+        if let Some(other_value) = other.nominal_concurrency_shares {
+            crate::OptionableConvert::merge(
+                &mut self.nominal_concurrency_shares,
+                other_value,
+            )?;
         }
         Ok(())
     }

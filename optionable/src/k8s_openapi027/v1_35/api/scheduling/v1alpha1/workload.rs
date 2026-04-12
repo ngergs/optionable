@@ -61,7 +61,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1alpha1::Wor
     fn merge(&mut self, other: WorkloadAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
-            crate::OptionableConvert::merge(&mut self.spec, other_value)?;
+            self.spec = other_value;
         }
         Ok(())
     }

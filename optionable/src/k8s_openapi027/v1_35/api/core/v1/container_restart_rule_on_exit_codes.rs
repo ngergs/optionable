@@ -57,8 +57,11 @@ for k8s_openapi027::api::core::v1::ContainerRestartRuleOnExitCodes {
         if let Some(other_value) = other.operator {
             self.operator = other_value;
         }
-        if other.values.is_some() {
+        if self.values.is_none() {
             self.values = other.values;
+        }
+        if let Some(other_value) = other.values {
+            crate::merge::try_merge_optioned_set(&mut self.values, other_value)?;
         }
         Ok(())
     }

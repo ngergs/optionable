@@ -50,10 +50,20 @@ for k8s_openapi027::api::authorization::v1::LabelSelectorAttributes {
         })
     }
     fn merge(&mut self, other: LabelSelectorAttributesAc) -> Result<(), crate::Error> {
-        if other.raw_selector.is_some() {
+        if self.raw_selector.is_none() {
             self.raw_selector = other.raw_selector;
         }
-        crate::OptionableConvert::merge(&mut self.requirements, other.requirements)?;
+        if let Some(other_value) = other.raw_selector {
+            crate::OptionableConvert::merge(&mut self.raw_selector, other_value)?;
+        }
+        if self.requirements.is_none() {
+            self.requirements = other.requirements;
+        }
+        if let Some(other_value) = other.requirements {
+            self.requirements = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
         Ok(())
     }
 }

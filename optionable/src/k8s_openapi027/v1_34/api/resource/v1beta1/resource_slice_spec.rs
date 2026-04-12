@@ -119,27 +119,53 @@ for k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec {
         })
     }
     fn merge(&mut self, other: ResourceSliceSpecAc) -> Result<(), crate::Error> {
-        if other.all_nodes.is_some() {
+        if self.all_nodes.is_none() {
             self.all_nodes = other.all_nodes;
         }
-        crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
+        if let Some(other_value) = other.all_nodes {
+            crate::OptionableConvert::merge(&mut self.all_nodes, other_value)?;
+        }
+        if self.devices.is_none() {
+            self.devices = other.devices;
+        }
+        if let Some(other_value) = other.devices {
+            self.devices = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
         if let Some(other_value) = other.driver {
             self.driver = other_value;
         }
-        if other.node_name.is_some() {
+        if self.node_name.is_none() {
             self.node_name = other.node_name;
         }
-        crate::OptionableConvert::merge(&mut self.node_selector, other.node_selector)?;
-        if other.per_device_node_selection.is_some() {
+        if let Some(other_value) = other.node_name {
+            crate::OptionableConvert::merge(&mut self.node_name, other_value)?;
+        }
+        if self.node_selector.is_none() {
+            self.node_selector = other.node_selector;
+        }
+        if let Some(other_value) = other.node_selector {
+            crate::OptionableConvert::merge(&mut self.node_selector, other_value)?;
+        }
+        if self.per_device_node_selection.is_none() {
             self.per_device_node_selection = other.per_device_node_selection;
         }
-        if let Some(other_value) = other.pool {
-            crate::OptionableConvert::merge(&mut self.pool, other_value)?;
+        if let Some(other_value) = other.per_device_node_selection {
+            crate::OptionableConvert::merge(
+                &mut self.per_device_node_selection,
+                other_value,
+            )?;
         }
-        crate::OptionableConvert::merge(
-            &mut self.shared_counters,
-            other.shared_counters,
-        )?;
+        if let Some(other_value) = other.pool {
+            self.pool = other_value;
+        }
+        if self.shared_counters.is_none() {
+            self.shared_counters = other.shared_counters;
+        }
+        if let Some(other_value) = other.shared_counters {
+            self.shared_counters = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
         Ok(())
     }
 }

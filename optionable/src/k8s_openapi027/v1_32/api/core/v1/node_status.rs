@@ -145,31 +145,89 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeStatus {
         })
     }
     fn merge(&mut self, other: NodeStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.addresses, other.addresses)?;
-        crate::OptionableConvert::merge(&mut self.allocatable, other.allocatable)?;
-        crate::OptionableConvert::merge(&mut self.capacity, other.capacity)?;
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        crate::OptionableConvert::merge(&mut self.config, other.config)?;
-        crate::OptionableConvert::merge(
-            &mut self.daemon_endpoints,
-            other.daemon_endpoints,
-        )?;
-        crate::OptionableConvert::merge(&mut self.features, other.features)?;
-        crate::OptionableConvert::merge(&mut self.images, other.images)?;
-        crate::OptionableConvert::merge(&mut self.node_info, other.node_info)?;
-        if other.phase.is_some() {
+        if self.addresses.is_none() {
+            self.addresses = other.addresses;
+        }
+        if let Some(other_value) = other.addresses {
+            crate::merge::try_merge_optioned_map(&mut self.addresses, other_value)?;
+        }
+        if self.allocatable.is_none() {
+            self.allocatable = other.allocatable;
+        }
+        if let Some(other_value) = other.allocatable {
+            crate::OptionableConvert::merge(&mut self.allocatable, other_value)?;
+        }
+        if self.capacity.is_none() {
+            self.capacity = other.capacity;
+        }
+        if let Some(other_value) = other.capacity {
+            crate::OptionableConvert::merge(&mut self.capacity, other_value)?;
+        }
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+        }
+        if self.config.is_none() {
+            self.config = other.config;
+        }
+        if let Some(other_value) = other.config {
+            crate::OptionableConvert::merge(&mut self.config, other_value)?;
+        }
+        if self.daemon_endpoints.is_none() {
+            self.daemon_endpoints = other.daemon_endpoints;
+        }
+        if let Some(other_value) = other.daemon_endpoints {
+            crate::OptionableConvert::merge(&mut self.daemon_endpoints, other_value)?;
+        }
+        if self.features.is_none() {
+            self.features = other.features;
+        }
+        if let Some(other_value) = other.features {
+            crate::OptionableConvert::merge(&mut self.features, other_value)?;
+        }
+        if self.images.is_none() {
+            self.images = other.images;
+        }
+        if let Some(other_value) = other.images {
+            self.images = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.node_info.is_none() {
+            self.node_info = other.node_info;
+        }
+        if let Some(other_value) = other.node_info {
+            crate::OptionableConvert::merge(&mut self.node_info, other_value)?;
+        }
+        if self.phase.is_none() {
             self.phase = other.phase;
         }
-        crate::OptionableConvert::merge(
-            &mut self.runtime_handlers,
-            other.runtime_handlers,
-        )?;
-        crate::OptionableConvert::merge(
-            &mut self.volumes_attached,
-            other.volumes_attached,
-        )?;
-        if other.volumes_in_use.is_some() {
+        if let Some(other_value) = other.phase {
+            crate::OptionableConvert::merge(&mut self.phase, other_value)?;
+        }
+        if self.runtime_handlers.is_none() {
+            self.runtime_handlers = other.runtime_handlers;
+        }
+        if let Some(other_value) = other.runtime_handlers {
+            self.runtime_handlers = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.volumes_attached.is_none() {
+            self.volumes_attached = other.volumes_attached;
+        }
+        if let Some(other_value) = other.volumes_attached {
+            self.volumes_attached = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.volumes_in_use.is_none() {
             self.volumes_in_use = other.volumes_in_use;
+        }
+        if let Some(other_value) = other.volumes_in_use {
+            self.volumes_in_use = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

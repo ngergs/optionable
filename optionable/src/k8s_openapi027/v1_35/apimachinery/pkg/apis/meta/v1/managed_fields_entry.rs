@@ -71,23 +71,48 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
         })
     }
     fn merge(&mut self, other: ManagedFieldsEntryAc) -> Result<(), crate::Error> {
-        if other.api_version.is_some() {
+        if self.api_version.is_none() {
             self.api_version = other.api_version;
         }
-        if other.fields_type.is_some() {
+        if let Some(other_value) = other.api_version {
+            crate::OptionableConvert::merge(&mut self.api_version, other_value)?;
+        }
+        if self.fields_type.is_none() {
             self.fields_type = other.fields_type;
         }
-        crate::OptionableConvert::merge(&mut self.fields_v1, other.fields_v1)?;
-        if other.manager.is_some() {
+        if let Some(other_value) = other.fields_type {
+            crate::OptionableConvert::merge(&mut self.fields_type, other_value)?;
+        }
+        if self.fields_v1.is_none() {
+            self.fields_v1 = other.fields_v1;
+        }
+        if let Some(other_value) = other.fields_v1 {
+            crate::OptionableConvert::merge(&mut self.fields_v1, other_value)?;
+        }
+        if self.manager.is_none() {
             self.manager = other.manager;
         }
-        if other.operation.is_some() {
+        if let Some(other_value) = other.manager {
+            crate::OptionableConvert::merge(&mut self.manager, other_value)?;
+        }
+        if self.operation.is_none() {
             self.operation = other.operation;
         }
-        if other.subresource.is_some() {
+        if let Some(other_value) = other.operation {
+            crate::OptionableConvert::merge(&mut self.operation, other_value)?;
+        }
+        if self.subresource.is_none() {
             self.subresource = other.subresource;
         }
-        crate::OptionableConvert::merge(&mut self.time, other.time)?;
+        if let Some(other_value) = other.subresource {
+            crate::OptionableConvert::merge(&mut self.subresource, other_value)?;
+        }
+        if self.time.is_none() {
+            self.time = other.time;
+        }
+        if let Some(other_value) = other.time {
+            crate::OptionableConvert::merge(&mut self.time, other_value)?;
+        }
         Ok(())
     }
 }

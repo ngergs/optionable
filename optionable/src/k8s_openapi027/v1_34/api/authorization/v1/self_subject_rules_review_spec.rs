@@ -40,8 +40,11 @@ for k8s_openapi027::api::authorization::v1::SelfSubjectRulesReviewSpec {
         &mut self,
         other: SelfSubjectRulesReviewSpecAc,
     ) -> Result<(), crate::Error> {
-        if other.namespace.is_some() {
+        if self.namespace.is_none() {
             self.namespace = other.namespace;
+        }
+        if let Some(other_value) = other.namespace {
+            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
         }
         Ok(())
     }

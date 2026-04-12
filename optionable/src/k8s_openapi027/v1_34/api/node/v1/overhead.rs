@@ -40,7 +40,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::node::v1::Overhead {
         })
     }
     fn merge(&mut self, other: OverheadAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.pod_fixed, other.pod_fixed)?;
+        if self.pod_fixed.is_none() {
+            self.pod_fixed = other.pod_fixed;
+        }
+        if let Some(other_value) = other.pod_fixed {
+            crate::OptionableConvert::merge(&mut self.pod_fixed, other_value)?;
+        }
         Ok(())
     }
 }

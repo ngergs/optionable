@@ -56,17 +56,35 @@ for k8s_openapi027::api::core::v1::WindowsSecurityContextOptions {
         &mut self,
         other: WindowsSecurityContextOptionsAc,
     ) -> Result<(), crate::Error> {
-        if other.gmsa_credential_spec.is_some() {
+        if self.gmsa_credential_spec.is_none() {
             self.gmsa_credential_spec = other.gmsa_credential_spec;
         }
-        if other.gmsa_credential_spec_name.is_some() {
+        if let Some(other_value) = other.gmsa_credential_spec {
+            crate::OptionableConvert::merge(
+                &mut self.gmsa_credential_spec,
+                other_value,
+            )?;
+        }
+        if self.gmsa_credential_spec_name.is_none() {
             self.gmsa_credential_spec_name = other.gmsa_credential_spec_name;
         }
-        if other.host_process.is_some() {
+        if let Some(other_value) = other.gmsa_credential_spec_name {
+            crate::OptionableConvert::merge(
+                &mut self.gmsa_credential_spec_name,
+                other_value,
+            )?;
+        }
+        if self.host_process.is_none() {
             self.host_process = other.host_process;
         }
-        if other.run_as_user_name.is_some() {
+        if let Some(other_value) = other.host_process {
+            crate::OptionableConvert::merge(&mut self.host_process, other_value)?;
+        }
+        if self.run_as_user_name.is_none() {
             self.run_as_user_name = other.run_as_user_name;
+        }
+        if let Some(other_value) = other.run_as_user_name {
+            crate::OptionableConvert::merge(&mut self.run_as_user_name, other_value)?;
         }
         Ok(())
     }

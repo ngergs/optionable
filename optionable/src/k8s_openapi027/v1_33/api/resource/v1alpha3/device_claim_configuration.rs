@@ -48,9 +48,17 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceClaimConfiguration {
         })
     }
     fn merge(&mut self, other: DeviceClaimConfigurationAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.opaque, other.opaque)?;
-        if other.requests.is_some() {
+        if self.opaque.is_none() {
+            self.opaque = other.opaque;
+        }
+        if let Some(other_value) = other.opaque {
+            crate::OptionableConvert::merge(&mut self.opaque, other_value)?;
+        }
+        if self.requests.is_none() {
             self.requests = other.requests;
+        }
+        if let Some(other_value) = other.requests {
+            crate::OptionableConvert::merge(&mut self.requests, other_value)?;
         }
         Ok(())
     }

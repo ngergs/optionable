@@ -74,16 +74,30 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Secret {
         })
     }
     fn merge(&mut self, other: SecretAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.data, other.data)?;
-        if other.immutable.is_some() {
+        if self.data.is_none() {
+            self.data = other.data;
+        }
+        if let Some(other_value) = other.data {
+            crate::OptionableConvert::merge(&mut self.data, other_value)?;
+        }
+        if self.immutable.is_none() {
             self.immutable = other.immutable;
         }
+        if let Some(other_value) = other.immutable {
+            crate::OptionableConvert::merge(&mut self.immutable, other_value)?;
+        }
         self.metadata = other.metadata;
-        if other.string_data.is_some() {
+        if self.string_data.is_none() {
             self.string_data = other.string_data;
         }
-        if other.type_.is_some() {
+        if let Some(other_value) = other.string_data {
+            crate::OptionableConvert::merge(&mut self.string_data, other_value)?;
+        }
+        if self.type_.is_none() {
             self.type_ = other.type_;
+        }
+        if let Some(other_value) = other.type_ {
+            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
         }
         Ok(())
     }

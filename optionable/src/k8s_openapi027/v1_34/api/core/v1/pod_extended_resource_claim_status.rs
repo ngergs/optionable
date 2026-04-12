@@ -64,7 +64,7 @@ for k8s_openapi027::api::core::v1::PodExtendedResourceClaimStatus {
         other: PodExtendedResourceClaimStatusAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.request_mappings {
-            crate::OptionableConvert::merge(&mut self.request_mappings, other_value)?;
+            self.request_mappings = other_value;
         }
         if let Some(other_value) = other.resource_claim_name {
             self.resource_claim_name = other_value;

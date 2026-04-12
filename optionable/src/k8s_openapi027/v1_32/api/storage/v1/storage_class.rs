@@ -97,28 +97,52 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::StorageClass
         })
     }
     fn merge(&mut self, other: StorageClassAc) -> Result<(), crate::Error> {
-        if other.allow_volume_expansion.is_some() {
+        if self.allow_volume_expansion.is_none() {
             self.allow_volume_expansion = other.allow_volume_expansion;
         }
-        crate::OptionableConvert::merge(
-            &mut self.allowed_topologies,
-            other.allowed_topologies,
-        )?;
+        if let Some(other_value) = other.allow_volume_expansion {
+            crate::OptionableConvert::merge(
+                &mut self.allow_volume_expansion,
+                other_value,
+            )?;
+        }
+        if self.allowed_topologies.is_none() {
+            self.allowed_topologies = other.allowed_topologies;
+        }
+        if let Some(other_value) = other.allowed_topologies {
+            self.allowed_topologies = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
         self.metadata = other.metadata;
-        if other.mount_options.is_some() {
+        if self.mount_options.is_none() {
             self.mount_options = other.mount_options;
         }
-        if other.parameters.is_some() {
+        if let Some(other_value) = other.mount_options {
+            self.mount_options = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.parameters.is_none() {
             self.parameters = other.parameters;
+        }
+        if let Some(other_value) = other.parameters {
+            crate::OptionableConvert::merge(&mut self.parameters, other_value)?;
         }
         if let Some(other_value) = other.provisioner {
             self.provisioner = other_value;
         }
-        if other.reclaim_policy.is_some() {
+        if self.reclaim_policy.is_none() {
             self.reclaim_policy = other.reclaim_policy;
         }
-        if other.volume_binding_mode.is_some() {
+        if let Some(other_value) = other.reclaim_policy {
+            crate::OptionableConvert::merge(&mut self.reclaim_policy, other_value)?;
+        }
+        if self.volume_binding_mode.is_none() {
             self.volume_binding_mode = other.volume_binding_mode;
+        }
+        if let Some(other_value) = other.volume_binding_mode {
+            crate::OptionableConvert::merge(&mut self.volume_binding_mode, other_value)?;
         }
         Ok(())
     }

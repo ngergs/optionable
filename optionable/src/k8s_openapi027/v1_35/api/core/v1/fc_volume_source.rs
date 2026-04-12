@@ -56,20 +56,35 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FCVolumeSource 
         })
     }
     fn merge(&mut self, other: FCVolumeSourceAc) -> Result<(), crate::Error> {
-        if other.fs_type.is_some() {
+        if self.fs_type.is_none() {
             self.fs_type = other.fs_type;
         }
-        if other.lun.is_some() {
+        if let Some(other_value) = other.fs_type {
+            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
+        }
+        if self.lun.is_none() {
             self.lun = other.lun;
         }
-        if other.read_only.is_some() {
+        if let Some(other_value) = other.lun {
+            crate::OptionableConvert::merge(&mut self.lun, other_value)?;
+        }
+        if self.read_only.is_none() {
             self.read_only = other.read_only;
         }
-        if other.target_wwns.is_some() {
+        if let Some(other_value) = other.read_only {
+            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+        }
+        if self.target_wwns.is_none() {
             self.target_wwns = other.target_wwns;
         }
-        if other.wwids.is_some() {
+        if let Some(other_value) = other.target_wwns {
+            self.target_wwns = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.wwids.is_none() {
             self.wwids = other.wwids;
+        }
+        if let Some(other_value) = other.wwids {
+            self.wwids = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

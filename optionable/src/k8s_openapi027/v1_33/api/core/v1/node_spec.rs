@@ -77,22 +77,47 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSpec {
         })
     }
     fn merge(&mut self, other: NodeSpecAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.config_source, other.config_source)?;
-        if other.external_id.is_some() {
+        if self.config_source.is_none() {
+            self.config_source = other.config_source;
+        }
+        if let Some(other_value) = other.config_source {
+            crate::OptionableConvert::merge(&mut self.config_source, other_value)?;
+        }
+        if self.external_id.is_none() {
             self.external_id = other.external_id;
         }
-        if other.pod_cidr.is_some() {
+        if let Some(other_value) = other.external_id {
+            crate::OptionableConvert::merge(&mut self.external_id, other_value)?;
+        }
+        if self.pod_cidr.is_none() {
             self.pod_cidr = other.pod_cidr;
         }
-        if other.pod_cidrs.is_some() {
+        if let Some(other_value) = other.pod_cidr {
+            crate::OptionableConvert::merge(&mut self.pod_cidr, other_value)?;
+        }
+        if self.pod_cidrs.is_none() {
             self.pod_cidrs = other.pod_cidrs;
         }
-        if other.provider_id.is_some() {
+        if let Some(other_value) = other.pod_cidrs {
+            crate::merge::try_merge_optioned_set(&mut self.pod_cidrs, other_value)?;
+        }
+        if self.provider_id.is_none() {
             self.provider_id = other.provider_id;
         }
-        crate::OptionableConvert::merge(&mut self.taints, other.taints)?;
-        if other.unschedulable.is_some() {
+        if let Some(other_value) = other.provider_id {
+            crate::OptionableConvert::merge(&mut self.provider_id, other_value)?;
+        }
+        if self.taints.is_none() {
+            self.taints = other.taints;
+        }
+        if let Some(other_value) = other.taints {
+            self.taints = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.unschedulable.is_none() {
             self.unschedulable = other.unschedulable;
+        }
+        if let Some(other_value) = other.unschedulable {
+            crate::OptionableConvert::merge(&mut self.unschedulable, other_value)?;
         }
         Ok(())
     }

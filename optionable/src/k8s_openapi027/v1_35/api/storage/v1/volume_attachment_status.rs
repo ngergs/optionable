@@ -65,14 +65,27 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentStatus {
         })
     }
     fn merge(&mut self, other: VolumeAttachmentStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.attach_error, other.attach_error)?;
+        if self.attach_error.is_none() {
+            self.attach_error = other.attach_error;
+        }
+        if let Some(other_value) = other.attach_error {
+            crate::OptionableConvert::merge(&mut self.attach_error, other_value)?;
+        }
         if let Some(other_value) = other.attached {
             self.attached = other_value;
         }
-        if other.attachment_metadata.is_some() {
+        if self.attachment_metadata.is_none() {
             self.attachment_metadata = other.attachment_metadata;
         }
-        crate::OptionableConvert::merge(&mut self.detach_error, other.detach_error)?;
+        if let Some(other_value) = other.attachment_metadata {
+            crate::OptionableConvert::merge(&mut self.attachment_metadata, other_value)?;
+        }
+        if self.detach_error.is_none() {
+            self.detach_error = other.detach_error;
+        }
+        if let Some(other_value) = other.detach_error {
+            crate::OptionableConvert::merge(&mut self.detach_error, other_value)?;
+        }
         Ok(())
     }
 }

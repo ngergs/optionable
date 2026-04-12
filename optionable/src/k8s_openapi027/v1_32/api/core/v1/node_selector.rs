@@ -48,7 +48,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSelector {
     }
     fn merge(&mut self, other: NodeSelectorAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.node_selector_terms {
-            crate::OptionableConvert::merge(&mut self.node_selector_terms, other_value)?;
+            self.node_selector_terms = other_value;
         }
         Ok(())
     }

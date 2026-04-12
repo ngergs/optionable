@@ -39,7 +39,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressSt
         })
     }
     fn merge(&mut self, other: IngressStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.load_balancer, other.load_balancer)?;
+        if self.load_balancer.is_none() {
+            self.load_balancer = other.load_balancer;
+        }
+        if let Some(other_value) = other.load_balancer {
+            crate::OptionableConvert::merge(&mut self.load_balancer, other_value)?;
+        }
         Ok(())
     }
 }

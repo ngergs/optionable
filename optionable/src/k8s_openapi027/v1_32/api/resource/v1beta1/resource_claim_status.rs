@@ -64,9 +64,24 @@ for k8s_openapi027::api::resource::v1beta1::ResourceClaimStatus {
         })
     }
     fn merge(&mut self, other: ResourceClaimStatusAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.allocation, other.allocation)?;
-        crate::OptionableConvert::merge(&mut self.devices, other.devices)?;
-        crate::OptionableConvert::merge(&mut self.reserved_for, other.reserved_for)?;
+        if self.allocation.is_none() {
+            self.allocation = other.allocation;
+        }
+        if let Some(other_value) = other.allocation {
+            crate::OptionableConvert::merge(&mut self.allocation, other_value)?;
+        }
+        if self.devices.is_none() {
+            self.devices = other.devices;
+        }
+        if let Some(other_value) = other.devices {
+            crate::merge::try_merge_optioned_map(&mut self.devices, other_value)?;
+        }
+        if self.reserved_for.is_none() {
+            self.reserved_for = other.reserved_for;
+        }
+        if let Some(other_value) = other.reserved_for {
+            crate::merge::try_merge_optioned_map(&mut self.reserved_for, other_value)?;
+        }
         Ok(())
     }
 }

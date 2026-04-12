@@ -43,10 +43,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ScopeSelector {
         })
     }
     fn merge(&mut self, other: ScopeSelectorAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.match_expressions,
-            other.match_expressions,
-        )?;
+        if self.match_expressions.is_none() {
+            self.match_expressions = other.match_expressions;
+        }
+        if let Some(other_value) = other.match_expressions {
+            self.match_expressions = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
         Ok(())
     }
 }

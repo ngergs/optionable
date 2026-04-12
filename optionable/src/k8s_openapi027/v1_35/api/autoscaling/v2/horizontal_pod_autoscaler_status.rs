@@ -89,23 +89,40 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerStatus {
         &mut self,
         other: HorizontalPodAutoscalerStatusAc,
     ) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
-        crate::OptionableConvert::merge(
-            &mut self.current_metrics,
-            other.current_metrics,
-        )?;
-        if other.current_replicas.is_some() {
+        if self.conditions.is_none() {
+            self.conditions = other.conditions;
+        }
+        if let Some(other_value) = other.conditions {
+            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+        }
+        if self.current_metrics.is_none() {
+            self.current_metrics = other.current_metrics;
+        }
+        if let Some(other_value) = other.current_metrics {
+            self.current_metrics = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.current_replicas.is_none() {
             self.current_replicas = other.current_replicas;
+        }
+        if let Some(other_value) = other.current_replicas {
+            crate::OptionableConvert::merge(&mut self.current_replicas, other_value)?;
         }
         if let Some(other_value) = other.desired_replicas {
             self.desired_replicas = other_value;
         }
-        crate::OptionableConvert::merge(
-            &mut self.last_scale_time,
-            other.last_scale_time,
-        )?;
-        if other.observed_generation.is_some() {
+        if self.last_scale_time.is_none() {
+            self.last_scale_time = other.last_scale_time;
+        }
+        if let Some(other_value) = other.last_scale_time {
+            crate::OptionableConvert::merge(&mut self.last_scale_time, other_value)?;
+        }
+        if self.observed_generation.is_none() {
             self.observed_generation = other.observed_generation;
+        }
+        if let Some(other_value) = other.observed_generation {
+            crate::OptionableConvert::merge(&mut self.observed_generation, other_value)?;
         }
         Ok(())
     }

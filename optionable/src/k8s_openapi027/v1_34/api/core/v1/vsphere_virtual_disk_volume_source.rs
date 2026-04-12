@@ -62,14 +62,23 @@ for k8s_openapi027::api::core::v1::VsphereVirtualDiskVolumeSource {
         &mut self,
         other: VsphereVirtualDiskVolumeSourceAc,
     ) -> Result<(), crate::Error> {
-        if other.fs_type.is_some() {
+        if self.fs_type.is_none() {
             self.fs_type = other.fs_type;
         }
-        if other.storage_policy_id.is_some() {
+        if let Some(other_value) = other.fs_type {
+            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
+        }
+        if self.storage_policy_id.is_none() {
             self.storage_policy_id = other.storage_policy_id;
         }
-        if other.storage_policy_name.is_some() {
+        if let Some(other_value) = other.storage_policy_id {
+            crate::OptionableConvert::merge(&mut self.storage_policy_id, other_value)?;
+        }
+        if self.storage_policy_name.is_none() {
             self.storage_policy_name = other.storage_policy_name;
+        }
+        if let Some(other_value) = other.storage_policy_name {
+            crate::OptionableConvert::merge(&mut self.storage_policy_name, other_value)?;
         }
         if let Some(other_value) = other.volume_path {
             self.volume_path = other_value;

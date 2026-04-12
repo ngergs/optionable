@@ -74,10 +74,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIVersions {
     }
     fn merge(&mut self, other: APIVersionsAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.server_address_by_client_cidrs {
-            crate::OptionableConvert::merge(
-                &mut self.server_address_by_client_cidrs,
-                other_value,
-            )?;
+            self.server_address_by_client_cidrs = other_value;
         }
         if let Some(other_value) = other.versions {
             self.versions = other_value;

@@ -66,7 +66,7 @@ for k8s_openapi027::api::resource::v1beta1::OpaqueDeviceConfiguration {
             self.driver = other_value;
         }
         if let Some(other_value) = other.parameters {
-            crate::OptionableConvert::merge(&mut self.parameters, other_value)?;
+            self.parameters = other_value;
         }
         Ok(())
     }

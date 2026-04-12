@@ -62,18 +62,32 @@ for k8s_openapi027::api::flowcontrol::v1::FlowSchemaCondition {
         })
     }
     fn merge(&mut self, other: FlowSchemaConditionAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.last_transition_time,
-            other.last_transition_time,
-        )?;
-        if other.message.is_some() {
+        if self.last_transition_time.is_none() {
+            self.last_transition_time = other.last_transition_time;
+        }
+        if let Some(other_value) = other.last_transition_time {
+            crate::OptionableConvert::merge(
+                &mut self.last_transition_time,
+                other_value,
+            )?;
+        }
+        if self.message.is_none() {
             self.message = other.message;
         }
-        if other.reason.is_some() {
+        if let Some(other_value) = other.message {
+            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+        }
+        if self.reason.is_none() {
             self.reason = other.reason;
         }
-        if other.status.is_some() {
+        if let Some(other_value) = other.reason {
+            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
+        }
+        if self.status.is_none() {
             self.status = other.status;
+        }
+        if let Some(other_value) = other.status {
+            crate::OptionableConvert::merge(&mut self.status, other_value)?;
         }
         self.type_ = other.type_;
         Ok(())

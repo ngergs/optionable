@@ -65,7 +65,7 @@ for k8s_openapi027::api::resource::v1beta2::DeviceCounterConsumption {
             self.counter_set = other_value;
         }
         if let Some(other_value) = other.counters {
-            crate::OptionableConvert::merge(&mut self.counters, other_value)?;
+            self.counters = other_value;
         }
         Ok(())
     }

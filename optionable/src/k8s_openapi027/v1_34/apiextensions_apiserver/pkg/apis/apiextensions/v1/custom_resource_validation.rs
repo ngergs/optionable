@@ -46,10 +46,12 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         })
     }
     fn merge(&mut self, other: CustomResourceValidationAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.open_api_v3_schema,
-            other.open_api_v3_schema,
-        )?;
+        if self.open_api_v3_schema.is_none() {
+            self.open_api_v3_schema = other.open_api_v3_schema;
+        }
+        if let Some(other_value) = other.open_api_v3_schema {
+            crate::OptionableConvert::merge(&mut self.open_api_v3_schema, other_value)?;
+        }
         Ok(())
     }
 }
