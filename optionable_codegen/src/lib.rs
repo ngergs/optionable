@@ -952,12 +952,11 @@ fn merge_fields(
                     Some(Ok::<_,Error>(quote! {#deref_modifier #self_selector = #other_selector;}))
                 },
                 FieldHandling::IsOption => {
-                    let merge=merge_fn(quote!(other_value));
+                    let merge=merge_fn(quote!(#other_selector));
                     Some(Ok(quote!{
                         if #self_selector.is_none(){
-                            #deref_modifier #self_selector = #other_selector;
-                        }
-                        if let Some(other_value)=#other_selector{
+                            #deref_modifier #self_selector = #crate_name::OptionableConvert::try_from_optioned(#other_selector)?;
+                        } else{
                             #merge
                         }
                     }))
@@ -974,7 +973,7 @@ fn merge_fields(
                     if matches!(merge_behaviour,MergeBehaviour::OptionableConvert|MergeBehaviour::Atomic){
                            Some(Ok(quote!(
                                if let Some(other_value) = #other_selector{
-                                   #deref_modifier #self_selector = other_value;
+                                    #deref_modifier #self_selector = #crate_name::OptionableConvert::try_from_optioned(other_value)?;
                                }
                            )))
                     } else {
