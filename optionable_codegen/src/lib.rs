@@ -922,7 +922,7 @@ fn merge_fields(
             let crate_name = &struct_parsed.crate_name;
             let is_self_resolving_ty= is_self_resolving_optioned(ty);
             let err=|| {Some(error(format!("Unsupported combination of custom merge behaviour `{merge_behaviour:?}` for the field `{}`. If you expect this specific case to work, pls open an issue for `optionable` with your use case and this information: handling={handling:?},self_resolving={is_self_resolving_ty},ty={}",ident.to_token_stream(),ty.to_token_stream())))};
-            let merge_fn=|other_selector|{
+            let merge_fn=|self_merge_mut_modifier,self_selector,other_selector|{
                     match merge_behaviour{
                         MergeBehaviour::OptionableConvert => {
                             quote!(
@@ -952,11 +952,11 @@ fn merge_fields(
                     Some(Ok::<_,Error>(quote! {#deref_modifier #self_selector = #other_selector;}))
                 },
                 FieldHandling::IsOption => {
-                    let merge=merge_fn(quote!(#other_selector));
+                    let merge=merge_fn(None::<TokenStream>.to_token_stream(),quote!(self_value),quote!(other_value));
                     Some(Ok(quote!{
                         if #self_selector.is_none(){
                             #deref_modifier #self_selector = #crate_name::OptionableConvert::try_from_optioned(#other_selector)?;
-                        } else{
+                        } else if let Some(self_value) = #self_selector.as_mut() && let Some(other_value) = #other_selector{
                             #merge
                         }
                     }))
@@ -977,7 +977,7 @@ fn merge_fields(
                                }
                            )))
                     } else {
-                        let merge=merge_fn(quote!(other_value));
+                        let merge=merge_fn(self_merge_mut_modifier.to_token_stream(),self_selector,quote!(other_value));
                         Some(Ok(quote! {
                             if let Some(other_value)=#other_selector{
                                 #merge
