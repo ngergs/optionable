@@ -2,10 +2,11 @@ use clap::Parser;
 use darling::FromMeta;
 use optionable_codegen::CodegenSettings;
 use optionable_codegen_cli::{
-    CodegenConfig, CodegenVisitor, OpenApiListExtensions, determine_list_map_keys, file_codegen,
+    CodegenConfig, CodegenVisitor, ListType, OpenApiListExtensions, determine_list_map_keys,
+    file_codegen,
 };
 use proc_macro2::{Ident, Span};
-use quote::ToTokens;
+use quote::{ToTokens, quote};
 use std::collections::HashSet;
 use std::default::Default;
 use std::fs::create_dir_all;
@@ -106,20 +107,39 @@ impl CodegenVisitor for Visitor<'_> {
         let suffix = self.optioned_suffix;
         match item {
             Struct(item) => {
-                if let Some(field_prefix) = &self.field_prefix
-                    && let Some(list_keys) = self
+                if let Some(field_prefix) = &self.field_prefix {
+                    if let Some(list_keys) = self
                         .list_extensions
                         .list_map_keys
                         .get(&format!("{}.{}", field_prefix, item.ident))
-                {
+                    {
+                        for field in &mut item.fields {
+                            if let Some(field_ident) = &field.ident
+                                && list_keys.contains(&field_ident.to_string())
+                            {
+                                field.attrs.push(parse_quote!(#[optionable(merge_map_key)]));
+                            }
+                        }
+                    }
                     for field in &mut item.fields {
                         if let Some(field_ident) = &field.ident
-                            && list_keys.contains(&field_ident.to_string())
+                            && let Some(merge_type) = self
+                                .list_extensions
+                                .list_type
+                                .get(&format!("{}.{}.{}", field_prefix, item.ident, field_ident))
                         {
-                            field.attrs.push(parse_quote!(#[optionable(merge_map_key)]));
+                            let merge_type = match merge_type {
+                                ListType::Atomic => quote!(atomic),
+                                ListType::Set => quote!(set),
+                                ListType::Map(_) => quote!(map),
+                            };
+                            field
+                                .attrs
+                                .push(parse_quote!(#[optionable(merge(#merge_type))]));
                         }
                     }
                 }
+
                 let k8s_attr = match (
                     self.has_resource_impl.contains(&item.ident),
                     self.has_metadata_impl.contains(&item.ident),
