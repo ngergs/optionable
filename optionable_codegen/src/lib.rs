@@ -1315,10 +1315,10 @@ mod tests {
 
                     fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
                         if let Some(other_value) = other.name {
-                            self.name = other_value;
+                            self.name = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         if let Some(other_value) = other.surname {
-                            self.surname = other_value;
+                            self.surname = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         Ok(())
                     }
@@ -1432,7 +1432,7 @@ mod tests {
 
                     fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
                         if let Some(other_value) = other.name {
-                            self.name = other_value;
+                            self.name = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         self.surname = other.surname;
                         self.surname2 = other.surname2;
@@ -1531,13 +1531,15 @@ mod tests {
 
                     fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
                         if let Some(other_value) = other.name {
-                            self.name =  other_value;
+                            self.name = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
-                        if other.middle_name.is_some() {
-                            self.middle_name = other.middle_name;
+                        if self.middle_name.is_none() {
+                            self.middle_name = ::optionable::OptionableConvert::try_from_optioned(other.middle_name)?;
+                        } else if let Some(self_value) = self.middle_name.as_mut() && let Some(other_value) = other.middle_name {
+                            ::optionable::OptionableConvert::merge(self_value, other_value)?;
                         }
                         if let Some(other_value) = other.surname {
-                            self.surname =  other_value;
+                            self.surname = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         Ok(())
                     }
@@ -1625,13 +1627,13 @@ mod tests {
 
                     fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
                         if let Some(other_value) = other.name {
-                            self.name =  other_value;
+                            self.name = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         if let Some(other_value) = other.middle_name {
-                            self.middle_name = other_value;
+                            self.middle_name = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         if let Some(other_value) = other.surname {
-                            self.surname =  other_value;
+                            self.surname = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         Ok(())
                     }
@@ -1704,10 +1706,10 @@ mod tests {
 
                     fn merge(&mut self, other: DeriveExampleAc ) -> Result<(), ::optionable::Error> {
                         if let Some(other_value) = other.name {
-                            self.name = other_value;
+                            self.name = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         if let Some(other_value) = other.surname {
-                            self.surname = other_value;
+                            self.surname = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         Ok(())
                     }
@@ -1772,10 +1774,10 @@ mod tests {
 
                     fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
                         if let Some(other_value) = other.0 {
-                            self.0 = other_value;
+                            self.0 = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         if let Some (other_value) = other.1 {
-                            self.1 = other_value;
+                            self.1 = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         Ok (())
                     }
@@ -1840,7 +1842,7 @@ mod tests {
 
                     fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), ::optionable::Error> {
                         if let Some(other_value) = other.0 {
-                            self.0 = other_value;
+                            self.0 = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         self.1 = other.1;
                         Ok (())
@@ -1939,10 +1941,10 @@ mod tests {
 
                     fn merge(&mut self, other: DeriveExampleOpt<'a, T, T2, T3> ) -> Result<(), ::optionable::Error> {
                         if let Some(other_value) = other.output {
-                            ::optionable::OptionableConvert::merge(&mut self.output, other_value)?;
+                            self.output = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         if let Some(other_value) = other.input {
-                            ::optionable::OptionableConvert::merge(&mut self.input, other_value)?;
+                            self.input = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         self.extra=other.extra;
                         Ok(())
@@ -2048,7 +2050,7 @@ mod tests {
                             DeriveExampleOpt::Plain(other_0) => {
                                 if let Self::Plain(self_0) = self{
                                     if let Some(other_value) = other_0 {
-                                        *self_0 = other_value;
+                                        *self_0 = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                                     }
                                 } else {
                                     *self = Self::try_from_optioned(DeriveExampleOpt::Plain(other_0))?;
@@ -2057,10 +2059,10 @@ mod tests {
                             DeriveExampleOpt::Address{street: other_street, number: other_number} => {
                                 if let Self::Address{street: self_street, number: self_number}  = self{
                                     if let Some(other_value) = other_street {
-                                        *self_street = other_value;
+                                        *self_street = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                                     }
                                     if let Some(other_value) = other_number {
-                                        *self_number = other_value;
+                                        *self_number = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                                     }
                                 } else {
                                     *self = Self::try_from_optioned(DeriveExampleOpt::Address{street: other_street, number: other_number})?;
@@ -2069,10 +2071,10 @@ mod tests {
                             DeriveExampleOpt::Address2(other_0, other_1) => {
                                 if let Self::Address2(self_0, self_1) = self{
                                     if let Some(other_value) = other_0 {
-                                        *self_0 = other_value;
+                                        *self_0 = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                                     }
                                     if let Some(other_value) = other_1 {
-                                        *self_1 = other_value;
+                                        *self_1 = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
                                     }
                                 } else {
                                     *self = Self::try_from_optioned(DeriveExampleOpt::Address2(other_0, other_1))?;
@@ -2181,10 +2183,10 @@ mod tests {
 
                     fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), crate::Error> {
                         if let Some(other_value) = other.name {
-                             crate::OptionableConvert::merge(&mut self.name, other_value)?;
+                            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         if let Some(other_value) = other.surname {
-                             crate::OptionableConvert::merge(&mut self.surname, other_value)?;
+                            self.surname = crate::OptionableConvert::try_from_optioned(other_value)?;
                         }
                         Ok(())
                     }

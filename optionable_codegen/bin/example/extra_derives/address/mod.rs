@@ -46,7 +46,9 @@ impl ::optionable::OptionableConvert for address::Address {
             AddressOpt::NumberOnly(other_0) => {
                 if let Self::NumberOnly(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        *self_0 = other_value;
+                        *self_0 = ::optionable::OptionableConvert::try_from_optioned(
+                            other_value,
+                        )?;
                     }
                 } else {
                     *self = Self::try_from_optioned(AddressOpt::NumberOnly(other_0))?;
@@ -55,7 +57,9 @@ impl ::optionable::OptionableConvert for address::Address {
             AddressOpt::Address(other_0) => {
                 if let Self::Address(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        *self_0 = other_value;
+                        *self_0 = ::optionable::OptionableConvert::try_from_optioned(
+                            other_value,
+                        )?;
                     }
                 } else {
                     *self = Self::try_from_optioned(AddressOpt::Address(other_0))?;

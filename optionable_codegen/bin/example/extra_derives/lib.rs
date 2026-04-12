@@ -42,10 +42,12 @@ impl ::optionable::OptionableConvert for Member {
     }
     fn merge(&mut self, other: MemberOpt) -> Result<(), ::optionable::Error> {
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.addresses {
-            ::optionable::OptionableConvert::merge(&mut self.addresses, other_value)?;
+            self.addresses = ::optionable::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }
@@ -107,11 +109,12 @@ mod test {
         }
         fn merge(&mut self, other: MemberTestOpt) -> Result<(), ::optionable::Error> {
             if let Some(other_value) = other.name {
-                self.name = other_value;
+                self.name = ::optionable::OptionableConvert::try_from_optioned(
+                    other_value,
+                )?;
             }
             if let Some(other_value) = other.addresses {
-                ::optionable::OptionableConvert::merge(
-                    &mut self.addresses,
+                self.addresses = ::optionable::OptionableConvert::try_from_optioned(
                     other_value,
                 )?;
             }
