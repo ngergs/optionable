@@ -116,7 +116,7 @@ impl CodegenVisitor for Visitor<'_> {
                         if let Some(field_ident) = &field.ident
                             && list_keys.contains(&field_ident.to_string())
                         {
-                            field.attrs.push(parse_quote!(#[optionable(required)]));
+                            field.attrs.push(parse_quote!(#[optionable(merge_map_key)]));
                         }
                     }
                 }
