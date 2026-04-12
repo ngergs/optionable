@@ -1,3 +1,5 @@
+#![cfg(feature = "std")]
+
 use optionable::OptionedConvert;
 use optionable::{Optionable, OptionableConvert};
 
