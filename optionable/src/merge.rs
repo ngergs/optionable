@@ -1,5 +1,9 @@
 use crate::{Optionable, OptionableConvert};
 
+#[cfg(feature = "derive")]
+#[doc(inline)]
+pub use optionable_derive::OptionableMapKeysEq;
+
 /// Merges `other` into `target` using Kubernetes-style `set` merge logic.
 /// This means that all elements from `other` which are already present in `target` are discarded
 /// and the other ones that are missing in `target` get appended.
@@ -27,7 +31,7 @@ where
 }
 
 /// Trait for `try_merge_map` to check if the map keys for the respective merge candidate are equal.
-pub trait MapKeysEq: Optionable {
+pub trait OptionableMapKeysEq: Optionable {
     /// Whether the keys of two map list merge candidates are equal.
     fn keys_eq(&self, other: &Self::Optioned) -> bool;
 }
@@ -48,7 +52,7 @@ where
     TARGET: Extend<T>,
     for<'a> &'a mut TARGET: IntoIterator<Item = &'a mut T>,
     OTHER: IntoIterator<Item = T::Optioned>,
-    T: OptionableConvert + MapKeysEq,
+    T: OptionableConvert + OptionableMapKeysEq,
     T::Optioned: Sized,
 {
     for el in other {

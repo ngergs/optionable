@@ -15,6 +15,9 @@ mod k8s;
 mod parsed_input;
 mod where_clause;
 
+mod map_keys_eq;
+pub use map_keys_eq::derive_optionable_map_keys_eq;
+
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s::{
     ResourceType, error_missing_features, k8s_adjust_fields, k8s_openapi_derives,
@@ -42,8 +45,8 @@ use syn::{
     Type, TypeGenerics, TypePath, WhereClause, parse_quote,
 };
 
-const HELPER_IDENT: &str = "optionable";
-const HELPER_ATTR_IDENT: &str = "optionable_attr";
+const HELPER_OPTIONABLE_IDENT: &str = "optionable";
+const HELPER_ATTR_OPTIONABLE_IDENT: &str = "optionable_attr";
 const ERR_MSG_HELPER_ATTR_ENUM_VARIANTS: &str =
     "#[optionable] helper attributes not supported on enum variant level.";
 
@@ -162,7 +165,7 @@ pub struct CodegenSettings {
     pub ty_prefix: Option<Path>,
     /// Replacement for the keyword `crate` in the input type/enum definition or references.
     /// Useful when generating code for the `optionable` crate as pre-existing `crate` references
-    /// need to be replaced with the concret crate name.
+    /// need to be replaced with the concrete crate name.
     pub input_crate_replacement: Option<Ident>,
 }
 
@@ -903,7 +906,6 @@ fn merge_fields(
             let self_selector = self_selector_fn(&selector);
             let other_selector = other_selector_fn(&selector);
             let crate_name = &struct_parsed.crate_name;
-            // todo add error handling for incompatible merge_type settings
             let is_self_resolving_ty= is_self_resolving_optioned(ty);
             #[allow(clippy::nonminimal_bool)] // following the logic is easier this wayu
             if !matches!(merge_behaviour,MergeBehaviour::OptionableConvert) && !(matches!(handling,FieldHandling::Other) && !is_self_resolving_ty){
@@ -1165,7 +1167,7 @@ fn forwarded_attributes(
                 // preserve comments, see syn docs https://docs.rs/syn/latest/syn/struct.Attribute.html
                 return Ok(Some(attr.to_token_stream()))
             }
-            if attr.path().is_ident(HELPER_ATTR_IDENT) {
+            if attr.path().is_ident(HELPER_ATTR_OPTIONABLE_IDENT) {
                 return match &attr.meta {
                     Meta::List(MetaList { tokens, .. }) => Ok(Some(quote!(#[#tokens]))),
                     _ => error("Only lists like `#[optionable_attr(Serialize,Deserialize)]` are supported for `optionable_attr`"),

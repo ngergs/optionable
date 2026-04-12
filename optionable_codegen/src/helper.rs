@@ -1,7 +1,7 @@
 //! Collections of crate-internal functions that do not hold much interesting logic
 //! but help with the codegen.
 
-use crate::HELPER_IDENT;
+use crate::HELPER_OPTIONABLE_IDENT;
 use crate::parsed_input::{StructParsed, StructType};
 use proc_macro2::{Ident, Span, TokenStream};
 use quote::{format_ident, quote};
@@ -73,7 +73,7 @@ pub(crate) fn error_on_helper_attributes(
 ) -> syn::Result<()> {
     if attrs
         .iter()
-        .filter(|attr| attr.path().is_ident(HELPER_IDENT))
+        .filter(|attr| attr.path().is_ident(HELPER_OPTIONABLE_IDENT))
         .collect::<Vec<_>>()
         .is_empty()
     {

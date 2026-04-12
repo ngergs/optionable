@@ -2,20 +2,15 @@
 
 use optionable::{
     Optionable,
-    merge::{MapKeysEq, try_merge_optioned_map},
+    merge::{OptionableMapKeysEq, try_merge_optioned_map},
 };
 
-#[derive(Optionable, Debug, PartialEq)]
+#[derive(Optionable, OptionableMapKeysEq, Debug, PartialEq)]
 struct EnvVar {
     #[optionable(required)]
+    #[map_key]
     name: String,
     value: String,
-}
-
-impl MapKeysEq for EnvVar {
-    fn keys_eq(&self, other: &Self::Optioned) -> bool {
-        self.name == other.name
-    }
 }
 
 fn get_targets() -> Vec<EnvVar> {

@@ -82,7 +82,7 @@ use proc_macro::TokenStream;
 ///     - `optionable_convert` Default behavior, just call `OptionableConvert::merge` for the given field entry.
 ///     - `atomic` Always override the field completly when present in the optioned type.
 ///     - `set` Kubernetes `set` merge logic. Appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: PartialEq`.
-///     - `map` Kubernetes `map` merge logic. Identifies if entries belong together via the `optionable::merge::MapKeysEq` trait. Merges entries that belong together (short-circuit, first match is merged) and appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: MapKeysEq + OptionableConvert`.
+///     - `map` Kubernetes `map` merge logic. Identifies if entries belong together via the `optionable::merge::OptionableMapKeysEq` trait. Merges entries that belong together (short-circuit, first match is merged) and appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: OptionableMapKeysEq + OptionableConvert`.
 ///
 /// ### Kubernetes type-level attributes (on the struct/enum level)
 /// Specialized Kubernetes specific type attributes to help deriving optioned types (in go called `ApplyConfiguration`)
@@ -132,4 +132,35 @@ pub fn derive_optionable(input: TokenStream) -> TokenStream {
 /// Internal method for `derive_optionable` to simplify error handling.
 fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> {
     Ok(optionable_codegen::derive_optionable(syn::parse2(input.into())?, None)?.into())
+}
+
+/// Derive macro to derive the `Optionable` trait for structs/enums recursively by generating
+/// a type with all fields recursively replaced with `Option` versions.
+/// All non-required fields have to implement the `Optionable` trait. This trait is already implemented by this library
+/// for many primitive types, wrapper and container types.
+///
+/// ### Type-level attributes (on the struct/enum level)
+/// - **`optionable_attr`**: Helper for the `derive` type-level attribute, for details see the `derive` attribute.
+/// - **`derive`**: Allows to specify derive attributes that should be attached to the generate optioned struct/enum.
+///   If you need to forward additional helper attributes to the generated type use `attr_copy` or `optionable_attr`
+///   with the attribute to forward as content (works for type and field attributes).
+///   ```rust,ignore
+///   #[derive(optionable)]
+///   #[optionable(derive(Deserialize, Serialize))]
+///   #[optionable_attr(serde(rename_all = "camelCase"))]
+///   struct MyStruct{
+///     #[optionable_attr(serde(rename = "firstName"))]
+///     name: String,
+///     surname: String,
+///   }
+///   ```
+#[proc_macro_derive(OptionableMapKeysEq, attributes(map_key))]
+pub fn derive_optioned_map_keys_optioned(input: TokenStream) -> TokenStream {
+    try_derive_optioned_map_keys_eq(input)
+        .unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
+}
+
+/// Internal method for `derive_map_keys_optioned_eq` to simplify error handling.
+fn try_derive_optioned_map_keys_eq(input: TokenStream) -> Result<TokenStream, syn::Error> {
+    Ok(optionable_codegen::derive_optionable_map_keys_eq(syn::parse2(input.into())?, None)?.into())
 }
