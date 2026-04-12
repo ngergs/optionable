@@ -1372,6 +1372,8 @@ mod tests {
                     pub surname: String,
                     #[optionable(required)]
                     pub surname2: String,
+                    #[optionable(merge_map_key)]
+                    pub surname3: String,
                     #[optionable(optioned_type=MyInt)]
                     pub id: i32,
                 }
@@ -1381,6 +1383,7 @@ mod tests {
                     name: Option<String>,
                     pub surname: String,
                     pub surname2: String,
+                    pub surname3: String,
                     pub id: Option<MyInt>
                 }
 
@@ -1401,6 +1404,7 @@ mod tests {
                             name: Some(self.name),
                             surname: self.surname,
                             surname2: self.surname2,
+                            surname3: self.surname3,
                             id: Some (::optionable::OptionedConvert::from_optionable(self.id))
                         }
                     }
@@ -1410,6 +1414,7 @@ mod tests {
                             name: value.name.ok_or(::optionable::Error { missing_field: "name" })?,
                             surname: value.surname,
                             surname2: value.surname2,
+                            surname3: value.surname3,
                             id: ::optionable::OptionedConvert::try_into_optionable(value.id.ok_or(::optionable::Error{ missing_field: "id" })?)?
                         })
                     }
@@ -1420,6 +1425,7 @@ mod tests {
                         }
                         self.surname = other.surname;
                         self.surname2 = other.surname2;
+                        self.surname3 = other.surname3;
                         if let Some (other_value) = other.id {
                             ::optionable::OptionedConvert::merge_into(other_value, &mut self.id)?;
                         }
@@ -1430,7 +1436,7 @@ mod tests {
                 #[automatically_derived]
                 impl ::optionable::merge::OptionableMapKeysEq for DeriveExample {
                     fn keys_eq(&self, other: &<Self as ::optionable::Optionable>::Optioned) -> bool {
-                        self.surname == other.surname
+                        self.surname == other.surname && self.surname3 == other.surname3
                     }
                 }
 

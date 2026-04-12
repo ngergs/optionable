@@ -70,8 +70,8 @@ pub(crate) fn into_field_handling(
             if let Some(input_crate_replacement) = input_crate_replacement {
                 type_path_replace_crate(&mut field.ty, input_crate_replacement);
             }
-            if attrs.required.is_some() && attrs.optioned_ty.is_some(){
-                return error("Setting `required` and `optioned` together is not supported. You don't need to set `optioned` for `required` fields.");
+            if (attrs.merge_map_key.is_some() && attrs.required.is_some()) && attrs.optioned_ty.is_some(){
+                return error("Setting `required/map_key` and `optioned` together is not supported. You don't need to set `optioned` for `required` fields.");
             }
             let handling = if attrs.merge_map_key.is_some(){
                 MapKey

@@ -13,10 +13,8 @@ pub(crate) fn map_keys_eq_impl(fields: &[FieldParsed]) -> Option<TokenStream> {
     if key_field_selectors.is_empty() {
         return None;
     }
-    Some(
-        key_field_selectors
-            .into_iter()
-            .map(|sel| quote! {self.#sel == other.#sel})
-            .collect(),
-    )
+    let comparisons = key_field_selectors
+        .into_iter()
+        .map(|sel| quote! {self.#sel == other.#sel});
+    Some(quote!(#(#comparisons)&&*))
 }
