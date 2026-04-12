@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.3](https://github.com/ngergs/optionable/compare/optionable_derive-v0.10.2...optionable_derive-v0.10.3) - 2026-04-12
+
+### Added
+
+- derive macro for `OptionableMapKeysEq` (and rename of that trait)
+
+### Fixed
+
+- move `map_key` derive logic into `Optionable` derive macro
+- tests for custom merge behaviour + bugfixes
+
+### Other
+
+- document `merge` field attribute
+- rename merge field attribute
+
 ## [0.10.2](https://github.com/ngergs/optionable/compare/optionable_derive-v0.10.1...optionable_derive-v0.10.2) - 2026-03-21
 
 ### Fixed

@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.13.2...optionable_codegen-v0.14.0) - 2026-04-12
+
+### Added
+
+- derive macro for `OptionableMapKeysEq` (and rename of that trait)
+- add codegen support for other merge types (todo: tests, derive impl, docs)
+- [**breaking**] k8s codegen keeps fields required that are key fields for lists with map type merge behavior
+- preserve doc comments for generated optioned types
+- [**breaking**] use self-resolving container types for derive macro output
+- [**breaking**] self-resolve fulls self-resolving container-types for derive macro
+
+### Fixed
+
+- malformed output for multiple merge_map_key
+- move `map_key` derive logic into `Optionable` derive macro
+- tests for custom merge behaviour + bugfixes
+- error handling for unsupported merge type setting combinations
+
+### Other
+
+- ii
+- i
+- restore codegen optimization for plain self-resolving types
+- simplify merge codegen implementation
+- todo
+- error msg for unsupported merge behaviors
+- refactor merge behaviour unsupported case handling
+- set merge type for k8s openapi
+- adjust k8s openapi codegen to add merge type where specified by upstream openapi spec
+- adjust k8s-openapi codegen to mark merge map keys as such
+- rename merge field attribute
+- adjust test
+- adjust codegen to support various merge_type behaviors (logic still missing)
+- handle rust field mapping for parsed k8s openapi schema identifiers
+- pass output path to codegen visitors, simplify k8s openapi spec parsing
+- add kubernetes openapi parsing to k8s-openapi codegen (not utilized yet)
+
 ## [0.13.2](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.13.1...optionable_codegen-v0.13.2) - 2026-03-19
 
 ### Other
