@@ -61,22 +61,31 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
         other: ValidatingAdmissionPolicyStatusAc,
     ) -> Result<(), crate::Error> {
         if self.conditions.is_none() {
-            self.conditions = other.conditions;
-        }
-        if let Some(other_value) = other.conditions {
-            crate::OptionableConvert::merge(&mut self.conditions, other_value)?;
+            self.conditions = crate::OptionableConvert::try_from_optioned(
+                other.conditions,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         }
         if self.observed_generation.is_none() {
-            self.observed_generation = other.observed_generation;
-        }
-        if let Some(other_value) = other.observed_generation {
-            crate::OptionableConvert::merge(&mut self.observed_generation, other_value)?;
+            self.observed_generation = crate::OptionableConvert::try_from_optioned(
+                other.observed_generation,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.observed_generation,
+                other.observed_generation,
+            )?;
         }
         if self.type_checking.is_none() {
-            self.type_checking = other.type_checking;
-        }
-        if let Some(other_value) = other.type_checking {
-            crate::OptionableConvert::merge(&mut self.type_checking, other_value)?;
+            self.type_checking = crate::OptionableConvert::try_from_optioned(
+                other.type_checking,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.type_checking,
+                other.type_checking,
+            )?;
         }
         Ok(())
     }

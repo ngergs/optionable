@@ -79,43 +79,46 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceS
     }
     fn merge(&mut self, other: APIServiceSpecAc) -> Result<(), crate::Error> {
         if self.ca_bundle.is_none() {
-            self.ca_bundle = other.ca_bundle;
-        }
-        if let Some(other_value) = other.ca_bundle {
-            crate::OptionableConvert::merge(&mut self.ca_bundle, other_value)?;
+            self.ca_bundle = crate::OptionableConvert::try_from_optioned(
+                other.ca_bundle,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
         }
         if self.group.is_none() {
-            self.group = other.group;
-        }
-        if let Some(other_value) = other.group {
-            crate::OptionableConvert::merge(&mut self.group, other_value)?;
+            self.group = crate::OptionableConvert::try_from_optioned(other.group)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.group, other.group)?;
         }
         if let Some(other_value) = other.group_priority_minimum {
-            self.group_priority_minimum = other_value;
-        }
-        if self.insecure_skip_tls_verify.is_none() {
-            self.insecure_skip_tls_verify = other.insecure_skip_tls_verify;
-        }
-        if let Some(other_value) = other.insecure_skip_tls_verify {
-            crate::OptionableConvert::merge(
-                &mut self.insecure_skip_tls_verify,
+            self.group_priority_minimum = crate::OptionableConvert::try_from_optioned(
                 other_value,
             )?;
         }
-        if self.service.is_none() {
-            self.service = other.service;
+        if self.insecure_skip_tls_verify.is_none() {
+            self.insecure_skip_tls_verify = crate::OptionableConvert::try_from_optioned(
+                other.insecure_skip_tls_verify,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.insecure_skip_tls_verify,
+                other.insecure_skip_tls_verify,
+            )?;
         }
-        if let Some(other_value) = other.service {
-            crate::OptionableConvert::merge(&mut self.service, other_value)?;
+        if self.service.is_none() {
+            self.service = crate::OptionableConvert::try_from_optioned(other.service)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.service, other.service)?;
         }
         if self.version.is_none() {
-            self.version = other.version;
-        }
-        if let Some(other_value) = other.version {
-            crate::OptionableConvert::merge(&mut self.version, other_value)?;
+            self.version = crate::OptionableConvert::try_from_optioned(other.version)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.version, other.version)?;
         }
         if let Some(other_value) = other.version_priority {
-            self.version_priority = other_value;
+            self.version_priority = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

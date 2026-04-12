@@ -86,46 +86,50 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::Endpoint {
             crate::merge::try_merge_optioned_set(&mut self.addresses, other_value)?;
         }
         if self.conditions.is_none() {
-            self.conditions = other.conditions;
-        }
-        if let Some(other_value) = other.conditions {
-            crate::OptionableConvert::merge(&mut self.conditions, other_value)?;
+            self.conditions = crate::OptionableConvert::try_from_optioned(
+                other.conditions,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         }
         if self.deprecated_topology.is_none() {
-            self.deprecated_topology = other.deprecated_topology;
-        }
-        if let Some(other_value) = other.deprecated_topology {
-            crate::OptionableConvert::merge(&mut self.deprecated_topology, other_value)?;
+            self.deprecated_topology = crate::OptionableConvert::try_from_optioned(
+                other.deprecated_topology,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.deprecated_topology,
+                other.deprecated_topology,
+            )?;
         }
         if self.hints.is_none() {
-            self.hints = other.hints;
-        }
-        if let Some(other_value) = other.hints {
-            crate::OptionableConvert::merge(&mut self.hints, other_value)?;
+            self.hints = crate::OptionableConvert::try_from_optioned(other.hints)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.hints, other.hints)?;
         }
         if self.hostname.is_none() {
-            self.hostname = other.hostname;
-        }
-        if let Some(other_value) = other.hostname {
-            crate::OptionableConvert::merge(&mut self.hostname, other_value)?;
+            self.hostname = crate::OptionableConvert::try_from_optioned(other.hostname)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
         }
         if self.node_name.is_none() {
-            self.node_name = other.node_name;
-        }
-        if let Some(other_value) = other.node_name {
-            crate::OptionableConvert::merge(&mut self.node_name, other_value)?;
+            self.node_name = crate::OptionableConvert::try_from_optioned(
+                other.node_name,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.node_name, other.node_name)?;
         }
         if self.target_ref.is_none() {
-            self.target_ref = other.target_ref;
-        }
-        if let Some(other_value) = other.target_ref {
-            crate::OptionableConvert::merge(&mut self.target_ref, other_value)?;
+            self.target_ref = crate::OptionableConvert::try_from_optioned(
+                other.target_ref,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.target_ref, other.target_ref)?;
         }
         if self.zone.is_none() {
-            self.zone = other.zone;
-        }
-        if let Some(other_value) = other.zone {
-            crate::OptionableConvert::merge(&mut self.zone, other_value)?;
+            self.zone = crate::OptionableConvert::try_from_optioned(other.zone)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.zone, other.zone)?;
         }
         Ok(())
     }

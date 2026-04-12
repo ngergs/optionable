@@ -46,7 +46,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LimitRangeSpec 
     }
     fn merge(&mut self, other: LimitRangeSpecAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.limits {
-            self.limits = other_value;
+            self.limits = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -61,25 +61,27 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ReplicaSetSpec 
     }
     fn merge(&mut self, other: ReplicaSetSpecAc) -> Result<(), crate::Error> {
         if self.min_ready_seconds.is_none() {
-            self.min_ready_seconds = other.min_ready_seconds;
-        }
-        if let Some(other_value) = other.min_ready_seconds {
-            crate::OptionableConvert::merge(&mut self.min_ready_seconds, other_value)?;
+            self.min_ready_seconds = crate::OptionableConvert::try_from_optioned(
+                other.min_ready_seconds,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.min_ready_seconds,
+                other.min_ready_seconds,
+            )?;
         }
         if self.replicas.is_none() {
-            self.replicas = other.replicas;
-        }
-        if let Some(other_value) = other.replicas {
-            crate::OptionableConvert::merge(&mut self.replicas, other_value)?;
+            self.replicas = crate::OptionableConvert::try_from_optioned(other.replicas)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.replicas, other.replicas)?;
         }
         if let Some(other_value) = other.selector {
-            self.selector = other_value;
+            self.selector = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.template.is_none() {
-            self.template = other.template;
-        }
-        if let Some(other_value) = other.template {
-            crate::OptionableConvert::merge(&mut self.template, other_value)?;
+            self.template = crate::OptionableConvert::try_from_optioned(other.template)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.template, other.template)?;
         }
         Ok(())
     }

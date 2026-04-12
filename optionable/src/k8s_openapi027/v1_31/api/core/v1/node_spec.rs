@@ -78,46 +78,55 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSpec {
     }
     fn merge(&mut self, other: NodeSpecAc) -> Result<(), crate::Error> {
         if self.config_source.is_none() {
-            self.config_source = other.config_source;
-        }
-        if let Some(other_value) = other.config_source {
-            crate::OptionableConvert::merge(&mut self.config_source, other_value)?;
+            self.config_source = crate::OptionableConvert::try_from_optioned(
+                other.config_source,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.config_source,
+                other.config_source,
+            )?;
         }
         if self.external_id.is_none() {
-            self.external_id = other.external_id;
-        }
-        if let Some(other_value) = other.external_id {
-            crate::OptionableConvert::merge(&mut self.external_id, other_value)?;
+            self.external_id = crate::OptionableConvert::try_from_optioned(
+                other.external_id,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.external_id, other.external_id)?;
         }
         if self.pod_cidr.is_none() {
-            self.pod_cidr = other.pod_cidr;
-        }
-        if let Some(other_value) = other.pod_cidr {
-            crate::OptionableConvert::merge(&mut self.pod_cidr, other_value)?;
+            self.pod_cidr = crate::OptionableConvert::try_from_optioned(other.pod_cidr)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.pod_cidr, other.pod_cidr)?;
         }
         if self.pod_cidrs.is_none() {
-            self.pod_cidrs = other.pod_cidrs;
-        }
-        if let Some(other_value) = other.pod_cidrs {
-            crate::merge::try_merge_optioned_set(&mut self.pod_cidrs, other_value)?;
+            self.pod_cidrs = crate::OptionableConvert::try_from_optioned(
+                other.pod_cidrs,
+            )?;
+        } else {
+            crate::merge::try_merge_optioned_set(&mut self.pod_cidrs, other.pod_cidrs)?;
         }
         if self.provider_id.is_none() {
-            self.provider_id = other.provider_id;
-        }
-        if let Some(other_value) = other.provider_id {
-            crate::OptionableConvert::merge(&mut self.provider_id, other_value)?;
+            self.provider_id = crate::OptionableConvert::try_from_optioned(
+                other.provider_id,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.provider_id, other.provider_id)?;
         }
         if self.taints.is_none() {
-            self.taints = other.taints;
-        }
-        if let Some(other_value) = other.taints {
-            self.taints = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.taints = crate::OptionableConvert::try_from_optioned(other.taints)?;
+        } else {
+            self.taints = crate::OptionableConvert::try_from_optioned(other.taints)?;
         }
         if self.unschedulable.is_none() {
-            self.unschedulable = other.unschedulable;
-        }
-        if let Some(other_value) = other.unschedulable {
-            crate::OptionableConvert::merge(&mut self.unschedulable, other_value)?;
+            self.unschedulable = crate::OptionableConvert::try_from_optioned(
+                other.unschedulable,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.unschedulable,
+                other.unschedulable,
+            )?;
         }
         Ok(())
     }

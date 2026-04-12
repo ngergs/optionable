@@ -101,54 +101,83 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetStatus
     }
     fn merge(&mut self, other: DaemonSetStatusAc) -> Result<(), crate::Error> {
         if self.collision_count.is_none() {
-            self.collision_count = other.collision_count;
-        }
-        if let Some(other_value) = other.collision_count {
-            crate::OptionableConvert::merge(&mut self.collision_count, other_value)?;
+            self.collision_count = crate::OptionableConvert::try_from_optioned(
+                other.collision_count,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.collision_count,
+                other.collision_count,
+            )?;
         }
         if self.conditions.is_none() {
-            self.conditions = other.conditions;
-        }
-        if let Some(other_value) = other.conditions {
-            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+            self.conditions = crate::OptionableConvert::try_from_optioned(
+                other.conditions,
+            )?;
+        } else {
+            crate::merge::try_merge_optioned_map(
+                &mut self.conditions,
+                other.conditions,
+            )?;
         }
         if let Some(other_value) = other.current_number_scheduled {
-            self.current_number_scheduled = other_value;
+            self.current_number_scheduled = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.desired_number_scheduled {
-            self.desired_number_scheduled = other_value;
+            self.desired_number_scheduled = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if self.number_available.is_none() {
-            self.number_available = other.number_available;
-        }
-        if let Some(other_value) = other.number_available {
-            crate::OptionableConvert::merge(&mut self.number_available, other_value)?;
+            self.number_available = crate::OptionableConvert::try_from_optioned(
+                other.number_available,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.number_available,
+                other.number_available,
+            )?;
         }
         if let Some(other_value) = other.number_misscheduled {
-            self.number_misscheduled = other_value;
+            self.number_misscheduled = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.number_ready {
-            self.number_ready = other_value;
+            self.number_ready = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if self.number_unavailable.is_none() {
-            self.number_unavailable = other.number_unavailable;
-        }
-        if let Some(other_value) = other.number_unavailable {
-            crate::OptionableConvert::merge(&mut self.number_unavailable, other_value)?;
+            self.number_unavailable = crate::OptionableConvert::try_from_optioned(
+                other.number_unavailable,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.number_unavailable,
+                other.number_unavailable,
+            )?;
         }
         if self.observed_generation.is_none() {
-            self.observed_generation = other.observed_generation;
-        }
-        if let Some(other_value) = other.observed_generation {
-            crate::OptionableConvert::merge(&mut self.observed_generation, other_value)?;
+            self.observed_generation = crate::OptionableConvert::try_from_optioned(
+                other.observed_generation,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.observed_generation,
+                other.observed_generation,
+            )?;
         }
         if self.updated_number_scheduled.is_none() {
-            self.updated_number_scheduled = other.updated_number_scheduled;
-        }
-        if let Some(other_value) = other.updated_number_scheduled {
+            self.updated_number_scheduled = crate::OptionableConvert::try_from_optioned(
+                other.updated_number_scheduled,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.updated_number_scheduled,
-                other_value,
+                other.updated_number_scheduled,
             )?;
         }
         Ok(())

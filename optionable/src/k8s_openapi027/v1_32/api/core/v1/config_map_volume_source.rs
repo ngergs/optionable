@@ -61,25 +61,24 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapVolume
     }
     fn merge(&mut self, other: ConfigMapVolumeSourceAc) -> Result<(), crate::Error> {
         if self.default_mode.is_none() {
-            self.default_mode = other.default_mode;
-        }
-        if let Some(other_value) = other.default_mode {
-            crate::OptionableConvert::merge(&mut self.default_mode, other_value)?;
+            self.default_mode = crate::OptionableConvert::try_from_optioned(
+                other.default_mode,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.default_mode, other.default_mode)?;
         }
         if self.items.is_none() {
-            self.items = other.items;
-        }
-        if let Some(other_value) = other.items {
-            self.items = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.items = crate::OptionableConvert::try_from_optioned(other.items)?;
+        } else {
+            self.items = crate::OptionableConvert::try_from_optioned(other.items)?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.optional.is_none() {
-            self.optional = other.optional;
-        }
-        if let Some(other_value) = other.optional {
-            crate::OptionableConvert::merge(&mut self.optional, other_value)?;
+            self.optional = crate::OptionableConvert::try_from_optioned(other.optional)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.optional, other.optional)?;
         }
         Ok(())
     }

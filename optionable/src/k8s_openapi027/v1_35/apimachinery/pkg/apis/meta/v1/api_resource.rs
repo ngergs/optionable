@@ -103,52 +103,59 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResource {
     }
     fn merge(&mut self, other: APIResourceAc) -> Result<(), crate::Error> {
         if self.categories.is_none() {
-            self.categories = other.categories;
-        }
-        if let Some(other_value) = other.categories {
-            self.categories = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.categories = crate::OptionableConvert::try_from_optioned(
+                other.categories,
+            )?;
+        } else {
+            self.categories = crate::OptionableConvert::try_from_optioned(
+                other.categories,
+            )?;
         }
         if self.group.is_none() {
-            self.group = other.group;
-        }
-        if let Some(other_value) = other.group {
-            crate::OptionableConvert::merge(&mut self.group, other_value)?;
+            self.group = crate::OptionableConvert::try_from_optioned(other.group)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.group, other.group)?;
         }
         if let Some(other_value) = other.kind {
-            self.kind = other_value;
+            self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.namespaced {
-            self.namespaced = other_value;
+            self.namespaced = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.short_names.is_none() {
-            self.short_names = other.short_names;
-        }
-        if let Some(other_value) = other.short_names {
-            self.short_names = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.short_names = crate::OptionableConvert::try_from_optioned(
+                other.short_names,
+            )?;
+        } else {
+            self.short_names = crate::OptionableConvert::try_from_optioned(
+                other.short_names,
+            )?;
         }
         if let Some(other_value) = other.singular_name {
-            self.singular_name = other_value;
-        }
-        if self.storage_version_hash.is_none() {
-            self.storage_version_hash = other.storage_version_hash;
-        }
-        if let Some(other_value) = other.storage_version_hash {
-            crate::OptionableConvert::merge(
-                &mut self.storage_version_hash,
+            self.singular_name = crate::OptionableConvert::try_from_optioned(
                 other_value,
             )?;
         }
+        if self.storage_version_hash.is_none() {
+            self.storage_version_hash = crate::OptionableConvert::try_from_optioned(
+                other.storage_version_hash,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.storage_version_hash,
+                other.storage_version_hash,
+            )?;
+        }
         if let Some(other_value) = other.verbs {
-            self.verbs = other_value;
+            self.verbs = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.version.is_none() {
-            self.version = other.version;
-        }
-        if let Some(other_value) = other.version {
-            crate::OptionableConvert::merge(&mut self.version, other_value)?;
+            self.version = crate::OptionableConvert::try_from_optioned(other.version)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.version, other.version)?;
         }
         Ok(())
     }

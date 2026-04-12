@@ -52,16 +52,14 @@ for k8s_openapi027::api::resource::v1::DeviceAllocationResult {
     }
     fn merge(&mut self, other: DeviceAllocationResultAc) -> Result<(), crate::Error> {
         if self.config.is_none() {
-            self.config = other.config;
-        }
-        if let Some(other_value) = other.config {
-            self.config = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.config = crate::OptionableConvert::try_from_optioned(other.config)?;
+        } else {
+            self.config = crate::OptionableConvert::try_from_optioned(other.config)?;
         }
         if self.results.is_none() {
-            self.results = other.results;
-        }
-        if let Some(other_value) = other.results {
-            self.results = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.results = crate::OptionableConvert::try_from_optioned(other.results)?;
+        } else {
+            self.results = crate::OptionableConvert::try_from_optioned(other.results)?;
         }
         Ok(())
     }

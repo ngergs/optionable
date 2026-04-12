@@ -54,16 +54,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NFSVolumeSource
     }
     fn merge(&mut self, other: NFSVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.path {
-            self.path = other_value;
+            self.path = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.read_only.is_none() {
-            self.read_only = other.read_only;
-        }
-        if let Some(other_value) = other.read_only {
-            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+            self.read_only = crate::OptionableConvert::try_from_optioned(
+                other.read_only,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         }
         if let Some(other_value) = other.server {
-            self.server = other_value;
+            self.server = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

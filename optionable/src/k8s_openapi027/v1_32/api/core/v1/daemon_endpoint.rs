@@ -41,7 +41,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::DaemonEndpoint 
     }
     fn merge(&mut self, other: DaemonEndpointAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.port {
-            self.port = other_value;
+            self.port = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

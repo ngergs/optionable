@@ -38,7 +38,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::ForNode {
     }
     fn merge(&mut self, other: ForNodeAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -36,10 +36,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ClientIPConfig 
     }
     fn merge(&mut self, other: ClientIPConfigAc) -> Result<(), crate::Error> {
         if self.timeout_seconds.is_none() {
-            self.timeout_seconds = other.timeout_seconds;
-        }
-        if let Some(other_value) = other.timeout_seconds {
-            crate::OptionableConvert::merge(&mut self.timeout_seconds, other_value)?;
+            self.timeout_seconds = crate::OptionableConvert::try_from_optioned(
+                other.timeout_seconds,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.timeout_seconds,
+                other.timeout_seconds,
+            )?;
         }
         Ok(())
     }

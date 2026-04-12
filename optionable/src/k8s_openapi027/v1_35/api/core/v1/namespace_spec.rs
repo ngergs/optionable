@@ -36,10 +36,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NamespaceSpec {
     }
     fn merge(&mut self, other: NamespaceSpecAc) -> Result<(), crate::Error> {
         if self.finalizers.is_none() {
-            self.finalizers = other.finalizers;
-        }
-        if let Some(other_value) = other.finalizers {
-            self.finalizers = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.finalizers = crate::OptionableConvert::try_from_optioned(
+                other.finalizers,
+            )?;
+        } else {
+            self.finalizers = crate::OptionableConvert::try_from_optioned(
+                other.finalizers,
+            )?;
         }
         Ok(())
     }

@@ -51,13 +51,19 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Webho
     }
     fn merge(&mut self, other: WebhookConversionAc) -> Result<(), crate::Error> {
         if self.client_config.is_none() {
-            self.client_config = other.client_config;
-        }
-        if let Some(other_value) = other.client_config {
-            crate::OptionableConvert::merge(&mut self.client_config, other_value)?;
+            self.client_config = crate::OptionableConvert::try_from_optioned(
+                other.client_config,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.client_config,
+                other.client_config,
+            )?;
         }
         if let Some(other_value) = other.conversion_review_versions {
-            self.conversion_review_versions = other_value;
+            self.conversion_review_versions = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

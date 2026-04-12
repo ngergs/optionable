@@ -65,13 +65,19 @@ for k8s_openapi027::api::core::v1::ContainerExtendedResourceRequest {
         other: ContainerExtendedResourceRequestAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.container_name {
-            self.container_name = other_value;
+            self.container_name = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.request_name {
-            self.request_name = other_value;
+            self.request_name = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.resource_name {
-            self.resource_name = other_value;
+            self.resource_name = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

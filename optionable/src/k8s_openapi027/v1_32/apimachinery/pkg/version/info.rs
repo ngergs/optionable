@@ -103,31 +103,33 @@ impl crate::OptionableConvert for k8s_openapi027::apimachinery::pkg::version::In
     }
     fn merge(&mut self, other: InfoAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.build_date {
-            self.build_date = other_value;
+            self.build_date = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.compiler {
-            self.compiler = other_value;
+            self.compiler = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.git_commit {
-            self.git_commit = other_value;
+            self.git_commit = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.git_tree_state {
-            self.git_tree_state = other_value;
+            self.git_tree_state = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.git_version {
-            self.git_version = other_value;
+            self.git_version = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.go_version {
-            self.go_version = other_value;
+            self.go_version = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.major {
-            self.major = other_value;
+            self.major = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.minor {
-            self.minor = other_value;
+            self.minor = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.platform {
-            self.platform = other_value;
+            self.platform = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

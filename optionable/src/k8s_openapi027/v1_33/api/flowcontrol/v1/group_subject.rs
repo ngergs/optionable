@@ -40,7 +40,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::flowcontrol::v1::GroupSub
     }
     fn merge(&mut self, other: GroupSubjectAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

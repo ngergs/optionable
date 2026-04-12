@@ -63,25 +63,26 @@ for k8s_openapi027::api::core::v1::GCEPersistentDiskVolumeSource {
         other: GCEPersistentDiskVolumeSourceAc,
     ) -> Result<(), crate::Error> {
         if self.fs_type.is_none() {
-            self.fs_type = other.fs_type;
-        }
-        if let Some(other_value) = other.fs_type {
-            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
+            self.fs_type = crate::OptionableConvert::try_from_optioned(other.fs_type)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         }
         if self.partition.is_none() {
-            self.partition = other.partition;
-        }
-        if let Some(other_value) = other.partition {
-            crate::OptionableConvert::merge(&mut self.partition, other_value)?;
+            self.partition = crate::OptionableConvert::try_from_optioned(
+                other.partition,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.partition, other.partition)?;
         }
         if let Some(other_value) = other.pd_name {
-            self.pd_name = other_value;
+            self.pd_name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.read_only.is_none() {
-            self.read_only = other.read_only;
-        }
-        if let Some(other_value) = other.read_only {
-            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+            self.read_only = crate::OptionableConvert::try_from_optioned(
+                other.read_only,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         }
         Ok(())
     }

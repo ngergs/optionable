@@ -49,16 +49,24 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceStatus {
     }
     fn merge(&mut self, other: ServiceStatusAc) -> Result<(), crate::Error> {
         if self.conditions.is_none() {
-            self.conditions = other.conditions;
-        }
-        if let Some(other_value) = other.conditions {
-            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+            self.conditions = crate::OptionableConvert::try_from_optioned(
+                other.conditions,
+            )?;
+        } else {
+            crate::merge::try_merge_optioned_map(
+                &mut self.conditions,
+                other.conditions,
+            )?;
         }
         if self.load_balancer.is_none() {
-            self.load_balancer = other.load_balancer;
-        }
-        if let Some(other_value) = other.load_balancer {
-            crate::OptionableConvert::merge(&mut self.load_balancer, other_value)?;
+            self.load_balancer = crate::OptionableConvert::try_from_optioned(
+                other.load_balancer,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.load_balancer,
+                other.load_balancer,
+            )?;
         }
         Ok(())
     }

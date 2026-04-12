@@ -57,13 +57,12 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimTemplate {
         other: PersistentVolumeClaimTemplateAc,
     ) -> Result<(), crate::Error> {
         if self.metadata.is_none() {
-            self.metadata = other.metadata;
-        }
-        if let Some(other_value) = other.metadata {
-            crate::OptionableConvert::merge(&mut self.metadata, other_value)?;
+            self.metadata = crate::OptionableConvert::try_from_optioned(other.metadata)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.metadata, other.metadata)?;
         }
         if let Some(other_value) = other.spec {
-            self.spec = other_value;
+            self.spec = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

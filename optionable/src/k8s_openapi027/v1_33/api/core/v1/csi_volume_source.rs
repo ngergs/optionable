@@ -68,34 +68,39 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::CSIVolumeSource
     }
     fn merge(&mut self, other: CSIVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.driver {
-            self.driver = other_value;
+            self.driver = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.fs_type.is_none() {
-            self.fs_type = other.fs_type;
-        }
-        if let Some(other_value) = other.fs_type {
-            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
+            self.fs_type = crate::OptionableConvert::try_from_optioned(other.fs_type)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         }
         if self.node_publish_secret_ref.is_none() {
-            self.node_publish_secret_ref = other.node_publish_secret_ref;
-        }
-        if let Some(other_value) = other.node_publish_secret_ref {
+            self.node_publish_secret_ref = crate::OptionableConvert::try_from_optioned(
+                other.node_publish_secret_ref,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.node_publish_secret_ref,
-                other_value,
+                other.node_publish_secret_ref,
             )?;
         }
         if self.read_only.is_none() {
-            self.read_only = other.read_only;
-        }
-        if let Some(other_value) = other.read_only {
-            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+            self.read_only = crate::OptionableConvert::try_from_optioned(
+                other.read_only,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         }
         if self.volume_attributes.is_none() {
-            self.volume_attributes = other.volume_attributes;
-        }
-        if let Some(other_value) = other.volume_attributes {
-            crate::OptionableConvert::merge(&mut self.volume_attributes, other_value)?;
+            self.volume_attributes = crate::OptionableConvert::try_from_optioned(
+                other.volume_attributes,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.volume_attributes,
+                other.volume_attributes,
+            )?;
         }
         Ok(())
     }

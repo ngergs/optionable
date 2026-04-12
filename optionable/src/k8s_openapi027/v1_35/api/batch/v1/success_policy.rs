@@ -46,7 +46,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::SuccessPolicy 
     }
     fn merge(&mut self, other: SuccessPolicyAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.rules {
-            self.rules = other_value;
+            self.rules = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -69,10 +69,12 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResourceList {
     }
     fn merge(&mut self, other: APIResourceListAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.group_version {
-            self.group_version = other_value;
+            self.group_version = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.resources {
-            self.resources = other_value;
+            self.resources = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

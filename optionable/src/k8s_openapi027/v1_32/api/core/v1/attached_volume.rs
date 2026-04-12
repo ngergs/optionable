@@ -49,10 +49,10 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AttachedVolume 
     }
     fn merge(&mut self, other: AttachedVolumeAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.device_path {
-            self.device_path = other_value;
+            self.device_path = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -60,7 +60,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroupList {
     }
     fn merge(&mut self, other: APIGroupListAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.groups {
-            self.groups = other_value;
+            self.groups = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

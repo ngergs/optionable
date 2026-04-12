@@ -55,16 +55,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ModifyVolumeSta
     }
     fn merge(&mut self, other: ModifyVolumeStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.status {
-            self.status = other_value;
+            self.status = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.target_volume_attributes_class_name.is_none() {
-            self.target_volume_attributes_class_name = other
-                .target_volume_attributes_class_name;
-        }
-        if let Some(other_value) = other.target_volume_attributes_class_name {
+            self.target_volume_attributes_class_name = crate::OptionableConvert::try_from_optioned(
+                other.target_volume_attributes_class_name,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.target_volume_attributes_class_name,
-                other_value,
+                other.target_volume_attributes_class_name,
             )?;
         }
         Ok(())

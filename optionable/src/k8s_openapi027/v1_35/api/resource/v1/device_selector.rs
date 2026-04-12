@@ -38,10 +38,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceSelec
     }
     fn merge(&mut self, other: DeviceSelectorAc) -> Result<(), crate::Error> {
         if self.cel.is_none() {
-            self.cel = other.cel;
-        }
-        if let Some(other_value) = other.cel {
-            crate::OptionableConvert::merge(&mut self.cel, other_value)?;
+            self.cel = crate::OptionableConvert::try_from_optioned(other.cel)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.cel, other.cel)?;
         }
         Ok(())
     }

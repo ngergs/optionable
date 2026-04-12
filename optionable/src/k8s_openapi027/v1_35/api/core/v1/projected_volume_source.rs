@@ -45,16 +45,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ProjectedVolume
     }
     fn merge(&mut self, other: ProjectedVolumeSourceAc) -> Result<(), crate::Error> {
         if self.default_mode.is_none() {
-            self.default_mode = other.default_mode;
-        }
-        if let Some(other_value) = other.default_mode {
-            crate::OptionableConvert::merge(&mut self.default_mode, other_value)?;
+            self.default_mode = crate::OptionableConvert::try_from_optioned(
+                other.default_mode,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.default_mode, other.default_mode)?;
         }
         if self.sources.is_none() {
-            self.sources = other.sources;
-        }
-        if let Some(other_value) = other.sources {
-            self.sources = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.sources = crate::OptionableConvert::try_from_optioned(other.sources)?;
+        } else {
+            self.sources = crate::OptionableConvert::try_from_optioned(other.sources)?;
         }
         Ok(())
     }

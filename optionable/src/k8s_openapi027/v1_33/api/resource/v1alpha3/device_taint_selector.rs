@@ -65,34 +65,36 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceTaintSelector {
     }
     fn merge(&mut self, other: DeviceTaintSelectorAc) -> Result<(), crate::Error> {
         if self.device.is_none() {
-            self.device = other.device;
-        }
-        if let Some(other_value) = other.device {
-            crate::OptionableConvert::merge(&mut self.device, other_value)?;
+            self.device = crate::OptionableConvert::try_from_optioned(other.device)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.device, other.device)?;
         }
         if self.device_class_name.is_none() {
-            self.device_class_name = other.device_class_name;
-        }
-        if let Some(other_value) = other.device_class_name {
-            crate::OptionableConvert::merge(&mut self.device_class_name, other_value)?;
+            self.device_class_name = crate::OptionableConvert::try_from_optioned(
+                other.device_class_name,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.device_class_name,
+                other.device_class_name,
+            )?;
         }
         if self.driver.is_none() {
-            self.driver = other.driver;
-        }
-        if let Some(other_value) = other.driver {
-            crate::OptionableConvert::merge(&mut self.driver, other_value)?;
+            self.driver = crate::OptionableConvert::try_from_optioned(other.driver)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.driver, other.driver)?;
         }
         if self.pool.is_none() {
-            self.pool = other.pool;
-        }
-        if let Some(other_value) = other.pool {
-            crate::OptionableConvert::merge(&mut self.pool, other_value)?;
+            self.pool = crate::OptionableConvert::try_from_optioned(other.pool)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.pool, other.pool)?;
         }
         if self.selectors.is_none() {
-            self.selectors = other.selectors;
-        }
-        if let Some(other_value) = other.selectors {
-            crate::OptionableConvert::merge(&mut self.selectors, other_value)?;
+            self.selectors = crate::OptionableConvert::try_from_optioned(
+                other.selectors,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.selectors, other.selectors)?;
         }
         Ok(())
     }

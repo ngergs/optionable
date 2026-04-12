@@ -167,48 +167,58 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
     }
     fn merge(&mut self, other: PodCertificateRequestSpecAc) -> Result<(), crate::Error> {
         if self.max_expiration_seconds.is_none() {
-            self.max_expiration_seconds = other.max_expiration_seconds;
-        }
-        if let Some(other_value) = other.max_expiration_seconds {
+            self.max_expiration_seconds = crate::OptionableConvert::try_from_optioned(
+                other.max_expiration_seconds,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.max_expiration_seconds,
-                other_value,
+                other.max_expiration_seconds,
             )?;
         }
         if let Some(other_value) = other.node_name {
-            self.node_name = other_value;
+            self.node_name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.node_uid {
-            self.node_uid = other_value;
+            self.node_uid = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.pkix_public_key {
-            self.pkix_public_key = other_value;
+            self.pkix_public_key = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.pod_name {
-            self.pod_name = other_value;
+            self.pod_name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.pod_uid {
-            self.pod_uid = other_value;
+            self.pod_uid = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.proof_of_possession {
-            self.proof_of_possession = other_value;
+            self.proof_of_possession = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.service_account_name {
-            self.service_account_name = other_value;
+            self.service_account_name = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.service_account_uid {
-            self.service_account_uid = other_value;
+            self.service_account_uid = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.signer_name {
-            self.signer_name = other_value;
+            self.signer_name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.unverified_user_annotations.is_none() {
-            self.unverified_user_annotations = other.unverified_user_annotations;
-        }
-        if let Some(other_value) = other.unverified_user_annotations {
+            self.unverified_user_annotations = crate::OptionableConvert::try_from_optioned(
+                other.unverified_user_annotations,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.unverified_user_annotations,
-                other_value,
+                other.unverified_user_annotations,
             )?;
         }
         Ok(())

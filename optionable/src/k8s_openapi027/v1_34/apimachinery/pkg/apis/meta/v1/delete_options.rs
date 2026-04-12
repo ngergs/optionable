@@ -79,61 +79,71 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::DeleteOptions {
     }
     fn merge(&mut self, other: DeleteOptionsAc) -> Result<(), crate::Error> {
         if self.api_version.is_none() {
-            self.api_version = other.api_version;
-        }
-        if let Some(other_value) = other.api_version {
-            crate::OptionableConvert::merge(&mut self.api_version, other_value)?;
+            self.api_version = crate::OptionableConvert::try_from_optioned(
+                other.api_version,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         }
         if self.dry_run.is_none() {
-            self.dry_run = other.dry_run;
-        }
-        if let Some(other_value) = other.dry_run {
-            self.dry_run = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.dry_run = crate::OptionableConvert::try_from_optioned(other.dry_run)?;
+        } else {
+            self.dry_run = crate::OptionableConvert::try_from_optioned(other.dry_run)?;
         }
         if self.grace_period_seconds.is_none() {
-            self.grace_period_seconds = other.grace_period_seconds;
-        }
-        if let Some(other_value) = other.grace_period_seconds {
+            self.grace_period_seconds = crate::OptionableConvert::try_from_optioned(
+                other.grace_period_seconds,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.grace_period_seconds,
-                other_value,
+                other.grace_period_seconds,
             )?;
         }
         if self.ignore_store_read_error_with_cluster_breaking_potential.is_none() {
-            self.ignore_store_read_error_with_cluster_breaking_potential = other
-                .ignore_store_read_error_with_cluster_breaking_potential;
-        }
-        if let Some(other_value) = other
-            .ignore_store_read_error_with_cluster_breaking_potential
-        {
+            self.ignore_store_read_error_with_cluster_breaking_potential = crate::OptionableConvert::try_from_optioned(
+                other.ignore_store_read_error_with_cluster_breaking_potential,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.ignore_store_read_error_with_cluster_breaking_potential,
-                other_value,
+                other.ignore_store_read_error_with_cluster_breaking_potential,
             )?;
         }
         if self.kind.is_none() {
-            self.kind = other.kind;
-        }
-        if let Some(other_value) = other.kind {
-            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
+            self.kind = crate::OptionableConvert::try_from_optioned(other.kind)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
         }
         if self.orphan_dependents.is_none() {
-            self.orphan_dependents = other.orphan_dependents;
-        }
-        if let Some(other_value) = other.orphan_dependents {
-            crate::OptionableConvert::merge(&mut self.orphan_dependents, other_value)?;
+            self.orphan_dependents = crate::OptionableConvert::try_from_optioned(
+                other.orphan_dependents,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.orphan_dependents,
+                other.orphan_dependents,
+            )?;
         }
         if self.preconditions.is_none() {
-            self.preconditions = other.preconditions;
-        }
-        if let Some(other_value) = other.preconditions {
-            crate::OptionableConvert::merge(&mut self.preconditions, other_value)?;
+            self.preconditions = crate::OptionableConvert::try_from_optioned(
+                other.preconditions,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.preconditions,
+                other.preconditions,
+            )?;
         }
         if self.propagation_policy.is_none() {
-            self.propagation_policy = other.propagation_policy;
-        }
-        if let Some(other_value) = other.propagation_policy {
-            crate::OptionableConvert::merge(&mut self.propagation_policy, other_value)?;
+            self.propagation_policy = crate::OptionableConvert::try_from_optioned(
+                other.propagation_policy,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.propagation_policy,
+                other.propagation_policy,
+            )?;
         }
         Ok(())
     }

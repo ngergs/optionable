@@ -41,10 +41,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceClaim {
     fn merge(&mut self, other: ResourceClaimAc) -> Result<(), crate::Error> {
         self.name = other.name;
         if self.request.is_none() {
-            self.request = other.request;
-        }
-        if let Some(other_value) = other.request {
-            crate::OptionableConvert::merge(&mut self.request, other_value)?;
+            self.request = crate::OptionableConvert::try_from_optioned(other.request)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.request, other.request)?;
         }
         Ok(())
     }

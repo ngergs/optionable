@@ -72,16 +72,24 @@ for k8s_openapi027::api::flowcontrol::v1::ResourcePolicyRule {
             crate::merge::try_merge_optioned_set(&mut self.api_groups, other_value)?;
         }
         if self.cluster_scope.is_none() {
-            self.cluster_scope = other.cluster_scope;
-        }
-        if let Some(other_value) = other.cluster_scope {
-            crate::OptionableConvert::merge(&mut self.cluster_scope, other_value)?;
+            self.cluster_scope = crate::OptionableConvert::try_from_optioned(
+                other.cluster_scope,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.cluster_scope,
+                other.cluster_scope,
+            )?;
         }
         if self.namespaces.is_none() {
-            self.namespaces = other.namespaces;
-        }
-        if let Some(other_value) = other.namespaces {
-            crate::merge::try_merge_optioned_set(&mut self.namespaces, other_value)?;
+            self.namespaces = crate::OptionableConvert::try_from_optioned(
+                other.namespaces,
+            )?;
+        } else {
+            crate::merge::try_merge_optioned_set(
+                &mut self.namespaces,
+                other.namespaces,
+            )?;
         }
         if let Some(other_value) = other.resources {
             crate::merge::try_merge_optioned_set(&mut self.resources, other_value)?;

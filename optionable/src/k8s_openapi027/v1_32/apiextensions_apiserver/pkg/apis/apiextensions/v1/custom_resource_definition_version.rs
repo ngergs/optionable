@@ -118,52 +118,62 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         other: CustomResourceDefinitionVersionAc,
     ) -> Result<(), crate::Error> {
         if self.additional_printer_columns.is_none() {
-            self.additional_printer_columns = other.additional_printer_columns;
-        }
-        if let Some(other_value) = other.additional_printer_columns {
+            self.additional_printer_columns = crate::OptionableConvert::try_from_optioned(
+                other.additional_printer_columns,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.additional_printer_columns,
-                other_value,
+                other.additional_printer_columns,
             )?;
         }
         if self.deprecated.is_none() {
-            self.deprecated = other.deprecated;
-        }
-        if let Some(other_value) = other.deprecated {
-            crate::OptionableConvert::merge(&mut self.deprecated, other_value)?;
+            self.deprecated = crate::OptionableConvert::try_from_optioned(
+                other.deprecated,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.deprecated, other.deprecated)?;
         }
         if self.deprecation_warning.is_none() {
-            self.deprecation_warning = other.deprecation_warning;
-        }
-        if let Some(other_value) = other.deprecation_warning {
-            crate::OptionableConvert::merge(&mut self.deprecation_warning, other_value)?;
+            self.deprecation_warning = crate::OptionableConvert::try_from_optioned(
+                other.deprecation_warning,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.deprecation_warning,
+                other.deprecation_warning,
+            )?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.schema.is_none() {
-            self.schema = other.schema;
-        }
-        if let Some(other_value) = other.schema {
-            crate::OptionableConvert::merge(&mut self.schema, other_value)?;
+            self.schema = crate::OptionableConvert::try_from_optioned(other.schema)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.schema, other.schema)?;
         }
         if self.selectable_fields.is_none() {
-            self.selectable_fields = other.selectable_fields;
-        }
-        if let Some(other_value) = other.selectable_fields {
-            crate::OptionableConvert::merge(&mut self.selectable_fields, other_value)?;
+            self.selectable_fields = crate::OptionableConvert::try_from_optioned(
+                other.selectable_fields,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.selectable_fields,
+                other.selectable_fields,
+            )?;
         }
         if let Some(other_value) = other.served {
-            self.served = other_value;
+            self.served = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.storage {
-            self.storage = other_value;
+            self.storage = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.subresources.is_none() {
-            self.subresources = other.subresources;
-        }
-        if let Some(other_value) = other.subresources {
-            crate::OptionableConvert::merge(&mut self.subresources, other_value)?;
+            self.subresources = crate::OptionableConvert::try_from_optioned(
+                other.subresources,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.subresources, other.subresources)?;
         }
         Ok(())
     }

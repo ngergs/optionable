@@ -61,10 +61,12 @@ for k8s_openapi027::api::admissionregistration::v1::AuditAnnotation {
     }
     fn merge(&mut self, other: AuditAnnotationAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.key {
-            self.key = other_value;
+            self.key = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.value_expression {
-            self.value_expression = other_value;
+            self.value_expression = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

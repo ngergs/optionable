@@ -38,10 +38,11 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerStateR
     }
     fn merge(&mut self, other: ContainerStateRunningAc) -> Result<(), crate::Error> {
         if self.started_at.is_none() {
-            self.started_at = other.started_at;
-        }
-        if let Some(other_value) = other.started_at {
-            crate::OptionableConvert::merge(&mut self.started_at, other_value)?;
+            self.started_at = crate::OptionableConvert::try_from_optioned(
+                other.started_at,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.started_at, other.started_at)?;
         }
         Ok(())
     }

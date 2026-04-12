@@ -85,24 +85,28 @@ for k8s_openapi027::api::resource::v1beta1::AllocatedDeviceStatus {
     }
     fn merge(&mut self, other: AllocatedDeviceStatusAc) -> Result<(), crate::Error> {
         if self.conditions.is_none() {
-            self.conditions = other.conditions;
-        }
-        if let Some(other_value) = other.conditions {
-            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+            self.conditions = crate::OptionableConvert::try_from_optioned(
+                other.conditions,
+            )?;
+        } else {
+            crate::merge::try_merge_optioned_map(
+                &mut self.conditions,
+                other.conditions,
+            )?;
         }
         if self.data.is_none() {
-            self.data = other.data;
-        }
-        if let Some(other_value) = other.data {
-            crate::OptionableConvert::merge(&mut self.data, other_value)?;
+            self.data = crate::OptionableConvert::try_from_optioned(other.data)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.data, other.data)?;
         }
         self.device = other.device;
         self.driver = other.driver;
         if self.network_data.is_none() {
-            self.network_data = other.network_data;
-        }
-        if let Some(other_value) = other.network_data {
-            crate::OptionableConvert::merge(&mut self.network_data, other_value)?;
+            self.network_data = crate::OptionableConvert::try_from_optioned(
+                other.network_data,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.network_data, other.network_data)?;
         }
         self.pool = other.pool;
         self.share_id = other.share_id;

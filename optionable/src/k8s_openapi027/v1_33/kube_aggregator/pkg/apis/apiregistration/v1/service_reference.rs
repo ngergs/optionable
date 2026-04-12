@@ -48,22 +48,21 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::ServiceRefe
     }
     fn merge(&mut self, other: ServiceReferenceAc) -> Result<(), crate::Error> {
         if self.name.is_none() {
-            self.name = other.name;
-        }
-        if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.name, other.name)?;
         }
         if self.namespace.is_none() {
-            self.namespace = other.namespace;
-        }
-        if let Some(other_value) = other.namespace {
-            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
+            self.namespace = crate::OptionableConvert::try_from_optioned(
+                other.namespace,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
         }
         if self.port.is_none() {
-            self.port = other.port;
-        }
-        if let Some(other_value) = other.port {
-            crate::OptionableConvert::merge(&mut self.port, other_value)?;
+            self.port = crate::OptionableConvert::try_from_optioned(other.port)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.port, other.port)?;
         }
         Ok(())
     }

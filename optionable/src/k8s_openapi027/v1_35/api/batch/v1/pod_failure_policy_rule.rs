@@ -72,20 +72,25 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::PodFailurePoli
     }
     fn merge(&mut self, other: PodFailurePolicyRuleAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.action {
-            self.action = other_value;
+            self.action = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.on_exit_codes.is_none() {
-            self.on_exit_codes = other.on_exit_codes;
-        }
-        if let Some(other_value) = other.on_exit_codes {
-            crate::OptionableConvert::merge(&mut self.on_exit_codes, other_value)?;
+            self.on_exit_codes = crate::OptionableConvert::try_from_optioned(
+                other.on_exit_codes,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.on_exit_codes,
+                other.on_exit_codes,
+            )?;
         }
         if self.on_pod_conditions.is_none() {
-            self.on_pod_conditions = other.on_pod_conditions;
-        }
-        if let Some(other_value) = other.on_pod_conditions {
             self.on_pod_conditions = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.on_pod_conditions,
+            )?;
+        } else {
+            self.on_pod_conditions = crate::OptionableConvert::try_from_optioned(
+                other.on_pod_conditions,
             )?;
         }
         Ok(())

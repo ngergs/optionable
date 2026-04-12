@@ -49,16 +49,22 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointHi
     }
     fn merge(&mut self, other: EndpointHintsAc) -> Result<(), crate::Error> {
         if self.for_nodes.is_none() {
-            self.for_nodes = other.for_nodes;
-        }
-        if let Some(other_value) = other.for_nodes {
-            self.for_nodes = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.for_nodes = crate::OptionableConvert::try_from_optioned(
+                other.for_nodes,
+            )?;
+        } else {
+            self.for_nodes = crate::OptionableConvert::try_from_optioned(
+                other.for_nodes,
+            )?;
         }
         if self.for_zones.is_none() {
-            self.for_zones = other.for_zones;
-        }
-        if let Some(other_value) = other.for_zones {
-            self.for_zones = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.for_zones = crate::OptionableConvert::try_from_optioned(
+                other.for_zones,
+            )?;
+        } else {
+            self.for_zones = crate::OptionableConvert::try_from_optioned(
+                other.for_zones,
+            )?;
         }
         Ok(())
     }

@@ -43,16 +43,16 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ParamKind {
     }
     fn merge(&mut self, other: ParamKindAc) -> Result<(), crate::Error> {
         if self.api_version.is_none() {
-            self.api_version = other.api_version;
-        }
-        if let Some(other_value) = other.api_version {
-            crate::OptionableConvert::merge(&mut self.api_version, other_value)?;
+            self.api_version = crate::OptionableConvert::try_from_optioned(
+                other.api_version,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         }
         if self.kind.is_none() {
-            self.kind = other.kind;
-        }
-        if let Some(other_value) = other.kind {
-            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
+            self.kind = crate::OptionableConvert::try_from_optioned(other.kind)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
         }
         Ok(())
     }

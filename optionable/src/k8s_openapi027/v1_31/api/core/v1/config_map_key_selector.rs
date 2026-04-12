@@ -54,16 +54,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapKeySel
     }
     fn merge(&mut self, other: ConfigMapKeySelectorAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.key {
-            self.key = other_value;
+            self.key = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.optional.is_none() {
-            self.optional = other.optional;
-        }
-        if let Some(other_value) = other.optional {
-            crate::OptionableConvert::merge(&mut self.optional, other_value)?;
+            self.optional = crate::OptionableConvert::try_from_optioned(other.optional)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.optional, other.optional)?;
         }
         Ok(())
     }

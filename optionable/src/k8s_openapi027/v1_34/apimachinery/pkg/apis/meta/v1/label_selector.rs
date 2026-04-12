@@ -53,18 +53,20 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector {
     }
     fn merge(&mut self, other: LabelSelectorAc) -> Result<(), crate::Error> {
         if self.match_expressions.is_none() {
-            self.match_expressions = other.match_expressions;
-        }
-        if let Some(other_value) = other.match_expressions {
             self.match_expressions = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.match_expressions,
+            )?;
+        } else {
+            self.match_expressions = crate::OptionableConvert::try_from_optioned(
+                other.match_expressions,
             )?;
         }
         if self.match_labels.is_none() {
-            self.match_labels = other.match_labels;
-        }
-        if let Some(other_value) = other.match_labels {
-            crate::OptionableConvert::merge(&mut self.match_labels, other_value)?;
+            self.match_labels = crate::OptionableConvert::try_from_optioned(
+                other.match_labels,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.match_labels, other.match_labels)?;
         }
         Ok(())
     }

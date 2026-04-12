@@ -82,25 +82,27 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::Validation {
     }
     fn merge(&mut self, other: ValidationAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expression {
-            self.expression = other_value;
+            self.expression = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.message.is_none() {
-            self.message = other.message;
-        }
-        if let Some(other_value) = other.message {
-            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+            self.message = crate::OptionableConvert::try_from_optioned(other.message)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.message, other.message)?;
         }
         if self.message_expression.is_none() {
-            self.message_expression = other.message_expression;
-        }
-        if let Some(other_value) = other.message_expression {
-            crate::OptionableConvert::merge(&mut self.message_expression, other_value)?;
+            self.message_expression = crate::OptionableConvert::try_from_optioned(
+                other.message_expression,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.message_expression,
+                other.message_expression,
+            )?;
         }
         if self.reason.is_none() {
-            self.reason = other.reason;
-        }
-        if let Some(other_value) = other.reason {
-            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
+            self.reason = crate::OptionableConvert::try_from_optioned(other.reason)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         }
         Ok(())
     }

@@ -47,13 +47,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerRestar
     }
     fn merge(&mut self, other: ContainerRestartRuleAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.action {
-            self.action = other_value;
+            self.action = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.exit_codes.is_none() {
-            self.exit_codes = other.exit_codes;
-        }
-        if let Some(other_value) = other.exit_codes {
-            crate::OptionableConvert::merge(&mut self.exit_codes, other_value)?;
+            self.exit_codes = crate::OptionableConvert::try_from_optioned(
+                other.exit_codes,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.exit_codes, other.exit_codes)?;
         }
         Ok(())
     }

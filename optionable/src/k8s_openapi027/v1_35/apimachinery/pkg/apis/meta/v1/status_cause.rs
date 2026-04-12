@@ -52,22 +52,19 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusCause {
     }
     fn merge(&mut self, other: StatusCauseAc) -> Result<(), crate::Error> {
         if self.field.is_none() {
-            self.field = other.field;
-        }
-        if let Some(other_value) = other.field {
-            crate::OptionableConvert::merge(&mut self.field, other_value)?;
+            self.field = crate::OptionableConvert::try_from_optioned(other.field)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.field, other.field)?;
         }
         if self.message.is_none() {
-            self.message = other.message;
-        }
-        if let Some(other_value) = other.message {
-            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+            self.message = crate::OptionableConvert::try_from_optioned(other.message)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.message, other.message)?;
         }
         if self.reason.is_none() {
-            self.reason = other.reason;
-        }
-        if let Some(other_value) = other.reason {
-            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
+            self.reason = crate::OptionableConvert::try_from_optioned(other.reason)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         }
         Ok(())
     }

@@ -41,16 +41,16 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Exter
     }
     fn merge(&mut self, other: ExternalDocumentationAc) -> Result<(), crate::Error> {
         if self.description.is_none() {
-            self.description = other.description;
-        }
-        if let Some(other_value) = other.description {
-            crate::OptionableConvert::merge(&mut self.description, other_value)?;
+            self.description = crate::OptionableConvert::try_from_optioned(
+                other.description,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.description, other.description)?;
         }
         if self.url.is_none() {
-            self.url = other.url;
-        }
-        if let Some(other_value) = other.url {
-            crate::OptionableConvert::merge(&mut self.url, other_value)?;
+            self.url = crate::OptionableConvert::try_from_optioned(other.url)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.url, other.url)?;
         }
         Ok(())
     }

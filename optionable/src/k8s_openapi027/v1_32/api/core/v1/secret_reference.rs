@@ -41,16 +41,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretReference
     }
     fn merge(&mut self, other: SecretReferenceAc) -> Result<(), crate::Error> {
         if self.name.is_none() {
-            self.name = other.name;
-        }
-        if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.name, other.name)?;
         }
         if self.namespace.is_none() {
-            self.namespace = other.namespace;
-        }
-        if let Some(other_value) = other.namespace {
-            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
+            self.namespace = crate::OptionableConvert::try_from_optioned(
+                other.namespace,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
         }
         Ok(())
     }

@@ -63,25 +63,29 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::DownwardAPIVolu
     }
     fn merge(&mut self, other: DownwardAPIVolumeFileAc) -> Result<(), crate::Error> {
         if self.field_ref.is_none() {
-            self.field_ref = other.field_ref;
-        }
-        if let Some(other_value) = other.field_ref {
-            crate::OptionableConvert::merge(&mut self.field_ref, other_value)?;
+            self.field_ref = crate::OptionableConvert::try_from_optioned(
+                other.field_ref,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.field_ref, other.field_ref)?;
         }
         if self.mode.is_none() {
-            self.mode = other.mode;
-        }
-        if let Some(other_value) = other.mode {
-            crate::OptionableConvert::merge(&mut self.mode, other_value)?;
+            self.mode = crate::OptionableConvert::try_from_optioned(other.mode)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.mode, other.mode)?;
         }
         if let Some(other_value) = other.path {
-            self.path = other_value;
+            self.path = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.resource_field_ref.is_none() {
-            self.resource_field_ref = other.resource_field_ref;
-        }
-        if let Some(other_value) = other.resource_field_ref {
-            crate::OptionableConvert::merge(&mut self.resource_field_ref, other_value)?;
+            self.resource_field_ref = crate::OptionableConvert::try_from_optioned(
+                other.resource_field_ref,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.resource_field_ref,
+                other.resource_field_ref,
+            )?;
         }
         Ok(())
     }

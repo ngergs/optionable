@@ -60,28 +60,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::discovery::v1::EndpointPo
     }
     fn merge(&mut self, other: EndpointPortAc) -> Result<(), crate::Error> {
         if self.app_protocol.is_none() {
-            self.app_protocol = other.app_protocol;
-        }
-        if let Some(other_value) = other.app_protocol {
-            crate::OptionableConvert::merge(&mut self.app_protocol, other_value)?;
+            self.app_protocol = crate::OptionableConvert::try_from_optioned(
+                other.app_protocol,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.app_protocol, other.app_protocol)?;
         }
         if self.name.is_none() {
-            self.name = other.name;
-        }
-        if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.name, other.name)?;
         }
         if self.port.is_none() {
-            self.port = other.port;
-        }
-        if let Some(other_value) = other.port {
-            crate::OptionableConvert::merge(&mut self.port, other_value)?;
+            self.port = crate::OptionableConvert::try_from_optioned(other.port)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.port, other.port)?;
         }
         if self.protocol.is_none() {
-            self.protocol = other.protocol;
-        }
-        if let Some(other_value) = other.protocol {
-            crate::OptionableConvert::merge(&mut self.protocol, other_value)?;
+            self.protocol = crate::OptionableConvert::try_from_optioned(other.protocol)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.protocol, other.protocol)?;
         }
         Ok(())
     }

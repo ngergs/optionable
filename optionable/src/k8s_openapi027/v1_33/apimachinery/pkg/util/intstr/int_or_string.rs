@@ -44,7 +44,9 @@ for k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString {
             IntOrStringAc::Int(other_0) => {
                 if let Self::Int(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        *self_0 = other_value;
+                        *self_0 = crate::OptionableConvert::try_from_optioned(
+                            other_value,
+                        )?;
                     }
                 } else {
                     *self = Self::try_from_optioned(IntOrStringAc::Int(other_0))?;
@@ -53,7 +55,9 @@ for k8s_openapi027::apimachinery::pkg::util::intstr::IntOrString {
             IntOrStringAc::String(other_0) => {
                 if let Self::String(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        *self_0 = other_value;
+                        *self_0 = crate::OptionableConvert::try_from_optioned(
+                            other_value,
+                        )?;
                     }
                 } else {
                     *self = Self::try_from_optioned(IntOrStringAc::String(other_0))?;

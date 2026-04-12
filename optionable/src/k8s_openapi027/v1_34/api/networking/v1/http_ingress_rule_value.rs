@@ -47,7 +47,7 @@ for k8s_openapi027::api::networking::v1::HTTPIngressRuleValue {
     }
     fn merge(&mut self, other: HTTPIngressRuleValueAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.paths {
-            self.paths = other_value;
+            self.paths = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

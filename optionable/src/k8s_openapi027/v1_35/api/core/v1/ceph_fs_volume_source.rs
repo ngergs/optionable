@@ -67,37 +67,38 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::CephFSVolumeSou
     }
     fn merge(&mut self, other: CephFSVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.monitors {
-            self.monitors = other_value;
+            self.monitors = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.path.is_none() {
-            self.path = other.path;
-        }
-        if let Some(other_value) = other.path {
-            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+            self.path = crate::OptionableConvert::try_from_optioned(other.path)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.path, other.path)?;
         }
         if self.read_only.is_none() {
-            self.read_only = other.read_only;
-        }
-        if let Some(other_value) = other.read_only {
-            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+            self.read_only = crate::OptionableConvert::try_from_optioned(
+                other.read_only,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         }
         if self.secret_file.is_none() {
-            self.secret_file = other.secret_file;
-        }
-        if let Some(other_value) = other.secret_file {
-            crate::OptionableConvert::merge(&mut self.secret_file, other_value)?;
+            self.secret_file = crate::OptionableConvert::try_from_optioned(
+                other.secret_file,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.secret_file, other.secret_file)?;
         }
         if self.secret_ref.is_none() {
-            self.secret_ref = other.secret_ref;
-        }
-        if let Some(other_value) = other.secret_ref {
-            crate::OptionableConvert::merge(&mut self.secret_ref, other_value)?;
+            self.secret_ref = crate::OptionableConvert::try_from_optioned(
+                other.secret_ref,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
         }
         if self.user.is_none() {
-            self.user = other.user;
-        }
-        if let Some(other_value) = other.user {
-            crate::OptionableConvert::merge(&mut self.user, other_value)?;
+            self.user = crate::OptionableConvert::try_from_optioned(other.user)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.user, other.user)?;
         }
         Ok(())
     }

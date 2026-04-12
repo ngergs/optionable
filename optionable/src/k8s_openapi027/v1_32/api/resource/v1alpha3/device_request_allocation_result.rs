@@ -85,22 +85,23 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceRequestAllocationResult {
         other: DeviceRequestAllocationResultAc,
     ) -> Result<(), crate::Error> {
         if self.admin_access.is_none() {
-            self.admin_access = other.admin_access;
-        }
-        if let Some(other_value) = other.admin_access {
-            crate::OptionableConvert::merge(&mut self.admin_access, other_value)?;
+            self.admin_access = crate::OptionableConvert::try_from_optioned(
+                other.admin_access,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
         }
         if let Some(other_value) = other.device {
-            self.device = other_value;
+            self.device = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.driver {
-            self.driver = other_value;
+            self.driver = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.pool {
-            self.pool = other_value;
+            self.pool = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.request {
-            self.request = other_value;
+            self.request = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

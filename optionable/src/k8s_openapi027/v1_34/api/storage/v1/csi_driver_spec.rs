@@ -131,66 +131,92 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIDriverSpe
     }
     fn merge(&mut self, other: CSIDriverSpecAc) -> Result<(), crate::Error> {
         if self.attach_required.is_none() {
-            self.attach_required = other.attach_required;
-        }
-        if let Some(other_value) = other.attach_required {
-            crate::OptionableConvert::merge(&mut self.attach_required, other_value)?;
+            self.attach_required = crate::OptionableConvert::try_from_optioned(
+                other.attach_required,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.attach_required,
+                other.attach_required,
+            )?;
         }
         if self.fs_group_policy.is_none() {
-            self.fs_group_policy = other.fs_group_policy;
-        }
-        if let Some(other_value) = other.fs_group_policy {
-            crate::OptionableConvert::merge(&mut self.fs_group_policy, other_value)?;
+            self.fs_group_policy = crate::OptionableConvert::try_from_optioned(
+                other.fs_group_policy,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.fs_group_policy,
+                other.fs_group_policy,
+            )?;
         }
         if self.node_allocatable_update_period_seconds.is_none() {
-            self.node_allocatable_update_period_seconds = other
-                .node_allocatable_update_period_seconds;
-        }
-        if let Some(other_value) = other.node_allocatable_update_period_seconds {
+            self.node_allocatable_update_period_seconds = crate::OptionableConvert::try_from_optioned(
+                other.node_allocatable_update_period_seconds,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.node_allocatable_update_period_seconds,
-                other_value,
+                other.node_allocatable_update_period_seconds,
             )?;
         }
         if self.pod_info_on_mount.is_none() {
-            self.pod_info_on_mount = other.pod_info_on_mount;
-        }
-        if let Some(other_value) = other.pod_info_on_mount {
-            crate::OptionableConvert::merge(&mut self.pod_info_on_mount, other_value)?;
+            self.pod_info_on_mount = crate::OptionableConvert::try_from_optioned(
+                other.pod_info_on_mount,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.pod_info_on_mount,
+                other.pod_info_on_mount,
+            )?;
         }
         if self.requires_republish.is_none() {
-            self.requires_republish = other.requires_republish;
-        }
-        if let Some(other_value) = other.requires_republish {
-            crate::OptionableConvert::merge(&mut self.requires_republish, other_value)?;
+            self.requires_republish = crate::OptionableConvert::try_from_optioned(
+                other.requires_republish,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.requires_republish,
+                other.requires_republish,
+            )?;
         }
         if self.se_linux_mount.is_none() {
-            self.se_linux_mount = other.se_linux_mount;
-        }
-        if let Some(other_value) = other.se_linux_mount {
-            crate::OptionableConvert::merge(&mut self.se_linux_mount, other_value)?;
+            self.se_linux_mount = crate::OptionableConvert::try_from_optioned(
+                other.se_linux_mount,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.se_linux_mount,
+                other.se_linux_mount,
+            )?;
         }
         if self.storage_capacity.is_none() {
-            self.storage_capacity = other.storage_capacity;
-        }
-        if let Some(other_value) = other.storage_capacity {
-            crate::OptionableConvert::merge(&mut self.storage_capacity, other_value)?;
+            self.storage_capacity = crate::OptionableConvert::try_from_optioned(
+                other.storage_capacity,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.storage_capacity,
+                other.storage_capacity,
+            )?;
         }
         if self.token_requests.is_none() {
-            self.token_requests = other.token_requests;
-        }
-        if let Some(other_value) = other.token_requests {
             self.token_requests = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.token_requests,
+            )?;
+        } else {
+            self.token_requests = crate::OptionableConvert::try_from_optioned(
+                other.token_requests,
             )?;
         }
         if self.volume_lifecycle_modes.is_none() {
-            self.volume_lifecycle_modes = other.volume_lifecycle_modes;
-        }
-        if let Some(other_value) = other.volume_lifecycle_modes {
+            self.volume_lifecycle_modes = crate::OptionableConvert::try_from_optioned(
+                other.volume_lifecycle_modes,
+            )?;
+        } else {
             crate::merge::try_merge_optioned_set(
                 &mut self.volume_lifecycle_modes,
-                other_value,
+                other.volume_lifecycle_modes,
             )?;
         }
         Ok(())

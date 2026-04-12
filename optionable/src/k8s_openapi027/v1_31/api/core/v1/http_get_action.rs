@@ -70,33 +70,31 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HTTPGetAction {
     }
     fn merge(&mut self, other: HTTPGetActionAc) -> Result<(), crate::Error> {
         if self.host.is_none() {
-            self.host = other.host;
-        }
-        if let Some(other_value) = other.host {
-            crate::OptionableConvert::merge(&mut self.host, other_value)?;
+            self.host = crate::OptionableConvert::try_from_optioned(other.host)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.host, other.host)?;
         }
         if self.http_headers.is_none() {
-            self.http_headers = other.http_headers;
-        }
-        if let Some(other_value) = other.http_headers {
             self.http_headers = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.http_headers,
+            )?;
+        } else {
+            self.http_headers = crate::OptionableConvert::try_from_optioned(
+                other.http_headers,
             )?;
         }
         if self.path.is_none() {
-            self.path = other.path;
-        }
-        if let Some(other_value) = other.path {
-            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+            self.path = crate::OptionableConvert::try_from_optioned(other.path)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.path, other.path)?;
         }
         if let Some(other_value) = other.port {
-            self.port = other_value;
+            self.port = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.scheme.is_none() {
-            self.scheme = other.scheme;
-        }
-        if let Some(other_value) = other.scheme {
-            crate::OptionableConvert::merge(&mut self.scheme, other_value)?;
+            self.scheme = crate::OptionableConvert::try_from_optioned(other.scheme)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.scheme, other.scheme)?;
         }
         Ok(())
     }

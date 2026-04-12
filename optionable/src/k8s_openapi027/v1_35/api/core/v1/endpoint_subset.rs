@@ -74,24 +74,27 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointSubset 
     }
     fn merge(&mut self, other: EndpointSubsetAc) -> Result<(), crate::Error> {
         if self.addresses.is_none() {
-            self.addresses = other.addresses;
-        }
-        if let Some(other_value) = other.addresses {
-            self.addresses = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.addresses = crate::OptionableConvert::try_from_optioned(
+                other.addresses,
+            )?;
+        } else {
+            self.addresses = crate::OptionableConvert::try_from_optioned(
+                other.addresses,
+            )?;
         }
         if self.not_ready_addresses.is_none() {
-            self.not_ready_addresses = other.not_ready_addresses;
-        }
-        if let Some(other_value) = other.not_ready_addresses {
             self.not_ready_addresses = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.not_ready_addresses,
+            )?;
+        } else {
+            self.not_ready_addresses = crate::OptionableConvert::try_from_optioned(
+                other.not_ready_addresses,
             )?;
         }
         if self.ports.is_none() {
-            self.ports = other.ports;
-        }
-        if let Some(other_value) = other.ports {
-            self.ports = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.ports = crate::OptionableConvert::try_from_optioned(other.ports)?;
+        } else {
+            self.ports = crate::OptionableConvert::try_from_optioned(other.ports)?;
         }
         Ok(())
     }

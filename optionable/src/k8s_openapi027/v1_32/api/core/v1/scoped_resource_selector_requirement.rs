@@ -61,16 +61,15 @@ for k8s_openapi027::api::core::v1::ScopedResourceSelectorRequirement {
         other: ScopedResourceSelectorRequirementAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.operator {
-            self.operator = other_value;
+            self.operator = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.scope_name {
-            self.scope_name = other_value;
+            self.scope_name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.values.is_none() {
-            self.values = other.values;
-        }
-        if let Some(other_value) = other.values {
-            self.values = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.values = crate::OptionableConvert::try_from_optioned(other.values)?;
+        } else {
+            self.values = crate::OptionableConvert::try_from_optioned(other.values)?;
         }
         Ok(())
     }

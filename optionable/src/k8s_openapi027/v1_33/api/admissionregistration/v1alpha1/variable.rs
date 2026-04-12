@@ -51,10 +51,10 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::Variable {
     }
     fn merge(&mut self, other: VariableAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expression {
-            self.expression = other_value;
+            self.expression = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -48,13 +48,12 @@ for k8s_openapi027::api::networking::v1::IngressServiceBackend {
     }
     fn merge(&mut self, other: IngressServiceBackendAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.port.is_none() {
-            self.port = other.port;
-        }
-        if let Some(other_value) = other.port {
-            crate::OptionableConvert::merge(&mut self.port, other_value)?;
+            self.port = crate::OptionableConvert::try_from_optioned(other.port)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.port, other.port)?;
         }
         Ok(())
     }

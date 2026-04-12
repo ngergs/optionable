@@ -51,10 +51,10 @@ for k8s_openapi027::api::flowcontrol::v1beta3::ServiceAccountSubject {
     }
     fn merge(&mut self, other: ServiceAccountSubjectAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.namespace {
-            self.namespace = other_value;
+            self.namespace = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

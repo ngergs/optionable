@@ -42,7 +42,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Selec
     }
     fn merge(&mut self, other: SelectableFieldAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.json_path {
-            self.json_path = other_value;
+            self.json_path = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

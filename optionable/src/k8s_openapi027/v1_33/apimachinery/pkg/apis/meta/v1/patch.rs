@@ -79,7 +79,9 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Patch {
             PatchAc::Json(other_0) => {
                 if let Self::Json(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        *self_0 = other_value;
+                        *self_0 = crate::OptionableConvert::try_from_optioned(
+                            other_value,
+                        )?;
                     }
                 } else {
                     *self = Self::try_from_optioned(PatchAc::Json(other_0))?;
@@ -88,7 +90,9 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Patch {
             PatchAc::Merge(other_0) => {
                 if let Self::Merge(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        *self_0 = other_value;
+                        *self_0 = crate::OptionableConvert::try_from_optioned(
+                            other_value,
+                        )?;
                     }
                 } else {
                     *self = Self::try_from_optioned(PatchAc::Merge(other_0))?;
@@ -97,7 +101,9 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Patch {
             PatchAc::StrategicMerge(other_0) => {
                 if let Self::StrategicMerge(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        *self_0 = other_value;
+                        *self_0 = crate::OptionableConvert::try_from_optioned(
+                            other_value,
+                        )?;
                     }
                 } else {
                     *self = Self::try_from_optioned(PatchAc::StrategicMerge(other_0))?;

@@ -68,16 +68,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::HTTPIngre
     }
     fn merge(&mut self, other: HTTPIngressPathAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.backend {
-            self.backend = other_value;
+            self.backend = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.path.is_none() {
-            self.path = other.path;
-        }
-        if let Some(other_value) = other.path {
-            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+            self.path = crate::OptionableConvert::try_from_optioned(other.path)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.path, other.path)?;
         }
         if let Some(other_value) = other.path_type {
-            self.path_type = other_value;
+            self.path_type = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

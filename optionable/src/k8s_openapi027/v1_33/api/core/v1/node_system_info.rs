@@ -131,40 +131,51 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSystemInfo 
     }
     fn merge(&mut self, other: NodeSystemInfoAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.architecture {
-            self.architecture = other_value;
+            self.architecture = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.boot_id {
-            self.boot_id = other_value;
+            self.boot_id = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.container_runtime_version {
-            self.container_runtime_version = other_value;
+            self.container_runtime_version = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.kernel_version {
-            self.kernel_version = other_value;
+            self.kernel_version = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.kube_proxy_version {
-            self.kube_proxy_version = other_value;
+            self.kube_proxy_version = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.kubelet_version {
-            self.kubelet_version = other_value;
+            self.kubelet_version = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.machine_id {
-            self.machine_id = other_value;
+            self.machine_id = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.operating_system {
-            self.operating_system = other_value;
+            self.operating_system = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.os_image {
-            self.os_image = other_value;
+            self.os_image = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.swap.is_none() {
-            self.swap = other.swap;
-        }
-        if let Some(other_value) = other.swap {
-            crate::OptionableConvert::merge(&mut self.swap, other_value)?;
+            self.swap = crate::OptionableConvert::try_from_optioned(other.swap)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.swap, other.swap)?;
         }
         if let Some(other_value) = other.system_uuid {
-            self.system_uuid = other_value;
+            self.system_uuid = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -54,27 +54,33 @@ for k8s_openapi027::api::apiserverinternal::v1alpha1::ServerStorageVersion {
     fn merge(&mut self, other: ServerStorageVersionAc) -> Result<(), crate::Error> {
         self.api_server_id = other.api_server_id;
         if self.decodable_versions.is_none() {
-            self.decodable_versions = other.decodable_versions;
-        }
-        if let Some(other_value) = other.decodable_versions {
+            self.decodable_versions = crate::OptionableConvert::try_from_optioned(
+                other.decodable_versions,
+            )?;
+        } else {
             crate::merge::try_merge_optioned_set(
                 &mut self.decodable_versions,
-                other_value,
+                other.decodable_versions,
             )?;
         }
         if self.encoding_version.is_none() {
-            self.encoding_version = other.encoding_version;
-        }
-        if let Some(other_value) = other.encoding_version {
-            crate::OptionableConvert::merge(&mut self.encoding_version, other_value)?;
+            self.encoding_version = crate::OptionableConvert::try_from_optioned(
+                other.encoding_version,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.encoding_version,
+                other.encoding_version,
+            )?;
         }
         if self.served_versions.is_none() {
-            self.served_versions = other.served_versions;
-        }
-        if let Some(other_value) = other.served_versions {
+            self.served_versions = crate::OptionableConvert::try_from_optioned(
+                other.served_versions,
+            )?;
+        } else {
             crate::merge::try_merge_optioned_set(
                 &mut self.served_versions,
-                other_value,
+                other.served_versions,
             )?;
         }
         Ok(())

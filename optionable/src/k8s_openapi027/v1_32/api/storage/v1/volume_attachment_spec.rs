@@ -63,13 +63,13 @@ for k8s_openapi027::api::storage::v1::VolumeAttachmentSpec {
     }
     fn merge(&mut self, other: VolumeAttachmentSpecAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.attacher {
-            self.attacher = other_value;
+            self.attacher = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.node_name {
-            self.node_name = other_value;
+            self.node_name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.source {
-            self.source = other_value;
+            self.source = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

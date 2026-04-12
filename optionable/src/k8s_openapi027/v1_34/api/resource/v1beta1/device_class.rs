@@ -67,7 +67,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta1::Device
     fn merge(&mut self, other: DeviceClassAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
-            self.spec = other_value;
+            self.spec = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

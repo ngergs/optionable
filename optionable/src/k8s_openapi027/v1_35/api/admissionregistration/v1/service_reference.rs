@@ -61,22 +61,20 @@ for k8s_openapi027::api::admissionregistration::v1::ServiceReference {
     }
     fn merge(&mut self, other: ServiceReferenceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.namespace {
-            self.namespace = other_value;
+            self.namespace = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.path.is_none() {
-            self.path = other.path;
-        }
-        if let Some(other_value) = other.path {
-            crate::OptionableConvert::merge(&mut self.path, other_value)?;
+            self.path = crate::OptionableConvert::try_from_optioned(other.path)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.path, other.path)?;
         }
         if self.port.is_none() {
-            self.port = other.port;
-        }
-        if let Some(other_value) = other.port {
-            crate::OptionableConvert::merge(&mut self.port, other_value)?;
+            self.port = crate::OptionableConvert::try_from_optioned(other.port)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.port, other.port)?;
         }
         Ok(())
     }

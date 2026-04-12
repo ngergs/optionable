@@ -103,55 +103,63 @@ for k8s_openapi027::api::core::v1::ScaleIOPersistentVolumeSource {
         other: ScaleIOPersistentVolumeSourceAc,
     ) -> Result<(), crate::Error> {
         if self.fs_type.is_none() {
-            self.fs_type = other.fs_type;
-        }
-        if let Some(other_value) = other.fs_type {
-            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
+            self.fs_type = crate::OptionableConvert::try_from_optioned(other.fs_type)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         }
         if let Some(other_value) = other.gateway {
-            self.gateway = other_value;
+            self.gateway = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.protection_domain.is_none() {
-            self.protection_domain = other.protection_domain;
-        }
-        if let Some(other_value) = other.protection_domain {
-            crate::OptionableConvert::merge(&mut self.protection_domain, other_value)?;
+            self.protection_domain = crate::OptionableConvert::try_from_optioned(
+                other.protection_domain,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.protection_domain,
+                other.protection_domain,
+            )?;
         }
         if self.read_only.is_none() {
-            self.read_only = other.read_only;
-        }
-        if let Some(other_value) = other.read_only {
-            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+            self.read_only = crate::OptionableConvert::try_from_optioned(
+                other.read_only,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         }
         if let Some(other_value) = other.secret_ref {
-            self.secret_ref = other_value;
+            self.secret_ref = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.ssl_enabled.is_none() {
-            self.ssl_enabled = other.ssl_enabled;
-        }
-        if let Some(other_value) = other.ssl_enabled {
-            crate::OptionableConvert::merge(&mut self.ssl_enabled, other_value)?;
+            self.ssl_enabled = crate::OptionableConvert::try_from_optioned(
+                other.ssl_enabled,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.ssl_enabled, other.ssl_enabled)?;
         }
         if self.storage_mode.is_none() {
-            self.storage_mode = other.storage_mode;
-        }
-        if let Some(other_value) = other.storage_mode {
-            crate::OptionableConvert::merge(&mut self.storage_mode, other_value)?;
+            self.storage_mode = crate::OptionableConvert::try_from_optioned(
+                other.storage_mode,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.storage_mode, other.storage_mode)?;
         }
         if self.storage_pool.is_none() {
-            self.storage_pool = other.storage_pool;
-        }
-        if let Some(other_value) = other.storage_pool {
-            crate::OptionableConvert::merge(&mut self.storage_pool, other_value)?;
+            self.storage_pool = crate::OptionableConvert::try_from_optioned(
+                other.storage_pool,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.storage_pool, other.storage_pool)?;
         }
         if let Some(other_value) = other.system {
-            self.system = other_value;
+            self.system = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.volume_name.is_none() {
-            self.volume_name = other.volume_name;
-        }
-        if let Some(other_value) = other.volume_name {
-            crate::OptionableConvert::merge(&mut self.volume_name, other_value)?;
+            self.volume_name = crate::OptionableConvert::try_from_optioned(
+                other.volume_name,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.volume_name, other.volume_name)?;
         }
         Ok(())
     }

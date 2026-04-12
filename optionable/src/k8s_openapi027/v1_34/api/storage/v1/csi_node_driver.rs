@@ -57,21 +57,23 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSINodeDrive
     }
     fn merge(&mut self, other: CSINodeDriverAc) -> Result<(), crate::Error> {
         if self.allocatable.is_none() {
-            self.allocatable = other.allocatable;
-        }
-        if let Some(other_value) = other.allocatable {
-            crate::OptionableConvert::merge(&mut self.allocatable, other_value)?;
+            self.allocatable = crate::OptionableConvert::try_from_optioned(
+                other.allocatable,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.allocatable, other.allocatable)?;
         }
         self.name = other.name;
         if let Some(other_value) = other.node_id {
-            self.node_id = other_value;
+            self.node_id = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.topology_keys.is_none() {
-            self.topology_keys = other.topology_keys;
-        }
-        if let Some(other_value) = other.topology_keys {
             self.topology_keys = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.topology_keys,
+            )?;
+        } else {
+            self.topology_keys = crate::OptionableConvert::try_from_optioned(
+                other.topology_keys,
             )?;
         }
         Ok(())

@@ -96,31 +96,33 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         other: CustomResourceDefinitionSpecAc,
     ) -> Result<(), crate::Error> {
         if self.conversion.is_none() {
-            self.conversion = other.conversion;
-        }
-        if let Some(other_value) = other.conversion {
-            crate::OptionableConvert::merge(&mut self.conversion, other_value)?;
+            self.conversion = crate::OptionableConvert::try_from_optioned(
+                other.conversion,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.conversion, other.conversion)?;
         }
         if let Some(other_value) = other.group {
-            self.group = other_value;
+            self.group = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.names {
-            self.names = other_value;
+            self.names = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.preserve_unknown_fields.is_none() {
-            self.preserve_unknown_fields = other.preserve_unknown_fields;
-        }
-        if let Some(other_value) = other.preserve_unknown_fields {
+            self.preserve_unknown_fields = crate::OptionableConvert::try_from_optioned(
+                other.preserve_unknown_fields,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.preserve_unknown_fields,
-                other_value,
+                other.preserve_unknown_fields,
             )?;
         }
         if let Some(other_value) = other.scope {
-            self.scope = other_value;
+            self.scope = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.versions {
-            self.versions = other_value;
+            self.versions = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

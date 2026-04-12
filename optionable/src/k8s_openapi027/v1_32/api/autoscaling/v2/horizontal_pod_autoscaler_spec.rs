@@ -83,28 +83,31 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerSpec {
         other: HorizontalPodAutoscalerSpecAc,
     ) -> Result<(), crate::Error> {
         if self.behavior.is_none() {
-            self.behavior = other.behavior;
-        }
-        if let Some(other_value) = other.behavior {
-            crate::OptionableConvert::merge(&mut self.behavior, other_value)?;
+            self.behavior = crate::OptionableConvert::try_from_optioned(other.behavior)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.behavior, other.behavior)?;
         }
         if let Some(other_value) = other.max_replicas {
-            self.max_replicas = other_value;
+            self.max_replicas = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if self.metrics.is_none() {
-            self.metrics = other.metrics;
-        }
-        if let Some(other_value) = other.metrics {
-            self.metrics = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.metrics = crate::OptionableConvert::try_from_optioned(other.metrics)?;
+        } else {
+            self.metrics = crate::OptionableConvert::try_from_optioned(other.metrics)?;
         }
         if self.min_replicas.is_none() {
-            self.min_replicas = other.min_replicas;
-        }
-        if let Some(other_value) = other.min_replicas {
-            crate::OptionableConvert::merge(&mut self.min_replicas, other_value)?;
+            self.min_replicas = crate::OptionableConvert::try_from_optioned(
+                other.min_replicas,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.min_replicas, other.min_replicas)?;
         }
         if let Some(other_value) = other.scale_target_ref {
-            self.scale_target_ref = other_value;
+            self.scale_target_ref = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

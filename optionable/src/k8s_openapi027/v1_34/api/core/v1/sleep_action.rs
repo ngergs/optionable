@@ -40,7 +40,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SleepAction {
     }
     fn merge(&mut self, other: SleepActionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.seconds {
-            self.seconds = other_value;
+            self.seconds = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

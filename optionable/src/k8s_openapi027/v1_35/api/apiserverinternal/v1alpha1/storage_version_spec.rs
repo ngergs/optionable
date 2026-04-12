@@ -39,7 +39,7 @@ for k8s_openapi027::api::apiserverinternal::v1alpha1::StorageVersionSpec {
     }
     fn merge(&mut self, other: StorageVersionSpecAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.0 {
-            self.0 = other_value;
+            self.0 = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

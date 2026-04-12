@@ -55,19 +55,21 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeSelectorTer
     }
     fn merge(&mut self, other: NodeSelectorTermAc) -> Result<(), crate::Error> {
         if self.match_expressions.is_none() {
-            self.match_expressions = other.match_expressions;
-        }
-        if let Some(other_value) = other.match_expressions {
             self.match_expressions = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.match_expressions,
+            )?;
+        } else {
+            self.match_expressions = crate::OptionableConvert::try_from_optioned(
+                other.match_expressions,
             )?;
         }
         if self.match_fields.is_none() {
-            self.match_fields = other.match_fields;
-        }
-        if let Some(other_value) = other.match_fields {
             self.match_fields = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.match_fields,
+            )?;
+        } else {
+            self.match_fields = crate::OptionableConvert::try_from_optioned(
+                other.match_fields,
             )?;
         }
         Ok(())

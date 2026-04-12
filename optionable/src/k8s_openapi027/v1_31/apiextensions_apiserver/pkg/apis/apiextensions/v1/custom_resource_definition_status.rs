@@ -61,22 +61,31 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         other: CustomResourceDefinitionStatusAc,
     ) -> Result<(), crate::Error> {
         if self.accepted_names.is_none() {
-            self.accepted_names = other.accepted_names;
-        }
-        if let Some(other_value) = other.accepted_names {
-            crate::OptionableConvert::merge(&mut self.accepted_names, other_value)?;
+            self.accepted_names = crate::OptionableConvert::try_from_optioned(
+                other.accepted_names,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.accepted_names,
+                other.accepted_names,
+            )?;
         }
         if self.conditions.is_none() {
-            self.conditions = other.conditions;
-        }
-        if let Some(other_value) = other.conditions {
-            crate::OptionableConvert::merge(&mut self.conditions, other_value)?;
+            self.conditions = crate::OptionableConvert::try_from_optioned(
+                other.conditions,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         }
         if self.stored_versions.is_none() {
-            self.stored_versions = other.stored_versions;
-        }
-        if let Some(other_value) = other.stored_versions {
-            crate::OptionableConvert::merge(&mut self.stored_versions, other_value)?;
+            self.stored_versions = crate::OptionableConvert::try_from_optioned(
+                other.stored_versions,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.stored_versions,
+                other.stored_versions,
+            )?;
         }
         Ok(())
     }

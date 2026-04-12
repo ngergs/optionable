@@ -82,43 +82,44 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewSpec {
     }
     fn merge(&mut self, other: SubjectAccessReviewSpecAc) -> Result<(), crate::Error> {
         if self.extra.is_none() {
-            self.extra = other.extra;
-        }
-        if let Some(other_value) = other.extra {
-            crate::OptionableConvert::merge(&mut self.extra, other_value)?;
+            self.extra = crate::OptionableConvert::try_from_optioned(other.extra)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.extra, other.extra)?;
         }
         if self.groups.is_none() {
-            self.groups = other.groups;
-        }
-        if let Some(other_value) = other.groups {
-            self.groups = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.groups = crate::OptionableConvert::try_from_optioned(other.groups)?;
+        } else {
+            self.groups = crate::OptionableConvert::try_from_optioned(other.groups)?;
         }
         if self.non_resource_attributes.is_none() {
-            self.non_resource_attributes = other.non_resource_attributes;
-        }
-        if let Some(other_value) = other.non_resource_attributes {
+            self.non_resource_attributes = crate::OptionableConvert::try_from_optioned(
+                other.non_resource_attributes,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.non_resource_attributes,
-                other_value,
+                other.non_resource_attributes,
             )?;
         }
         if self.resource_attributes.is_none() {
-            self.resource_attributes = other.resource_attributes;
-        }
-        if let Some(other_value) = other.resource_attributes {
-            crate::OptionableConvert::merge(&mut self.resource_attributes, other_value)?;
+            self.resource_attributes = crate::OptionableConvert::try_from_optioned(
+                other.resource_attributes,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.resource_attributes,
+                other.resource_attributes,
+            )?;
         }
         if self.uid.is_none() {
-            self.uid = other.uid;
-        }
-        if let Some(other_value) = other.uid {
-            crate::OptionableConvert::merge(&mut self.uid, other_value)?;
+            self.uid = crate::OptionableConvert::try_from_optioned(other.uid)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
         }
         if self.user.is_none() {
-            self.user = other.user;
-        }
-        if let Some(other_value) = other.user {
-            crate::OptionableConvert::merge(&mut self.user, other_value)?;
+            self.user = crate::OptionableConvert::try_from_optioned(other.user)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.user, other.user)?;
         }
         Ok(())
     }

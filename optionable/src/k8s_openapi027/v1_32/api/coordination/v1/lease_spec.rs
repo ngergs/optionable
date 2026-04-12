@@ -72,49 +72,63 @@ impl crate::OptionableConvert for k8s_openapi027::api::coordination::v1::LeaseSp
     }
     fn merge(&mut self, other: LeaseSpecAc) -> Result<(), crate::Error> {
         if self.acquire_time.is_none() {
-            self.acquire_time = other.acquire_time;
-        }
-        if let Some(other_value) = other.acquire_time {
-            crate::OptionableConvert::merge(&mut self.acquire_time, other_value)?;
+            self.acquire_time = crate::OptionableConvert::try_from_optioned(
+                other.acquire_time,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.acquire_time, other.acquire_time)?;
         }
         if self.holder_identity.is_none() {
-            self.holder_identity = other.holder_identity;
-        }
-        if let Some(other_value) = other.holder_identity {
-            crate::OptionableConvert::merge(&mut self.holder_identity, other_value)?;
+            self.holder_identity = crate::OptionableConvert::try_from_optioned(
+                other.holder_identity,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.holder_identity,
+                other.holder_identity,
+            )?;
         }
         if self.lease_duration_seconds.is_none() {
-            self.lease_duration_seconds = other.lease_duration_seconds;
-        }
-        if let Some(other_value) = other.lease_duration_seconds {
+            self.lease_duration_seconds = crate::OptionableConvert::try_from_optioned(
+                other.lease_duration_seconds,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.lease_duration_seconds,
-                other_value,
+                other.lease_duration_seconds,
             )?;
         }
         if self.lease_transitions.is_none() {
-            self.lease_transitions = other.lease_transitions;
-        }
-        if let Some(other_value) = other.lease_transitions {
-            crate::OptionableConvert::merge(&mut self.lease_transitions, other_value)?;
+            self.lease_transitions = crate::OptionableConvert::try_from_optioned(
+                other.lease_transitions,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.lease_transitions,
+                other.lease_transitions,
+            )?;
         }
         if self.preferred_holder.is_none() {
-            self.preferred_holder = other.preferred_holder;
-        }
-        if let Some(other_value) = other.preferred_holder {
-            crate::OptionableConvert::merge(&mut self.preferred_holder, other_value)?;
+            self.preferred_holder = crate::OptionableConvert::try_from_optioned(
+                other.preferred_holder,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.preferred_holder,
+                other.preferred_holder,
+            )?;
         }
         if self.renew_time.is_none() {
-            self.renew_time = other.renew_time;
-        }
-        if let Some(other_value) = other.renew_time {
-            crate::OptionableConvert::merge(&mut self.renew_time, other_value)?;
+            self.renew_time = crate::OptionableConvert::try_from_optioned(
+                other.renew_time,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.renew_time, other.renew_time)?;
         }
         if self.strategy.is_none() {
-            self.strategy = other.strategy;
-        }
-        if let Some(other_value) = other.strategy {
-            crate::OptionableConvert::merge(&mut self.strategy, other_value)?;
+            self.strategy = crate::OptionableConvert::try_from_optioned(other.strategy)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.strategy, other.strategy)?;
         }
         Ok(())
     }

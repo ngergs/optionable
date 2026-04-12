@@ -41,16 +41,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Capabilities {
     }
     fn merge(&mut self, other: CapabilitiesAc) -> Result<(), crate::Error> {
         if self.add.is_none() {
-            self.add = other.add;
-        }
-        if let Some(other_value) = other.add {
-            self.add = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.add = crate::OptionableConvert::try_from_optioned(other.add)?;
+        } else {
+            self.add = crate::OptionableConvert::try_from_optioned(other.add)?;
         }
         if self.drop.is_none() {
-            self.drop = other.drop;
-        }
-        if let Some(other_value) = other.drop {
-            self.drop = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.drop = crate::OptionableConvert::try_from_optioned(other.drop)?;
+        } else {
+            self.drop = crate::OptionableConvert::try_from_optioned(other.drop)?;
         }
         Ok(())
     }

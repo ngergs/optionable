@@ -46,16 +46,19 @@ for k8s_openapi027::api::resource::v1beta1::DeviceConstraint {
     }
     fn merge(&mut self, other: DeviceConstraintAc) -> Result<(), crate::Error> {
         if self.match_attribute.is_none() {
-            self.match_attribute = other.match_attribute;
-        }
-        if let Some(other_value) = other.match_attribute {
-            crate::OptionableConvert::merge(&mut self.match_attribute, other_value)?;
+            self.match_attribute = crate::OptionableConvert::try_from_optioned(
+                other.match_attribute,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.match_attribute,
+                other.match_attribute,
+            )?;
         }
         if self.requests.is_none() {
-            self.requests = other.requests;
-        }
-        if let Some(other_value) = other.requests {
-            self.requests = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
+        } else {
+            self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
         }
         Ok(())
     }

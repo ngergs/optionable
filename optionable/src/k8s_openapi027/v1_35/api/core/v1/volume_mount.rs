@@ -78,37 +78,49 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::VolumeMount {
     fn merge(&mut self, other: VolumeMountAc) -> Result<(), crate::Error> {
         self.mount_path = other.mount_path;
         if self.mount_propagation.is_none() {
-            self.mount_propagation = other.mount_propagation;
-        }
-        if let Some(other_value) = other.mount_propagation {
-            crate::OptionableConvert::merge(&mut self.mount_propagation, other_value)?;
+            self.mount_propagation = crate::OptionableConvert::try_from_optioned(
+                other.mount_propagation,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.mount_propagation,
+                other.mount_propagation,
+            )?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.read_only.is_none() {
-            self.read_only = other.read_only;
-        }
-        if let Some(other_value) = other.read_only {
-            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+            self.read_only = crate::OptionableConvert::try_from_optioned(
+                other.read_only,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         }
         if self.recursive_read_only.is_none() {
-            self.recursive_read_only = other.recursive_read_only;
-        }
-        if let Some(other_value) = other.recursive_read_only {
-            crate::OptionableConvert::merge(&mut self.recursive_read_only, other_value)?;
+            self.recursive_read_only = crate::OptionableConvert::try_from_optioned(
+                other.recursive_read_only,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.recursive_read_only,
+                other.recursive_read_only,
+            )?;
         }
         if self.sub_path.is_none() {
-            self.sub_path = other.sub_path;
-        }
-        if let Some(other_value) = other.sub_path {
-            crate::OptionableConvert::merge(&mut self.sub_path, other_value)?;
+            self.sub_path = crate::OptionableConvert::try_from_optioned(other.sub_path)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.sub_path, other.sub_path)?;
         }
         if self.sub_path_expr.is_none() {
-            self.sub_path_expr = other.sub_path_expr;
-        }
-        if let Some(other_value) = other.sub_path_expr {
-            crate::OptionableConvert::merge(&mut self.sub_path_expr, other_value)?;
+            self.sub_path_expr = crate::OptionableConvert::try_from_optioned(
+                other.sub_path_expr,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.sub_path_expr,
+                other.sub_path_expr,
+            )?;
         }
         Ok(())
     }

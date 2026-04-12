@@ -69,22 +69,23 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMap {
     }
     fn merge(&mut self, other: ConfigMapAc) -> Result<(), crate::Error> {
         if self.binary_data.is_none() {
-            self.binary_data = other.binary_data;
-        }
-        if let Some(other_value) = other.binary_data {
-            crate::OptionableConvert::merge(&mut self.binary_data, other_value)?;
+            self.binary_data = crate::OptionableConvert::try_from_optioned(
+                other.binary_data,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.binary_data, other.binary_data)?;
         }
         if self.data.is_none() {
-            self.data = other.data;
-        }
-        if let Some(other_value) = other.data {
-            crate::OptionableConvert::merge(&mut self.data, other_value)?;
+            self.data = crate::OptionableConvert::try_from_optioned(other.data)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.data, other.data)?;
         }
         if self.immutable.is_none() {
-            self.immutable = other.immutable;
-        }
-        if let Some(other_value) = other.immutable {
-            crate::OptionableConvert::merge(&mut self.immutable, other_value)?;
+            self.immutable = crate::OptionableConvert::try_from_optioned(
+                other.immutable,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.immutable, other.immutable)?;
         }
         self.metadata = other.metadata;
         Ok(())

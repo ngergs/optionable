@@ -47,16 +47,23 @@ impl crate::OptionableConvert for k8s_openapi027::api::node::v1::Scheduling {
     }
     fn merge(&mut self, other: SchedulingAc) -> Result<(), crate::Error> {
         if self.node_selector.is_none() {
-            self.node_selector = other.node_selector;
-        }
-        if let Some(other_value) = other.node_selector {
-            crate::OptionableConvert::merge(&mut self.node_selector, other_value)?;
+            self.node_selector = crate::OptionableConvert::try_from_optioned(
+                other.node_selector,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.node_selector,
+                other.node_selector,
+            )?;
         }
         if self.tolerations.is_none() {
-            self.tolerations = other.tolerations;
-        }
-        if let Some(other_value) = other.tolerations {
-            self.tolerations = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.tolerations = crate::OptionableConvert::try_from_optioned(
+                other.tolerations,
+            )?;
+        } else {
+            self.tolerations = crate::OptionableConvert::try_from_optioned(
+                other.tolerations,
+            )?;
         }
         Ok(())
     }

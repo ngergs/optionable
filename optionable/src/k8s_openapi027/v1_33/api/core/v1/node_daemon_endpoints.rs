@@ -42,10 +42,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeDaemonEndpo
     }
     fn merge(&mut self, other: NodeDaemonEndpointsAc) -> Result<(), crate::Error> {
         if self.kubelet_endpoint.is_none() {
-            self.kubelet_endpoint = other.kubelet_endpoint;
-        }
-        if let Some(other_value) = other.kubelet_endpoint {
-            crate::OptionableConvert::merge(&mut self.kubelet_endpoint, other_value)?;
+            self.kubelet_endpoint = crate::OptionableConvert::try_from_optioned(
+                other.kubelet_endpoint,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.kubelet_endpoint,
+                other.kubelet_endpoint,
+            )?;
         }
         Ok(())
     }

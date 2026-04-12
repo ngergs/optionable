@@ -49,13 +49,12 @@ for k8s_openapi027::api::flowcontrol::v1beta3::LimitResponse {
     }
     fn merge(&mut self, other: LimitResponseAc) -> Result<(), crate::Error> {
         if self.queuing.is_none() {
-            self.queuing = other.queuing;
-        }
-        if let Some(other_value) = other.queuing {
-            crate::OptionableConvert::merge(&mut self.queuing, other_value)?;
+            self.queuing = crate::OptionableConvert::try_from_optioned(other.queuing)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.queuing, other.queuing)?;
         }
         if let Some(other_value) = other.type_ {
-            self.type_ = other_value;
+            self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

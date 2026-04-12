@@ -42,10 +42,9 @@ for k8s_openapi027::api::resource::v1beta1::DeviceClassConfiguration {
     }
     fn merge(&mut self, other: DeviceClassConfigurationAc) -> Result<(), crate::Error> {
         if self.opaque.is_none() {
-            self.opaque = other.opaque;
-        }
-        if let Some(other_value) = other.opaque {
-            crate::OptionableConvert::merge(&mut self.opaque, other_value)?;
+            self.opaque = crate::OptionableConvert::try_from_optioned(other.opaque)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.opaque, other.opaque)?;
         }
         Ok(())
     }

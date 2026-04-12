@@ -75,35 +75,30 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status {
     }
     fn merge(&mut self, other: StatusAc) -> Result<(), crate::Error> {
         if self.code.is_none() {
-            self.code = other.code;
-        }
-        if let Some(other_value) = other.code {
-            crate::OptionableConvert::merge(&mut self.code, other_value)?;
+            self.code = crate::OptionableConvert::try_from_optioned(other.code)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.code, other.code)?;
         }
         if self.details.is_none() {
-            self.details = other.details;
-        }
-        if let Some(other_value) = other.details {
-            crate::OptionableConvert::merge(&mut self.details, other_value)?;
+            self.details = crate::OptionableConvert::try_from_optioned(other.details)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.details, other.details)?;
         }
         if self.message.is_none() {
-            self.message = other.message;
-        }
-        if let Some(other_value) = other.message {
-            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+            self.message = crate::OptionableConvert::try_from_optioned(other.message)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.message, other.message)?;
         }
         self.metadata = other.metadata;
         if self.reason.is_none() {
-            self.reason = other.reason;
-        }
-        if let Some(other_value) = other.reason {
-            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
+            self.reason = crate::OptionableConvert::try_from_optioned(other.reason)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         }
         if self.status.is_none() {
-            self.status = other.status;
-        }
-        if let Some(other_value) = other.status {
-            crate::OptionableConvert::merge(&mut self.status, other_value)?;
+            self.status = crate::OptionableConvert::try_from_optioned(other.status)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.status, other.status)?;
         }
         Ok(())
     }

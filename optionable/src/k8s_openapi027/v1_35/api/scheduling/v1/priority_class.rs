@@ -71,26 +71,35 @@ impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1::PriorityC
     }
     fn merge(&mut self, other: PriorityClassAc) -> Result<(), crate::Error> {
         if self.description.is_none() {
-            self.description = other.description;
-        }
-        if let Some(other_value) = other.description {
-            crate::OptionableConvert::merge(&mut self.description, other_value)?;
+            self.description = crate::OptionableConvert::try_from_optioned(
+                other.description,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.description, other.description)?;
         }
         if self.global_default.is_none() {
-            self.global_default = other.global_default;
-        }
-        if let Some(other_value) = other.global_default {
-            crate::OptionableConvert::merge(&mut self.global_default, other_value)?;
+            self.global_default = crate::OptionableConvert::try_from_optioned(
+                other.global_default,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.global_default,
+                other.global_default,
+            )?;
         }
         self.metadata = other.metadata;
         if self.preemption_policy.is_none() {
-            self.preemption_policy = other.preemption_policy;
-        }
-        if let Some(other_value) = other.preemption_policy {
-            crate::OptionableConvert::merge(&mut self.preemption_policy, other_value)?;
+            self.preemption_policy = crate::OptionableConvert::try_from_optioned(
+                other.preemption_policy,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.preemption_policy,
+                other.preemption_policy,
+            )?;
         }
         if let Some(other_value) = other.value {
-            self.value = other_value;
+            self.value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

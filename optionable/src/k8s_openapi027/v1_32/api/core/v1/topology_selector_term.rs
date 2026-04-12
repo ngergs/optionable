@@ -44,11 +44,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::TopologySelecto
     }
     fn merge(&mut self, other: TopologySelectorTermAc) -> Result<(), crate::Error> {
         if self.match_label_expressions.is_none() {
-            self.match_label_expressions = other.match_label_expressions;
-        }
-        if let Some(other_value) = other.match_label_expressions {
             self.match_label_expressions = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.match_label_expressions,
+            )?;
+        } else {
+            self.match_label_expressions = crate::OptionableConvert::try_from_optioned(
+                other.match_label_expressions,
             )?;
         }
         Ok(())

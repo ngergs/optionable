@@ -71,7 +71,7 @@ for k8s_openapi027::api::resource::v1beta2::CELDeviceSelector {
     }
     fn merge(&mut self, other: CELDeviceSelectorAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expression {
-            self.expression = other_value;
+            self.expression = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

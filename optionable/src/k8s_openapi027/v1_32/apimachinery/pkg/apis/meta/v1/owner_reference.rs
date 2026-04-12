@@ -74,28 +74,30 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
     }
     fn merge(&mut self, other: OwnerReferenceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.api_version {
-            self.api_version = other_value;
+            self.api_version = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.block_owner_deletion.is_none() {
-            self.block_owner_deletion = other.block_owner_deletion;
-        }
-        if let Some(other_value) = other.block_owner_deletion {
+            self.block_owner_deletion = crate::OptionableConvert::try_from_optioned(
+                other.block_owner_deletion,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.block_owner_deletion,
-                other_value,
+                other.block_owner_deletion,
             )?;
         }
         if self.controller.is_none() {
-            self.controller = other.controller;
-        }
-        if let Some(other_value) = other.controller {
-            crate::OptionableConvert::merge(&mut self.controller, other_value)?;
+            self.controller = crate::OptionableConvert::try_from_optioned(
+                other.controller,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.controller, other.controller)?;
         }
         if let Some(other_value) = other.kind {
-            self.kind = other_value;
+            self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         self.uid = other.uid;
         Ok(())

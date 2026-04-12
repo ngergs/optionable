@@ -60,19 +60,24 @@ for k8s_openapi027::api::authorization::v1::SelfSubjectAccessReviewSpec {
         other: SelfSubjectAccessReviewSpecAc,
     ) -> Result<(), crate::Error> {
         if self.non_resource_attributes.is_none() {
-            self.non_resource_attributes = other.non_resource_attributes;
-        }
-        if let Some(other_value) = other.non_resource_attributes {
+            self.non_resource_attributes = crate::OptionableConvert::try_from_optioned(
+                other.non_resource_attributes,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.non_resource_attributes,
-                other_value,
+                other.non_resource_attributes,
             )?;
         }
         if self.resource_attributes.is_none() {
-            self.resource_attributes = other.resource_attributes;
-        }
-        if let Some(other_value) = other.resource_attributes {
-            crate::OptionableConvert::merge(&mut self.resource_attributes, other_value)?;
+            self.resource_attributes = crate::OptionableConvert::try_from_optioned(
+                other.resource_attributes,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.resource_attributes,
+                other.resource_attributes,
+            )?;
         }
         Ok(())
     }

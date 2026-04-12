@@ -64,13 +64,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Resou
     }
     fn merge(&mut self, other: ResourcePoolAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.generation {
-            self.generation = other_value;
+            self.generation = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.resource_slice_count {
-            self.resource_slice_count = other_value;
+            self.resource_slice_count = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

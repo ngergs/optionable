@@ -69,13 +69,17 @@ for k8s_openapi027::api::batch::v1::PodFailurePolicyOnExitCodesRequirement {
         other: PodFailurePolicyOnExitCodesRequirementAc,
     ) -> Result<(), crate::Error> {
         if self.container_name.is_none() {
-            self.container_name = other.container_name;
-        }
-        if let Some(other_value) = other.container_name {
-            crate::OptionableConvert::merge(&mut self.container_name, other_value)?;
+            self.container_name = crate::OptionableConvert::try_from_optioned(
+                other.container_name,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.container_name,
+                other.container_name,
+            )?;
         }
         if let Some(other_value) = other.operator {
-            self.operator = other_value;
+            self.operator = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.values {
             crate::merge::try_merge_optioned_set(&mut self.values, other_value)?;

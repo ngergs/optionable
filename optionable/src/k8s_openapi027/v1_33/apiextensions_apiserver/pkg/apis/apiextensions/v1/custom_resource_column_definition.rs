@@ -81,31 +81,30 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         other: CustomResourceColumnDefinitionAc,
     ) -> Result<(), crate::Error> {
         if self.description.is_none() {
-            self.description = other.description;
-        }
-        if let Some(other_value) = other.description {
-            crate::OptionableConvert::merge(&mut self.description, other_value)?;
+            self.description = crate::OptionableConvert::try_from_optioned(
+                other.description,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.description, other.description)?;
         }
         if self.format.is_none() {
-            self.format = other.format;
-        }
-        if let Some(other_value) = other.format {
-            crate::OptionableConvert::merge(&mut self.format, other_value)?;
+            self.format = crate::OptionableConvert::try_from_optioned(other.format)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.format, other.format)?;
         }
         if let Some(other_value) = other.json_path {
-            self.json_path = other_value;
+            self.json_path = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.priority.is_none() {
-            self.priority = other.priority;
-        }
-        if let Some(other_value) = other.priority {
-            crate::OptionableConvert::merge(&mut self.priority, other_value)?;
+            self.priority = crate::OptionableConvert::try_from_optioned(other.priority)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.priority, other.priority)?;
         }
         if let Some(other_value) = other.type_ {
-            self.type_ = other_value;
+            self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

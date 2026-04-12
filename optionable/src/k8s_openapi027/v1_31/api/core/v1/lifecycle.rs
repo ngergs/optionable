@@ -45,16 +45,16 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Lifecycle {
     }
     fn merge(&mut self, other: LifecycleAc) -> Result<(), crate::Error> {
         if self.post_start.is_none() {
-            self.post_start = other.post_start;
-        }
-        if let Some(other_value) = other.post_start {
-            crate::OptionableConvert::merge(&mut self.post_start, other_value)?;
+            self.post_start = crate::OptionableConvert::try_from_optioned(
+                other.post_start,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.post_start, other.post_start)?;
         }
         if self.pre_stop.is_none() {
-            self.pre_stop = other.pre_stop;
-        }
-        if let Some(other_value) = other.pre_stop {
-            crate::OptionableConvert::merge(&mut self.pre_stop, other_value)?;
+            self.pre_stop = crate::OptionableConvert::try_from_optioned(other.pre_stop)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.pre_stop, other.pre_stop)?;
         }
         Ok(())
     }

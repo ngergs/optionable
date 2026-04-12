@@ -74,19 +74,27 @@ for k8s_openapi027::api::flowcontrol::v1beta3::PolicyRulesWithSubjects {
     }
     fn merge(&mut self, other: PolicyRulesWithSubjectsAc) -> Result<(), crate::Error> {
         if self.non_resource_rules.is_none() {
-            self.non_resource_rules = other.non_resource_rules;
-        }
-        if let Some(other_value) = other.non_resource_rules {
-            crate::OptionableConvert::merge(&mut self.non_resource_rules, other_value)?;
+            self.non_resource_rules = crate::OptionableConvert::try_from_optioned(
+                other.non_resource_rules,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.non_resource_rules,
+                other.non_resource_rules,
+            )?;
         }
         if self.resource_rules.is_none() {
-            self.resource_rules = other.resource_rules;
-        }
-        if let Some(other_value) = other.resource_rules {
-            crate::OptionableConvert::merge(&mut self.resource_rules, other_value)?;
+            self.resource_rules = crate::OptionableConvert::try_from_optioned(
+                other.resource_rules,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.resource_rules,
+                other.resource_rules,
+            )?;
         }
         if let Some(other_value) = other.subjects {
-            self.subjects = other_value;
+            self.subjects = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

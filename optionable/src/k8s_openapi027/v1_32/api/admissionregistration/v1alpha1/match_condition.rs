@@ -55,7 +55,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::MatchCondition {
     }
     fn merge(&mut self, other: MatchConditionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expression {
-            self.expression = other_value;
+            self.expression = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         self.name = other.name;
         Ok(())

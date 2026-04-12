@@ -56,10 +56,10 @@ for k8s_openapi027::api::core::v1::TopologySelectorLabelRequirement {
         other: TopologySelectorLabelRequirementAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.key {
-            self.key = other_value;
+            self.key = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.values {
-            self.values = other_value;
+            self.values = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

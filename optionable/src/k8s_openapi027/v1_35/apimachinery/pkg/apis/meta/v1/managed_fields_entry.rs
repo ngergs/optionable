@@ -72,46 +72,49 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ManagedFieldsEntry {
     }
     fn merge(&mut self, other: ManagedFieldsEntryAc) -> Result<(), crate::Error> {
         if self.api_version.is_none() {
-            self.api_version = other.api_version;
-        }
-        if let Some(other_value) = other.api_version {
-            crate::OptionableConvert::merge(&mut self.api_version, other_value)?;
+            self.api_version = crate::OptionableConvert::try_from_optioned(
+                other.api_version,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         }
         if self.fields_type.is_none() {
-            self.fields_type = other.fields_type;
-        }
-        if let Some(other_value) = other.fields_type {
-            crate::OptionableConvert::merge(&mut self.fields_type, other_value)?;
+            self.fields_type = crate::OptionableConvert::try_from_optioned(
+                other.fields_type,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.fields_type, other.fields_type)?;
         }
         if self.fields_v1.is_none() {
-            self.fields_v1 = other.fields_v1;
-        }
-        if let Some(other_value) = other.fields_v1 {
-            crate::OptionableConvert::merge(&mut self.fields_v1, other_value)?;
+            self.fields_v1 = crate::OptionableConvert::try_from_optioned(
+                other.fields_v1,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.fields_v1, other.fields_v1)?;
         }
         if self.manager.is_none() {
-            self.manager = other.manager;
-        }
-        if let Some(other_value) = other.manager {
-            crate::OptionableConvert::merge(&mut self.manager, other_value)?;
+            self.manager = crate::OptionableConvert::try_from_optioned(other.manager)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.manager, other.manager)?;
         }
         if self.operation.is_none() {
-            self.operation = other.operation;
-        }
-        if let Some(other_value) = other.operation {
-            crate::OptionableConvert::merge(&mut self.operation, other_value)?;
+            self.operation = crate::OptionableConvert::try_from_optioned(
+                other.operation,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.operation, other.operation)?;
         }
         if self.subresource.is_none() {
-            self.subresource = other.subresource;
-        }
-        if let Some(other_value) = other.subresource {
-            crate::OptionableConvert::merge(&mut self.subresource, other_value)?;
+            self.subresource = crate::OptionableConvert::try_from_optioned(
+                other.subresource,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.subresource, other.subresource)?;
         }
         if self.time.is_none() {
-            self.time = other.time;
-        }
-        if let Some(other_value) = other.time {
-            crate::OptionableConvert::merge(&mut self.time, other_value)?;
+            self.time = crate::OptionableConvert::try_from_optioned(other.time)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.time, other.time)?;
         }
         Ok(())
     }

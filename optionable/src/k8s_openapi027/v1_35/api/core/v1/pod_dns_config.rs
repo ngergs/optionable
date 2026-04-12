@@ -50,22 +50,23 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodDNSConfig {
     }
     fn merge(&mut self, other: PodDNSConfigAc) -> Result<(), crate::Error> {
         if self.nameservers.is_none() {
-            self.nameservers = other.nameservers;
-        }
-        if let Some(other_value) = other.nameservers {
-            self.nameservers = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.nameservers = crate::OptionableConvert::try_from_optioned(
+                other.nameservers,
+            )?;
+        } else {
+            self.nameservers = crate::OptionableConvert::try_from_optioned(
+                other.nameservers,
+            )?;
         }
         if self.options.is_none() {
-            self.options = other.options;
-        }
-        if let Some(other_value) = other.options {
-            self.options = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.options = crate::OptionableConvert::try_from_optioned(other.options)?;
+        } else {
+            self.options = crate::OptionableConvert::try_from_optioned(other.options)?;
         }
         if self.searches.is_none() {
-            self.searches = other.searches;
-        }
-        if let Some(other_value) = other.searches {
-            self.searches = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.searches = crate::OptionableConvert::try_from_optioned(other.searches)?;
+        } else {
+            self.searches = crate::OptionableConvert::try_from_optioned(other.searches)?;
         }
         Ok(())
     }

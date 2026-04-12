@@ -73,25 +73,30 @@ for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerSpec {
         other: HorizontalPodAutoscalerSpecAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.max_replicas {
-            self.max_replicas = other_value;
+            self.max_replicas = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if self.min_replicas.is_none() {
-            self.min_replicas = other.min_replicas;
-        }
-        if let Some(other_value) = other.min_replicas {
-            crate::OptionableConvert::merge(&mut self.min_replicas, other_value)?;
+            self.min_replicas = crate::OptionableConvert::try_from_optioned(
+                other.min_replicas,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.min_replicas, other.min_replicas)?;
         }
         if let Some(other_value) = other.scale_target_ref {
-            self.scale_target_ref = other_value;
+            self.scale_target_ref = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if self.target_cpu_utilization_percentage.is_none() {
-            self.target_cpu_utilization_percentage = other
-                .target_cpu_utilization_percentage;
-        }
-        if let Some(other_value) = other.target_cpu_utilization_percentage {
+            self.target_cpu_utilization_percentage = crate::OptionableConvert::try_from_optioned(
+                other.target_cpu_utilization_percentage,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.target_cpu_utilization_percentage,
-                other_value,
+                other.target_cpu_utilization_percentage,
             )?;
         }
         Ok(())

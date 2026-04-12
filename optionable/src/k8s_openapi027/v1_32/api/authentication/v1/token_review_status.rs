@@ -54,28 +54,33 @@ for k8s_openapi027::api::authentication::v1::TokenReviewStatus {
     }
     fn merge(&mut self, other: TokenReviewStatusAc) -> Result<(), crate::Error> {
         if self.audiences.is_none() {
-            self.audiences = other.audiences;
-        }
-        if let Some(other_value) = other.audiences {
-            self.audiences = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.audiences = crate::OptionableConvert::try_from_optioned(
+                other.audiences,
+            )?;
+        } else {
+            self.audiences = crate::OptionableConvert::try_from_optioned(
+                other.audiences,
+            )?;
         }
         if self.authenticated.is_none() {
-            self.authenticated = other.authenticated;
-        }
-        if let Some(other_value) = other.authenticated {
-            crate::OptionableConvert::merge(&mut self.authenticated, other_value)?;
+            self.authenticated = crate::OptionableConvert::try_from_optioned(
+                other.authenticated,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.authenticated,
+                other.authenticated,
+            )?;
         }
         if self.error.is_none() {
-            self.error = other.error;
-        }
-        if let Some(other_value) = other.error {
-            crate::OptionableConvert::merge(&mut self.error, other_value)?;
+            self.error = crate::OptionableConvert::try_from_optioned(other.error)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.error, other.error)?;
         }
         if self.user.is_none() {
-            self.user = other.user;
-        }
-        if let Some(other_value) = other.user {
-            crate::OptionableConvert::merge(&mut self.user, other_value)?;
+            self.user = crate::OptionableConvert::try_from_optioned(other.user)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.user, other.user)?;
         }
         Ok(())
     }

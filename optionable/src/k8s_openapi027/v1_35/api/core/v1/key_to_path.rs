@@ -54,16 +54,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::KeyToPath {
     }
     fn merge(&mut self, other: KeyToPathAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.key {
-            self.key = other_value;
+            self.key = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.mode.is_none() {
-            self.mode = other.mode;
-        }
-        if let Some(other_value) = other.mode {
-            crate::OptionableConvert::merge(&mut self.mode, other_value)?;
+            self.mode = crate::OptionableConvert::try_from_optioned(other.mode)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.mode, other.mode)?;
         }
         if let Some(other_value) = other.path {
-            self.path = other_value;
+            self.path = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

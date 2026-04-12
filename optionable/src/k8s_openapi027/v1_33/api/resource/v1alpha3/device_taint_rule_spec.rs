@@ -56,13 +56,17 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec {
     }
     fn merge(&mut self, other: DeviceTaintRuleSpecAc) -> Result<(), crate::Error> {
         if self.device_selector.is_none() {
-            self.device_selector = other.device_selector;
-        }
-        if let Some(other_value) = other.device_selector {
-            crate::OptionableConvert::merge(&mut self.device_selector, other_value)?;
+            self.device_selector = crate::OptionableConvert::try_from_optioned(
+                other.device_selector,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.device_selector,
+                other.device_selector,
+            )?;
         }
         if let Some(other_value) = other.taint {
-            self.taint = other_value;
+            self.taint = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

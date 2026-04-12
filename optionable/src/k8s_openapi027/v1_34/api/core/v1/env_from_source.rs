@@ -52,22 +52,26 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvFromSource {
     }
     fn merge(&mut self, other: EnvFromSourceAc) -> Result<(), crate::Error> {
         if self.config_map_ref.is_none() {
-            self.config_map_ref = other.config_map_ref;
-        }
-        if let Some(other_value) = other.config_map_ref {
-            crate::OptionableConvert::merge(&mut self.config_map_ref, other_value)?;
+            self.config_map_ref = crate::OptionableConvert::try_from_optioned(
+                other.config_map_ref,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.config_map_ref,
+                other.config_map_ref,
+            )?;
         }
         if self.prefix.is_none() {
-            self.prefix = other.prefix;
-        }
-        if let Some(other_value) = other.prefix {
-            crate::OptionableConvert::merge(&mut self.prefix, other_value)?;
+            self.prefix = crate::OptionableConvert::try_from_optioned(other.prefix)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.prefix, other.prefix)?;
         }
         if self.secret_ref.is_none() {
-            self.secret_ref = other.secret_ref;
-        }
-        if let Some(other_value) = other.secret_ref {
-            crate::OptionableConvert::merge(&mut self.secret_ref, other_value)?;
+            self.secret_ref = crate::OptionableConvert::try_from_optioned(
+                other.secret_ref,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.secret_ref, other.secret_ref)?;
         }
         Ok(())
     }

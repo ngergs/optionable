@@ -45,7 +45,7 @@ for k8s_openapi027::api::flowcontrol::v1beta3::FlowDistinguisherMethod {
     }
     fn merge(&mut self, other: FlowDistinguisherMethodAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.type_ {
-            self.type_ = other_value;
+            self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

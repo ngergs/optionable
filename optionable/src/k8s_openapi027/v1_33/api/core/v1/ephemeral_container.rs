@@ -213,160 +213,192 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EphemeralContai
     }
     fn merge(&mut self, other: EphemeralContainerAc) -> Result<(), crate::Error> {
         if self.args.is_none() {
-            self.args = other.args;
-        }
-        if let Some(other_value) = other.args {
-            self.args = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.args = crate::OptionableConvert::try_from_optioned(other.args)?;
+        } else {
+            self.args = crate::OptionableConvert::try_from_optioned(other.args)?;
         }
         if self.command.is_none() {
-            self.command = other.command;
-        }
-        if let Some(other_value) = other.command {
-            self.command = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.command = crate::OptionableConvert::try_from_optioned(other.command)?;
+        } else {
+            self.command = crate::OptionableConvert::try_from_optioned(other.command)?;
         }
         if self.env.is_none() {
-            self.env = other.env;
-        }
-        if let Some(other_value) = other.env {
-            crate::merge::try_merge_optioned_map(&mut self.env, other_value)?;
+            self.env = crate::OptionableConvert::try_from_optioned(other.env)?;
+        } else {
+            crate::merge::try_merge_optioned_map(&mut self.env, other.env)?;
         }
         if self.env_from.is_none() {
-            self.env_from = other.env_from;
-        }
-        if let Some(other_value) = other.env_from {
-            self.env_from = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.env_from = crate::OptionableConvert::try_from_optioned(other.env_from)?;
+        } else {
+            self.env_from = crate::OptionableConvert::try_from_optioned(other.env_from)?;
         }
         if self.image.is_none() {
-            self.image = other.image;
-        }
-        if let Some(other_value) = other.image {
-            crate::OptionableConvert::merge(&mut self.image, other_value)?;
+            self.image = crate::OptionableConvert::try_from_optioned(other.image)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.image, other.image)?;
         }
         if self.image_pull_policy.is_none() {
-            self.image_pull_policy = other.image_pull_policy;
-        }
-        if let Some(other_value) = other.image_pull_policy {
-            crate::OptionableConvert::merge(&mut self.image_pull_policy, other_value)?;
+            self.image_pull_policy = crate::OptionableConvert::try_from_optioned(
+                other.image_pull_policy,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.image_pull_policy,
+                other.image_pull_policy,
+            )?;
         }
         if self.lifecycle.is_none() {
-            self.lifecycle = other.lifecycle;
-        }
-        if let Some(other_value) = other.lifecycle {
-            crate::OptionableConvert::merge(&mut self.lifecycle, other_value)?;
+            self.lifecycle = crate::OptionableConvert::try_from_optioned(
+                other.lifecycle,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.lifecycle, other.lifecycle)?;
         }
         if self.liveness_probe.is_none() {
-            self.liveness_probe = other.liveness_probe;
-        }
-        if let Some(other_value) = other.liveness_probe {
-            crate::OptionableConvert::merge(&mut self.liveness_probe, other_value)?;
+            self.liveness_probe = crate::OptionableConvert::try_from_optioned(
+                other.liveness_probe,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.liveness_probe,
+                other.liveness_probe,
+            )?;
         }
         self.name = other.name;
         if self.ports.is_none() {
-            self.ports = other.ports;
-        }
-        if let Some(other_value) = other.ports {
-            crate::merge::try_merge_optioned_map(&mut self.ports, other_value)?;
+            self.ports = crate::OptionableConvert::try_from_optioned(other.ports)?;
+        } else {
+            crate::merge::try_merge_optioned_map(&mut self.ports, other.ports)?;
         }
         if self.readiness_probe.is_none() {
-            self.readiness_probe = other.readiness_probe;
-        }
-        if let Some(other_value) = other.readiness_probe {
-            crate::OptionableConvert::merge(&mut self.readiness_probe, other_value)?;
+            self.readiness_probe = crate::OptionableConvert::try_from_optioned(
+                other.readiness_probe,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.readiness_probe,
+                other.readiness_probe,
+            )?;
         }
         if self.resize_policy.is_none() {
-            self.resize_policy = other.resize_policy;
-        }
-        if let Some(other_value) = other.resize_policy {
             self.resize_policy = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.resize_policy,
+            )?;
+        } else {
+            self.resize_policy = crate::OptionableConvert::try_from_optioned(
+                other.resize_policy,
             )?;
         }
         if self.resources.is_none() {
-            self.resources = other.resources;
-        }
-        if let Some(other_value) = other.resources {
-            crate::OptionableConvert::merge(&mut self.resources, other_value)?;
+            self.resources = crate::OptionableConvert::try_from_optioned(
+                other.resources,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.resources, other.resources)?;
         }
         if self.restart_policy.is_none() {
-            self.restart_policy = other.restart_policy;
-        }
-        if let Some(other_value) = other.restart_policy {
-            crate::OptionableConvert::merge(&mut self.restart_policy, other_value)?;
+            self.restart_policy = crate::OptionableConvert::try_from_optioned(
+                other.restart_policy,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.restart_policy,
+                other.restart_policy,
+            )?;
         }
         if self.security_context.is_none() {
-            self.security_context = other.security_context;
-        }
-        if let Some(other_value) = other.security_context {
-            crate::OptionableConvert::merge(&mut self.security_context, other_value)?;
+            self.security_context = crate::OptionableConvert::try_from_optioned(
+                other.security_context,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.security_context,
+                other.security_context,
+            )?;
         }
         if self.startup_probe.is_none() {
-            self.startup_probe = other.startup_probe;
-        }
-        if let Some(other_value) = other.startup_probe {
-            crate::OptionableConvert::merge(&mut self.startup_probe, other_value)?;
+            self.startup_probe = crate::OptionableConvert::try_from_optioned(
+                other.startup_probe,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.startup_probe,
+                other.startup_probe,
+            )?;
         }
         if self.stdin.is_none() {
-            self.stdin = other.stdin;
-        }
-        if let Some(other_value) = other.stdin {
-            crate::OptionableConvert::merge(&mut self.stdin, other_value)?;
+            self.stdin = crate::OptionableConvert::try_from_optioned(other.stdin)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.stdin, other.stdin)?;
         }
         if self.stdin_once.is_none() {
-            self.stdin_once = other.stdin_once;
-        }
-        if let Some(other_value) = other.stdin_once {
-            crate::OptionableConvert::merge(&mut self.stdin_once, other_value)?;
+            self.stdin_once = crate::OptionableConvert::try_from_optioned(
+                other.stdin_once,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.stdin_once, other.stdin_once)?;
         }
         if self.target_container_name.is_none() {
-            self.target_container_name = other.target_container_name;
-        }
-        if let Some(other_value) = other.target_container_name {
+            self.target_container_name = crate::OptionableConvert::try_from_optioned(
+                other.target_container_name,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.target_container_name,
-                other_value,
+                other.target_container_name,
             )?;
         }
         if self.termination_message_path.is_none() {
-            self.termination_message_path = other.termination_message_path;
-        }
-        if let Some(other_value) = other.termination_message_path {
+            self.termination_message_path = crate::OptionableConvert::try_from_optioned(
+                other.termination_message_path,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.termination_message_path,
-                other_value,
+                other.termination_message_path,
             )?;
         }
         if self.termination_message_policy.is_none() {
-            self.termination_message_policy = other.termination_message_policy;
-        }
-        if let Some(other_value) = other.termination_message_policy {
+            self.termination_message_policy = crate::OptionableConvert::try_from_optioned(
+                other.termination_message_policy,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.termination_message_policy,
-                other_value,
+                other.termination_message_policy,
             )?;
         }
         if self.tty.is_none() {
-            self.tty = other.tty;
-        }
-        if let Some(other_value) = other.tty {
-            crate::OptionableConvert::merge(&mut self.tty, other_value)?;
+            self.tty = crate::OptionableConvert::try_from_optioned(other.tty)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.tty, other.tty)?;
         }
         if self.volume_devices.is_none() {
-            self.volume_devices = other.volume_devices;
-        }
-        if let Some(other_value) = other.volume_devices {
-            crate::merge::try_merge_optioned_map(&mut self.volume_devices, other_value)?;
+            self.volume_devices = crate::OptionableConvert::try_from_optioned(
+                other.volume_devices,
+            )?;
+        } else {
+            crate::merge::try_merge_optioned_map(
+                &mut self.volume_devices,
+                other.volume_devices,
+            )?;
         }
         if self.volume_mounts.is_none() {
-            self.volume_mounts = other.volume_mounts;
-        }
-        if let Some(other_value) = other.volume_mounts {
-            crate::merge::try_merge_optioned_map(&mut self.volume_mounts, other_value)?;
+            self.volume_mounts = crate::OptionableConvert::try_from_optioned(
+                other.volume_mounts,
+            )?;
+        } else {
+            crate::merge::try_merge_optioned_map(
+                &mut self.volume_mounts,
+                other.volume_mounts,
+            )?;
         }
         if self.working_dir.is_none() {
-            self.working_dir = other.working_dir;
-        }
-        if let Some(other_value) = other.working_dir {
-            crate::OptionableConvert::merge(&mut self.working_dir, other_value)?;
+            self.working_dir = crate::OptionableConvert::try_from_optioned(
+                other.working_dir,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.working_dir, other.working_dir)?;
         }
         Ok(())
     }

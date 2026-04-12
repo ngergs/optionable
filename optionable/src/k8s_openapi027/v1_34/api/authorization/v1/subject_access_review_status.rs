@@ -59,25 +59,27 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReviewStatus {
     }
     fn merge(&mut self, other: SubjectAccessReviewStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.allowed {
-            self.allowed = other_value;
+            self.allowed = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.denied.is_none() {
-            self.denied = other.denied;
-        }
-        if let Some(other_value) = other.denied {
-            crate::OptionableConvert::merge(&mut self.denied, other_value)?;
+            self.denied = crate::OptionableConvert::try_from_optioned(other.denied)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.denied, other.denied)?;
         }
         if self.evaluation_error.is_none() {
-            self.evaluation_error = other.evaluation_error;
-        }
-        if let Some(other_value) = other.evaluation_error {
-            crate::OptionableConvert::merge(&mut self.evaluation_error, other_value)?;
+            self.evaluation_error = crate::OptionableConvert::try_from_optioned(
+                other.evaluation_error,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.evaluation_error,
+                other.evaluation_error,
+            )?;
         }
         if self.reason.is_none() {
-            self.reason = other.reason;
-        }
-        if let Some(other_value) = other.reason {
-            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
+            self.reason = crate::OptionableConvert::try_from_optioned(other.reason)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         }
         Ok(())
     }

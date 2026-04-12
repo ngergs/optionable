@@ -90,43 +90,45 @@ for k8s_openapi027::api::core::v1::PodCertificateProjection {
     }
     fn merge(&mut self, other: PodCertificateProjectionAc) -> Result<(), crate::Error> {
         if self.certificate_chain_path.is_none() {
-            self.certificate_chain_path = other.certificate_chain_path;
-        }
-        if let Some(other_value) = other.certificate_chain_path {
+            self.certificate_chain_path = crate::OptionableConvert::try_from_optioned(
+                other.certificate_chain_path,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.certificate_chain_path,
-                other_value,
+                other.certificate_chain_path,
             )?;
         }
         if self.credential_bundle_path.is_none() {
-            self.credential_bundle_path = other.credential_bundle_path;
-        }
-        if let Some(other_value) = other.credential_bundle_path {
+            self.credential_bundle_path = crate::OptionableConvert::try_from_optioned(
+                other.credential_bundle_path,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.credential_bundle_path,
-                other_value,
+                other.credential_bundle_path,
             )?;
         }
         if self.key_path.is_none() {
-            self.key_path = other.key_path;
-        }
-        if let Some(other_value) = other.key_path {
-            crate::OptionableConvert::merge(&mut self.key_path, other_value)?;
+            self.key_path = crate::OptionableConvert::try_from_optioned(other.key_path)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.key_path, other.key_path)?;
         }
         if let Some(other_value) = other.key_type {
-            self.key_type = other_value;
+            self.key_type = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.max_expiration_seconds.is_none() {
-            self.max_expiration_seconds = other.max_expiration_seconds;
-        }
-        if let Some(other_value) = other.max_expiration_seconds {
+            self.max_expiration_seconds = crate::OptionableConvert::try_from_optioned(
+                other.max_expiration_seconds,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.max_expiration_seconds,
-                other_value,
+                other.max_expiration_seconds,
             )?;
         }
         if let Some(other_value) = other.signer_name {
-            self.signer_name = other_value;
+            self.signer_name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

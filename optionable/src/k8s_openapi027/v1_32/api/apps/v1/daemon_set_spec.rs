@@ -78,31 +78,40 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DaemonSetSpec {
     }
     fn merge(&mut self, other: DaemonSetSpecAc) -> Result<(), crate::Error> {
         if self.min_ready_seconds.is_none() {
-            self.min_ready_seconds = other.min_ready_seconds;
-        }
-        if let Some(other_value) = other.min_ready_seconds {
-            crate::OptionableConvert::merge(&mut self.min_ready_seconds, other_value)?;
+            self.min_ready_seconds = crate::OptionableConvert::try_from_optioned(
+                other.min_ready_seconds,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.min_ready_seconds,
+                other.min_ready_seconds,
+            )?;
         }
         if self.revision_history_limit.is_none() {
-            self.revision_history_limit = other.revision_history_limit;
-        }
-        if let Some(other_value) = other.revision_history_limit {
+            self.revision_history_limit = crate::OptionableConvert::try_from_optioned(
+                other.revision_history_limit,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.revision_history_limit,
-                other_value,
+                other.revision_history_limit,
             )?;
         }
         if let Some(other_value) = other.selector {
-            self.selector = other_value;
+            self.selector = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.template {
-            self.template = other_value;
+            self.template = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.update_strategy.is_none() {
-            self.update_strategy = other.update_strategy;
-        }
-        if let Some(other_value) = other.update_strategy {
-            crate::OptionableConvert::merge(&mut self.update_strategy, other_value)?;
+            self.update_strategy = crate::OptionableConvert::try_from_optioned(
+                other.update_strategy,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.update_strategy,
+                other.update_strategy,
+            )?;
         }
         Ok(())
     }

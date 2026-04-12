@@ -52,28 +52,24 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceAttribute {
     }
     fn merge(&mut self, other: DeviceAttributeAc) -> Result<(), crate::Error> {
         if self.bool.is_none() {
-            self.bool = other.bool;
-        }
-        if let Some(other_value) = other.bool {
-            crate::OptionableConvert::merge(&mut self.bool, other_value)?;
+            self.bool = crate::OptionableConvert::try_from_optioned(other.bool)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.bool, other.bool)?;
         }
         if self.int.is_none() {
-            self.int = other.int;
-        }
-        if let Some(other_value) = other.int {
-            crate::OptionableConvert::merge(&mut self.int, other_value)?;
+            self.int = crate::OptionableConvert::try_from_optioned(other.int)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.int, other.int)?;
         }
         if self.string.is_none() {
-            self.string = other.string;
-        }
-        if let Some(other_value) = other.string {
-            crate::OptionableConvert::merge(&mut self.string, other_value)?;
+            self.string = crate::OptionableConvert::try_from_optioned(other.string)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.string, other.string)?;
         }
         if self.version.is_none() {
-            self.version = other.version;
-        }
-        if let Some(other_value) = other.version {
-            crate::OptionableConvert::merge(&mut self.version, other_value)?;
+            self.version = crate::OptionableConvert::try_from_optioned(other.version)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.version, other.version)?;
         }
         Ok(())
     }

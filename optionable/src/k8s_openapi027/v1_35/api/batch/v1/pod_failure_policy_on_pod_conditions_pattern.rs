@@ -53,13 +53,12 @@ for k8s_openapi027::api::batch::v1::PodFailurePolicyOnPodConditionsPattern {
         other: PodFailurePolicyOnPodConditionsPatternAc,
     ) -> Result<(), crate::Error> {
         if self.status.is_none() {
-            self.status = other.status;
-        }
-        if let Some(other_value) = other.status {
-            crate::OptionableConvert::merge(&mut self.status, other_value)?;
+            self.status = crate::OptionableConvert::try_from_optioned(other.status)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.status, other.status)?;
         }
         if let Some(other_value) = other.type_ {
-            self.type_ = other_value;
+            self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -40,10 +40,13 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HostAlias {
     }
     fn merge(&mut self, other: HostAliasAc) -> Result<(), crate::Error> {
         if self.hostnames.is_none() {
-            self.hostnames = other.hostnames;
-        }
-        if let Some(other_value) = other.hostnames {
-            self.hostnames = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.hostnames = crate::OptionableConvert::try_from_optioned(
+                other.hostnames,
+            )?;
+        } else {
+            self.hostnames = crate::OptionableConvert::try_from_optioned(
+                other.hostnames,
+            )?;
         }
         self.ip = other.ip;
         Ok(())

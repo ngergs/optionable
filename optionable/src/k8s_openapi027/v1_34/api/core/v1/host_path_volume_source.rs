@@ -46,13 +46,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::HostPathVolumeS
     }
     fn merge(&mut self, other: HostPathVolumeSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.path {
-            self.path = other_value;
+            self.path = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.type_.is_none() {
-            self.type_ = other.type_;
-        }
-        if let Some(other_value) = other.type_ {
-            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+            self.type_ = crate::OptionableConvert::try_from_optioned(other.type_)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
         }
         Ok(())
     }

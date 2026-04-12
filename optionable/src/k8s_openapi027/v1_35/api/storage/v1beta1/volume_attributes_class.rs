@@ -66,14 +66,15 @@ for k8s_openapi027::api::storage::v1beta1::VolumeAttributesClass {
     }
     fn merge(&mut self, other: VolumeAttributesClassAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.driver_name {
-            self.driver_name = other_value;
+            self.driver_name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         self.metadata = other.metadata;
         if self.parameters.is_none() {
-            self.parameters = other.parameters;
-        }
-        if let Some(other_value) = other.parameters {
-            crate::OptionableConvert::merge(&mut self.parameters, other_value)?;
+            self.parameters = crate::OptionableConvert::try_from_optioned(
+                other.parameters,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.parameters, other.parameters)?;
         }
         Ok(())
     }

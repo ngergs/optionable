@@ -60,22 +60,31 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Affinity {
     }
     fn merge(&mut self, other: AffinityAc) -> Result<(), crate::Error> {
         if self.node_affinity.is_none() {
-            self.node_affinity = other.node_affinity;
-        }
-        if let Some(other_value) = other.node_affinity {
-            crate::OptionableConvert::merge(&mut self.node_affinity, other_value)?;
+            self.node_affinity = crate::OptionableConvert::try_from_optioned(
+                other.node_affinity,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.node_affinity,
+                other.node_affinity,
+            )?;
         }
         if self.pod_affinity.is_none() {
-            self.pod_affinity = other.pod_affinity;
-        }
-        if let Some(other_value) = other.pod_affinity {
-            crate::OptionableConvert::merge(&mut self.pod_affinity, other_value)?;
+            self.pod_affinity = crate::OptionableConvert::try_from_optioned(
+                other.pod_affinity,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.pod_affinity, other.pod_affinity)?;
         }
         if self.pod_anti_affinity.is_none() {
-            self.pod_anti_affinity = other.pod_anti_affinity;
-        }
-        if let Some(other_value) = other.pod_anti_affinity {
-            crate::OptionableConvert::merge(&mut self.pod_anti_affinity, other_value)?;
+            self.pod_anti_affinity = crate::OptionableConvert::try_from_optioned(
+                other.pod_anti_affinity,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.pod_anti_affinity,
+                other.pod_anti_affinity,
+            )?;
         }
         Ok(())
     }

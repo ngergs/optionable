@@ -93,24 +93,29 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroup {
     }
     fn merge(&mut self, other: APIGroupAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.preferred_version.is_none() {
-            self.preferred_version = other.preferred_version;
-        }
-        if let Some(other_value) = other.preferred_version {
-            crate::OptionableConvert::merge(&mut self.preferred_version, other_value)?;
+            self.preferred_version = crate::OptionableConvert::try_from_optioned(
+                other.preferred_version,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.preferred_version,
+                other.preferred_version,
+            )?;
         }
         if self.server_address_by_client_cidrs.is_none() {
-            self.server_address_by_client_cidrs = other.server_address_by_client_cidrs;
-        }
-        if let Some(other_value) = other.server_address_by_client_cidrs {
             self.server_address_by_client_cidrs = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.server_address_by_client_cidrs,
+            )?;
+        } else {
+            self.server_address_by_client_cidrs = crate::OptionableConvert::try_from_optioned(
+                other.server_address_by_client_cidrs,
             )?;
         }
         if let Some(other_value) = other.versions {
-            self.versions = other_value;
+            self.versions = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

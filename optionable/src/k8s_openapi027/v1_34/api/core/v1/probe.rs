@@ -89,71 +89,86 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Probe {
     }
     fn merge(&mut self, other: ProbeAc) -> Result<(), crate::Error> {
         if self.exec.is_none() {
-            self.exec = other.exec;
-        }
-        if let Some(other_value) = other.exec {
-            crate::OptionableConvert::merge(&mut self.exec, other_value)?;
+            self.exec = crate::OptionableConvert::try_from_optioned(other.exec)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.exec, other.exec)?;
         }
         if self.failure_threshold.is_none() {
-            self.failure_threshold = other.failure_threshold;
-        }
-        if let Some(other_value) = other.failure_threshold {
-            crate::OptionableConvert::merge(&mut self.failure_threshold, other_value)?;
+            self.failure_threshold = crate::OptionableConvert::try_from_optioned(
+                other.failure_threshold,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.failure_threshold,
+                other.failure_threshold,
+            )?;
         }
         if self.grpc.is_none() {
-            self.grpc = other.grpc;
-        }
-        if let Some(other_value) = other.grpc {
-            crate::OptionableConvert::merge(&mut self.grpc, other_value)?;
+            self.grpc = crate::OptionableConvert::try_from_optioned(other.grpc)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.grpc, other.grpc)?;
         }
         if self.http_get.is_none() {
-            self.http_get = other.http_get;
-        }
-        if let Some(other_value) = other.http_get {
-            crate::OptionableConvert::merge(&mut self.http_get, other_value)?;
+            self.http_get = crate::OptionableConvert::try_from_optioned(other.http_get)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.http_get, other.http_get)?;
         }
         if self.initial_delay_seconds.is_none() {
-            self.initial_delay_seconds = other.initial_delay_seconds;
-        }
-        if let Some(other_value) = other.initial_delay_seconds {
+            self.initial_delay_seconds = crate::OptionableConvert::try_from_optioned(
+                other.initial_delay_seconds,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.initial_delay_seconds,
-                other_value,
+                other.initial_delay_seconds,
             )?;
         }
         if self.period_seconds.is_none() {
-            self.period_seconds = other.period_seconds;
-        }
-        if let Some(other_value) = other.period_seconds {
-            crate::OptionableConvert::merge(&mut self.period_seconds, other_value)?;
+            self.period_seconds = crate::OptionableConvert::try_from_optioned(
+                other.period_seconds,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.period_seconds,
+                other.period_seconds,
+            )?;
         }
         if self.success_threshold.is_none() {
-            self.success_threshold = other.success_threshold;
-        }
-        if let Some(other_value) = other.success_threshold {
-            crate::OptionableConvert::merge(&mut self.success_threshold, other_value)?;
+            self.success_threshold = crate::OptionableConvert::try_from_optioned(
+                other.success_threshold,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.success_threshold,
+                other.success_threshold,
+            )?;
         }
         if self.tcp_socket.is_none() {
-            self.tcp_socket = other.tcp_socket;
-        }
-        if let Some(other_value) = other.tcp_socket {
-            crate::OptionableConvert::merge(&mut self.tcp_socket, other_value)?;
+            self.tcp_socket = crate::OptionableConvert::try_from_optioned(
+                other.tcp_socket,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.tcp_socket, other.tcp_socket)?;
         }
         if self.termination_grace_period_seconds.is_none() {
-            self.termination_grace_period_seconds = other
-                .termination_grace_period_seconds;
-        }
-        if let Some(other_value) = other.termination_grace_period_seconds {
+            self.termination_grace_period_seconds = crate::OptionableConvert::try_from_optioned(
+                other.termination_grace_period_seconds,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.termination_grace_period_seconds,
-                other_value,
+                other.termination_grace_period_seconds,
             )?;
         }
         if self.timeout_seconds.is_none() {
-            self.timeout_seconds = other.timeout_seconds;
-        }
-        if let Some(other_value) = other.timeout_seconds {
-            crate::OptionableConvert::merge(&mut self.timeout_seconds, other_value)?;
+            self.timeout_seconds = crate::OptionableConvert::try_from_optioned(
+                other.timeout_seconds,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.timeout_seconds,
+                other.timeout_seconds,
+            )?;
         }
         Ok(())
     }

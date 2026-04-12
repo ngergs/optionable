@@ -40,7 +40,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodReadinessGat
     }
     fn merge(&mut self, other: PodReadinessGateAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.condition_type {
-            self.condition_type = other_value;
+            self.condition_type = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

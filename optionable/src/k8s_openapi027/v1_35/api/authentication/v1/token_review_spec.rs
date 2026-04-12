@@ -42,16 +42,18 @@ for k8s_openapi027::api::authentication::v1::TokenReviewSpec {
     }
     fn merge(&mut self, other: TokenReviewSpecAc) -> Result<(), crate::Error> {
         if self.audiences.is_none() {
-            self.audiences = other.audiences;
-        }
-        if let Some(other_value) = other.audiences {
-            self.audiences = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.audiences = crate::OptionableConvert::try_from_optioned(
+                other.audiences,
+            )?;
+        } else {
+            self.audiences = crate::OptionableConvert::try_from_optioned(
+                other.audiences,
+            )?;
         }
         if self.token.is_none() {
-            self.token = other.token;
-        }
-        if let Some(other_value) = other.token {
-            crate::OptionableConvert::merge(&mut self.token, other_value)?;
+            self.token = crate::OptionableConvert::try_from_optioned(other.token)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.token, other.token)?;
         }
         Ok(())
     }

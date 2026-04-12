@@ -104,34 +104,54 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetStatus {
     }
     fn merge(&mut self, other: PodDisruptionBudgetStatusAc) -> Result<(), crate::Error> {
         if self.conditions.is_none() {
-            self.conditions = other.conditions;
-        }
-        if let Some(other_value) = other.conditions {
-            crate::merge::try_merge_optioned_map(&mut self.conditions, other_value)?;
+            self.conditions = crate::OptionableConvert::try_from_optioned(
+                other.conditions,
+            )?;
+        } else {
+            crate::merge::try_merge_optioned_map(
+                &mut self.conditions,
+                other.conditions,
+            )?;
         }
         if let Some(other_value) = other.current_healthy {
-            self.current_healthy = other_value;
+            self.current_healthy = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.desired_healthy {
-            self.desired_healthy = other_value;
+            self.desired_healthy = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if self.disrupted_pods.is_none() {
-            self.disrupted_pods = other.disrupted_pods;
-        }
-        if let Some(other_value) = other.disrupted_pods {
-            crate::OptionableConvert::merge(&mut self.disrupted_pods, other_value)?;
+            self.disrupted_pods = crate::OptionableConvert::try_from_optioned(
+                other.disrupted_pods,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.disrupted_pods,
+                other.disrupted_pods,
+            )?;
         }
         if let Some(other_value) = other.disruptions_allowed {
-            self.disruptions_allowed = other_value;
+            self.disruptions_allowed = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.expected_pods {
-            self.expected_pods = other_value;
+            self.expected_pods = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if self.observed_generation.is_none() {
-            self.observed_generation = other.observed_generation;
-        }
-        if let Some(other_value) = other.observed_generation {
-            crate::OptionableConvert::merge(&mut self.observed_generation, other_value)?;
+            self.observed_generation = crate::OptionableConvert::try_from_optioned(
+                other.observed_generation,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.observed_generation,
+                other.observed_generation,
+            )?;
         }
         Ok(())
     }

@@ -73,28 +73,30 @@ for k8s_openapi027::api::storagemigration::v1alpha1::MigrationCondition {
     }
     fn merge(&mut self, other: MigrationConditionAc) -> Result<(), crate::Error> {
         if self.last_update_time.is_none() {
-            self.last_update_time = other.last_update_time;
-        }
-        if let Some(other_value) = other.last_update_time {
-            crate::OptionableConvert::merge(&mut self.last_update_time, other_value)?;
+            self.last_update_time = crate::OptionableConvert::try_from_optioned(
+                other.last_update_time,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.last_update_time,
+                other.last_update_time,
+            )?;
         }
         if self.message.is_none() {
-            self.message = other.message;
-        }
-        if let Some(other_value) = other.message {
-            crate::OptionableConvert::merge(&mut self.message, other_value)?;
+            self.message = crate::OptionableConvert::try_from_optioned(other.message)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.message, other.message)?;
         }
         if self.reason.is_none() {
-            self.reason = other.reason;
-        }
-        if let Some(other_value) = other.reason {
-            crate::OptionableConvert::merge(&mut self.reason, other_value)?;
+            self.reason = crate::OptionableConvert::try_from_optioned(other.reason)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.reason, other.reason)?;
         }
         if let Some(other_value) = other.status {
-            self.status = other_value;
+            self.status = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.type_ {
-            self.type_ = other_value;
+            self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

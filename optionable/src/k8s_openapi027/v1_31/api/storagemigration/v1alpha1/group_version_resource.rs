@@ -48,22 +48,19 @@ for k8s_openapi027::api::storagemigration::v1alpha1::GroupVersionResource {
     }
     fn merge(&mut self, other: GroupVersionResourceAc) -> Result<(), crate::Error> {
         if self.group.is_none() {
-            self.group = other.group;
-        }
-        if let Some(other_value) = other.group {
-            crate::OptionableConvert::merge(&mut self.group, other_value)?;
+            self.group = crate::OptionableConvert::try_from_optioned(other.group)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.group, other.group)?;
         }
         if self.resource.is_none() {
-            self.resource = other.resource;
-        }
-        if let Some(other_value) = other.resource {
-            crate::OptionableConvert::merge(&mut self.resource, other_value)?;
+            self.resource = crate::OptionableConvert::try_from_optioned(other.resource)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.resource, other.resource)?;
         }
         if self.version.is_none() {
-            self.version = other.version;
-        }
-        if let Some(other_value) = other.version {
-            crate::OptionableConvert::merge(&mut self.version, other_value)?;
+            self.version = crate::OptionableConvert::try_from_optioned(other.version)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.version, other.version)?;
         }
         Ok(())
     }

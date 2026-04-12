@@ -62,25 +62,32 @@ impl crate::OptionableConvert for k8s_openapi027::api::autoscaling::v2::MetricTa
     }
     fn merge(&mut self, other: MetricTargetAc) -> Result<(), crate::Error> {
         if self.average_utilization.is_none() {
-            self.average_utilization = other.average_utilization;
-        }
-        if let Some(other_value) = other.average_utilization {
-            crate::OptionableConvert::merge(&mut self.average_utilization, other_value)?;
+            self.average_utilization = crate::OptionableConvert::try_from_optioned(
+                other.average_utilization,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.average_utilization,
+                other.average_utilization,
+            )?;
         }
         if self.average_value.is_none() {
-            self.average_value = other.average_value;
-        }
-        if let Some(other_value) = other.average_value {
-            crate::OptionableConvert::merge(&mut self.average_value, other_value)?;
+            self.average_value = crate::OptionableConvert::try_from_optioned(
+                other.average_value,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.average_value,
+                other.average_value,
+            )?;
         }
         if let Some(other_value) = other.type_ {
-            self.type_ = other_value;
+            self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.value.is_none() {
-            self.value = other.value;
-        }
-        if let Some(other_value) = other.value {
-            crate::OptionableConvert::merge(&mut self.value, other_value)?;
+            self.value = crate::OptionableConvert::try_from_optioned(other.value)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.value, other.value)?;
         }
         Ok(())
     }

@@ -76,30 +76,38 @@ for k8s_openapi027::api::policy::v1::PodDisruptionBudgetSpec {
     }
     fn merge(&mut self, other: PodDisruptionBudgetSpecAc) -> Result<(), crate::Error> {
         if self.max_unavailable.is_none() {
-            self.max_unavailable = other.max_unavailable;
-        }
-        if let Some(other_value) = other.max_unavailable {
-            crate::OptionableConvert::merge(&mut self.max_unavailable, other_value)?;
+            self.max_unavailable = crate::OptionableConvert::try_from_optioned(
+                other.max_unavailable,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.max_unavailable,
+                other.max_unavailable,
+            )?;
         }
         if self.min_available.is_none() {
-            self.min_available = other.min_available;
-        }
-        if let Some(other_value) = other.min_available {
-            crate::OptionableConvert::merge(&mut self.min_available, other_value)?;
+            self.min_available = crate::OptionableConvert::try_from_optioned(
+                other.min_available,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.min_available,
+                other.min_available,
+            )?;
         }
         if self.selector.is_none() {
-            self.selector = other.selector;
-        }
-        if let Some(other_value) = other.selector {
-            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
+            self.selector = crate::OptionableConvert::try_from_optioned(other.selector)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
         }
         if self.unhealthy_pod_eviction_policy.is_none() {
-            self.unhealthy_pod_eviction_policy = other.unhealthy_pod_eviction_policy;
-        }
-        if let Some(other_value) = other.unhealthy_pod_eviction_policy {
+            self.unhealthy_pod_eviction_policy = crate::OptionableConvert::try_from_optioned(
+                other.unhealthy_pod_eviction_policy,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.unhealthy_pod_eviction_policy,
-                other_value,
+                other.unhealthy_pod_eviction_policy,
             )?;
         }
         Ok(())

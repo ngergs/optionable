@@ -138,93 +138,117 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSecurityCont
     }
     fn merge(&mut self, other: PodSecurityContextAc) -> Result<(), crate::Error> {
         if self.app_armor_profile.is_none() {
-            self.app_armor_profile = other.app_armor_profile;
-        }
-        if let Some(other_value) = other.app_armor_profile {
-            crate::OptionableConvert::merge(&mut self.app_armor_profile, other_value)?;
+            self.app_armor_profile = crate::OptionableConvert::try_from_optioned(
+                other.app_armor_profile,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.app_armor_profile,
+                other.app_armor_profile,
+            )?;
         }
         if self.fs_group.is_none() {
-            self.fs_group = other.fs_group;
-        }
-        if let Some(other_value) = other.fs_group {
-            crate::OptionableConvert::merge(&mut self.fs_group, other_value)?;
+            self.fs_group = crate::OptionableConvert::try_from_optioned(other.fs_group)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.fs_group, other.fs_group)?;
         }
         if self.fs_group_change_policy.is_none() {
-            self.fs_group_change_policy = other.fs_group_change_policy;
-        }
-        if let Some(other_value) = other.fs_group_change_policy {
+            self.fs_group_change_policy = crate::OptionableConvert::try_from_optioned(
+                other.fs_group_change_policy,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.fs_group_change_policy,
-                other_value,
+                other.fs_group_change_policy,
             )?;
         }
         if self.run_as_group.is_none() {
-            self.run_as_group = other.run_as_group;
-        }
-        if let Some(other_value) = other.run_as_group {
-            crate::OptionableConvert::merge(&mut self.run_as_group, other_value)?;
+            self.run_as_group = crate::OptionableConvert::try_from_optioned(
+                other.run_as_group,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.run_as_group, other.run_as_group)?;
         }
         if self.run_as_non_root.is_none() {
-            self.run_as_non_root = other.run_as_non_root;
-        }
-        if let Some(other_value) = other.run_as_non_root {
-            crate::OptionableConvert::merge(&mut self.run_as_non_root, other_value)?;
+            self.run_as_non_root = crate::OptionableConvert::try_from_optioned(
+                other.run_as_non_root,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.run_as_non_root,
+                other.run_as_non_root,
+            )?;
         }
         if self.run_as_user.is_none() {
-            self.run_as_user = other.run_as_user;
-        }
-        if let Some(other_value) = other.run_as_user {
-            crate::OptionableConvert::merge(&mut self.run_as_user, other_value)?;
+            self.run_as_user = crate::OptionableConvert::try_from_optioned(
+                other.run_as_user,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.run_as_user, other.run_as_user)?;
         }
         if self.se_linux_change_policy.is_none() {
-            self.se_linux_change_policy = other.se_linux_change_policy;
-        }
-        if let Some(other_value) = other.se_linux_change_policy {
+            self.se_linux_change_policy = crate::OptionableConvert::try_from_optioned(
+                other.se_linux_change_policy,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.se_linux_change_policy,
-                other_value,
+                other.se_linux_change_policy,
             )?;
         }
         if self.se_linux_options.is_none() {
-            self.se_linux_options = other.se_linux_options;
-        }
-        if let Some(other_value) = other.se_linux_options {
-            crate::OptionableConvert::merge(&mut self.se_linux_options, other_value)?;
+            self.se_linux_options = crate::OptionableConvert::try_from_optioned(
+                other.se_linux_options,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.se_linux_options,
+                other.se_linux_options,
+            )?;
         }
         if self.seccomp_profile.is_none() {
-            self.seccomp_profile = other.seccomp_profile;
-        }
-        if let Some(other_value) = other.seccomp_profile {
-            crate::OptionableConvert::merge(&mut self.seccomp_profile, other_value)?;
+            self.seccomp_profile = crate::OptionableConvert::try_from_optioned(
+                other.seccomp_profile,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.seccomp_profile,
+                other.seccomp_profile,
+            )?;
         }
         if self.supplemental_groups.is_none() {
-            self.supplemental_groups = other.supplemental_groups;
-        }
-        if let Some(other_value) = other.supplemental_groups {
             self.supplemental_groups = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.supplemental_groups,
+            )?;
+        } else {
+            self.supplemental_groups = crate::OptionableConvert::try_from_optioned(
+                other.supplemental_groups,
             )?;
         }
         if self.supplemental_groups_policy.is_none() {
-            self.supplemental_groups_policy = other.supplemental_groups_policy;
-        }
-        if let Some(other_value) = other.supplemental_groups_policy {
+            self.supplemental_groups_policy = crate::OptionableConvert::try_from_optioned(
+                other.supplemental_groups_policy,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.supplemental_groups_policy,
-                other_value,
+                other.supplemental_groups_policy,
             )?;
         }
         if self.sysctls.is_none() {
-            self.sysctls = other.sysctls;
-        }
-        if let Some(other_value) = other.sysctls {
-            self.sysctls = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.sysctls = crate::OptionableConvert::try_from_optioned(other.sysctls)?;
+        } else {
+            self.sysctls = crate::OptionableConvert::try_from_optioned(other.sysctls)?;
         }
         if self.windows_options.is_none() {
-            self.windows_options = other.windows_options;
-        }
-        if let Some(other_value) = other.windows_options {
-            crate::OptionableConvert::merge(&mut self.windows_options, other_value)?;
+            self.windows_options = crate::OptionableConvert::try_from_optioned(
+                other.windows_options,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.windows_options,
+                other.windows_options,
+            )?;
         }
         Ok(())
     }

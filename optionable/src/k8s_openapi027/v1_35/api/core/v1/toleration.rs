@@ -56,34 +56,34 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Toleration {
     }
     fn merge(&mut self, other: TolerationAc) -> Result<(), crate::Error> {
         if self.effect.is_none() {
-            self.effect = other.effect;
-        }
-        if let Some(other_value) = other.effect {
-            crate::OptionableConvert::merge(&mut self.effect, other_value)?;
+            self.effect = crate::OptionableConvert::try_from_optioned(other.effect)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.effect, other.effect)?;
         }
         if self.key.is_none() {
-            self.key = other.key;
-        }
-        if let Some(other_value) = other.key {
-            crate::OptionableConvert::merge(&mut self.key, other_value)?;
+            self.key = crate::OptionableConvert::try_from_optioned(other.key)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.key, other.key)?;
         }
         if self.operator.is_none() {
-            self.operator = other.operator;
-        }
-        if let Some(other_value) = other.operator {
-            crate::OptionableConvert::merge(&mut self.operator, other_value)?;
+            self.operator = crate::OptionableConvert::try_from_optioned(other.operator)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.operator, other.operator)?;
         }
         if self.toleration_seconds.is_none() {
-            self.toleration_seconds = other.toleration_seconds;
-        }
-        if let Some(other_value) = other.toleration_seconds {
-            crate::OptionableConvert::merge(&mut self.toleration_seconds, other_value)?;
+            self.toleration_seconds = crate::OptionableConvert::try_from_optioned(
+                other.toleration_seconds,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.toleration_seconds,
+                other.toleration_seconds,
+            )?;
         }
         if self.value.is_none() {
-            self.value = other.value;
-        }
-        if let Some(other_value) = other.value {
-            crate::OptionableConvert::merge(&mut self.value, other_value)?;
+            self.value = crate::OptionableConvert::try_from_optioned(other.value)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.value, other.value)?;
         }
         Ok(())
     }

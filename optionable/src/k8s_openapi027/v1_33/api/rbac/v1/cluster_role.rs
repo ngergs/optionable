@@ -67,17 +67,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::ClusterRole {
     }
     fn merge(&mut self, other: ClusterRoleAc) -> Result<(), crate::Error> {
         if self.aggregation_rule.is_none() {
-            self.aggregation_rule = other.aggregation_rule;
-        }
-        if let Some(other_value) = other.aggregation_rule {
-            crate::OptionableConvert::merge(&mut self.aggregation_rule, other_value)?;
+            self.aggregation_rule = crate::OptionableConvert::try_from_optioned(
+                other.aggregation_rule,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.aggregation_rule,
+                other.aggregation_rule,
+            )?;
         }
         self.metadata = other.metadata;
         if self.rules.is_none() {
-            self.rules = other.rules;
-        }
-        if let Some(other_value) = other.rules {
-            self.rules = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.rules = crate::OptionableConvert::try_from_optioned(other.rules)?;
+        } else {
+            self.rules = crate::OptionableConvert::try_from_optioned(other.rules)?;
         }
         Ok(())
     }

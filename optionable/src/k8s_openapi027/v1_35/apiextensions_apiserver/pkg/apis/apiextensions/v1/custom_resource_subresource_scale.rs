@@ -61,16 +61,24 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         other: CustomResourceSubresourceScaleAc,
     ) -> Result<(), crate::Error> {
         if self.label_selector_path.is_none() {
-            self.label_selector_path = other.label_selector_path;
-        }
-        if let Some(other_value) = other.label_selector_path {
-            crate::OptionableConvert::merge(&mut self.label_selector_path, other_value)?;
+            self.label_selector_path = crate::OptionableConvert::try_from_optioned(
+                other.label_selector_path,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.label_selector_path,
+                other.label_selector_path,
+            )?;
         }
         if let Some(other_value) = other.spec_replicas_path {
-            self.spec_replicas_path = other_value;
+            self.spec_replicas_path = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.status_replicas_path {
-            self.status_replicas_path = other_value;
+            self.status_replicas_path = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

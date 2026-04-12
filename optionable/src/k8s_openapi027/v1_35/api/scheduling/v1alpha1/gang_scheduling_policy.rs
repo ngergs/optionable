@@ -42,7 +42,7 @@ for k8s_openapi027::api::scheduling::v1alpha1::GangSchedulingPolicy {
     }
     fn merge(&mut self, other: GangSchedulingPolicyAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.min_count {
-            self.min_count = other_value;
+            self.min_count = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

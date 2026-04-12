@@ -51,7 +51,7 @@ for k8s_openapi027::api::storagemigration::v1beta1::StorageVersionMigrationSpec 
         other: StorageVersionMigrationSpecAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.resource {
-            self.resource = other_value;
+            self.resource = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

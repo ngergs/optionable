@@ -67,40 +67,39 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::StatusDetails {
     }
     fn merge(&mut self, other: StatusDetailsAc) -> Result<(), crate::Error> {
         if self.causes.is_none() {
-            self.causes = other.causes;
-        }
-        if let Some(other_value) = other.causes {
-            self.causes = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.causes = crate::OptionableConvert::try_from_optioned(other.causes)?;
+        } else {
+            self.causes = crate::OptionableConvert::try_from_optioned(other.causes)?;
         }
         if self.group.is_none() {
-            self.group = other.group;
-        }
-        if let Some(other_value) = other.group {
-            crate::OptionableConvert::merge(&mut self.group, other_value)?;
+            self.group = crate::OptionableConvert::try_from_optioned(other.group)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.group, other.group)?;
         }
         if self.kind.is_none() {
-            self.kind = other.kind;
-        }
-        if let Some(other_value) = other.kind {
-            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
+            self.kind = crate::OptionableConvert::try_from_optioned(other.kind)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
         }
         if self.name.is_none() {
-            self.name = other.name;
-        }
-        if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.name, other.name)?;
         }
         if self.retry_after_seconds.is_none() {
-            self.retry_after_seconds = other.retry_after_seconds;
-        }
-        if let Some(other_value) = other.retry_after_seconds {
-            crate::OptionableConvert::merge(&mut self.retry_after_seconds, other_value)?;
+            self.retry_after_seconds = crate::OptionableConvert::try_from_optioned(
+                other.retry_after_seconds,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.retry_after_seconds,
+                other.retry_after_seconds,
+            )?;
         }
         if self.uid.is_none() {
-            self.uid = other.uid;
-        }
-        if let Some(other_value) = other.uid {
-            crate::OptionableConvert::merge(&mut self.uid, other_value)?;
+            self.uid = crate::OptionableConvert::try_from_optioned(other.uid)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
         }
         Ok(())
     }

@@ -43,16 +43,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressCl
     }
     fn merge(&mut self, other: IngressClassSpecAc) -> Result<(), crate::Error> {
         if self.controller.is_none() {
-            self.controller = other.controller;
-        }
-        if let Some(other_value) = other.controller {
-            crate::OptionableConvert::merge(&mut self.controller, other_value)?;
+            self.controller = crate::OptionableConvert::try_from_optioned(
+                other.controller,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.controller, other.controller)?;
         }
         if self.parameters.is_none() {
-            self.parameters = other.parameters;
-        }
-        if let Some(other_value) = other.parameters {
-            crate::OptionableConvert::merge(&mut self.parameters, other_value)?;
+            self.parameters = crate::OptionableConvert::try_from_optioned(
+                other.parameters,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.parameters, other.parameters)?;
         }
         Ok(())
     }

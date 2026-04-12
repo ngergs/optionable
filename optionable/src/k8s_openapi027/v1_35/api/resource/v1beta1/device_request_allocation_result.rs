@@ -138,56 +138,65 @@ for k8s_openapi027::api::resource::v1beta1::DeviceRequestAllocationResult {
         other: DeviceRequestAllocationResultAc,
     ) -> Result<(), crate::Error> {
         if self.admin_access.is_none() {
-            self.admin_access = other.admin_access;
-        }
-        if let Some(other_value) = other.admin_access {
-            crate::OptionableConvert::merge(&mut self.admin_access, other_value)?;
+            self.admin_access = crate::OptionableConvert::try_from_optioned(
+                other.admin_access,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
         }
         if self.binding_conditions.is_none() {
-            self.binding_conditions = other.binding_conditions;
-        }
-        if let Some(other_value) = other.binding_conditions {
             self.binding_conditions = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.binding_conditions,
+            )?;
+        } else {
+            self.binding_conditions = crate::OptionableConvert::try_from_optioned(
+                other.binding_conditions,
             )?;
         }
         if self.binding_failure_conditions.is_none() {
-            self.binding_failure_conditions = other.binding_failure_conditions;
-        }
-        if let Some(other_value) = other.binding_failure_conditions {
             self.binding_failure_conditions = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.binding_failure_conditions,
+            )?;
+        } else {
+            self.binding_failure_conditions = crate::OptionableConvert::try_from_optioned(
+                other.binding_failure_conditions,
             )?;
         }
         if self.consumed_capacity.is_none() {
-            self.consumed_capacity = other.consumed_capacity;
-        }
-        if let Some(other_value) = other.consumed_capacity {
-            crate::OptionableConvert::merge(&mut self.consumed_capacity, other_value)?;
+            self.consumed_capacity = crate::OptionableConvert::try_from_optioned(
+                other.consumed_capacity,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.consumed_capacity,
+                other.consumed_capacity,
+            )?;
         }
         if let Some(other_value) = other.device {
-            self.device = other_value;
+            self.device = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.driver {
-            self.driver = other_value;
+            self.driver = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.pool {
-            self.pool = other_value;
+            self.pool = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.request {
-            self.request = other_value;
+            self.request = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.share_id.is_none() {
-            self.share_id = other.share_id;
-        }
-        if let Some(other_value) = other.share_id {
-            crate::OptionableConvert::merge(&mut self.share_id, other_value)?;
+            self.share_id = crate::OptionableConvert::try_from_optioned(other.share_id)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.share_id, other.share_id)?;
         }
         if self.tolerations.is_none() {
-            self.tolerations = other.tolerations;
-        }
-        if let Some(other_value) = other.tolerations {
-            self.tolerations = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.tolerations = crate::OptionableConvert::try_from_optioned(
+                other.tolerations,
+            )?;
+        } else {
+            self.tolerations = crate::OptionableConvert::try_from_optioned(
+                other.tolerations,
+            )?;
         }
         Ok(())
     }

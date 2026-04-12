@@ -70,31 +70,34 @@ for k8s_openapi027::api::core::v1::ClusterTrustBundleProjection {
         other: ClusterTrustBundleProjectionAc,
     ) -> Result<(), crate::Error> {
         if self.label_selector.is_none() {
-            self.label_selector = other.label_selector;
-        }
-        if let Some(other_value) = other.label_selector {
-            crate::OptionableConvert::merge(&mut self.label_selector, other_value)?;
+            self.label_selector = crate::OptionableConvert::try_from_optioned(
+                other.label_selector,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.label_selector,
+                other.label_selector,
+            )?;
         }
         if self.name.is_none() {
-            self.name = other.name;
-        }
-        if let Some(other_value) = other.name {
-            crate::OptionableConvert::merge(&mut self.name, other_value)?;
+            self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.name, other.name)?;
         }
         if self.optional.is_none() {
-            self.optional = other.optional;
-        }
-        if let Some(other_value) = other.optional {
-            crate::OptionableConvert::merge(&mut self.optional, other_value)?;
+            self.optional = crate::OptionableConvert::try_from_optioned(other.optional)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.optional, other.optional)?;
         }
         if let Some(other_value) = other.path {
-            self.path = other_value;
+            self.path = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.signer_name.is_none() {
-            self.signer_name = other.signer_name;
-        }
-        if let Some(other_value) = other.signer_name {
-            crate::OptionableConvert::merge(&mut self.signer_name, other_value)?;
+            self.signer_name = crate::OptionableConvert::try_from_optioned(
+                other.signer_name,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.signer_name, other.signer_name)?;
         }
         Ok(())
     }

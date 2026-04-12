@@ -78,7 +78,7 @@ where
     }
     fn merge(&mut self, other: ListAc<T>) -> Result<(), crate::Error> {
         if let Some(other_value) = other.items {
-            self.items = other_value;
+            self.items = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         self.metadata = other.metadata;
         Ok(())

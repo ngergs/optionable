@@ -49,10 +49,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ContainerResize
     }
     fn merge(&mut self, other: ContainerResizePolicyAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.resource_name {
-            self.resource_name = other_value;
+            self.resource_name = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.restart_policy {
-            self.restart_policy = other_value;
+            self.restart_policy = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

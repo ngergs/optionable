@@ -54,10 +54,12 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ServerAddressByClientCIDR
     }
     fn merge(&mut self, other: ServerAddressByClientCIDRAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.client_cidr {
-            self.client_cidr = other_value;
+            self.client_cidr = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.server_address {
-            self.server_address = other_value;
+            self.server_address = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

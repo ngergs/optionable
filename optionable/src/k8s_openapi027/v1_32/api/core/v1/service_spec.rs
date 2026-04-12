@@ -152,150 +152,182 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ServiceSpec {
     }
     fn merge(&mut self, other: ServiceSpecAc) -> Result<(), crate::Error> {
         if self.allocate_load_balancer_node_ports.is_none() {
-            self.allocate_load_balancer_node_ports = other
-                .allocate_load_balancer_node_ports;
-        }
-        if let Some(other_value) = other.allocate_load_balancer_node_ports {
+            self.allocate_load_balancer_node_ports = crate::OptionableConvert::try_from_optioned(
+                other.allocate_load_balancer_node_ports,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.allocate_load_balancer_node_ports,
-                other_value,
+                other.allocate_load_balancer_node_ports,
             )?;
         }
         if self.cluster_ip.is_none() {
-            self.cluster_ip = other.cluster_ip;
-        }
-        if let Some(other_value) = other.cluster_ip {
-            crate::OptionableConvert::merge(&mut self.cluster_ip, other_value)?;
+            self.cluster_ip = crate::OptionableConvert::try_from_optioned(
+                other.cluster_ip,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.cluster_ip, other.cluster_ip)?;
         }
         if self.cluster_ips.is_none() {
-            self.cluster_ips = other.cluster_ips;
-        }
-        if let Some(other_value) = other.cluster_ips {
-            self.cluster_ips = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.cluster_ips = crate::OptionableConvert::try_from_optioned(
+                other.cluster_ips,
+            )?;
+        } else {
+            self.cluster_ips = crate::OptionableConvert::try_from_optioned(
+                other.cluster_ips,
+            )?;
         }
         if self.external_ips.is_none() {
-            self.external_ips = other.external_ips;
-        }
-        if let Some(other_value) = other.external_ips {
             self.external_ips = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.external_ips,
+            )?;
+        } else {
+            self.external_ips = crate::OptionableConvert::try_from_optioned(
+                other.external_ips,
             )?;
         }
         if self.external_name.is_none() {
-            self.external_name = other.external_name;
-        }
-        if let Some(other_value) = other.external_name {
-            crate::OptionableConvert::merge(&mut self.external_name, other_value)?;
+            self.external_name = crate::OptionableConvert::try_from_optioned(
+                other.external_name,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.external_name,
+                other.external_name,
+            )?;
         }
         if self.external_traffic_policy.is_none() {
-            self.external_traffic_policy = other.external_traffic_policy;
-        }
-        if let Some(other_value) = other.external_traffic_policy {
+            self.external_traffic_policy = crate::OptionableConvert::try_from_optioned(
+                other.external_traffic_policy,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.external_traffic_policy,
-                other_value,
+                other.external_traffic_policy,
             )?;
         }
         if self.health_check_node_port.is_none() {
-            self.health_check_node_port = other.health_check_node_port;
-        }
-        if let Some(other_value) = other.health_check_node_port {
+            self.health_check_node_port = crate::OptionableConvert::try_from_optioned(
+                other.health_check_node_port,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.health_check_node_port,
-                other_value,
+                other.health_check_node_port,
             )?;
         }
         if self.internal_traffic_policy.is_none() {
-            self.internal_traffic_policy = other.internal_traffic_policy;
-        }
-        if let Some(other_value) = other.internal_traffic_policy {
+            self.internal_traffic_policy = crate::OptionableConvert::try_from_optioned(
+                other.internal_traffic_policy,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.internal_traffic_policy,
-                other_value,
+                other.internal_traffic_policy,
             )?;
         }
         if self.ip_families.is_none() {
-            self.ip_families = other.ip_families;
-        }
-        if let Some(other_value) = other.ip_families {
-            self.ip_families = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.ip_families = crate::OptionableConvert::try_from_optioned(
+                other.ip_families,
+            )?;
+        } else {
+            self.ip_families = crate::OptionableConvert::try_from_optioned(
+                other.ip_families,
+            )?;
         }
         if self.ip_family_policy.is_none() {
-            self.ip_family_policy = other.ip_family_policy;
-        }
-        if let Some(other_value) = other.ip_family_policy {
-            crate::OptionableConvert::merge(&mut self.ip_family_policy, other_value)?;
+            self.ip_family_policy = crate::OptionableConvert::try_from_optioned(
+                other.ip_family_policy,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.ip_family_policy,
+                other.ip_family_policy,
+            )?;
         }
         if self.load_balancer_class.is_none() {
-            self.load_balancer_class = other.load_balancer_class;
-        }
-        if let Some(other_value) = other.load_balancer_class {
-            crate::OptionableConvert::merge(&mut self.load_balancer_class, other_value)?;
+            self.load_balancer_class = crate::OptionableConvert::try_from_optioned(
+                other.load_balancer_class,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.load_balancer_class,
+                other.load_balancer_class,
+            )?;
         }
         if self.load_balancer_ip.is_none() {
-            self.load_balancer_ip = other.load_balancer_ip;
-        }
-        if let Some(other_value) = other.load_balancer_ip {
-            crate::OptionableConvert::merge(&mut self.load_balancer_ip, other_value)?;
+            self.load_balancer_ip = crate::OptionableConvert::try_from_optioned(
+                other.load_balancer_ip,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.load_balancer_ip,
+                other.load_balancer_ip,
+            )?;
         }
         if self.load_balancer_source_ranges.is_none() {
-            self.load_balancer_source_ranges = other.load_balancer_source_ranges;
-        }
-        if let Some(other_value) = other.load_balancer_source_ranges {
             self.load_balancer_source_ranges = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.load_balancer_source_ranges,
+            )?;
+        } else {
+            self.load_balancer_source_ranges = crate::OptionableConvert::try_from_optioned(
+                other.load_balancer_source_ranges,
             )?;
         }
         if self.ports.is_none() {
-            self.ports = other.ports;
-        }
-        if let Some(other_value) = other.ports {
-            crate::merge::try_merge_optioned_map(&mut self.ports, other_value)?;
+            self.ports = crate::OptionableConvert::try_from_optioned(other.ports)?;
+        } else {
+            crate::merge::try_merge_optioned_map(&mut self.ports, other.ports)?;
         }
         if self.publish_not_ready_addresses.is_none() {
-            self.publish_not_ready_addresses = other.publish_not_ready_addresses;
-        }
-        if let Some(other_value) = other.publish_not_ready_addresses {
+            self.publish_not_ready_addresses = crate::OptionableConvert::try_from_optioned(
+                other.publish_not_ready_addresses,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.publish_not_ready_addresses,
-                other_value,
+                other.publish_not_ready_addresses,
             )?;
         }
         if self.selector.is_none() {
-            self.selector = other.selector;
-        }
-        if let Some(other_value) = other.selector {
-            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
+            self.selector = crate::OptionableConvert::try_from_optioned(other.selector)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.selector, other.selector)?;
         }
         if self.session_affinity.is_none() {
-            self.session_affinity = other.session_affinity;
-        }
-        if let Some(other_value) = other.session_affinity {
-            crate::OptionableConvert::merge(&mut self.session_affinity, other_value)?;
+            self.session_affinity = crate::OptionableConvert::try_from_optioned(
+                other.session_affinity,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.session_affinity,
+                other.session_affinity,
+            )?;
         }
         if self.session_affinity_config.is_none() {
-            self.session_affinity_config = other.session_affinity_config;
-        }
-        if let Some(other_value) = other.session_affinity_config {
+            self.session_affinity_config = crate::OptionableConvert::try_from_optioned(
+                other.session_affinity_config,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.session_affinity_config,
-                other_value,
+                other.session_affinity_config,
             )?;
         }
         if self.traffic_distribution.is_none() {
-            self.traffic_distribution = other.traffic_distribution;
-        }
-        if let Some(other_value) = other.traffic_distribution {
+            self.traffic_distribution = crate::OptionableConvert::try_from_optioned(
+                other.traffic_distribution,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.traffic_distribution,
-                other_value,
+                other.traffic_distribution,
             )?;
         }
         if self.type_.is_none() {
-            self.type_ = other.type_;
-        }
-        if let Some(other_value) = other.type_ {
-            crate::OptionableConvert::merge(&mut self.type_, other_value)?;
+            self.type_ = crate::OptionableConvert::try_from_optioned(other.type_)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.type_, other.type_)?;
         }
         Ok(())
     }

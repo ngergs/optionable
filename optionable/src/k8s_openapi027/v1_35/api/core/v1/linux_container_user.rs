@@ -54,18 +54,19 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::LinuxContainerU
     }
     fn merge(&mut self, other: LinuxContainerUserAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.gid {
-            self.gid = other_value;
+            self.gid = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.supplemental_groups.is_none() {
-            self.supplemental_groups = other.supplemental_groups;
-        }
-        if let Some(other_value) = other.supplemental_groups {
             self.supplemental_groups = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.supplemental_groups,
+            )?;
+        } else {
+            self.supplemental_groups = crate::OptionableConvert::try_from_optioned(
+                other.supplemental_groups,
             )?;
         }
         if let Some(other_value) = other.uid {
-            self.uid = other_value;
+            self.uid = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

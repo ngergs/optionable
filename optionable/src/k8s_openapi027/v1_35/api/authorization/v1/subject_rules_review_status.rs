@@ -83,19 +83,27 @@ for k8s_openapi027::api::authorization::v1::SubjectRulesReviewStatus {
     }
     fn merge(&mut self, other: SubjectRulesReviewStatusAc) -> Result<(), crate::Error> {
         if self.evaluation_error.is_none() {
-            self.evaluation_error = other.evaluation_error;
-        }
-        if let Some(other_value) = other.evaluation_error {
-            crate::OptionableConvert::merge(&mut self.evaluation_error, other_value)?;
+            self.evaluation_error = crate::OptionableConvert::try_from_optioned(
+                other.evaluation_error,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.evaluation_error,
+                other.evaluation_error,
+            )?;
         }
         if let Some(other_value) = other.incomplete {
-            self.incomplete = other_value;
+            self.incomplete = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.non_resource_rules {
-            self.non_resource_rules = other_value;
+            self.non_resource_rules = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.resource_rules {
-            self.resource_rules = other_value;
+            self.resource_rules = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         Ok(())
     }

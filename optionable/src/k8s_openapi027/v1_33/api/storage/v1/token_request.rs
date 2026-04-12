@@ -45,13 +45,17 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::TokenRequest
     }
     fn merge(&mut self, other: TokenRequestAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.audience {
-            self.audience = other_value;
+            self.audience = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.expiration_seconds.is_none() {
-            self.expiration_seconds = other.expiration_seconds;
-        }
-        if let Some(other_value) = other.expiration_seconds {
-            crate::OptionableConvert::merge(&mut self.expiration_seconds, other_value)?;
+            self.expiration_seconds = crate::OptionableConvert::try_from_optioned(
+                other.expiration_seconds,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.expiration_seconds,
+                other.expiration_seconds,
+            )?;
         }
         Ok(())
     }

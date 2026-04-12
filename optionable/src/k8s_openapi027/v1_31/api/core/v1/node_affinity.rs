@@ -55,26 +55,22 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeAffinity {
     }
     fn merge(&mut self, other: NodeAffinityAc) -> Result<(), crate::Error> {
         if self.preferred_during_scheduling_ignored_during_execution.is_none() {
-            self.preferred_during_scheduling_ignored_during_execution = other
-                .preferred_during_scheduling_ignored_during_execution;
-        }
-        if let Some(other_value) = other
-            .preferred_during_scheduling_ignored_during_execution
-        {
             self.preferred_during_scheduling_ignored_during_execution = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.preferred_during_scheduling_ignored_during_execution,
+            )?;
+        } else {
+            self.preferred_during_scheduling_ignored_during_execution = crate::OptionableConvert::try_from_optioned(
+                other.preferred_during_scheduling_ignored_during_execution,
             )?;
         }
         if self.required_during_scheduling_ignored_during_execution.is_none() {
-            self.required_during_scheduling_ignored_during_execution = other
-                .required_during_scheduling_ignored_during_execution;
-        }
-        if let Some(other_value) = other
-            .required_during_scheduling_ignored_during_execution
-        {
+            self.required_during_scheduling_ignored_during_execution = crate::OptionableConvert::try_from_optioned(
+                other.required_during_scheduling_ignored_during_execution,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.required_during_scheduling_ignored_during_execution,
-                other_value,
+                other.required_during_scheduling_ignored_during_execution,
             )?;
         }
         Ok(())

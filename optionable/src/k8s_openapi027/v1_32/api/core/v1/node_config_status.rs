@@ -61,28 +61,29 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeConfigStatu
     }
     fn merge(&mut self, other: NodeConfigStatusAc) -> Result<(), crate::Error> {
         if self.active.is_none() {
-            self.active = other.active;
-        }
-        if let Some(other_value) = other.active {
-            crate::OptionableConvert::merge(&mut self.active, other_value)?;
+            self.active = crate::OptionableConvert::try_from_optioned(other.active)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.active, other.active)?;
         }
         if self.assigned.is_none() {
-            self.assigned = other.assigned;
-        }
-        if let Some(other_value) = other.assigned {
-            crate::OptionableConvert::merge(&mut self.assigned, other_value)?;
+            self.assigned = crate::OptionableConvert::try_from_optioned(other.assigned)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.assigned, other.assigned)?;
         }
         if self.error.is_none() {
-            self.error = other.error;
-        }
-        if let Some(other_value) = other.error {
-            crate::OptionableConvert::merge(&mut self.error, other_value)?;
+            self.error = crate::OptionableConvert::try_from_optioned(other.error)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.error, other.error)?;
         }
         if self.last_known_good.is_none() {
-            self.last_known_good = other.last_known_good;
-        }
-        if let Some(other_value) = other.last_known_good {
-            crate::OptionableConvert::merge(&mut self.last_known_good, other_value)?;
+            self.last_known_good = crate::OptionableConvert::try_from_optioned(
+                other.last_known_good,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.last_known_good,
+                other.last_known_good,
+            )?;
         }
         Ok(())
     }

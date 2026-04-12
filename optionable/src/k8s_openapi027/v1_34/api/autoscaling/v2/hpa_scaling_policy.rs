@@ -60,13 +60,15 @@ for k8s_openapi027::api::autoscaling::v2::HPAScalingPolicy {
     }
     fn merge(&mut self, other: HPAScalingPolicyAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.period_seconds {
-            self.period_seconds = other_value;
+            self.period_seconds = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.type_ {
-            self.type_ = other_value;
+            self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.value {
-            self.value = other_value;
+            self.value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -74,23 +74,24 @@ for k8s_openapi027::api::resource::v1beta1::CapacityRequestPolicy {
     }
     fn merge(&mut self, other: CapacityRequestPolicyAc) -> Result<(), crate::Error> {
         if self.default.is_none() {
-            self.default = other.default;
-        }
-        if let Some(other_value) = other.default {
-            crate::OptionableConvert::merge(&mut self.default, other_value)?;
+            self.default = crate::OptionableConvert::try_from_optioned(other.default)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.default, other.default)?;
         }
         if self.valid_range.is_none() {
-            self.valid_range = other.valid_range;
-        }
-        if let Some(other_value) = other.valid_range {
-            crate::OptionableConvert::merge(&mut self.valid_range, other_value)?;
+            self.valid_range = crate::OptionableConvert::try_from_optioned(
+                other.valid_range,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.valid_range, other.valid_range)?;
         }
         if self.valid_values.is_none() {
-            self.valid_values = other.valid_values;
-        }
-        if let Some(other_value) = other.valid_values {
             self.valid_values = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.valid_values,
+            )?;
+        } else {
+            self.valid_values = crate::OptionableConvert::try_from_optioned(
+                other.valid_values,
             )?;
         }
         Ok(())

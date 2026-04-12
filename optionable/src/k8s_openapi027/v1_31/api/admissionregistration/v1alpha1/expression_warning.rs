@@ -51,10 +51,10 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ExpressionWarning {
     }
     fn merge(&mut self, other: ExpressionWarningAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.field_ref {
-            self.field_ref = other_value;
+            self.field_ref = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.warning {
-            self.warning = other_value;
+            self.warning = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

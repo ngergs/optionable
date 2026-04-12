@@ -96,34 +96,41 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceRequest {
     }
     fn merge(&mut self, other: DeviceRequestAc) -> Result<(), crate::Error> {
         if self.admin_access.is_none() {
-            self.admin_access = other.admin_access;
-        }
-        if let Some(other_value) = other.admin_access {
-            crate::OptionableConvert::merge(&mut self.admin_access, other_value)?;
+            self.admin_access = crate::OptionableConvert::try_from_optioned(
+                other.admin_access,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.admin_access, other.admin_access)?;
         }
         if self.allocation_mode.is_none() {
-            self.allocation_mode = other.allocation_mode;
-        }
-        if let Some(other_value) = other.allocation_mode {
-            crate::OptionableConvert::merge(&mut self.allocation_mode, other_value)?;
+            self.allocation_mode = crate::OptionableConvert::try_from_optioned(
+                other.allocation_mode,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.allocation_mode,
+                other.allocation_mode,
+            )?;
         }
         if self.count.is_none() {
-            self.count = other.count;
-        }
-        if let Some(other_value) = other.count {
-            crate::OptionableConvert::merge(&mut self.count, other_value)?;
+            self.count = crate::OptionableConvert::try_from_optioned(other.count)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.count, other.count)?;
         }
         if let Some(other_value) = other.device_class_name {
-            self.device_class_name = other_value;
+            self.device_class_name = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.selectors.is_none() {
-            self.selectors = other.selectors;
-        }
-        if let Some(other_value) = other.selectors {
-            crate::OptionableConvert::merge(&mut self.selectors, other_value)?;
+            self.selectors = crate::OptionableConvert::try_from_optioned(
+                other.selectors,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.selectors, other.selectors)?;
         }
         Ok(())
     }

@@ -44,16 +44,16 @@ for k8s_openapi027::api::batch::v1::UncountedTerminatedPods {
     }
     fn merge(&mut self, other: UncountedTerminatedPodsAc) -> Result<(), crate::Error> {
         if self.failed.is_none() {
-            self.failed = other.failed;
-        }
-        if let Some(other_value) = other.failed {
-            crate::merge::try_merge_optioned_set(&mut self.failed, other_value)?;
+            self.failed = crate::OptionableConvert::try_from_optioned(other.failed)?;
+        } else {
+            crate::merge::try_merge_optioned_set(&mut self.failed, other.failed)?;
         }
         if self.succeeded.is_none() {
-            self.succeeded = other.succeeded;
-        }
-        if let Some(other_value) = other.succeeded {
-            crate::merge::try_merge_optioned_set(&mut self.succeeded, other_value)?;
+            self.succeeded = crate::OptionableConvert::try_from_optioned(
+                other.succeeded,
+            )?;
+        } else {
+            crate::merge::try_merge_optioned_set(&mut self.succeeded, other.succeeded)?;
         }
         Ok(())
     }

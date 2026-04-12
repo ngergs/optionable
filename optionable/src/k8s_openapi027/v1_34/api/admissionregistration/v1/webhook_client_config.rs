@@ -62,22 +62,21 @@ for k8s_openapi027::api::admissionregistration::v1::WebhookClientConfig {
     }
     fn merge(&mut self, other: WebhookClientConfigAc) -> Result<(), crate::Error> {
         if self.ca_bundle.is_none() {
-            self.ca_bundle = other.ca_bundle;
-        }
-        if let Some(other_value) = other.ca_bundle {
-            crate::OptionableConvert::merge(&mut self.ca_bundle, other_value)?;
+            self.ca_bundle = crate::OptionableConvert::try_from_optioned(
+                other.ca_bundle,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.ca_bundle, other.ca_bundle)?;
         }
         if self.service.is_none() {
-            self.service = other.service;
-        }
-        if let Some(other_value) = other.service {
-            crate::OptionableConvert::merge(&mut self.service, other_value)?;
+            self.service = crate::OptionableConvert::try_from_optioned(other.service)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.service, other.service)?;
         }
         if self.url.is_none() {
-            self.url = other.url;
-        }
-        if let Some(other_value) = other.url {
-            crate::OptionableConvert::merge(&mut self.url, other_value)?;
+            self.url = crate::OptionableConvert::try_from_optioned(other.url)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.url, other.url)?;
         }
         Ok(())
     }

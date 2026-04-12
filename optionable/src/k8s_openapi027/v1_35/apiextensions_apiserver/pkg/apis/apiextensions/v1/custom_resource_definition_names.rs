@@ -76,34 +76,36 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         other: CustomResourceDefinitionNamesAc,
     ) -> Result<(), crate::Error> {
         if self.categories.is_none() {
-            self.categories = other.categories;
-        }
-        if let Some(other_value) = other.categories {
-            crate::OptionableConvert::merge(&mut self.categories, other_value)?;
+            self.categories = crate::OptionableConvert::try_from_optioned(
+                other.categories,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.categories, other.categories)?;
         }
         if let Some(other_value) = other.kind {
-            self.kind = other_value;
+            self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.list_kind.is_none() {
-            self.list_kind = other.list_kind;
-        }
-        if let Some(other_value) = other.list_kind {
-            crate::OptionableConvert::merge(&mut self.list_kind, other_value)?;
+            self.list_kind = crate::OptionableConvert::try_from_optioned(
+                other.list_kind,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.list_kind, other.list_kind)?;
         }
         if let Some(other_value) = other.plural {
-            self.plural = other_value;
+            self.plural = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.short_names.is_none() {
-            self.short_names = other.short_names;
-        }
-        if let Some(other_value) = other.short_names {
-            crate::OptionableConvert::merge(&mut self.short_names, other_value)?;
+            self.short_names = crate::OptionableConvert::try_from_optioned(
+                other.short_names,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.short_names, other.short_names)?;
         }
         if self.singular.is_none() {
-            self.singular = other.singular;
-        }
-        if let Some(other_value) = other.singular {
-            crate::OptionableConvert::merge(&mut self.singular, other_value)?;
+            self.singular = crate::OptionableConvert::try_from_optioned(other.singular)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.singular, other.singular)?;
         }
         Ok(())
     }

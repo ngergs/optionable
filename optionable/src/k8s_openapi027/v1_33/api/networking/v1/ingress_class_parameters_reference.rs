@@ -71,28 +71,29 @@ for k8s_openapi027::api::networking::v1::IngressClassParametersReference {
         other: IngressClassParametersReferenceAc,
     ) -> Result<(), crate::Error> {
         if self.api_group.is_none() {
-            self.api_group = other.api_group;
-        }
-        if let Some(other_value) = other.api_group {
-            crate::OptionableConvert::merge(&mut self.api_group, other_value)?;
+            self.api_group = crate::OptionableConvert::try_from_optioned(
+                other.api_group,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
         }
         if let Some(other_value) = other.kind {
-            self.kind = other_value;
+            self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.namespace.is_none() {
-            self.namespace = other.namespace;
-        }
-        if let Some(other_value) = other.namespace {
-            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
+            self.namespace = crate::OptionableConvert::try_from_optioned(
+                other.namespace,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
         }
         if self.scope.is_none() {
-            self.scope = other.scope;
-        }
-        if let Some(other_value) = other.scope {
-            crate::OptionableConvert::merge(&mut self.scope, other_value)?;
+            self.scope = crate::OptionableConvert::try_from_optioned(other.scope)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.scope, other.scope)?;
         }
         Ok(())
     }

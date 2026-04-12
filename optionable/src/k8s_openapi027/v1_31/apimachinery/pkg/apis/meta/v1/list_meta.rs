@@ -53,31 +53,38 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::ListMeta {
     }
     fn merge(&mut self, other: ListMetaAc) -> Result<(), crate::Error> {
         if self.continue_.is_none() {
-            self.continue_ = other.continue_;
-        }
-        if let Some(other_value) = other.continue_ {
-            crate::OptionableConvert::merge(&mut self.continue_, other_value)?;
+            self.continue_ = crate::OptionableConvert::try_from_optioned(
+                other.continue_,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.continue_, other.continue_)?;
         }
         if self.remaining_item_count.is_none() {
-            self.remaining_item_count = other.remaining_item_count;
-        }
-        if let Some(other_value) = other.remaining_item_count {
+            self.remaining_item_count = crate::OptionableConvert::try_from_optioned(
+                other.remaining_item_count,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.remaining_item_count,
-                other_value,
+                other.remaining_item_count,
             )?;
         }
         if self.resource_version.is_none() {
-            self.resource_version = other.resource_version;
-        }
-        if let Some(other_value) = other.resource_version {
-            crate::OptionableConvert::merge(&mut self.resource_version, other_value)?;
+            self.resource_version = crate::OptionableConvert::try_from_optioned(
+                other.resource_version,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.resource_version,
+                other.resource_version,
+            )?;
         }
         if self.self_link.is_none() {
-            self.self_link = other.self_link;
-        }
-        if let Some(other_value) = other.self_link {
-            crate::OptionableConvert::merge(&mut self.self_link, other_value)?;
+            self.self_link = crate::OptionableConvert::try_from_optioned(
+                other.self_link,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.self_link, other.self_link)?;
         }
         Ok(())
     }

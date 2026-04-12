@@ -62,10 +62,10 @@ for k8s_openapi027::api::resource::v1beta1::DeviceCounterConsumption {
     }
     fn merge(&mut self, other: DeviceCounterConsumptionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.counter_set {
-            self.counter_set = other_value;
+            self.counter_set = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.counters {
-            self.counters = other_value;
+            self.counters = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

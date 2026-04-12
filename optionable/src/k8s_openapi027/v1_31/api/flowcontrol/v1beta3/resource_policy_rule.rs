@@ -70,25 +70,30 @@ for k8s_openapi027::api::flowcontrol::v1beta3::ResourcePolicyRule {
     }
     fn merge(&mut self, other: ResourcePolicyRuleAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.api_groups {
-            self.api_groups = other_value;
+            self.api_groups = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.cluster_scope.is_none() {
-            self.cluster_scope = other.cluster_scope;
-        }
-        if let Some(other_value) = other.cluster_scope {
-            crate::OptionableConvert::merge(&mut self.cluster_scope, other_value)?;
+            self.cluster_scope = crate::OptionableConvert::try_from_optioned(
+                other.cluster_scope,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.cluster_scope,
+                other.cluster_scope,
+            )?;
         }
         if self.namespaces.is_none() {
-            self.namespaces = other.namespaces;
-        }
-        if let Some(other_value) = other.namespaces {
-            crate::OptionableConvert::merge(&mut self.namespaces, other_value)?;
+            self.namespaces = crate::OptionableConvert::try_from_optioned(
+                other.namespaces,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.namespaces, other.namespaces)?;
         }
         if let Some(other_value) = other.resources {
-            self.resources = other_value;
+            self.resources = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.verbs {
-            self.verbs = other_value;
+            self.verbs = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

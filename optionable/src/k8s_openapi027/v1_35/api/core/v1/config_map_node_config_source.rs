@@ -71,25 +71,30 @@ for k8s_openapi027::api::core::v1::ConfigMapNodeConfigSource {
     }
     fn merge(&mut self, other: ConfigMapNodeConfigSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.kubelet_config_key {
-            self.kubelet_config_key = other_value;
+            self.kubelet_config_key = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.namespace {
-            self.namespace = other_value;
+            self.namespace = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.resource_version.is_none() {
-            self.resource_version = other.resource_version;
-        }
-        if let Some(other_value) = other.resource_version {
-            crate::OptionableConvert::merge(&mut self.resource_version, other_value)?;
+            self.resource_version = crate::OptionableConvert::try_from_optioned(
+                other.resource_version,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.resource_version,
+                other.resource_version,
+            )?;
         }
         if self.uid.is_none() {
-            self.uid = other.uid;
-        }
-        if let Some(other_value) = other.uid {
-            crate::OptionableConvert::merge(&mut self.uid, other_value)?;
+            self.uid = crate::OptionableConvert::try_from_optioned(other.uid)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
         }
         Ok(())
     }

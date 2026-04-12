@@ -56,10 +56,9 @@ for k8s_openapi027::api::coordination::v1alpha2::LeaseCandidate {
     fn merge(&mut self, other: LeaseCandidateAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if self.spec.is_none() {
-            self.spec = other.spec;
-        }
-        if let Some(other_value) = other.spec {
-            crate::OptionableConvert::merge(&mut self.spec, other_value)?;
+            self.spec = crate::OptionableConvert::try_from_optioned(other.spec)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.spec, other.spec)?;
         }
         Ok(())
     }

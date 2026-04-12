@@ -124,75 +124,85 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::StatefulSetSpec
     }
     fn merge(&mut self, other: StatefulSetSpecAc) -> Result<(), crate::Error> {
         if self.min_ready_seconds.is_none() {
-            self.min_ready_seconds = other.min_ready_seconds;
-        }
-        if let Some(other_value) = other.min_ready_seconds {
-            crate::OptionableConvert::merge(&mut self.min_ready_seconds, other_value)?;
+            self.min_ready_seconds = crate::OptionableConvert::try_from_optioned(
+                other.min_ready_seconds,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.min_ready_seconds,
+                other.min_ready_seconds,
+            )?;
         }
         if self.ordinals.is_none() {
-            self.ordinals = other.ordinals;
-        }
-        if let Some(other_value) = other.ordinals {
-            crate::OptionableConvert::merge(&mut self.ordinals, other_value)?;
+            self.ordinals = crate::OptionableConvert::try_from_optioned(other.ordinals)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.ordinals, other.ordinals)?;
         }
         if self.persistent_volume_claim_retention_policy.is_none() {
-            self.persistent_volume_claim_retention_policy = other
-                .persistent_volume_claim_retention_policy;
-        }
-        if let Some(other_value) = other.persistent_volume_claim_retention_policy {
+            self.persistent_volume_claim_retention_policy = crate::OptionableConvert::try_from_optioned(
+                other.persistent_volume_claim_retention_policy,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.persistent_volume_claim_retention_policy,
-                other_value,
+                other.persistent_volume_claim_retention_policy,
             )?;
         }
         if self.pod_management_policy.is_none() {
-            self.pod_management_policy = other.pod_management_policy;
-        }
-        if let Some(other_value) = other.pod_management_policy {
+            self.pod_management_policy = crate::OptionableConvert::try_from_optioned(
+                other.pod_management_policy,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.pod_management_policy,
-                other_value,
+                other.pod_management_policy,
             )?;
         }
         if self.replicas.is_none() {
-            self.replicas = other.replicas;
-        }
-        if let Some(other_value) = other.replicas {
-            crate::OptionableConvert::merge(&mut self.replicas, other_value)?;
+            self.replicas = crate::OptionableConvert::try_from_optioned(other.replicas)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.replicas, other.replicas)?;
         }
         if self.revision_history_limit.is_none() {
-            self.revision_history_limit = other.revision_history_limit;
-        }
-        if let Some(other_value) = other.revision_history_limit {
+            self.revision_history_limit = crate::OptionableConvert::try_from_optioned(
+                other.revision_history_limit,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.revision_history_limit,
-                other_value,
+                other.revision_history_limit,
             )?;
         }
         if let Some(other_value) = other.selector {
-            self.selector = other_value;
+            self.selector = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.service_name.is_none() {
-            self.service_name = other.service_name;
-        }
-        if let Some(other_value) = other.service_name {
-            crate::OptionableConvert::merge(&mut self.service_name, other_value)?;
+            self.service_name = crate::OptionableConvert::try_from_optioned(
+                other.service_name,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.service_name, other.service_name)?;
         }
         if let Some(other_value) = other.template {
-            self.template = other_value;
+            self.template = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.update_strategy.is_none() {
-            self.update_strategy = other.update_strategy;
-        }
-        if let Some(other_value) = other.update_strategy {
-            crate::OptionableConvert::merge(&mut self.update_strategy, other_value)?;
+            self.update_strategy = crate::OptionableConvert::try_from_optioned(
+                other.update_strategy,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.update_strategy,
+                other.update_strategy,
+            )?;
         }
         if self.volume_claim_templates.is_none() {
-            self.volume_claim_templates = other.volume_claim_templates;
-        }
-        if let Some(other_value) = other.volume_claim_templates {
             self.volume_claim_templates = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.volume_claim_templates,
+            )?;
+        } else {
+            self.volume_claim_templates = crate::OptionableConvert::try_from_optioned(
+                other.volume_claim_templates,
             )?;
         }
         Ok(())

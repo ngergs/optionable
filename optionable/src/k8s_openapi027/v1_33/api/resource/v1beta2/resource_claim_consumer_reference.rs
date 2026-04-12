@@ -65,16 +65,17 @@ for k8s_openapi027::api::resource::v1beta2::ResourceClaimConsumerReference {
         other: ResourceClaimConsumerReferenceAc,
     ) -> Result<(), crate::Error> {
         if self.api_group.is_none() {
-            self.api_group = other.api_group;
-        }
-        if let Some(other_value) = other.api_group {
-            crate::OptionableConvert::merge(&mut self.api_group, other_value)?;
+            self.api_group = crate::OptionableConvert::try_from_optioned(
+                other.api_group,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.api_group, other.api_group)?;
         }
         if let Some(other_value) = other.name {
-            self.name = other_value;
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.resource {
-            self.resource = other_value;
+            self.resource = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         self.uid = other.uid;
         Ok(())

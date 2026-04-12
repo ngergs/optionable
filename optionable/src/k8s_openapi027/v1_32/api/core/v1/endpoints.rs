@@ -69,10 +69,9 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Endpoints {
     fn merge(&mut self, other: EndpointsAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if self.subsets.is_none() {
-            self.subsets = other.subsets;
-        }
-        if let Some(other_value) = other.subsets {
-            self.subsets = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.subsets = crate::OptionableConvert::try_from_optioned(other.subsets)?;
+        } else {
+            self.subsets = crate::OptionableConvert::try_from_optioned(other.subsets)?;
         }
         Ok(())
     }

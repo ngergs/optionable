@@ -56,13 +56,17 @@ for k8s_openapi027::api::scheduling::v1alpha1::WorkloadSpec {
     }
     fn merge(&mut self, other: WorkloadSpecAc) -> Result<(), crate::Error> {
         if self.controller_ref.is_none() {
-            self.controller_ref = other.controller_ref;
-        }
-        if let Some(other_value) = other.controller_ref {
-            crate::OptionableConvert::merge(&mut self.controller_ref, other_value)?;
+            self.controller_ref = crate::OptionableConvert::try_from_optioned(
+                other.controller_ref,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.controller_ref,
+                other.controller_ref,
+            )?;
         }
         if let Some(other_value) = other.pod_groups {
-            self.pod_groups = other_value;
+            self.pod_groups = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

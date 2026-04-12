@@ -45,13 +45,12 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IPBlock {
     }
     fn merge(&mut self, other: IPBlockAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.cidr {
-            self.cidr = other_value;
+            self.cidr = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.except.is_none() {
-            self.except = other.except;
-        }
-        if let Some(other_value) = other.except {
-            self.except = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.except = crate::OptionableConvert::try_from_optioned(other.except)?;
+        } else {
+            self.except = crate::OptionableConvert::try_from_optioned(other.except)?;
         }
         Ok(())
     }

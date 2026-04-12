@@ -84,28 +84,38 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
         other: ValidatingAdmissionPolicyBindingSpecAc,
     ) -> Result<(), crate::Error> {
         if self.match_resources.is_none() {
-            self.match_resources = other.match_resources;
-        }
-        if let Some(other_value) = other.match_resources {
-            crate::OptionableConvert::merge(&mut self.match_resources, other_value)?;
+            self.match_resources = crate::OptionableConvert::try_from_optioned(
+                other.match_resources,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.match_resources,
+                other.match_resources,
+            )?;
         }
         if self.param_ref.is_none() {
-            self.param_ref = other.param_ref;
-        }
-        if let Some(other_value) = other.param_ref {
-            crate::OptionableConvert::merge(&mut self.param_ref, other_value)?;
+            self.param_ref = crate::OptionableConvert::try_from_optioned(
+                other.param_ref,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.param_ref, other.param_ref)?;
         }
         if self.policy_name.is_none() {
-            self.policy_name = other.policy_name;
-        }
-        if let Some(other_value) = other.policy_name {
-            crate::OptionableConvert::merge(&mut self.policy_name, other_value)?;
+            self.policy_name = crate::OptionableConvert::try_from_optioned(
+                other.policy_name,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.policy_name, other.policy_name)?;
         }
         if self.validation_actions.is_none() {
-            self.validation_actions = other.validation_actions;
-        }
-        if let Some(other_value) = other.validation_actions {
-            crate::OptionableConvert::merge(&mut self.validation_actions, other_value)?;
+            self.validation_actions = crate::OptionableConvert::try_from_optioned(
+                other.validation_actions,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.validation_actions,
+                other.validation_actions,
+            )?;
         }
         Ok(())
     }

@@ -65,41 +65,46 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ObjectReference
     }
     fn merge(&mut self, other: ObjectReferenceAc) -> Result<(), crate::Error> {
         if self.api_version.is_none() {
-            self.api_version = other.api_version;
-        }
-        if let Some(other_value) = other.api_version {
-            crate::OptionableConvert::merge(&mut self.api_version, other_value)?;
+            self.api_version = crate::OptionableConvert::try_from_optioned(
+                other.api_version,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.api_version, other.api_version)?;
         }
         if self.field_path.is_none() {
-            self.field_path = other.field_path;
-        }
-        if let Some(other_value) = other.field_path {
-            crate::OptionableConvert::merge(&mut self.field_path, other_value)?;
+            self.field_path = crate::OptionableConvert::try_from_optioned(
+                other.field_path,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.field_path, other.field_path)?;
         }
         if self.kind.is_none() {
-            self.kind = other.kind;
-        }
-        if let Some(other_value) = other.kind {
-            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
+            self.kind = crate::OptionableConvert::try_from_optioned(other.kind)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
         }
         self.name = other.name;
         if self.namespace.is_none() {
-            self.namespace = other.namespace;
-        }
-        if let Some(other_value) = other.namespace {
-            crate::OptionableConvert::merge(&mut self.namespace, other_value)?;
+            self.namespace = crate::OptionableConvert::try_from_optioned(
+                other.namespace,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.namespace, other.namespace)?;
         }
         if self.resource_version.is_none() {
-            self.resource_version = other.resource_version;
-        }
-        if let Some(other_value) = other.resource_version {
-            crate::OptionableConvert::merge(&mut self.resource_version, other_value)?;
+            self.resource_version = crate::OptionableConvert::try_from_optioned(
+                other.resource_version,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.resource_version,
+                other.resource_version,
+            )?;
         }
         if self.uid.is_none() {
-            self.uid = other.uid;
-        }
-        if let Some(other_value) = other.uid {
-            crate::OptionableConvert::merge(&mut self.uid, other_value)?;
+            self.uid = crate::OptionableConvert::try_from_optioned(other.uid)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.uid, other.uid)?;
         }
         Ok(())
     }

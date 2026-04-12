@@ -45,11 +45,12 @@ for k8s_openapi027::api::admissionregistration::v1::TypeChecking {
     }
     fn merge(&mut self, other: TypeCheckingAc) -> Result<(), crate::Error> {
         if self.expression_warnings.is_none() {
-            self.expression_warnings = other.expression_warnings;
-        }
-        if let Some(other_value) = other.expression_warnings {
             self.expression_warnings = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.expression_warnings,
+            )?;
+        } else {
+            self.expression_warnings = crate::OptionableConvert::try_from_optioned(
+                other.expression_warnings,
             )?;
         }
         Ok(())

@@ -45,7 +45,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeAddress {
     }
     fn merge(&mut self, other: NodeAddressAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.address {
-            self.address = other_value;
+            self.address = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         self.type_ = other.type_;
         Ok(())

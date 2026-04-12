@@ -58,22 +58,29 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceConst
     }
     fn merge(&mut self, other: DeviceConstraintAc) -> Result<(), crate::Error> {
         if self.distinct_attribute.is_none() {
-            self.distinct_attribute = other.distinct_attribute;
-        }
-        if let Some(other_value) = other.distinct_attribute {
-            crate::OptionableConvert::merge(&mut self.distinct_attribute, other_value)?;
+            self.distinct_attribute = crate::OptionableConvert::try_from_optioned(
+                other.distinct_attribute,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.distinct_attribute,
+                other.distinct_attribute,
+            )?;
         }
         if self.match_attribute.is_none() {
-            self.match_attribute = other.match_attribute;
-        }
-        if let Some(other_value) = other.match_attribute {
-            crate::OptionableConvert::merge(&mut self.match_attribute, other_value)?;
+            self.match_attribute = crate::OptionableConvert::try_from_optioned(
+                other.match_attribute,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.match_attribute,
+                other.match_attribute,
+            )?;
         }
         if self.requests.is_none() {
-            self.requests = other.requests;
-        }
-        if let Some(other_value) = other.requests {
-            self.requests = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
+        } else {
+            self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
         }
         Ok(())
     }

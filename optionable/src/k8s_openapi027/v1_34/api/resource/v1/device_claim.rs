@@ -58,22 +58,23 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::DeviceClaim
     }
     fn merge(&mut self, other: DeviceClaimAc) -> Result<(), crate::Error> {
         if self.config.is_none() {
-            self.config = other.config;
-        }
-        if let Some(other_value) = other.config {
-            self.config = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.config = crate::OptionableConvert::try_from_optioned(other.config)?;
+        } else {
+            self.config = crate::OptionableConvert::try_from_optioned(other.config)?;
         }
         if self.constraints.is_none() {
-            self.constraints = other.constraints;
-        }
-        if let Some(other_value) = other.constraints {
-            self.constraints = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.constraints = crate::OptionableConvert::try_from_optioned(
+                other.constraints,
+            )?;
+        } else {
+            self.constraints = crate::OptionableConvert::try_from_optioned(
+                other.constraints,
+            )?;
         }
         if self.requests.is_none() {
-            self.requests = other.requests;
-        }
-        if let Some(other_value) = other.requests {
-            self.requests = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
+        } else {
+            self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
         }
         Ok(())
     }

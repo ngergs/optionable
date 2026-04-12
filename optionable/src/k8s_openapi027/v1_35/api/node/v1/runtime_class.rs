@@ -71,20 +71,20 @@ impl crate::OptionableConvert for k8s_openapi027::api::node::v1::RuntimeClass {
     }
     fn merge(&mut self, other: RuntimeClassAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.handler {
-            self.handler = other_value;
+            self.handler = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         self.metadata = other.metadata;
         if self.overhead.is_none() {
-            self.overhead = other.overhead;
-        }
-        if let Some(other_value) = other.overhead {
-            crate::OptionableConvert::merge(&mut self.overhead, other_value)?;
+            self.overhead = crate::OptionableConvert::try_from_optioned(other.overhead)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.overhead, other.overhead)?;
         }
         if self.scheduling.is_none() {
-            self.scheduling = other.scheduling;
-        }
-        if let Some(other_value) = other.scheduling {
-            crate::OptionableConvert::merge(&mut self.scheduling, other_value)?;
+            self.scheduling = crate::OptionableConvert::try_from_optioned(
+                other.scheduling,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.scheduling, other.scheduling)?;
         }
         Ok(())
     }

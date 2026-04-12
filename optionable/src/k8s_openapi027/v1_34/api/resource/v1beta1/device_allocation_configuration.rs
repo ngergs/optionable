@@ -61,19 +61,17 @@ for k8s_openapi027::api::resource::v1beta1::DeviceAllocationConfiguration {
         other: DeviceAllocationConfigurationAc,
     ) -> Result<(), crate::Error> {
         if self.opaque.is_none() {
-            self.opaque = other.opaque;
-        }
-        if let Some(other_value) = other.opaque {
-            crate::OptionableConvert::merge(&mut self.opaque, other_value)?;
+            self.opaque = crate::OptionableConvert::try_from_optioned(other.opaque)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.opaque, other.opaque)?;
         }
         if self.requests.is_none() {
-            self.requests = other.requests;
-        }
-        if let Some(other_value) = other.requests {
-            self.requests = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
+        } else {
+            self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
         }
         if let Some(other_value) = other.source {
-            self.source = other_value;
+            self.source = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

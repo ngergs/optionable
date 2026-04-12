@@ -75,7 +75,7 @@ for k8s_openapi027::apimachinery::pkg::runtime::RawExtension {
     }
     fn merge(&mut self, other: RawExtensionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.0 {
-            self.0 = other_value;
+            self.0 = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

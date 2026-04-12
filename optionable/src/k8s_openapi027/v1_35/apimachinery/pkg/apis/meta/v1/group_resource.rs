@@ -49,10 +49,10 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::GroupResource {
     }
     fn merge(&mut self, other: GroupResourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.group {
-            self.group = other_value;
+            self.group = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.resource {
-            self.resource = other_value;
+            self.resource = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

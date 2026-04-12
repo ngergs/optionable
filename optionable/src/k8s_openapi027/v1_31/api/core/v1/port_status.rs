@@ -56,16 +56,15 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PortStatus {
     }
     fn merge(&mut self, other: PortStatusAc) -> Result<(), crate::Error> {
         if self.error.is_none() {
-            self.error = other.error;
-        }
-        if let Some(other_value) = other.error {
-            crate::OptionableConvert::merge(&mut self.error, other_value)?;
+            self.error = crate::OptionableConvert::try_from_optioned(other.error)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.error, other.error)?;
         }
         if let Some(other_value) = other.port {
-            self.port = other_value;
+            self.port = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.protocol {
-            self.protocol = other_value;
+            self.protocol = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

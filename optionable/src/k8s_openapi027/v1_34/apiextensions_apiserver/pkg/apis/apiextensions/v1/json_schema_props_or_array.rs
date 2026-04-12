@@ -72,7 +72,9 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
             JSONSchemaPropsOrArrayAc::Schema(other_0) => {
                 if let Self::Schema(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        *self_0 = other_value;
+                        *self_0 = crate::OptionableConvert::try_from_optioned(
+                            other_value,
+                        )?;
                     }
                 } else {
                     *self = Self::try_from_optioned(
@@ -83,7 +85,9 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
             JSONSchemaPropsOrArrayAc::Schemas(other_0) => {
                 if let Self::Schemas(self_0) = self {
                     if let Some(other_value) = other_0 {
-                        *self_0 = other_value;
+                        *self_0 = crate::OptionableConvert::try_from_optioned(
+                            other_value,
+                        )?;
                     }
                 } else {
                     *self = Self::try_from_optioned(

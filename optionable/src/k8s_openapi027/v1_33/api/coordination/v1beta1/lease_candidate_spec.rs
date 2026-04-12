@@ -79,31 +79,39 @@ for k8s_openapi027::api::coordination::v1beta1::LeaseCandidateSpec {
     }
     fn merge(&mut self, other: LeaseCandidateSpecAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.binary_version {
-            self.binary_version = other_value;
+            self.binary_version = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if self.emulation_version.is_none() {
-            self.emulation_version = other.emulation_version;
-        }
-        if let Some(other_value) = other.emulation_version {
-            crate::OptionableConvert::merge(&mut self.emulation_version, other_value)?;
+            self.emulation_version = crate::OptionableConvert::try_from_optioned(
+                other.emulation_version,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.emulation_version,
+                other.emulation_version,
+            )?;
         }
         if let Some(other_value) = other.lease_name {
-            self.lease_name = other_value;
+            self.lease_name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.ping_time.is_none() {
-            self.ping_time = other.ping_time;
-        }
-        if let Some(other_value) = other.ping_time {
-            crate::OptionableConvert::merge(&mut self.ping_time, other_value)?;
+            self.ping_time = crate::OptionableConvert::try_from_optioned(
+                other.ping_time,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.ping_time, other.ping_time)?;
         }
         if self.renew_time.is_none() {
-            self.renew_time = other.renew_time;
-        }
-        if let Some(other_value) = other.renew_time {
-            crate::OptionableConvert::merge(&mut self.renew_time, other_value)?;
+            self.renew_time = crate::OptionableConvert::try_from_optioned(
+                other.renew_time,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.renew_time, other.renew_time)?;
         }
         if let Some(other_value) = other.strategy {
-            self.strategy = other_value;
+            self.strategy = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

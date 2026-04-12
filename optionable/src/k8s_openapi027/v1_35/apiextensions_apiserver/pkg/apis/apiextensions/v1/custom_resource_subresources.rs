@@ -52,16 +52,14 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         other: CustomResourceSubresourcesAc,
     ) -> Result<(), crate::Error> {
         if self.scale.is_none() {
-            self.scale = other.scale;
-        }
-        if let Some(other_value) = other.scale {
-            crate::OptionableConvert::merge(&mut self.scale, other_value)?;
+            self.scale = crate::OptionableConvert::try_from_optioned(other.scale)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.scale, other.scale)?;
         }
         if self.status.is_none() {
-            self.status = other.status;
-        }
-        if let Some(other_value) = other.status {
-            crate::OptionableConvert::merge(&mut self.status, other_value)?;
+            self.status = crate::OptionableConvert::try_from_optioned(other.status)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.status, other.status)?;
         }
         Ok(())
     }

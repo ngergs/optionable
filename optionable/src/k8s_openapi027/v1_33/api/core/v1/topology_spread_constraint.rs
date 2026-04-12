@@ -91,42 +91,53 @@ for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
     }
     fn merge(&mut self, other: TopologySpreadConstraintAc) -> Result<(), crate::Error> {
         if self.label_selector.is_none() {
-            self.label_selector = other.label_selector;
-        }
-        if let Some(other_value) = other.label_selector {
-            crate::OptionableConvert::merge(&mut self.label_selector, other_value)?;
+            self.label_selector = crate::OptionableConvert::try_from_optioned(
+                other.label_selector,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.label_selector,
+                other.label_selector,
+            )?;
         }
         if self.match_label_keys.is_none() {
-            self.match_label_keys = other.match_label_keys;
-        }
-        if let Some(other_value) = other.match_label_keys {
             self.match_label_keys = crate::OptionableConvert::try_from_optioned(
-                other_value,
+                other.match_label_keys,
+            )?;
+        } else {
+            self.match_label_keys = crate::OptionableConvert::try_from_optioned(
+                other.match_label_keys,
             )?;
         }
         if let Some(other_value) = other.max_skew {
-            self.max_skew = other_value;
+            self.max_skew = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.min_domains.is_none() {
-            self.min_domains = other.min_domains;
-        }
-        if let Some(other_value) = other.min_domains {
-            crate::OptionableConvert::merge(&mut self.min_domains, other_value)?;
+            self.min_domains = crate::OptionableConvert::try_from_optioned(
+                other.min_domains,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.min_domains, other.min_domains)?;
         }
         if self.node_affinity_policy.is_none() {
-            self.node_affinity_policy = other.node_affinity_policy;
-        }
-        if let Some(other_value) = other.node_affinity_policy {
+            self.node_affinity_policy = crate::OptionableConvert::try_from_optioned(
+                other.node_affinity_policy,
+            )?;
+        } else {
             crate::OptionableConvert::merge(
                 &mut self.node_affinity_policy,
-                other_value,
+                other.node_affinity_policy,
             )?;
         }
         if self.node_taints_policy.is_none() {
-            self.node_taints_policy = other.node_taints_policy;
-        }
-        if let Some(other_value) = other.node_taints_policy {
-            crate::OptionableConvert::merge(&mut self.node_taints_policy, other_value)?;
+            self.node_taints_policy = crate::OptionableConvert::try_from_optioned(
+                other.node_taints_policy,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(
+                &mut self.node_taints_policy,
+                other.node_taints_policy,
+            )?;
         }
         self.topology_key = other.topology_key;
         self.when_unsatisfiable = other.when_unsatisfiable;

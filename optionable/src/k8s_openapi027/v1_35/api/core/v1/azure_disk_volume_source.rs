@@ -70,34 +70,34 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::AzureDiskVolume
     }
     fn merge(&mut self, other: AzureDiskVolumeSourceAc) -> Result<(), crate::Error> {
         if self.caching_mode.is_none() {
-            self.caching_mode = other.caching_mode;
-        }
-        if let Some(other_value) = other.caching_mode {
-            crate::OptionableConvert::merge(&mut self.caching_mode, other_value)?;
+            self.caching_mode = crate::OptionableConvert::try_from_optioned(
+                other.caching_mode,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.caching_mode, other.caching_mode)?;
         }
         if let Some(other_value) = other.disk_name {
-            self.disk_name = other_value;
+            self.disk_name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.disk_uri {
-            self.disk_uri = other_value;
+            self.disk_uri = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.fs_type.is_none() {
-            self.fs_type = other.fs_type;
-        }
-        if let Some(other_value) = other.fs_type {
-            crate::OptionableConvert::merge(&mut self.fs_type, other_value)?;
+            self.fs_type = crate::OptionableConvert::try_from_optioned(other.fs_type)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.fs_type, other.fs_type)?;
         }
         if self.kind.is_none() {
-            self.kind = other.kind;
-        }
-        if let Some(other_value) = other.kind {
-            crate::OptionableConvert::merge(&mut self.kind, other_value)?;
+            self.kind = crate::OptionableConvert::try_from_optioned(other.kind)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.kind, other.kind)?;
         }
         if self.read_only.is_none() {
-            self.read_only = other.read_only;
-        }
-        if let Some(other_value) = other.read_only {
-            crate::OptionableConvert::merge(&mut self.read_only, other_value)?;
+            self.read_only = crate::OptionableConvert::try_from_optioned(
+                other.read_only,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.read_only, other.read_only)?;
         }
         Ok(())
     }

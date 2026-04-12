@@ -41,10 +41,11 @@ for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaStatus {
     }
     fn merge(&mut self, other: FlowSchemaStatusAc) -> Result<(), crate::Error> {
         if self.conditions.is_none() {
-            self.conditions = other.conditions;
-        }
-        if let Some(other_value) = other.conditions {
-            crate::OptionableConvert::merge(&mut self.conditions, other_value)?;
+            self.conditions = crate::OptionableConvert::try_from_optioned(
+                other.conditions,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         }
         Ok(())
     }

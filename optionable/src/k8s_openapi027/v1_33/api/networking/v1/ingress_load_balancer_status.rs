@@ -44,10 +44,9 @@ for k8s_openapi027::api::networking::v1::IngressLoadBalancerStatus {
     }
     fn merge(&mut self, other: IngressLoadBalancerStatusAc) -> Result<(), crate::Error> {
         if self.ingress.is_none() {
-            self.ingress = other.ingress;
-        }
-        if let Some(other_value) = other.ingress {
-            self.ingress = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.ingress = crate::OptionableConvert::try_from_optioned(other.ingress)?;
+        } else {
+            self.ingress = crate::OptionableConvert::try_from_optioned(other.ingress)?;
         }
         Ok(())
     }

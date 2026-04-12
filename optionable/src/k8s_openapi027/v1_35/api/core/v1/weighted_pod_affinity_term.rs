@@ -58,10 +58,12 @@ for k8s_openapi027::api::core::v1::WeightedPodAffinityTerm {
     }
     fn merge(&mut self, other: WeightedPodAffinityTermAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.pod_affinity_term {
-            self.pod_affinity_term = other_value;
+            self.pod_affinity_term = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if let Some(other_value) = other.weight {
-            self.weight = other_value;
+            self.weight = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

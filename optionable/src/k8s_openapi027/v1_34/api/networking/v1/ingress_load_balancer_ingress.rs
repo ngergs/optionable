@@ -57,22 +57,19 @@ for k8s_openapi027::api::networking::v1::IngressLoadBalancerIngress {
         other: IngressLoadBalancerIngressAc,
     ) -> Result<(), crate::Error> {
         if self.hostname.is_none() {
-            self.hostname = other.hostname;
-        }
-        if let Some(other_value) = other.hostname {
-            crate::OptionableConvert::merge(&mut self.hostname, other_value)?;
+            self.hostname = crate::OptionableConvert::try_from_optioned(other.hostname)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.hostname, other.hostname)?;
         }
         if self.ip.is_none() {
-            self.ip = other.ip;
-        }
-        if let Some(other_value) = other.ip {
-            crate::OptionableConvert::merge(&mut self.ip, other_value)?;
+            self.ip = crate::OptionableConvert::try_from_optioned(other.ip)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.ip, other.ip)?;
         }
         if self.ports.is_none() {
-            self.ports = other.ports;
-        }
-        if let Some(other_value) = other.ports {
-            self.ports = crate::OptionableConvert::try_from_optioned(other_value)?;
+            self.ports = crate::OptionableConvert::try_from_optioned(other.ports)?;
+        } else {
+            self.ports = crate::OptionableConvert::try_from_optioned(other.ports)?;
         }
         Ok(())
     }

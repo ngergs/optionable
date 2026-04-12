@@ -78,16 +78,16 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceRequestAllocationResult {
         other: DeviceRequestAllocationResultAc,
     ) -> Result<(), crate::Error> {
         if let Some(other_value) = other.device {
-            self.device = other_value;
+            self.device = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.driver {
-            self.driver = other_value;
+            self.driver = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.pool {
-            self.pool = other_value;
+            self.pool = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.request {
-            self.request = other_value;
+            self.request = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

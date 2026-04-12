@@ -91,31 +91,32 @@ for k8s_openapi027::api::resource::v1alpha3::AllocatedDeviceStatus {
     }
     fn merge(&mut self, other: AllocatedDeviceStatusAc) -> Result<(), crate::Error> {
         if self.conditions.is_none() {
-            self.conditions = other.conditions;
-        }
-        if let Some(other_value) = other.conditions {
-            crate::OptionableConvert::merge(&mut self.conditions, other_value)?;
+            self.conditions = crate::OptionableConvert::try_from_optioned(
+                other.conditions,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.conditions, other.conditions)?;
         }
         if self.data.is_none() {
-            self.data = other.data;
-        }
-        if let Some(other_value) = other.data {
-            crate::OptionableConvert::merge(&mut self.data, other_value)?;
+            self.data = crate::OptionableConvert::try_from_optioned(other.data)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.data, other.data)?;
         }
         if let Some(other_value) = other.device {
-            self.device = other_value;
+            self.device = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.driver {
-            self.driver = other_value;
+            self.driver = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.network_data.is_none() {
-            self.network_data = other.network_data;
-        }
-        if let Some(other_value) = other.network_data {
-            crate::OptionableConvert::merge(&mut self.network_data, other_value)?;
+            self.network_data = crate::OptionableConvert::try_from_optioned(
+                other.network_data,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.network_data, other.network_data)?;
         }
         if let Some(other_value) = other.pool {
-            self.pool = other_value;
+            self.pool = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

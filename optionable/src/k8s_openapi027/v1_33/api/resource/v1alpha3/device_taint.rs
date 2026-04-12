@@ -61,22 +61,22 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Devic
     }
     fn merge(&mut self, other: DeviceTaintAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.effect {
-            self.effect = other_value;
+            self.effect = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.key {
-            self.key = other_value;
+            self.key = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.time_added.is_none() {
-            self.time_added = other.time_added;
-        }
-        if let Some(other_value) = other.time_added {
-            crate::OptionableConvert::merge(&mut self.time_added, other_value)?;
+            self.time_added = crate::OptionableConvert::try_from_optioned(
+                other.time_added,
+            )?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.time_added, other.time_added)?;
         }
         if self.value.is_none() {
-            self.value = other.value;
-        }
-        if let Some(other_value) = other.value {
-            crate::OptionableConvert::merge(&mut self.value, other_value)?;
+            self.value = crate::OptionableConvert::try_from_optioned(other.value)?;
+        } else {
+            crate::OptionableConvert::merge(&mut self.value, other.value)?;
         }
         Ok(())
     }
