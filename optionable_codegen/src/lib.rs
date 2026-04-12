@@ -972,7 +972,7 @@ fn merge_fields(
                 },
                 FieldHandling::Other =>  {
                     if matches!(merge_behaviour,MergeBehaviour::OptionableConvert|MergeBehaviour::Atomic){
-                           Some(Ok(quote!(#deref_modifier #self_selector = #other_selector)))
+                           Some(Ok(quote!(#deref_modifier #self_selector = #other_selector;)))
                     } else {
                         let merge=merge_fn(quote!(other_value));
                         Some(Ok(quote! {
