@@ -44,8 +44,7 @@ for k8s_openapi027::api::admissionregistration::v1::TypeChecking {
         })
     }
     fn merge(&mut self, other: TypeCheckingAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.expression_warnings,
+        self.expression_warnings = crate::OptionableConvert::try_from_optioned(
             other.expression_warnings,
         )?;
         Ok(())

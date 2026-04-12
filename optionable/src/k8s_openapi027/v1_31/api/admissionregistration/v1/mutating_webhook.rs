@@ -191,7 +191,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
         if other.failure_policy.is_some() {
             self.failure_policy = other.failure_policy;
         }
-        crate::OptionableConvert::merge(
+        crate::merge::try_merge_optioned_map(
             &mut self.match_conditions,
             other.match_conditions,
         )?;
@@ -210,7 +210,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
         if other.reinvocation_policy.is_some() {
             self.reinvocation_policy = other.reinvocation_policy;
         }
-        crate::OptionableConvert::merge(&mut self.rules, other.rules)?;
+        self.rules = crate::OptionableConvert::try_from_optioned(other.rules)?;
         if let Some(other_value) = other.side_effects {
             self.side_effects = other_value;
         }

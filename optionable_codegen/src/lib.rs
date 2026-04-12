@@ -922,9 +922,35 @@ fn merge_fields(
             let crate_name = &struct_parsed.crate_name;
             let is_self_resolving_ty= is_self_resolving_optioned(ty);
             #[allow(clippy::nonminimal_bool)] // following the logic is easier this wayu
-            if !matches!(merge_behaviour,MergeBehaviour::OptionableConvert) && !(matches!(handling,FieldHandling::Other) && !is_self_resolving_ty){
-                return Some(error(format!("Unsupported combination of custom merge behaviour `{merge_behaviour:?}` for the field `{}`. If you expect this specific case to work, pls open an issue for `optionable`.",ident.to_token_stream().to_string())));
+            if !matches!(merge_behaviour,MergeBehaviour::OptionableConvert) &&
+                !(matches!(handling,FieldHandling::IsOption|FieldHandling::Other) && !is_self_resolving_ty) &&
+                !(!matches!(handling,FieldHandling::ManualOptioned(_)) && matches!(merge_behaviour,MergeBehaviour::Atomic)){ 
+                return Some(error(format!("Unsupported combination of custom merge behaviour `{merge_behaviour:?}` for the field `{}`. If you expect this specific case to work, pls open an issue for `optionable`. Case handling={handling:?},self_resolving={is_self_resolving_ty}",ident.to_token_stream().to_string())));
             }
+            let merge_fn=|other_selector|{
+                    match merge_behaviour{
+                        MergeBehaviour::OptionableConvert => {
+                            quote!(
+                                #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
+                             )
+                        },
+                        MergeBehaviour::Atomic => {
+                            quote!(
+                                #deref_modifier #self_selector = #crate_name::OptionableConvert::try_from_optioned(#other_selector)?;
+                            )
+                        },
+                        MergeBehaviour::Set => {
+                            quote!(
+                                #crate_name::merge::try_merge_optioned_set(#self_merge_mut_modifier #self_selector, #other_selector)?;
+                            )
+                        },
+                        MergeBehaviour::Map => {
+                            quote!(
+                                #crate_name::merge::try_merge_optioned_map(#self_merge_mut_modifier #self_selector, #other_selector)?;
+                            )
+                        }
+                    }
+            };
             match (handling, is_self_resolving_ty) {
                 (FieldHandling::MapKey|FieldHandling::Required, _)  => Some(Ok::<_,Error>(quote! {#deref_modifier #self_selector = #other_selector;})),
                 (FieldHandling::IsOption, true) => Some(Ok(quote! {
@@ -937,40 +963,17 @@ fn merge_fields(
                         #crate_name::OptionedConvert::merge_into(other_value, #self_merge_mut_modifier #self_selector)?;
                     }
                 })),
-                (FieldHandling::IsOption, false) => Some(Ok::<_,Error>(quote! {
-                    #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, #other_selector)?;
-                })),
+                (FieldHandling::IsOption, false) =>  Some(Ok::<_,Error>(merge_fn(other_selector))),
                 (FieldHandling::Other, true) => Some(Ok(quote! {
                     if let Some(other_value)=#other_selector{
                         #deref_modifier #self_selector = other_value;
                     }
                 })),
                 (FieldHandling::Other, false) =>  {
-                    let merge_fn=match merge_behaviour{
-                        MergeBehaviour::OptionableConvert => {
-                            quote!(
-                                #crate_name::OptionableConvert::merge(#self_merge_mut_modifier #self_selector, other_value)?;
-                             )
-                        },
-                        MergeBehaviour::Atomic => {
-                            quote!(
-                                #deref_modifier #self_selector = #crate_name::OptionableConvert::try_from_optioned(other_value)?;
-                            )
-                        },
-                        MergeBehaviour::Set => {
-                            quote!(
-                                #crate_name::merge::try_merge_optioned_set(#self_merge_mut_modifier #self_selector, other_value)?;
-                            )
-                        },
-                        MergeBehaviour::Map => {
-                            quote!(
-                                #crate_name::merge::try_merge_optioned_map(#self_merge_mut_modifier #self_selector, other_value)?;
-                            )
-                        }
-                    };
+                    let merge=merge_fn(quote!(other_value));
                     Some(Ok(quote! {
                         if let Some(other_value)=#other_selector{
-                            #merge_fn
+                            #merge
                         }
                     }))
                 },

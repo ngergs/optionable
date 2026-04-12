@@ -63,7 +63,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhookConfiguration
         other: MutatingWebhookConfigurationAc,
     ) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
-        crate::OptionableConvert::merge(&mut self.webhooks, other.webhooks)?;
+        crate::merge::try_merge_optioned_map(&mut self.webhooks, other.webhooks)?;
         Ok(())
     }
 }

@@ -119,8 +119,7 @@ for k8s_openapi027::api::admissionregistration::v1::MatchResources {
         })
     }
     fn merge(&mut self, other: MatchResourcesAc) -> Result<(), crate::Error> {
-        crate::OptionableConvert::merge(
-            &mut self.exclude_resource_rules,
+        self.exclude_resource_rules = crate::OptionableConvert::try_from_optioned(
             other.exclude_resource_rules,
         )?;
         if other.match_policy.is_some() {
@@ -134,7 +133,9 @@ for k8s_openapi027::api::admissionregistration::v1::MatchResources {
             &mut self.object_selector,
             other.object_selector,
         )?;
-        crate::OptionableConvert::merge(&mut self.resource_rules, other.resource_rules)?;
+        self.resource_rules = crate::OptionableConvert::try_from_optioned(
+            other.resource_rules,
+        )?;
         Ok(())
     }
 }
