@@ -946,20 +946,23 @@ fn merge_fields(
                         }
                     }
             };
-            match (handling, is_self_resolving_ty) {
-                (FieldHandling::MapKey|FieldHandling::Required, _)  => {
+            match handling {
+                FieldHandling::MapKey|FieldHandling::Required  => {
                     if !matches!(merge_behaviour,MergeBehaviour::OptionableConvert|MergeBehaviour::Atomic){return err()}
                     Some(Ok::<_,Error>(quote! {#deref_modifier #self_selector = #other_selector;}))
                 },
-                (FieldHandling::IsOption, true) => {
-                    if !matches!(merge_behaviour,MergeBehaviour::OptionableConvert|MergeBehaviour::Atomic){return err()}
-                    Some(Ok(quote! {
-                        if #other_selector.is_some(){
+                FieldHandling::IsOption => {
+                    let merge=merge_fn(quote!(other_value));
+                    Some(Ok(quote!{
+                        if #self_selector.is_none(){
                             #deref_modifier #self_selector = #other_selector;
+                        }
+                        if let Some(other_value)=#other_selector{
+                            #merge
                         }
                     }))
                 },
-                (FieldHandling::ManualOptioned(_), _) =>  {
+                FieldHandling::ManualOptioned(_) =>  {
                     if !matches!(merge_behaviour,MergeBehaviour::OptionableConvert){return err()}
                     Some(Ok(quote! {
                         if let Some(other_value)=#other_selector{
@@ -967,25 +970,15 @@ fn merge_fields(
                         }
                     }))
                 },
-                //todo: merge logic won't work as intended for option without removing outer `Option` layer as it would pick `Option` as the iterator
-                (FieldHandling::IsOption, false) =>  Some(Ok::<_,Error>(merge_fn(other_selector))),
-                (FieldHandling::Other, true) => {
-                    if !matches!(merge_behaviour,MergeBehaviour::OptionableConvert|MergeBehaviour::Atomic){return err()}
-                    Some(Ok(quote! {
-                        if let Some(other_value)=#other_selector{
-                            #deref_modifier #self_selector = other_value;
-                        }
-                    }))
-                },
-                (FieldHandling::Other, false) =>  {
-                    let merge=merge_fn(quote!(other_value));
+                FieldHandling::Other =>  {
+                let merge=merge_fn(quote!(other_value));
                     Some(Ok(quote! {
                         if let Some(other_value)=#other_selector{
                             #merge
                         }
                     }))
                 },
-                (FieldHandling::OptionedOnly, _) =>None,
+                FieldHandling::OptionedOnly =>None,
             }
         },
     ).collect::<Result<Vec<_>,_>>()?;
