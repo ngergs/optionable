@@ -970,7 +970,7 @@ fn merge_fields(
                     }))
                 },
                 FieldHandling::Other =>  {
-                    if matches!(merge_behaviour,MergeBehaviour::OptionableConvert|MergeBehaviour::Atomic){
+                    if is_self_resolving_ty && matches!(merge_behaviour,MergeBehaviour::OptionableConvert|MergeBehaviour::Atomic){
                            Some(Ok(quote!(
                                if let Some(other_value) = #other_selector{
                                     #deref_modifier #self_selector = #crate_name::OptionableConvert::try_from_optioned(other_value)?;
