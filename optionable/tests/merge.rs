@@ -131,7 +131,7 @@ fn merge_set() {
 
     #[derive(Optionable, PartialEq, Debug)]
     struct Wrapper {
-        #[optionable(merge(set))]
+        #[optionable(merge(append_not_present))]
         items: Vec<EnvVar>,
     }
 
@@ -173,7 +173,7 @@ fn merge_map() {
 
     #[derive(Optionable, PartialEq, Debug)]
     struct Wrapper {
-        #[optionable(merge(map))]
+        #[optionable(merge(iter_map))]
         items: Vec<EnvVar>,
     }
 

@@ -81,8 +81,8 @@ use proc_macro::TokenStream;
 /// - **`merge`**: Customize the merge behaviour for the derived `OptionableConvert::merge` implementation. The following values are supported (e.g. as `#[merge(Atomic)]`):
 ///     - `optionable_convert` Default behavior, just call `OptionableConvert::merge` for the given field entry.
 ///     - `atomic` Always override the field completly when present in the optioned type.
-///     - `set` Kubernetes `set` merge logic. Appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: PartialEq`.
-///     - `map` Kubernetes `map` merge logic. Identifies if entries belong together via the `optionable::merge::OptionableMapKeysEq` trait. Merges entries that belong together (short-circuit, first match is merged) and appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: OptionableMapKeysEq + OptionableConvert`.
+///     - `append_not_present` Kubernetes `set` merge logic. Appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: PartialEq`.
+///     - `iter_map` Kubernetes `map` merge logic. Identifies if entries belong together via the `optionable::merge::OptionableMapKeysEq` trait. Merges entries that belong together (short-circuit, first match is merged) and appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: OptionableMapKeysEq + OptionableConvert`.
 /// - **`merge_map_key`**: Implies `required` (see above). Furthermore, if at least one field has this attribute the trait `OptionableMapKeysEq` is implemented
 ///   which uses the corresponding fields to determine if the "mapping keys"  of two elements are equal. If the given struct is `T` this becomes utilized if another struct has a field
 ///   with the `merge(map)` attribute set and has a type that `impl IntoIterator<Item=T>`.

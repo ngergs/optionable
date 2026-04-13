@@ -129,10 +129,10 @@ enum MergeBehaviour {
     // Completly overrides the field with the given merge candidate if present
     Atomic,
     // Appends entries not already present in the target, requires the corresponding field to be `impl Extent<T>+IntoIter<Item=T> where T: PartialEq`
-    Set,
+    AppendNotPresent,
     // Merges entries that are already present in the target using `OptionableConvert`, appends those that are not.
     // Requires the correspond field to be `impl Extend<T>+IntoIter<Item=T> where T: MapKeysEq+OptionableConvert`
-    Map,
+    IterMap,
 }
 
 #[derive(FromAttributes)]
@@ -934,12 +934,12 @@ fn merge_fields(
                                 #deref_modifier #self_selector = #crate_name::OptionableConvert::try_from_optioned(#other_selector)?;
                             )
                         },
-                        MergeBehaviour::Set => {
+                        MergeBehaviour::AppendNotPresent => {
                             quote!(
                                 #crate_name::merge::try_merge_optioned_set(#self_merge_mut_modifier #self_selector, #other_selector)?;
                             )
                         },
-                        MergeBehaviour::Map => {
+                        MergeBehaviour::IterMap => {
                             quote!(
                                 #crate_name::merge::try_merge_optioned_map(#self_merge_mut_modifier #self_selector, #other_selector)?;
                             )

@@ -130,8 +130,8 @@ impl CodegenVisitor for Visitor<'_> {
                         {
                             let merge_type = match merge_type {
                                 ListType::Atomic => quote!(atomic),
-                                ListType::Set => quote!(set),
-                                ListType::Map(_) => quote!(map),
+                                ListType::Set => quote!(append_not_present),
+                                ListType::Map(_) => quote!(iter_map),
                             };
                             field
                                 .attrs
