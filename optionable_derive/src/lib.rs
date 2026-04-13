@@ -86,6 +86,20 @@ use proc_macro::TokenStream;
 /// - **`merge_map_key`**: Implies `required` (see above). Furthermore, if at least one field has this attribute the trait `OptionableMapKeysEq` is implemented
 ///   which uses the corresponding fields to determine if the "mapping keys"  of two elements are equal. If the given struct is `T` this becomes utilized if another struct has a field
 ///   with the `merge(map)` attribute set and has a type that `impl IntoIterator<Item=T>`.
+///   ```rust,ignore
+///   #[derive(optionable)]
+///   struct EnvVar{
+///     #[merge_map_key]
+///     street: String; // will be a `String` in the derived `EnvVarOpt` and used as a merge key for the merge logic of `Container` below.
+///     value: String; // will be an `Option<String>` in the derived `EnvVarOpt`.
+///   }
+///
+///   #[derive(optionable)]
+///   struct Container{
+///     #[merge(iter_map)]
+///     env: Vec<EnvVar>; // will be a `Option<Vec<EnvVarOpt>>` in the derived `ContainerOpt`. The `OptionableConvert::merge` logic will merge entries that share the same keys (here the `name`) short-circuiting together and append those which did not find a merge target.
+///   }
+///   ````
 ///
 /// ### Kubernetes type-level attributes (on the struct/enum level)
 /// Specialized Kubernetes specific type attributes to help deriving optioned types (in go called `ApplyConfiguration`)
