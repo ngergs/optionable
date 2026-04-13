@@ -1941,10 +1941,10 @@ mod tests {
 
                     fn merge(&mut self, other: DeriveExampleOpt<'a, T, T2, T3> ) -> Result<(), ::optionable::Error> {
                         if let Some(other_value) = other.output {
-                            self.output = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
+                            ::optionable::OptionableConvert::merge(&mut self.output, other_value)?;
                         }
                         if let Some(other_value) = other.input {
-                            self.input = ::optionable::OptionableConvert::try_from_optioned(other_value)?;
+                            ::optionable::OptionableConvert::merge(&mut self.input, other_value)?;
                         }
                         self.extra=other.extra;
                         Ok(())
@@ -2183,10 +2183,10 @@ mod tests {
 
                     fn merge(&mut self, other: DeriveExampleOpt ) -> Result<(), crate::Error> {
                         if let Some(other_value) = other.name {
-                            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
+                            crate::OptionableConvert::merge(&mut self.name, other_value)?;
                         }
                         if let Some(other_value) = other.surname {
-                            self.surname = crate::OptionableConvert::try_from_optioned(other_value)?;
+                            crate::OptionableConvert::merge(&mut self.surname, other_value)?;
                         }
                         Ok(())
                     }
