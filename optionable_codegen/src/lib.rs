@@ -128,7 +128,7 @@ enum MergeBehaviour {
     OptionableConvert,
     // Completly overrides the field with the given merge candidate if present
     Atomic,
-    // Appens entries not already present in the target, requires the corresponding field to be `impl Extent<T>+IntoIter<Item=T> where T: PartialEq`
+    // Appends entries not already present in the target, requires the corresponding field to be `impl Extent<T>+IntoIter<Item=T> where T: PartialEq`
     Set,
     // Merges entries that are already present in the target using `OptionableConvert`, appends those that are not.
     // Requires the correspond field to be `impl Extend<T>+IntoIter<Item=T> where T: MapKeysEq+OptionableConvert`
