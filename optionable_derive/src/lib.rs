@@ -78,7 +78,7 @@ use proc_macro::TokenStream;
 ///     number: i32; // will be a `MyInt` in the derived `MyStructOpt`.
 ///   }
 ///   ````
-/// - **`merge`**: Customize the merge behaviour for the derived `OptionableConvert::merge` implementation. The following values are supported (e.g. as `#[merge(Atomic)]`):
+/// - **`merge`**: Customize the merge behaviour for the derived `OptionableConvert::merge` implementation. The following values are supported (e.g. as `#[merge(atomic)]`):
 ///     - `optionable_convert` Default behavior, just call `OptionableConvert::merge` for the given field entry.
 ///     - `atomic` Always override the field completly when present in the optioned type.
 ///     - `append_not_present` Kubernetes `set` merge logic. Appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: PartialEq`.
