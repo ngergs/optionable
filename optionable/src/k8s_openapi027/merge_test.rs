@@ -109,7 +109,7 @@ fn merge_deployment() {
                                 // merge patched
                                 EnvVar {
                                     name: "hello2".to_owned(),
-                                    value: Some("world5".to_owned()),
+                                    value: Some("world4".to_owned()),
                                     ..Default::default()
                                 },
                                 // appended
