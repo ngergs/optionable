@@ -178,9 +178,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::Event {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.involved_object {
-            self.involved_object = crate::OptionableConvert::try_from_optioned(
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.involved_object, other_value)?;
         }
         if self.last_timestamp.is_none() {
             self.last_timestamp = crate::OptionableConvert::try_from_optioned(

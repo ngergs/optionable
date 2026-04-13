@@ -69,7 +69,7 @@ for k8s_openapi027::api::authorization::v1::SubjectAccessReview {
     fn merge(&mut self, other: SubjectAccessReviewAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
-            self.spec = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.spec, other_value)?;
         }
         if self.status.is_none() {
             self.status = crate::OptionableConvert::try_from_optioned(other.status)?;

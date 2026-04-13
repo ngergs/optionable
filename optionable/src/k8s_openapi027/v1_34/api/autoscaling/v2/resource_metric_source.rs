@@ -57,7 +57,7 @@ for k8s_openapi027::api::autoscaling::v2::ResourceMetricSource {
             self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.target {
-            self.target = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.target, other_value)?;
         }
         Ok(())
     }

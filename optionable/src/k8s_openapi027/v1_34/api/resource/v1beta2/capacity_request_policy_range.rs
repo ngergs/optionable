@@ -85,7 +85,7 @@ for k8s_openapi027::api::resource::v1beta2::CapacityRequestPolicyRange {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.min {
-            self.min = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.min, other_value)?;
         }
         if self.step.is_none() {
             self.step = crate::OptionableConvert::try_from_optioned(other.step)?;

@@ -56,7 +56,8 @@ for k8s_openapi027::api::authentication::v1::TokenRequestStatus {
     }
     fn merge(&mut self, other: TokenRequestStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.expiration_timestamp {
-            self.expiration_timestamp = crate::OptionableConvert::try_from_optioned(
+            crate::OptionableConvert::merge(
+                &mut self.expiration_timestamp,
                 other_value,
             )?;
         }

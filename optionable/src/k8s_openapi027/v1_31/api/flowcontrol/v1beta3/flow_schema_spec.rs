@@ -92,7 +92,8 @@ for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.priority_level_configuration {
-            self.priority_level_configuration = crate::OptionableConvert::try_from_optioned(
+            crate::OptionableConvert::merge(
+                &mut self.priority_level_configuration,
                 other_value,
             )?;
         }

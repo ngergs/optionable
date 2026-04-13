@@ -77,7 +77,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::ReplicaSetSpec 
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.selector {
-            self.selector = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
         }
         if self.template.is_none() {
             self.template = crate::OptionableConvert::try_from_optioned(other.template)?;

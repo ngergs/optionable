@@ -130,7 +130,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentSpec 
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.selector {
-            self.selector = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.selector, other_value)?;
         }
         if self.strategy.is_none() {
             self.strategy = crate::OptionableConvert::try_from_optioned(other.strategy)?;
@@ -140,7 +140,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::apps::v1::DeploymentSpec 
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.template {
-            self.template = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.template, other_value)?;
         }
         Ok(())
     }

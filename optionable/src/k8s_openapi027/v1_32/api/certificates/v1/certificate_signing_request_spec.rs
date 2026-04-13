@@ -160,7 +160,7 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
             *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.request {
-            self.request = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.request, other_value)?;
         }
         if let Some(other_value) = other.signer_name {
             self.signer_name = crate::OptionableConvert::try_from_optioned(other_value)?;

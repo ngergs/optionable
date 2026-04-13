@@ -70,7 +70,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::ClusterRoleBind
     fn merge(&mut self, other: ClusterRoleBindingAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.role_ref {
-            self.role_ref = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.role_ref, other_value)?;
         }
         if self.subjects.is_none() {
             self.subjects = crate::OptionableConvert::try_from_optioned(other.subjects)?;

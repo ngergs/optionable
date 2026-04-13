@@ -125,7 +125,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ScaleIOVolumeSo
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.secret_ref {
-            self.secret_ref = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.secret_ref, other_value)?;
         }
         if self.ssl_enabled.is_none() {
             self.ssl_enabled = crate::OptionableConvert::try_from_optioned(

@@ -58,10 +58,10 @@ for k8s_openapi027::api::autoscaling::v2::PodsMetricSource {
     }
     fn merge(&mut self, other: PodsMetricSourceAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.metric {
-            self.metric = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.metric, other_value)?;
         }
         if let Some(other_value) = other.target {
-            self.target = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.target, other_value)?;
         }
         Ok(())
     }

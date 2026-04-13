@@ -58,10 +58,10 @@ for k8s_openapi027::api::autoscaling::v2::ExternalMetricStatus {
     }
     fn merge(&mut self, other: ExternalMetricStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.current {
-            self.current = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.current, other_value)?;
         }
         if let Some(other_value) = other.metric {
-            self.metric = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.metric, other_value)?;
         }
         Ok(())
     }

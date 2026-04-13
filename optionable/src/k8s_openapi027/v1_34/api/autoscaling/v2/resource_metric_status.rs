@@ -54,7 +54,7 @@ for k8s_openapi027::api::autoscaling::v2::ResourceMetricStatus {
     }
     fn merge(&mut self, other: ResourceMetricStatusAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.current {
-            self.current = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.current, other_value)?;
         }
         if let Some(other_value) = other.name {
             self.name = crate::OptionableConvert::try_from_optioned(other_value)?;

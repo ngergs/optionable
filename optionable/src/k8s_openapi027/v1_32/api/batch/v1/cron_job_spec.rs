@@ -105,9 +105,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::CronJobSpec {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.job_template {
-            self.job_template = crate::OptionableConvert::try_from_optioned(
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.job_template, other_value)?;
         }
         if let Some(other_value) = other.schedule {
             self.schedule = crate::OptionableConvert::try_from_optioned(other_value)?;

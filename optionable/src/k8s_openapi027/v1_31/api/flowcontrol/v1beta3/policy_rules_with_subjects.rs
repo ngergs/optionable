@@ -92,7 +92,7 @@ for k8s_openapi027::api::flowcontrol::v1beta3::PolicyRulesWithSubjects {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.subjects {
-            self.subjects = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.subjects, other_value)?;
         }
         Ok(())
     }

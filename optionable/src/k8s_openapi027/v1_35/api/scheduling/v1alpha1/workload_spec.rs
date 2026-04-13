@@ -65,7 +65,7 @@ for k8s_openapi027::api::scheduling::v1alpha1::WorkloadSpec {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.pod_groups {
-            self.pod_groups = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.pod_groups, other_value)?;
         }
         Ok(())
     }

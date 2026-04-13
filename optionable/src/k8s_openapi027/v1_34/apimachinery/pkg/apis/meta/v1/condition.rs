@@ -84,7 +84,8 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Condition {
     }
     fn merge(&mut self, other: ConditionAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.last_transition_time {
-            self.last_transition_time = crate::OptionableConvert::try_from_optioned(
+            crate::OptionableConvert::merge(
+                &mut self.last_transition_time,
                 other_value,
             )?;
         }

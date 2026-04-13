@@ -169,7 +169,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::ResourceSli
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.pool {
-            self.pool = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.pool, other_value)?;
         }
         if self.shared_counters.is_none() {
             self.shared_counters = crate::OptionableConvert::try_from_optioned(

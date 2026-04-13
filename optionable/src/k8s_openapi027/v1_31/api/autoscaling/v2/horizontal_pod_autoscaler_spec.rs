@@ -111,9 +111,7 @@ for k8s_openapi027::api::autoscaling::v2::HorizontalPodAutoscalerSpec {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.scale_target_ref {
-            self.scale_target_ref = crate::OptionableConvert::try_from_optioned(
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.scale_target_ref, other_value)?;
         }
         Ok(())
     }

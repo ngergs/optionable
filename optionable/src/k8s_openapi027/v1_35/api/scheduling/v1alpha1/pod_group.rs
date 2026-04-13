@@ -56,7 +56,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1alpha1::Pod
             self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.policy {
-            self.policy = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.policy, other_value)?;
         }
         Ok(())
     }

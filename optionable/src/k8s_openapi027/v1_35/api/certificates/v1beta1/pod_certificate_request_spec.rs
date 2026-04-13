@@ -182,9 +182,7 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
             self.node_uid = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.pkix_public_key {
-            self.pkix_public_key = crate::OptionableConvert::try_from_optioned(
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.pkix_public_key, other_value)?;
         }
         if let Some(other_value) = other.pod_name {
             self.pod_name = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -193,9 +191,7 @@ for k8s_openapi027::api::certificates::v1beta1::PodCertificateRequestSpec {
             self.pod_uid = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.proof_of_possession {
-            self.proof_of_possession = crate::OptionableConvert::try_from_optioned(
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.proof_of_possession, other_value)?;
         }
         if let Some(other_value) = other.service_account_name {
             self.service_account_name = crate::OptionableConvert::try_from_optioned(

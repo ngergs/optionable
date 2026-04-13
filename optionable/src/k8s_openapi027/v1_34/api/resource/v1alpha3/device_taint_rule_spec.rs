@@ -65,7 +65,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceTaintRuleSpec {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.taint {
-            self.taint = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.taint, other_value)?;
         }
         Ok(())
     }

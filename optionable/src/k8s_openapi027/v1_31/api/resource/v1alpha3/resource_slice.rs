@@ -74,7 +74,7 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceSlice {
     fn merge(&mut self, other: ResourceSliceAc) -> Result<(), crate::Error> {
         self.metadata = other.metadata;
         if let Some(other_value) = other.spec {
-            self.spec = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.spec, other_value)?;
         }
         Ok(())
     }

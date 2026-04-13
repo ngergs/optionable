@@ -266,7 +266,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.template {
-            self.template = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.template, other_value)?;
         }
         if self.ttl_seconds_after_finished.is_none() {
             self.ttl_seconds_after_finished = crate::OptionableConvert::try_from_optioned(

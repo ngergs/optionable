@@ -188,9 +188,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
             )?;
         }
         if let Some(other_value) = other.client_config {
-            self.client_config = crate::OptionableConvert::try_from_optioned(
-                other_value,
-            )?;
+            crate::OptionableConvert::merge(&mut self.client_config, other_value)?;
         }
         if self.failure_policy.is_none() {
             self.failure_policy = crate::OptionableConvert::try_from_optioned(

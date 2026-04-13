@@ -39,7 +39,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSON 
     }
     fn merge(&mut self, other: JSONAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.0 {
-            self.0 = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.0, other_value)?;
         }
         Ok(())
     }

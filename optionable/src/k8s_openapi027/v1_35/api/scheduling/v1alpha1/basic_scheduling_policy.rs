@@ -39,7 +39,7 @@ for k8s_openapi027::api::scheduling::v1alpha1::BasicSchedulingPolicy {
     }
     fn merge(&mut self, other: BasicSchedulingPolicyAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.0 {
-            self.0 = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(&mut self.0, other_value)?;
         }
         Ok(())
     }
