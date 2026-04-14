@@ -494,7 +494,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PodSpec {
         } else if let Some(self_value) = self.node_selector.as_mut()
             && let Some(other_value) = other.node_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.os.is_none() {
             self.os = crate::OptionableConvert::try_from_optioned(other.os)?;
