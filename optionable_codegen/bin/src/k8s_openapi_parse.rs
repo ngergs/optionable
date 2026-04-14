@@ -16,9 +16,18 @@ pub enum ListType {
     Map(Vec<String>),
 }
 
+/// Kubernetes server-side apply map type, see <https://kubernetes.io/docs/reference/using-api/server-side-apply>/
+#[derive(PartialEq, Debug)]
+pub enum MapType {
+    Atomic,
+    Granular,
+}
+
 /// Mapping obtained from the upstream Kubernetes OpenAPI v3 specifications, atm only for list merge types.
 #[derive(Default)]
 pub struct OpenApiListExtensions {
+    // Field identifier (e.g. `api.core.v1.Container.Env`) to ListType
+    pub map_type: HashMap<String, MapType>,
     // Field identifier (e.g. `api.core.v1.Container.Env`) to ListType
     pub list_type: HashMap<String, ListType>,
     // Struct identifier (e.g. `api.core.v1.EnvVar`) to list keys if it's used somewhere with list type `Map`.
@@ -58,8 +67,26 @@ fn process_schema(
     if let Some(schema) = schema
         && let SchemaKind::Type(item) = &schema.schema_kind
     {
+        let map_type = schema
+            .schema_data
+            .extensions
+            .get("x-kubernetes-list-type")
+            .map(|ty| {
+            let serde_json::Value::String(ty)=ty else {
+                return Err(format!("found `x-kubernetes-list-type` extension but without a string value: {schema:?}"));
+            };
+            match ty.as_ref() {
+                "atomic" => Ok(MapType::Atomic),
+                "granular" => Ok(MapType::Granular),
+                _ => Err(format!("Unsupported `x-kubernetes-map-type`: {ty}")),
+            }
+        }).transpose()?;
+        if let Some(map_type) = map_type {
+            insert_err_on_conflict(&mut result.map_type, map_type, field_path)?;
+        }
+
         let list_type=schema.schema_data.extensions.get("x-kubernetes-list-type").map(|ty|{
-        let serde_json::Value::String(ty)=ty else {
+            let serde_json::Value::String(ty)=ty else {
                 return Err(format!("found `x-kubernetes-list-type` extension but without a string value: {schema:?}"));
             };
              match ty.as_ref() {
@@ -86,26 +113,8 @@ fn process_schema(
                 },
                 _ => Err(format!("Unsupported `x-kubernetes-list-type`: {ty}")),
         }}).transpose()?;
-        // save found map type, ignore explicitly embedded types
+        // save found list type, ignore explicitly embedded types
         if let Some(list_type) = list_type {
-            let mut field_path_joined = field_path[..field_path.len() - 1].join(".");
-            field_path_joined.push('.');
-            field_path_joined.push_str(get_rust_ident(field_path.last().unwrap()).as_ref());
-            let Some(field_path_joined) = field_path_joined.strip_prefix("io.k8s.") else {
-                return Err(format!(
-                    "all fields path have to start with `io.k8s.`, found {field_path:?}"
-                )
-                .into());
-            };
-            if let Some(existing_list_type) = result.list_type.get(field_path_joined)
-                && *existing_list_type != list_type
-            {
-                return Err(format!(
-                    "Conflicting map keys for field={field_path:?}: existing={existing_list_type:?}, new={list_type:?}"
-                )
-                .into());
-            }
-
             // only supported way to determine the list key type
             if let ListType::Map(list_keys) = &list_type {
                 if let Type::Array(array) = &item
@@ -116,7 +125,7 @@ fn process_schema(
                     && let Some(ReferenceOr::Reference { reference }) = all_of.first()
                     && let Some(reference) = reference.strip_prefix("#/components/schemas/io.k8s.")
                 {
-                    if let Some(existing_list_type) = result.list_map_keys.get(field_path_joined)
+                    if let Some(existing_list_type) = result.list_map_keys.get(reference)
                         && existing_list_type != list_keys
                     {
                         return Err(format!(
@@ -131,9 +140,7 @@ fn process_schema(
                     return Err(format!("Unsupported list mapping for {field_path:?}").into());
                 }
             }
-            result
-                .list_type
-                .insert(field_path_joined.to_owned(), list_type);
+            insert_err_on_conflict(&mut result.list_type, list_type, field_path)?;
         }
         // continue recursion
         match item {
@@ -162,6 +169,34 @@ fn process_schema(
             }
             _ => {}
         }
+    }
+    Ok(())
+}
+
+/// Computes the map key as a Kubernetes style type identifier, e.g. `api.core.v1.Container`.
+/// Inserts it in the `target` after verifying that there is no entry with different value already present.
+fn insert_err_on_conflict<V: PartialEq + std::fmt::Debug>(
+    target: &mut HashMap<String, V>,
+    value: V,
+    field_path: &[&str],
+) -> Result<(), Box<dyn std::error::Error>> {
+    let mut field_path_joined = field_path[..field_path.len() - 1].join(".");
+    field_path_joined.push('.');
+    field_path_joined.push_str(get_rust_ident(field_path.last().unwrap()).as_ref());
+    let Some(field_path_joined) = field_path_joined.strip_prefix("io.k8s.") else {
+        return Err(
+            format!("all fields path have to start with `io.k8s.`, found {field_path:?}").into(),
+        );
+    };
+    if let Some(existing_entry) = target.get(field_path_joined) {
+        if existing_entry != &value {
+            return Err(format!(
+                    "Conflicting map keys for field={field_path:?}: existing={existing_entry:?}, new={value:?}"
+                )
+                .into());
+        }
+    } else {
+        target.insert(field_path_joined.to_owned(), value);
     }
     Ok(())
 }
