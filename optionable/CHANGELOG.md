@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0](https://github.com/ngergs/optionable/compare/optionable-v0.13.6...optionable-v0.14.0) - 2026-04-14
+
+### Added
+
+- derive macro for `OptionableMapKeysEq` (and rename of that trait)
+- add OptionedConvert for remaining provided OptionableConvert impls
+- implement `OptionedConvert` for stdlib vec types
+- `OptionedConvert` for self-resolving stdlib/core types
+- helper function for set and map list merges
+
+### Fixed
+
+- dependency updates
+- move `map_key` derive logic into `Optionable` derive macro
+- don't require OptionedConvert (just OptionableConvert) for merge functions
+- tests for custom merge behaviour + bugfixes
+- regenerate k8s-openapi files
+
+### Other
+
+- regenerate k8s-openapi (added atomic merge behavior for map acoording to upstream openapi spec)
+- rename merge options
+- test adjustment
+- regenerate k8s openapi (fixed merge impl)
+- regenerate k8s-openapi (adjusted merge impls)
+- test adjustments
+- regenerate k8s-openapi
+- regenerate k8s openapi (custom merge behaviour)
+- set merge type for k8s openapi
+- regenerate k8s-openapi impl (add OptionableMapKeysEq impl where types are used with `map` style merging)
+- rename integration tests
+- cleanup
+- error docs
+- adjust codegen to support various merge_type behaviors (logic still missing)
+- readme
+- adjust kube3 test
+- [**breaking**] regenerate k8s-openapi with required keys for lists with map type merging
+- add kubernetes openapi parsing to k8s-openapi codegen (not utilized yet)
+- regenerate k8s-openapi
+- regenerate k8s-openapi
+
 ## [0.13.6](https://github.com/ngergs/optionable/compare/optionable-v0.13.5...optionable-v0.13.6) - 2026-03-24
 
 ### Added
