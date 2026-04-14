@@ -7,6 +7,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0](https://github.com/ngergs/optionable/compare/optionable-v0.13.6...optionable-v0.14.0) - 2026-04-14
+
+Adds implementation of the upstream [Kubernetes server-side apply](https://kubernetes.io/docs/reference/using-api/server-side-apply/) merge logic
+following the upstream OpenAPI v3 specifications.
+This means that for `OptionableConvert::merge` now e.g. the environment variables of a container are threated as an effective map
+with the `name` field as key, see e.g. this unit test [here](https://github.com/ngergs/optionable/blob/ad0a6c58ae3a2658de8d6ac1f33befb69a68664f/optionable/src/k8s_openapi027/merge_test.rs).
+
+### Breaking changes
+The breaking changes only affect the `OptionableConvert::merge` logic which is the main change of this release.
+
+#### Merge already `Option` fields
+The previous merge logic was inconsistent and did overwrite a `Some(...)` with a `None` from the optioned type if the respective
+field type on the original struct was already an `Option`.
+Now the `Some(...)` is preserved and only overwritten/merged with the content of another `Some(...)` on the optioned type.
+
+#### Kubernetes server-side apply merge style logic
+The generated `OptionableConvert::merge` implementations for `k8s-openapi` now follows the mentioned Kubernetes server-side apply
+merge style logic as specified in the Kubernetes OpenAPIv3 upstream specification. This is of course a breaking change compared
+to the previous behavior (but the new one is more correct).
+
+### Added
+
+- derive macro for `OptionableMapKeysEq` (and rename of that trait)
+- add OptionedConvert for remaining provided OptionableConvert impls
+- implement `OptionedConvert` for stdlib vec types
+- `OptionedConvert` for self-resolving stdlib/core types
+- helper function for set and map list merges
+
+### Fixed
+
+- dependency updates
+- move `map_key` derive logic into `Optionable` derive macro
+- don't require OptionedConvert (just OptionableConvert) for merge functions
+- tests for custom merge behaviour + bugfixes
+- regenerate k8s-openapi files
+
+### Other
+
+- regenerate k8s-openapi (added atomic merge behavior for map acoording to upstream openapi spec)
+- rename merge options
+- test adjustment
+- regenerate k8s openapi (fixed merge impl)
+- regenerate k8s-openapi (adjusted merge impls)
+- test adjustments
+- regenerate k8s-openapi
+- regenerate k8s openapi (custom merge behaviour)
+- set merge type for k8s openapi
+- regenerate k8s-openapi impl (add OptionableMapKeysEq impl where types are used with `map` style merging)
+- rename integration tests
+- cleanup
+- error docs
+- adjust codegen to support various merge_type behaviors (logic still missing)
+- readme
+- adjust kube3 test
+- [**breaking**] regenerate k8s-openapi with required keys for lists with map type merging
+- add kubernetes openapi parsing to k8s-openapi codegen (not utilized yet)
+- regenerate k8s-openapi
+- regenerate k8s-openapi
+
 ## [0.13.6](https://github.com/ngergs/optionable/compare/optionable-v0.13.5...optionable-v0.13.6) - 2026-03-24
 
 ### Added
