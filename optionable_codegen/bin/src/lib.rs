@@ -15,7 +15,7 @@ use syn::{
 
 mod k8s_openapi_parse;
 
-pub use k8s_openapi_parse::{ListType, OpenApiListExtensions, determine_list_map_keys};
+pub use k8s_openapi_parse::{ListType, MapType, OpenApiListExtensions, determine_list_map_keys};
 
 /// Used for callback actions when encountering specific elements.
 /// The `CodegenVisitor` will be cloned value upon entering a new module.

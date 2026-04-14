@@ -2,8 +2,8 @@ use clap::Parser;
 use darling::FromMeta;
 use optionable_codegen::CodegenSettings;
 use optionable_codegen_cli::{
-    CodegenConfig, CodegenVisitor, ListType, OpenApiListExtensions, determine_list_map_keys,
-    file_codegen,
+    CodegenConfig, CodegenVisitor, ListType, MapType, OpenApiListExtensions,
+    determine_list_map_keys, file_codegen,
 };
 use proc_macro2::{Ident, Span};
 use quote::{ToTokens, quote};
@@ -122,20 +122,33 @@ impl CodegenVisitor for Visitor<'_> {
                         }
                     }
                     for field in &mut item.fields {
-                        if let Some(field_ident) = &field.ident
-                            && let Some(merge_type) = self
+                        if let Some(field_ident) = &field.ident {
+                            if let Some(merge_type) = self
                                 .list_extensions
                                 .list_type
                                 .get(&format!("{}.{}.{}", field_prefix, item.ident, field_ident))
-                        {
-                            let merge_type = match merge_type {
-                                ListType::Atomic => quote!(atomic),
-                                ListType::Set => quote!(append_not_present),
-                                ListType::Map(_) => quote!(iter_map),
-                            };
-                            field
-                                .attrs
-                                .push(parse_quote!(#[optionable(merge(#merge_type))]));
+                            {
+                                let merge_type = match merge_type {
+                                    ListType::Atomic => quote!(atomic),
+                                    ListType::Set => quote!(append_not_present),
+                                    ListType::Map(_) => quote!(iter_map),
+                                };
+                                field
+                                    .attrs
+                                    .push(parse_quote!(#[optionable(merge(#merge_type))]));
+                            } else if let Some(merge_type) = self
+                                .list_extensions
+                                .map_type
+                                .get(&format!("{}.{}.{}", field_prefix, item.ident, field_ident))
+                                && let Some(merge_type) = match merge_type {
+                                    MapType::Atomic => Some(quote!(atomic)),
+                                    MapType::Granular => None,
+                                }
+                            {
+                                field
+                                    .attrs
+                                    .push(parse_quote!(#[optionable(merge(#merge_type))]));
+                            }
                         }
                     }
                 }

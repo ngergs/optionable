@@ -70,7 +70,7 @@ fn process_schema(
         let map_type = schema
             .schema_data
             .extensions
-            .get("x-kubernetes-list-type")
+            .get("x-kubernetes-map-type")
             .map(|ty| {
             let serde_json::Value::String(ty)=ty else {
                 return Err(format!("found `x-kubernetes-list-type` extension but without a string value: {schema:?}"));
@@ -180,13 +180,19 @@ fn insert_err_on_conflict<V: PartialEq + std::fmt::Debug>(
     value: V,
     field_path: &[&str],
 ) -> Result<(), Box<dyn std::error::Error>> {
+    if field_path.is_empty() {
+        return Err(format!("received empty field path for storage of value: {value:?}").into());
+    }
     let mut field_path_joined = field_path[..field_path.len() - 1].join(".");
     field_path_joined.push('.');
     field_path_joined.push_str(get_rust_ident(field_path.last().unwrap()).as_ref());
+    let field_path_no_dot = field_path_joined.strip_prefix(".");
+    let field_path_joined = field_path_no_dot.unwrap_or(&field_path_joined);
     let Some(field_path_joined) = field_path_joined.strip_prefix("io.k8s.") else {
-        return Err(
-            format!("all fields path have to start with `io.k8s.`, found {field_path:?}").into(),
-        );
+        return Err(format!(
+            "all fields path have to start with `io.k8s.`, found {field_path_joined:?}"
+        )
+        .into());
     };
     if let Some(existing_entry) = target.get(field_path_joined) {
         if existing_entry != &value {
