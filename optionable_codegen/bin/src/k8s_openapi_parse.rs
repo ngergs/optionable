@@ -23,7 +23,7 @@ pub enum MapType {
     Granular,
 }
 
-/// Mapping obtained from the upstream Kubernetes OpenAPI v3 specifications, atm only for list merge types.
+/// Mapping obtained from the upstream Kubernetes `OpenAPIv3` specifications, atm only for list merge types.
 #[derive(Default)]
 pub struct OpenApiListExtensions {
     // Field identifier (e.g. `api.core.v1.Container.Env`) to ListType
@@ -39,6 +39,15 @@ pub struct OpenApiListExtensions {
 /// The input directory should point to this: <https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec/v3>.
 /// The keys of the map are the kubernetes type identifier with `io.k8s.`-prefix removed that they all share,
 /// so e.g. `api.core.v1.Container`. The values for `ListType::Map` are the rustified (k8s openapi mapping) rust field names.
+///
+/// # Errors
+/// - Reading the file info for the schema input directory fails
+/// - Reading a input schema file from the filesystem fails
+/// - JSON parsing the `OpenAPIv3` spec fails
+/// - `OpenAPIv3` parsing the read spec fails
+/// - Unsupported values for Kubernetes schema extensions `x-kubernetes-list-type`,`x-kubernetes-map-type`, `x-kubernetes-list-keys` are encountered
+/// - These are used in an unsupported schema constellation
+/// - Conflicting values for these are aggregated from the schema for some Kubernetes types/fields.
 pub fn determine_list_map_keys(
     k8s_openapi_v3_dir: &PathBuf,
 ) -> Result<OpenApiListExtensions, Box<dyn std::error::Error>> {

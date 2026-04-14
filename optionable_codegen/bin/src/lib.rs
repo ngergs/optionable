@@ -70,7 +70,7 @@ pub struct CodegenConfig<V: CodegenVisitor> {
 /// - IO errors on reading the input file.
 /// - IO errors on writing the output file.
 /// - Codegen errors, e.g. due to misused helper attributes.
-///
+#[allow(clippy::too_many_lines)]
 pub fn file_codegen<Vis: CodegenVisitor>(
     input_file: &Path,
     output_path: &Path,
