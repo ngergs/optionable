@@ -17,6 +17,7 @@ use serde::de::{Error, Unexpected};
 use serde::{Deserialize, Deserializer, Serializer};
 use std::marker::PhantomData;
 
+pub mod merge;
 mod merge_test;
 mod optionable;
 #[cfg(feature = "k8s_openapi027_v1_31")]
