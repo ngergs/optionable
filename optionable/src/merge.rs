@@ -3,6 +3,23 @@ use crate::{Optionable, OptionableConvert};
 /// Merges `other` into `target` using Kubernetes-style `set` merge logic.
 /// This means that all elements from `other` which are already present in `target` are discarded
 /// and the other ones that are missing in `target` get appended.
+pub fn merge_set<TARGET, OTHER, T>(target: &mut TARGET, other: OTHER)
+where
+    TARGET: Extend<T>,
+    for<'a> &'a TARGET: IntoIterator<Item = &'a T>,
+    OTHER: IntoIterator<Item = T>,
+    T: PartialEq,
+{
+    for el in other {
+        if !target.into_iter().any(|el_target| &el == el_target) {
+            target.extend(Some(el));
+        }
+    }
+}
+
+/// Merges `other` into `target` using Kubernetes-style `set` merge logic.
+/// This means that all elements from `other` which are already present in `target` are discarded
+/// and the other ones that are missing in `target` get appended.
 ///
 /// # Errors
 /// - When appending (creating a full type from an optioned one) via `OptionableConvert::try_into_optionable` fails.
@@ -24,6 +41,12 @@ where
         }
     }
     Ok(())
+}
+
+/// Trait for `merge_map` to check if the map keys for the respective merge candidate are equal.
+pub trait MapKeysEq {
+    /// Whether the keys of two map list merge candidates are equal.
+    fn keys_eq(&self, other: &Self) -> bool;
 }
 
 /// Trait for `try_merge_map` to check if the map keys for the respective merge candidate are equal.
