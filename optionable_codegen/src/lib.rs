@@ -12,10 +12,11 @@
 
 mod helper;
 mod k8s;
+mod map_keys_eq;
 mod parsed_input;
 mod where_clause;
 
-mod map_keys_eq;
+mod deepmerge;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s::{
@@ -122,7 +123,7 @@ pub(crate) struct FieldAttributeToCopy {
 
 #[derive(FromMeta, Default, Clone, Debug)]
 /// How entries should be merged for `OptionableConvert`.
-enum MergeBehaviour {
+pub(crate) enum MergeBehaviour {
     // Standard merge behaviour, requires the corresponding field to be `impl OptionableConvert`
     #[default]
     OptionableConvert,
