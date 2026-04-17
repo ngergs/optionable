@@ -17,6 +17,7 @@ mod parsed_input;
 mod where_clause;
 
 mod deepmerge;
+pub use deepmerge::derive_deepmerge;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s::{
