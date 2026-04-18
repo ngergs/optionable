@@ -1,7 +1,13 @@
+use std::mem::swap;
+
 use darling::{FromAttributes, FromDeriveInput, FromMeta};
-use proc_macro2::TokenStream;
+use proc_macro2::{Literal, TokenStream};
 use quote::{ToTokens, quote};
-use syn::{DeriveInput, Field, FieldsNamed, FieldsUnnamed, Ident, parse_quote, visit::Visit};
+use syn::{
+    DataEnum, DataStruct, DeriveInput, Field, FieldsNamed, FieldsUnnamed, Ident, Variant,
+    parse_quote,
+    visit::{Visit, visit_data_enum, visit_data_struct, visit_fields},
+};
 
 use crate::helper::error;
 
@@ -49,16 +55,19 @@ enum MergeBehavior {
 ///
 /// # Errors
 /// - If the field helper attributes are malformed.
-pub fn derive_deepmerge(input: &DeriveInput) -> syn::Result<TokenStream> {
+pub fn derive_deepmerge(input: DeriveInput) -> syn::Result<TokenStream> {
     let mut vis = DeepmergeVisitor {
-        attr: TypeHelperAttributes::from_derive_input(input)?,
-        result: Ok(TokenStream::new()),
+        attr: TypeHelperAttributes::from_derive_input(&input)?,
+        ty_ident: input.ident,
+        merge_from_fn_body: Ok(TokenStream::new()),
+        variant_comparisons: Ok(TokenStream::new()),
+        field_comparisons: Ok(TokenStream::new()),
     };
     let (impl_generics, ty_generics, where_generics) = input.generics.split_for_impl();
     vis.visit_data(&input.data);
-    let comparisons = vis.result?;
+    let comparisons = vis.merge_from_fn_body?;
 
-    let ident = &input.ident;
+    let ident = vis.ty_ident;
     let crate_k8s_openapi = &vis.attr.crate_k8s_openapi;
     Ok(
         quote! {impl #impl_generics #crate_k8s_openapi::DeepMerge for #ident #ty_generics #where_generics{
@@ -71,10 +80,47 @@ pub fn derive_deepmerge(input: &DeriveInput) -> syn::Result<TokenStream> {
 
 struct DeepmergeVisitor {
     attr: TypeHelperAttributes,
-    result: Result<TokenStream, syn::Error>,
+    ty_ident: Ident,
+    merge_from_fn_body: Result<TokenStream, syn::Error>,
+    variant_comparisons: Result<TokenStream, syn::Error>,
+    field_comparisons: Result<TokenStream, syn::Error>,
 }
 
 impl<'ast> Visit<'ast> for DeepmergeVisitor {
+    fn visit_data_struct(&mut self, node: &'ast DataStruct) {
+        // basically assign field_comparisons to merge_from_fn_body without cloning (we don't need the field_comparisons after this point)
+        swap(&mut self.merge_from_fn_body, &mut self.field_comparisons);
+
+        visit_data_struct(self, node);
+    }
+
+    fn visit_data_enum(&mut self, node: &'ast DataEnum) {
+        visit_data_enum(self, node);
+
+        let Ok(variant_comparisons) = &mut self.variant_comparisons else {
+            //forward error
+            swap(&mut self.merge_from_fn_body, &mut self.variant_comparisons); // forward error
+            return;
+        };
+        self.merge_from_fn_body = Ok(quote!(match self { #variant_comparisons}));
+    }
+
+    fn visit_variant(&mut self, variant: &'ast Variant) {
+        // reset field comparisons to collect new ones for this variant
+        self.field_comparisons = Ok(TokenStream::new());
+        visit_fields(self, &variant.fields);
+        let Ok(variant_comparisons) = &mut self.variant_comparisons else {
+            return;
+        };
+        let Ok(field_comparisons) = &mut self.field_comparisons else {
+            swap(&mut self.variant_comparisons, &mut self.field_comparisons); // forward error
+            return;
+        };
+        let variant_ident = &variant.ident;
+        let ty_ident = &self.ty_ident;
+        variant_comparisons.extend(quote!(#ty_ident::#variant_ident => {#field_comparisons}));
+    }
+
     fn visit_fields_named(&mut self, fields: &'ast FieldsNamed) {
         fields.named.iter().for_each(|field| {
             let ident = field.ident.as_ref().unwrap(); // we are at named fields
@@ -84,6 +130,7 @@ impl<'ast> Visit<'ast> for DeepmergeVisitor {
 
     fn visit_fields_unnamed(&mut self, fields: &'ast FieldsUnnamed) {
         fields.unnamed.iter().enumerate().for_each(|(i, field)| {
+            let i = Literal::usize_unsuffixed(i);
             self.visit_field(&i.to_token_stream(), field);
         });
     }
@@ -91,13 +138,13 @@ impl<'ast> Visit<'ast> for DeepmergeVisitor {
 
 impl DeepmergeVisitor {
     fn visit_field(&mut self, ident: &TokenStream, field: &Field) {
-        let Ok(result) = &mut self.result else {
+        let Ok(result) = &mut self.field_comparisons else {
             return;
         };
         let attrs = match FieldHelperAttributes::from_attributes(&field.attrs) {
             Ok(attrs) => attrs,
             Err(err) => {
-                self.result = Err(err.into());
+                self.field_comparisons = Err(err.into());
                 return;
             }
         };
@@ -116,7 +163,7 @@ impl DeepmergeVisitor {
             MergeBehavior::IterMap => {
                 let crate_optionable = &self.attr.crate_optionable;
                 let Some(k8s_openapi_package) = &self.attr.k8s_openapi_package else {
-                    self.result = error(
+                    self.field_comparisons = error(
                         "The `k8sopenapi_package` helper attribute is required for usage of `#[deepmerge(itermap)]`, set e.g. `#[deepmerge(k8sopenapi_package(k8s_openapi027))]` if that's the version you use",
                     );
                     return;
@@ -135,7 +182,7 @@ mod tests {
 
     fn assert_odeepmerge(input: proc_macro2::TokenStream, expected: proc_macro2::TokenStream) {
         let parsed = syn::parse2(input).unwrap();
-        let output = derive_deepmerge(&parsed).unwrap();
+        let output = derive_deepmerge(parsed).unwrap();
         assert_eq!(
             normalize_token_str(&expected.to_string()),
             normalize_token_str(&output.to_string())
@@ -143,20 +190,41 @@ mod tests {
     }
 
     #[test]
-    fn test_deepmerge() {
+    fn test_deepmerge_struct() {
         assert_odeepmerge(
             quote! {
                 #[derive(DeepMerge)]
-                struct DeepmergeExample{
+                struct DeepmergeStruct{
                     name: String,
                     pub surname: String,
                 }
             },
             quote! {
-                impl k8s_openapi::DeepMerge for DeepmergeExample{
+                impl k8s_openapi::DeepMerge for DeepmergeStruct{
                     fn merge_from(&mut self, other: Self){
                         k8s_openapi::DeepMerge::merge_from(self.name, other.name);
                         k8s_openapi::DeepMerge::merge_from(self.surname, other.surname);
+                    }
+                }
+            },
+        );
+    }
+    #[test]
+    fn test_deepmerge_enum() {
+        assert_odeepmerge(
+            quote! {
+                #[derive(DeepMerge)]
+                enum DeepmergeEnum{
+                    SurName(String),
+                    Name{name: String, surname: String},
+                    Tuple(String, String),
+                }
+            },
+            quote! {
+                impl k8s_openapi::DeepMerge for DeepmergeExample{
+                    fn merge_from(&mut self, other: Self){
+                        match self{
+                        }
                     }
                 }
             },
