@@ -51,16 +51,15 @@ enum MergeBehavior {
 pub fn derive_deepmerge(input: &DeriveInput) -> syn::Result<TokenStream> {
     let mut vis = DeepmergeVisitor {
         attr: TypeHelperAttributes::from_derive_input(input)?,
-        result: Ok(Vec::new()),
+        result: Ok(TokenStream::new()),
     };
     vis.visit_data(&input.data);
-    let result = vis.result?;
-    Ok(quote!(#(#result)*))
+    vis.result
 }
 
 struct DeepmergeVisitor {
     attr: TypeHelperAttributes,
-    result: Result<Vec<TokenStream>, syn::Error>,
+    result: Result<TokenStream, syn::Error>,
 }
 
 impl<'ast> Visit<'ast> for DeepmergeVisitor {
@@ -108,6 +107,6 @@ impl DeepmergeVisitor {
                 quote! {#crate_optionable::#k8s_openapi_package::merge::merge_map(self.#ident, other.#ident);}
             }
         };
-        result.push(comparison);
+        result.extend(comparison);
     }
 }
