@@ -129,7 +129,7 @@ impl<'ast> Visit<'ast> for DeepmergeVisitor {
             return;
         };
         let ty_ident = &self.ty_ident;
-        let variant_ident = &variant.ident; // todo: remove (replaced with destructure)
+        let variant_ident = &variant.ident;
         let variant_self_destructure = &self.variant_self_destructure;
         let other_self_destructure = &self.variant_other_destructure;
         // todo: destructure the variant identifier for self and other....
@@ -139,6 +139,7 @@ impl<'ast> Visit<'ast> for DeepmergeVisitor {
                 if let #ty_ident::#variant_ident(#other_self_destructure) = other {
                     #field_comparisons
                 } else {
+                    // todo : fix this
                     *#variant_var_ident = other;
                 }
             }),
