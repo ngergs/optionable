@@ -1258,7 +1258,7 @@ mod tests {
     use quote::quote;
     use syn::{Path, parse_quote};
 
-    fn normalize_token_str(s: &str) -> String {
+    pub(crate) fn normalize_token_str(s: &str) -> String {
         // `quote!` literals and interpolated token streams differ in whether adjacent `>>`
         // closing angle brackets are rendered with or without a space. Normalize to `> >`.
         s.replace(">>", "> >")
@@ -1872,7 +1872,7 @@ mod tests {
 
     #[test]
     fn test_named_struct_generics() {
-        assert_optionable(
+	assert_optionable(
             quote! {
                 #[derive(Optionable)]
                 #[optionable(derive(Serialize, Deserialize))]

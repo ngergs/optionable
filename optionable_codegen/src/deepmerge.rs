@@ -1,7 +1,7 @@
 use darling::{FromAttributes, FromDeriveInput, FromMeta};
 use proc_macro2::TokenStream;
 use quote::{ToTokens, quote};
-use syn::{DeriveInput, Field, FieldsNamed, FieldsUnnamed, visit::Visit};
+use syn::{DeriveInput, Field, FieldsNamed, FieldsUnnamed, Ident, parse_quote, visit::Visit};
 
 use crate::helper::error;
 
@@ -10,20 +10,21 @@ use crate::helper::error;
 /// The type helper attributes to derive `deepmerge`.
 struct TypeHelperAttributes {
     /// Crate name under which the `k8s_openapi` crate with the `DeepMerge` trait can be found.
-    #[darling(default=|| "k8s_openapi".to_owned())]
-    crate_k8s_openapi: String,
+    #[darling(default=|| parse_quote!{k8s_openapi})]
+    crate_k8s_openapi: Ident,
     /// Crate name under which the `optionable` crate with our helper methods can be found.
-    #[darling(default=|| "optionable".to_owned())]
-    crate_optionable: String,
+    #[darling(default=|| parse_quote!{optionable})]
+    crate_optionable: Ident,
     /// Used k8s openapi version from optionable in the form of the available package path, e.g. `k8s_openapi027`
-    optionable_k8s_openapi_package: String,
+    k8s_openapi_package: Option<String>,
 }
 
 #[derive(FromAttributes)]
 #[darling(attributes(deepmerge))]
 /// The field helper attributes to derive `deepmerge`.
 struct FieldHelperAttributes {
-    /// Merge method to use to handle the given field
+    /// Merge method to use to handle the given fieldi
+    #[darling(default)]
     method: MergeBehavior,
     /// Set if the respective field is a map key
     map_key: Option<()>,
@@ -53,8 +54,19 @@ pub fn derive_deepmerge(input: &DeriveInput) -> syn::Result<TokenStream> {
         attr: TypeHelperAttributes::from_derive_input(input)?,
         result: Ok(TokenStream::new()),
     };
+    let (impl_generics, ty_generics, where_generics) = input.generics.split_for_impl();
     vis.visit_data(&input.data);
-    vis.result
+    let comparisons = vis.result?;
+
+    let ident = &input.ident;
+    let crate_k8s_openapi = &vis.attr.crate_k8s_openapi;
+    Ok(
+        quote! {impl #impl_generics #crate_k8s_openapi::DeepMerge for #ident #ty_generics #where_generics{
+            fn merge_from(&mut self, other: Self){
+                #comparisons
+            }
+        }},
+    )
 }
 
 struct DeepmergeVisitor {
@@ -103,10 +115,51 @@ impl DeepmergeVisitor {
             }
             MergeBehavior::IterMap => {
                 let crate_optionable = &self.attr.crate_optionable;
-                let k8s_openapi_package = &self.attr.optionable_k8s_openapi_package;
+                let Some(k8s_openapi_package) = &self.attr.k8s_openapi_package else {
+                    self.result = error(
+                        "The `k8sopenapi_package` helper attribute is required for usage of `#[deepmerge(itermap)]`, set e.g. `#[deepmerge(k8sopenapi_package(k8s_openapi027))]` if that's the version you use",
+                    );
+                    return;
+                };
                 quote! {#crate_optionable::#k8s_openapi_package::merge::merge_map(self.#ident, other.#ident);}
             }
         };
         result.extend(comparison);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::{derive_deepmerge, tests::normalize_token_str};
+    use quote::quote;
+
+    fn assert_odeepmerge(input: proc_macro2::TokenStream, expected: proc_macro2::TokenStream) {
+        let parsed = syn::parse2(input).unwrap();
+        let output = derive_deepmerge(&parsed).unwrap();
+        assert_eq!(
+            normalize_token_str(&expected.to_string()),
+            normalize_token_str(&output.to_string())
+        );
+    }
+
+    #[test]
+    fn test_deepmerge() {
+        assert_odeepmerge(
+            quote! {
+                #[derive(DeepMerge)]
+                struct DeepmergeExample{
+                    name: String,
+                    pub surname: String,
+                }
+            },
+            quote! {
+                impl k8s_openapi::DeepMerge for DeepmergeExample{
+                    fn merge_from(&mut self, other: Self){
+                        k8s_openapi::DeepMerge::merge_from(self.name, other.name);
+                        k8s_openapi::DeepMerge::merge_from(self.surname, other.surname);
+                    }
+                }
+            },
+        );
     }
 }
