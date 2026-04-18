@@ -23,7 +23,6 @@ where
 ///
 /// # Errors
 /// - When appending (creating a full type from an optioned one) via `OptionableConvert::try_into_optionable` fails.
-// todo: rename to `try_merge_append_not_present` on next breaking change (adjust codegen)
 pub fn try_merge_optioned_set<TARGET, OTHER, T>(
     target: &mut TARGET,
     other: OTHER,
