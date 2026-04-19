@@ -29,8 +29,6 @@ struct FieldHelperAttributes {
     /// Merge method to use to handle the given fieldi
     #[darling(default)]
     method: MergeBehavior,
-    /// Set if the respective field is a map key
-    map_key: Option<()>,
 }
 
 #[derive(FromMeta, Default)]
