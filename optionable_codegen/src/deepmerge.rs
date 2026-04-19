@@ -10,7 +10,7 @@ use crate::helper::error;
 
 #[derive(FromDeriveInput)]
 #[darling(attributes(deepmerge))]
-/// The type helper attributes to derive `deepmerge`.
+/// The type helper attributes to derive `k8s_openapi::DeepMerge`.
 struct TypeHelperAttributes {
     /// Crate name under which the `k8s_openapi` crate with the `DeepMerge` trait can be found.
     #[darling(default=|| parse_quote!{k8s_openapi})]
@@ -24,7 +24,7 @@ struct TypeHelperAttributes {
 
 #[derive(FromAttributes)]
 #[darling(attributes(deepmerge))]
-/// The field helper attributes to derive `deepmerge`.
+/// The field helper attributes to derive `k8s_openapi::DeepMerge`.
 struct FieldHelperAttributes {
     /// Merge method to use to handle the given fieldi
     #[darling(default)]
@@ -46,7 +46,7 @@ enum MergeBehavior {
     IterMap,
 }
 
-/// Derives the `DeepMerge` and (if corresponding `#[deepmerge(map_key)]` field attributes are present) the `MapKeysEq` traits.
+/// Derives the `k8s_openapi::DeepMerge` trait.
 ///
 /// # Errors
 /// - If the field helper attributes are malformed.
@@ -316,7 +316,7 @@ mod tests {
     use crate::{derive_deepmerge, tests::normalize_token_str};
     use quote::quote;
 
-    fn assert_odeepmerge(input: proc_macro2::TokenStream, expected: proc_macro2::TokenStream) {
+    fn assert_deepmerge(input: proc_macro2::TokenStream, expected: proc_macro2::TokenStream) {
         let parsed = syn::parse2(input).unwrap();
         let output = derive_deepmerge(parsed).unwrap();
         assert_eq!(
@@ -327,7 +327,7 @@ mod tests {
 
     #[test]
     fn test_deepmerge_struct() {
-        assert_odeepmerge(
+        assert_deepmerge(
             quote! {
                 #[derive(DeepMerge)]
                 struct DeepmergeStruct{
@@ -347,7 +347,7 @@ mod tests {
     }
     #[test]
     fn test_deepmerge_enum() {
-        assert_odeepmerge(
+        assert_deepmerge(
             quote! {
                 #[derive(DeepMerge)]
                 enum DeepmergeEnum{
