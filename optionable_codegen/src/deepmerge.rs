@@ -120,7 +120,6 @@ impl<'ast> Visit<'ast> for DeepmergeVisitor {
         // self_ident needs to be variable name for the variant we are at
         self.self_ident = quote!(variant);
         visit_fields(self, &variant.fields);
-        let variant_var_ident = &self.self_ident;
         let Ok(variant_comparisons) = &mut self.variant_comparisons else {
             return;
         };
@@ -132,44 +131,45 @@ impl<'ast> Visit<'ast> for DeepmergeVisitor {
         let variant_ident = &variant.ident;
         let variant_self_destructure = &self.variant_self_destructure;
         let other_self_destructure = &self.variant_other_destructure;
-        // todo: destructure the variant identifier for self and other....
         variant_comparisons.extend(
-            // todo generalize brackets (tuple / named struct)
-            quote!(#ty_ident::#variant_ident{#variant_self_destructure}=> {
-                if let #ty_ident::#variant_ident(#other_self_destructure) = other {
+            quote!(#ty_ident::#variant_ident #variant_self_destructure=> {
+                if let #ty_ident::#variant_ident #other_self_destructure = other {
                     #field_comparisons
                 } else {
-                    // todo : fix this
-                    *#variant_var_ident = other;
+                    *self = other;
                 }
             }),
         );
     }
 
     fn visit_fields_named(&mut self, fields: &'ast FieldsNamed) {
+        let mut self_destructure = TokenStream::new();
+        let mut other_destructure = TokenStream::new();
         fields.named.iter().for_each(|field| {
             let ident = field.ident.as_ref().unwrap(); // we are at named fields
             self.visit_field(&ident.to_token_stream(), field);
             let self_ident = format_ident!("self_{ident}");
             let other_ident = format_ident!("other_{ident}");
-            self.variant_self_destructure
-                .extend(quote!(#ident: #self_ident,));
-            self.variant_other_destructure
-                .extend(quote!(#ident: #other_ident,));
+            self_destructure.extend(quote!(#ident: #self_ident,));
+            other_destructure.extend(quote!(#ident: #other_ident,));
         });
+        self.variant_self_destructure = quote!({#self_destructure});
+        self.variant_other_destructure = quote!((#other_destructure));
     }
 
     fn visit_fields_unnamed(&mut self, fields: &'ast FieldsUnnamed) {
+        let mut self_destructure = TokenStream::new();
+        let mut other_destructure = TokenStream::new();
         fields.unnamed.iter().enumerate().for_each(|(i, field)| {
             let i = Literal::usize_unsuffixed(i);
             self.visit_field(&i.to_token_stream(), field);
             let self_ident = format_ident!("self_{i}");
             let other_ident = format_ident!("other_{i}");
-            self.variant_self_destructure
-                .extend(quote!(#i: #self_ident,));
-            self.variant_other_destructure
-                .extend(quote!(#i: #other_ident,));
+            self_destructure.extend(quote!(#i: #self_ident,));
+            other_destructure.extend(quote!(#i: #other_ident,));
         });
+        self.variant_self_destructure = quote!({#self_destructure});
+        self.variant_other_destructure = quote!((#other_destructure));
     }
 }
 
