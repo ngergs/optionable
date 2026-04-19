@@ -152,7 +152,7 @@
 //!     name: T,
 //! }
 //!
-//! // The generated code for the struct is shown below (name adjusted and simplified)
+//! // The generated code for the struct is shown below (name adjusted for rustdoc test and simplified)
 //! #[derive(Serialize)]
 //! struct DeriveExampleOpt2<T>
 //! where
@@ -181,6 +181,9 @@ extern crate alloc;
 extern crate core;
 
 use core::fmt::{Display, Formatter};
+#[cfg(feature = "derive")]
+#[doc(inline)]
+pub use optionable_derive::DeepMerge;
 #[cfg(feature = "derive")]
 #[doc(inline)]
 pub use optionable_derive::Optionable;

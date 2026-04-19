@@ -125,7 +125,7 @@ impl<'ast> Visit<'ast> for DataVisitor {
         let mut struct_vis = StructVisitor {
             data_vis: self,
             field_comparisons: Ok(TokenStream::new()),
-            self_field_selector_fn: |field| quote!(self.#field),
+            self_field_selector_fn: |field| quote!(&mut self.#field),
             other_field_selector_fn: |field| quote!(other.#field),
         };
         struct_vis.visit_data_struct(node);
@@ -219,8 +219,8 @@ where
             let i = Literal::usize_unsuffixed(i).into_token_stream();
             let self_ident = (self.struct_vis.self_field_selector_fn)(&i);
             let other_ident = (self.struct_vis.other_field_selector_fn)(&i);
-            self_destructure.extend(quote!(#i: #self_ident,));
-            other_destructure.extend(quote!(#i: #other_ident,));
+            self_destructure.extend(quote!(#self_ident,));
+            other_destructure.extend(quote!(#other_ident,));
         });
         self.self_destructure = quote!((#self_destructure));
         self.other_destructure = quote!((#other_destructure));
@@ -327,8 +327,8 @@ mod tests {
             quote! {
                 impl k8s_openapi::DeepMerge for DeepmergeStruct{
                     fn merge_from(&mut self, other: Self){
-                        k8s_openapi::DeepMerge::merge_from(self.name, other.name);
-                        k8s_openapi::DeepMerge::merge_from(self.surname, other.surname);
+                        k8s_openapi::DeepMerge::merge_from(&mut self.name, other.name);
+                        k8s_openapi::DeepMerge::merge_from(&mut self.surname, other.surname);
                     }
                 }
             },
@@ -349,8 +349,8 @@ mod tests {
                 impl k8s_openapi::DeepMerge for DeepmergeEnum{
                     fn merge_from(&mut self, other: Self){
                         match self{
-                            DeepmergeEnum::Surname(0: self_0, ) => {
-                                if let DeepmergeEnum::Surname(0: other_0, ) = other{
+                            DeepmergeEnum::Surname(self_0, ) => {
+                                if let DeepmergeEnum::Surname(other_0, ) = other{
                                     k8s_openapi::DeepMerge::merge_from (self_0, other_0);
                                 } else {
                                     *self = other;
@@ -364,8 +364,8 @@ mod tests {
                                     *self = other;
                                 }
                             }
-                            DeepmergeEnum::Tuple(0: self_0, 1: self_1, ) => {
-                                if let DeepmergeEnum::Tuple(0: other_0, 1: other_1, ) = other{
+                            DeepmergeEnum::Tuple(self_0, self_1, ) => {
+                                if let DeepmergeEnum::Tuple(other_0, other_1, ) = other{
                                     k8s_openapi::DeepMerge::merge_from (self_0, other_0);
                                     k8s_openapi::DeepMerge::merge_from (self_1, other_1);
                                 } else {
