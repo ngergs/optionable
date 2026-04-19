@@ -12,28 +12,30 @@
 
 mod helper;
 mod k8s;
-mod map_keys_eq;
 mod parsed_input;
 mod where_clause;
 
 mod deepmerge;
+mod optionable_map_keys_eq;
 pub use deepmerge::derive_deepmerge;
+mod map_keys_eq;
+pub use map_keys_eq::derive_map_keys_eq;
 
 use crate::helper::{destructure, error, error_on_helper_attributes, is_serialize, struct_wrapper};
 use crate::k8s::{
-    ResourceType, error_missing_features, k8s_adjust_fields, k8s_openapi_derives,
-    k8s_openapi_impl_metadata, k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr,
+    error_missing_features, k8s_adjust_fields, k8s_openapi_derives, k8s_openapi_impl_metadata,
+    k8s_openapi_impl_resource, k8s_resource_type, k8s_type_attr, ResourceType,
 };
-use crate::map_keys_eq::map_keys_eq_impl;
+use crate::optionable_map_keys_eq::optionable_map_keys_eq_impl;
 use crate::parsed_input::{
-    FieldHandling, FieldParsed, StructParsed, StructType, into_field_handling,
+    into_field_handling, FieldHandling, FieldParsed, StructParsed, StructType,
 };
-use crate::where_clause::{WhereClauses, where_clauses};
+use crate::where_clause::{where_clauses, WhereClauses};
 use darling::util::PathList;
 use darling::{FromAttributes, FromDeriveInput, FromMeta};
 use itertools::MultiUnzip;
 use proc_macro2::{Ident, Literal, TokenStream};
-use quote::{ToTokens, format_ident, quote};
+use quote::{format_ident, quote, ToTokens};
 use std::borrow::Cow;
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::default::Default;
@@ -42,9 +44,9 @@ use syn::parse::Parser;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::{
-    AttrStyle, Attribute, Data, DataEnum, DataStruct, DeriveInput, Error, Field, Fields,
-    GenericArgument, Generics, ImplGenerics, LitStr, Meta, MetaList, Path, PathArguments, Token,
-    Type, TypeGenerics, TypePath, WhereClause, parse_quote,
+    parse_quote, AttrStyle, Attribute, Data, DataEnum, DataStruct, DeriveInput, Error, Field,
+    Fields, GenericArgument, Generics, ImplGenerics, LitStr, Meta, MetaList, Path, PathArguments,
+    Token, Type, TypeGenerics, TypePath, WhereClause,
 };
 
 const HELPER_OPTIONABLE_IDENT: &str = "optionable";
@@ -606,7 +608,7 @@ fn process_struct_data(
     let ty_ident = ctx.ty_ident;
     let ty_ident_opt = ctx.ty_ident_opt;
     let impl_optionable_convert = ctx.attr_no_convert.is_none().then(|| {
-           let map_keys_eq_impl = map_keys_eq_impl(&struct_parsed.fields);
+        let map_keys_eq_impl = optionable_map_keys_eq_impl(&struct_parsed.fields);
         let into_optioned_fields =
             into_optioned(&struct_parsed, |selector| quote! { self.#selector });
         let try_from_optioned_fields =
@@ -1253,10 +1255,10 @@ fn forwarded_attributes(
 
 #[cfg(test)]
 mod tests {
-    use crate::{CodegenSettings, derive_optionable};
+    use crate::{derive_optionable, CodegenSettings};
     use darling::FromMeta;
     use quote::quote;
-    use syn::{Path, parse_quote};
+    use syn::{parse_quote, Path};
 
     pub(crate) fn normalize_token_str(s: &str) -> String {
         // `quote!` literals and interpolated token streams differ in whether adjacent `>>`
@@ -1872,7 +1874,7 @@ mod tests {
 
     #[test]
     fn test_named_struct_generics() {
-	assert_optionable(
+        assert_optionable(
             quote! {
                 #[derive(Optionable)]
                 #[optionable(derive(Serialize, Deserialize))]
