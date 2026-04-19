@@ -60,3 +60,18 @@ fn deepmerge_enum() {
     val.merge_from(other.clone());
     assert_eq!(val, other);
 }
+
+#[derive(DeepMerge, PartialEq, Debug, Clone)]
+#[deepmerge(crate_k8s_openapi = "k8s_openapi027")]
+/// just verify that it generates valid code
+#[allow(dead_code)]
+struct AllMethods {
+    default: String,
+    #[deepmerge(method(deep_merge))]
+    explicit_deep_merge: String,
+    #[deepmerge(method(atomic))]
+    atomic: String,
+    #[deepmerge(method(append_not_present))]
+    append_not_present: Vec<String>,
+    // todo: map_iter once we have a derive for `MapKeysEq`
+}
