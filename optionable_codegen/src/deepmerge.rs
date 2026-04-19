@@ -73,37 +73,62 @@ pub fn derive_deepmerge(input: DeriveInput) -> syn::Result<TokenStream> {
     )
 }
 
-// todo split into multiple visitors for different use cases
+/// Visits onyl Data entries itself and delegates to the `EnumVisitor` or `StructVisitor` to generate the `merge_from_fn_body`.
 struct DataVisitor {
+    /// The parsed type attributes from the original type.
     attr: TypeHelperAttributes,
+    /// `Ident` of the type for which `DeepMerge` should be generated.
     ty_ident: Ident,
+    /// Result, will be filled after `visit_data` has been called once.
     merge_from_fn_body: Result<TokenStream, syn::Error>,
 }
 
-struct StructVisitor<'a> {
+/// Visits the wrapper of the enum, only generates the `match self {...}` envelope and delegates to `EnumVariantVisitor` for the individual variants.
+struct EnumVisitor<'a> {
+    /// Shared reference to general config from `DataVisitor`.
     data_vis: &'a DataVisitor,
-    self_ident: &'a TokenStream,
-    field_comparisons: Result<TokenStream, syn::Error>,
+    /// Result, will be filled after `visit_data_enum` has been called once.
+    variant_comparisons: Result<TokenStream, syn::Error>,
 }
 
-struct EnumVariantVisitor<'a> {
-    // will be called to generate field comparisons so must be mut
-    struct_vis: StructVisitor<'a>,
+/// Visits the individual variants and generates the match condition and the individual field comparisons.
+/// Delegates for the field comparisons to `StructVisitor.`
+struct EnumVariantVisitor<'a, F1, F2>
+where
+    F1: Fn(&TokenStream) -> TokenStream,
+    F2: Fn(&TokenStream) -> TokenStream,
+{
+    /// Wwill be called to generate field comparisons
+    struct_vis: StructVisitor<'a, F1, F2>,
+    /// Destructuring for the self keyword
     self_destructure: TokenStream,
+    /// Destructuring for the other variable
     other_destructure: TokenStream,
 }
 
-struct EnumVisitor<'a> {
+/// Generates field comparisons.
+struct StructVisitor<'a, F1, F2>
+where
+    F1: Fn(&TokenStream) -> TokenStream,
+    F2: Fn(&TokenStream) -> TokenStream,
+{
+    /// Shared reference to general config from `DataVisitor`.
     data_vis: &'a DataVisitor,
-    variant_comparisons: Result<TokenStream, syn::Error>,
+    /// Receives the field identifier and produces the `self` field selector, e.g. `self.my_field` or `self_my_field`.
+    self_field_selector_fn: F1,
+    /// Receives the field identifier and produces the `other` field selector, e.g. `other.my_field` or `other_my_field`.
+    other_field_selector_fn: F2,
+    /// Result, will be filled after `visit_fields` has been called once.
+    field_comparisons: Result<TokenStream, syn::Error>,
 }
 
 impl<'ast> Visit<'ast> for DataVisitor {
     fn visit_data_struct(&mut self, node: &'ast DataStruct) {
         let mut struct_vis = StructVisitor {
             data_vis: self,
-            self_ident: &quote!(self),
             field_comparisons: Ok(TokenStream::new()),
+            self_field_selector_fn: |field| quote!(self.#field),
+            other_field_selector_fn: |field| quote!(other.#field),
         };
         struct_vis.visit_data_struct(node);
         self.merge_from_fn_body = struct_vis.field_comparisons;
@@ -134,8 +159,9 @@ impl<'ast> Visit<'ast> for EnumVisitor<'ast> {
         let mut enum_variant_visitor = EnumVariantVisitor {
             struct_vis: StructVisitor {
                 data_vis: self.data_vis,
-                self_ident: &quote!(self),
                 field_comparisons: Ok(TokenStream::new()),
+                self_field_selector_fn: |field| format_ident!("self_{field}").into_token_stream(),
+                other_field_selector_fn: |field| format_ident!("other_{field}").into_token_stream(),
             },
             self_destructure: TokenStream::new(),
             other_destructure: TokenStream::new(),
@@ -165,18 +191,22 @@ impl<'ast> Visit<'ast> for EnumVisitor<'ast> {
     }
 }
 
-impl<'ast> Visit<'ast> for EnumVariantVisitor<'ast> {
+impl<'ast, F1, F2> Visit<'ast> for EnumVariantVisitor<'ast, F1, F2>
+where
+    F1: Fn(&TokenStream) -> TokenStream,
+    F2: Fn(&TokenStream) -> TokenStream,
+{
     fn visit_fields_named(&mut self, fields: &'ast FieldsNamed) {
         self.struct_vis.visit_fields_named(fields);
 
         let mut self_destructure = TokenStream::new();
         let mut other_destructure = TokenStream::new();
         fields.named.iter().for_each(|field| {
-            let ident = field.ident.as_ref().unwrap(); // we are at named fields
-            let self_ident = format_ident!("self_{ident}");
-            let other_ident = format_ident!("other_{ident}");
-            self_destructure.extend(quote!(#ident: #self_ident,));
-            other_destructure.extend(quote!(#ident: #other_ident,));
+            let field_ident = field.ident.to_token_stream();
+            let self_ident = (self.struct_vis.self_field_selector_fn)(&field_ident);
+            let other_ident = (self.struct_vis.other_field_selector_fn)(&field_ident);
+            self_destructure.extend(quote!(#field_ident: #self_ident,));
+            other_destructure.extend(quote!(#field_ident: #other_ident,));
         });
         self.self_destructure = quote!({#self_destructure});
         self.other_destructure = quote!({#other_destructure});
@@ -188,9 +218,9 @@ impl<'ast> Visit<'ast> for EnumVariantVisitor<'ast> {
         let mut self_destructure = TokenStream::new();
         let mut other_destructure = TokenStream::new();
         fields.unnamed.iter().enumerate().for_each(|(i, _)| {
-            let i = Literal::usize_unsuffixed(i);
-            let self_ident = format_ident!("self_{i}");
-            let other_ident = format_ident!("other_{i}");
+            let i = Literal::usize_unsuffixed(i).into_token_stream();
+            let self_ident = (self.struct_vis.self_field_selector_fn)(&i);
+            let other_ident = (self.struct_vis.other_field_selector_fn)(&i);
             self_destructure.extend(quote!(#i: #self_ident,));
             other_destructure.extend(quote!(#i: #other_ident,));
         });
@@ -199,16 +229,21 @@ impl<'ast> Visit<'ast> for EnumVariantVisitor<'ast> {
     }
 }
 
-impl<'ast> Visit<'ast> for StructVisitor<'ast> {
+impl<'ast, F1, F2> Visit<'ast> for StructVisitor<'ast, F1, F2>
+where
+    F1: Fn(&TokenStream) -> TokenStream,
+    F2: Fn(&TokenStream) -> TokenStream,
+{
     fn visit_fields_named(&mut self, fields: &'ast FieldsNamed) {
         self.field_comparisons = fields
             .named
             .iter()
             .map(|field| {
+                let field_ident = field.ident.to_token_stream();
                 field_comparison(
                     self.data_vis,
-                    self.self_ident,
-                    &field.ident.as_ref().unwrap().into_token_stream(), //unwrap is ok we are at named fields here
+                    &(self.self_field_selector_fn)(&field_ident),
+                    &(self.other_field_selector_fn)(&field_ident),
                     field,
                 )
             })
@@ -222,10 +257,11 @@ impl<'ast> Visit<'ast> for StructVisitor<'ast> {
             .iter()
             .enumerate()
             .map(|(i, field)| {
+                let i = Literal::usize_unsuffixed(i).into_token_stream();
                 field_comparison(
                     self.data_vis,
-                    self.self_ident,
-                    &Literal::usize_unsuffixed(i).into_token_stream(),
+                    &(self.self_field_selector_fn)(&i),
+                    &(self.other_field_selector_fn)(&i),
                     field,
                 )
             })
@@ -237,22 +273,22 @@ impl<'ast> Visit<'ast> for StructVisitor<'ast> {
 /// Generates the field comparisons for the given field
 fn field_comparison(
     data_vis: &DataVisitor,
-    self_ident: &TokenStream,
-    field_ident: &TokenStream,
+    self_field_ident: &TokenStream,
+    other_field_ident: &TokenStream,
     field: &Field,
 ) -> syn::Result<TokenStream> {
     let attrs = FieldHelperAttributes::from_attributes(&field.attrs)?;
     Ok(match attrs.method {
         MergeBehavior::DeepMerge => {
             let crate_k8s_openapi = &data_vis.attr.crate_k8s_openapi;
-            quote! {#crate_k8s_openapi::DeepMerge::merge_from(#self_ident.#field_ident, other.#field_ident);}
+            quote! {#crate_k8s_openapi::DeepMerge::merge_from(#self_field_ident, #other_field_ident);}
         }
         MergeBehavior::Atomic => {
-            quote! {#self_ident.#field_ident = other.#field_ident;}
+            quote! {#self_field_ident = #other_field_ident;}
         }
         MergeBehavior::AppendNotPresent => {
             let crate_optionable = &data_vis.attr.crate_optionable;
-            quote! {#crate_optionable::merge::merge_append_not_present(#self_ident.#field_ident, other.#field_ident);}
+            quote! {#crate_optionable::merge::merge_append_not_present(#self_field_ident, #other_field_ident);}
         }
         MergeBehavior::IterMap => {
             let crate_optionable = &data_vis.attr.crate_optionable;
@@ -261,7 +297,7 @@ fn field_comparison(
                     "The `k8sopenapi_package` helper attribute is required for usage of `#[deepmerge(itermap)]`, set e.g. `#[deepmerge(k8sopenapi_package(k8s_openapi027))]` if that's the version you use",
                 );
             };
-            quote! {#crate_optionable::#k8s_openapi_package::merge::merge_map(#self_ident.#field_ident, other.#field_ident);}
+            quote! {#crate_optionable::#k8s_openapi_package::merge::merge_map(#self_field_ident, #other_field_ident);}
         }
     })
 }
@@ -331,7 +367,7 @@ mod tests {
                                 }
                             }
                             DeepmergeEnum::Tuple(0: self_0, 1: self_1, ) => {
-                                if let DeepmergeEnum::Tuple(0: self_0, 1: self_1, ) = other{
+                                if let DeepmergeEnum::Tuple(0: other_0, 1: other_1, ) = other{
                                     k8s_openapi::DeepMerge::merge_from (self_0, other_0);
                                     k8s_openapi::DeepMerge::merge_from (self_1, other_1);
                                 } else {
