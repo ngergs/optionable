@@ -91,13 +91,14 @@ struct EnumVisitor<'a> {
 
 /// Visits the individual variants and generates the match condition and the individual field comparisons.
 /// Delegates for the field comparisons to `StructVisitor.`
-struct EnumVariantVisitor<'a, F1, F2>
+struct EnumVariantVisitor<'a, F1, F2, F3>
 where
     F1: Fn(&TokenStream) -> TokenStream,
     F2: Fn(&TokenStream) -> TokenStream,
+    F3: Fn(&TokenStream) -> TokenStream,
 {
     /// Wwill be called to generate field comparisons
-    struct_vis: StructVisitor<'a, F1, F2>,
+    struct_vis: StructVisitor<'a, F1, F2, F3>,
     /// Destructuring for the self keyword
     self_destructure: TokenStream,
     /// Destructuring for the other variable
@@ -105,17 +106,20 @@ where
 }
 
 /// Generates field comparisons.
-struct StructVisitor<'a, F1, F2>
+struct StructVisitor<'a, F1, F2, F3>
 where
     F1: Fn(&TokenStream) -> TokenStream,
     F2: Fn(&TokenStream) -> TokenStream,
+    F3: Fn(&TokenStream) -> TokenStream,
 {
     /// Shared reference to general config from `DataVisitor`.
     data_vis: &'a DataVisitor,
     /// Receives the field identifier and produces the `self` field selector, e.g. `self.my_field` or `self_my_field`.
     self_field_selector_fn: F1,
+    /// Receives the field identifier and produces the `self` field selector, e.g. `self.my_field` or `self_my_field`.
+    self_field_assign_fn: F2,
     /// Receives the field identifier and produces the `other` field selector, e.g. `other.my_field` or `other_my_field`.
-    other_field_selector_fn: F2,
+    other_field_selector_fn: F3,
     /// Result, will be filled after `visit_fields` has been called once.
     field_comparisons: Result<TokenStream, syn::Error>,
 }
@@ -126,6 +130,7 @@ impl<'ast> Visit<'ast> for DataVisitor {
             data_vis: self,
             field_comparisons: Ok(TokenStream::new()),
             self_field_selector_fn: |field| quote!(&mut self.#field),
+            self_field_assign_fn: |field| quote!(self.#field),
             other_field_selector_fn: |field| quote!(other.#field),
         };
         struct_vis.visit_data_struct(node);
@@ -159,6 +164,7 @@ impl<'ast> Visit<'ast> for EnumVisitor<'ast> {
                 data_vis: self.data_vis,
                 field_comparisons: Ok(TokenStream::new()),
                 self_field_selector_fn: |field| format_ident!("self_{field}").into_token_stream(),
+                self_field_assign_fn: |field| format_ident!("self_{field}").into_token_stream(),
                 other_field_selector_fn: |field| format_ident!("other_{field}").into_token_stream(),
             },
             self_destructure: TokenStream::new(),
@@ -189,10 +195,11 @@ impl<'ast> Visit<'ast> for EnumVisitor<'ast> {
     }
 }
 
-impl<'ast, F1, F2> Visit<'ast> for EnumVariantVisitor<'ast, F1, F2>
+impl<'ast, F1, F2, F3> Visit<'ast> for EnumVariantVisitor<'ast, F1, F2, F3>
 where
     F1: Fn(&TokenStream) -> TokenStream,
     F2: Fn(&TokenStream) -> TokenStream,
+    F3: Fn(&TokenStream) -> TokenStream,
 {
     fn visit_fields_named(&mut self, fields: &'ast FieldsNamed) {
         self.struct_vis.visit_fields_named(fields);
@@ -227,10 +234,11 @@ where
     }
 }
 
-impl<'ast, F1, F2> Visit<'ast> for StructVisitor<'ast, F1, F2>
+impl<'ast, F1, F2, F3> Visit<'ast> for StructVisitor<'ast, F1, F2, F3>
 where
     F1: Fn(&TokenStream) -> TokenStream,
     F2: Fn(&TokenStream) -> TokenStream,
+    F3: Fn(&TokenStream) -> TokenStream,
 {
     fn visit_fields_named(&mut self, fields: &'ast FieldsNamed) {
         self.field_comparisons = fields
@@ -241,6 +249,7 @@ where
                 field_comparison(
                     self.data_vis,
                     &(self.self_field_selector_fn)(&field_ident),
+                    &(self.self_field_assign_fn)(&field_ident),
                     &(self.other_field_selector_fn)(&field_ident),
                     field,
                 )
@@ -259,6 +268,7 @@ where
                 field_comparison(
                     self.data_vis,
                     &(self.self_field_selector_fn)(&i),
+                    &(self.self_field_assign_fn)(&i),
                     &(self.other_field_selector_fn)(&i),
                     field,
                 )
@@ -272,6 +282,7 @@ where
 fn field_comparison(
     data_vis: &DataVisitor,
     self_field_ident: &TokenStream,
+    self_assign_ident: &TokenStream,
     other_field_ident: &TokenStream,
     field: &Field,
 ) -> syn::Result<TokenStream> {
@@ -282,7 +293,7 @@ fn field_comparison(
             quote! {#crate_k8s_openapi::DeepMerge::merge_from(#self_field_ident, #other_field_ident);}
         }
         MergeBehavior::Atomic => {
-            quote! {#self_field_ident = #other_field_ident;}
+            quote! {#self_assign_ident = #other_field_ident;}
         }
         MergeBehavior::AppendNotPresent => {
             let crate_optionable = &data_vis.attr.crate_optionable;
