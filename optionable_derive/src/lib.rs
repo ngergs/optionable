@@ -150,3 +150,32 @@ pub fn derive_optionable(input: TokenStream) -> TokenStream {
 fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> {
     Ok(optionable_codegen::derive_optionable(syn::parse2(input.into())?, None)?.into())
 }
+
+/// Derive macro to derive the `DeepMerge` trait from `k8s_openapi` for structs/enums.
+/// All fields have to implement the `DeepMerge` trait.
+/// This trait is already implemented `k8s_openapi` for many primitive types, wrapper and container types.
+///
+/// ### Type-level attributes (on the struct/enum level)
+/// - **`k8s_openapi_package`**: Optionable package for `k8s_openapi` e.g. `k8s_openapi027` if you use `v0.27` of `k8s_openapi`.
+///   Helper functions utilized by the generated code are located in this package.
+///   **MUST** be set if any field-level attribute has been set to `#[deepmerge(method(iter_map))]` (see below).
+/// - **`crate_k8s_openpi`**: Crate name for `k8s_openapi` where `DeepMerge` can be found. Defaults to `k8s_openapi`.
+/// - **`crate_optionable`**: Crate name for `optionable` where helper functions used by the derived implentations are located.
+///   Defaults to `optionable`.
+///
+/// ### Field-level attributes (for structs and struct-typed enum variants)
+/// - **`method`**: Customize the merge behaviour. The following values are supported (e.g. as `#[deepmerge(atomic)]`):
+///     - `deepmerge` Default behavior, just call `Deepmerge::merge_from` for the given field entry.
+///     - `atomic` Always override the field completly when present in the optioned type.
+///     - `append_not_present` Kubernetes `set` merge logic. Appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: PartialEq`.
+///     - `iter_map` Kubernetes `map` merge logic. Identifies if entries belong together via the `optionable::merge::OptionableMapKeysEq` trait. Merges entries that belong together (short-circuit, first match is merged) and appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: OptionableMapKeysEq + OptionableConvert`.
+///
+#[proc_macro_derive(DeepMerge, attributes(deepmerge))]
+pub fn derive_deepmerge(input: TokenStream) -> TokenStream {
+    try_derive_deepmerge(input).unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
+}
+
+/// Internal method for `derive_optionable` to simplify error handling.
+fn try_derive_deepmerge(input: TokenStream) -> Result<TokenStream, syn::Error> {
+    Ok(optionable_codegen::derive_deepmerge(syn::parse2(input.into())?)?.into())
+}
