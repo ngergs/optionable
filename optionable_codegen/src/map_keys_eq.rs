@@ -31,7 +31,7 @@ pub fn derive_map_keys_eq(input: DeriveInput) -> syn::Result<TokenStream> {
     let ty_ident = &input.ident;
     let crate_optionable = &attr.crate_optionable;
     Ok(
-        quote! {impl #impl_generics #crate_optionable::MapKeysEq for #ty_ident #ty_generics #where_generics{
+        quote! {impl #impl_generics #crate_optionable::merge::MapKeysEq for #ty_ident #ty_generics #where_generics{
             fn keys_eq(&self, other: &Self) -> bool {
                 #comparisons
             }
@@ -139,7 +139,7 @@ mod tests {
                 }
             },
             quote! {
-                impl optionable::MapKeysEq for EnvVar{
+                impl optionable::merge::MapKeysEq for EnvVar{
                     fn keys_eq(&self, other: &Self) -> bool{
                         self.key == other.key && self.key2 == other.key2
                     }
@@ -156,7 +156,7 @@ mod tests {
                 struct EnvVar(#[map_key] String, String, #[map_key] String);
             },
             quote! {
-                impl optionable::MapKeysEq for EnvVar{
+                impl optionable::merge::MapKeysEq for EnvVar{
                     fn keys_eq(&self, other: &Self) -> bool{
                         self.0 == other.0 && self.2 == other.2
                     }

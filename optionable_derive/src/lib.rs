@@ -156,9 +156,6 @@ fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> 
 /// This trait is already implemented `k8s_openapi` for many primitive types, wrapper and container types.
 ///
 /// ### Type-level attributes (on the struct/enum level)
-/// - **`k8s_openapi_package`**: Optionable package for `k8s_openapi` e.g. `k8s_openapi027` if you use `v0.27` of `k8s_openapi`.
-///   Helper functions utilized by the generated code are located in this package.
-///   **MUST** be set if any field-level attribute has been set to `#[deepmerge(method(iter_map))]` (see below).
 /// - **`crate_k8s_openpi`**: Crate name for `k8s_openapi` where `DeepMerge` can be found. Defaults to `k8s_openapi`.
 /// - **`crate_optionable`**: Crate name for `optionable` where helper functions used by the derived implentations are located.
 ///   Defaults to `optionable`.
@@ -178,4 +175,21 @@ pub fn derive_deepmerge(input: TokenStream) -> TokenStream {
 /// Internal method for `derive_optionable` to simplify error handling.
 fn try_derive_deepmerge(input: TokenStream) -> Result<TokenStream, syn::Error> {
     Ok(optionable_codegen::derive_deepmerge(syn::parse2(input.into())?)?.into())
+}
+
+/// Derive macro to derive the `MapKeysEq` trait from `optionabe` for structs.
+///
+/// ### Type-level attributes (on the struct level)
+/// - **`crate_optionable`**: Crate name for `optionable`.  Defaults to `optionable`.
+///
+/// ### Field-level attributes
+/// - **`map_key`**: Marks a field as being a `map_key` that has to be equal on two structs for `MapKeysEq::map_keys_eq` to be true. The corresponding field has to `impl PartialEq`.
+#[proc_macro_derive(MapKeysEq, attributes(map_key))]
+pub fn derive_map_keys_eq(input: TokenStream) -> TokenStream {
+    try_derive_map_keys_eq(input).unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
+}
+
+/// Internal method for `derive_optionable` to simplify error handling.
+fn try_derive_map_keys_eq(input: TokenStream) -> Result<TokenStream, syn::Error> {
+    Ok(optionable_codegen::derive_map_keys_eq(syn::parse2(input.into())?)?.into())
 }
