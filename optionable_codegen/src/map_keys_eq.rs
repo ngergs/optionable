@@ -118,7 +118,7 @@ mod tests {
 
     fn assert_map_keys_eq(input: proc_macro2::TokenStream, expected: proc_macro2::TokenStream) {
         let parsed = syn::parse2(input).unwrap();
-        let output = derive_map_keys_eq(parsed).unwrap();
+        let output = derive_map_keys_eq(&parsed).unwrap();
         assert_eq!(
             normalize_token_str(&expected.to_string()),
             normalize_token_str(&output.to_string())
