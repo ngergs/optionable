@@ -19,8 +19,8 @@ struct TypeHelperAttributes {
 ///
 /// # Errors
 /// - If the field helper attributes are malformed.
-pub fn derive_map_keys_eq(input: DeriveInput) -> syn::Result<TokenStream> {
-    let attr = TypeHelperAttributes::from_derive_input(&input)?;
+pub fn derive_map_keys_eq(input: &DeriveInput) -> syn::Result<TokenStream> {
+    let attr = TypeHelperAttributes::from_derive_input(input)?;
     let mut vis = DataVisitor {
         fn_body: Ok(TokenStream::new()),
     };
