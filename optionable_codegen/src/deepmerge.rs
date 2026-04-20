@@ -6,8 +6,6 @@ use syn::{
     parse_quote, visit::Visit,
 };
 
-use crate::helper::error;
-
 #[derive(FromDeriveInput)]
 #[darling(attributes(deepmerge))]
 /// The type helper attributes to derive `k8s_openapi::DeepMerge`.
@@ -18,8 +16,6 @@ struct TypeHelperAttributes {
     /// Crate name under which the `optionable` crate with our helper methods can be found.
     #[darling(default=|| parse_quote!{optionable})]
     crate_optionable: Ident,
-    /// Used k8s openapi version from optionable in the form of the available package path, e.g. `k8s_openapi027`
-    k8s_openapi_package: Option<String>,
 }
 
 #[derive(FromAttributes)]
@@ -301,12 +297,7 @@ fn field_comparison(
         }
         MergeBehavior::IterMap => {
             let crate_optionable = &data_vis.attr.crate_optionable;
-            let Some(k8s_openapi_package) = &data_vis.attr.k8s_openapi_package else {
-                return error(
-                    "The `k8sopenapi_package` helper attribute is required for usage of `#[deepmerge(itermap)]`, set e.g. `#[deepmerge(k8sopenapi_package(k8s_openapi027))]` if that's the version you use",
-                );
-            };
-            quote! {#crate_optionable::#k8s_openapi_package::merge::merge_map(#self_field_ident, #other_field_ident);}
+            quote! {#crate_optionable::k8s_openapi::merge::merge_map(#self_field_ident, #other_field_ident);}
         }
     })
 }
