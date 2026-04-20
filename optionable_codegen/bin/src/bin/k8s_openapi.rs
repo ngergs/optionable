@@ -177,7 +177,7 @@ impl CodegenVisitor for Visitor<'_> {
         let mut extra_items = vec![];
         for item in items.iter_mut() {
             match item {
-                Impl(item) => {
+                Impl(item)
                     if item.trait_.as_ref().is_some_and(|trait_| {
                         trait_.1 == parse_quote!(crate::OptionableConvert)
                             || trait_
@@ -185,10 +185,10 @@ impl CodegenVisitor for Visitor<'_> {
                                 .to_token_stream()
                                 .to_string()
                                 .starts_with("crate :: OptionedConvert") // to remove generic arguments
-                    }) {
-                        item.attrs
-                            .push(parse_quote!(#[cfg(feature="k8s_openapi_convert")]));
-                    }
+                    }) =>
+                {
+                    item.attrs
+                        .push(parse_quote!(#[cfg(feature="k8s_openapi_convert")]));
                 }
                 Enum(item) => {
                     item.attrs.push(parse_quote!(#[serde(untagged)]));

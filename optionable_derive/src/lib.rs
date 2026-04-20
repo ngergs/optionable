@@ -191,5 +191,5 @@ pub fn derive_map_keys_eq(input: TokenStream) -> TokenStream {
 
 /// Internal method for `derive_optionable` to simplify error handling.
 fn try_derive_map_keys_eq(input: TokenStream) -> Result<TokenStream, syn::Error> {
-    Ok(optionable_codegen::derive_map_keys_eq(syn::parse2(input.into())?)?.into())
+    Ok(optionable_codegen::derive_map_keys_eq(&syn::parse2(input.into())?)?.into())
 }
