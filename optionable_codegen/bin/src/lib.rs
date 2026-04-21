@@ -40,6 +40,8 @@ pub trait CodegenVisitor: Clone {
     fn visit_input(&mut self, _: &mut Item) {}
 
     /// Called for struct/enums when `optionable` codegen is called to append other items.
+    /// # Errors
+    /// - When one the additonal codegens returns an error.
     fn visit_codegen(&mut self, _: &DeriveInput) -> Result<Vec<Item>, syn::Error> {
         Ok(vec![])
     }
