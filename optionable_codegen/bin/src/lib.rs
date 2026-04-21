@@ -39,6 +39,11 @@ pub trait CodegenVisitor: Clone {
     /// Mutates the input.
     fn visit_input(&mut self, _: &mut Item) {}
 
+    /// Called for struct/enums when `optionable` codegen is called to append other items.
+    fn visit_codegen(&mut self, _: &DeriveInput) -> Result<Vec<Item>, syn::Error> {
+        Ok(vec![])
+    }
+
     /// Mutates the generated code. Will be called once after code generation.
     /// Implementors can also reset internal states tracking input here.
     fn visit_output(&mut self, _: &mut Vec<Item>) {}
@@ -192,8 +197,8 @@ fn item_codegen<V: CodegenVisitor>(
 ) -> Result<Vec<Item>, Box<dyn std::error::Error>> {
     conf.visitor.visit_input(&mut item);
     let mut result = match item {
-        Struct(item) => Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?),
-        Enum(item) => Ok::<_, Box<dyn std::error::Error>>(derive_codegen(item, &conf.settings)?),
+        Struct(item) => Ok::<_, Box<dyn std::error::Error>>(item_struct_enum_codegen(item, conf)?),
+        Enum(item) => Ok::<_, Box<dyn std::error::Error>>(item_struct_enum_codegen(item, conf)?),
         Mod(mut mod_entry) => {
             if let Some(content) = mod_entry.content.as_mut() {
                 let items = take(&mut content.1);
@@ -248,6 +253,18 @@ fn item_codegen<V: CodegenVisitor>(
     Ok(result)
 }
 
+/// Calls codegen for a struct/enum type
+fn item_struct_enum_codegen<V: CodegenVisitor>(
+    input: impl Into<DeriveInput>,
+    conf: &mut CodegenConfig<V>,
+) -> Result<Vec<Item>, Error> {
+    let input = input.into();
+    let extra_items = conf.visitor.visit_codegen(&input)?;
+    let mut items = derive_codegen(input, &conf.settings)?;
+    items.extend(extra_items);
+    Ok(items)
+}
+
 /// Filter the items and returns usages of the form `use self::<...>` if they are `UseTree`s themselves.
 fn get_usage_aliases<'a>(
     items: impl IntoIterator<Item = &'a Item>,
@@ -272,10 +289,10 @@ fn get_usage_aliases<'a>(
 
 /// Calls the `optionable`-derive macro with the provided `DeriveInput` argument.
 fn derive_codegen(
-    input: impl Into<DeriveInput>,
+    input: DeriveInput,
     codegen_settings: &CodegenSettings,
 ) -> Result<Vec<Item>, Error> {
-    let result = optionable_codegen::derive_optionable(input.into(), Some(codegen_settings))?;
+    let result = optionable_codegen::derive_optionable(input, Some(codegen_settings))?;
     syn::parse2(result).map(|f: syn::File| f.items)
 }
 
