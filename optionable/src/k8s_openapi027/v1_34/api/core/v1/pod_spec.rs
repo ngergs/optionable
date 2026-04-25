@@ -723,3 +723,117 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodSpec> for PodSpecA
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.active_deadline_seconds,
+            other.active_deadline_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.affinity, other.affinity);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.automount_service_account_token,
+            other.automount_service_account_token,
+        );
+        crate::k8s_openapi::merge::merge_map(&mut self.containers, other.containers);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.dns_config, other.dns_config);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.dns_policy, other.dns_policy);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.enable_service_links,
+            other.enable_service_links,
+        );
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.ephemeral_containers,
+            other.ephemeral_containers,
+        );
+        crate::k8s_openapi::merge::merge_map(&mut self.host_aliases, other.host_aliases);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.host_ipc, other.host_ipc);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.host_network,
+            other.host_network,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.host_pid, other.host_pid);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.host_users, other.host_users);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.hostname, other.hostname);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.hostname_override,
+            other.hostname_override,
+        );
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.image_pull_secrets,
+            other.image_pull_secrets,
+        );
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.init_containers,
+            other.init_containers,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.node_name, other.node_name);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.node_selector,
+            other.node_selector,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.os, other.os);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.overhead, other.overhead);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.preemption_policy,
+            other.preemption_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.priority, other.priority);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.priority_class_name,
+            other.priority_class_name,
+        );
+        self.readiness_gates = other.readiness_gates;
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.resource_claims,
+            other.resource_claims,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resources, other.resources);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.restart_policy,
+            other.restart_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.runtime_class_name,
+            other.runtime_class_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.scheduler_name,
+            other.scheduler_name,
+        );
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.scheduling_gates,
+            other.scheduling_gates,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.security_context,
+            other.security_context,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.service_account,
+            other.service_account,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.service_account_name,
+            other.service_account_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.set_hostname_as_fqdn,
+            other.set_hostname_as_fqdn,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.share_process_namespace,
+            other.share_process_namespace,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.subdomain, other.subdomain);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.termination_grace_period_seconds,
+            other.termination_grace_period_seconds,
+        );
+        self.tolerations = other.tolerations;
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.topology_spread_constraints,
+            other.topology_spread_constraints,
+        );
+        crate::k8s_openapi::merge::merge_map(&mut self.volumes, other.volumes);
+    }
+}

@@ -100,3 +100,10 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for StatusCauseAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.field, other.field);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.message, other.message);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
+    }
+}

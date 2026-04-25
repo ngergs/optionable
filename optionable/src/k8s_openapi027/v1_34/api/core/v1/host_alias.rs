@@ -76,3 +76,14 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::HostAlias> for HostAl
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for HostAliasAc {
+    fn merge_from(&mut self, other: Self) {
+        self.hostnames = other.hostnames;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ip, other.ip);
+    }
+}
+impl crate::merge::MapKeysEq for HostAliasAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.ip == other.ip
+    }
+}

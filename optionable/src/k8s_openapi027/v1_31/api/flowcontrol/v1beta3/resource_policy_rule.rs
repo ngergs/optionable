@@ -124,3 +124,15 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourcePolicyRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_groups, other.api_groups);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.cluster_scope,
+            other.cluster_scope,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.namespaces, other.namespaces);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resources, other.resources);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.verbs, other.verbs);
+    }
+}

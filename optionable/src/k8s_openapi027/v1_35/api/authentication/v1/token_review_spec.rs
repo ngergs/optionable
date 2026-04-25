@@ -81,3 +81,9 @@ for TokenReviewSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for TokenReviewSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        self.audiences = other.audiences;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.token, other.token);
+    }
+}

@@ -166,3 +166,30 @@ for CronJobSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CronJobSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.concurrency_policy,
+            other.concurrency_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.failed_jobs_history_limit,
+            other.failed_jobs_history_limit,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.job_template,
+            other.job_template,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.schedule, other.schedule);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.starting_deadline_seconds,
+            other.starting_deadline_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.successful_jobs_history_limit,
+            other.successful_jobs_history_limit,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.suspend, other.suspend);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.time_zone, other.time_zone);
+    }
+}

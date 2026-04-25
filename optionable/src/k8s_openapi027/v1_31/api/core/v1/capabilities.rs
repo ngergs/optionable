@@ -76,3 +76,9 @@ for CapabilitiesAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CapabilitiesAc {
+    fn merge_from(&mut self, other: Self) {
+        self.add = other.add;
+        self.drop = other.drop;
+    }
+}

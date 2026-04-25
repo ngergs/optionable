@@ -119,3 +119,20 @@ for VolumeAttachmentStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for VolumeAttachmentStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.attach_error,
+            other.attach_error,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.attached, other.attached);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.attachment_metadata,
+            other.attachment_metadata,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.detach_error,
+            other.detach_error,
+        );
+    }
+}

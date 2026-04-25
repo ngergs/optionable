@@ -118,3 +118,12 @@ impl k8s_openapi027::Metadata for DaemonSetAc {
 fn roundtrip_daemonsetac() {
     crate::testutil::roundtrip_test::<k8s_openapi027::api::apps::v1::DaemonSet>();
 }
+impl k8s_openapi027::DeepMerge for DaemonSetAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.spec, other.spec);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.status, other.status);
+    }
+}

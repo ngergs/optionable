@@ -119,3 +119,23 @@ for WindowsSecurityContextOptionsAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for WindowsSecurityContextOptionsAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.gmsa_credential_spec,
+            other.gmsa_credential_spec,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.gmsa_credential_spec_name,
+            other.gmsa_credential_spec_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.host_process,
+            other.host_process,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.run_as_user_name,
+            other.run_as_user_name,
+        );
+    }
+}

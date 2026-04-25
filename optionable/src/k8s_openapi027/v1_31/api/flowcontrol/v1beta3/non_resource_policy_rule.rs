@@ -93,3 +93,12 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NonResourcePolicyRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.non_resource_urls,
+            other.non_resource_urls,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.verbs, other.verbs);
+    }
+}

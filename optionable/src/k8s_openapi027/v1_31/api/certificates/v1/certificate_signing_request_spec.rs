@@ -214,3 +214,18 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CertificateSigningRequestSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.expiration_seconds,
+            other.expiration_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.extra, other.extra);
+        self.groups = other.groups;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.request, other.request);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.signer_name, other.signer_name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.uid, other.uid);
+        self.usages = other.usages;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.username, other.username);
+    }
+}

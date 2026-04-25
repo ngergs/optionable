@@ -90,3 +90,9 @@ for ResourceClaimSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourceClaimSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.controller, other.controller);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.devices, other.devices);
+    }
+}

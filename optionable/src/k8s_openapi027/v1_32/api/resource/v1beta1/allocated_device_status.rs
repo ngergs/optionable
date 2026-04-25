@@ -139,3 +139,22 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for AllocatedDeviceStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.data, other.data);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.device, other.device);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.driver, other.driver);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.network_data,
+            other.network_data,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pool, other.pool);
+    }
+}
+impl crate::merge::MapKeysEq for AllocatedDeviceStatusAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.device == other.device && self.driver == other.driver
+            && self.pool == other.pool
+    }
+}

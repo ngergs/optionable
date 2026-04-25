@@ -121,3 +121,18 @@ for ConfigMapNodeConfigSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ConfigMapNodeConfigSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.kubelet_config_key,
+            other.kubelet_config_key,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.namespace, other.namespace);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.resource_version,
+            other.resource_version,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.uid, other.uid);
+    }
+}

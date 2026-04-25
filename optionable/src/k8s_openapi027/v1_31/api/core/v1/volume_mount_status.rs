@@ -104,3 +104,19 @@ for VolumeMountStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for VolumeMountStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.mount_path, other.mount_path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.recursive_read_only,
+            other.recursive_read_only,
+        );
+    }
+}
+impl crate::merge::MapKeysEq for VolumeMountStatusAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.mount_path == other.mount_path
+    }
+}

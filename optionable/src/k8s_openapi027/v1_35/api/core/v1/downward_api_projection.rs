@@ -70,3 +70,8 @@ for DownwardAPIProjectionAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DownwardAPIProjectionAc {
+    fn merge_from(&mut self, other: Self) {
+        self.items = other.items;
+    }
+}

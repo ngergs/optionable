@@ -189,3 +189,20 @@ for DeviceSubRequestAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceSubRequestAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.allocation_mode,
+            other.allocation_mode,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.capacity, other.capacity);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.count, other.count);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.device_class_name,
+            other.device_class_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        self.selectors = other.selectors;
+        self.tolerations = other.tolerations;
+    }
+}

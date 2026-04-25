@@ -71,3 +71,8 @@ for SessionAffinityConfigAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for SessionAffinityConfigAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.client_ip, other.client_ip);
+    }
+}

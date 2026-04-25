@@ -111,3 +111,16 @@ for NetworkPolicyPeerAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NetworkPolicyPeerAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ip_block, other.ip_block);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.namespace_selector,
+            other.namespace_selector,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.pod_selector,
+            other.pod_selector,
+        );
+    }
+}

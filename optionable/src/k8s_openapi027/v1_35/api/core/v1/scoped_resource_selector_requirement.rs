@@ -101,3 +101,10 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ScopedResourceSelectorRequirementAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.operator, other.operator);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.scope_name, other.scope_name);
+        self.values = other.values;
+    }
+}

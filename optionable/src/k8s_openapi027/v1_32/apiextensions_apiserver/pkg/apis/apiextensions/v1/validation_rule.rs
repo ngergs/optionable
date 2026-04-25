@@ -176,3 +176,19 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ValidationRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.field_path, other.field_path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.message, other.message);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.message_expression,
+            other.message_expression,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.optional_old_self,
+            other.optional_old_self,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.rule, other.rule);
+    }
+}

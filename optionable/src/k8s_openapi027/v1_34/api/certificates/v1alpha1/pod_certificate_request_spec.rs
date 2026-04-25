@@ -223,3 +223,32 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodCertificateRequestSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.max_expiration_seconds,
+            other.max_expiration_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.node_name, other.node_name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.node_uid, other.node_uid);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.pkix_public_key,
+            other.pkix_public_key,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pod_name, other.pod_name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pod_uid, other.pod_uid);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.proof_of_possession,
+            other.proof_of_possession,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.service_account_name,
+            other.service_account_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.service_account_uid,
+            other.service_account_uid,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.signer_name, other.signer_name);
+    }
+}

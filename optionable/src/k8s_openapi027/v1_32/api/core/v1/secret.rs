@@ -150,3 +150,14 @@ impl k8s_openapi027::Metadata for SecretAc {
 fn roundtrip_secretac() {
     crate::testutil::roundtrip_test::<k8s_openapi027::api::core::v1::Secret>();
 }
+impl k8s_openapi027::DeepMerge for SecretAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.data, other.data);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.immutable, other.immutable);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.string_data, other.string_data);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}

@@ -92,3 +92,15 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for WebhookConversionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.client_config,
+            other.client_config,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.conversion_review_versions,
+            other.conversion_review_versions,
+        );
+    }
+}

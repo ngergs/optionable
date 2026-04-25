@@ -70,3 +70,8 @@ for LoadBalancerStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for LoadBalancerStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        self.ingress = other.ingress;
+    }
+}

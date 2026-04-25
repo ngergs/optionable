@@ -194,3 +194,41 @@ for StatefulSetStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for StatefulSetStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.available_replicas,
+            other.available_replicas,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.collision_count,
+            other.collision_count,
+        );
+        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.current_replicas,
+            other.current_replicas,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.current_revision,
+            other.current_revision,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.observed_generation,
+            other.observed_generation,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.ready_replicas,
+            other.ready_replicas,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.replicas, other.replicas);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.update_revision,
+            other.update_revision,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.updated_replicas,
+            other.updated_replicas,
+        );
+    }
+}

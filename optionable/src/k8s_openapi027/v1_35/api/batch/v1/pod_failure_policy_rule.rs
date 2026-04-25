@@ -116,3 +116,13 @@ for PodFailurePolicyRuleAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodFailurePolicyRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.action, other.action);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.on_exit_codes,
+            other.on_exit_codes,
+        );
+        self.on_pod_conditions = other.on_pod_conditions;
+    }
+}

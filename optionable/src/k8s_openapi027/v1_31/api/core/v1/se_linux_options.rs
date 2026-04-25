@@ -101,3 +101,11 @@ for SELinuxOptionsAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for SELinuxOptionsAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.level, other.level);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.role, other.role);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.user, other.user);
+    }
+}

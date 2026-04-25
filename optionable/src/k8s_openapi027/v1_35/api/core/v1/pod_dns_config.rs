@@ -94,3 +94,10 @@ for PodDNSConfigAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodDNSConfigAc {
+    fn merge_from(&mut self, other: Self) {
+        self.nameservers = other.nameservers;
+        self.options = other.options;
+        self.searches = other.searches;
+    }
+}

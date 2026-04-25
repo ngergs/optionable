@@ -98,3 +98,13 @@ for QueuingConfigurationAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for QueuingConfigurationAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.hand_size, other.hand_size);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.queue_length_limit,
+            other.queue_length_limit,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.queues, other.queues);
+    }
+}

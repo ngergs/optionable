@@ -199,3 +199,26 @@ impl k8s_openapi027::Metadata for StorageClassAc {
 fn roundtrip_storageclassac() {
     crate::testutil::roundtrip_test::<k8s_openapi027::api::storage::v1::StorageClass>();
 }
+impl k8s_openapi027::DeepMerge for StorageClassAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.allow_volume_expansion,
+            other.allow_volume_expansion,
+        );
+        self.allowed_topologies = other.allowed_topologies;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        self.mount_options = other.mount_options;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.parameters, other.parameters);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.provisioner, other.provisioner);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.reclaim_policy,
+            other.reclaim_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.volume_binding_mode,
+            other.volume_binding_mode,
+        );
+    }
+}

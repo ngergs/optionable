@@ -105,3 +105,13 @@ for ObjectMetricSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ObjectMetricSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.described_object,
+            other.described_object,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.metric, other.metric);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.target, other.target);
+    }
+}

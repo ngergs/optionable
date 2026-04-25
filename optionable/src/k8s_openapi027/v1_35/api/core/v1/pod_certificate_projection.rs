@@ -175,3 +175,26 @@ for PodCertificateProjectionAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodCertificateProjectionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.certificate_chain_path,
+            other.certificate_chain_path,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.credential_bundle_path,
+            other.credential_bundle_path,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.key_path, other.key_path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.key_type, other.key_type);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.max_expiration_seconds,
+            other.max_expiration_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.signer_name, other.signer_name);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.user_annotations,
+            other.user_annotations,
+        );
+    }
+}

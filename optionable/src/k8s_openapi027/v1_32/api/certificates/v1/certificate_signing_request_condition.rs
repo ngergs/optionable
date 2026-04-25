@@ -164,3 +164,24 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CertificateSigningRequestConditionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.last_transition_time,
+            other.last_transition_time,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.last_update_time,
+            other.last_update_time,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.message, other.message);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.status, other.status);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}
+impl crate::merge::MapKeysEq for CertificateSigningRequestConditionAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.type_ == other.type_
+    }
+}

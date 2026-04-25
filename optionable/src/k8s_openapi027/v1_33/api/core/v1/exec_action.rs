@@ -61,3 +61,8 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::ExecAction> for ExecA
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ExecActionAc {
+    fn merge_from(&mut self, other: Self) {
+        self.command = other.command;
+    }
+}

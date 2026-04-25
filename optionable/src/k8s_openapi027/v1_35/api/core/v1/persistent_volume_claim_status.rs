@@ -236,3 +236,27 @@ for PersistentVolumeClaimStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PersistentVolumeClaimStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        self.access_modes = other.access_modes;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.allocated_resource_statuses,
+            other.allocated_resource_statuses,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.allocated_resources,
+            other.allocated_resources,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.capacity, other.capacity);
+        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.current_volume_attributes_class_name,
+            other.current_volume_attributes_class_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.modify_volume_status,
+            other.modify_volume_status,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.phase, other.phase);
+    }
+}

@@ -103,3 +103,11 @@ for DeviceAttributeAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceAttributeAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.bool, other.bool);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.int, other.int);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.string, other.string);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.version, other.version);
+    }
+}

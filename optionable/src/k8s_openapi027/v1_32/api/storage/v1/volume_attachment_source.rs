@@ -89,3 +89,15 @@ for VolumeAttachmentSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for VolumeAttachmentSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.inline_volume_spec,
+            other.inline_volume_spec,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.persistent_volume_name,
+            other.persistent_volume_name,
+        );
+    }
+}

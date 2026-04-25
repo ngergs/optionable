@@ -144,3 +144,22 @@ for ObjectReferenceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ObjectReferenceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.field_path, other.field_path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.namespace, other.namespace);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.resource_version,
+            other.resource_version,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.uid, other.uid);
+    }
+}
+impl crate::merge::MapKeysEq for ObjectReferenceAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}

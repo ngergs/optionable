@@ -162,3 +162,16 @@ for ResourceSliceSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourceSliceSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.all_nodes, other.all_nodes);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.devices, other.devices);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.driver, other.driver);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.node_name, other.node_name);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.node_selector,
+            other.node_selector,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pool, other.pool);
+    }
+}

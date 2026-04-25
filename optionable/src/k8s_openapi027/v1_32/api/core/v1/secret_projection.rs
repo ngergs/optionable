@@ -94,3 +94,10 @@ for SecretProjectionAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for SecretProjectionAc {
+    fn merge_from(&mut self, other: Self) {
+        self.items = other.items;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.optional, other.optional);
+    }
+}

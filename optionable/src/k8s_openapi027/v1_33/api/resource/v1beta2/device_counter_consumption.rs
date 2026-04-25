@@ -95,3 +95,9 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceCounterConsumptionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.counter_set, other.counter_set);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.counters, other.counters);
+    }
+}

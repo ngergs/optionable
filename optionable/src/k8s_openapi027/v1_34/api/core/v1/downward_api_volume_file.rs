@@ -114,3 +114,14 @@ for DownwardAPIVolumeFileAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DownwardAPIVolumeFileAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.field_ref, other.field_ref);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.mode, other.mode);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.path, other.path);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.resource_field_ref,
+            other.resource_field_ref,
+        );
+    }
+}

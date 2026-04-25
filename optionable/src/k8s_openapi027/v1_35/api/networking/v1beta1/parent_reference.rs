@@ -108,3 +108,11 @@ for ParentReferenceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ParentReferenceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.group, other.group);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.namespace, other.namespace);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resource, other.resource);
+    }
+}

@@ -94,3 +94,10 @@ for GitRepoVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for GitRepoVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.directory, other.directory);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.repository, other.repository);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.revision, other.revision);
+    }
+}

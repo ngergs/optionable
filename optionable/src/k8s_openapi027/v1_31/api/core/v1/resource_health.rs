@@ -85,3 +85,14 @@ for ResourceHealthAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourceHealthAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.health, other.health);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resource_id, other.resource_id);
+    }
+}
+impl crate::merge::MapKeysEq for ResourceHealthAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.resource_id == other.resource_id
+    }
+}

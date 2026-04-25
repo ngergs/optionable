@@ -126,3 +126,10 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CapacityRequestPolicyAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.default, other.default);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.valid_range, other.valid_range);
+        self.valid_values = other.valid_values;
+    }
+}

@@ -90,3 +90,12 @@ for DeviceConstraintAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceConstraintAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.match_attribute,
+            other.match_attribute,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.requests, other.requests);
+    }
+}

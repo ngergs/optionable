@@ -106,3 +106,11 @@ for DeviceTaintAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceTaintAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.effect, other.effect);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.key, other.key);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.time_added, other.time_added);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.value, other.value);
+    }
+}

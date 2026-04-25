@@ -118,3 +118,17 @@ for IngressSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for IngressSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.default_backend,
+            other.default_backend,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.ingress_class_name,
+            other.ingress_class_name,
+        );
+        self.rules = other.rules;
+        self.tls = other.tls;
+    }
+}

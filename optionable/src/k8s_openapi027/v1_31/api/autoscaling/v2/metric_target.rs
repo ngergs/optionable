@@ -113,3 +113,17 @@ for MetricTargetAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for MetricTargetAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.average_utilization,
+            other.average_utilization,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.average_value,
+            other.average_value,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.value, other.value);
+    }
+}

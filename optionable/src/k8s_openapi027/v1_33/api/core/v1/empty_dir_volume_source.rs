@@ -82,3 +82,9 @@ for EmptyDirVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for EmptyDirVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.medium, other.medium);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.size_limit, other.size_limit);
+    }
+}

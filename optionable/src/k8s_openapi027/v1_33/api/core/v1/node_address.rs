@@ -76,3 +76,14 @@ for NodeAddressAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NodeAddressAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.address, other.address);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}
+impl crate::merge::MapKeysEq for NodeAddressAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.type_ == other.type_
+    }
+}

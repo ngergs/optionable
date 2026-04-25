@@ -100,3 +100,12 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ClusterTrustBundleSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.signer_name, other.signer_name);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.trust_bundle,
+            other.trust_bundle,
+        );
+    }
+}

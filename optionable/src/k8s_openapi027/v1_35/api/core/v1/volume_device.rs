@@ -75,3 +75,14 @@ for VolumeDeviceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for VolumeDeviceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.device_path, other.device_path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+    }
+}
+impl crate::merge::MapKeysEq for VolumeDeviceAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.device_path == other.device_path
+    }
+}

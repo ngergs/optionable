@@ -211,3 +211,35 @@ for InfoAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for InfoAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.build_date, other.build_date);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.compiler, other.compiler);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.emulation_major,
+            other.emulation_major,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.emulation_minor,
+            other.emulation_minor,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.git_commit, other.git_commit);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.git_tree_state,
+            other.git_tree_state,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.git_version, other.git_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.go_version, other.go_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.major, other.major);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.min_compatibility_major,
+            other.min_compatibility_major,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.min_compatibility_minor,
+            other.min_compatibility_minor,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.minor, other.minor);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.platform, other.platform);
+    }
+}

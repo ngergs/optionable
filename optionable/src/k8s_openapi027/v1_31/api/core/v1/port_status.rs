@@ -89,3 +89,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PortStatus> for PortS
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PortStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.error, other.error);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.port, other.port);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.protocol, other.protocol);
+    }
+}

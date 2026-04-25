@@ -66,3 +66,8 @@ for GroupSubjectAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for GroupSubjectAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+    }
+}

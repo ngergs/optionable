@@ -118,3 +118,11 @@ for CinderPersistentVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CinderPersistentVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fs_type, other.fs_type);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_ref, other.secret_ref);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.volume_id, other.volume_id);
+    }
+}

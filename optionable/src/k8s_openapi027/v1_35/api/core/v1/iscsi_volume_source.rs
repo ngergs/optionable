@@ -200,3 +200,33 @@ for ISCSIVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ISCSIVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.chap_auth_discovery,
+            other.chap_auth_discovery,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.chap_auth_session,
+            other.chap_auth_session,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fs_type, other.fs_type);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.initiator_name,
+            other.initiator_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.iqn, other.iqn);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.iscsi_interface,
+            other.iscsi_interface,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.lun, other.lun);
+        self.portals = other.portals;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_ref, other.secret_ref);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.target_portal,
+            other.target_portal,
+        );
+    }
+}

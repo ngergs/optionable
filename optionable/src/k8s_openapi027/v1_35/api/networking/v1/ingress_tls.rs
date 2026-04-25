@@ -78,3 +78,9 @@ for IngressTLSAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for IngressTLSAc {
+    fn merge_from(&mut self, other: Self) {
+        self.hosts = other.hosts;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_name, other.secret_name);
+    }
+}

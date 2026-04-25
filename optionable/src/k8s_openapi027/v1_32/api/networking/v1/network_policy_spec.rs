@@ -119,3 +119,14 @@ for NetworkPolicySpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NetworkPolicySpecAc {
+    fn merge_from(&mut self, other: Self) {
+        self.egress = other.egress;
+        self.ingress = other.ingress;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.pod_selector,
+            other.pod_selector,
+        );
+        self.policy_types = other.policy_types;
+    }
+}

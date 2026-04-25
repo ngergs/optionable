@@ -116,3 +116,10 @@ for ResourceClaimStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourceClaimStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.allocation, other.allocation);
+        crate::k8s_openapi::merge::merge_map(&mut self.devices, other.devices);
+        crate::k8s_openapi::merge::merge_map(&mut self.reserved_for, other.reserved_for);
+    }
+}

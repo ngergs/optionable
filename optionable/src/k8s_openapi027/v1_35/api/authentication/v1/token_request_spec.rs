@@ -104,3 +104,16 @@ for TokenRequestSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for TokenRequestSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        self.audiences = other.audiences;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.bound_object_ref,
+            other.bound_object_ref,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.expiration_seconds,
+            other.expiration_seconds,
+        );
+    }
+}

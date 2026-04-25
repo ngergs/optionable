@@ -164,3 +164,18 @@ for EndpointAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for EndpointAc {
+    fn merge_from(&mut self, other: Self) {
+        crate::merge::merge_append_not_present(&mut self.addresses, other.addresses);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.conditions, other.conditions);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.deprecated_topology,
+            other.deprecated_topology,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.hints, other.hints);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.hostname, other.hostname);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.node_name, other.node_name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.target_ref, other.target_ref);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.zone, other.zone);
+    }
+}

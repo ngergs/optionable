@@ -74,3 +74,8 @@ for NodeSelectorAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NodeSelectorAc {
+    fn merge_from(&mut self, other: Self) {
+        self.node_selector_terms = other.node_selector_terms;
+    }
+}

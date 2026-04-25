@@ -72,3 +72,8 @@ for EndpointHintsAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for EndpointHintsAc {
+    fn merge_from(&mut self, other: Self) {
+        self.for_zones = other.for_zones;
+    }
+}

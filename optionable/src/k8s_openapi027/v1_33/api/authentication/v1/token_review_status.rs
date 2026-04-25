@@ -112,3 +112,14 @@ for TokenReviewStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for TokenReviewStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        self.audiences = other.audiences;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.authenticated,
+            other.authenticated,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.error, other.error);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.user, other.user);
+    }
+}

@@ -115,3 +115,13 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for MutatingAdmissionPolicyBindingSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.match_resources,
+            other.match_resources,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.param_ref, other.param_ref);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.policy_name, other.policy_name);
+    }
+}

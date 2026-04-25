@@ -257,3 +257,44 @@ for CSIDriverSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CSIDriverSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.attach_required,
+            other.attach_required,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.fs_group_policy,
+            other.fs_group_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.node_allocatable_update_period_seconds,
+            other.node_allocatable_update_period_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.pod_info_on_mount,
+            other.pod_info_on_mount,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.requires_republish,
+            other.requires_republish,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.se_linux_mount,
+            other.se_linux_mount,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.service_account_token_in_secrets,
+            other.service_account_token_in_secrets,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.storage_capacity,
+            other.storage_capacity,
+        );
+        self.token_requests = other.token_requests;
+        crate::merge::merge_append_not_present(
+            &mut self.volume_lifecycle_modes,
+            other.volume_lifecycle_modes,
+        );
+    }
+}

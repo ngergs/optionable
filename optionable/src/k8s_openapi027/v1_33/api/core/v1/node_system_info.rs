@@ -201,3 +201,36 @@ for NodeSystemInfoAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NodeSystemInfoAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.architecture,
+            other.architecture,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.boot_id, other.boot_id);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.container_runtime_version,
+            other.container_runtime_version,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.kernel_version,
+            other.kernel_version,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.kube_proxy_version,
+            other.kube_proxy_version,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.kubelet_version,
+            other.kubelet_version,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.machine_id, other.machine_id);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.operating_system,
+            other.operating_system,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.os_image, other.os_image);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.swap, other.swap);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.system_uuid, other.system_uuid);
+    }
+}

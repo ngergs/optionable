@@ -107,3 +107,19 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Affinity> for Affinit
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for AffinityAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.node_affinity,
+            other.node_affinity,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.pod_affinity,
+            other.pod_affinity,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.pod_anti_affinity,
+            other.pod_anti_affinity,
+        );
+    }
+}

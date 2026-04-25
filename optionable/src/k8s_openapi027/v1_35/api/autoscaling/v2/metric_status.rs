@@ -143,3 +143,16 @@ for MetricStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for MetricStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.container_resource,
+            other.container_resource,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.external, other.external);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.object, other.object);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pods, other.pods);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resource, other.resource);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}

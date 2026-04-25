@@ -155,3 +155,23 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for APIServiceSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ca_bundle, other.ca_bundle);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.group, other.group);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.group_priority_minimum,
+            other.group_priority_minimum,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.insecure_skip_tls_verify,
+            other.insecure_skip_tls_verify,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.service, other.service);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.version, other.version);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.version_priority,
+            other.version_priority,
+        );
+    }
+}

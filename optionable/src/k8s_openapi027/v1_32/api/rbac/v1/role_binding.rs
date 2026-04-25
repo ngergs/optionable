@@ -123,3 +123,12 @@ impl k8s_openapi027::Metadata for RoleBindingAc {
 fn roundtrip_rolebindingac() {
     crate::testutil::roundtrip_test::<k8s_openapi027::api::rbac::v1::RoleBinding>();
 }
+impl k8s_openapi027::DeepMerge for RoleBindingAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.role_ref, other.role_ref);
+        self.subjects = other.subjects;
+    }
+}

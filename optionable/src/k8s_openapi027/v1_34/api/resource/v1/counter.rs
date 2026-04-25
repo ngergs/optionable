@@ -67,3 +67,8 @@ impl crate::OptionedConvert<k8s_openapi027::api::resource::v1::Counter> for Coun
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CounterAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.value, other.value);
+    }
+}

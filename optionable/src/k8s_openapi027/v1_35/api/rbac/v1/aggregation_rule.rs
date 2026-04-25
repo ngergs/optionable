@@ -74,3 +74,8 @@ for AggregationRuleAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for AggregationRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        self.cluster_role_selectors = other.cluster_role_selectors;
+    }
+}

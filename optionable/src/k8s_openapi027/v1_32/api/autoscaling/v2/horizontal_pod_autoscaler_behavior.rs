@@ -98,3 +98,9 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for HorizontalPodAutoscalerBehaviorAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.scale_down, other.scale_down);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.scale_up, other.scale_up);
+    }
+}

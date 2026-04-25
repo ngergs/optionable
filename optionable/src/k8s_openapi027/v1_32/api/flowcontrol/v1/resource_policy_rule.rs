@@ -119,3 +119,15 @@ for ResourcePolicyRuleAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourcePolicyRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        crate::merge::merge_append_not_present(&mut self.api_groups, other.api_groups);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.cluster_scope,
+            other.cluster_scope,
+        );
+        crate::merge::merge_append_not_present(&mut self.namespaces, other.namespaces);
+        crate::merge::merge_append_not_present(&mut self.resources, other.resources);
+        crate::merge::merge_append_not_present(&mut self.verbs, other.verbs);
+    }
+}

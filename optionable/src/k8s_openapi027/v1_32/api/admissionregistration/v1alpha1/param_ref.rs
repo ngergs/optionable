@@ -128,3 +128,14 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ParamRefAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.namespace, other.namespace);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.parameter_not_found_action,
+            other.parameter_not_found_action,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.selector, other.selector);
+    }
+}

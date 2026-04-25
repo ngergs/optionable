@@ -82,3 +82,15 @@ for SuccessPolicyRuleAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for SuccessPolicyRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.succeeded_count,
+            other.succeeded_count,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.succeeded_indexes,
+            other.succeeded_indexes,
+        );
+    }
+}

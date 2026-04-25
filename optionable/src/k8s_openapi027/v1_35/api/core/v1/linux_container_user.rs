@@ -92,3 +92,10 @@ for LinuxContainerUserAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for LinuxContainerUserAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.gid, other.gid);
+        self.supplemental_groups = other.supplemental_groups;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.uid, other.uid);
+    }
+}

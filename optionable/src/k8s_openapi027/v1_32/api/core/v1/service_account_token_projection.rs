@@ -101,3 +101,13 @@ for ServiceAccountTokenProjectionAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ServiceAccountTokenProjectionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.audience, other.audience);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.expiration_seconds,
+            other.expiration_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.path, other.path);
+    }
+}

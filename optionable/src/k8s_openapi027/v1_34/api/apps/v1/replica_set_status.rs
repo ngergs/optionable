@@ -154,3 +154,29 @@ for ReplicaSetStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ReplicaSetStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.available_replicas,
+            other.available_replicas,
+        );
+        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.fully_labeled_replicas,
+            other.fully_labeled_replicas,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.observed_generation,
+            other.observed_generation,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.ready_replicas,
+            other.ready_replicas,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.replicas, other.replicas);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.terminating_replicas,
+            other.terminating_replicas,
+        );
+    }
+}

@@ -107,3 +107,20 @@ for ContainerPortAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ContainerPortAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.container_port,
+            other.container_port,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.host_ip, other.host_ip);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.host_port, other.host_port);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.protocol, other.protocol);
+    }
+}
+impl crate::merge::MapKeysEq for ContainerPortAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.container_port == other.container_port && self.protocol == other.protocol
+    }
+}

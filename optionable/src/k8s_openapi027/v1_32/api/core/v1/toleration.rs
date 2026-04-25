@@ -113,3 +113,15 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Toleration> for Toler
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for TolerationAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.effect, other.effect);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.key, other.key);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.operator, other.operator);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.toleration_seconds,
+            other.toleration_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.value, other.value);
+    }
+}

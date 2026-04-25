@@ -105,3 +105,10 @@ fn roundtrip_apigrouplistac() {
         k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIGroupList,
     >();
 }
+impl k8s_openapi027::DeepMerge for APIGroupListAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        self.groups = other.groups;
+    }
+}

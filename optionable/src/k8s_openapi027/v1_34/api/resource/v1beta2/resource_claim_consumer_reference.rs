@@ -115,3 +115,16 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourceClaimConsumerReferenceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_group, other.api_group);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resource, other.resource);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.uid, other.uid);
+    }
+}
+impl crate::merge::MapKeysEq for ResourceClaimConsumerReferenceAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.uid == other.uid
+    }
+}

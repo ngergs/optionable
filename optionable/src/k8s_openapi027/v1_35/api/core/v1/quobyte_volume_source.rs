@@ -128,3 +128,13 @@ for QuobyteVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for QuobyteVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.group, other.group);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.registry, other.registry);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.tenant, other.tenant);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.user, other.user);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.volume, other.volume);
+    }
+}

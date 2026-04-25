@@ -80,3 +80,9 @@ for NodeRuntimeHandlerAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NodeRuntimeHandlerAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.features, other.features);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+    }
+}

@@ -154,3 +154,24 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PersistentVolumeClaimConditionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.last_probe_time,
+            other.last_probe_time,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.last_transition_time,
+            other.last_transition_time,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.message, other.message);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.status, other.status);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}
+impl crate::merge::MapKeysEq for PersistentVolumeClaimConditionAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.type_ == other.type_
+    }
+}

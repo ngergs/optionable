@@ -386,3 +386,42 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodStatus> for PodSta
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.allocated_resources,
+            other.allocated_resources,
+        );
+        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        self.container_statuses = other.container_statuses;
+        self.ephemeral_container_statuses = other.ephemeral_container_statuses;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.extended_resource_claim_status,
+            other.extended_resource_claim_status,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.host_ip, other.host_ip);
+        self.host_ips = other.host_ips;
+        self.init_container_statuses = other.init_container_statuses;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.message, other.message);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.nominated_node_name,
+            other.nominated_node_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.observed_generation,
+            other.observed_generation,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.phase, other.phase);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pod_ip, other.pod_ip);
+        crate::k8s_openapi::merge::merge_map(&mut self.pod_ips, other.pod_ips);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.qos_class, other.qos_class);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resize, other.resize);
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.resource_claim_statuses,
+            other.resource_claim_statuses,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resources, other.resources);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.start_time, other.start_time);
+    }
+}

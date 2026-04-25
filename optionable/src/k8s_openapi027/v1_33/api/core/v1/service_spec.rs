@@ -347,3 +347,63 @@ for ServiceSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ServiceSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.allocate_load_balancer_node_ports,
+            other.allocate_load_balancer_node_ports,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.cluster_ip, other.cluster_ip);
+        self.cluster_ips = other.cluster_ips;
+        self.external_ips = other.external_ips;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.external_name,
+            other.external_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.external_traffic_policy,
+            other.external_traffic_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.health_check_node_port,
+            other.health_check_node_port,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.internal_traffic_policy,
+            other.internal_traffic_policy,
+        );
+        self.ip_families = other.ip_families;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.ip_family_policy,
+            other.ip_family_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.load_balancer_class,
+            other.load_balancer_class,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.load_balancer_ip,
+            other.load_balancer_ip,
+        );
+        self.load_balancer_source_ranges = other.load_balancer_source_ranges;
+        crate::k8s_openapi::merge::merge_map(&mut self.ports, other.ports);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.publish_not_ready_addresses,
+            other.publish_not_ready_addresses,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.selector, other.selector);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.session_affinity,
+            other.session_affinity,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.session_affinity_config,
+            other.session_affinity_config,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.traffic_distribution,
+            other.traffic_distribution,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}

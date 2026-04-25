@@ -102,3 +102,16 @@ for NetworkDeviceDataAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NetworkDeviceDataAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.hardware_address,
+            other.hardware_address,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.interface_name,
+            other.interface_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ips, other.ips);
+    }
+}

@@ -147,3 +147,21 @@ for VolumeProjectionAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for VolumeProjectionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.cluster_trust_bundle,
+            other.cluster_trust_bundle,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.config_map, other.config_map);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.downward_api,
+            other.downward_api,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.secret, other.secret);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.service_account_token,
+            other.service_account_token,
+        );
+    }
+}

@@ -111,3 +111,14 @@ for ReplicationControllerSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ReplicationControllerSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.min_ready_seconds,
+            other.min_ready_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.replicas, other.replicas);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.selector, other.selector);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.template, other.template);
+    }
+}

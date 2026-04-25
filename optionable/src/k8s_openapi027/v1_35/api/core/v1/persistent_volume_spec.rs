@@ -538,3 +538,65 @@ for PersistentVolumeSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PersistentVolumeSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        self.access_modes = other.access_modes;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.aws_elastic_block_store,
+            other.aws_elastic_block_store,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.azure_disk, other.azure_disk);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.azure_file, other.azure_file);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.capacity, other.capacity);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.cephfs, other.cephfs);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.cinder, other.cinder);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.claim_ref, other.claim_ref);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.csi, other.csi);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fc, other.fc);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.flex_volume, other.flex_volume);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.flocker, other.flocker);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.gce_persistent_disk,
+            other.gce_persistent_disk,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.glusterfs, other.glusterfs);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.host_path, other.host_path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.iscsi, other.iscsi);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.local, other.local);
+        self.mount_options = other.mount_options;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.nfs, other.nfs);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.node_affinity,
+            other.node_affinity,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.persistent_volume_reclaim_policy,
+            other.persistent_volume_reclaim_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.photon_persistent_disk,
+            other.photon_persistent_disk,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.portworx_volume,
+            other.portworx_volume,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.quobyte, other.quobyte);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.rbd, other.rbd);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.scale_io, other.scale_io);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.storage_class_name,
+            other.storage_class_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.storageos, other.storageos);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.volume_attributes_class_name,
+            other.volume_attributes_class_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.volume_mode, other.volume_mode);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.vsphere_volume,
+            other.vsphere_volume,
+        );
+    }
+}

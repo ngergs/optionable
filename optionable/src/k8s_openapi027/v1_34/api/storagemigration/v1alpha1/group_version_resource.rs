@@ -96,3 +96,10 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for GroupVersionResourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.group, other.group);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resource, other.resource);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.version, other.version);
+    }
+}

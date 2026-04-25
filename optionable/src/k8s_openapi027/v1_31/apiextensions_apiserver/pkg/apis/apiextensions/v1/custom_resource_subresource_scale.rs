@@ -107,3 +107,19 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CustomResourceSubresourceScaleAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.label_selector_path,
+            other.label_selector_path,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.spec_replicas_path,
+            other.spec_replicas_path,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.status_replicas_path,
+            other.status_replicas_path,
+        );
+    }
+}

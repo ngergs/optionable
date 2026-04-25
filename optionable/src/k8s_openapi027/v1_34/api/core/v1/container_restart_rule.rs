@@ -82,3 +82,9 @@ for ContainerRestartRuleAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ContainerRestartRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.action, other.action);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.exit_codes, other.exit_codes);
+    }
+}

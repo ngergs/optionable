@@ -132,3 +132,14 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for SubjectRulesReviewStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.evaluation_error,
+            other.evaluation_error,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.incomplete, other.incomplete);
+        self.non_resource_rules = other.non_resource_rules;
+        self.resource_rules = other.resource_rules;
+    }
+}

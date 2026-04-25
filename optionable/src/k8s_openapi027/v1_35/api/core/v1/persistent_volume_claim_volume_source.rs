@@ -91,3 +91,9 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PersistentVolumeClaimVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.claim_name, other.claim_name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+    }
+}

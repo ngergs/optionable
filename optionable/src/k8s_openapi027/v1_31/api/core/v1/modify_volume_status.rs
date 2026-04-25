@@ -92,3 +92,12 @@ for ModifyVolumeStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ModifyVolumeStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.status, other.status);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.target_volume_attributes_class_name,
+            other.target_volume_attributes_class_name,
+        );
+    }
+}

@@ -115,3 +115,16 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ValidatingAdmissionPolicyStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.conditions, other.conditions);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.observed_generation,
+            other.observed_generation,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.type_checking,
+            other.type_checking,
+        );
+    }
+}

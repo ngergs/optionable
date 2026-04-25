@@ -308,3 +308,40 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ObjectMetaAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.annotations, other.annotations);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.creation_timestamp,
+            other.creation_timestamp,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.deletion_grace_period_seconds,
+            other.deletion_grace_period_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.deletion_timestamp,
+            other.deletion_timestamp,
+        );
+        crate::merge::merge_append_not_present(&mut self.finalizers, other.finalizers);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.generate_name,
+            other.generate_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.generation, other.generation);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.labels, other.labels);
+        self.managed_fields = other.managed_fields;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.namespace, other.namespace);
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.owner_references,
+            other.owner_references,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.resource_version,
+            other.resource_version,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.self_link, other.self_link);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.uid, other.uid);
+    }
+}

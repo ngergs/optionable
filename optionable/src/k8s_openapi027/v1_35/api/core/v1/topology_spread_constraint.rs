@@ -172,3 +172,36 @@ for TopologySpreadConstraintAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for TopologySpreadConstraintAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.label_selector,
+            other.label_selector,
+        );
+        self.match_label_keys = other.match_label_keys;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.max_skew, other.max_skew);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.min_domains, other.min_domains);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.node_affinity_policy,
+            other.node_affinity_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.node_taints_policy,
+            other.node_taints_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.topology_key,
+            other.topology_key,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.when_unsatisfiable,
+            other.when_unsatisfiable,
+        );
+    }
+}
+impl crate::merge::MapKeysEq for TopologySpreadConstraintAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.topology_key == other.topology_key
+            && self.when_unsatisfiable == other.when_unsatisfiable
+    }
+}

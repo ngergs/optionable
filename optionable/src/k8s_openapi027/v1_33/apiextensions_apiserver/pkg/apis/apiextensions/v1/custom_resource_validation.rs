@@ -83,3 +83,11 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CustomResourceValidationAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.open_api_v3_schema,
+            other.open_api_v3_schema,
+        );
+    }
+}

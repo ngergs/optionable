@@ -144,3 +144,19 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for LeaseCandidateSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.binary_version,
+            other.binary_version,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.emulation_version,
+            other.emulation_version,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.lease_name, other.lease_name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ping_time, other.ping_time);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.renew_time, other.renew_time);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.strategy, other.strategy);
+    }
+}

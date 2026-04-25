@@ -112,3 +112,14 @@ for NodeConfigStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NodeConfigStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.active, other.active);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.assigned, other.assigned);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.error, other.error);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.last_known_good,
+            other.last_known_good,
+        );
+    }
+}

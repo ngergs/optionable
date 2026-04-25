@@ -141,3 +141,23 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for LimitedPriorityLevelConfigurationAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.borrowing_limit_percent,
+            other.borrowing_limit_percent,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.lendable_percent,
+            other.lendable_percent,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.limit_response,
+            other.limit_response,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.nominal_concurrency_shares,
+            other.nominal_concurrency_shares,
+        );
+    }
+}

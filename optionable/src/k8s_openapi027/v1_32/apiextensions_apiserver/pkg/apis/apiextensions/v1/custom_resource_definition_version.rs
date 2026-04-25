@@ -206,3 +206,28 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CustomResourceDefinitionVersionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.additional_printer_columns,
+            other.additional_printer_columns,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.deprecated, other.deprecated);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.deprecation_warning,
+            other.deprecation_warning,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.schema, other.schema);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.selectable_fields,
+            other.selectable_fields,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.served, other.served);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.storage, other.storage);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.subresources,
+            other.subresources,
+        );
+    }
+}

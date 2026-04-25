@@ -177,3 +177,32 @@ for PodDisruptionBudgetStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodDisruptionBudgetStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.current_healthy,
+            other.current_healthy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.desired_healthy,
+            other.desired_healthy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.disrupted_pods,
+            other.disrupted_pods,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.disruptions_allowed,
+            other.disruptions_allowed,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.expected_pods,
+            other.expected_pods,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.observed_generation,
+            other.observed_generation,
+        );
+    }
+}

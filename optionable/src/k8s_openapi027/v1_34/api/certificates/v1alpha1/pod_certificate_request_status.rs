@@ -164,3 +164,18 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodCertificateRequestStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.begin_refresh_at,
+            other.begin_refresh_at,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.certificate_chain,
+            other.certificate_chain,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.conditions, other.conditions);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.not_after, other.not_after);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.not_before, other.not_before);
+    }
+}

@@ -93,3 +93,10 @@ for NetworkPolicyPortAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NetworkPolicyPortAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.end_port, other.end_port);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.port, other.port);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.protocol, other.protocol);
+    }
+}

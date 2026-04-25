@@ -107,3 +107,11 @@ for UserInfoAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for UserInfoAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.extra, other.extra);
+        self.groups = other.groups;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.uid, other.uid);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.username, other.username);
+    }
+}

@@ -94,3 +94,9 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceAllocationResultAc {
+    fn merge_from(&mut self, other: Self) {
+        self.config = other.config;
+        self.results = other.results;
+    }
+}

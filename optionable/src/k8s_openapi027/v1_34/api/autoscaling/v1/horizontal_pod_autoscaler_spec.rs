@@ -126,3 +126,23 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for HorizontalPodAutoscalerSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.max_replicas,
+            other.max_replicas,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.min_replicas,
+            other.min_replicas,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.scale_target_ref,
+            other.scale_target_ref,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.target_cpu_utilization_percentage,
+            other.target_cpu_utilization_percentage,
+        );
+    }
+}

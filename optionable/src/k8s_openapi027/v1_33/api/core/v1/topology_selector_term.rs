@@ -76,3 +76,8 @@ for TopologySelectorTermAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for TopologySelectorTermAc {
+    fn merge_from(&mut self, other: Self) {
+        self.match_label_expressions = other.match_label_expressions;
+    }
+}

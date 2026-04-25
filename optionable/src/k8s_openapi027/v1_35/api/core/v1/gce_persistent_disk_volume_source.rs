@@ -117,3 +117,11 @@ for GCEPersistentDiskVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for GCEPersistentDiskVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fs_type, other.fs_type);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.partition, other.partition);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pd_name, other.pd_name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+    }
+}

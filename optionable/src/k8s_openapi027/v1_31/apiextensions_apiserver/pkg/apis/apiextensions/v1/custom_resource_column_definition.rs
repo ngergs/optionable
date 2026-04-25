@@ -140,3 +140,13 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CustomResourceColumnDefinitionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.description, other.description);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.format, other.format);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.json_path, other.json_path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.priority, other.priority);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}

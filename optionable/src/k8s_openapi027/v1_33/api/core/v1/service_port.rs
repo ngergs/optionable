@@ -133,3 +133,21 @@ for ServicePortAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ServicePortAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.app_protocol,
+            other.app_protocol,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.node_port, other.node_port);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.port, other.port);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.protocol, other.protocol);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.target_port, other.target_port);
+    }
+}
+impl crate::merge::MapKeysEq for ServicePortAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.port == other.port && self.protocol == other.protocol
+    }
+}

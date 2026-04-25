@@ -95,3 +95,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Lifecycle> for Lifecy
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for LifecycleAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.post_start, other.post_start);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pre_stop, other.pre_stop);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.stop_signal, other.stop_signal);
+    }
+}

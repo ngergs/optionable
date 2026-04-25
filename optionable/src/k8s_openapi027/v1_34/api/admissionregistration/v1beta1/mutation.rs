@@ -108,3 +108,13 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for MutationAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.apply_configuration,
+            other.apply_configuration,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.json_patch, other.json_patch);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.patch_type, other.patch_type);
+    }
+}

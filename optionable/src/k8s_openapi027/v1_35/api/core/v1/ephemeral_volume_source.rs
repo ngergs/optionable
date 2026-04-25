@@ -80,3 +80,11 @@ for EphemeralVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for EphemeralVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.volume_claim_template,
+            other.volume_claim_template,
+        );
+    }
+}
