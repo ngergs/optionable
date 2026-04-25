@@ -1,6 +1,6 @@
 use clap::Parser;
 use darling::FromMeta;
-use optionable_codegen::CodegenSettings;
+use optionable_codegen::{CodegenSettings, derive_deepmerge, derive_map_keys_eq};
 use optionable_codegen_cli::{
     CodegenConfig, CodegenVisitor, ListType, MapType, OpenApiListExtensions,
     determine_list_map_keys, file_codegen,
@@ -12,7 +12,7 @@ use std::default::Default;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
 use syn::Item::{Enum, Impl, Struct, Use};
-use syn::{Fields, Item, Path, Type, parse_quote};
+use syn::{DeriveInput, Fields, Item, Path, Type, parse_quote};
 
 /// Generates `Optionable` and `OptionableConvert` implementation for structs/enums in
 /// the referenced `input_file` and all included internal modules recursively.
@@ -45,6 +45,7 @@ struct Visitor<'a> {
     /// Additional attributes that should be added to input structs/enums.
     has_resource_impl: HashSet<Ident>,
     has_metadata_impl: HashSet<Ident>,
+    current_has_map_keys: bool,
 }
 
 impl Clone for Visitor<'_> {
@@ -56,6 +57,7 @@ impl Clone for Visitor<'_> {
             // we want to reset all other fields when entering a new module
             has_resource_impl: HashSet::new(),
             has_metadata_impl: HashSet::new(),
+            current_has_map_keys: false,
         }
     }
 }
@@ -105,6 +107,7 @@ impl CodegenVisitor for Visitor<'_> {
 
     fn visit_input(&mut self, item: &mut Item) {
         let suffix = self.optioned_suffix;
+        self.current_has_map_keys = false;
         match item {
             Struct(item) => {
                 if let Some(field_prefix) = &self.field_prefix {
@@ -117,7 +120,9 @@ impl CodegenVisitor for Visitor<'_> {
                             if let Some(field_ident) = &field.ident
                                 && list_keys.contains(&field_ident.to_string())
                             {
+                                self.current_has_map_keys = true;
                                 field.attrs.push(parse_quote!(#[optionable(merge_map_key)]));
+                                field.attrs.push(parse_quote!(#[optionable_attr(map_key)]));
                             }
                         }
                     }
@@ -136,6 +141,9 @@ impl CodegenVisitor for Visitor<'_> {
                                 field
                                     .attrs
                                     .push(parse_quote!(#[optionable(merge(#merge_type))]));
+                                field
+                                    .attrs
+                                    .push(parse_quote!(#[optionable_attr(deepmerge(method(#merge_type)))]));
                             } else if let Some(merge_type) = self
                                 .list_extensions
                                 .map_type
@@ -148,6 +156,7 @@ impl CodegenVisitor for Visitor<'_> {
                                 field
                                     .attrs
                                     .push(parse_quote!(#[optionable(merge(#merge_type))]));
+                                field.attrs.push(parse_quote!(#[deepmerge(#merge_type)]));
                             }
                         }
                     }
@@ -173,7 +182,7 @@ impl CodegenVisitor for Visitor<'_> {
         }
     }
 
-    fn visit_output(&mut self, items: &mut Vec<Item>) {
+    fn visit_output(&mut self, items: &mut Vec<Item>) -> Result<(), syn::Error> {
         let mut extra_items = vec![];
         for item in items.iter_mut() {
             match item {
@@ -194,6 +203,29 @@ impl CodegenVisitor for Visitor<'_> {
                     item.attrs.push(parse_quote!(#[serde(untagged)]));
                 }
                 Struct(item) => {
+                    // addiitional DeepMerge and MapKeysEq derives
+                    let mut derive_input: DeriveInput = item.clone().into();
+                    // todo generalize k8s_openapi version
+                    derive_input.attrs.extend(Some(parse_quote!(#[deepmerge(crate_k8s_openapi=k8s_openapi027,crate_optionable=crate)])));
+                    let extra_impls = derive_deepmerge(derive_input)?;
+                    extra_items.extend(syn::parse2(extra_impls).map(|f: syn::File| f.items)?);
+                    if self.current_has_map_keys {
+                        let mut derive_input: DeriveInput = item.clone().into();
+                        // todo generalize k8s_openapi version
+                        derive_input
+                            .attrs
+                            .extend(Some(parse_quote!(#[map_keys_eq(crate_optionable=crate)])));
+                        let map_keys_impl = derive_map_keys_eq(&derive_input)?;
+                        extra_items.extend(syn::parse2(map_keys_impl).map(|f: syn::File| f.items)?);
+                    }
+                    // remove #[map_item] and #[deepmerge] attribute from fields as we have now derived MapKeysEq and the helper would be unowned in the output
+                    item.fields.iter_mut().for_each(|f| {
+                        f.attrs.retain(|attr| {
+                            let path = attr.path().to_token_stream().to_string();
+                            path != "map_key" && path != "deepmerge"
+                        });
+                    });
+
                     // upstream k8s did not follow the usual pattern here (and likely now it's too late to change it)
                     if item.ident == "DaemonEndpointAc"
                         && let Fields::Named(fields) = &mut item.fields
@@ -224,6 +256,7 @@ impl CodegenVisitor for Visitor<'_> {
             }
         }
         items.append(&mut extra_items);
+        Ok(())
     }
 }
 
@@ -249,6 +282,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 list_extensions: &list_map_keys,
                 has_resource_impl: HashSet::default(),
                 has_metadata_impl: HashSet::default(),
+                current_has_map_keys: false,
             },
             optioned_suffix,
             settings: codegen_settings,
