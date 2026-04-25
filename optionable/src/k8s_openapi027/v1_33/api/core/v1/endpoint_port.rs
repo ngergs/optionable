@@ -111,3 +111,14 @@ for EndpointPortAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for EndpointPortAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.app_protocol,
+            other.app_protocol,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.port, other.port);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.protocol, other.protocol);
+    }
+}

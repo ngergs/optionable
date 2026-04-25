@@ -70,3 +70,8 @@ for SuccessPolicyAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for SuccessPolicyAc {
+    fn merge_from(&mut self, other: Self) {
+        self.rules = other.rules;
+    }
+}

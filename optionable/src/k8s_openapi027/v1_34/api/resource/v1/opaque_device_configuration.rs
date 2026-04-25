@@ -94,3 +94,9 @@ for OpaqueDeviceConfigurationAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for OpaqueDeviceConfigurationAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.driver, other.driver);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.parameters, other.parameters);
+    }
+}

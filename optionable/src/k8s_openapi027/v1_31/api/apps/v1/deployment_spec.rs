@@ -164,3 +164,24 @@ for DeploymentSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeploymentSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.min_ready_seconds,
+            other.min_ready_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.paused, other.paused);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.progress_deadline_seconds,
+            other.progress_deadline_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.replicas, other.replicas);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.revision_history_limit,
+            other.revision_history_limit,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.selector, other.selector);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.strategy, other.strategy);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.template, other.template);
+    }
+}

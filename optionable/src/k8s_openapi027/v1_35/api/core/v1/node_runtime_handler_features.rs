@@ -91,3 +91,15 @@ for NodeRuntimeHandlerFeaturesAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NodeRuntimeHandlerFeaturesAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.recursive_read_only_mounts,
+            other.recursive_read_only_mounts,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.user_namespaces,
+            other.user_namespaces,
+        );
+    }
+}

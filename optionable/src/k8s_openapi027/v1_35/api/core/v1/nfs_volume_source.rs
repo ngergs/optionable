@@ -90,3 +90,10 @@ for NFSVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NFSVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.path, other.path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.server, other.server);
+    }
+}

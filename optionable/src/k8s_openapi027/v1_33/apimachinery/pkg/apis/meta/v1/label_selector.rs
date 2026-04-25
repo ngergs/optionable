@@ -98,3 +98,12 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for LabelSelectorAc {
+    fn merge_from(&mut self, other: Self) {
+        self.match_expressions = other.match_expressions;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.match_labels,
+            other.match_labels,
+        );
+    }
+}

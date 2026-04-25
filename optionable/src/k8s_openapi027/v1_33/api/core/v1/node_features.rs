@@ -66,3 +66,11 @@ for NodeFeaturesAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NodeFeaturesAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.supplemental_groups_policy,
+            other.supplemental_groups_policy,
+        );
+    }
+}

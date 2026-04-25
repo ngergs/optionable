@@ -131,3 +131,20 @@ for FlowSchemaSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for FlowSchemaSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.distinguisher_method,
+            other.distinguisher_method,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.matching_precedence,
+            other.matching_precedence,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.priority_level_configuration,
+            other.priority_level_configuration,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.rules, other.rules);
+    }
+}

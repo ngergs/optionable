@@ -190,3 +190,26 @@ for ScaleIOVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ScaleIOVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fs_type, other.fs_type);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.gateway, other.gateway);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.protection_domain,
+            other.protection_domain,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_ref, other.secret_ref);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ssl_enabled, other.ssl_enabled);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.storage_mode,
+            other.storage_mode,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.storage_pool,
+            other.storage_pool,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.system, other.system);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.volume_name, other.volume_name);
+    }
+}

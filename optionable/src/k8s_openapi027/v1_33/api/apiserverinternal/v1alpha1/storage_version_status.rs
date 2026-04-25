@@ -114,3 +114,16 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for StorageVersionStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.common_encoding_version,
+            other.common_encoding_version,
+        );
+        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.storage_versions,
+            other.storage_versions,
+        );
+    }
+}

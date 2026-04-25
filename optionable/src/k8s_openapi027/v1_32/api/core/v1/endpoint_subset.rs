@@ -118,3 +118,10 @@ for EndpointSubsetAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for EndpointSubsetAc {
+    fn merge_from(&mut self, other: Self) {
+        self.addresses = other.addresses;
+        self.not_ready_addresses = other.not_ready_addresses;
+        self.ports = other.ports;
+    }
+}

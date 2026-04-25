@@ -91,3 +91,12 @@ for WorkloadSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for WorkloadSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.controller_ref,
+            other.controller_ref,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pod_groups, other.pod_groups);
+    }
+}

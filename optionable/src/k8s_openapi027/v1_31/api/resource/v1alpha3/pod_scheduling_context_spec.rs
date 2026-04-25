@@ -92,3 +92,15 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodSchedulingContextSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.potential_nodes,
+            other.potential_nodes,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.selected_node,
+            other.selected_node,
+        );
+    }
+}

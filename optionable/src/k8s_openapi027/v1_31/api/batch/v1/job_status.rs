@@ -234,3 +234,30 @@ impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::JobStatus> for JobSt
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for JobStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.active, other.active);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.completed_indexes,
+            other.completed_indexes,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.completion_time,
+            other.completion_time,
+        );
+        self.conditions = other.conditions;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.failed, other.failed);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.failed_indexes,
+            other.failed_indexes,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ready, other.ready);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.start_time, other.start_time);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.succeeded, other.succeeded);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.terminating, other.terminating);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.uncounted_terminated_pods,
+            other.uncounted_terminated_pods,
+        );
+    }
+}

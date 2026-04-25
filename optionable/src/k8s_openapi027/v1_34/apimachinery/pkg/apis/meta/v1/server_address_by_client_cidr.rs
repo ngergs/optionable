@@ -89,3 +89,12 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ServerAddressByClientCIDRAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.client_cidr, other.client_cidr);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.server_address,
+            other.server_address,
+        );
+    }
+}

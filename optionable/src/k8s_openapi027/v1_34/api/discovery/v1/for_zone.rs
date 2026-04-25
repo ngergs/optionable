@@ -61,3 +61,8 @@ impl crate::OptionedConvert<k8s_openapi027::api::discovery::v1::ForZone> for For
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ForZoneAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+    }
+}

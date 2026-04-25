@@ -118,3 +118,17 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for VsphereVirtualDiskVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fs_type, other.fs_type);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.storage_policy_id,
+            other.storage_policy_id,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.storage_policy_name,
+            other.storage_policy_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.volume_path, other.volume_path);
+    }
+}

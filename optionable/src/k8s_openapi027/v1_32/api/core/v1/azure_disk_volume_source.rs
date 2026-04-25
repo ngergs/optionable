@@ -131,3 +131,16 @@ for AzureDiskVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for AzureDiskVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.caching_mode,
+            other.caching_mode,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.disk_name, other.disk_name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.disk_uri, other.disk_uri);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fs_type, other.fs_type);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+    }
+}

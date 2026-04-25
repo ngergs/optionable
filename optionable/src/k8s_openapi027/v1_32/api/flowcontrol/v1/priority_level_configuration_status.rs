@@ -83,3 +83,8 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PriorityLevelConfigurationStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+    }
+}

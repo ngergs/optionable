@@ -102,3 +102,11 @@ for PodAffinityAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodAffinityAc {
+    fn merge_from(&mut self, other: Self) {
+        self.preferred_during_scheduling_ignored_during_execution = other
+            .preferred_during_scheduling_ignored_during_execution;
+        self.required_during_scheduling_ignored_during_execution = other
+            .required_during_scheduling_ignored_during_execution;
+    }
+}

@@ -97,3 +97,9 @@ for VolumeResourceRequirementsAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for VolumeResourceRequirementsAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.limits, other.limits);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.requests, other.requests);
+    }
+}

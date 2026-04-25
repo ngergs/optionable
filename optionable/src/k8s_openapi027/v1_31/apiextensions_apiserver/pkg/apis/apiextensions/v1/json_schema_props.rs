@@ -722,3 +722,102 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for JSONSchemaPropsAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ref_path, other.ref_path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.schema, other.schema);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.additional_items,
+            other.additional_items,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.additional_properties,
+            other.additional_properties,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.all_of, other.all_of);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.any_of, other.any_of);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.default, other.default);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.definitions, other.definitions);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.dependencies,
+            other.dependencies,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.description, other.description);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.enum_, other.enum_);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.example, other.example);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.exclusive_maximum,
+            other.exclusive_maximum,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.exclusive_minimum,
+            other.exclusive_minimum,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.external_docs,
+            other.external_docs,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.format, other.format);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.id, other.id);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.items, other.items);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.max_items, other.max_items);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.max_length, other.max_length);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.max_properties,
+            other.max_properties,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.maximum, other.maximum);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.min_items, other.min_items);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.min_length, other.min_length);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.min_properties,
+            other.min_properties,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.minimum, other.minimum);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.multiple_of, other.multiple_of);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.not, other.not);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.nullable, other.nullable);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.one_of, other.one_of);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pattern, other.pattern);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.pattern_properties,
+            other.pattern_properties,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.properties, other.properties);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.required, other.required);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.title, other.title);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.unique_items,
+            other.unique_items,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.x_kubernetes_embedded_resource,
+            other.x_kubernetes_embedded_resource,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.x_kubernetes_int_or_string,
+            other.x_kubernetes_int_or_string,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.x_kubernetes_list_map_keys,
+            other.x_kubernetes_list_map_keys,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.x_kubernetes_list_type,
+            other.x_kubernetes_list_type,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.x_kubernetes_map_type,
+            other.x_kubernetes_map_type,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.x_kubernetes_preserve_unknown_fields,
+            other.x_kubernetes_preserve_unknown_fields,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.x_kubernetes_validations,
+            other.x_kubernetes_validations,
+        );
+    }
+}

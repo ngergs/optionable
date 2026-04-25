@@ -82,3 +82,15 @@ for ContainerResizePolicyAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ContainerResizePolicyAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.resource_name,
+            other.resource_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.restart_policy,
+            other.restart_policy,
+        );
+    }
+}

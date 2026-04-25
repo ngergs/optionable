@@ -71,3 +71,8 @@ for IPAddressSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for IPAddressSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.parent_ref, other.parent_ref);
+    }
+}

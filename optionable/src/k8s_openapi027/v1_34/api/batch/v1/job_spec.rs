@@ -298,3 +298,53 @@ impl crate::OptionedConvert<k8s_openapi027::api::batch::v1::JobSpec> for JobSpec
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for JobSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.active_deadline_seconds,
+            other.active_deadline_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.backoff_limit,
+            other.backoff_limit,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.backoff_limit_per_index,
+            other.backoff_limit_per_index,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.completion_mode,
+            other.completion_mode,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.completions, other.completions);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.managed_by, other.managed_by);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.manual_selector,
+            other.manual_selector,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.max_failed_indexes,
+            other.max_failed_indexes,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.parallelism, other.parallelism);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.pod_failure_policy,
+            other.pod_failure_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.pod_replacement_policy,
+            other.pod_replacement_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.selector, other.selector);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.success_policy,
+            other.success_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.suspend, other.suspend);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.template, other.template);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.ttl_seconds_after_finished,
+            other.ttl_seconds_after_finished,
+        );
+    }
+}

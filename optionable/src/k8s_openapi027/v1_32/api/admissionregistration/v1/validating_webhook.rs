@@ -281,3 +281,47 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ValidatingWebhookAc {
+    fn merge_from(&mut self, other: Self) {
+        self.admission_review_versions = other.admission_review_versions;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.client_config,
+            other.client_config,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.failure_policy,
+            other.failure_policy,
+        );
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.match_conditions,
+            other.match_conditions,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.match_policy,
+            other.match_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.namespace_selector,
+            other.namespace_selector,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.object_selector,
+            other.object_selector,
+        );
+        self.rules = other.rules;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.side_effects,
+            other.side_effects,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.timeout_seconds,
+            other.timeout_seconds,
+        );
+    }
+}
+impl crate::merge::MapKeysEq for ValidatingWebhookAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}

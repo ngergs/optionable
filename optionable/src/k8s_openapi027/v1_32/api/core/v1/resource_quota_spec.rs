@@ -99,3 +99,13 @@ for ResourceQuotaSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourceQuotaSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.hard, other.hard);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.scope_selector,
+            other.scope_selector,
+        );
+        self.scopes = other.scopes;
+    }
+}

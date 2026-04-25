@@ -101,3 +101,12 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodExtendedResourceClaimStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        self.request_mappings = other.request_mappings;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.resource_claim_name,
+            other.resource_claim_name,
+        );
+    }
+}

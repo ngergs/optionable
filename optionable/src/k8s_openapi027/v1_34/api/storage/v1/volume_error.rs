@@ -94,3 +94,10 @@ for VolumeErrorAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for VolumeErrorAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.error_code, other.error_code);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.message, other.message);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.time, other.time);
+    }
+}

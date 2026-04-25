@@ -92,3 +92,10 @@ for GlusterfsVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for GlusterfsVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.endpoints, other.endpoints);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.path, other.path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+    }
+}

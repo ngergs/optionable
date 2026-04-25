@@ -87,3 +87,12 @@ for WeightedPodAffinityTermAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for WeightedPodAffinityTermAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.pod_affinity_term,
+            other.pod_affinity_term,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.weight, other.weight);
+    }
+}

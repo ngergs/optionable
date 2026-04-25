@@ -229,3 +229,23 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceRequestAllocationResultAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.admin_access,
+            other.admin_access,
+        );
+        self.binding_conditions = other.binding_conditions;
+        self.binding_failure_conditions = other.binding_failure_conditions;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.consumed_capacity,
+            other.consumed_capacity,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.device, other.device);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.driver, other.driver);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pool, other.pool);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.request, other.request);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.share_id, other.share_id);
+        self.tolerations = other.tolerations;
+    }
+}

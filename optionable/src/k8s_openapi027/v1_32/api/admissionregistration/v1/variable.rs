@@ -79,3 +79,14 @@ for VariableAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for VariableAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.expression, other.expression);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+    }
+}
+impl crate::merge::MapKeysEq for VariableAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}

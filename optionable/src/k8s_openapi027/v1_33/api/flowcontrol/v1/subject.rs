@@ -112,3 +112,14 @@ for SubjectAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for SubjectAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.group, other.group);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.service_account,
+            other.service_account,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.user, other.user);
+    }
+}

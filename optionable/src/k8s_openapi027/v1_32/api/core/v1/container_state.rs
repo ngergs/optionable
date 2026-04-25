@@ -96,3 +96,10 @@ for ContainerStateAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ContainerStateAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.running, other.running);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.terminated, other.terminated);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.waiting, other.waiting);
+    }
+}

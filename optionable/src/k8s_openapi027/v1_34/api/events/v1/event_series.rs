@@ -82,3 +82,12 @@ for EventSeriesAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for EventSeriesAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.count, other.count);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.last_observed_time,
+            other.last_observed_time,
+        );
+    }
+}

@@ -107,3 +107,19 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ContainerExtendedResourceRequestAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.container_name,
+            other.container_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.request_name,
+            other.request_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.resource_name,
+            other.resource_name,
+        );
+    }
+}

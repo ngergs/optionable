@@ -146,3 +146,22 @@ for PodAffinityTermAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodAffinityTermAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.label_selector,
+            other.label_selector,
+        );
+        self.match_label_keys = other.match_label_keys;
+        self.mismatch_label_keys = other.mismatch_label_keys;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.namespace_selector,
+            other.namespace_selector,
+        );
+        self.namespaces = other.namespaces;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.topology_key,
+            other.topology_key,
+        );
+    }
+}

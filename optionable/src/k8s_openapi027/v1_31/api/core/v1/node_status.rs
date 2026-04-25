@@ -273,3 +273,23 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeStatus> for NodeS
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NodeStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        crate::k8s_openapi::merge::merge_map(&mut self.addresses, other.addresses);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.allocatable, other.allocatable);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.capacity, other.capacity);
+        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.config, other.config);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.daemon_endpoints,
+            other.daemon_endpoints,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.features, other.features);
+        self.images = other.images;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.node_info, other.node_info);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.phase, other.phase);
+        self.runtime_handlers = other.runtime_handlers;
+        self.volumes_attached = other.volumes_attached;
+        self.volumes_in_use = other.volumes_in_use;
+    }
+}

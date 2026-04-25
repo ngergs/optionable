@@ -93,3 +93,12 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourceClaimSchedulingStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.unsuitable_nodes,
+            other.unsuitable_nodes,
+        );
+    }
+}

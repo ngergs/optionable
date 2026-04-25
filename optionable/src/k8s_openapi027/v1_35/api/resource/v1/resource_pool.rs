@@ -96,3 +96,13 @@ for ResourcePoolAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourcePoolAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.generation, other.generation);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.resource_slice_count,
+            other.resource_slice_count,
+        );
+    }
+}

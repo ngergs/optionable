@@ -274,3 +274,47 @@ for PodSecurityContextAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodSecurityContextAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.app_armor_profile,
+            other.app_armor_profile,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fs_group, other.fs_group);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.fs_group_change_policy,
+            other.fs_group_change_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.run_as_group,
+            other.run_as_group,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.run_as_non_root,
+            other.run_as_non_root,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.run_as_user, other.run_as_user);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.se_linux_change_policy,
+            other.se_linux_change_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.se_linux_options,
+            other.se_linux_options,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.seccomp_profile,
+            other.seccomp_profile,
+        );
+        self.supplemental_groups = other.supplemental_groups;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.supplemental_groups_policy,
+            other.supplemental_groups_policy,
+        );
+        self.sysctls = other.sysctls;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.windows_options,
+            other.windows_options,
+        );
+    }
+}

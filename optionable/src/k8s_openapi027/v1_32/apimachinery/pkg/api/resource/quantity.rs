@@ -98,6 +98,11 @@ for QuantityAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for QuantityAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.0, other.0);
+    }
+}
 impl From<crate::k8s_openapi::apimachinery::pkg::util::intstr::IntOrStringAc>
 for QuantityAc {
     fn from(

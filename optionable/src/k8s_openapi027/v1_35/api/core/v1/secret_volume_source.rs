@@ -112,3 +112,14 @@ for SecretVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for SecretVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.default_mode,
+            other.default_mode,
+        );
+        self.items = other.items;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.optional, other.optional);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_name, other.secret_name);
+    }
+}

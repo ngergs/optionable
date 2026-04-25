@@ -99,3 +99,12 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for RollingUpdateStatefulSetStrategyAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.max_unavailable,
+            other.max_unavailable,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.partition, other.partition);
+    }
+}

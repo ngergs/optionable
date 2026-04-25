@@ -143,3 +143,13 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CustomResourceDefinitionNamesAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.categories, other.categories);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.list_kind, other.list_kind);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.plural, other.plural);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.short_names, other.short_names);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.singular, other.singular);
+    }
+}

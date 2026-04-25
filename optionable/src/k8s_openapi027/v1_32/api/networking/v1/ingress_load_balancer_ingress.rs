@@ -105,3 +105,10 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for IngressLoadBalancerIngressAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.hostname, other.hostname);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ip, other.ip);
+        self.ports = other.ports;
+    }
+}

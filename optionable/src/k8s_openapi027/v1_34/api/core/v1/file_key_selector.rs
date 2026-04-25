@@ -102,3 +102,11 @@ for FileKeySelectorAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for FileKeySelectorAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.key, other.key);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.optional, other.optional);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.path, other.path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.volume_name, other.volume_name);
+    }
+}

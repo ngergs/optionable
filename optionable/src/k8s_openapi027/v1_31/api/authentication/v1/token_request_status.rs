@@ -91,3 +91,12 @@ for TokenRequestStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for TokenRequestStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.expiration_timestamp,
+            other.expiration_timestamp,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.token, other.token);
+    }
+}

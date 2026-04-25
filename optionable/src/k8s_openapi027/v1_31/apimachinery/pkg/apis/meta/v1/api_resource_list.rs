@@ -119,3 +119,14 @@ fn roundtrip_apiresourcelistac() {
         k8s_openapi027::apimachinery::pkg::apis::meta::v1::APIResourceList,
     >();
 }
+impl k8s_openapi027::DeepMerge for APIResourceListAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.group_version,
+            other.group_version,
+        );
+        self.resources = other.resources;
+    }
+}

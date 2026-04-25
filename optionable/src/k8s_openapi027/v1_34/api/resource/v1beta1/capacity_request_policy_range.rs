@@ -122,3 +122,10 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CapacityRequestPolicyRangeAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.max, other.max);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.min, other.min);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.step, other.step);
+    }
+}

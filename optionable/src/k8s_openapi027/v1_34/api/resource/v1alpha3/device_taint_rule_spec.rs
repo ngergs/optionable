@@ -94,3 +94,12 @@ for DeviceTaintRuleSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceTaintRuleSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.device_selector,
+            other.device_selector,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.taint, other.taint);
+    }
+}

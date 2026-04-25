@@ -94,3 +94,13 @@ for ResourceFieldSelectorAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourceFieldSelectorAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.container_name,
+            other.container_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.divisor, other.divisor);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resource, other.resource);
+    }
+}

@@ -108,3 +108,14 @@ impl k8s_openapi027::Metadata for EvictionAc {
 fn roundtrip_evictionac() {
     crate::testutil::roundtrip_test::<k8s_openapi027::api::policy::v1::Eviction>();
 }
+impl k8s_openapi027::DeepMerge for EvictionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.delete_options,
+            other.delete_options,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+    }
+}

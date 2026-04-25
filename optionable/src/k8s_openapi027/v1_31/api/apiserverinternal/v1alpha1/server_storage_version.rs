@@ -115,3 +115,28 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ServerStorageVersionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.api_server_id,
+            other.api_server_id,
+        );
+        crate::merge::merge_append_not_present(
+            &mut self.decodable_versions,
+            other.decodable_versions,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.encoding_version,
+            other.encoding_version,
+        );
+        crate::merge::merge_append_not_present(
+            &mut self.served_versions,
+            other.served_versions,
+        );
+    }
+}
+impl crate::merge::MapKeysEq for ServerStorageVersionAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.api_server_id == other.api_server_id
+    }
+}

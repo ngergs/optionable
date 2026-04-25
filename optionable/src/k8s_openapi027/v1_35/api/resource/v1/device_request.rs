@@ -108,3 +108,10 @@ for DeviceRequestAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceRequestAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.exactly, other.exactly);
+        self.first_available = other.first_available;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+    }
+}

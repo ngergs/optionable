@@ -112,3 +112,14 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for SubjectAccessReviewStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.allowed, other.allowed);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.denied, other.denied);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.evaluation_error,
+            other.evaluation_error,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
+    }
+}

@@ -106,3 +106,11 @@ for EndpointAddressAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for EndpointAddressAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.hostname, other.hostname);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ip, other.ip);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.node_name, other.node_name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.target_ref, other.target_ref);
+    }
+}

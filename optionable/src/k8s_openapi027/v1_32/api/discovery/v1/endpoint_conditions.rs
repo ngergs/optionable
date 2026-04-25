@@ -93,3 +93,10 @@ for EndpointConditionsAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for EndpointConditionsAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ready, other.ready);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.serving, other.serving);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.terminating, other.terminating);
+    }
+}

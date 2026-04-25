@@ -108,3 +108,16 @@ for CronJobStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CronJobStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        self.active = other.active;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.last_schedule_time,
+            other.last_schedule_time,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.last_successful_time,
+            other.last_successful_time,
+        );
+    }
+}

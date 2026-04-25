@@ -422,3 +422,66 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Container> for Contai
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ContainerAc {
+    fn merge_from(&mut self, other: Self) {
+        self.args = other.args;
+        self.command = other.command;
+        crate::k8s_openapi::merge::merge_map(&mut self.env, other.env);
+        self.env_from = other.env_from;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.image, other.image);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.image_pull_policy,
+            other.image_pull_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.lifecycle, other.lifecycle);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.liveness_probe,
+            other.liveness_probe,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        crate::k8s_openapi::merge::merge_map(&mut self.ports, other.ports);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.readiness_probe,
+            other.readiness_probe,
+        );
+        self.resize_policy = other.resize_policy;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resources, other.resources);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.restart_policy,
+            other.restart_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.security_context,
+            other.security_context,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.startup_probe,
+            other.startup_probe,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.stdin, other.stdin);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.stdin_once, other.stdin_once);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.termination_message_path,
+            other.termination_message_path,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.termination_message_policy,
+            other.termination_message_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.tty, other.tty);
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.volume_devices,
+            other.volume_devices,
+        );
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.volume_mounts,
+            other.volume_mounts,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.working_dir, other.working_dir);
+    }
+}
+impl crate::merge::MapKeysEq for ContainerAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}

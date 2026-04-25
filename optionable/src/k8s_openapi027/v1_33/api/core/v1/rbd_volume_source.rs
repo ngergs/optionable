@@ -154,3 +154,15 @@ for RBDVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for RBDVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fs_type, other.fs_type);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.image, other.image);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.keyring, other.keyring);
+        self.monitors = other.monitors;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pool, other.pool);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_ref, other.secret_ref);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.user, other.user);
+    }
+}

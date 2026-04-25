@@ -115,3 +115,17 @@ for ListMetaAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ListMetaAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.continue_, other.continue_);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.remaining_item_count,
+            other.remaining_item_count,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.resource_version,
+            other.resource_version,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.self_link, other.self_link);
+    }
+}

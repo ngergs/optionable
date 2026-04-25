@@ -107,3 +107,16 @@ for CSINodeDriverAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CSINodeDriverAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.allocatable, other.allocatable);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.node_id, other.node_id);
+        self.topology_keys = other.topology_keys;
+    }
+}
+impl crate::merge::MapKeysEq for CSINodeDriverAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}

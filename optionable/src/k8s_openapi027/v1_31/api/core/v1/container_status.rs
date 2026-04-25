@@ -269,3 +269,36 @@ for ContainerStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ContainerStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.allocated_resources,
+            other.allocated_resources,
+        );
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.allocated_resources_status,
+            other.allocated_resources_status,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.container_id,
+            other.container_id,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.image, other.image);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.image_id, other.image_id);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.last_state, other.last_state);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ready, other.ready);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.resources, other.resources);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.restart_count,
+            other.restart_count,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.started, other.started);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.state, other.state);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.user, other.user);
+        crate::k8s_openapi::merge::merge_map(
+            &mut self.volume_mounts,
+            other.volume_mounts,
+        );
+    }
+}

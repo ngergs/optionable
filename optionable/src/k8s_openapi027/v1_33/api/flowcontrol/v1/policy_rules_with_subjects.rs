@@ -122,3 +122,10 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PolicyRulesWithSubjectsAc {
+    fn merge_from(&mut self, other: Self) {
+        self.non_resource_rules = other.non_resource_rules;
+        self.resource_rules = other.resource_rules;
+        self.subjects = other.subjects;
+    }
+}

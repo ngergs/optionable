@@ -192,3 +192,21 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for MatchResourcesAc {
+    fn merge_from(&mut self, other: Self) {
+        self.exclude_resource_rules = other.exclude_resource_rules;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.match_policy,
+            other.match_policy,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.namespace_selector,
+            other.namespace_selector,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.object_selector,
+            other.object_selector,
+        );
+        self.resource_rules = other.resource_rules;
+    }
+}

@@ -80,3 +80,9 @@ for TCPSocketActionAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for TCPSocketActionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.host, other.host);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.port, other.port);
+    }
+}

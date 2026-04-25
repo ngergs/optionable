@@ -90,3 +90,12 @@ for RollingUpdateDaemonSetAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for RollingUpdateDaemonSetAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.max_surge, other.max_surge);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.max_unavailable,
+            other.max_unavailable,
+        );
+    }
+}

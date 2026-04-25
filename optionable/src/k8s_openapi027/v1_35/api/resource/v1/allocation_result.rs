@@ -108,3 +108,16 @@ for AllocationResultAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for AllocationResultAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.allocation_timestamp,
+            other.allocation_timestamp,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.devices, other.devices);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.node_selector,
+            other.node_selector,
+        );
+    }
+}

@@ -68,3 +68,8 @@ for ServiceCIDRSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ServiceCIDRSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        self.cidrs = other.cidrs;
+    }
+}

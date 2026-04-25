@@ -74,3 +74,8 @@ for ScopeSelectorAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ScopeSelectorAc {
+    fn merge_from(&mut self, other: Self) {
+        self.match_expressions = other.match_expressions;
+    }
+}

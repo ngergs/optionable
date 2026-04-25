@@ -110,3 +110,14 @@ for ConfigMapVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ConfigMapVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.default_mode,
+            other.default_mode,
+        );
+        self.items = other.items;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.optional, other.optional);
+    }
+}

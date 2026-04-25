@@ -94,3 +94,9 @@ for NodeSelectorTermAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NodeSelectorTermAc {
+    fn merge_from(&mut self, other: Self) {
+        self.match_expressions = other.match_expressions;
+        self.match_fields = other.match_fields;
+    }
+}

@@ -92,3 +92,10 @@ for AzureFileVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for AzureFileVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_name, other.secret_name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.share_name, other.share_name);
+    }
+}

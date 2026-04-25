@@ -80,3 +80,17 @@ for PodResourceClaimStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodResourceClaimStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.resource_claim_name,
+            other.resource_claim_name,
+        );
+    }
+}
+impl crate::merge::MapKeysEq for PodResourceClaimStatusAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}

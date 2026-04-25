@@ -107,3 +107,13 @@ for DeviceClassSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceClassSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        self.config = other.config;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.extended_resource_name,
+            other.extended_resource_name,
+        );
+        self.selectors = other.selectors;
+    }
+}

@@ -66,3 +66,8 @@ for NamespaceSpecAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NamespaceSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        self.finalizers = other.finalizers;
+    }
+}

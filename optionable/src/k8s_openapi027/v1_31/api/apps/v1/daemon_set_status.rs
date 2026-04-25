@@ -196,3 +196,44 @@ for DaemonSetStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DaemonSetStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.collision_count,
+            other.collision_count,
+        );
+        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.current_number_scheduled,
+            other.current_number_scheduled,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.desired_number_scheduled,
+            other.desired_number_scheduled,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.number_available,
+            other.number_available,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.number_misscheduled,
+            other.number_misscheduled,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.number_ready,
+            other.number_ready,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.number_unavailable,
+            other.number_unavailable,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.observed_generation,
+            other.observed_generation,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.updated_number_scheduled,
+            other.updated_number_scheduled,
+        );
+    }
+}

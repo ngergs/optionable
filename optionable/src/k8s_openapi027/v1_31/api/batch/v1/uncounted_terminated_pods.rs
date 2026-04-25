@@ -83,3 +83,9 @@ for UncountedTerminatedPodsAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for UncountedTerminatedPodsAc {
+    fn merge_from(&mut self, other: Self) {
+        crate::merge::merge_append_not_present(&mut self.failed, other.failed);
+        crate::merge::merge_append_not_present(&mut self.succeeded, other.succeeded);
+    }
+}

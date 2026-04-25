@@ -157,3 +157,20 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::NodeSpec> for NodeSpe
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NodeSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.config_source,
+            other.config_source,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.external_id, other.external_id);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pod_cidr, other.pod_cidr);
+        crate::merge::merge_append_not_present(&mut self.pod_cidrs, other.pod_cidrs);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.provider_id, other.provider_id);
+        self.taints = other.taints;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.unschedulable,
+            other.unschedulable,
+        );
+    }
+}

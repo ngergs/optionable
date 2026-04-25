@@ -152,3 +152,17 @@ for ContainerStateTerminatedAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ContainerStateTerminatedAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.container_id,
+            other.container_id,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.exit_code, other.exit_code);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.finished_at, other.finished_at);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.message, other.message);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.signal, other.signal);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.started_at, other.started_at);
+    }
+}

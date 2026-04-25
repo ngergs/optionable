@@ -94,3 +94,9 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NetworkPolicyIngressRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        self.from = other.from;
+        self.ports = other.ports;
+    }
+}

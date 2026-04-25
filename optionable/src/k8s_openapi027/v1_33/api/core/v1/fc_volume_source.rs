@@ -117,3 +117,12 @@ for FCVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for FCVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fs_type, other.fs_type);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.lun, other.lun);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+        self.target_wwns = other.target_wwns;
+        self.wwids = other.wwids;
+    }
+}

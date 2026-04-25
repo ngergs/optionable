@@ -138,3 +138,16 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for StatusDetailsAc {
+    fn merge_from(&mut self, other: Self) {
+        self.causes = other.causes;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.group, other.group);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.retry_after_seconds,
+            other.retry_after_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.uid, other.uid);
+    }
+}

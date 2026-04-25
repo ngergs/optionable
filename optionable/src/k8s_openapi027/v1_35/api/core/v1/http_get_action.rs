@@ -124,3 +124,12 @@ for HTTPGetActionAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for HTTPGetActionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.host, other.host);
+        self.http_headers = other.http_headers;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.path, other.path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.port, other.port);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.scheme, other.scheme);
+    }
+}

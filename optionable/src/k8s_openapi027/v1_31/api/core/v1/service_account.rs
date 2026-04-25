@@ -143,3 +143,16 @@ impl k8s_openapi027::Metadata for ServiceAccountAc {
 fn roundtrip_serviceaccountac() {
     crate::testutil::roundtrip_test::<k8s_openapi027::api::core::v1::ServiceAccount>();
 }
+impl k8s_openapi027::DeepMerge for ServiceAccountAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.automount_service_account_token,
+            other.automount_service_account_token,
+        );
+        self.image_pull_secrets = other.image_pull_secrets;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        crate::k8s_openapi::merge::merge_map(&mut self.secrets, other.secrets);
+    }
+}

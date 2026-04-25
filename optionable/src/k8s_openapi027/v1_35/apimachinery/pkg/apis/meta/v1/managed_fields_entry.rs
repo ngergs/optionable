@@ -158,3 +158,14 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ManagedFieldsEntryAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fields_type, other.fields_type);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fields_v1, other.fields_v1);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.manager, other.manager);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.operation, other.operation);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.subresource, other.subresource);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.time, other.time);
+    }
+}

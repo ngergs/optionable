@@ -131,3 +131,15 @@ for ClusterTrustBundleProjectionAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ClusterTrustBundleProjectionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.label_selector,
+            other.label_selector,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.optional, other.optional);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.path, other.path);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.signer_name, other.signer_name);
+    }
+}

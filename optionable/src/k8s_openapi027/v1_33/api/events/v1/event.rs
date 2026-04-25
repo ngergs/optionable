@@ -301,3 +301,42 @@ impl k8s_openapi027::Metadata for EventAc {
 fn roundtrip_eventac() {
     crate::testutil::roundtrip_test::<k8s_openapi027::api::events::v1::Event>();
 }
+impl k8s_openapi027::DeepMerge for EventAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.action, other.action);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.deprecated_count,
+            other.deprecated_count,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.deprecated_first_timestamp,
+            other.deprecated_first_timestamp,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.deprecated_last_timestamp,
+            other.deprecated_last_timestamp,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.deprecated_source,
+            other.deprecated_source,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.event_time, other.event_time);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.note, other.note);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.regarding, other.regarding);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.related, other.related);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.reporting_controller,
+            other.reporting_controller,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.reporting_instance,
+            other.reporting_instance,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.series, other.series);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}

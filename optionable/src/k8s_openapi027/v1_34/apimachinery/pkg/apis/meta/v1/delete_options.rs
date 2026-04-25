@@ -177,3 +177,30 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeleteOptionsAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
+        self.dry_run = other.dry_run;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.grace_period_seconds,
+            other.grace_period_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.ignore_store_read_error_with_cluster_breaking_potential,
+            other.ignore_store_read_error_with_cluster_breaking_potential,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.orphan_dependents,
+            other.orphan_dependents,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.preconditions,
+            other.preconditions,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.propagation_policy,
+            other.propagation_policy,
+        );
+    }
+}

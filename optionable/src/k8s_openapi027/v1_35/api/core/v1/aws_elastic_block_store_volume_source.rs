@@ -120,3 +120,11 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for AWSElasticBlockStoreVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fs_type, other.fs_type);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.partition, other.partition);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.volume_id, other.volume_id);
+    }
+}

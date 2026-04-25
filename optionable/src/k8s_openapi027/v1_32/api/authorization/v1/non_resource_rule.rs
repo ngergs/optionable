@@ -82,3 +82,9 @@ for NonResourceRuleAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NonResourceRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        self.non_resource_urls = other.non_resource_urls;
+        self.verbs = other.verbs;
+    }
+}

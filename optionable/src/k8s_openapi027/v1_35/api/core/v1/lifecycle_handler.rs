@@ -110,3 +110,11 @@ for LifecycleHandlerAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for LifecycleHandlerAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.exec, other.exec);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.http_get, other.http_get);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.sleep, other.sleep);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.tcp_socket, other.tcp_socket);
+    }
+}

@@ -58,3 +58,13 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodIP> for PodIPAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodIPAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.ip, other.ip);
+    }
+}
+impl crate::merge::MapKeysEq for PodIPAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.ip == other.ip
+    }
+}

@@ -167,3 +167,25 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for HorizontalPodAutoscalerStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        self.current_metrics = other.current_metrics;
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.current_replicas,
+            other.current_replicas,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.desired_replicas,
+            other.desired_replicas,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.last_scale_time,
+            other.last_scale_time,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.observed_generation,
+            other.observed_generation,
+        );
+    }
+}

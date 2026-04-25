@@ -88,3 +88,9 @@ for ResourceQuotaStatusAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourceQuotaStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.hard, other.hard);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.used, other.used);
+    }
+}

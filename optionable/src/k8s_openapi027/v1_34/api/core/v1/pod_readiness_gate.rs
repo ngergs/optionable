@@ -66,3 +66,11 @@ for PodReadinessGateAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodReadinessGateAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.condition_type,
+            other.condition_type,
+        );
+    }
+}

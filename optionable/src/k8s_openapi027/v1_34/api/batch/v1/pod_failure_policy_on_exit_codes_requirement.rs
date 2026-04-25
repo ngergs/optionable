@@ -111,3 +111,13 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PodFailurePolicyOnExitCodesRequirementAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.container_name,
+            other.container_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.operator, other.operator);
+        crate::merge::merge_append_not_present(&mut self.values, other.values);
+    }
+}

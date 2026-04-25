@@ -92,3 +92,9 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourceClaimTemplateSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.spec, other.spec);
+    }
+}

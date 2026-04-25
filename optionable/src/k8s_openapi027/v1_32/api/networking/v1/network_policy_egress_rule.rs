@@ -92,3 +92,9 @@ for NetworkPolicyEgressRuleAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NetworkPolicyEgressRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        self.ports = other.ports;
+        self.to = other.to;
+    }
+}

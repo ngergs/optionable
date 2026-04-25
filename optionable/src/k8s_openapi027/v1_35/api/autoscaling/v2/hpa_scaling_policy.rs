@@ -94,3 +94,13 @@ for HPAScalingPolicyAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for HPAScalingPolicyAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.period_seconds,
+            other.period_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.value, other.value);
+    }
+}

@@ -130,3 +130,15 @@ for DeviceTaintSelectorAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceTaintSelectorAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.device, other.device);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.device_class_name,
+            other.device_class_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.driver, other.driver);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pool, other.pool);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.selectors, other.selectors);
+    }
+}

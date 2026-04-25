@@ -248,3 +248,46 @@ for SecurityContextAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for SecurityContextAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.allow_privilege_escalation,
+            other.allow_privilege_escalation,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.app_armor_profile,
+            other.app_armor_profile,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.capabilities,
+            other.capabilities,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.privileged, other.privileged);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.proc_mount, other.proc_mount);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.read_only_root_filesystem,
+            other.read_only_root_filesystem,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.run_as_group,
+            other.run_as_group,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.run_as_non_root,
+            other.run_as_non_root,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.run_as_user, other.run_as_user);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.se_linux_options,
+            other.se_linux_options,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.seccomp_profile,
+            other.seccomp_profile,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.windows_options,
+            other.windows_options,
+        );
+    }
+}

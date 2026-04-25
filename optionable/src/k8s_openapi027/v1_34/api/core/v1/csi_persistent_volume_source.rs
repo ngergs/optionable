@@ -225,3 +225,38 @@ for CSIPersistentVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for CSIPersistentVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.controller_expand_secret_ref,
+            other.controller_expand_secret_ref,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.controller_publish_secret_ref,
+            other.controller_publish_secret_ref,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.driver, other.driver);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.fs_type, other.fs_type);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.node_expand_secret_ref,
+            other.node_expand_secret_ref,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.node_publish_secret_ref,
+            other.node_publish_secret_ref,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.node_stage_secret_ref,
+            other.node_stage_secret_ref,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.volume_attributes,
+            other.volume_attributes,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.volume_handle,
+            other.volume_handle,
+        );
+    }
+}

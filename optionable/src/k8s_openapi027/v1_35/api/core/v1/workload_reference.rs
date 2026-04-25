@@ -90,3 +90,13 @@ for WorkloadReferenceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for WorkloadReferenceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.pod_group, other.pod_group);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.pod_group_replica_key,
+            other.pod_group_replica_key,
+        );
+    }
+}

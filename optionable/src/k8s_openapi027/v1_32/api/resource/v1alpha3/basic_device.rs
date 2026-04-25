@@ -94,3 +94,9 @@ for BasicDeviceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for BasicDeviceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.attributes, other.attributes);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.capacity, other.capacity);
+    }
+}

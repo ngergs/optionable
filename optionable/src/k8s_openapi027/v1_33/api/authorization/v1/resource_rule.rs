@@ -109,3 +109,11 @@ for ResourceRuleAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ResourceRuleAc {
+    fn merge_from(&mut self, other: Self) {
+        self.api_groups = other.api_groups;
+        self.resource_names = other.resource_names;
+        self.resources = other.resources;
+        self.verbs = other.verbs;
+    }
+}

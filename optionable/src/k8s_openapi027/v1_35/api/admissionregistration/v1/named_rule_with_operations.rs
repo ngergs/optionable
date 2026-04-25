@@ -150,3 +150,13 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for NamedRuleWithOperationsAc {
+    fn merge_from(&mut self, other: Self) {
+        self.api_groups = other.api_groups;
+        self.api_versions = other.api_versions;
+        self.operations = other.operations;
+        self.resource_names = other.resource_names;
+        self.resources = other.resources;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.scope, other.scope);
+    }
+}

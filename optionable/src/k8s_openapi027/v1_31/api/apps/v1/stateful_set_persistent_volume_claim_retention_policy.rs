@@ -93,3 +93,12 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for StatefulSetPersistentVolumeClaimRetentionPolicyAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.when_deleted,
+            other.when_deleted,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.when_scaled, other.when_scaled);
+    }
+}

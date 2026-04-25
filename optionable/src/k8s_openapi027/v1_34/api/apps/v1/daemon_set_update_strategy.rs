@@ -88,3 +88,12 @@ for DaemonSetUpdateStrategyAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DaemonSetUpdateStrategyAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.rolling_update,
+            other.rolling_update,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}

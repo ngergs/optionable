@@ -75,3 +75,9 @@ impl crate::OptionedConvert<k8s_openapi027::api::networking::v1::IPBlock> for IP
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for IPBlockAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.cidr, other.cidr);
+        self.except = other.except;
+    }
+}

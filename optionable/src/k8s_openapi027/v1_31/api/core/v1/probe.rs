@@ -193,3 +193,35 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::Probe> for ProbeAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ProbeAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.exec, other.exec);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.failure_threshold,
+            other.failure_threshold,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.grpc, other.grpc);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.http_get, other.http_get);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.initial_delay_seconds,
+            other.initial_delay_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.period_seconds,
+            other.period_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.success_threshold,
+            other.success_threshold,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.tcp_socket, other.tcp_socket);
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.termination_grace_period_seconds,
+            other.termination_grace_period_seconds,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.timeout_seconds,
+            other.timeout_seconds,
+        );
+    }
+}

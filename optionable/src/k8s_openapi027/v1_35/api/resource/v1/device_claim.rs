@@ -102,3 +102,10 @@ for DeviceClaimAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for DeviceClaimAc {
+    fn merge_from(&mut self, other: Self) {
+        self.config = other.config;
+        self.constraints = other.constraints;
+        self.requests = other.requests;
+    }
+}

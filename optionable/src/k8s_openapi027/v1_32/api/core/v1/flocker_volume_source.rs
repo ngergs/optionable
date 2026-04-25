@@ -83,3 +83,15 @@ for FlockerVolumeSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for FlockerVolumeSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.dataset_name,
+            other.dataset_name,
+        );
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.dataset_uuid,
+            other.dataset_uuid,
+        );
+    }
+}

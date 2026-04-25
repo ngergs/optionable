@@ -87,3 +87,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::KeyToPath> for KeyToP
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for KeyToPathAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(&mut self.key, other.key);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.mode, other.mode);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.path, other.path);
+    }
+}

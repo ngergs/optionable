@@ -78,3 +78,9 @@ for ContainerImageAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for ContainerImageAc {
+    fn merge_from(&mut self, other: Self) {
+        self.names = other.names;
+        k8s_openapi027::DeepMerge::merge_from(&mut self.size_bytes, other.size_bytes);
+    }
+}

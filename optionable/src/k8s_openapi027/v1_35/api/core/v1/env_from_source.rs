@@ -98,3 +98,13 @@ for EnvFromSourceAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for EnvFromSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi027::DeepMerge::merge_from(
+            &mut self.config_map_ref,
+            other.config_map_ref,
+        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.prefix, other.prefix);
+        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_ref, other.secret_ref);
+    }
+}
