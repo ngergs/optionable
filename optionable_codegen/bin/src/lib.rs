@@ -39,16 +39,13 @@ pub trait CodegenVisitor: Clone {
     /// Mutates the input.
     fn visit_input(&mut self, _: &mut Item) {}
 
-    /// Called for struct/enums when `optionable` codegen is called to append other items.
-    /// # Errors
-    /// - When one the additonal codegens returns an error.
-    fn visit_codegen(&mut self, _: &DeriveInput) -> Result<Vec<Item>, syn::Error> {
-        Ok(vec![])
-    }
-
     /// Mutates the generated code. Will be called once after code generation.
     /// Implementors can also reset internal states tracking input here.
-    fn visit_output(&mut self, _: &mut Vec<Item>) {}
+    /// # Errors
+    /// - When one the additonal codegens returns an error.
+    fn visit_output(&mut self, _: &mut Vec<Item>) -> Result<(), syn::Error> {
+        Ok(())
+    }
 
     /// Called when the output path changes. The path is passed as individual path segments.
     fn visit_output_path(&mut self, _: &[&str]) {}
@@ -251,7 +248,7 @@ fn item_codegen<V: CodegenVisitor>(
         }
         _ => Ok(vec![]),
     }?;
-    conf.visitor.visit_output(&mut result);
+    conf.visitor.visit_output(&mut result)?;
     Ok(result)
 }
 
@@ -261,10 +258,7 @@ fn item_struct_enum_codegen<V: CodegenVisitor>(
     conf: &mut CodegenConfig<V>,
 ) -> Result<Vec<Item>, Error> {
     let input = input.into();
-    let extra_items = conf.visitor.visit_codegen(&input)?;
-    let mut items = derive_codegen(input, &conf.settings)?;
-    items.extend(extra_items);
-    Ok(items)
+    derive_codegen(input, &conf.settings)
 }
 
 /// Filter the items and returns usages of the form `use self::<...>` if they are `UseTree`s themselves.

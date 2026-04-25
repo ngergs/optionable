@@ -184,7 +184,7 @@ fn try_derive_deepmerge(input: TokenStream) -> Result<TokenStream, syn::Error> {
 ///
 /// ### Field-level attributes
 /// - **`map_key`**: Marks a field as being a `map_key` that has to be equal on two structs for `MapKeysEq::map_keys_eq` to be true. The corresponding field has to `impl PartialEq`.
-#[proc_macro_derive(MapKeysEq, attributes(map_key))]
+#[proc_macro_derive(MapKeysEq, attributes(map_keys_eq, map_key))]
 pub fn derive_map_keys_eq(input: TokenStream) -> TokenStream {
     try_derive_map_keys_eq(input).unwrap_or_else(|e| syn::Error::into_compile_error(e).into())
 }
