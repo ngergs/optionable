@@ -84,7 +84,7 @@ for k8s_openapi027::api::networking::v1::NetworkPolicySpec {
         } else if let Some(self_value) = self.pod_selector.as_mut()
             && let Some(other_value) = other.pod_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.policy_types.is_none() {
             self.policy_types = crate::OptionableConvert::try_from_optioned(

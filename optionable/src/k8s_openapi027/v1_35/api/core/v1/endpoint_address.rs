@@ -82,7 +82,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointAddress
         } else if let Some(self_value) = self.target_ref.as_mut()
             && let Some(other_value) = other.target_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

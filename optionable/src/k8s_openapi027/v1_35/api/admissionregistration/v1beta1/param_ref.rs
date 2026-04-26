@@ -102,7 +102,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::ParamRef {
         } else if let Some(self_value) = self.selector.as_mut()
             && let Some(other_value) = other.selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

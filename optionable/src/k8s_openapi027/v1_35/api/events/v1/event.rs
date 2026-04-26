@@ -217,14 +217,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::events::v1::Event {
         } else if let Some(self_value) = self.regarding.as_mut()
             && let Some(other_value) = other.regarding
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.related.is_none() {
             self.related = crate::OptionableConvert::try_from_optioned(other.related)?;
         } else if let Some(self_value) = self.related.as_mut()
             && let Some(other_value) = other.related
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.reporting_controller.is_none() {
             self.reporting_controller = crate::OptionableConvert::try_from_optioned(
