@@ -133,8 +133,6 @@ fn roundtrip_volumeattributesclassac() {
 }
 impl k8s_openapi027::DeepMerge for VolumeAttributesClassAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
         k8s_openapi027::DeepMerge::merge_from(&mut self.driver_name, other.driver_name);
         k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
         k8s_openapi027::DeepMerge::merge_from(&mut self.parameters, other.parameters);
