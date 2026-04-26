@@ -1,6 +1,6 @@
 use k8s_openapi_codegen_common::get_rust_ident;
-use openapi_utils::SpecExt;
-use openapiv3::{OpenAPI, ReferenceOr, Schema, SchemaKind, Type};
+use openapi_utils::{ReferenceOrExt, SpecExt};
+use openapiv3::{Components, OpenAPI, ReferenceOr, Schema, SchemaKind, Type};
 use std::cmp::PartialEq;
 use std::{
     collections::HashMap,
@@ -54,15 +54,31 @@ pub fn determine_list_map_keys(
 ) -> Result<OpenApiListExtensions, Box<dyn std::error::Error>> {
     let mut result = OpenApiListExtensions::default();
     let schema_files = fs::read_dir(k8s_openapi_v3_dir)?;
-    for schema_file in schema_files {
-        let schema_file = schema_file?;
-        let openapi: OpenAPI = serde_json::from_reader(File::open(schema_file.path())?)?;
-        let openapi = openapi.deref_all();
 
-        if let Some(components) = openapi.components {
-            for (name, schema) in components.schemas {
-                process_schema(&mut result, &[&name], schema.into_item().as_ref())?;
-            }
+    // collect all components so that references can be resolved
+    let components: Components = schema_files
+        .into_iter()
+        .map(|f| {
+            let openapi: OpenAPI = serde_json::from_reader(File::open(f?.path())?)?;
+            Ok::<_, Box<dyn std::error::Error>>(openapi.components)
+        })
+        .collect::<Result<Vec<_>, _>>()?
+        .into_iter()
+        .flatten()
+        .fold(Components::default(), |mut c, c_new| {
+            c.schemas.extend(c_new.schemas);
+            c
+        });
+
+    let openapi = OpenAPI {
+        components: Some(components),
+        ..Default::default()
+    };
+    let openapi = openapi.deref_all();
+
+    if let Some(components) = openapi.components {
+        for (name, mut schema) in components.schemas {
+            process_schema(&mut result, &[&name], schema.to_item_mut())?;
         }
     }
     Ok(result)
@@ -73,11 +89,9 @@ pub fn determine_list_map_keys(
 fn process_schema(
     result: &mut OpenApiListExtensions,
     field_path: &[&str],
-    schema: Option<&Schema>,
+    schema: &Schema,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    if let Some(schema) = schema
-        && let SchemaKind::Type(item) = &schema.schema_kind
-    {
+    if let SchemaKind::Type(item) = &schema.schema_kind {
         let map_type = schema
             .schema_data
             .extensions
@@ -159,11 +173,7 @@ fn process_schema(
                 for (name, obj_schema) in &obj.properties {
                     let mut field_path = field_path.to_vec();
                     field_path.push(name);
-                    process_schema(
-                        result,
-                        &field_path,
-                        obj_schema.clone().into_item().as_deref(),
-                    )?;
+                    process_schema(result, &field_path, obj_schema.clone().to_item_mut())?;
                 }
             }
             Type::Array(array) => {
@@ -171,11 +181,7 @@ fn process_schema(
                 if let Some(array_schema) = &array.items {
                     let mut field_path = field_path.to_vec();
                     field_path.push("[]");
-                    process_schema(
-                        result,
-                        &field_path,
-                        array_schema.clone().into_item().as_deref(),
-                    )?;
+                    process_schema(result, &field_path, array_schema.clone().to_item_mut())?;
                 }
             }
             _ => {}
