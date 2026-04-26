@@ -149,6 +149,7 @@ impl CodegenVisitor for Visitor<'_> {
                                 .map_type
                                 .get(&format!("{}.{}.{}", field_prefix, item.ident, field_ident))
                             {
+                                println!("{:?}", self.list_extensions.map_type);
                                 let merge_type_optionable = match merge_type {
                                     MapType::Atomic => Some(quote!(atomic)),
                                     MapType::Granular => None,
@@ -163,8 +164,19 @@ impl CodegenVisitor for Visitor<'_> {
                                     MapType::Granular => quote!(granular),
                                 };
                                 field.attrs.push(
-                                    parse_quote!(#[deepmerge(method(#merge_type_deepmerge))]),
+                                    parse_quote!(#[optionable_attr(deepmerge(method(#merge_type_deepmerge)))]),
                                 );
+                            } else {
+                                let field_ty = field.ty.to_token_stream().to_string();
+                                // todo: brittle
+                                if field_ty.starts_with("std :: collections :: BTreeMap")
+                                    || field_ty
+                                        .starts_with("Option < std :: collections :: BTreeMap")
+                                {
+                                    field
+                                        .attrs
+                                        .push(parse_quote!(#[optionable_attr(deepmerge(method(granular)))]));
+                                }
                             }
                         }
                     }
