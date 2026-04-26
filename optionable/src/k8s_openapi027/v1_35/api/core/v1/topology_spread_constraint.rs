@@ -97,7 +97,7 @@ for k8s_openapi027::api::core::v1::TopologySpreadConstraint {
         } else if let Some(self_value) = self.label_selector.as_mut()
             && let Some(other_value) = other.label_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.match_label_keys.is_none() {
             self.match_label_keys = crate::OptionableConvert::try_from_optioned(
