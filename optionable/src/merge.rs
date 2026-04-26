@@ -20,6 +20,28 @@ where
 /// Merges `other` into `target` using Kubernetes-style `set` merge logic.
 /// This means that all elements from `other` which are already present in `target` are discarded
 /// and the other ones that are missing in `target` get appended.
+/// Handles the Option wrapping the respective type.
+pub fn merge_append_not_present_option_wrapped<TARGET, OTHER, T>(
+    target: &mut Option<TARGET>,
+    other: Option<OTHER>,
+) where
+    TARGET: Extend<T>,
+    for<'a> &'a TARGET: IntoIterator<Item = &'a T>,
+    OTHER: IntoIterator<Item = T> + Into<TARGET>,
+    T: PartialEq,
+{
+    if let Some(other) = other {
+        if let Some(target) = target {
+            merge_append_not_present(target, other);
+        } else {
+            *target = Some(other.into());
+        }
+    }
+}
+
+/// Merges `other` into `target` using Kubernetes-style `set` merge logic.
+/// This means that all elements from `other` which are already present in `target` are discarded
+/// and the other ones that are missing in `target` get appended.
 ///
 /// # Errors
 /// - When appending (creating a full type from an optioned one) via `OptionableConvert::try_into_optionable` fails.
