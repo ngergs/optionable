@@ -28,7 +28,6 @@ prettyplease = "0.2.37"
 openapiv3 = "2.2.0"
 serde_json = "1.0.149"
 k8s-openapi-codegen-common = "0.27.1"
-openapi_utils = "0.6.1"
 
 [dev-dependencies]
 assert_cmd = "2.2.0"
