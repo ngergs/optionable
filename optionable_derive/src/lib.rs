@@ -83,6 +83,7 @@ use proc_macro::TokenStream;
 ///     - `atomic` Always override the field completly when present in the optioned type.
 ///     - `append_not_present` Kubernetes `set` merge logic. Appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: PartialEq`.
 ///     - `iter_map` Kubernetes `map` merge logic. Identifies if entries belong together via the `optionable::merge::OptionableMapKeysEq` trait. Merges entries that belong together (short-circuit, first match is merged) and appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: OptionableMapKeysEq + OptionableConvert`.
+///     - `ignore` Entry is not merged but kept as is.
 /// - **`merge_map_key`**: Implies `required` (see above). Furthermore, if at least one field has this attribute the trait `OptionableMapKeysEq` is implemented
 ///   which uses the corresponding fields to determine if the "mapping keys"  of two elements are equal. If the given struct is `T` this becomes utilized if another struct has a field
 ///   with the `merge(map)` attribute set and has a type that `impl IntoIterator<Item=T>`.
@@ -166,6 +167,7 @@ fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> 
 ///     - `atomic` Always override the field completly when present in the optioned type.
 ///     - `append_not_present` Kubernetes `set` merge logic. Appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: PartialEq`.
 ///     - `iter_map` Kubernetes `map` merge logic. Identifies if entries belong together via the `optionable::merge::OptionableMapKeysEq` trait. Merges entries that belong together (short-circuit, first match is merged) and appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: OptionableMapKeysEq + OptionableConvert`.
+///     - `ignore` Entry is not merged but kept as is.
 ///
 #[proc_macro_derive(DeepMerge, attributes(deepmerge))]
 pub fn derive_deepmerge(input: TokenStream) -> TokenStream {
