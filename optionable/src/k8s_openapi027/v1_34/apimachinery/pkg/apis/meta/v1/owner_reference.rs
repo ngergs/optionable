@@ -83,7 +83,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
         } else if let Some(self_value) = self.block_owner_deletion.as_mut()
             && let Some(other_value) = other.block_owner_deletion
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.controller.is_none() {
             self.controller = crate::OptionableConvert::try_from_optioned(
@@ -92,7 +92,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::OwnerReference {
         } else if let Some(self_value) = self.controller.as_mut()
             && let Some(other_value) = other.controller
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;

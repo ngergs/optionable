@@ -72,7 +72,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::FileKeySelector
         } else if let Some(self_value) = self.optional.as_mut()
             && let Some(other_value) = other.optional
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.path {
             self.path = crate::OptionableConvert::try_from_optioned(other_value)?;

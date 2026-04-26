@@ -73,7 +73,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ParamRef {
         } else if let Some(self_value) = self.name.as_mut()
             && let Some(other_value) = other.name
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.namespace.is_none() {
             self.namespace = crate::OptionableConvert::try_from_optioned(
@@ -82,7 +82,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ParamRef {
         } else if let Some(self_value) = self.namespace.as_mut()
             && let Some(other_value) = other.namespace
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.parameter_not_found_action.is_none() {
             self.parameter_not_found_action = crate::OptionableConvert::try_from_optioned(
@@ -91,14 +91,14 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ParamRef {
         } else if let Some(self_value) = self.parameter_not_found_action.as_mut()
             && let Some(other_value) = other.parameter_not_found_action
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.selector.is_none() {
             self.selector = crate::OptionableConvert::try_from_optioned(other.selector)?;
         } else if let Some(self_value) = self.selector.as_mut()
             && let Some(other_value) = other.selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
