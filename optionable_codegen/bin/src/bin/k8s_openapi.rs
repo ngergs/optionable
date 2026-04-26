@@ -7,7 +7,7 @@ use optionable_codegen_cli::{
 };
 use proc_macro2::{Ident, Span};
 use quote::{ToTokens, quote};
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 use std::default::Default;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
