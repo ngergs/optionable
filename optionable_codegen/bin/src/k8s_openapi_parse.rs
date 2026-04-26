@@ -1,4 +1,5 @@
 use k8s_openapi_codegen_common::get_rust_ident;
+use openapi_utils::SpecExt;
 use openapiv3::{OpenAPI, ReferenceOr, Schema, SchemaKind, Type};
 use std::cmp::PartialEq;
 use std::{
@@ -56,6 +57,7 @@ pub fn determine_list_map_keys(
     for schema_file in schema_files {
         let schema_file = schema_file?;
         let openapi: OpenAPI = serde_json::from_reader(File::open(schema_file.path())?)?;
+        let openapi = openapi.deref_all();
 
         if let Some(components) = openapi.components {
             for (name, schema) in components.schemas {

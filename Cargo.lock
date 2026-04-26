@@ -1027,6 +1027,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "384b8ab6d37215f3c5301a95a4accb5d64aa607f1fcb26a11b5303878451b4fe"
 
 [[package]]
+name = "openapi_utils"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3b07fbe0b89007a114c3a145f2ded3a3c2dcf3cf04ad984139bbf066ec300c74"
+dependencies = [
+ "http",
+ "indexmap",
+ "log",
+ "openapiv3",
+]
+
+[[package]]
 name = "openapiv3"
 version = "2.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1078,6 +1090,7 @@ dependencies = [
  "clap",
  "darling 0.23.0",
  "k8s-openapi-codegen-common",
+ "openapi_utils",
  "openapiv3",
  "optionable_codegen",
  "prettyplease",
