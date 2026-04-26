@@ -160,7 +160,10 @@ impl k8s_openapi027::DeepMerge for ReplicaSetStatusAc {
             &mut self.available_replicas,
             other.available_replicas,
         );
-        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.fully_labeled_replicas,
             other.fully_labeled_replicas,

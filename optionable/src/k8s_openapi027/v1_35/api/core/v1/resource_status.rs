@@ -85,7 +85,10 @@ for ResourceStatusAc {
 impl k8s_openapi027::DeepMerge for ResourceStatusAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
-        crate::k8s_openapi::merge::merge_map(&mut self.resources, other.resources);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.resources,
+            other.resources,
+        );
     }
 }
 impl crate::merge::MapKeysEq for ResourceStatusAc {

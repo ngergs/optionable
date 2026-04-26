@@ -94,10 +94,13 @@ for NonResourcePolicyRuleAc {
 }
 impl k8s_openapi027::DeepMerge for NonResourcePolicyRuleAc {
     fn merge_from(&mut self, other: Self) {
-        crate::merge::merge_append_not_present(
+        crate::merge::merge_append_not_present_option_wrapped(
             &mut self.non_resource_urls,
             other.non_resource_urls,
         );
-        crate::merge::merge_append_not_present(&mut self.verbs, other.verbs);
+        crate::merge::merge_append_not_present_option_wrapped(
+            &mut self.verbs,
+            other.verbs,
+        );
     }
 }

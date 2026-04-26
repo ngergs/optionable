@@ -329,7 +329,10 @@ impl crate::OptionedConvert<k8s_openapi027::api::core::v1::PodStatus> for PodSta
 }
 impl k8s_openapi027::DeepMerge for PodStatusAc {
     fn merge_from(&mut self, other: Self) {
-        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
         self.container_statuses = other.container_statuses;
         self.ephemeral_container_statuses = other.ephemeral_container_statuses;
         k8s_openapi027::DeepMerge::merge_from(&mut self.host_ip, other.host_ip);
@@ -346,11 +349,14 @@ impl k8s_openapi027::DeepMerge for PodStatusAc {
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.phase, other.phase);
         k8s_openapi027::DeepMerge::merge_from(&mut self.pod_ip, other.pod_ip);
-        crate::k8s_openapi::merge::merge_map(&mut self.pod_ips, other.pod_ips);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.pod_ips,
+            other.pod_ips,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.qos_class, other.qos_class);
         k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
         k8s_openapi027::DeepMerge::merge_from(&mut self.resize, other.resize);
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.resource_claim_statuses,
             other.resource_claim_statuses,
         );

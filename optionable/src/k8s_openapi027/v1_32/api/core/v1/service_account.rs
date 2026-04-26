@@ -151,6 +151,9 @@ impl k8s_openapi027::DeepMerge for ServiceAccountAc {
         );
         self.image_pull_secrets = other.image_pull_secrets;
         k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
-        crate::k8s_openapi::merge::merge_map(&mut self.secrets, other.secrets);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.secrets,
+            other.secrets,
+        );
     }
 }

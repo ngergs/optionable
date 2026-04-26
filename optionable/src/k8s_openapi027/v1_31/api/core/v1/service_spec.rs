@@ -386,7 +386,10 @@ impl k8s_openapi027::DeepMerge for ServiceSpecAc {
             other.load_balancer_ip,
         );
         self.load_balancer_source_ranges = other.load_balancer_source_ranges;
-        crate::k8s_openapi::merge::merge_map(&mut self.ports, other.ports);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.ports,
+            other.ports,
+        );
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.publish_not_ready_addresses,
             other.publish_not_ready_addresses,

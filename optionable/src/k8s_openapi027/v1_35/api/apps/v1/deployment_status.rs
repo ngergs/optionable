@@ -192,7 +192,10 @@ impl k8s_openapi027::DeepMerge for DeploymentStatusAc {
             &mut self.collision_count,
             other.collision_count,
         );
-        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.observed_generation,
             other.observed_generation,

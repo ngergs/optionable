@@ -221,7 +221,7 @@ impl k8s_openapi027::DeepMerge for ValidatingAdmissionPolicySpecAc {
             &mut self.failure_policy,
             other.failure_policy,
         );
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.match_conditions,
             other.match_conditions,
         );
@@ -231,6 +231,9 @@ impl k8s_openapi027::DeepMerge for ValidatingAdmissionPolicySpecAc {
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.param_kind, other.param_kind);
         self.validations = other.validations;
-        crate::k8s_openapi::merge::merge_map(&mut self.variables, other.variables);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.variables,
+            other.variables,
+        );
     }
 }

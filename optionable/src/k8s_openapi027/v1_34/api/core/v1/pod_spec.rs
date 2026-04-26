@@ -734,18 +734,24 @@ impl k8s_openapi027::DeepMerge for PodSpecAc {
             &mut self.automount_service_account_token,
             other.automount_service_account_token,
         );
-        crate::k8s_openapi::merge::merge_map(&mut self.containers, other.containers);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.containers,
+            other.containers,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.dns_config, other.dns_config);
         k8s_openapi027::DeepMerge::merge_from(&mut self.dns_policy, other.dns_policy);
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.enable_service_links,
             other.enable_service_links,
         );
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.ephemeral_containers,
             other.ephemeral_containers,
         );
-        crate::k8s_openapi::merge::merge_map(&mut self.host_aliases, other.host_aliases);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.host_aliases,
+            other.host_aliases,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.host_ipc, other.host_ipc);
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.host_network,
@@ -758,11 +764,11 @@ impl k8s_openapi027::DeepMerge for PodSpecAc {
             &mut self.hostname_override,
             other.hostname_override,
         );
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.image_pull_secrets,
             other.image_pull_secrets,
         );
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.init_containers,
             other.init_containers,
         );
@@ -783,7 +789,7 @@ impl k8s_openapi027::DeepMerge for PodSpecAc {
             other.priority_class_name,
         );
         self.readiness_gates = other.readiness_gates;
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.resource_claims,
             other.resource_claims,
         );
@@ -800,7 +806,7 @@ impl k8s_openapi027::DeepMerge for PodSpecAc {
             &mut self.scheduler_name,
             other.scheduler_name,
         );
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.scheduling_gates,
             other.scheduling_gates,
         );
@@ -830,10 +836,13 @@ impl k8s_openapi027::DeepMerge for PodSpecAc {
             other.termination_grace_period_seconds,
         );
         self.tolerations = other.tolerations;
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.topology_spread_constraints,
             other.topology_spread_constraints,
         );
-        crate::k8s_openapi::merge::merge_map(&mut self.volumes, other.volumes);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.volumes,
+            other.volumes,
+        );
     }
 }

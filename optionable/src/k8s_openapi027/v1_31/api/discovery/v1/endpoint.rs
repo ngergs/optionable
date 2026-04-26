@@ -166,7 +166,10 @@ for EndpointAc {
 }
 impl k8s_openapi027::DeepMerge for EndpointAc {
     fn merge_from(&mut self, other: Self) {
-        crate::merge::merge_append_not_present(&mut self.addresses, other.addresses);
+        crate::merge::merge_append_not_present_option_wrapped(
+            &mut self.addresses,
+            other.addresses,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.conditions, other.conditions);
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.deprecated_topology,

@@ -289,7 +289,7 @@ impl k8s_openapi027::DeepMerge for ContainerStatusAc {
             &mut self.allocated_resources,
             other.allocated_resources,
         );
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.allocated_resources_status,
             other.allocated_resources_status,
         );
@@ -311,7 +311,7 @@ impl k8s_openapi027::DeepMerge for ContainerStatusAc {
         k8s_openapi027::DeepMerge::merge_from(&mut self.state, other.state);
         k8s_openapi027::DeepMerge::merge_from(&mut self.stop_signal, other.stop_signal);
         k8s_openapi027::DeepMerge::merge_from(&mut self.user, other.user);
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.volume_mounts,
             other.volume_mounts,
         );

@@ -323,7 +323,10 @@ impl k8s_openapi027::DeepMerge for ObjectMetaAc {
             &mut self.deletion_timestamp,
             other.deletion_timestamp,
         );
-        crate::merge::merge_append_not_present(&mut self.finalizers, other.finalizers);
+        crate::merge::merge_append_not_present_option_wrapped(
+            &mut self.finalizers,
+            other.finalizers,
+        );
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.generate_name,
             other.generate_name,
@@ -333,7 +336,7 @@ impl k8s_openapi027::DeepMerge for ObjectMetaAc {
         self.managed_fields = other.managed_fields;
         k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
         k8s_openapi027::DeepMerge::merge_from(&mut self.namespace, other.namespace);
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.owner_references,
             other.owner_references,
         );
