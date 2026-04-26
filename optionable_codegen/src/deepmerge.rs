@@ -35,6 +35,9 @@ enum MergeBehavior {
     #[default]
     /// Default behavior, call `DeepMerge` for the given field
     DeepMerge,
+    /// Merge map entries using `DeepMerge` for the respective entries if they both exist.
+    /// Map entries only existing in `other` will be added to the target map.
+    Granular,
     /// Completly overrides the field with the merge candidate (no recursive deep merging happens anymore from here)
     Atomic,
     // Appends entries not already present in the target, requires the corresponding field to be `impl Extent<T>+IntoIter<Item=T> where T: PartialEq`
@@ -297,6 +300,15 @@ fn field_comparison(
         }
         (_, MergeBehavior::Atomic) => {
             quote! {#self_assign_ident = #other_field_ident;}
+        }
+        (field_ty, MergeBehavior::Granular) => {
+            let crate_optionable = &data_vis.attr.crate_optionable;
+            let merge_fn = if is_option(field_ty) {
+                quote! {merge_granular_option_wrapped}
+            } else {
+                quote! {merge_granular}
+            };
+            quote! {#crate_optionable::k8s_openapi::merge::#merge_fn(#self_field_ident, #other_field_ident);}
         }
         (field_ty, MergeBehavior::AppendNotPresent) => {
             let crate_optionable = &data_vis.attr.crate_optionable;

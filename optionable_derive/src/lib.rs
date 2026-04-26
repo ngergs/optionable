@@ -164,6 +164,7 @@ fn try_derive_optionable(input: TokenStream) -> Result<TokenStream, syn::Error> 
 /// ### Field-level attributes (for structs and struct-typed enum variants)
 /// - **`method`**: Customize the merge behaviour. The following values are supported (e.g. as `#[deepmerge(atomic)]`):
 ///     - `deepmerge` Default behavior, just call `Deepmerge::merge_from` for the given field entry.
+///     - `granular` merges the map entries using `Deepmerge::merge_from` if both exist.
 ///     - `atomic` Always override the field completly when present in the optioned type.
 ///     - `append_not_present` Kubernetes `set` merge logic. Appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: PartialEq`.
 ///     - `iter_map` Kubernetes `map` merge logic. Identifies if entries belong together via the `optionable::merge::OptionableMapKeysEq` trait. Merges entries that belong together (short-circuit, first match is merged) and appends all entries that are not already present, requires for the field type to `impl Extend<T> + IntoIterator<Item=T> where T: OptionableMapKeysEq + OptionableConvert`.

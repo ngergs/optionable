@@ -194,7 +194,20 @@ fn insert_err_on_conflict<V: PartialEq + std::fmt::Debug>(
     }
     let mut field_path_joined = field_path[..field_path.len() - 1].join(".");
     field_path_joined.push('.');
-    field_path_joined.push_str(get_rust_ident(field_path.last().unwrap()).as_ref());
+    let rust_ident = get_rust_ident(field_path.last().unwrap()).into_owned();
+    // This generates e.g. for "io.k8s.apimachinery.pkg.apis.meta.v1.OwnerReference" -> io.k8s.apimachinery.pkg.apis.meta.v1._owner_reference
+    let rust_ident = rust_ident
+        .split('.')
+        .map(|el| {
+            let mut el = el.to_owned();
+            if el.starts_with('_') {
+                el.remove(0);
+            }
+            el
+        })
+        .collect::<Vec<_>>()
+        .join(".");
+    field_path_joined.push_str(&rust_ident);
     let field_path_no_dot = field_path_joined.strip_prefix(".");
     let field_path_joined = field_path_no_dot.unwrap_or(&field_path_joined);
     let Some(field_path_joined) = field_path_joined.strip_prefix("io.k8s.") else {
