@@ -303,8 +303,6 @@ fn roundtrip_eventac() {
 }
 impl k8s_openapi027::DeepMerge for EventAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
         k8s_openapi027::DeepMerge::merge_from(&mut self.action, other.action);
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.deprecated_count,

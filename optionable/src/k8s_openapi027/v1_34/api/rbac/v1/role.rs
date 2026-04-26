@@ -108,8 +108,6 @@ fn roundtrip_roleac() {
 }
 impl k8s_openapi027::DeepMerge for RoleAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
         k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
         self.rules = other.rules;
     }

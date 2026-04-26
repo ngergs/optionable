@@ -126,8 +126,6 @@ fn roundtrip_apiversionsac() {
 }
 impl k8s_openapi027::DeepMerge for APIVersionsAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.api_version, other.api_version);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
         self.server_address_by_client_cidrs = other.server_address_by_client_cidrs;
         self.versions = other.versions;
     }
