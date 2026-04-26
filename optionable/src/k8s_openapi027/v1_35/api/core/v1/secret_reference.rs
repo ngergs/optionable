@@ -45,7 +45,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretReference
         } else if let Some(self_value) = self.name.as_mut()
             && let Some(other_value) = other.name
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.namespace.is_none() {
             self.namespace = crate::OptionableConvert::try_from_optioned(
@@ -54,7 +54,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::SecretReference
         } else if let Some(self_value) = self.namespace.as_mut()
             && let Some(other_value) = other.namespace
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }
