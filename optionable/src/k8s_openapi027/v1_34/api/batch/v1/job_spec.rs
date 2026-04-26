@@ -247,7 +247,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::batch::v1::JobSpec {
         } else if let Some(self_value) = self.selector.as_mut()
             && let Some(other_value) = other.selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.success_policy.is_none() {
             self.success_policy = crate::OptionableConvert::try_from_optioned(

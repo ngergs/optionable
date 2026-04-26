@@ -49,7 +49,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::networking::v1::IngressBa
         } else if let Some(self_value) = self.resource.as_mut()
             && let Some(other_value) = other.resource
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.service.is_none() {
             self.service = crate::OptionableConvert::try_from_optioned(other.service)?;

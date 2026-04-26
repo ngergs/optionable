@@ -135,7 +135,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MatchResources {
         } else if let Some(self_value) = self.match_policy.as_mut()
             && let Some(other_value) = other.match_policy
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.namespace_selector.is_none() {
             self.namespace_selector = crate::OptionableConvert::try_from_optioned(

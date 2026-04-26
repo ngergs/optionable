@@ -64,7 +64,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ConfigMapKeySel
         } else if let Some(self_value) = self.optional.as_mut()
             && let Some(other_value) = other.optional
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

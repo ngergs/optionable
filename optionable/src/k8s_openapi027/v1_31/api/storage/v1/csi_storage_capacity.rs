@@ -122,7 +122,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::storage::v1::CSIStorageCa
         } else if let Some(self_value) = self.node_topology.as_mut()
             && let Some(other_value) = other.node_topology
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.storage_class_name {
             self.storage_class_name = crate::OptionableConvert::try_from_optioned(

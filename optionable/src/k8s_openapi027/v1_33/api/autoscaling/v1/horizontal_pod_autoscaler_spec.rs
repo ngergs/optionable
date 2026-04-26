@@ -87,7 +87,9 @@ for k8s_openapi027::api::autoscaling::v1::HorizontalPodAutoscalerSpec {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.scale_target_ref {
-            crate::OptionableConvert::merge(&mut self.scale_target_ref, other_value)?;
+            self.scale_target_ref = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
         }
         if self.target_cpu_utilization_percentage.is_none() {
             self.target_cpu_utilization_percentage = crate::OptionableConvert::try_from_optioned(

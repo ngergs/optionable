@@ -70,14 +70,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointPort {
         } else if let Some(self_value) = self.app_protocol.as_mut()
             && let Some(other_value) = other.app_protocol
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.name.is_none() {
             self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
         } else if let Some(self_value) = self.name.as_mut()
             && let Some(other_value) = other.name
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.port {
             self.port = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -87,7 +87,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EndpointPort {
         } else if let Some(self_value) = self.protocol.as_mut()
             && let Some(other_value) = other.protocol
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

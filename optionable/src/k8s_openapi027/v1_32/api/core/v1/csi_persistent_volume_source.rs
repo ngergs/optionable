@@ -130,7 +130,7 @@ for k8s_openapi027::api::core::v1::CSIPersistentVolumeSource {
         } else if let Some(self_value) = self.controller_expand_secret_ref.as_mut()
             && let Some(other_value) = other.controller_expand_secret_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.controller_publish_secret_ref.is_none() {
             self.controller_publish_secret_ref = crate::OptionableConvert::try_from_optioned(
@@ -139,7 +139,7 @@ for k8s_openapi027::api::core::v1::CSIPersistentVolumeSource {
         } else if let Some(self_value) = self.controller_publish_secret_ref.as_mut()
             && let Some(other_value) = other.controller_publish_secret_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.driver {
             self.driver = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -158,7 +158,7 @@ for k8s_openapi027::api::core::v1::CSIPersistentVolumeSource {
         } else if let Some(self_value) = self.node_expand_secret_ref.as_mut()
             && let Some(other_value) = other.node_expand_secret_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.node_publish_secret_ref.is_none() {
             self.node_publish_secret_ref = crate::OptionableConvert::try_from_optioned(
@@ -167,7 +167,7 @@ for k8s_openapi027::api::core::v1::CSIPersistentVolumeSource {
         } else if let Some(self_value) = self.node_publish_secret_ref.as_mut()
             && let Some(other_value) = other.node_publish_secret_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.node_stage_secret_ref.is_none() {
             self.node_stage_secret_ref = crate::OptionableConvert::try_from_optioned(
@@ -176,7 +176,7 @@ for k8s_openapi027::api::core::v1::CSIPersistentVolumeSource {
         } else if let Some(self_value) = self.node_stage_secret_ref.as_mut()
             && let Some(other_value) = other.node_stage_secret_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.read_only.is_none() {
             self.read_only = crate::OptionableConvert::try_from_optioned(

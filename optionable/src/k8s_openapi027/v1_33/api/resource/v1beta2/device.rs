@@ -173,7 +173,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1beta2::Device
         } else if let Some(self_value) = self.node_selector.as_mut()
             && let Some(other_value) = other.node_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.taints.is_none() {
             self.taints = crate::OptionableConvert::try_from_optioned(other.taints)?;
