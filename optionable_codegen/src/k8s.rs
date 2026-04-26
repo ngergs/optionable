@@ -250,7 +250,9 @@ fn k8s_openapi_field_resource_add_api_envelope(
     let deserialize_api_version_fn =
         with_suffix(envelope_serde_path.clone(), "::deserialize_api_version");
     let deserialize_kind_fn = with_suffix(envelope_serde_path, "::deserialize_kind");
-    let deepmerge_attr = derive.iter().any(|d| d.contains("DeepMerge")).then(|| {
+    let deepmerge_attr = (matches!(resource_type, ResourceType::K8sOpenApi)
+        || derive.iter().any(|d| d.contains("DeepMerge")))
+    .then(|| {
         quote! {
                        #[optionable_attr(deepmerge(method(ignore)))]
                        #[optionable(merge(ignore))]
