@@ -682,6 +682,7 @@ fn process_enum_data(ctx: DataProcessingContext<'_>, data_enum: DataEnum) -> syn
                 ctx.attr_option_wrap,
             )?;
             k8s_adjust_fields(
+                ctx.derive,
                 &mut field_handling,
                 ctx.attr_k8s_openapi,
                 ctx.attr_kube,
