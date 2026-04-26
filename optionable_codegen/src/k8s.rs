@@ -71,6 +71,7 @@ pub(crate) fn k8s_openapi_derives(data: &Data) -> Option<Vec<String>> {
 
 /// Adjust the struct fields according to the `Kubernetes` use case.
 pub(crate) fn k8s_adjust_fields(
+    derive: &BTreeSet<String>,
     struct_parsed: &mut StructParsed,
     attr_k8s_openapi: Option<&TypeHelperAttributesK8sOpenapi>,
     attr_kube: Option<&TypeHelperAttributesKube>,
@@ -86,7 +87,12 @@ pub(crate) fn k8s_adjust_fields(
         k8s_openapi_set_metadata_required(struct_parsed);
     }
     if let Some(k8s_resource_type) = &resource_type {
-        k8s_openapi_field_resource_add_api_envelope(struct_parsed, k8s_resource_type, crate_name);
+        k8s_openapi_field_resource_add_api_envelope(
+            struct_parsed,
+            derive,
+            k8s_resource_type,
+            crate_name,
+        );
     }
     Ok(())
 }
@@ -225,6 +231,7 @@ pub(crate) fn k8s_type_attr(data: &Data) -> Option<Attribute> {
 /// Also, validation for deserialization is added.
 fn k8s_openapi_field_resource_add_api_envelope(
     struct_parsed: &mut StructParsed,
+    derive: &BTreeSet<String>,
     resource_type: &ResourceType,
     crate_name: &Path,
 ) {
@@ -243,12 +250,20 @@ fn k8s_openapi_field_resource_add_api_envelope(
     let deserialize_api_version_fn =
         with_suffix(envelope_serde_path.clone(), "::deserialize_api_version");
     let deserialize_kind_fn = with_suffix(envelope_serde_path, "::deserialize_kind");
+    let deepmerge_attr = derive.iter().any(|d| d.contains("DeepMerge")).then(|| {
+        quote! {
+                       #[optionable_attr(deepmerge(method(ignore)))]
+                       #[optionable(merge(ignore))]
+        }
+    });
     let api_version_field: Field = parse_quote!(
                    #[optionable_attr(serde(serialize_with=#serialize_api_version_fn,deserialize_with=#deserialize_api_version_fn))]
+                   #deepmerge_attr
                    pub api_version: std::marker::PhantomData<Self>
     );
     let kind_field: Field = parse_quote! (
                    #[optionable_attr(serde(serialize_with=#serialize_kind_fn,deserialize_with=#deserialize_kind_fn))]
+                   #deepmerge_attr
                    pub kind: std::marker::PhantomData<Self>
     );
     struct_parsed.fields.splice(
