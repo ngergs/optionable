@@ -240,7 +240,7 @@ impl k8s_openapi027::DeepMerge for CSIDriverSpecAc {
             other.storage_capacity,
         );
         self.token_requests = other.token_requests;
-        crate::merge::merge_append_not_present(
+        crate::merge::merge_append_not_present_option_wrapped(
             &mut self.volume_lifecycle_modes,
             other.volume_lifecycle_modes,
         );

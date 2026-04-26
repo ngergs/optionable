@@ -72,6 +72,9 @@ for CSINodeSpecAc {
 }
 impl k8s_openapi027::DeepMerge for CSINodeSpecAc {
     fn merge_from(&mut self, other: Self) {
-        crate::k8s_openapi::merge::merge_map(&mut self.drivers, other.drivers);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.drivers,
+            other.drivers,
+        );
     }
 }

@@ -448,7 +448,7 @@ impl k8s_openapi027::DeepMerge for EphemeralContainerAc {
     fn merge_from(&mut self, other: Self) {
         self.args = other.args;
         self.command = other.command;
-        crate::k8s_openapi::merge::merge_map(&mut self.env, other.env);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(&mut self.env, other.env);
         self.env_from = other.env_from;
         k8s_openapi027::DeepMerge::merge_from(&mut self.image, other.image);
         k8s_openapi027::DeepMerge::merge_from(
@@ -461,7 +461,10 @@ impl k8s_openapi027::DeepMerge for EphemeralContainerAc {
             other.liveness_probe,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
-        crate::k8s_openapi::merge::merge_map(&mut self.ports, other.ports);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.ports,
+            other.ports,
+        );
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.readiness_probe,
             other.readiness_probe,
@@ -495,11 +498,11 @@ impl k8s_openapi027::DeepMerge for EphemeralContainerAc {
             other.termination_message_policy,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.tty, other.tty);
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.volume_devices,
             other.volume_devices,
         );
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.volume_mounts,
             other.volume_mounts,
         );

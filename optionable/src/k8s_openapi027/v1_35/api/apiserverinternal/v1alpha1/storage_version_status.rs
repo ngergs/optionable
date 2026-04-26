@@ -120,8 +120,11 @@ impl k8s_openapi027::DeepMerge for StorageVersionStatusAc {
             &mut self.common_encoding_version,
             other.common_encoding_version,
         );
-        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
-        crate::k8s_openapi::merge::merge_map(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.storage_versions,
             other.storage_versions,
         );

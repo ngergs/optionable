@@ -95,6 +95,9 @@ impl crate::OptionedConvert<
 impl k8s_openapi027::DeepMerge for ContainerRestartRuleOnExitCodesAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.operator, other.operator);
-        crate::merge::merge_append_not_present(&mut self.values, other.values);
+        crate::merge::merge_append_not_present_option_wrapped(
+            &mut self.values,
+            other.values,
+        );
     }
 }

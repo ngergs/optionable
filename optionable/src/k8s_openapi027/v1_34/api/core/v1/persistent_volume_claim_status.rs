@@ -252,7 +252,10 @@ impl k8s_openapi027::DeepMerge for PersistentVolumeClaimStatusAc {
             other.allocated_resources,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.capacity, other.capacity);
-        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.current_volume_attributes_class_name,
             other.current_volume_attributes_class_name,

@@ -125,6 +125,9 @@ fn roundtrip_mutatingwebhookconfigurationac() {
 impl k8s_openapi027::DeepMerge for MutatingWebhookConfigurationAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
-        crate::k8s_openapi::merge::merge_map(&mut self.webhooks, other.webhooks);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.webhooks,
+            other.webhooks,
+        );
     }
 }

@@ -121,7 +121,7 @@ impl k8s_openapi027::DeepMerge for ServerStorageVersionAc {
             &mut self.api_server_id,
             other.api_server_id,
         );
-        crate::merge::merge_append_not_present(
+        crate::merge::merge_append_not_present_option_wrapped(
             &mut self.decodable_versions,
             other.decodable_versions,
         );
@@ -129,7 +129,7 @@ impl k8s_openapi027::DeepMerge for ServerStorageVersionAc {
             &mut self.encoding_version,
             other.encoding_version,
         );
-        crate::merge::merge_append_not_present(
+        crate::merge::merge_append_not_present_option_wrapped(
             &mut self.served_versions,
             other.served_versions,
         );

@@ -174,7 +174,10 @@ impl k8s_openapi027::DeepMerge for PodCertificateRequestStatusAc {
             &mut self.certificate_chain,
             other.certificate_chain,
         );
-        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.not_after, other.not_after);
         k8s_openapi027::DeepMerge::merge_from(&mut self.not_before, other.not_before);
     }

@@ -155,7 +155,7 @@ impl k8s_openapi027::DeepMerge for ValidatingAdmissionPolicyBindingSpecAc {
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.param_ref, other.param_ref);
         k8s_openapi027::DeepMerge::merge_from(&mut self.policy_name, other.policy_name);
-        crate::merge::merge_append_not_present(
+        crate::merge::merge_append_not_present_option_wrapped(
             &mut self.validation_actions,
             other.validation_actions,
         );

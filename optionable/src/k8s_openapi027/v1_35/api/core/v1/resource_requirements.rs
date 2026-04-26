@@ -110,7 +110,10 @@ for ResourceRequirementsAc {
 }
 impl k8s_openapi027::DeepMerge for ResourceRequirementsAc {
     fn merge_from(&mut self, other: Self) {
-        crate::k8s_openapi::merge::merge_map(&mut self.claims, other.claims);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.claims,
+            other.claims,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.limits, other.limits);
         k8s_openapi027::DeepMerge::merge_from(&mut self.requests, other.requests);
     }

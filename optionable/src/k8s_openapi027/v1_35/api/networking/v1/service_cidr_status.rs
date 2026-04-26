@@ -75,6 +75,9 @@ for ServiceCIDRStatusAc {
 }
 impl k8s_openapi027::DeepMerge for ServiceCIDRStatusAc {
     fn merge_from(&mut self, other: Self) {
-        crate::k8s_openapi::merge::merge_map(&mut self.conditions, other.conditions);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
     }
 }

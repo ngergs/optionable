@@ -165,7 +165,10 @@ impl k8s_openapi027::DeepMerge for NodeSpecAc {
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.external_id, other.external_id);
         k8s_openapi027::DeepMerge::merge_from(&mut self.pod_cidr, other.pod_cidr);
-        crate::merge::merge_append_not_present(&mut self.pod_cidrs, other.pod_cidrs);
+        crate::merge::merge_append_not_present_option_wrapped(
+            &mut self.pod_cidrs,
+            other.pod_cidrs,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.provider_id, other.provider_id);
         self.taints = other.taints;
         k8s_openapi027::DeepMerge::merge_from(
