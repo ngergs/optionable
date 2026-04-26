@@ -40,6 +40,8 @@ enum MergeBehavior {
     // Merges entries that are already present in the target using `OptionableConvert`, appends those that are not.
     // Requires the correspond field to be `impl Extend<T>+IntoIter<Item=T> where T: MapKeysEq+OptionableConvert`
     IterMap,
+    // Entry is not merged but keps as it
+    Ignore,
 }
 
 /// Derives the `k8s_openapi::DeepMerge` trait.
@@ -299,6 +301,7 @@ fn field_comparison(
             let crate_optionable = &data_vis.attr.crate_optionable;
             quote! {#crate_optionable::k8s_openapi::merge::merge_map(#self_field_ident, #other_field_ident);}
         }
+        MergeBehavior::Ignore => quote! {},
     })
 }
 
