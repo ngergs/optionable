@@ -225,7 +225,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
         } else if let Some(self_value) = self.namespace_selector.as_mut()
             && let Some(other_value) = other.namespace_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.object_selector.is_none() {
             self.object_selector = crate::OptionableConvert::try_from_optioned(
@@ -234,7 +234,7 @@ for k8s_openapi027::api::admissionregistration::v1::MutatingWebhook {
         } else if let Some(self_value) = self.object_selector.as_mut()
             && let Some(other_value) = other.object_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.reinvocation_policy.is_none() {
             self.reinvocation_policy = crate::OptionableConvert::try_from_optioned(

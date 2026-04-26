@@ -153,7 +153,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1::ResourceSli
         } else if let Some(self_value) = self.node_selector.as_mut()
             && let Some(other_value) = other.node_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.per_device_node_selection.is_none() {
             self.per_device_node_selection = crate::OptionableConvert::try_from_optioned(

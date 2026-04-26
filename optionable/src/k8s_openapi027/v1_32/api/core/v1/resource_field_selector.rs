@@ -58,14 +58,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::ResourceFieldSe
         } else if let Some(self_value) = self.container_name.as_mut()
             && let Some(other_value) = other.container_name
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.divisor.is_none() {
             self.divisor = crate::OptionableConvert::try_from_optioned(other.divisor)?;
         } else if let Some(self_value) = self.divisor.as_mut()
             && let Some(other_value) = other.divisor
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.resource {
             self.resource = crate::OptionableConvert::try_from_optioned(other_value)?;

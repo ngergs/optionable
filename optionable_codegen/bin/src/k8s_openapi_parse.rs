@@ -1,5 +1,5 @@
 use k8s_openapi_codegen_common::get_rust_ident;
-use openapiv3::{Components, OpenAPI, ReferenceOr, Schema, SchemaKind, Type};
+use openapiv3::{OpenAPI, ReferenceOr, Schema, SchemaKind, Type};
 use std::cmp::PartialEq;
 use std::{
     collections::HashMap,
@@ -8,7 +8,7 @@ use std::{
 };
 
 /// Kubernetes server-side apply list type, see <https://kubernetes.io/docs/reference/using-api/server-side-apply>/
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Clone, Debug)]
 pub enum ListType {
     Atomic,
     Set,
@@ -17,7 +17,7 @@ pub enum ListType {
 }
 
 /// Kubernetes server-side apply map type, see <https://kubernetes.io/docs/reference/using-api/server-side-apply>/
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Clone, Debug)]
 pub enum MapType {
     Atomic,
     Granular,
@@ -59,7 +59,9 @@ pub fn determine_list_map_keys(
 
         if let Some(components) = openapi.components {
             for (name, schema) in components.schemas {
-                process_schema(&mut result, &[&name], schema.into_item().as_ref())?;
+                let schema = schema.into_item();
+                process_schema(&mut result, &[&name], schema.as_ref(), false)?;
+                process_schema(&mut result, &[&name], schema.as_ref(), true)?;
             }
         }
     }
@@ -72,11 +74,11 @@ fn process_schema(
     result: &mut OpenApiListExtensions,
     field_path: &[&str],
     schema: Option<&Schema>,
+    second_pass: bool,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    if let Some(schema) = schema
-        && let SchemaKind::Type(item) = &schema.schema_kind
-    {
-        let map_type = schema
+    if let Some(schema) = schema {
+        if let SchemaKind::Type(item) = &schema.schema_kind {
+            let map_type = schema
             .schema_data
             .extensions
             .get("x-kubernetes-map-type")
@@ -90,11 +92,11 @@ fn process_schema(
                 _ => Err(format!("Unsupported `x-kubernetes-map-type`: {ty}")),
             }
         }).transpose()?;
-        if let Some(map_type) = map_type {
-            insert_err_on_conflict(&mut result.map_type, map_type, field_path)?;
-        }
+            if let Some(map_type) = map_type {
+                insert_err_on_conflict(&mut result.map_type, map_type, field_path)?;
+            }
 
-        let list_type=schema.schema_data.extensions.get("x-kubernetes-list-type").map(|ty|{
+            let list_type=schema.schema_data.extensions.get("x-kubernetes-list-type").map(|ty|{
             let serde_json::Value::String(ty)=ty else {
                 return Err(format!("found `x-kubernetes-list-type` extension but without a string value: {schema:?}"));
             };
@@ -122,63 +124,82 @@ fn process_schema(
                 },
                 _ => Err(format!("Unsupported `x-kubernetes-list-type`: {ty}")),
         }}).transpose()?;
-        // save found list type, ignore explicitly embedded types
-        if let Some(list_type) = list_type {
-            // only supported way to determine the list key type
-            if let ListType::Map(list_keys) = &list_type {
-                if let Type::Array(array) = &item
-                    && let Some(array_schema) = &array.items
-                    && let Some(array_schema) = array_schema.clone().as_item()
-                    && let SchemaKind::AllOf { all_of } = &array_schema.schema_kind
-                    && all_of.len() == 1
-                    && let Some(ReferenceOr::Reference { reference }) = all_of.first()
-                    && let Some(reference) = reference.strip_prefix("#/components/schemas/io.k8s.")
-                {
-                    if let Some(existing_list_type) = result.list_map_keys.get(reference)
-                        && existing_list_type != list_keys
+            // save found list type, ignore explicitly embedded types
+            if let Some(list_type) = list_type {
+                // only supported way to determine the list key type
+                if let ListType::Map(list_keys) = &list_type {
+                    if let Type::Array(array) = &item
+                        && let Some(array_schema) = &array.items
+                        && let Some(array_schema) = array_schema.clone().as_item()
+                        && let SchemaKind::AllOf { all_of } = &array_schema.schema_kind
+                        && all_of.len() == 1
+                        && let Some(ReferenceOr::Reference { reference }) = all_of.first()
+                        && let Some(reference) =
+                            reference.strip_prefix("#/components/schemas/io.k8s.")
                     {
-                        return Err(format!(
+                        if let Some(existing_list_type) = result.list_map_keys.get(reference)
+                            && existing_list_type != list_keys
+                        {
+                            return Err(format!(
                     "Conflicting map keys for `{reference}`: field={field_path:?}, existing={existing_list_type:?}, new={list_type:?}"
                 )
                 .into());
+                        }
+                        result
+                            .list_map_keys
+                            .insert(reference.to_owned(), list_keys.clone());
+                    } else {
+                        return Err(format!("Unsupported list mapping for {field_path:?}").into());
                     }
-                    result
-                        .list_map_keys
-                        .insert(reference.to_owned(), list_keys.clone());
-                } else {
-                    return Err(format!("Unsupported list mapping for {field_path:?}").into());
                 }
+                insert_err_on_conflict(&mut result.list_type, list_type, field_path)?;
             }
-            insert_err_on_conflict(&mut result.list_type, list_type, field_path)?;
+            // continue recursion
+            match item {
+                Type::Object(obj) => {
+                    for (name, obj_schema) in &obj.properties {
+                        let mut field_path = field_path.to_vec();
+                        field_path.push(name);
+
+                        process_schema(
+                            result,
+                            &field_path,
+                            obj_schema.clone().into_item().as_deref(),
+                            second_pass,
+                        )?;
+                    }
+                }
+                Type::Array(array) => {
+                    // not needed at the time of writing but omitting arrays silently is not great
+                    if let Some(array_schema) = &array.items {
+                        let mut field_path = field_path.to_vec();
+                        field_path.push("[]");
+
+                        process_schema(
+                            result,
+                            &field_path,
+                            array_schema.clone().into_item().as_deref(),
+                            second_pass,
+                        )?;
+                    }
+                }
+                _ => {}
+            }
         }
-        // continue recursion
-        match item {
-            Type::Object(obj) => {
-                for (name, obj_schema) in &obj.properties {
-                    let mut field_path = field_path.to_vec();
-                    field_path.push(name);
 
-                    process_schema(
-                        result,
-                        &field_path,
-                        obj_schema.clone().into_item().as_deref(),
-                    )?;
-                }
+        // only supported way to determine to resolve references
+        if second_pass
+            && let SchemaKind::AllOf { all_of } = &schema.schema_kind
+            && all_of.len() == 1
+            && let Some(ReferenceOr::Reference { reference }) = all_of.first()
+            && let Some(reference) = reference.strip_prefix("#/components/schemas/io.k8s.")
+        {
+            if let Some(map_type) = result.map_type.get(reference).cloned() {
+                insert_err_on_conflict(&mut result.map_type, map_type, field_path)?;
             }
-            Type::Array(array) => {
-                // not needed at the time of writing but omitting arrays silently is not great
-                if let Some(array_schema) = &array.items {
-                    let mut field_path = field_path.to_vec();
-                    field_path.push("[]");
-
-                    process_schema(
-                        result,
-                        &field_path,
-                        array_schema.clone().into_item().as_deref(),
-                    )?;
-                }
+            if let Some(list_type) = result.list_type.get(reference).cloned() {
+                insert_err_on_conflict(&mut result.list_type, list_type, field_path)?;
             }
-            _ => {}
         }
     }
     Ok(())

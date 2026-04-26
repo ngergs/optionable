@@ -113,7 +113,7 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimSpec {
         } else if let Some(self_value) = self.data_source.as_mut()
             && let Some(other_value) = other.data_source
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.data_source_ref.is_none() {
             self.data_source_ref = crate::OptionableConvert::try_from_optioned(
@@ -138,7 +138,7 @@ for k8s_openapi027::api::core::v1::PersistentVolumeClaimSpec {
         } else if let Some(self_value) = self.selector.as_mut()
             && let Some(other_value) = other.selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.storage_class_name.is_none() {
             self.storage_class_name = crate::OptionableConvert::try_from_optioned(

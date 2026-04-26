@@ -87,7 +87,7 @@ for k8s_openapi027::api::core::v1::StorageOSPersistentVolumeSource {
         } else if let Some(self_value) = self.secret_ref.as_mut()
             && let Some(other_value) = other.secret_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.volume_name.is_none() {
             self.volume_name = crate::OptionableConvert::try_from_optioned(

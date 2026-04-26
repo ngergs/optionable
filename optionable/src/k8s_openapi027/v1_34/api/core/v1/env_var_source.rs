@@ -84,7 +84,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvVarSource {
         } else if let Some(self_value) = self.config_map_key_ref.as_mut()
             && let Some(other_value) = other.config_map_key_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.field_ref.is_none() {
             self.field_ref = crate::OptionableConvert::try_from_optioned(
@@ -93,7 +93,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvVarSource {
         } else if let Some(self_value) = self.field_ref.as_mut()
             && let Some(other_value) = other.field_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.file_key_ref.is_none() {
             self.file_key_ref = crate::OptionableConvert::try_from_optioned(
@@ -102,7 +102,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvVarSource {
         } else if let Some(self_value) = self.file_key_ref.as_mut()
             && let Some(other_value) = other.file_key_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.resource_field_ref.is_none() {
             self.resource_field_ref = crate::OptionableConvert::try_from_optioned(
@@ -111,7 +111,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvVarSource {
         } else if let Some(self_value) = self.resource_field_ref.as_mut()
             && let Some(other_value) = other.resource_field_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.secret_key_ref.is_none() {
             self.secret_key_ref = crate::OptionableConvert::try_from_optioned(
@@ -120,7 +120,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::EnvVarSource {
         } else if let Some(self_value) = self.secret_key_ref.as_mut()
             && let Some(other_value) = other.secret_key_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

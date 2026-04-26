@@ -130,7 +130,7 @@ for k8s_openapi027::api::resource::v1beta1::ResourceSliceSpec {
         } else if let Some(self_value) = self.node_selector.as_mut()
             && let Some(other_value) = other.node_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.pool {
             crate::OptionableConvert::merge(&mut self.pool, other_value)?;
