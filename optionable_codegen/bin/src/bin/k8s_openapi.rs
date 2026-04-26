@@ -148,8 +148,11 @@ impl CodegenVisitor for Visitor<'_> {
                                 .list_extensions
                                 .map_type
                                 .get(&format!("{}.{}.{}", field_prefix, item.ident, field_ident))
+                                .or(self
+                                    .list_extensions
+                                    .map_type
+                                    .get(&format!("{}.{}", field_prefix, item.ident)))
                             {
-                                println!("{:?}", self.list_extensions.map_type);
                                 let merge_type_optionable = match merge_type {
                                     MapType::Atomic => Some(quote!(atomic)),
                                     MapType::Granular => None,
