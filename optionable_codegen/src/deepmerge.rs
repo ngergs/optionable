@@ -2,9 +2,11 @@ use darling::{FromAttributes, FromDeriveInput, FromMeta};
 use proc_macro2::{Literal, TokenStream};
 use quote::{ToTokens, format_ident, quote};
 use syn::{
-    DataEnum, DataStruct, DeriveInput, Field, FieldsNamed, FieldsUnnamed, Ident, Variant,
+    DataEnum, DataStruct, DeriveInput, Field, FieldsNamed, FieldsUnnamed, Ident, Type, Variant,
     parse_quote, visit::Visit,
 };
+
+use crate::helper::is_option;
 
 #[derive(FromDeriveInput)]
 #[darling(attributes(deepmerge))]
@@ -246,6 +248,7 @@ where
                 let field_ident = field.ident.to_token_stream();
                 field_comparison(
                     self.data_vis,
+                    &field.ty,
                     &(self.self_field_selector_fn)(&field_ident),
                     &(self.self_field_assign_fn)(&field_ident),
                     &(self.other_field_selector_fn)(&field_ident),
@@ -265,6 +268,7 @@ where
                 let i = Literal::usize_unsuffixed(i).into_token_stream();
                 field_comparison(
                     self.data_vis,
+                    &field.ty,
                     &(self.self_field_selector_fn)(&i),
                     &(self.self_field_assign_fn)(&i),
                     &(self.other_field_selector_fn)(&i),
@@ -279,29 +283,40 @@ where
 /// Generates the field comparisons for the given field
 fn field_comparison(
     data_vis: &DataVisitor,
+    field_ty: &Type,
     self_field_ident: &TokenStream,
     self_assign_ident: &TokenStream,
     other_field_ident: &TokenStream,
     field: &Field,
 ) -> syn::Result<TokenStream> {
     let attrs = FieldHelperAttributes::from_attributes(&field.attrs)?;
-    Ok(match attrs.method {
-        MergeBehavior::DeepMerge => {
+    Ok(match (field_ty, attrs.method) {
+        (_, MergeBehavior::DeepMerge) => {
             let crate_k8s_openapi = &data_vis.attr.crate_k8s_openapi;
             quote! {#crate_k8s_openapi::DeepMerge::merge_from(#self_field_ident, #other_field_ident);}
         }
-        MergeBehavior::Atomic => {
+        (_, MergeBehavior::Atomic) => {
             quote! {#self_assign_ident = #other_field_ident;}
         }
-        MergeBehavior::AppendNotPresent => {
+        (field_ty, MergeBehavior::AppendNotPresent) => {
             let crate_optionable = &data_vis.attr.crate_optionable;
-            quote! {#crate_optionable::merge::merge_append_not_present(#self_field_ident, #other_field_ident);}
+            let merge_fn = if is_option(field_ty) {
+                quote! {merge_append_not_present_option_wrapped}
+            } else {
+                quote! {merge_append_not_present}
+            };
+            quote! {#crate_optionable::merge::#merge_fn(#self_field_ident, #other_field_ident);}
         }
-        MergeBehavior::IterMap => {
+        (field_ty, MergeBehavior::IterMap) => {
             let crate_optionable = &data_vis.attr.crate_optionable;
-            quote! {#crate_optionable::k8s_openapi::merge::merge_map(#self_field_ident, #other_field_ident);}
+            let merge_fn = if is_option(field_ty) {
+                quote! {merge_map_option_wrapped}
+            } else {
+                quote! {merge_map}
+            };
+            quote! {#crate_optionable::k8s_openapi::merge::#merge_fn(#self_field_ident, #other_field_ident);}
         }
-        MergeBehavior::Ignore => quote! {},
+        (_, MergeBehavior::Ignore) => quote! {},
     })
 }
 
