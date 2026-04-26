@@ -7,7 +7,7 @@ use optionable_codegen_cli::{
 };
 use proc_macro2::{Ident, Span};
 use quote::{ToTokens, quote};
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::default::Default;
 use std::fs::create_dir_all;
 use std::path::PathBuf;
@@ -148,10 +148,6 @@ impl CodegenVisitor for Visitor<'_> {
                                 .list_extensions
                                 .map_type
                                 .get(&format!("{}.{}.{}", field_prefix, item.ident, field_ident))
-                                .or(self
-                                    .list_extensions
-                                    .map_type
-                                    .get(&format!("{}.{}", field_prefix, item.ident)))
                             {
                                 let merge_type_optionable = match merge_type {
                                     MapType::Atomic => Some(quote!(atomic)),
