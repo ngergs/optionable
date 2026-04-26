@@ -580,6 +580,7 @@ fn process_struct_data(
         ctx.attr_option_wrap,
     )?;
     k8s_adjust_fields(
+        ctx.derive,
         &mut struct_parsed,
         ctx.attr_k8s_openapi,
         ctx.attr_kube,
