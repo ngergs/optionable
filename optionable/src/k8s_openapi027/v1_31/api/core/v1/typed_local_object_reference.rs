@@ -63,7 +63,7 @@ for k8s_openapi027::api::core::v1::TypedLocalObjectReference {
         } else if let Some(self_value) = self.api_group.as_mut()
             && let Some(other_value) = other.api_group
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;
