@@ -142,7 +142,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::MutatingAdmissionPolicy
         } else if let Some(self_value) = self.match_constraints.as_mut()
             && let Some(other_value) = other.match_constraints
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.mutations.is_none() {
             self.mutations = crate::OptionableConvert::try_from_optioned(

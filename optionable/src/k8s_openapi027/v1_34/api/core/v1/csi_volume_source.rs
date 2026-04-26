@@ -84,7 +84,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::CSIVolumeSource
         } else if let Some(self_value) = self.node_publish_secret_ref.as_mut()
             && let Some(other_value) = other.node_publish_secret_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.read_only.is_none() {
             self.read_only = crate::OptionableConvert::try_from_optioned(

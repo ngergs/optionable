@@ -120,7 +120,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::NamedRuleWithOperation
         } else if let Some(self_value) = self.scope.as_mut()
             && let Some(other_value) = other.scope
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

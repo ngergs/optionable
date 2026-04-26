@@ -76,7 +76,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::NodeAffinity {
             && let Some(other_value) = other
                 .required_during_scheduling_ignored_during_execution
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

@@ -68,7 +68,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::LabelSelector {
         } else if let Some(self_value) = self.match_labels.as_mut()
             && let Some(other_value) = other.match_labels
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

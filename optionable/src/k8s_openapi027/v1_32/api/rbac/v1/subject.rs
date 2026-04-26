@@ -65,7 +65,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::Subject {
         } else if let Some(self_value) = self.api_group.as_mut()
             && let Some(other_value) = other.api_group
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -80,7 +80,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::rbac::v1::Subject {
         } else if let Some(self_value) = self.namespace.as_mut()
             && let Some(other_value) = other.namespace
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }

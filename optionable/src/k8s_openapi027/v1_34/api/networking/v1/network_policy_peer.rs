@@ -76,7 +76,7 @@ for k8s_openapi027::api::networking::v1::NetworkPolicyPeer {
         } else if let Some(self_value) = self.namespace_selector.as_mut()
             && let Some(other_value) = other.namespace_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.pod_selector.is_none() {
             self.pod_selector = crate::OptionableConvert::try_from_optioned(
@@ -85,7 +85,7 @@ for k8s_openapi027::api::networking::v1::NetworkPolicyPeer {
         } else if let Some(self_value) = self.pod_selector.as_mut()
             && let Some(other_value) = other.pod_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }

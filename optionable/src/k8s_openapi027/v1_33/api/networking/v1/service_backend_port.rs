@@ -46,14 +46,14 @@ for k8s_openapi027::api::networking::v1::ServiceBackendPort {
         } else if let Some(self_value) = self.name.as_mut()
             && let Some(other_value) = other.name
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.number.is_none() {
             self.number = crate::OptionableConvert::try_from_optioned(other.number)?;
         } else if let Some(self_value) = self.number.as_mut()
             && let Some(other_value) = other.number
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         Ok(())
     }
