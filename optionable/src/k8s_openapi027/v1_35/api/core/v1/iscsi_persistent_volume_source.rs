@@ -177,7 +177,7 @@ for k8s_openapi027::api::core::v1::ISCSIPersistentVolumeSource {
         } else if let Some(self_value) = self.secret_ref.as_mut()
             && let Some(other_value) = other.secret_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.target_portal {
             self.target_portal = crate::OptionableConvert::try_from_optioned(
