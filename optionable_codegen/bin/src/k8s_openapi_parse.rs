@@ -197,11 +197,14 @@ fn process_schema(
         // todo: also just references can specify map and list-types
         // schema.schema_data.extensions
 
+        // The Kubernetes OpenAPI spec sometimes (e.g. for `claimRef` from `PersistentVolumeSpec` has map type extensions
+        // for a given field with a different map type than the referenced type. The field ones (already handled on second pass)
+        // take precendence.
         if let Some(map_type) = result.map_type.get(reference).cloned() {
-            insert_err_on_conflict(&mut result.map_type, map_type, field_path)?;
+            insert_if_not_present(&mut result.map_type, map_type, field_path)?;
         }
         if let Some(list_type) = result.list_type.get(reference).cloned() {
-            insert_err_on_conflict(&mut result.list_type, list_type, field_path)?;
+            insert_if_not_present(&mut result.list_type, list_type, field_path)?;
         }
     }
     Ok(())
@@ -214,6 +217,38 @@ fn insert_err_on_conflict<V: PartialEq + std::fmt::Debug>(
     value: V,
     field_path: &[&str],
 ) -> Result<(), Box<dyn std::error::Error>> {
+    let field_path_id = field_path_identifier(field_path, &value)?;
+    if let Some(existing_entry) = target.get(&field_path_id) {
+        if existing_entry != &value {
+            return Err(format!(
+                    "Conflicting map keys for field={field_path:?}: existing={existing_entry:?}, new={value:?}"
+                )
+                .into());
+        }
+    } else {
+        target.insert(field_path_id, value);
+    }
+    Ok(())
+}
+
+/// Computes the map key as a Kubernetes style type identifier, e.g. `api.core.v1.Container`.
+/// Inserts it in the `target` if it does not exist yet.
+fn insert_if_not_present<V: PartialEq + std::fmt::Debug>(
+    target: &mut HashMap<String, V>,
+    value: V,
+    field_path: &[&str],
+) -> Result<(), Box<dyn std::error::Error>> {
+    let field_path_id = field_path_identifier(field_path, &value)?;
+    target.entry(field_path_id).or_insert(value);
+    Ok(())
+}
+
+/// Computes the identifier for the given field path.  Basically the dot notated field path without the `io.k8s.`-prefix
+/// and with the field name rustified, e.g. `api.core.v1.PersistenVolumeSpec.claim_ref`
+fn field_path_identifier<V: std::fmt::Debug>(
+    field_path: &[&str],
+    value: &V,
+) -> Result<String, Box<dyn std::error::Error>> {
     if field_path.is_empty() {
         return Err(format!("received empty field path for storage of value: {value:?}").into());
     }
@@ -234,15 +269,5 @@ fn insert_err_on_conflict<V: PartialEq + std::fmt::Debug>(
         )
         .into());
     };
-    if let Some(existing_entry) = target.get(field_path_joined) {
-        if existing_entry != &value {
-            return Err(format!(
-                    "Conflicting map keys for field={field_path:?}: existing={existing_entry:?}, new={value:?}"
-                )
-                .into());
-        }
-    } else {
-        target.insert(field_path_joined.to_owned(), value);
-    }
-    Ok(())
+    Ok(field_path_joined.to_owned())
 }
