@@ -123,9 +123,8 @@ fn process_schema(
                     },
                     _ => Err(format!("Unsupported `x-kubernetes-list-type`: {ty}")),
             }}).transpose()?;
-    if let Some(list_type) = list_type {
-        insert_err_on_conflict(&mut result.list_type, list_type, field_path)?;
-        if let SchemaKind::Type(item) = &schema.schema_kind {
+    if let SchemaKind::Type(item) = &schema.schema_kind {
+        if let Some(list_type) = &list_type {
             // save found list type, ignore explicitly embedded types
             // only supported way to determine the list key type
             if let ListType::Map(list_keys) = &list_type {
@@ -183,6 +182,9 @@ fn process_schema(
             }
             _ => {}
         }
+    }
+    if let Some(list_type) = list_type {
+        insert_err_on_conflict(&mut result.list_type, list_type, field_path)?;
     }
 
     // only supported way to determine to resolve references
