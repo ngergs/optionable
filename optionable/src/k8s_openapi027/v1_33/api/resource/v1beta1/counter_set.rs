@@ -91,7 +91,10 @@ for CounterSetAc {
 }
 impl k8s_openapi027::DeepMerge for CounterSetAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.counters, other.counters);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.counters,
+            other.counters,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
     }
 }

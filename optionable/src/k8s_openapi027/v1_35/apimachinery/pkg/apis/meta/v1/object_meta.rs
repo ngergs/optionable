@@ -310,7 +310,10 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for ObjectMetaAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.annotations, other.annotations);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.annotations,
+            other.annotations,
+        );
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.creation_timestamp,
             other.creation_timestamp,
@@ -332,7 +335,10 @@ impl k8s_openapi027::DeepMerge for ObjectMetaAc {
             other.generate_name,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.generation, other.generation);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.labels, other.labels);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.labels,
+            other.labels,
+        );
         self.managed_fields = other.managed_fields;
         k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
         k8s_openapi027::DeepMerge::merge_from(&mut self.namespace, other.namespace);

@@ -208,7 +208,10 @@ impl k8s_openapi027::DeepMerge for StorageClassAc {
         self.allowed_topologies = other.allowed_topologies;
         k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
         self.mount_options = other.mount_options;
-        k8s_openapi027::DeepMerge::merge_from(&mut self.parameters, other.parameters);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.parameters,
+            other.parameters,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.provisioner, other.provisioner);
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.reclaim_policy,

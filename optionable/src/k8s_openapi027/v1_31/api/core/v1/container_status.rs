@@ -271,7 +271,7 @@ for ContainerStatusAc {
 }
 impl k8s_openapi027::DeepMerge for ContainerStatusAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.allocated_resources,
             other.allocated_resources,
         );

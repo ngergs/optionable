@@ -101,7 +101,7 @@ impl crate::OptionedConvert<
 impl k8s_openapi027::DeepMerge for LabelSelectorAc {
     fn merge_from(&mut self, other: Self) {
         self.match_expressions = other.match_expressions;
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.match_labels,
             other.match_labels,
         );

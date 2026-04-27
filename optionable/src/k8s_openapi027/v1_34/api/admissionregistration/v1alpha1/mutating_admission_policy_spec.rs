@@ -218,10 +218,7 @@ impl k8s_openapi027::DeepMerge for MutatingAdmissionPolicySpecAc {
             &mut self.match_conditions,
             other.match_conditions,
         );
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.match_constraints,
-            other.match_constraints,
-        );
+        self.match_constraints = other.match_constraints;
         self.mutations = other.mutations;
         k8s_openapi027::DeepMerge::merge_from(&mut self.param_kind, other.param_kind);
         k8s_openapi027::DeepMerge::merge_from(

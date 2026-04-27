@@ -199,14 +199,8 @@ impl k8s_openapi027::DeepMerge for MatchResourcesAc {
             &mut self.match_policy,
             other.match_policy,
         );
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.namespace_selector,
-            other.namespace_selector,
-        );
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.object_selector,
-            other.object_selector,
-        );
+        self.namespace_selector = other.namespace_selector;
+        self.object_selector = other.object_selector;
         self.resource_rules = other.resource_rules;
     }
 }

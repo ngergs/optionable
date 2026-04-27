@@ -304,10 +304,7 @@ impl k8s_openapi027::DeepMerge for EventAc {
             &mut self.first_timestamp,
             other.first_timestamp,
         );
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.involved_object,
-            other.involved_object,
-        );
+        self.involved_object = other.involved_object;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.last_timestamp,
             other.last_timestamp,
@@ -315,7 +312,7 @@ impl k8s_openapi027::DeepMerge for EventAc {
         k8s_openapi027::DeepMerge::merge_from(&mut self.message, other.message);
         k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
         k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.related, other.related);
+        self.related = other.related;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.reporting_component,
             other.reporting_component,

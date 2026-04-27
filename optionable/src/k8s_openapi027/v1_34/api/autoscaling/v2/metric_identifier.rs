@@ -84,6 +84,6 @@ for MetricIdentifierAc {
 impl k8s_openapi027::DeepMerge for MetricIdentifierAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.selector, other.selector);
+        self.selector = other.selector;
     }
 }

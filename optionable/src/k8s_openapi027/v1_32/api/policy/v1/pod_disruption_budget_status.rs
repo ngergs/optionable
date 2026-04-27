@@ -191,7 +191,7 @@ impl k8s_openapi027::DeepMerge for PodDisruptionBudgetStatusAc {
             &mut self.desired_healthy,
             other.desired_healthy,
         );
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.disrupted_pods,
             other.disrupted_pods,
         );

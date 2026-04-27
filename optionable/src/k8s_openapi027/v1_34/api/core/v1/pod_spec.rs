@@ -773,12 +773,12 @@ impl k8s_openapi027::DeepMerge for PodSpecAc {
             other.init_containers,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.node_name, other.node_name);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.node_selector,
-            other.node_selector,
-        );
+        self.node_selector = other.node_selector;
         k8s_openapi027::DeepMerge::merge_from(&mut self.os, other.os);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.overhead, other.overhead);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.overhead,
+            other.overhead,
+        );
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.preemption_policy,
             other.preemption_policy,

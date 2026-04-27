@@ -76,130 +76,130 @@ fn process_schema(
     schema: Option<&Schema>,
     second_pass: bool,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    if let Some(schema) = schema {
-        if let SchemaKind::Type(item) = &schema.schema_kind {
-            let map_type = schema
+    let Some(schema) = schema else { return Ok(()) };
+    let map_type = schema
             .schema_data
             .extensions
             .get("x-kubernetes-map-type")
             .map(|ty| {
-            let serde_json::Value::String(ty)=ty else {
-                return Err(format!("found `x-kubernetes-list-type` extension but without a string value: {schema:?}"));
-            };
-            match ty.as_ref() {
-                "atomic" => Ok(MapType::Atomic),
-                "granular" => Ok(MapType::Granular),
-                _ => Err(format!("Unsupported `x-kubernetes-map-type`: {ty}")),
-            }
-        }).transpose()?;
-            if let Some(map_type) = map_type {
-                insert_err_on_conflict(&mut result.map_type, map_type, field_path)?;
-            }
+                let serde_json::Value::String(ty)=ty else {
+                    return Err(format!("found `x-kubernetes-list-type` extension but without a string value: {schema:?}"));
+                };
+                match ty.as_ref() {
+                    "atomic" => Ok(MapType::Atomic),
+                    "granular" => Ok(MapType::Granular),
+                    _ => Err(format!("Unsupported `x-kubernetes-map-type`: {ty}")),
+                }
+            }).transpose()?;
+    if let Some(map_type) = map_type {
+        insert_err_on_conflict(&mut result.map_type, map_type, field_path)?;
+    }
 
-            let list_type=schema.schema_data.extensions.get("x-kubernetes-list-type").map(|ty|{
-            let serde_json::Value::String(ty)=ty else {
-                return Err(format!("found `x-kubernetes-list-type` extension but without a string value: {schema:?}"));
-            };
-             match ty.as_ref() {
-                "atomic" => Ok(ListType::Atomic),
-                "set" => Ok(ListType::Set),
-                "map" => {
-                    let map_keys=schema.schema_data.extensions.get("x-kubernetes-list-map-keys").ok_or_else(||format!("found `x-kubernetes-list-type` extension but without a string value: {schema:?}"))?;
-                    let serde_json::Value::Array(map_keys)=map_keys else{
-                        return Err(format!("Extension `x-kubernetes-list-map-keys` does not has as value an array of strings: {schema:?}"));
-                    };
-                     let map_keys=   map_keys
-                            .iter()
-                            .map(|v| {
-                                if let serde_json::Value::String(s) = v {
-                                    Ok(get_rust_ident(s).into_owned())
-                                } else {
-                                    Err(format!(
-                                        "Unsupported `x-kubernetes-list-map-keys` value: {v:?}"
-                                    ))
-                                }
-                            })
-                            .collect::<Result<Vec<_>, _>>();
-                    map_keys.map(ListType::Map)
-                },
-                _ => Err(format!("Unsupported `x-kubernetes-list-type`: {ty}")),
-        }}).transpose()?;
+    let list_type=schema.schema_data.extensions.get("x-kubernetes-list-type").map(|ty|{
+                let serde_json::Value::String(ty)=ty else {
+                    return Err(format!("found `x-kubernetes-list-type` extension but without a string value: {schema:?}"));
+                };
+                 match ty.as_ref() {
+                    "atomic" => Ok(ListType::Atomic),
+                    "set" => Ok(ListType::Set),
+                    "map" => {
+                        let map_keys=schema.schema_data.extensions.get("x-kubernetes-list-map-keys").ok_or_else(||format!("found `x-kubernetes-list-type` extension but without a string value: {schema:?}"))?;
+                        let serde_json::Value::Array(map_keys)=map_keys else{
+                            return Err(format!("Extension `x-kubernetes-list-map-keys` does not has as value an array of strings: {schema:?}"));
+                        };
+                         let map_keys=   map_keys
+                                .iter()
+                                .map(|v| {
+                                    if let serde_json::Value::String(s) = v {
+                                        Ok(get_rust_ident(s).into_owned())
+                                    } else {
+                                        Err(format!(
+                                            "Unsupported `x-kubernetes-list-map-keys` value: {v:?}"
+                                        ))
+                                    }
+                                })
+                                .collect::<Result<Vec<_>, _>>();
+                        map_keys.map(ListType::Map)
+                    },
+                    _ => Err(format!("Unsupported `x-kubernetes-list-type`: {ty}")),
+            }}).transpose()?;
+    if let Some(list_type) = list_type {
+        insert_err_on_conflict(&mut result.list_type, list_type, field_path)?;
+        if let SchemaKind::Type(item) = &schema.schema_kind {
             // save found list type, ignore explicitly embedded types
-            if let Some(list_type) = list_type {
-                // only supported way to determine the list key type
-                if let ListType::Map(list_keys) = &list_type {
-                    if let Type::Array(array) = &item
-                        && let Some(array_schema) = &array.items
-                        && let Some(array_schema) = array_schema.clone().as_item()
-                        && let SchemaKind::AllOf { all_of } = &array_schema.schema_kind
-                        && all_of.len() == 1
-                        && let Some(ReferenceOr::Reference { reference }) = all_of.first()
-                        && let Some(reference) =
-                            reference.strip_prefix("#/components/schemas/io.k8s.")
+            // only supported way to determine the list key type
+            if let ListType::Map(list_keys) = &list_type {
+                if let Type::Array(array) = &item
+                    && let Some(array_schema) = &array.items
+                    && let Some(array_schema) = array_schema.clone().as_item()
+                    && let SchemaKind::AllOf { all_of } = &array_schema.schema_kind
+                    && all_of.len() == 1
+                    && let Some(ReferenceOr::Reference { reference }) = all_of.first()
+                    && let Some(reference) = reference.strip_prefix("#/components/schemas/io.k8s.")
+                {
+                    if let Some(existing_list_type) = result.list_map_keys.get(reference)
+                        && existing_list_type != list_keys
                     {
-                        if let Some(existing_list_type) = result.list_map_keys.get(reference)
-                            && existing_list_type != list_keys
-                        {
-                            return Err(format!(
+                        return Err(format!(
                     "Conflicting map keys for `{reference}`: field={field_path:?}, existing={existing_list_type:?}, new={list_type:?}"
                 )
                 .into());
-                        }
-                        result
-                            .list_map_keys
-                            .insert(reference.to_owned(), list_keys.clone());
-                    } else {
-                        return Err(format!("Unsupported list mapping for {field_path:?}").into());
                     }
+                    result
+                        .list_map_keys
+                        .insert(reference.to_owned(), list_keys.clone());
+                } else {
+                    return Err(format!("Unsupported list mapping for {field_path:?}").into());
                 }
-                insert_err_on_conflict(&mut result.list_type, list_type, field_path)?;
-            }
-            // continue recursion
-            match item {
-                Type::Object(obj) => {
-                    for (name, obj_schema) in &obj.properties {
-                        let mut field_path = field_path.to_vec();
-                        field_path.push(name);
-
-                        process_schema(
-                            result,
-                            &field_path,
-                            obj_schema.clone().into_item().as_deref(),
-                            second_pass,
-                        )?;
-                    }
-                }
-                Type::Array(array) => {
-                    // not needed at the time of writing but omitting arrays silently is not great
-                    if let Some(array_schema) = &array.items {
-                        let mut field_path = field_path.to_vec();
-                        field_path.push("[]");
-
-                        process_schema(
-                            result,
-                            &field_path,
-                            array_schema.clone().into_item().as_deref(),
-                            second_pass,
-                        )?;
-                    }
-                }
-                _ => {}
             }
         }
+        // continue recursion
+        match item {
+            Type::Object(obj) => {
+                for (name, obj_schema) in &obj.properties {
+                    let mut field_path = field_path.to_vec();
+                    field_path.push(name);
 
-        // only supported way to determine to resolve references
-        if second_pass
-            && let SchemaKind::AllOf { all_of } = &schema.schema_kind
-            && all_of.len() == 1
-            && let Some(ReferenceOr::Reference { reference }) = all_of.first()
-            && let Some(reference) = reference.strip_prefix("#/components/schemas/io.k8s.")
-        {
-            if let Some(map_type) = result.map_type.get(reference).cloned() {
-                insert_err_on_conflict(&mut result.map_type, map_type, field_path)?;
+                    process_schema(
+                        result,
+                        &field_path,
+                        obj_schema.clone().into_item().as_deref(),
+                        second_pass,
+                    )?;
+                }
             }
-            if let Some(list_type) = result.list_type.get(reference).cloned() {
-                insert_err_on_conflict(&mut result.list_type, list_type, field_path)?;
+            Type::Array(array) => {
+                // not needed at the time of writing but omitting arrays silently is not great
+                if let Some(array_schema) = &array.items {
+                    let field_path = field_path.to_vec();
+
+                    process_schema(
+                        result,
+                        &field_path,
+                        array_schema.clone().into_item().as_deref(),
+                        second_pass,
+                    )?;
+                }
             }
+            _ => {}
+        }
+    }
+
+    // only supported way to determine to resolve references
+    if second_pass
+        && let SchemaKind::AllOf { all_of } = &schema.schema_kind
+        && all_of.len() == 1
+        && let Some(ReferenceOr::Reference { reference }) = all_of.first()
+        && let Some(reference) = reference.strip_prefix("#/components/schemas/io.k8s.")
+    {
+        // todo: also just references can specify map and list-types
+        // schema.schema_data.extensions
+
+        if let Some(map_type) = result.map_type.get(reference).cloned() {
+            insert_err_on_conflict(&mut result.map_type, map_type, field_path)?;
+        }
+        if let Some(list_type) = result.list_type.get(reference).cloned() {
+            insert_err_on_conflict(&mut result.list_type, list_type, field_path)?;
         }
     }
     Ok(())

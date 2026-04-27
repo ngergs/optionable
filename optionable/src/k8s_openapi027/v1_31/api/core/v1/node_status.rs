@@ -279,8 +279,14 @@ impl k8s_openapi027::DeepMerge for NodeStatusAc {
             &mut self.addresses,
             other.addresses,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.allocatable, other.allocatable);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.capacity, other.capacity);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.allocatable,
+            other.allocatable,
+        );
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.capacity,
+            other.capacity,
+        );
         crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.conditions,
             other.conditions,

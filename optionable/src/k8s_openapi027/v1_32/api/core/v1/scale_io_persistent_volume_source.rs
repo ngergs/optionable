@@ -208,7 +208,7 @@ impl k8s_openapi027::DeepMerge for ScaleIOPersistentVolumeSourceAc {
             other.protection_domain,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_ref, other.secret_ref);
+        self.secret_ref = other.secret_ref;
         k8s_openapi027::DeepMerge::merge_from(&mut self.ssl_enabled, other.ssl_enabled);
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.storage_mode,

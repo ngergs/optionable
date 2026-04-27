@@ -237,7 +237,7 @@ impl k8s_openapi027::DeepMerge for DeviceRequestAllocationResultAc {
         );
         self.binding_conditions = other.binding_conditions;
         self.binding_failure_conditions = other.binding_failure_conditions;
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.consumed_capacity,
             other.consumed_capacity,
         );

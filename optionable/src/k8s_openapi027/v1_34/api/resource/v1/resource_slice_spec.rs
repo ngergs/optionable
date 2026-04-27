@@ -206,10 +206,7 @@ impl k8s_openapi027::DeepMerge for ResourceSliceSpecAc {
         self.devices = other.devices;
         k8s_openapi027::DeepMerge::merge_from(&mut self.driver, other.driver);
         k8s_openapi027::DeepMerge::merge_from(&mut self.node_name, other.node_name);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.node_selector,
-            other.node_selector,
-        );
+        self.node_selector = other.node_selector;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.per_device_node_selection,
             other.per_device_node_selection,

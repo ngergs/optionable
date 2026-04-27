@@ -70,6 +70,6 @@ for VolumeNodeAffinityAc {
 }
 impl k8s_openapi027::DeepMerge for VolumeNodeAffinityAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.required, other.required);
+        self.required = other.required;
     }
 }

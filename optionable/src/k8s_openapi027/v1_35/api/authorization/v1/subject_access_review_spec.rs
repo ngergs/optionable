@@ -157,7 +157,10 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for SubjectAccessReviewSpecAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.extra, other.extra);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.extra,
+            other.extra,
+        );
         self.groups = other.groups;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.non_resource_attributes,

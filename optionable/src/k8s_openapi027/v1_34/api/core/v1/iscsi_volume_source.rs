@@ -223,7 +223,7 @@ impl k8s_openapi027::DeepMerge for ISCSIVolumeSourceAc {
         k8s_openapi027::DeepMerge::merge_from(&mut self.lun, other.lun);
         self.portals = other.portals;
         k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_ref, other.secret_ref);
+        self.secret_ref = other.secret_ref;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.target_portal,
             other.target_portal,

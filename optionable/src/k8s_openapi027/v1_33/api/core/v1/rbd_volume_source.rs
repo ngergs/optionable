@@ -162,7 +162,7 @@ impl k8s_openapi027::DeepMerge for RBDVolumeSourceAc {
         self.monitors = other.monitors;
         k8s_openapi027::DeepMerge::merge_from(&mut self.pool, other.pool);
         k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_ref, other.secret_ref);
+        self.secret_ref = other.secret_ref;
         k8s_openapi027::DeepMerge::merge_from(&mut self.user, other.user);
     }
 }

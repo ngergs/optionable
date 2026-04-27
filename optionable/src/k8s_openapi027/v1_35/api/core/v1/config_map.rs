@@ -139,8 +139,14 @@ fn roundtrip_configmapac() {
 }
 impl k8s_openapi027::DeepMerge for ConfigMapAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.binary_data, other.binary_data);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.data, other.data);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.binary_data,
+            other.binary_data,
+        );
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.data,
+            other.data,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.immutable, other.immutable);
         k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
     }

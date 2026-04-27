@@ -737,8 +737,11 @@ impl k8s_openapi027::DeepMerge for JSONSchemaPropsAc {
         k8s_openapi027::DeepMerge::merge_from(&mut self.all_of, other.all_of);
         k8s_openapi027::DeepMerge::merge_from(&mut self.any_of, other.any_of);
         k8s_openapi027::DeepMerge::merge_from(&mut self.default, other.default);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.definitions, other.definitions);
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.definitions,
+            other.definitions,
+        );
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.dependencies,
             other.dependencies,
         );
@@ -779,11 +782,14 @@ impl k8s_openapi027::DeepMerge for JSONSchemaPropsAc {
         k8s_openapi027::DeepMerge::merge_from(&mut self.nullable, other.nullable);
         k8s_openapi027::DeepMerge::merge_from(&mut self.one_of, other.one_of);
         k8s_openapi027::DeepMerge::merge_from(&mut self.pattern, other.pattern);
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.pattern_properties,
             other.pattern_properties,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.properties, other.properties);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.properties,
+            other.properties,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.required, other.required);
         k8s_openapi027::DeepMerge::merge_from(&mut self.title, other.title);
         k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);

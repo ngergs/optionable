@@ -174,10 +174,7 @@ for TopologySpreadConstraintAc {
 }
 impl k8s_openapi027::DeepMerge for TopologySpreadConstraintAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.label_selector,
-            other.label_selector,
-        );
+        self.label_selector = other.label_selector;
         self.match_label_keys = other.match_label_keys;
         k8s_openapi027::DeepMerge::merge_from(&mut self.max_skew, other.max_skew);
         k8s_openapi027::DeepMerge::merge_from(&mut self.min_domains, other.min_domains);

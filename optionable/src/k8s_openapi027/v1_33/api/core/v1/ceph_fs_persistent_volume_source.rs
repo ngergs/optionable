@@ -149,7 +149,7 @@ impl k8s_openapi027::DeepMerge for CephFSPersistentVolumeSourceAc {
         k8s_openapi027::DeepMerge::merge_from(&mut self.path, other.path);
         k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
         k8s_openapi027::DeepMerge::merge_from(&mut self.secret_file, other.secret_file);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_ref, other.secret_ref);
+        self.secret_ref = other.secret_ref;
         k8s_openapi027::DeepMerge::merge_from(&mut self.user, other.user);
     }
 }
