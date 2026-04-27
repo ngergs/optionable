@@ -164,17 +164,26 @@ for LimitRangeItemAc {
 }
 impl k8s_openapi027::DeepMerge for LimitRangeItemAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.default, other.default);
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.default,
+            other.default,
+        );
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.default_request,
             other.default_request,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.max, other.max);
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.max,
+            other.max,
+        );
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.max_limit_request_ratio,
             other.max_limit_request_ratio,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.min, other.min);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.min,
+            other.min,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
     }
 }

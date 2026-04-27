@@ -185,10 +185,7 @@ impl k8s_openapi027::DeepMerge for CSIStorageCapacityAc {
             other.maximum_volume_size,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.node_topology,
-            other.node_topology,
-        );
+        self.node_topology = other.node_topology;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.storage_class_name,
             other.storage_class_name,

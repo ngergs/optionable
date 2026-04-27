@@ -136,6 +136,6 @@ impl k8s_openapi027::DeepMerge for ParamRefAc {
             &mut self.parameter_not_found_action,
             other.parameter_not_found_action,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.selector, other.selector);
+        self.selector = other.selector;
     }
 }

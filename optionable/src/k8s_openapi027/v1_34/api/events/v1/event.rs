@@ -324,8 +324,8 @@ impl k8s_openapi027::DeepMerge for EventAc {
         k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
         k8s_openapi027::DeepMerge::merge_from(&mut self.note, other.note);
         k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.regarding, other.regarding);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.related, other.related);
+        self.regarding = other.regarding;
+        self.related = other.related;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.reporting_controller,
             other.reporting_controller,

@@ -203,13 +203,13 @@ for PersistentVolumeClaimSpecAc {
 impl k8s_openapi027::DeepMerge for PersistentVolumeClaimSpecAc {
     fn merge_from(&mut self, other: Self) {
         self.access_modes = other.access_modes;
-        k8s_openapi027::DeepMerge::merge_from(&mut self.data_source, other.data_source);
+        self.data_source = other.data_source;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.data_source_ref,
             other.data_source_ref,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.resources, other.resources);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.selector, other.selector);
+        self.selector = other.selector;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.storage_class_name,
             other.storage_class_name,

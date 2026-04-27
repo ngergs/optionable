@@ -394,7 +394,7 @@ impl k8s_openapi027::DeepMerge for ServiceSpecAc {
             &mut self.publish_not_ready_addresses,
             other.publish_not_ready_addresses,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.selector, other.selector);
+        self.selector = other.selector;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.session_affinity,
             other.session_affinity,

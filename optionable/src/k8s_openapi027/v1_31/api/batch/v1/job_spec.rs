@@ -337,7 +337,7 @@ impl k8s_openapi027::DeepMerge for JobSpecAc {
             &mut self.pod_replacement_policy,
             other.pod_replacement_policy,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.selector, other.selector);
+        self.selector = other.selector;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.success_policy,
             other.success_policy,

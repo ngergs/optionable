@@ -143,7 +143,7 @@ impl k8s_openapi027::DeepMerge for PodDisruptionBudgetSpecAc {
             &mut self.min_available,
             other.min_available,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.selector, other.selector);
+        self.selector = other.selector;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.unhealthy_pod_eviction_policy,
             other.unhealthy_pod_eviction_policy,

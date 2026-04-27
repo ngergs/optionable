@@ -87,10 +87,7 @@ impl crate::OptionedConvert<k8s_openapi027::api::node::v1::Scheduling> for Sched
 }
 impl k8s_openapi027::DeepMerge for SchedulingAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.node_selector,
-            other.node_selector,
-        );
+        self.node_selector = other.node_selector;
         self.tolerations = other.tolerations;
     }
 }

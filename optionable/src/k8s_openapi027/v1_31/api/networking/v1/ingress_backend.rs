@@ -84,7 +84,7 @@ for IngressBackendAc {
 }
 impl k8s_openapi027::DeepMerge for IngressBackendAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.resource, other.resource);
+        self.resource = other.resource;
         k8s_openapi027::DeepMerge::merge_from(&mut self.service, other.service);
     }
 }

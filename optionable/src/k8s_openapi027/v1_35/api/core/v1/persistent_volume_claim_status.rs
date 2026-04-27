@@ -239,15 +239,18 @@ for PersistentVolumeClaimStatusAc {
 impl k8s_openapi027::DeepMerge for PersistentVolumeClaimStatusAc {
     fn merge_from(&mut self, other: Self) {
         self.access_modes = other.access_modes;
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.allocated_resource_statuses,
             other.allocated_resource_statuses,
         );
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.allocated_resources,
             other.allocated_resources,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.capacity, other.capacity);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.capacity,
+            other.capacity,
+        );
         crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.conditions,
             other.conditions,
