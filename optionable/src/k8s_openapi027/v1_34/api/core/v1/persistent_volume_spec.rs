@@ -323,7 +323,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::core::v1::PersistentVolum
         } else if let Some(self_value) = self.claim_ref.as_mut()
             && let Some(other_value) = other.claim_ref
         {
-            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if self.csi.is_none() {
             self.csi = crate::OptionableConvert::try_from_optioned(other.csi)?;
@@ -553,7 +553,10 @@ impl k8s_openapi027::DeepMerge for PersistentVolumeSpecAc {
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.cephfs, other.cephfs);
         k8s_openapi027::DeepMerge::merge_from(&mut self.cinder, other.cinder);
-        self.claim_ref = other.claim_ref;
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.claim_ref,
+            other.claim_ref,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.csi, other.csi);
         k8s_openapi027::DeepMerge::merge_from(&mut self.fc, other.fc);
         k8s_openapi027::DeepMerge::merge_from(&mut self.flex_volume, other.flex_volume);
