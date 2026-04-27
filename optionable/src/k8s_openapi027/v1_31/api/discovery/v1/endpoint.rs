@@ -171,14 +171,14 @@ impl k8s_openapi027::DeepMerge for EndpointAc {
             other.addresses,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.conditions, other.conditions);
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.deprecated_topology,
             other.deprecated_topology,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.hints, other.hints);
         k8s_openapi027::DeepMerge::merge_from(&mut self.hostname, other.hostname);
         k8s_openapi027::DeepMerge::merge_from(&mut self.node_name, other.node_name);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.target_ref, other.target_ref);
+        self.target_ref = other.target_ref;
         k8s_openapi027::DeepMerge::merge_from(&mut self.zone, other.zone);
     }
 }

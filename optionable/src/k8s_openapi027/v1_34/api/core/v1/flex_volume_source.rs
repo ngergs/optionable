@@ -124,8 +124,11 @@ impl k8s_openapi027::DeepMerge for FlexVolumeSourceAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.driver, other.driver);
         k8s_openapi027::DeepMerge::merge_from(&mut self.fs_type, other.fs_type);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.options, other.options);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.options,
+            other.options,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.read_only, other.read_only);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.secret_ref, other.secret_ref);
+        self.secret_ref = other.secret_ref;
     }
 }

@@ -138,10 +138,7 @@ impl k8s_openapi027::DeepMerge for HorizontalPodAutoscalerSpecAc {
             &mut self.min_replicas,
             other.min_replicas,
         );
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.scale_target_ref,
-            other.scale_target_ref,
-        );
+        self.scale_target_ref = other.scale_target_ref;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.target_cpu_utilization_percentage,
             other.target_cpu_utilization_percentage,

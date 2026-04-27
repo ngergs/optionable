@@ -133,6 +133,9 @@ impl k8s_openapi027::DeepMerge for VolumeAttributesClassAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.driver_name, other.driver_name);
         k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.parameters, other.parameters);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.parameters,
+            other.parameters,
+        );
     }
 }

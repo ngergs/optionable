@@ -87,7 +87,7 @@ for PreferredSchedulingTermAc {
 }
 impl k8s_openapi027::DeepMerge for PreferredSchedulingTermAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.preference, other.preference);
+        self.preference = other.preference;
         k8s_openapi027::DeepMerge::merge_from(&mut self.weight, other.weight);
     }
 }

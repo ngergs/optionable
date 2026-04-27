@@ -126,7 +126,7 @@ impl k8s_openapi027::DeepMerge for VolumeAttachmentStatusAc {
             other.attach_error,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.attached, other.attached);
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.attachment_metadata,
             other.attachment_metadata,
         );

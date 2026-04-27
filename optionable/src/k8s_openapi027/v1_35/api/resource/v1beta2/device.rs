@@ -283,21 +283,24 @@ impl k8s_openapi027::DeepMerge for DeviceAc {
             &mut self.allow_multiple_allocations,
             other.allow_multiple_allocations,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.attributes, other.attributes);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.attributes,
+            other.attributes,
+        );
         self.binding_conditions = other.binding_conditions;
         self.binding_failure_conditions = other.binding_failure_conditions;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.binds_to_node,
             other.binds_to_node,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.capacity, other.capacity);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.capacity,
+            other.capacity,
+        );
         self.consumes_counters = other.consumes_counters;
         k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
         k8s_openapi027::DeepMerge::merge_from(&mut self.node_name, other.node_name);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.node_selector,
-            other.node_selector,
-        );
+        self.node_selector = other.node_selector;
         self.taints = other.taints;
     }
 }

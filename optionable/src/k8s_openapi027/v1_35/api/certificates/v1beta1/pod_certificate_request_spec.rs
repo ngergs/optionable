@@ -270,7 +270,7 @@ impl k8s_openapi027::DeepMerge for PodCertificateRequestSpecAc {
             other.service_account_uid,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.signer_name, other.signer_name);
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.unverified_user_annotations,
             other.unverified_user_annotations,
         );

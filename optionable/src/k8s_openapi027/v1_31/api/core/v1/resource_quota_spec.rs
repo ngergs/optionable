@@ -101,7 +101,10 @@ for ResourceQuotaSpecAc {
 }
 impl k8s_openapi027::DeepMerge for ResourceQuotaSpecAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.hard, other.hard);
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.hard,
+            other.hard,
+        );
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.scope_selector,
             other.scope_selector,

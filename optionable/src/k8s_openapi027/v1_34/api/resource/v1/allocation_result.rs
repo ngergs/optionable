@@ -115,9 +115,6 @@ impl k8s_openapi027::DeepMerge for AllocationResultAc {
             other.allocation_timestamp,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.devices, other.devices);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.node_selector,
-            other.node_selector,
-        );
+        self.node_selector = other.node_selector;
     }
 }
