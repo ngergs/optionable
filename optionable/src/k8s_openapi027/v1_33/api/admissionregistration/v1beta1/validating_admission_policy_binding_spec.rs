@@ -90,7 +90,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::ValidatingAdmissionPoli
         } else if let Some(self_value) = self.match_resources.as_mut()
             && let Some(other_value) = other.match_resources
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.param_ref.is_none() {
             self.param_ref = crate::OptionableConvert::try_from_optioned(
@@ -99,7 +99,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::ValidatingAdmissionPoli
         } else if let Some(self_value) = self.param_ref.as_mut()
             && let Some(other_value) = other.param_ref
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.policy_name.is_none() {
             self.policy_name = crate::OptionableConvert::try_from_optioned(
@@ -117,7 +117,7 @@ for k8s_openapi027::api::admissionregistration::v1beta1::ValidatingAdmissionPoli
         } else if let Some(self_value) = self.validation_actions.as_mut()
             && let Some(other_value) = other.validation_actions
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_set(self_value, other_value)?;
         }
         Ok(())
     }
@@ -149,13 +149,10 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for ValidatingAdmissionPolicyBindingSpecAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.match_resources,
-            other.match_resources,
-        );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.param_ref, other.param_ref);
+        self.match_resources = other.match_resources;
+        self.param_ref = other.param_ref;
         k8s_openapi027::DeepMerge::merge_from(&mut self.policy_name, other.policy_name);
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::merge::merge_append_not_present_option_wrapped(
             &mut self.validation_actions,
             other.validation_actions,
         );

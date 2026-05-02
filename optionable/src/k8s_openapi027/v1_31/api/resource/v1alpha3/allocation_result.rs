@@ -79,7 +79,7 @@ for k8s_openapi027::api::resource::v1alpha3::AllocationResult {
         } else if let Some(self_value) = self.node_selector.as_mut()
             && let Some(other_value) = other.node_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -112,9 +112,6 @@ impl k8s_openapi027::DeepMerge for AllocationResultAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.controller, other.controller);
         k8s_openapi027::DeepMerge::merge_from(&mut self.devices, other.devices);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.node_selector,
-            other.node_selector,
-        );
+        self.node_selector = other.node_selector;
     }
 }

@@ -25,7 +25,6 @@ pub struct FlowSchemaConditionAc {
     pub status: Option<std::string::String>,
     /// `type` is the type of the condition. Required.
     #[serde(rename = "type")]
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<std::string::String>,
 }
 #[automatically_derived]
@@ -94,14 +93,15 @@ for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaCondition {
         {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
-        if self.type_.is_none() {
-            self.type_ = crate::OptionableConvert::try_from_optioned(other.type_)?;
-        } else if let Some(self_value) = self.type_.as_mut()
-            && let Some(other_value) = other.type_
-        {
-            crate::OptionableConvert::merge(self_value, other_value)?;
-        }
+        self.type_ = other.type_;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaCondition {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.type_ == other.type_
     }
 }
 #[automatically_derived]
@@ -139,5 +139,10 @@ impl k8s_openapi027::DeepMerge for FlowSchemaConditionAc {
         k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
         k8s_openapi027::DeepMerge::merge_from(&mut self.status, other.status);
         k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}
+impl crate::merge::MapKeysEq for FlowSchemaConditionAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.type_ == other.type_
     }
 }

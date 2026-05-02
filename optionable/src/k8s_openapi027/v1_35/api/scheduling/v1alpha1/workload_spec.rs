@@ -65,7 +65,7 @@ for k8s_openapi027::api::scheduling::v1alpha1::WorkloadSpec {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
         if let Some(other_value) = other.pod_groups {
-            crate::OptionableConvert::merge(&mut self.pod_groups, other_value)?;
+            crate::merge::try_merge_optioned_map(&mut self.pod_groups, other_value)?;
         }
         Ok(())
     }
@@ -97,6 +97,9 @@ impl k8s_openapi027::DeepMerge for WorkloadSpecAc {
             &mut self.controller_ref,
             other.controller_ref,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.pod_groups, other.pod_groups);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.pod_groups,
+            other.pod_groups,
+        );
     }
 }

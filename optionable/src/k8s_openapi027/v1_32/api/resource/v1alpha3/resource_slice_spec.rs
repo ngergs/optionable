@@ -109,7 +109,7 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceSliceSpec {
         } else if let Some(self_value) = self.devices.as_mut()
             && let Some(other_value) = other.devices
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.driver {
             self.driver = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -130,7 +130,7 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceSliceSpec {
         } else if let Some(self_value) = self.node_selector.as_mut()
             && let Some(other_value) = other.node_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.pool {
             crate::OptionableConvert::merge(&mut self.pool, other_value)?;
@@ -165,13 +165,10 @@ for ResourceSliceSpecAc {
 impl k8s_openapi027::DeepMerge for ResourceSliceSpecAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.all_nodes, other.all_nodes);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.devices, other.devices);
+        self.devices = other.devices;
         k8s_openapi027::DeepMerge::merge_from(&mut self.driver, other.driver);
         k8s_openapi027::DeepMerge::merge_from(&mut self.node_name, other.node_name);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.node_selector,
-            other.node_selector,
-        );
+        self.node_selector = other.node_selector;
         k8s_openapi027::DeepMerge::merge_from(&mut self.pool, other.pool);
     }
 }

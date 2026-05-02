@@ -57,7 +57,7 @@ for k8s_openapi027::api::resource::v1alpha3::PodSchedulingContextStatus {
         } else if let Some(self_value) = self.resource_claims.as_mut()
             && let Some(other_value) = other.resource_claims
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         Ok(())
     }
@@ -89,7 +89,7 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for PodSchedulingContextStatusAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.resource_claims,
             other.resource_claims,
         );

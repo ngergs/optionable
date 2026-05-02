@@ -60,7 +60,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceClaimConfiguration {
         } else if let Some(self_value) = self.requests.as_mut()
             && let Some(other_value) = other.requests
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -93,6 +93,6 @@ impl crate::OptionedConvert<
 impl k8s_openapi027::DeepMerge for DeviceClaimConfigurationAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.opaque, other.opaque);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.requests, other.requests);
+        self.requests = other.requests;
     }
 }

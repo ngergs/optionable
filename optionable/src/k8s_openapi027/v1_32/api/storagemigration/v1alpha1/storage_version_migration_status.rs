@@ -58,7 +58,7 @@ for k8s_openapi027::api::storagemigration::v1alpha1::StorageVersionMigrationStat
         } else if let Some(self_value) = self.conditions.as_mut()
             && let Some(other_value) = other.conditions
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.resource_version.is_none() {
             self.resource_version = crate::OptionableConvert::try_from_optioned(
@@ -99,7 +99,10 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for StorageVersionMigrationStatusAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.conditions, other.conditions);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.resource_version,
             other.resource_version,

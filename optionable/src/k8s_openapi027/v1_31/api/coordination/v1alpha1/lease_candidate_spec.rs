@@ -162,10 +162,7 @@ impl k8s_openapi027::DeepMerge for LeaseCandidateSpecAc {
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.lease_name, other.lease_name);
         k8s_openapi027::DeepMerge::merge_from(&mut self.ping_time, other.ping_time);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.preferred_strategies,
-            other.preferred_strategies,
-        );
+        self.preferred_strategies = other.preferred_strategies;
         k8s_openapi027::DeepMerge::merge_from(&mut self.renew_time, other.renew_time);
     }
 }

@@ -86,7 +86,7 @@ for k8s_openapi027::apimachinery::pkg::apis::meta::v1::Status {
         } else if let Some(self_value) = self.details.as_mut()
             && let Some(other_value) = other.details
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.message.is_none() {
             self.message = crate::OptionableConvert::try_from_optioned(other.message)?;
@@ -164,7 +164,7 @@ fn roundtrip_statusac() {
 impl k8s_openapi027::DeepMerge for StatusAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.code, other.code);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.details, other.details);
+        self.details = other.details;
         k8s_openapi027::DeepMerge::merge_from(&mut self.message, other.message);
         k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
         k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);

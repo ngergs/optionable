@@ -175,7 +175,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceRequest {
         } else if let Some(self_value) = self.first_available.as_mut()
             && let Some(other_value) = other.first_available
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.name {
             self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -187,7 +187,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceRequest {
         } else if let Some(self_value) = self.selectors.as_mut()
             && let Some(other_value) = other.selectors
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.tolerations.is_none() {
             self.tolerations = crate::OptionableConvert::try_from_optioned(
@@ -196,7 +196,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceRequest {
         } else if let Some(self_value) = self.tolerations.as_mut()
             && let Some(other_value) = other.tolerations
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -237,12 +237,9 @@ impl k8s_openapi027::DeepMerge for DeviceRequestAc {
             &mut self.device_class_name,
             other.device_class_name,
         );
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.first_available,
-            other.first_available,
-        );
+        self.first_available = other.first_available;
         k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.selectors, other.selectors);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.tolerations, other.tolerations);
+        self.selectors = other.selectors;
+        self.tolerations = other.tolerations;
     }
 }

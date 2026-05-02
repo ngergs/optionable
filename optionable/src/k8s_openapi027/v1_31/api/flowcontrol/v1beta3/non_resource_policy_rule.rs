@@ -58,12 +58,13 @@ for k8s_openapi027::api::flowcontrol::v1beta3::NonResourcePolicyRule {
     }
     fn merge(&mut self, other: NonResourcePolicyRuleAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.non_resource_urls {
-            self.non_resource_urls = crate::OptionableConvert::try_from_optioned(
+            crate::merge::try_merge_optioned_set(
+                &mut self.non_resource_urls,
                 other_value,
             )?;
         }
         if let Some(other_value) = other.verbs {
-            self.verbs = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::merge::try_merge_optioned_set(&mut self.verbs, other_value)?;
         }
         Ok(())
     }
@@ -95,10 +96,13 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for NonResourcePolicyRuleAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::merge::merge_append_not_present_option_wrapped(
             &mut self.non_resource_urls,
             other.non_resource_urls,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.verbs, other.verbs);
+        crate::merge::merge_append_not_present_option_wrapped(
+            &mut self.verbs,
+            other.verbs,
+        );
     }
 }

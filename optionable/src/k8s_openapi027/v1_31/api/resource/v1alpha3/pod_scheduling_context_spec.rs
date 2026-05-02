@@ -53,7 +53,7 @@ for k8s_openapi027::api::resource::v1alpha3::PodSchedulingContextSpec {
         } else if let Some(self_value) = self.potential_nodes.as_mut()
             && let Some(other_value) = other.potential_nodes
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.selected_node.is_none() {
             self.selected_node = crate::OptionableConvert::try_from_optioned(
@@ -94,10 +94,7 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for PodSchedulingContextSpecAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.potential_nodes,
-            other.potential_nodes,
-        );
+        self.potential_nodes = other.potential_nodes;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.selected_node,
             other.selected_node,
