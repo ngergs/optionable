@@ -99,7 +99,7 @@ fn kube_crd() {
 
     let my_cr_optioned: CustomCrdAc = my_cr.clone().into_optioned();
     assert_eq!(my_cr, my_cr_optioned.try_into_optionable().unwrap());
-    let my_cr_managed = my_cr.clone().extract(&field_manager).unwrap();
+    let my_cr_managed = my_cr.clone().extract(&field_manager, None).unwrap();
     let my_cr_managed_expected = Some(CustomCrdAc {
         metadata: ObjectMeta {
             name: my_cr.metadata.name,

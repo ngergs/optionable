@@ -75,7 +75,8 @@ pub fn deserialize_kind<'de, D: Deserializer<'de>, R: Resource<DynamicType = ()>
 trait ExtractManagedFieldsSealed {}
 
 /// Trait to add the `extract(field_manager)` functionality to `kube::Resources + Optionable`.
-/// Extracts the fields from the Resource `T` which are owned by the `field_manager`.
+/// Extracts the fields from the Resource `T` which are owned by the `field_manager` for the given `subresource`
+/// (field ownership is tracked by Kubernetes per `field_manager` and `sub_resource` combination).
 #[allow(private_bounds)]
 pub trait ExtractManagedFields: ExtractManagedFieldsSealed + Optionable<Optioned: Sized> {
     /// Extracts the fields from the Resource `T` which are owned by the `field_manager`.
@@ -85,7 +86,11 @@ pub trait ExtractManagedFields: ExtractManagedFieldsSealed + Optionable<Optioned
     /// # Errors
     /// - Serialization/Deserialization errors. The function uses `serde_json::Value` internally to get the
     ///   serialization keys referenced by Kubernetes.
-    fn extract(self, field_manager: &str) -> Result<Option<Self::Optioned>, serde_json::Error>;
+    fn extract(
+        self,
+        field_manager: &str,
+        sub_resource: Option<&str>,
+    ) -> Result<Option<Self::Optioned>, serde_json::Error>;
 }
 
 impl<T> ExtractManagedFieldsSealed for T
@@ -100,7 +105,11 @@ where
     T: Resource + Optionable + Serialize,
     T::Optioned: Sized + DeserializeOwned,
 {
-    fn extract(mut self, field_manager: &str) -> Result<Option<Self::Optioned>, serde_json::Error> {
+    fn extract(
+        mut self,
+        field_manager: &str,
+        sub_resource: Option<&str>,
+    ) -> Result<Option<Self::Optioned>, serde_json::Error> {
         // Managed fields are not forwarded to the result anyway so we can just take them.
         let managed_fields = take(&mut self.meta_mut().managed_fields);
         if let Some(managed_fields) = &managed_fields {
@@ -112,6 +121,7 @@ where
                         .manager
                         .as_ref()
                         .is_some_and(|manager| manager == field_manager)
+                    && el.subresource.as_deref() == sub_resource
             });
             if let Some(managed_fields) = managed_fields
                 && let Some(fields) = &managed_fields.fields_v1
@@ -271,7 +281,7 @@ fn filter_json_value(
 mod test {
     use crate::k8s_openapi::api::core::v1::ContainerAc;
     use crate::kube3::ExtractManagedFields;
-    use k8s_openapi027::api::apps::v1::{Deployment, DeploymentSpec};
+    use k8s_openapi027::api::apps::v1::{Deployment, DeploymentSpec, DeploymentStatus};
     use k8s_openapi027::api::core::v1::{Container, PodSpec, PodTemplateSpec};
     use k8s_openapi027::apimachinery::pkg::apis::meta::v1::{
         FieldsV1, ManagedFieldsEntry, ObjectMeta,
@@ -322,10 +332,11 @@ mod test {
     }
 
     #[test]
-    fn extract_deployment_err_unsupported_filter() {
+    fn extract_deployment() {
         let field_manager = "rust-manager";
         let managed_fields: Value =
             json!({"f:metadata":{"f:labels":{"f:hello2":{}}},"f:spec":{"f:replicas": {}}});
+        let managed_fields_status: Value = json!({"f:status":{"f:availableReplicas": {}}});
 
         let deployment = Deployment {
             metadata: ObjectMeta {
@@ -335,12 +346,21 @@ mod test {
                     ("hello".to_owned(), "world".to_owned()), // not owned, should be removed
                     ("hello2".to_owned(), "world2".to_owned()),
                 ])),
-                managed_fields: Some(vec![ManagedFieldsEntry {
-                    fields_type: Some("FieldsV1".to_owned()),
-                    fields_v1: Some(FieldsV1(managed_fields)),
-                    manager: Some(field_manager.to_owned()),
-                    ..Default::default()
-                }]),
+                managed_fields: Some(vec![
+                    ManagedFieldsEntry {
+                        fields_type: Some("FieldsV1".to_owned()),
+                        fields_v1: Some(FieldsV1(managed_fields)),
+                        manager: Some(field_manager.to_owned()),
+                        ..Default::default()
+                    },
+                    ManagedFieldsEntry {
+                        fields_type: Some("FieldsV1".to_owned()),
+                        fields_v1: Some(FieldsV1(managed_fields_status)),
+                        manager: Some(field_manager.to_owned()),
+                        subresource: Some("status".to_owned()),
+                        ..Default::default()
+                    },
+                ]),
                 ..Default::default()
             },
             spec: Some(DeploymentSpec {
@@ -357,9 +377,17 @@ mod test {
                 },
                 ..Default::default()
             }),
-            ..Default::default()
+            status: Some(DeploymentStatus {
+                available_replicas: Some(1),
+                observed_generation: Some(123),
+                ..Default::default()
+            }),
         };
-        let deployment_extract = deployment.clone().extract(field_manager).unwrap().unwrap();
+        let deployment_extract = deployment
+            .clone()
+            .extract(field_manager, None)
+            .unwrap()
+            .unwrap();
         assert_eq!(deployment.metadata.name, deployment_extract.metadata.name);
         assert_eq!(
             deployment.metadata.namespace,
@@ -373,14 +401,40 @@ mod test {
             labels_extract.get("hello2").unwrap()
         );
         assert_eq!(
-            deployment.spec.unwrap().replicas.unwrap(),
+            deployment.spec.as_ref().unwrap().replicas.unwrap(),
             deployment_extract.spec.as_ref().unwrap().replicas.unwrap()
         );
         assert_eq!(None, deployment_extract.spec.unwrap().template);
+        assert_eq!(None, deployment_extract.status);
+
+        let deployment_extract_status = deployment
+            .clone()
+            .extract(field_manager, Some("status"))
+            .unwrap()
+            .unwrap();
+        println!("{:?}", deployment_extract_status);
+        assert_eq!(None, deployment_extract_status.spec);
+        assert_eq!(None, deployment_extract_status.metadata.labels);
+        assert_eq!(
+            deployment.status.unwrap().available_replicas,
+            deployment_extract_status
+                .status
+                .as_ref()
+                .unwrap()
+                .available_replicas
+        );
+        assert_eq!(
+            None,
+            deployment_extract_status
+                .status
+                .as_ref()
+                .unwrap()
+                .observed_generation
+        );
     }
 
     #[test]
-    fn extract_deployment() {
+    fn extract_malformed_err_unsupported() {
         let field_manager = "rust-manager";
         let managed_fields: Value =
             json!({"f:metadata":{"i:0":{"f:hello2":{}}},"f:spec":{"f:replicas": {}}});
@@ -399,7 +453,7 @@ mod test {
             },
             ..Default::default()
         };
-        let deployment_extract = deployment.clone().extract(field_manager);
+        let deployment_extract = deployment.extract(field_manager, None);
         assert!(deployment_extract.is_err());
         assert_eq!(
             "Unsupported field manager entry for map entry. This is a bug: `i:0`",
@@ -440,7 +494,11 @@ mod test {
             }),
             ..Default::default()
         };
-        let deployment_extract = deployment.clone().extract(field_manager).unwrap().unwrap();
+        let deployment_extract = deployment
+            .clone()
+            .extract(field_manager, None)
+            .unwrap()
+            .unwrap();
         assert_eq!(deployment.metadata.name, deployment_extract.metadata.name);
         assert_eq!(
             deployment.metadata.namespace,
@@ -503,7 +561,11 @@ mod test {
             }),
             ..Default::default()
         };
-        let deployment_extract = deployment.clone().extract(field_manager).unwrap().unwrap();
+        let deployment_extract = deployment
+            .clone()
+            .extract(field_manager, None)
+            .unwrap()
+            .unwrap();
         assert_eq!(deployment.metadata.name, deployment_extract.metadata.name);
         assert_eq!(
             deployment.metadata.namespace,
