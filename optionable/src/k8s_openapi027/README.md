@@ -2,9 +2,9 @@
 
 The codegen generates optioned types and implements the `Optionable`-trait for types from [`k8s-openapi`](https://github.com/Arnavion/k8s-openapi).
 
-To regenerate the files run:
+To regenerate the files run: (warning: this runs `git checkout <tag>` on the checked out kubernetes repo for the respecrtive needed Kubernetes release tag)
 ```bash
-./codegen.sh <path to git root of the cloned k8s-openapi repo> <path to `api/openapi-spec/v3` folder of the kubernetes repo>
+./codegen.sh <path to git root of the cloned k8s-openapi repo> <path to folder of the kubernetes repo>
 ```
 
 ## Limitations
