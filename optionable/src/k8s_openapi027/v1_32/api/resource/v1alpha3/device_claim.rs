@@ -62,7 +62,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Devic
         } else if let Some(self_value) = self.config.as_mut()
             && let Some(other_value) = other.config
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.constraints.is_none() {
             self.constraints = crate::OptionableConvert::try_from_optioned(
@@ -71,14 +71,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Devic
         } else if let Some(self_value) = self.constraints.as_mut()
             && let Some(other_value) = other.constraints
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.requests.is_none() {
             self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
         } else if let Some(self_value) = self.requests.as_mut()
             && let Some(other_value) = other.requests
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -106,8 +106,8 @@ for DeviceClaimAc {
 }
 impl k8s_openapi027::DeepMerge for DeviceClaimAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.config, other.config);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.constraints, other.constraints);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.requests, other.requests);
+        self.config = other.config;
+        self.constraints = other.constraints;
+        self.requests = other.requests;
     }
 }

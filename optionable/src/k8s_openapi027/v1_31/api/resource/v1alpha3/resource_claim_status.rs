@@ -89,7 +89,7 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimStatus {
         } else if let Some(self_value) = self.reserved_for.as_mut()
             && let Some(other_value) = other.reserved_for
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         Ok(())
     }
@@ -125,7 +125,7 @@ impl k8s_openapi027::DeepMerge for ResourceClaimStatusAc {
             &mut self.deallocation_requested,
             other.deallocation_requested,
         );
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.reserved_for,
             other.reserved_for,
         );

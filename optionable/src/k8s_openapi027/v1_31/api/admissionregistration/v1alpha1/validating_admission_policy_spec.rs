@@ -130,7 +130,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
         } else if let Some(self_value) = self.audit_annotations.as_mut()
             && let Some(other_value) = other.audit_annotations
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.failure_policy.is_none() {
             self.failure_policy = crate::OptionableConvert::try_from_optioned(
@@ -148,7 +148,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
         } else if let Some(self_value) = self.match_conditions.as_mut()
             && let Some(other_value) = other.match_conditions
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.match_constraints.is_none() {
             self.match_constraints = crate::OptionableConvert::try_from_optioned(
@@ -157,7 +157,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
         } else if let Some(self_value) = self.match_constraints.as_mut()
             && let Some(other_value) = other.match_constraints
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.param_kind.is_none() {
             self.param_kind = crate::OptionableConvert::try_from_optioned(
@@ -166,7 +166,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
         } else if let Some(self_value) = self.param_kind.as_mut()
             && let Some(other_value) = other.param_kind
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.validations.is_none() {
             self.validations = crate::OptionableConvert::try_from_optioned(
@@ -175,7 +175,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
         } else if let Some(self_value) = self.validations.as_mut()
             && let Some(other_value) = other.validations
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.variables.is_none() {
             self.variables = crate::OptionableConvert::try_from_optioned(
@@ -184,7 +184,7 @@ for k8s_openapi027::api::admissionregistration::v1alpha1::ValidatingAdmissionPol
         } else if let Some(self_value) = self.variables.as_mut()
             && let Some(other_value) = other.variables
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         Ok(())
     }
@@ -216,24 +216,21 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for ValidatingAdmissionPolicySpecAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.audit_annotations,
-            other.audit_annotations,
-        );
+        self.audit_annotations = other.audit_annotations;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.failure_policy,
             other.failure_policy,
         );
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.match_conditions,
             other.match_conditions,
         );
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.match_constraints,
-            other.match_constraints,
+        self.match_constraints = other.match_constraints;
+        self.param_kind = other.param_kind;
+        self.validations = other.validations;
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.variables,
+            other.variables,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.param_kind, other.param_kind);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.validations, other.validations);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.variables, other.variables);
     }
 }

@@ -10,8 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PodGroupAc {
     /// Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
     /// Policy defines the scheduling policy for this PodGroup.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub policy: Option<
@@ -31,17 +30,13 @@ impl crate::Optionable for PodGroupAc {
 impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1alpha1::PodGroup {
     fn into_optioned(self) -> PodGroupAc {
         PodGroupAc {
-            name: Some(self.name),
+            name: self.name,
             policy: Some(crate::OptionableConvert::into_optioned(self.policy)),
         }
     }
     fn try_from_optioned(value: PodGroupAc) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
             policy: crate::OptionableConvert::try_from_optioned(
                 value
                     .policy
@@ -52,13 +47,18 @@ impl crate::OptionableConvert for k8s_openapi027::api::scheduling::v1alpha1::Pod
         })
     }
     fn merge(&mut self, other: PodGroupAc) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.name {
-            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
-        }
+        self.name = other.name;
         if let Some(other_value) = other.policy {
             crate::OptionableConvert::merge(&mut self.policy, other_value)?;
         }
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::scheduling::v1alpha1::PodGroup {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
     }
 }
 #[automatically_derived]
@@ -86,5 +86,10 @@ impl k8s_openapi027::DeepMerge for PodGroupAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
         k8s_openapi027::DeepMerge::merge_from(&mut self.policy, other.policy);
+    }
+}
+impl crate::merge::MapKeysEq for PodGroupAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.name == other.name
     }
 }

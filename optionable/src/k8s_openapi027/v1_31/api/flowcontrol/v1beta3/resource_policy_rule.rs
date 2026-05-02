@@ -70,7 +70,7 @@ for k8s_openapi027::api::flowcontrol::v1beta3::ResourcePolicyRule {
     }
     fn merge(&mut self, other: ResourcePolicyRuleAc) -> Result<(), crate::Error> {
         if let Some(other_value) = other.api_groups {
-            self.api_groups = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::merge::try_merge_optioned_set(&mut self.api_groups, other_value)?;
         }
         if self.cluster_scope.is_none() {
             self.cluster_scope = crate::OptionableConvert::try_from_optioned(
@@ -88,13 +88,13 @@ for k8s_openapi027::api::flowcontrol::v1beta3::ResourcePolicyRule {
         } else if let Some(self_value) = self.namespaces.as_mut()
             && let Some(other_value) = other.namespaces
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_set(self_value, other_value)?;
         }
         if let Some(other_value) = other.resources {
-            self.resources = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::merge::try_merge_optioned_set(&mut self.resources, other_value)?;
         }
         if let Some(other_value) = other.verbs {
-            self.verbs = crate::OptionableConvert::try_from_optioned(other_value)?;
+            crate::merge::try_merge_optioned_set(&mut self.verbs, other_value)?;
         }
         Ok(())
     }
@@ -126,13 +126,25 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for ResourcePolicyRuleAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.api_groups, other.api_groups);
+        crate::merge::merge_append_not_present_option_wrapped(
+            &mut self.api_groups,
+            other.api_groups,
+        );
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.cluster_scope,
             other.cluster_scope,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.namespaces, other.namespaces);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.resources, other.resources);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.verbs, other.verbs);
+        crate::merge::merge_append_not_present_option_wrapped(
+            &mut self.namespaces,
+            other.namespaces,
+        );
+        crate::merge::merge_append_not_present_option_wrapped(
+            &mut self.resources,
+            other.resources,
+        );
+        crate::merge::merge_append_not_present_option_wrapped(
+            &mut self.verbs,
+            other.verbs,
+        );
     }
 }

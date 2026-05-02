@@ -102,7 +102,7 @@ for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaSpec {
         } else if let Some(self_value) = self.rules.as_mut()
             && let Some(other_value) = other.rules
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -145,6 +145,6 @@ impl k8s_openapi027::DeepMerge for FlowSchemaSpecAc {
             &mut self.priority_level_configuration,
             other.priority_level_configuration,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.rules, other.rules);
+        self.rules = other.rules;
     }
 }

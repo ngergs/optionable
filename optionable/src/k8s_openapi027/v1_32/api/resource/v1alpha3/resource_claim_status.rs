@@ -78,7 +78,7 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimStatus {
         } else if let Some(self_value) = self.devices.as_mut()
             && let Some(other_value) = other.devices
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.reserved_for.is_none() {
             self.reserved_for = crate::OptionableConvert::try_from_optioned(
@@ -87,7 +87,7 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimStatus {
         } else if let Some(self_value) = self.reserved_for.as_mut()
             && let Some(other_value) = other.reserved_for
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         Ok(())
     }
@@ -119,8 +119,11 @@ for ResourceClaimStatusAc {
 impl k8s_openapi027::DeepMerge for ResourceClaimStatusAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.allocation, other.allocation);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.devices, other.devices);
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.devices,
+            other.devices,
+        );
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.reserved_for,
             other.reserved_for,
         );

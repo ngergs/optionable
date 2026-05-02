@@ -116,7 +116,7 @@ for k8s_openapi027::api::certificates::v1alpha1::PodCertificateRequestStatus {
         } else if let Some(self_value) = self.conditions.as_mut()
             && let Some(other_value) = other.conditions
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         if self.not_after.is_none() {
             self.not_after = crate::OptionableConvert::try_from_optioned(
@@ -174,7 +174,10 @@ impl k8s_openapi027::DeepMerge for PodCertificateRequestStatusAc {
             &mut self.certificate_chain,
             other.certificate_chain,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.conditions, other.conditions);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
         k8s_openapi027::DeepMerge::merge_from(&mut self.not_after, other.not_after);
         k8s_openapi027::DeepMerge::merge_from(&mut self.not_before, other.not_before);
     }

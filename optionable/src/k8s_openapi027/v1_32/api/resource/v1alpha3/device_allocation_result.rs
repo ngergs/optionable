@@ -57,14 +57,14 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceAllocationResult {
         } else if let Some(self_value) = self.config.as_mut()
             && let Some(other_value) = other.config
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.results.is_none() {
             self.results = crate::OptionableConvert::try_from_optioned(other.results)?;
         } else if let Some(self_value) = self.results.as_mut()
             && let Some(other_value) = other.results
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -96,7 +96,7 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for DeviceAllocationResultAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.config, other.config);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.results, other.results);
+        self.config = other.config;
+        self.results = other.results;
     }
 }

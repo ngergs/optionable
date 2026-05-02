@@ -69,7 +69,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec {
         } else if let Some(self_value) = self.config.as_mut()
             && let Some(other_value) = other.config
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.selectors.is_none() {
             self.selectors = crate::OptionableConvert::try_from_optioned(
@@ -78,7 +78,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec {
         } else if let Some(self_value) = self.selectors.as_mut()
             && let Some(other_value) = other.selectors
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.suitable_nodes.is_none() {
             self.suitable_nodes = crate::OptionableConvert::try_from_optioned(
@@ -87,7 +87,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceClassSpec {
         } else if let Some(self_value) = self.suitable_nodes.as_mut()
             && let Some(other_value) = other.suitable_nodes
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -115,11 +115,8 @@ for DeviceClassSpecAc {
 }
 impl k8s_openapi027::DeepMerge for DeviceClassSpecAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.config, other.config);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.selectors, other.selectors);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.suitable_nodes,
-            other.suitable_nodes,
-        );
+        self.config = other.config;
+        self.selectors = other.selectors;
+        self.suitable_nodes = other.suitable_nodes;
     }
 }

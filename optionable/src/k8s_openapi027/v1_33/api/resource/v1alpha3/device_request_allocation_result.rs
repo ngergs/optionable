@@ -127,7 +127,7 @@ for k8s_openapi027::api::resource::v1alpha3::DeviceRequestAllocationResult {
         } else if let Some(self_value) = self.tolerations.as_mut()
             && let Some(other_value) = other.tolerations
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -167,6 +167,6 @@ impl k8s_openapi027::DeepMerge for DeviceRequestAllocationResultAc {
         k8s_openapi027::DeepMerge::merge_from(&mut self.driver, other.driver);
         k8s_openapi027::DeepMerge::merge_from(&mut self.pool, other.pool);
         k8s_openapi027::DeepMerge::merge_from(&mut self.request, other.request);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.tolerations, other.tolerations);
+        self.tolerations = other.tolerations;
     }
 }

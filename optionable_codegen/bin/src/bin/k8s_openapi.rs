@@ -22,7 +22,7 @@ struct Args {
     /// Input file.
     #[arg(long, value_name = "input-file")]
     input_file: PathBuf,
-    /// K8s openapi spec, should point to a checked out version of <https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/v3>
+    /// K8s openapi spec, should point to a checked out version of <https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/v3> at the fitting tag
     #[arg(long, value_name = "k8s-openapi-v3-dir")]
     k8s_openapi_v3_dir: PathBuf,
     /// Output directory

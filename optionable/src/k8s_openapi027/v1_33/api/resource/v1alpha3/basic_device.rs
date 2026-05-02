@@ -141,7 +141,7 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Basic
         } else if let Some(self_value) = self.consumes_counters.as_mut()
             && let Some(other_value) = other.consumes_counters
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.node_name.is_none() {
             self.node_name = crate::OptionableConvert::try_from_optioned(
@@ -159,14 +159,14 @@ impl crate::OptionableConvert for k8s_openapi027::api::resource::v1alpha3::Basic
         } else if let Some(self_value) = self.node_selector.as_mut()
             && let Some(other_value) = other.node_selector
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.taints.is_none() {
             self.taints = crate::OptionableConvert::try_from_optioned(other.taints)?;
         } else if let Some(self_value) = self.taints.as_mut()
             && let Some(other_value) = other.taints
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -203,15 +203,9 @@ impl k8s_openapi027::DeepMerge for BasicDeviceAc {
             &mut self.capacity,
             other.capacity,
         );
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.consumes_counters,
-            other.consumes_counters,
-        );
+        self.consumes_counters = other.consumes_counters;
         k8s_openapi027::DeepMerge::merge_from(&mut self.node_name, other.node_name);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.node_selector,
-            other.node_selector,
-        );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.taints, other.taints);
+        self.node_selector = other.node_selector;
+        self.taints = other.taints;
     }
 }

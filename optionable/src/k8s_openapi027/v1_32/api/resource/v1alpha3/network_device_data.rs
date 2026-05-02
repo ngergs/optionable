@@ -73,7 +73,7 @@ for k8s_openapi027::api::resource::v1alpha3::NetworkDeviceData {
         } else if let Some(self_value) = self.ips.as_mut()
             && let Some(other_value) = other.ips
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -112,6 +112,6 @@ impl k8s_openapi027::DeepMerge for NetworkDeviceDataAc {
             &mut self.interface_name,
             other.interface_name,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.ips, other.ips);
+        self.ips = other.ips;
     }
 }

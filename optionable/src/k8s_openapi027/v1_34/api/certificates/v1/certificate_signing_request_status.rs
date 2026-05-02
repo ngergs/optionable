@@ -81,7 +81,7 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestStatus {
         } else if let Some(self_value) = self.certificate.as_mut()
             && let Some(other_value) = other.certificate
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.conditions.is_none() {
             self.conditions = crate::OptionableConvert::try_from_optioned(
@@ -122,7 +122,7 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for CertificateSigningRequestStatusAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.certificate, other.certificate);
+        self.certificate = other.certificate;
         crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.conditions,
             other.conditions,

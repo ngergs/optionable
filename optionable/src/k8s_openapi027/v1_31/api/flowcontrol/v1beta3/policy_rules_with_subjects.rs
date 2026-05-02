@@ -80,7 +80,7 @@ for k8s_openapi027::api::flowcontrol::v1beta3::PolicyRulesWithSubjects {
         } else if let Some(self_value) = self.non_resource_rules.as_mut()
             && let Some(other_value) = other.non_resource_rules
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.resource_rules.is_none() {
             self.resource_rules = crate::OptionableConvert::try_from_optioned(
@@ -89,10 +89,10 @@ for k8s_openapi027::api::flowcontrol::v1beta3::PolicyRulesWithSubjects {
         } else if let Some(self_value) = self.resource_rules.as_mut()
             && let Some(other_value) = other.resource_rules
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.subjects {
-            crate::OptionableConvert::merge(&mut self.subjects, other_value)?;
+            self.subjects = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -124,14 +124,8 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for PolicyRulesWithSubjectsAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.non_resource_rules,
-            other.non_resource_rules,
-        );
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.resource_rules,
-            other.resource_rules,
-        );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.subjects, other.subjects);
+        self.non_resource_rules = other.non_resource_rules;
+        self.resource_rules = other.resource_rules;
+        self.subjects = other.subjects;
     }
 }

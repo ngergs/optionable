@@ -47,7 +47,7 @@ for k8s_openapi027::api::flowcontrol::v1beta3::FlowSchemaStatus {
         } else if let Some(self_value) = self.conditions.as_mut()
             && let Some(other_value) = other.conditions
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         Ok(())
     }
@@ -78,6 +78,9 @@ for FlowSchemaStatusAc {
 }
 impl k8s_openapi027::DeepMerge for FlowSchemaStatusAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.conditions, other.conditions);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
     }
 }

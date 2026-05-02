@@ -10,8 +10,7 @@
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ResourceClaimSchedulingStatusAc {
     /// Name matches the pod.spec.resourceClaims\[*\].Name field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<std::string::String>,
+    pub name: std::string::String,
     /// UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
     ///
     /// The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
@@ -33,7 +32,7 @@ impl crate::OptionableConvert
 for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSchedulingStatus {
     fn into_optioned(self) -> ResourceClaimSchedulingStatusAc {
         ResourceClaimSchedulingStatusAc {
-            name: Some(self.name),
+            name: self.name,
             unsuitable_nodes: self.unsuitable_nodes,
         }
     }
@@ -41,11 +40,7 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSchedulingStatus {
         value: ResourceClaimSchedulingStatusAc,
     ) -> Result<Self, crate::Error> {
         Ok(Self {
-            name: value
-                .name
-                .ok_or(crate::Error {
-                    missing_field: "name",
-                })?,
+            name: value.name,
             unsuitable_nodes: value.unsuitable_nodes,
         })
     }
@@ -53,9 +48,7 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSchedulingStatus {
         &mut self,
         other: ResourceClaimSchedulingStatusAc,
     ) -> Result<(), crate::Error> {
-        if let Some(other_value) = other.name {
-            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
-        }
+        self.name = other.name;
         if self.unsuitable_nodes.is_none() {
             self.unsuitable_nodes = crate::OptionableConvert::try_from_optioned(
                 other.unsuitable_nodes,
@@ -63,9 +56,16 @@ for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSchedulingStatus {
         } else if let Some(self_value) = self.unsuitable_nodes.as_mut()
             && let Some(other_value) = other.unsuitable_nodes
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::api::resource::v1alpha3::ResourceClaimSchedulingStatus {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
     }
 }
 #[automatically_derived]
@@ -96,9 +96,11 @@ impl crate::OptionedConvert<
 impl k8s_openapi027::DeepMerge for ResourceClaimSchedulingStatusAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.unsuitable_nodes,
-            other.unsuitable_nodes,
-        );
+        self.unsuitable_nodes = other.unsuitable_nodes;
+    }
+}
+impl crate::merge::MapKeysEq for ResourceClaimSchedulingStatusAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.name == other.name
     }
 }

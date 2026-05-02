@@ -160,7 +160,7 @@ for k8s_openapi027::api::certificates::v1::CertificateSigningRequestSpec {
             *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.request {
-            crate::OptionableConvert::merge(&mut self.request, other_value)?;
+            self.request = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.signer_name {
             self.signer_name = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -225,7 +225,7 @@ impl k8s_openapi027::DeepMerge for CertificateSigningRequestSpecAc {
             other.extra,
         );
         self.groups = other.groups;
-        k8s_openapi027::DeepMerge::merge_from(&mut self.request, other.request);
+        self.request = other.request;
         k8s_openapi027::DeepMerge::merge_from(&mut self.signer_name, other.signer_name);
         k8s_openapi027::DeepMerge::merge_from(&mut self.uid, other.uid);
         self.usages = other.usages;
