@@ -146,7 +146,7 @@ fn process_schema(
                     }
                     result
                         .list_map_keys
-                        .insert(reference.to_owned(), list_keys.clone());
+                        .insert(reference.replace('-', "_"), list_keys.clone());
                 } else {
                     return Err(format!("Unsupported list mapping for {field_path:?}").into());
                 }
@@ -194,9 +194,6 @@ fn process_schema(
         && let Some(ReferenceOr::Reference { reference }) = all_of.first()
         && let Some(reference) = reference.strip_prefix("#/components/schemas/io.k8s.")
     {
-        // todo: also just references can specify map and list-types
-        // schema.schema_data.extensions
-
         // The Kubernetes OpenAPI spec sometimes (e.g. for `claimRef` from `PersistentVolumeSpec` has map type extensions
         // for a given field with a different map type than the referenced type. The field ones (already handled on second pass)
         // take precendence.
@@ -244,7 +241,8 @@ fn insert_if_not_present<V: PartialEq + std::fmt::Debug>(
 }
 
 /// Computes the identifier for the given field path.  Basically the dot notated field path without the `io.k8s.`-prefix
-/// and with the field name rustified, e.g. `api.core.v1.PersistenVolumeSpec.claim_ref`
+/// and with the field name rustified, e.g. `api.core.v1.PersistenVolumeSpec.claim_ref`.
+/// Dashes in earlier parts of the file path are replaced with hypens.
 fn field_path_identifier<V: std::fmt::Debug>(
     field_path: &[&str],
     value: &V,
@@ -269,5 +267,5 @@ fn field_path_identifier<V: std::fmt::Debug>(
         )
         .into());
     };
-    Ok(field_path_joined.to_owned())
+    Ok(field_path_joined.replace('-', "_"))
 }
