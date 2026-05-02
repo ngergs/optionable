@@ -25,8 +25,7 @@ pub struct APIServiceConditionAc {
     pub status: Option<std::string::String>,
     /// Type is the type of the condition.
     #[serde(rename = "type")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_: Option<std::string::String>,
+    pub type_: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -49,7 +48,7 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceC
             message: self.message,
             reason: self.reason,
             status: Some(self.status),
-            type_: Some(self.type_),
+            type_: self.type_,
         }
     }
     fn try_from_optioned(value: APIServiceConditionAc) -> Result<Self, crate::Error> {
@@ -64,11 +63,7 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceC
                 .ok_or(crate::Error {
                     missing_field: "status",
                 })?,
-            type_: value
-                .type_
-                .ok_or(crate::Error {
-                    missing_field: "type_",
-                })?,
+            type_: value.type_,
         })
     }
     fn merge(&mut self, other: APIServiceConditionAc) -> Result<(), crate::Error> {
@@ -98,10 +93,15 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceC
         if let Some(other_value) = other.status {
             self.status = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
-        if let Some(other_value) = other.type_ {
-            self.type_ = crate::OptionableConvert::try_from_optioned(other_value)?;
-        }
+        self.type_ = other.type_;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceCondition {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.type_ == other.type_
     }
 }
 #[automatically_derived]
@@ -139,5 +139,10 @@ impl k8s_openapi027::DeepMerge for APIServiceConditionAc {
         k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
         k8s_openapi027::DeepMerge::merge_from(&mut self.status, other.status);
         k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}
+impl crate::merge::MapKeysEq for APIServiceConditionAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.type_ == other.type_
     }
 }

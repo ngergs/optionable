@@ -371,14 +371,14 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         } else if let Some(self_value) = self.all_of.as_mut()
             && let Some(other_value) = other.all_of
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.any_of.is_none() {
             self.any_of = crate::OptionableConvert::try_from_optioned(other.any_of)?;
         } else if let Some(self_value) = self.any_of.as_mut()
             && let Some(other_value) = other.any_of
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.default.is_none() {
             self.default = crate::OptionableConvert::try_from_optioned(other.default)?;
@@ -419,7 +419,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         } else if let Some(self_value) = self.enum_.as_mut()
             && let Some(other_value) = other.enum_
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.example.is_none() {
             self.example = crate::OptionableConvert::try_from_optioned(other.example)?;
@@ -572,7 +572,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         } else if let Some(self_value) = self.one_of.as_mut()
             && let Some(other_value) = other.one_of
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.pattern.is_none() {
             self.pattern = crate::OptionableConvert::try_from_optioned(other.pattern)?;
@@ -604,7 +604,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         } else if let Some(self_value) = self.required.as_mut()
             && let Some(other_value) = other.required
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.title.is_none() {
             self.title = crate::OptionableConvert::try_from_optioned(other.title)?;
@@ -654,7 +654,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         } else if let Some(self_value) = self.x_kubernetes_list_map_keys.as_mut()
             && let Some(other_value) = other.x_kubernetes_list_map_keys
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.x_kubernetes_list_type.is_none() {
             self.x_kubernetes_list_type = crate::OptionableConvert::try_from_optioned(
@@ -692,7 +692,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONS
         } else if let Some(self_value) = self.x_kubernetes_validations.as_mut()
             && let Some(other_value) = other.x_kubernetes_validations
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         Ok(())
     }
@@ -734,8 +734,8 @@ impl k8s_openapi027::DeepMerge for JSONSchemaPropsAc {
             &mut self.additional_properties,
             other.additional_properties,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.all_of, other.all_of);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.any_of, other.any_of);
+        self.all_of = other.all_of;
+        self.any_of = other.any_of;
         k8s_openapi027::DeepMerge::merge_from(&mut self.default, other.default);
         crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.definitions,
@@ -746,7 +746,7 @@ impl k8s_openapi027::DeepMerge for JSONSchemaPropsAc {
             other.dependencies,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.description, other.description);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.enum_, other.enum_);
+        self.enum_ = other.enum_;
         k8s_openapi027::DeepMerge::merge_from(&mut self.example, other.example);
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.exclusive_maximum,
@@ -780,7 +780,7 @@ impl k8s_openapi027::DeepMerge for JSONSchemaPropsAc {
         k8s_openapi027::DeepMerge::merge_from(&mut self.multiple_of, other.multiple_of);
         k8s_openapi027::DeepMerge::merge_from(&mut self.not, other.not);
         k8s_openapi027::DeepMerge::merge_from(&mut self.nullable, other.nullable);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.one_of, other.one_of);
+        self.one_of = other.one_of;
         k8s_openapi027::DeepMerge::merge_from(&mut self.pattern, other.pattern);
         crate::k8s_openapi::merge::merge_granular_option_wrapped(
             &mut self.pattern_properties,
@@ -790,7 +790,7 @@ impl k8s_openapi027::DeepMerge for JSONSchemaPropsAc {
             &mut self.properties,
             other.properties,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.required, other.required);
+        self.required = other.required;
         k8s_openapi027::DeepMerge::merge_from(&mut self.title, other.title);
         k8s_openapi027::DeepMerge::merge_from(&mut self.type_, other.type_);
         k8s_openapi027::DeepMerge::merge_from(
@@ -805,10 +805,7 @@ impl k8s_openapi027::DeepMerge for JSONSchemaPropsAc {
             &mut self.x_kubernetes_int_or_string,
             other.x_kubernetes_int_or_string,
         );
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.x_kubernetes_list_map_keys,
-            other.x_kubernetes_list_map_keys,
-        );
+        self.x_kubernetes_list_map_keys = other.x_kubernetes_list_map_keys;
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.x_kubernetes_list_type,
             other.x_kubernetes_list_type,
@@ -821,7 +818,7 @@ impl k8s_openapi027::DeepMerge for JSONSchemaPropsAc {
             &mut self.x_kubernetes_preserve_unknown_fields,
             other.x_kubernetes_preserve_unknown_fields,
         );
-        k8s_openapi027::DeepMerge::merge_from(
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
             &mut self.x_kubernetes_validations,
             other.x_kubernetes_validations,
         );

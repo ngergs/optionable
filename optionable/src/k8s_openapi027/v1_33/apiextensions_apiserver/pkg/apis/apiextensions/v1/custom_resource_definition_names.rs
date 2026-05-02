@@ -82,7 +82,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         } else if let Some(self_value) = self.categories.as_mut()
             && let Some(other_value) = other.categories
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.kind {
             self.kind = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -106,7 +106,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         } else if let Some(self_value) = self.short_names.as_mut()
             && let Some(other_value) = other.short_names
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.singular.is_none() {
             self.singular = crate::OptionableConvert::try_from_optioned(other.singular)?;
@@ -145,11 +145,11 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for CustomResourceDefinitionNamesAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.categories, other.categories);
+        self.categories = other.categories;
         k8s_openapi027::DeepMerge::merge_from(&mut self.kind, other.kind);
         k8s_openapi027::DeepMerge::merge_from(&mut self.list_kind, other.list_kind);
         k8s_openapi027::DeepMerge::merge_from(&mut self.plural, other.plural);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.short_names, other.short_names);
+        self.short_names = other.short_names;
         k8s_openapi027::DeepMerge::merge_from(&mut self.singular, other.singular);
     }
 }

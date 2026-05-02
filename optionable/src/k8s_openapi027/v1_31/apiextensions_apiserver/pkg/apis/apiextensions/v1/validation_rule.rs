@@ -63,8 +63,7 @@ pub struct ValidationRuleAc {
     /// See the documentation for the `optionalOldSelf` field for details.
     ///
     /// Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub rule: Option<std::string::String>,
+    pub rule: std::string::String,
 }
 #[automatically_derived]
 impl crate::Optionable
@@ -86,7 +85,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Valid
             message_expression: self.message_expression,
             optional_old_self: self.optional_old_self,
             reason: self.reason,
-            rule: Some(self.rule),
+            rule: self.rule,
         }
     }
     fn try_from_optioned(value: ValidationRuleAc) -> Result<Self, crate::Error> {
@@ -96,11 +95,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Valid
             message_expression: value.message_expression,
             optional_old_self: value.optional_old_self,
             reason: value.reason,
-            rule: value
-                .rule
-                .ok_or(crate::Error {
-                    missing_field: "rule",
-                })?,
+            rule: value.rule,
         })
     }
     fn merge(&mut self, other: ValidationRuleAc) -> Result<(), crate::Error> {
@@ -145,10 +140,15 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Valid
         {
             crate::OptionableConvert::merge(self_value, other_value)?;
         }
-        if let Some(other_value) = other.rule {
-            self.rule = crate::OptionableConvert::try_from_optioned(other_value)?;
-        }
+        self.rule = other.rule;
         Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::ValidationRule {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.rule == other.rule
     }
 }
 #[automatically_derived]
@@ -190,5 +190,10 @@ impl k8s_openapi027::DeepMerge for ValidationRuleAc {
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.reason, other.reason);
         k8s_openapi027::DeepMerge::merge_from(&mut self.rule, other.rule);
+    }
+}
+impl crate::merge::MapKeysEq for ValidationRuleAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.rule == other.rule
     }
 }

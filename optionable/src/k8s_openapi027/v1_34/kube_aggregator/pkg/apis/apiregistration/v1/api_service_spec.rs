@@ -85,7 +85,7 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceS
         } else if let Some(self_value) = self.ca_bundle.as_mut()
             && let Some(other_value) = other.ca_bundle
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.group.is_none() {
             self.group = crate::OptionableConvert::try_from_optioned(other.group)?;
@@ -157,7 +157,7 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for APIServiceSpecAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.ca_bundle, other.ca_bundle);
+        self.ca_bundle = other.ca_bundle;
         k8s_openapi027::DeepMerge::merge_from(&mut self.group, other.group);
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.group_priority_minimum,
