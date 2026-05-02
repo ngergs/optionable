@@ -123,7 +123,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
             self.scope = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.versions {
-            crate::OptionableConvert::merge(&mut self.versions, other_value)?;
+            self.versions = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         Ok(())
     }
@@ -163,6 +163,6 @@ impl k8s_openapi027::DeepMerge for CustomResourceDefinitionSpecAc {
             other.preserve_unknown_fields,
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.scope, other.scope);
-        k8s_openapi027::DeepMerge::merge_from(&mut self.versions, other.versions);
+        self.versions = other.versions;
     }
 }

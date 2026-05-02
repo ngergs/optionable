@@ -124,7 +124,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         } else if let Some(self_value) = self.additional_printer_columns.as_mut()
             && let Some(other_value) = other.additional_printer_columns
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if self.deprecated.is_none() {
             self.deprecated = crate::OptionableConvert::try_from_optioned(
@@ -161,7 +161,7 @@ for k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::Custo
         } else if let Some(self_value) = self.selectable_fields.as_mut()
             && let Some(other_value) = other.selectable_fields
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
         }
         if let Some(other_value) = other.served {
             self.served = crate::OptionableConvert::try_from_optioned(other_value)?;
@@ -208,10 +208,7 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for CustomResourceDefinitionVersionAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.additional_printer_columns,
-            other.additional_printer_columns,
-        );
+        self.additional_printer_columns = other.additional_printer_columns;
         k8s_openapi027::DeepMerge::merge_from(&mut self.deprecated, other.deprecated);
         k8s_openapi027::DeepMerge::merge_from(
             &mut self.deprecation_warning,
@@ -219,10 +216,7 @@ impl k8s_openapi027::DeepMerge for CustomResourceDefinitionVersionAc {
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.name, other.name);
         k8s_openapi027::DeepMerge::merge_from(&mut self.schema, other.schema);
-        k8s_openapi027::DeepMerge::merge_from(
-            &mut self.selectable_fields,
-            other.selectable_fields,
-        );
+        self.selectable_fields = other.selectable_fields;
         k8s_openapi027::DeepMerge::merge_from(&mut self.served, other.served);
         k8s_openapi027::DeepMerge::merge_from(&mut self.storage, other.storage);
         k8s_openapi027::DeepMerge::merge_from(

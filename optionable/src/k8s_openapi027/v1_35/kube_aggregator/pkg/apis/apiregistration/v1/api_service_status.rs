@@ -48,7 +48,7 @@ for k8s_openapi027::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceS
         } else if let Some(self_value) = self.conditions.as_mut()
             && let Some(other_value) = other.conditions
         {
-            crate::OptionableConvert::merge(self_value, other_value)?;
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
         }
         Ok(())
     }
@@ -80,6 +80,9 @@ impl crate::OptionedConvert<
 }
 impl k8s_openapi027::DeepMerge for APIServiceStatusAc {
     fn merge_from(&mut self, other: Self) {
-        k8s_openapi027::DeepMerge::merge_from(&mut self.conditions, other.conditions);
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
     }
 }
