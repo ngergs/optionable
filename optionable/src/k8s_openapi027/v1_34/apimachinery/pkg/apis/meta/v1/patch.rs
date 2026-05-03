@@ -128,3 +128,30 @@ for PatchAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for PatchAc {
+    fn merge_from(&mut self, other: Self) {
+        match self {
+            PatchAc::Json(self_0) => {
+                if let PatchAc::Json(other_0) = other {
+                    k8s_openapi027::DeepMerge::merge_from(self_0, other_0);
+                } else {
+                    *self = other;
+                }
+            }
+            PatchAc::Merge(self_0) => {
+                if let PatchAc::Merge(other_0) = other {
+                    k8s_openapi027::DeepMerge::merge_from(self_0, other_0);
+                } else {
+                    *self = other;
+                }
+            }
+            PatchAc::StrategicMerge(self_0) => {
+                if let PatchAc::StrategicMerge(other_0) = other {
+                    k8s_openapi027::DeepMerge::merge_from(self_0, other_0);
+                } else {
+                    *self = other;
+                }
+            }
+        }
+    }
+}
