@@ -10,9 +10,9 @@ where
     OTHER: IntoIterator<Item = T>,
     T: PartialEq,
 {
-    for el in other {
-        if !target.into_iter().any(|el_target| &el == el_target) {
-            target.extend(Some(el));
+    for el_other in other {
+        if !target.into_iter().any(|el_target| &el_other == el_target) {
+            target.extend(Some(el_other));
         }
     }
 }
@@ -56,10 +56,10 @@ where
     T: OptionableConvert + PartialEq,
     T::Optioned: Sized,
 {
-    for el in other {
-        let el = T::try_from_optioned(el)?;
-        if !target.into_iter().any(|el_target| &el == el_target) {
-            target.extend(Some(el));
+    for el_other in other {
+        let el_other = T::try_from_optioned(el_other)?;
+        if !target.into_iter().any(|el_target| &el_other == el_target) {
+            target.extend(Some(el_other));
         }
     }
     Ok(())
@@ -96,11 +96,14 @@ where
     T: OptionableConvert + OptionableMapKeysEq,
     T::Optioned: Sized,
 {
-    for el in other {
-        if let Some(el_target) = target.into_iter().find(|el_target| el_target.keys_eq(&el)) {
-            el_target.merge(el)?;
+    for el_other in other {
+        if let Some(el_target) = target
+            .into_iter()
+            .find(|el_target| el_target.keys_eq(&el_other))
+        {
+            el_target.merge(el_other)?;
         } else {
-            target.extend(Some(T::try_from_optioned(el)?));
+            target.extend(Some(T::try_from_optioned(el_other)?));
         }
     }
     Ok(())

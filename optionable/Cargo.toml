@@ -11,7 +11,7 @@ keywords = ["client", "kubernetes", "patch"]
 categories = ["api-bindings", "config", "no-std", "no-std::no-alloc"]
 
 [features]
-default = ["derive", "std"]
+default = ["derive", "std"] #"k8s_openapi027_v1_31"]
 alloc = []
 std = []
 derive = ["dep:optionable_derive"]
