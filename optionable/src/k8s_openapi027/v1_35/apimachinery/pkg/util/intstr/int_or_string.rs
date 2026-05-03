@@ -91,3 +91,23 @@ for IntOrStringAc {
         crate::OptionableConvert::merge(other, self)
     }
 }
+impl k8s_openapi027::DeepMerge for IntOrStringAc {
+    fn merge_from(&mut self, other: Self) {
+        match self {
+            IntOrStringAc::Int(self_0) => {
+                if let IntOrStringAc::Int(other_0) = other {
+                    k8s_openapi027::DeepMerge::merge_from(self_0, other_0);
+                } else {
+                    *self = other;
+                }
+            }
+            IntOrStringAc::String(self_0) => {
+                if let IntOrStringAc::String(other_0) = other {
+                    k8s_openapi027::DeepMerge::merge_from(self_0, other_0);
+                } else {
+                    *self = other;
+                }
+            }
+        }
+    }
+}
