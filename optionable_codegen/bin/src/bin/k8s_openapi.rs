@@ -201,11 +201,7 @@ impl CodegenVisitor for Visitor<'_> {
         }
     }
 
-    fn visit_output(
-        &mut self,
-        items: &mut Vec<Item>,
-        settings: &CodegenSettings,
-    ) -> Result<(), syn::Error> {
+    fn visit_output(&mut self, items: &mut Vec<Item>) -> Result<(), syn::Error> {
         let mut extra_items = vec![];
         for item in items.iter_mut() {
             match item {
@@ -228,22 +224,22 @@ impl CodegenVisitor for Visitor<'_> {
                         item.ident.to_string().as_str(),
                     ) {
                         // no DeepMerge for `Patch` (also in k8s-openapi)
-                        (Some("apimachinery.pkg.apis.meta.v1"), "Patch") => {}
+                        (Some("apimachinery.pkg.apis.meta.v1"), "PatchAc") => {}
                         (
-                            Some("apiextensions-apiserver.pkg.apis.apiextensions.v1"),
-                            "JSONSchemaPropsOrArray"
-                            | "JSONSchemaPropsOrBool"
-                            | "JSONSchemaPropsOrStringArray",
+                            Some("apiextensions_apiserver.pkg.apis.apiextensions.v1"),
+                            "JSONSchemaPropsOrArrayAc"
+                            | "JSONSchemaPropsOrBoolAc"
+                            | "JSONSchemaPropsOrStringArrayAc",
                         ) => {
-                            let ty_prefix = &settings.ty_prefix;
+                            // todo: fix k8s_openapi027 hardcode
                             let ident = &item.ident;
-                            let item_impl = parse_quote!({
-                                impl #ty_prefix:DeepMerge for #ident{
-                                        fn merge_from(&mut self, other: Self) {
-                                            *self = other;
-                                        }
+                            let item_impl = parse_quote! {
+                                impl k8s_openapi027::DeepMerge for #ident{
+                                     fn merge_from(&mut self, other: Self) {
+                                        *self = other;
+                                    }
                                 }
-                            });
+                            };
                             extra_items.extend(Some(item_impl));
                         }
                         _ => {
@@ -315,6 +311,7 @@ impl Visitor<'_> {
         let mut derive_input = item.into();
         // todo generalize k8s_openapi version
         derive_input.attrs.extend(Some(
+            // todo: fix k8s_openapi027 hardcode
             parse_quote!(#[deepmerge(crate_k8s_openapi=k8s_openapi027,crate_optionable=crate)]),
         ));
         let extra_impls = derive_deepmerge(derive_input.clone())?;

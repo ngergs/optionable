@@ -43,7 +43,7 @@ pub trait CodegenVisitor: Clone {
     /// Implementors can also reset internal states tracking input here.
     /// # Errors
     /// - When one the additonal codegens returns an error.
-    fn visit_output(&mut self, _: &mut Vec<Item>, _: &CodegenSettings) -> Result<(), syn::Error> {
+    fn visit_output(&mut self, _: &mut Vec<Item>) -> Result<(), syn::Error> {
         Ok(())
     }
 
@@ -248,7 +248,7 @@ fn item_codegen<V: CodegenVisitor>(
         }
         _ => Ok(vec![]),
     }?;
-    conf.visitor.visit_output(&mut result, &conf.settings)?;
+    conf.visitor.visit_output(&mut result)?;
     Ok(result)
 }
 
