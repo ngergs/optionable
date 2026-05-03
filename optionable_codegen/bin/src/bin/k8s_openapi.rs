@@ -201,7 +201,11 @@ impl CodegenVisitor for Visitor<'_> {
         }
     }
 
-    fn visit_output(&mut self, items: &mut Vec<Item>) -> Result<(), syn::Error> {
+    fn visit_output(
+        &mut self,
+        items: &mut Vec<Item>,
+        settings: &CodegenSettings,
+    ) -> Result<(), syn::Error> {
         let mut extra_items = vec![];
         for item in items.iter_mut() {
             match item {
@@ -219,20 +223,41 @@ impl CodegenVisitor for Visitor<'_> {
                         .push(parse_quote!(#[cfg(feature="k8s_openapi_convert")]));
                 }
                 Enum(item) => {
-                    // no DeepMerge for `Patch` (also in k8s-openapi)
-                    if self.field_prefix.as_deref() != Some("apimachinery.pkg.apis.meta.v1")
-                        && item.ident != "Patch"
-                    {
-                        extra_items.extend(self.derive_deepmerge_map_keys_eq(item.clone())?);
-                        // remove #[map_item] and #[deepmerge] attribute from fields as we have now derived MapKeysEq and the helper would be unowned in the output
-                        item.variants.iter_mut().for_each(|v| {
-                            v.fields.iter_mut().for_each(|f| {
-                                f.attrs.retain(|attr| {
-                                    let path = attr.path().to_token_stream().to_string();
-                                    path != "map_key" && path != "deepmerge"
+                    match (
+                        self.field_prefix.as_deref(),
+                        item.ident.to_string().as_str(),
+                    ) {
+                        // no DeepMerge for `Patch` (also in k8s-openapi)
+                        (Some("apimachinery.pkg.apis.meta.v1"), "Patch") => {}
+                        (
+                            Some("apiextensions-apiserver.pkg.apis.apiextensions.v1"),
+                            "JSONSchemaPropsOrArray"
+                            | "JSONSchemaPropsOrBool"
+                            | "JSONSchemaPropsOrStringArray",
+                        ) => {
+                            let ty_prefix = &settings.ty_prefix;
+                            let ident = &item.ident;
+                            let item_impl = parse_quote!({
+                                impl #ty_prefix:DeepMerge for #ident{
+                                        fn merge_from(&mut self, other: Self) {
+                                            *self = other;
+                                        }
+                                }
+                            });
+                            extra_items.extend(Some(item_impl));
+                        }
+                        _ => {
+                            extra_items.extend(self.derive_deepmerge_map_keys_eq(item.clone())?);
+                            // remove #[map_item] and #[deepmerge] attribute from fields as we have now derived MapKeysEq and the helper would be unowned in the output
+                            item.variants.iter_mut().for_each(|v| {
+                                v.fields.iter_mut().for_each(|f| {
+                                    f.attrs.retain(|attr| {
+                                        let path = attr.path().to_token_stream().to_string();
+                                        path != "map_key" && path != "deepmerge"
+                                    });
                                 });
                             });
-                        });
+                        }
                     }
                     item.attrs.push(parse_quote!(#[serde(untagged)]));
                 }
