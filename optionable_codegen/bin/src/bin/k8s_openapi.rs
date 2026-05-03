@@ -151,7 +151,7 @@ impl CodegenVisitor for Visitor<'_> {
                             {
                                 let merge_type_optionable = match merge_type {
                                     MapType::Atomic => Some(quote!(atomic)),
-                                    MapType::Granular => None,
+                                    MapType::Granular | MapType::DeepMerge => None,
                                 };
                                 if let Some(merge_type_optionable) = merge_type_optionable {
                                     field.attrs.push(
@@ -159,12 +159,15 @@ impl CodegenVisitor for Visitor<'_> {
                                     );
                                 }
                                 let merge_type_deepmerge = match merge_type {
-                                    MapType::Atomic => quote!(atomic),
-                                    MapType::Granular => quote!(granular),
+                                    MapType::Atomic => Some(quote!(atomic)),
+                                    MapType::Granular => Some(quote!(granular)),
+                                    MapType::DeepMerge => None,
                                 };
-                                field.attrs.push(
+                                if let Some(merge_type_deepmerge) = merge_type_deepmerge {
+                                    field.attrs.push(
                                     parse_quote!(#[optionable_attr(deepmerge(method(#merge_type_deepmerge)))]),
                                 );
+                                }
                             } else {
                                 let field_ty = field.ty.to_token_stream().to_string();
                                 // todo: brittle
