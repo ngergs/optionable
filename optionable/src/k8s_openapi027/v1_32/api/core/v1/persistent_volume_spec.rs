@@ -553,10 +553,7 @@ impl k8s_openapi027::DeepMerge for PersistentVolumeSpecAc {
         );
         k8s_openapi027::DeepMerge::merge_from(&mut self.cephfs, other.cephfs);
         k8s_openapi027::DeepMerge::merge_from(&mut self.cinder, other.cinder);
-        crate::k8s_openapi::merge::merge_granular_option_wrapped(
-            &mut self.claim_ref,
-            other.claim_ref,
-        );
+        k8s_openapi027::DeepMerge::merge_from(&mut self.claim_ref, other.claim_ref);
         k8s_openapi027::DeepMerge::merge_from(&mut self.csi, other.csi);
         k8s_openapi027::DeepMerge::merge_from(&mut self.fc, other.fc);
         k8s_openapi027::DeepMerge::merge_from(&mut self.flex_volume, other.flex_volume);
