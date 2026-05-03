@@ -21,6 +21,7 @@ pub enum ListType {
 pub enum MapType {
     Atomic,
     Granular,
+    DeepMerge,
 }
 
 /// Mapping obtained from the upstream Kubernetes `OpenAPIv3` specifications, atm only for list merge types.
@@ -65,6 +66,18 @@ pub fn determine_list_map_keys(
             }
         }
     }
+
+    // workarounds
+    // not documented in the openapi spec which list types, k8s-openapi (rust) uses atomic, so we also do that
+    result.list_type.insert(
+        "apimachinery.pkg.apis.meta.v1.APIResource.verbs".to_owned(),
+        ListType::Atomic,
+    );
+    // has type granular for in the openapi spec but is already modelled as a full object
+    result.map_type.insert(
+        "api.core.v1.PersistentVolumeSpec.claim_ref".to_owned(),
+        MapType::DeepMerge,
+    );
     Ok(result)
 }
 
@@ -203,13 +216,6 @@ fn process_schema(
         if let Some(list_type) = result.list_type.get(reference).cloned() {
             insert_if_not_present(&mut result.list_type, list_type, field_path)?;
         }
-    } else {
-        // workarounds
-        // not documented in the openapi spec which list types, k8s-openapi (rust) uses atomic, so we also do that
-        result.list_type.insert(
-            "apimachinery.pkg.apis.meta.v1.APIResource.verbs".to_owned(),
-            ListType::Atomic,
-        );
     }
 
     Ok(())
