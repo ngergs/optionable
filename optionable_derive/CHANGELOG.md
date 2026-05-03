@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.1](https://github.com/ngergs/optionable/compare/optionable_derive-v0.11.0...optionable_derive-v0.11.1) - 2026-05-03
+
+### Added
+
+- granular deepmerge handling
+- merge behaviour `ignore`
+- working deepmerge and mapkeyseq derives
+- add deepmerge to optionable_derive
+
+### Other
+
+- adjust k8s-openapi codegen to derive DeepMerge and MapsKeysEq for optiones types
+- clippy
+
 ## [0.11.0](https://github.com/ngergs/optionable/compare/optionable_derive-v0.10.2...optionable_derive-v0.11.0) - 2026-04-14
 
 ### Added
