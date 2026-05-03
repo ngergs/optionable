@@ -203,7 +203,15 @@ fn process_schema(
         if let Some(list_type) = result.list_type.get(reference).cloned() {
             insert_if_not_present(&mut result.list_type, list_type, field_path)?;
         }
+    } else {
+        // workarounds
+        // not documented in the openapi spec which list types, k8s-openapi (rust) uses atomic, so we also do that
+        result.list_type.insert(
+            "apimachinery.pkg.apis.meta.v1.APIResource.verbs".to_owned(),
+            ListType::Atomic,
+        );
     }
+
     Ok(())
 }
 
