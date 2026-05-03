@@ -9,45 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.15.0](https://github.com/ngergs/optionable/compare/optionable-v0.14.0...optionable-v0.15.0) - 2026-05-03
 
-### Added
+Adds implementations of [k8s-openapi::DeepMerge](https://docs.rs/k8s-openapi/latest/k8s_openapi/trait.DeepMerge.html) for all generated optioned variannts.
 
-- granular deepmerge handling
-- merge helper functions that handle Option wrappers
-- run codegen to derive k8s_openapi::DeepMerge for optiones k8s_openapi types
-- working deepmerge and mapkeyseq derives
-- util helper to simplify implementing k8s_openapi::DeepMerge for optioned types
+### Breaking changes
+All breaking changes only affect the derived Kubernetes part.
 
-### Fixed
+#### Changing merge behavior
+We now parse the [kubernetes upstream openapi v3 spec](https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec/v3) to determine accurate merge behavior.
+Therefore compares to our old (wrong) implementation some merge beavior have changed.
 
-- adjust OptionableConvert::merge implementation for k8s-openapi::List
-- dependency updates
-- k8s-openapi list deepmerge
-- adjust granular merge implementation to internally use PartialEq and not DeepMerge
-- rerun codegen (deepmerge for k8s-openapi enums)
-- regenerate k8s-openapi (fixed merge beaviors)
-- use k8s openapi spec from the respective referenced release version
-- kubernetes openapi parsing always evaluate schema extensions (for ref and embedded schemas)
-- k8s openapi reference resolution
-- tests + deepmerge derive bugfixes
-- working tests for plain deepmerge + bugfixes
-- [**breaking**] adjust extract sealed helper trait to require subresource to extract
+#### Adjust `extract`-behavior
+The [extract](https://docs.rs/optionable/latest/optionable/kube3/trait.ExtractManagedFields.html) helper trait has it's function signature changed from:
+```rust
+  fn extract(self, field_manager: &str) -> Result<Option<Self::Optioned>, Error>
+```
+to
+```rust
+  fn extract(self, field_manager: &str, subresource: Option<&str>) -> Result<Option<Self::Optioned>, Error>
+```
+This reflect the Kubernetes beavior to [track field ownership](https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/object-meta/#System) per combination of
+field-manager and subresource. So the old behavior (extracing field ownership for the main resource) corresponds to putting
+the `subresource` argument to `None`.
 
-### Other
-
-- run codegen
-- run codegen
-- run codegen
-- codegen
-- run k8s-openapi codegen
-- regenerate k8s-openapi (fixed merge behavior for paths with dashes)
-- regenerate k8s-openapi
-- regenerate k8s-openapi (fixed merge/list types)
-- openapi-utils for k8s-openapi codegen
-- regenerate k8s-openapi (fixed merge type handling)
-- regenerate k8s-openapi (handle option wrapping for deepmerge)
-- regenerate k8s-openapi (rm api envelope merges)
-- rm todo (not worth it, adjusted name is too cumbersome)
-- start implementing DeepMerge codegen using syn visitor
 
 ## [0.14.0](https://github.com/ngergs/optionable/compare/optionable-v0.13.6...optionable-v0.14.0) - 2026-04-14
 
