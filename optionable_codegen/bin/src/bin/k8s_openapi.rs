@@ -204,7 +204,12 @@ impl CodegenVisitor for Visitor<'_> {
         }
     }
 
-    fn visit_output(&mut self, items: &mut Vec<Item>) -> Result<(), syn::Error> {
+    #[allow(clippy::too_many_lines)]
+    fn visit_output(
+        &mut self,
+        items: &mut Vec<Item>,
+        settings: &CodegenSettings,
+    ) -> Result<(), syn::Error> {
         let mut extra_items = vec![];
         for item in items.iter_mut() {
             match item {
@@ -234,10 +239,10 @@ impl CodegenVisitor for Visitor<'_> {
                             | "JSONSchemaPropsOrBoolAc"
                             | "JSONSchemaPropsOrStringArrayAc",
                         ) => {
-                            // todo: fix k8s_openapi027 hardcode
                             let ident = &item.ident;
+                            let k8s_package = &settings.input_crate_replacement;
                             let item_impl = parse_quote! {
-                                impl k8s_openapi027::DeepMerge for #ident{
+                                impl #k8s_package::DeepMerge for #ident{
                                      fn merge_from(&mut self, other: Self) {
                                         *self = other;
                                     }
@@ -246,7 +251,10 @@ impl CodegenVisitor for Visitor<'_> {
                             extra_items.extend(Some(item_impl));
                         }
                         _ => {
-                            extra_items.extend(self.derive_deepmerge_map_keys_eq(item.clone())?);
+                            extra_items.extend(self.derive_deepmerge_map_keys_eq(
+                                item.clone(),
+                                settings.input_crate_replacement.as_ref(),
+                            )?);
                             // remove #[map_item] and #[deepmerge] attribute from fields as we have now derived MapKeysEq and the helper would be unowned in the output
                             item.variants.iter_mut().for_each(|v| {
                                 v.fields.iter_mut().for_each(|f| {
@@ -262,10 +270,11 @@ impl CodegenVisitor for Visitor<'_> {
                 }
                 Struct(item) => {
                     if self.field_prefix.is_none() && item.ident == "ListAc" {
+                        let k8s_package = &settings.input_crate_replacement;
                         let item_impl = parse_quote! {
-                            impl<T> k8s_openapi027::DeepMerge for ListAc<T>
+                            impl<T> #k8s_package::DeepMerge for ListAc<T>
                             where
-                                T: k8s_openapi027::ListableResource + crate::Optionable,
+                                T: #k8s_package::ListableResource + crate::Optionable,
                                 <T as crate::Optionable>::Optioned: Sized
                                     + Clone
                                     + Default
@@ -273,8 +282,8 @@ impl CodegenVisitor for Visitor<'_> {
                                     + serde::de::DeserializeOwned
                                     + serde::Serialize
                                     + std::fmt::Debug
-                                    + k8s_openapi027::Metadata<Ty = k8s_openapi027::apimachinery::pkg::apis::meta::v1::ObjectMeta>
-                                    + k8s_openapi027::DeepMerge,
+                                    + #k8s_package::Metadata<Ty = #k8s_package::apimachinery::pkg::apis::meta::v1::ObjectMeta>
+                                    + #k8s_package::DeepMerge,
                             {
                                  fn merge_from(&mut self, other: Self) {
                                     k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
@@ -283,12 +292,12 @@ impl CodegenVisitor for Visitor<'_> {
                                         if let Some(items_self) = &mut self.items {
                                             for el_other in items_other {
                                                 if let Some(el_self) = items_self.into_iter().find(|el_self| {
-                                                    let meta_self = k8s_openapi027::Metadata::metadata(*el_self);
-                                                    let meta_other = k8s_openapi027::Metadata::metadata(&el_other);
+                                                    let meta_self = #k8s_package::Metadata::metadata(*el_self);
+                                                    let meta_other = #k8s_package::Metadata::metadata(&el_other);
                                                     meta_self.name == meta_other.name
                                                         && meta_self.namespace == meta_other.namespace
                                                 }) {
-                                                    k8s_openapi027::DeepMerge::merge_from(el_self, el_other);
+                                                    #k8s_package::DeepMerge::merge_from(el_self, el_other);
                                                 }
                                             }
                                         } else {
@@ -300,7 +309,10 @@ impl CodegenVisitor for Visitor<'_> {
                         };
                         extra_items.extend(Some(item_impl));
                     } else {
-                        extra_items.extend(self.derive_deepmerge_map_keys_eq(item.clone())?);
+                        extra_items.extend(self.derive_deepmerge_map_keys_eq(
+                            item.clone(),
+                            settings.input_crate_replacement.as_ref(),
+                        )?);
                     }
                     // remove #[map_item] and #[deepmerge] attribute from fields as we have now derived MapKeysEq and the helper would be unowned in the output
                     item.fields.iter_mut().for_each(|f| {
@@ -349,13 +361,12 @@ impl Visitor<'_> {
     fn derive_deepmerge_map_keys_eq(
         &self,
         item: impl Into<DeriveInput>,
+        k8s_package: Option<&Ident>,
     ) -> Result<Vec<Item>, syn::Error> {
         // additional DeepMerge and MapKeysEq derives
         let mut derive_input = item.into();
-        // todo generalize k8s_openapi version
         derive_input.attrs.extend(Some(
-            // todo: fix k8s_openapi027 hardcode
-            parse_quote!(#[deepmerge(crate_k8s_openapi=k8s_openapi027,crate_optionable=crate)]),
+            parse_quote!(#[deepmerge(crate_k8s_openapi=#k8s_package,crate_optionable=crate)]),
         ));
         let extra_impls = derive_deepmerge(derive_input.clone())?;
         let mut result = syn::parse2(extra_impls).map(|f: syn::File| f.items)?;
