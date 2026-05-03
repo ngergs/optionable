@@ -204,7 +204,7 @@ impl k8s_openapi027::DeepMerge for APIResourceAc {
             &mut self.storage_version_hash,
             other.storage_version_hash,
         );
-        k8s_openapi027::DeepMerge::merge_from(&mut self.verbs, other.verbs);
+        self.verbs = other.verbs;
         k8s_openapi027::DeepMerge::merge_from(&mut self.version, other.version);
     }
 }
