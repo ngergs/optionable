@@ -9,11 +9,13 @@ use crate::merge::MapKeysEq;
 pub fn merge_granular<K, V>(target: &mut BTreeMap<K, V>, other: BTreeMap<K, V>)
 where
     K: Ord,
-    V: DeepMerge,
+    V: PartialEq,
 {
     other.into_iter().for_each(|(k, other_v)| {
-        if let Some(target_v) = target.get_mut(&k) {
-            target_v.merge_from(other_v);
+        if let Some(target_v) = target.get_mut(&k)
+            && target_v != &other_v
+        {
+            *target_v = other_v;
         } else {
             target.insert(k, other_v);
         }
@@ -28,7 +30,7 @@ pub fn merge_granular_option_wrapped<K, V>(
     other: Option<BTreeMap<K, V>>,
 ) where
     K: Ord,
-    V: DeepMerge,
+    V: PartialEq,
 {
     if let Some(other) = other {
         if let Some(target) = target {
