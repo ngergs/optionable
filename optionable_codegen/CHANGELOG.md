@@ -7,6 +7,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.14.0...optionable_codegen-v0.14.1) - 2026-05-03
+
+### Added
+
+- granular deepmerge handling
+- merge behaviour `ignore`
+- working deepmerge and mapkeyseq derives
+- codegen for `MapKeysEq`
+- add deepmerge to optionable_derive
+- deepmerge implementation derive
+
+### Fixed
+
+- adjust OptionableConvert::merge implementation for k8s-openapi::List
+- dependency updates
+- k8s-openapi list deepmerge
+- handle PersistenVolumeSpec.claim_ref special case for deepmerge codegen
+- codegen enum handlung for k8s-openapi deepmerge
+- regenerate k8s-openapi (fixed merge beaviors)
+- handle references for kubernetes openapi spec
+- kubernetes openapi parsing always evaluate schema extensions (for ref and embedded schemas)
+- k8s openapi reference resolution
+- handle option wrapped types for deepmerge derive
+- add `ignore` merge behaviour for k8s-openapi api envelope phantomdata helper
+- tests + deepmerge derive bugfixes
+- working tests for plain deepmerge + bugfixes
+
+### Other
+
+- generalize k8s_openapi package name in codegen
+- more deepmerge special cases
+- no deepmerge impl for Patch
+- also derive deepmerge for k8s-openapi enums
+- merge behavior special case handling
+- hyphen handling for k8s openapi matching to k8s_openapi (rust) paths
+- codegen fixes
+- k8s openapi parsing fixes (reference handling)
+- rm openapi-utils (have to implement lookup ourselves)
+- use openapi-utils to follow dereferenced references in k8s-openapi codegen
+- openapi-utils for k8s-openapi codegen
+- adjust k8s openapi parsing
+- codegen
+- codegen
+- codegen
+- adjust k8s-openapi codegen to derive DeepMerge and MapsKeysEq for optiones types
+- docs
+- add visitor to support calling other derives like DeepMerge or MapKeysEq in codegen binaries
+- test
+- clippy
+- split up visitors
+- enum deepmerge todo fixes
+- adjusted todo
+- deepmerge enum support
+- deepnum merge enum impl
+- first test for deepmerge and very very basic first working output
+- simplify deepmerge visitor result type
+- start implementing DeepMerge codegen using syn visitor
+- deepmerge derive macro
+
 ## [0.14.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.13.2...optionable_codegen-v0.14.0) - 2026-04-14
 
 ### Added

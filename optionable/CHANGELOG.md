@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.0](https://github.com/ngergs/optionable/compare/optionable-v0.14.0...optionable-v0.15.0) - 2026-05-03
+
+### Added
+
+- granular deepmerge handling
+- merge helper functions that handle Option wrappers
+- run codegen to derive k8s_openapi::DeepMerge for optiones k8s_openapi types
+- working deepmerge and mapkeyseq derives
+- util helper to simplify implementing k8s_openapi::DeepMerge for optioned types
+
+### Fixed
+
+- adjust OptionableConvert::merge implementation for k8s-openapi::List
+- dependency updates
+- k8s-openapi list deepmerge
+- adjust granular merge implementation to internally use PartialEq and not DeepMerge
+- rerun codegen (deepmerge for k8s-openapi enums)
+- regenerate k8s-openapi (fixed merge beaviors)
+- use k8s openapi spec from the respective referenced release version
+- kubernetes openapi parsing always evaluate schema extensions (for ref and embedded schemas)
+- k8s openapi reference resolution
+- tests + deepmerge derive bugfixes
+- working tests for plain deepmerge + bugfixes
+- [**breaking**] adjust extract sealed helper trait to require subresource to extract
+
+### Other
+
+- run codegen
+- run codegen
+- run codegen
+- codegen
+- run k8s-openapi codegen
+- regenerate k8s-openapi (fixed merge behavior for paths with dashes)
+- regenerate k8s-openapi
+- regenerate k8s-openapi (fixed merge/list types)
+- openapi-utils for k8s-openapi codegen
+- regenerate k8s-openapi (fixed merge type handling)
+- regenerate k8s-openapi (handle option wrapping for deepmerge)
+- regenerate k8s-openapi (rm api envelope merges)
+- rm todo (not worth it, adjusted name is too cumbersome)
+- start implementing DeepMerge codegen using syn visitor
+
 ## [0.14.0](https://github.com/ngergs/optionable/compare/optionable-v0.13.6...optionable-v0.14.0) - 2026-04-14
 
 Adds implementation of the upstream [Kubernetes server-side apply](https://kubernetes.io/docs/reference/using-api/server-side-apply/) merge logic
