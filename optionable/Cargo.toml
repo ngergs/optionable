@@ -36,7 +36,7 @@ unexpected_cfgs = { level = "warn", check-cfg = ['cfg(test_k8s_openapi_roundtrip
 [dependencies]
 optionable_derive = { version = "0.11.0", optional = true }
 chrono04 = { package = "chrono", version = "0.4.44", default-features = false, optional = true }
-jiff02 = { package = "jiff", version = "0.2.23", default-features = false, optional = true }
+jiff02 = { package = "jiff", version = "0.2.24", default-features = false, optional = true }
 serde = { version = "1.0.228", default-features = false, optional = true }
 serde_json = { version = "1.0.149", default-features = false, optional = true }
 k8s-openapi027 = { package = "k8s-openapi", version = "0.27.1", default-features = false, optional = true }

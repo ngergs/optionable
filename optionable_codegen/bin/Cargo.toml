@@ -23,12 +23,12 @@ quote = "1.0.45"
 syn = { version = "2.0.117", default-features = false, features = ["proc-macro", "derive", "visit"] }
 proc-macro2 = "1.0.106"
 darling = { version = "0.23.0", default-features = false }
-clap = { version = "4.6.0", features = ["derive"] }
+clap = { version = "4.6.1", features = ["derive"] }
 prettyplease = "0.2.37"
 openapiv3 = "2.2.0"
 serde_json = "1.0.149"
 k8s-openapi-codegen-common = "0.27.1"
 
 [dev-dependencies]
-assert_cmd = "2.2.0"
+assert_cmd = "2.2.1"
 tempfile = "3.27.0"
