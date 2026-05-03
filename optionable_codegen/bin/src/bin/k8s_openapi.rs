@@ -219,24 +219,20 @@ impl CodegenVisitor for Visitor<'_> {
                         .push(parse_quote!(#[cfg(feature="k8s_openapi_convert")]));
                 }
                 Enum(item) => {
+                    extra_items.extend(self.derive_deepmerge_map_keys_eq(item.clone())?);
+                    // remove #[map_item] and #[deepmerge] attribute from fields as we have now derived MapKeysEq and the helper would be unowned in the output
+                    item.variants.iter_mut().for_each(|v| {
+                        v.fields.iter_mut().for_each(|f| {
+                            f.attrs.retain(|attr| {
+                                let path = attr.path().to_token_stream().to_string();
+                                path != "map_key" && path != "deepmerge"
+                            });
+                        });
+                    });
                     item.attrs.push(parse_quote!(#[serde(untagged)]));
                 }
                 Struct(item) => {
-                    // addiitional DeepMerge and MapKeysEq derives
-                    let mut derive_input: DeriveInput = item.clone().into();
-                    // todo generalize k8s_openapi version
-                    derive_input.attrs.extend(Some(parse_quote!(#[deepmerge(crate_k8s_openapi=k8s_openapi027,crate_optionable=crate)])));
-                    let extra_impls = derive_deepmerge(derive_input)?;
-                    extra_items.extend(syn::parse2(extra_impls).map(|f: syn::File| f.items)?);
-                    if self.current_has_map_keys {
-                        let mut derive_input: DeriveInput = item.clone().into();
-                        // todo generalize k8s_openapi version
-                        derive_input
-                            .attrs
-                            .extend(Some(parse_quote!(#[map_keys_eq(crate_optionable=crate)])));
-                        let map_keys_impl = derive_map_keys_eq(&derive_input)?;
-                        extra_items.extend(syn::parse2(map_keys_impl).map(|f: syn::File| f.items)?);
-                    }
+                    extra_items.extend(self.derive_deepmerge_map_keys_eq(item.clone())?);
                     // remove #[map_item] and #[deepmerge] attribute from fields as we have now derived MapKeysEq and the helper would be unowned in the output
                     item.fields.iter_mut().for_each(|f| {
                         f.attrs.retain(|attr| {
@@ -276,6 +272,31 @@ impl CodegenVisitor for Visitor<'_> {
         }
         items.append(&mut extra_items);
         Ok(())
+    }
+}
+
+impl Visitor<'_> {
+    /// Derives `DeepMerge` and `MapKeysEq`for the provided Struct/Enum
+    fn derive_deepmerge_map_keys_eq(
+        &self,
+        item: impl Into<DeriveInput>,
+    ) -> Result<Vec<Item>, syn::Error> {
+        // additional DeepMerge and MapKeysEq derives
+        let mut derive_input = item.into();
+        // todo generalize k8s_openapi version
+        derive_input.attrs.extend(Some(
+            parse_quote!(#[deepmerge(crate_k8s_openapi=k8s_openapi027,crate_optionable=crate)]),
+        ));
+        let extra_impls = derive_deepmerge(derive_input.clone())?;
+        let mut result = syn::parse2(extra_impls).map(|f: syn::File| f.items)?;
+        if self.current_has_map_keys {
+            derive_input
+                .attrs
+                .extend(Some(parse_quote!(#[map_keys_eq(crate_optionable=crate)])));
+            let map_keys_impl = derive_map_keys_eq(&derive_input)?;
+            result.extend(syn::parse2(map_keys_impl).map(|f: syn::File| f.items)?);
+        }
+        Ok(result)
     }
 }
 
