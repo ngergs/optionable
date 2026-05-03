@@ -1,4 +1,4 @@
-#![cfg(all(feature = "kube3", feature = "k8s_openapi027_v1_34"))] // implicitly brints k8s_openapi in scope
+#![cfg(all(feature = "kube3", feature = "k8s_openapi027_v1_34"))] // implicitly activates crate dependency on k8s_openapi
 
 use k8s_openapi027::DeepMerge;
 use optionable::DeepMerge;
