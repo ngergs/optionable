@@ -110,6 +110,11 @@ impl CodegenVisitor for Visitor<'_> {
         self.current_has_map_keys = false;
         match item {
             Struct(item) => {
+                // manually implemented
+                if self.field_prefix.is_none() && item.ident == "List" {
+                    item.attrs.push(parse_quote!(#[optionable(no_convert)]));
+                }
+
                 if let Some(field_prefix) = &self.field_prefix {
                     if let Some(list_keys) = self
                         .list_extensions
@@ -269,46 +274,8 @@ impl CodegenVisitor for Visitor<'_> {
                     item.attrs.push(parse_quote!(#[serde(untagged)]));
                 }
                 Struct(item) => {
-                    if self.field_prefix.is_none() && item.ident == "ListAc" {
-                        let k8s_package = &settings.input_crate_replacement;
-                        let item_impl = parse_quote! {
-                            impl<T> #k8s_package::DeepMerge for ListAc<T>
-                            where
-                                T: #k8s_package::ListableResource + crate::Optionable,
-                                <T as crate::Optionable>::Optioned: Sized
-                                    + Clone
-                                    + Default
-                                    + PartialEq
-                                    + serde::de::DeserializeOwned
-                                    + serde::Serialize
-                                    + std::fmt::Debug
-                                    + #k8s_package::Metadata<Ty = #k8s_package::apimachinery::pkg::apis::meta::v1::ObjectMeta>
-                                    + #k8s_package::DeepMerge,
-                            {
-                                 fn merge_from(&mut self, other: Self) {
-                                    k8s_openapi027::DeepMerge::merge_from(&mut self.metadata, other.metadata);
-
-                                    if let Some(items_other) = other.items {
-                                        if let Some(items_self) = &mut self.items {
-                                            for el_other in items_other {
-                                                if let Some(el_self) = items_self.into_iter().find(|el_self| {
-                                                    let meta_self = #k8s_package::Metadata::metadata(*el_self);
-                                                    let meta_other = #k8s_package::Metadata::metadata(&el_other);
-                                                    meta_self.name == meta_other.name
-                                                        && meta_self.namespace == meta_other.namespace
-                                                }) {
-                                                    #k8s_package::DeepMerge::merge_from(el_self, el_other);
-                                                }
-                                            }
-                                        } else {
-                                            self.items = Some(items_other);
-                                        }
-                                    }
-                                }
-                            }
-                        };
-                        extra_items.extend(Some(item_impl));
-                    } else {
+                    // ListAc is manually implemented due to merging based on matching namespaced names
+                    if !(self.field_prefix.is_none() && item.ident == "ListAc") {
                         extra_items.extend(self.derive_deepmerge_map_keys_eq(
                             item.clone(),
                             settings.input_crate_replacement.as_ref(),
