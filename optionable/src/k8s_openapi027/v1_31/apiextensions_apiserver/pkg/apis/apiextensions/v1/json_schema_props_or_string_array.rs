@@ -117,23 +117,9 @@ impl crate::OptionedConvert<
         crate::OptionableConvert::merge(other, self)
     }
 }
-impl k8s_openapi027::DeepMerge for JSONSchemaPropsOrStringArrayAc {
+impl k8s_openapi027::apiextensions_apiserver::pkg::apis::apiextensions::v1::DeepMerge
+for JSONSchemaPropsOrStringArrayAc {
     fn merge_from(&mut self, other: Self) {
-        match self {
-            JSONSchemaPropsOrStringArrayAc::Schema(self_0) => {
-                if let JSONSchemaPropsOrStringArrayAc::Schema(other_0) = other {
-                    k8s_openapi027::DeepMerge::merge_from(self_0, other_0);
-                } else {
-                    *self = other;
-                }
-            }
-            JSONSchemaPropsOrStringArrayAc::Strings(self_0) => {
-                if let JSONSchemaPropsOrStringArrayAc::Strings(other_0) = other {
-                    k8s_openapi027::DeepMerge::merge_from(self_0, other_0);
-                } else {
-                    *self = other;
-                }
-            }
-        }
+        *self = other;
     }
 }
