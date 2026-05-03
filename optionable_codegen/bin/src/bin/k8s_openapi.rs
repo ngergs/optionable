@@ -220,7 +220,9 @@ impl CodegenVisitor for Visitor<'_> {
                 }
                 Enum(item) => {
                     // no DeepMerge for `Patch` (also in k8s-openapi)
-                    if self.field_prefix.as_deref() != Some("apimachinery.pkg.apis.meta.v1.Patch") {
+                    if self.field_prefix.as_deref() != Some("apimachinery.pkg.apis.meta.v1")
+                        && item.ident != "Patch"
+                    {
                         extra_items.extend(self.derive_deepmerge_map_keys_eq(item.clone())?);
                         // remove #[map_item] and #[deepmerge] attribute from fields as we have now derived MapKeysEq and the helper would be unowned in the output
                         item.variants.iter_mut().for_each(|v| {
