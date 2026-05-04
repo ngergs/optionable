@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.1](https://github.com/ngergs/optionable/compare/optionable-v0.15.0...optionable-v0.15.1) - 2026-05-04
+
+### Fixed
+
+- skip required fields during serializing if they are `Option::None`
+
+### Other
+
+- regenerate k8s-openapi optioned types
+- comment formulation
+
 ## [0.15.0](https://github.com/ngergs/optionable/compare/optionable-v0.14.0...optionable-v0.15.0) - 2026-05-03
 
 Adds implementations of [k8s-openapi::DeepMerge](https://docs.rs/k8s-openapi/latest/k8s_openapi/trait.DeepMerge.html) for all generated optioned variannts.

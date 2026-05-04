@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.2](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.14.1...optionable_codegen-v0.14.2) - 2026-05-04
+
+### Fixed
+
+- skip required fields during serializing if they are `Option::None`
+
 ## [0.14.1](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.14.0...optionable_codegen-v0.14.1) - 2026-05-03
 
 ### Added
