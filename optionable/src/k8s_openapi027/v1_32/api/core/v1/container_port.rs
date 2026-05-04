@@ -22,6 +22,7 @@ pub struct ContainerPortAc {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<std::string::String>,
     /// Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub protocol: Option<std::string::String>,
 }
 #[automatically_derived]
