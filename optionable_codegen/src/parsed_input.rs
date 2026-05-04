@@ -1,5 +1,5 @@
 use crate::helper::{error, is_option, type_path_replace_crate};
-use crate::parsed_input::FieldHandling::{IsOption, ManualOptioned, MapKey, Other, Required};
+use crate::parsed_input::FieldHandling::{ManualOptioned, MapKey, Other, Required};
 use crate::{FieldHelperAttributes, MergeBehaviour};
 use darling::FromAttributes;
 use proc_macro2::Ident;
@@ -11,10 +11,14 @@ use syn::{Error, Field, Fields, Path};
 #[derive(Debug, Clone)]
 #[allow(dead_code)] // used by k8s_openapi feature and splitting the enum over this is not worth it
 pub(crate) enum FieldHandling {
+    /// Field with the attribute `#[optionable(required)]` which should not be optioned.
     Required,
+    /// Fields marked as `#[optionable(merge_map_key)]` which has the results as `Required` but is also used to
+    /// derive the `MapKeysEq` impl
     MapKey,
+    /// Field with the attribute `#[optionable(optioned_ty=<type>)]`
     ManualOptioned(Path),
-    IsOption,
+    /// Field only exists on the `OptionedType`, only used internally to add `PhantomData` fields for `k8s-openapi`.
     OptionedOnly,
     Other,
 }
@@ -33,6 +37,7 @@ pub(crate) struct FieldParsed {
     pub field: Field,
     pub handling: FieldHandling,
     pub merge_behaviour: MergeBehaviour,
+    pub is_option: bool,
 }
 
 /// Fields with extracted data how we want to handle them and most relevant struct/enum associated
@@ -66,6 +71,7 @@ pub(crate) fn into_field_handling(
     let fields_with_handling = fields_iter
         .map(|mut field| {
             let attrs = FieldHelperAttributes::from_attributes(&field.attrs)?;
+            let is_option= option_wrap.is_none() && is_option(&field.ty);
             // check whether input `crate` replacement is set and whether we have a path type that has `crate` as first entry.
             if let Some(input_crate_replacement) = input_crate_replacement {
                 type_path_replace_crate(&mut field.ty, input_crate_replacement);
@@ -76,15 +82,13 @@ pub(crate) fn into_field_handling(
             let handling = if attrs.merge_map_key.is_some(){
                 MapKey
             } else if attrs.required.is_some() {
-                Required
+                   Required
             } else if let Some(ty)=attrs.optioned_ty {
                 ManualOptioned(ty)
-            } else if option_wrap.is_none() && is_option(&field.ty) {
-                IsOption
             } else {
                 Other
             };
-            Ok::<_, Error>(FieldParsed { field, handling, merge_behaviour: attrs.merge })
+            Ok::<_, Error>(FieldParsed { field, handling, merge_behaviour: attrs.merge, is_option})
         })
         .collect::<Result<Vec<_>, _>>()?;
 

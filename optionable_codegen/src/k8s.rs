@@ -276,11 +276,13 @@ fn k8s_openapi_field_resource_add_api_envelope(
                 handling: OptionedOnly,
                 // todo: make atomic
                 merge_behaviour: OptionableConvert,
+                is_option: false,
             },
             FieldParsed {
                 field: kind_field,
                 handling: OptionedOnly,
                 merge_behaviour: OptionableConvert,
+                is_option: false,
             },
         ],
     );

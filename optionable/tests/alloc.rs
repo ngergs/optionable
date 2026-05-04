@@ -56,7 +56,8 @@ fn derive_forward_other_derives() {
         #[optionable_attr(serde(rename = "firstName"))]
         name: String,
         middle_name: Option<String>,
-        surname: String,
+        #[optionable(required)]
+        surname: Option<String>,
     }
 
     let a = DeriveExampleOpt {

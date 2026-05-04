@@ -797,7 +797,7 @@ fn process_enum_data(ctx: DataProcessingContext<'_>, data_enum: DataEnum) -> syn
 /// Does not include any leading `struct/enum` keywords or any trailing `;`.
 fn optioned_fields(
     fields: &StructParsed,
-    serde_attributes: Option<&TokenStream>,
+    skip_serde_if: Option<&TokenStream>,
     field_attr_forwards: &HashMap<Path, HashSet<Path>>,
 ) -> Result<TokenStream, Error> {
     let fields_token = fields.fields.iter().map(
@@ -805,15 +805,17 @@ fn optioned_fields(
              field: Field { attrs, vis, ident, ty, .. },
              handling,
             merge_behaviour:_,
+            is_option,
          }| {
             let forwarded_attrs = forwarded_attributes(attrs, field_attr_forwards)?;
             let optioned_ty = optioned_ty(&fields.crate_name, ty);
             let colon = ident.as_ref().map(|_| quote! {:});
-            Ok::<_, Error>(match handling {
-                FieldHandling::MapKey | FieldHandling::Required | FieldHandling::OptionedOnly => quote! {#forwarded_attrs #vis #ident #colon #ty},
-                FieldHandling::ManualOptioned(ty_opt) => quote! {#forwarded_attrs #vis #ident #colon Option<#ty_opt>},
-                FieldHandling::IsOption => quote! {#forwarded_attrs #serde_attributes #vis #ident #colon #optioned_ty},
-                FieldHandling::Other => quote! {#forwarded_attrs #serde_attributes #vis #ident #colon Option<#optioned_ty>},
+            Ok::<_, Error>(match (handling,is_option) {
+                (FieldHandling::MapKey | FieldHandling::Required,false) | (FieldHandling::OptionedOnly,_) => quote! {#forwarded_attrs #vis #ident #colon #ty},
+                (FieldHandling::MapKey|FieldHandling::Required,true) => quote! {#forwarded_attrs #skip_serde_if #vis #ident #colon #ty},
+                (FieldHandling::ManualOptioned(ty_opt),_) => quote! {#forwarded_attrs #vis #ident #colon Option<#ty_opt>},
+                (FieldHandling::Other,true) => quote! {#forwarded_attrs #skip_serde_if #vis #ident #colon #optioned_ty},
+                (FieldHandling::Other,false) => quote! {#forwarded_attrs #skip_serde_if #vis #ident #colon Option<#optioned_ty>},
             })
         },
     ).collect::<Result<Vec<_>, _>>()?;
@@ -827,7 +829,7 @@ fn into_optioned(
     struct_parsed: &StructParsed,
     self_selector_fn: impl Fn(&TokenStream) -> TokenStream,
 ) -> TokenStream {
-    let fields_token = struct_parsed.fields.iter().enumerate().map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling,            merge_behaviour:_})| {
+    let fields_token = struct_parsed.fields.iter().enumerate().map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling,            merge_behaviour: _,is_option})| {
         let colon = ident.as_ref().map(|_| quote! {:});
         let selector = ident.as_ref().map_or_else(|| {
             let i = Literal::usize_unsuffixed(i);
@@ -835,13 +837,13 @@ fn into_optioned(
         }, ToTokens::to_token_stream);
         let self_selector = self_selector_fn(&selector);
         let crate_name = &struct_parsed.crate_name;
-        match (handling, is_self_resolving_optioned(ty)) {
-            (FieldHandling::MapKey|FieldHandling::Required, _) | (FieldHandling::IsOption, true) => quote! {#ident #colon #self_selector},
-            (FieldHandling::ManualOptioned(_), _) => quote! {#ident #colon Some(#crate_name::OptionedConvert::from_optionable(#self_selector))},
-            (FieldHandling::IsOption, false) => quote! {#ident #colon #crate_name::OptionableConvert::into_optioned(#self_selector)},
-            (FieldHandling::Other, true) => quote! {#ident #colon Some(#self_selector)},
-            (FieldHandling::Other, false) => quote! {#ident #colon Some(#crate_name::OptionableConvert::into_optioned(#self_selector))},
-            (FieldHandling::OptionedOnly, _) => quote! {#ident #colon Default::default()},
+        match (handling, is_self_resolving_optioned(ty),is_option) {
+            (FieldHandling::MapKey|FieldHandling::Required, _,_) | (_, true,true) => quote! {#ident #colon #self_selector},
+            (FieldHandling::ManualOptioned(_), _,_) => quote! {#ident #colon Some(#crate_name::OptionedConvert::from_optionable(#self_selector))},
+            (FieldHandling::Other, false,true) => quote! {#ident #colon #crate_name::OptionableConvert::into_optioned(#self_selector)},
+            (FieldHandling::Other, true,false) => quote! {#ident #colon Some(#self_selector)},
+            (FieldHandling::Other, false,false) => quote! {#ident #colon Some(#crate_name::OptionableConvert::into_optioned(#self_selector))},
+            (FieldHandling::OptionedOnly, _,_) => quote! {#ident #colon Default::default()},
         }
     });
     struct_wrapper(fields_token, &struct_parsed.struct_type)
@@ -854,7 +856,7 @@ fn try_from_optioned(
     struct_parsed: &StructParsed,
     value_selector_fn: impl Fn(&TokenStream) -> TokenStream,
 ) -> TokenStream {
-    let fields_token = struct_parsed.fields.iter().enumerate().filter_map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling,            merge_behaviour:_})| {
+    let fields_token = struct_parsed.fields.iter().enumerate().filter_map(|(i, FieldParsed { field: Field { ident, ty, .. }, handling,            merge_behaviour:_,is_option})| {
         let colon = ident.as_ref().map(|_| quote! {:});
         let selector = ident.as_ref().map_or_else(|| {
             let i = Literal::usize_unsuffixed(i);
@@ -862,34 +864,34 @@ fn try_from_optioned(
         }, ToTokens::to_token_stream);
         let value_selector = value_selector_fn(&selector);
         let crate_name = &struct_parsed.crate_name;
-        match (handling, is_self_resolving_optioned(ty)) {
-            (FieldHandling::MapKey|FieldHandling::Required, _) | (FieldHandling::IsOption, true) => Some(quote! {#ident #colon value.#selector}),
-            (FieldHandling::ManualOptioned(_), _) => {
+        match (handling, is_self_resolving_optioned(ty),is_option) {
+            (FieldHandling::MapKey|FieldHandling::Required, _,_) | (_, true,true) => Some(quote! {#ident #colon value.#selector}),
+            (FieldHandling::ManualOptioned(_), _,_) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 Some(quote! {
                     #ident #colon #crate_name::OptionedConvert::try_into_optionable(#value_selector.ok_or(#crate_name::Error{ missing_field: #selector_quoted })?
                     )?
                 })
             }
-            (FieldHandling::IsOption, false) => Some(quote! {
+            (FieldHandling::Other, false,true) => Some(quote! {
                 #ident #colon #crate_name::OptionableConvert::try_from_optioned(
                     #value_selector
                 )?
             }),
-            (FieldHandling::Other, true) => {
+            (FieldHandling::Other, true,false) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 Some(quote! {
                     #ident #colon #value_selector.ok_or(#crate_name::Error{ missing_field: #selector_quoted })?
                 })
             }
-            (FieldHandling::Other, false) => {
+            (FieldHandling::Other, false,_) => {
                 let selector_quoted = LitStr::new(&selector.to_string(), ident.span());
                 Some(quote! {
                     #ident #colon #crate_name::OptionableConvert::try_from_optioned(#value_selector.ok_or(#crate_name::Error{ missing_field: #selector_quoted })?
                     )?
                 })
             }
-            (FieldHandling::OptionedOnly, _) => None,
+            (FieldHandling::OptionedOnly, _,_) => None,
         }
     });
 
@@ -914,6 +916,7 @@ fn merge_fields(
                  field: Field { ident, ty, .. },
                  handling,
                  merge_behaviour,
+                 is_option
              },
          )| {
             let selector = ident.as_ref().map_or_else(
@@ -955,12 +958,12 @@ fn merge_fields(
                         MergeBehaviour::Ignore => quote!{},
                     }
             };
-            match handling {
-                FieldHandling::MapKey|FieldHandling::Required  => {
+            match (handling,is_option) {
+                (FieldHandling::MapKey|FieldHandling::Required,_)  => {
                     if !matches!(merge_behaviour,MergeBehaviour::OptionableConvert|MergeBehaviour::Atomic){return err()}
                     Some(Ok::<_,Error>(quote! {#deref_modifier #self_selector = #other_selector;}))
                 },
-                FieldHandling::IsOption => {
+                (_,true) => {
                     let merge=merge_fn(None::<TokenStream>.to_token_stream(),quote!(*),quote!(self_value),quote!(other_value));
                     Some(Ok(quote!{
                         if #self_selector.is_none(){
@@ -970,7 +973,7 @@ fn merge_fields(
                         }
                     }))
                 },
-                FieldHandling::ManualOptioned(_) =>  {
+                (FieldHandling::ManualOptioned(_),_) =>  {
                     if !matches!(merge_behaviour,MergeBehaviour::OptionableConvert){return err()}
                     Some(Ok(quote! {
                         if let Some(other_value)=#other_selector{
@@ -978,7 +981,7 @@ fn merge_fields(
                         }
                     }))
                 },
-                FieldHandling::Other =>  {
+                (FieldHandling::Other,_) =>  {
                     if is_self_resolving_ty && matches!(merge_behaviour,MergeBehaviour::OptionableConvert|MergeBehaviour::Atomic){
                            Some(Ok(quote!(
                                if let Some(other_value) = #other_selector{
@@ -994,7 +997,7 @@ fn merge_fields(
                         }))
                     }
                 },
-                FieldHandling::OptionedOnly =>None,
+                (FieldHandling::OptionedOnly,_) =>None,
             }
         },
     ).collect::<Result<Vec<_>,_>>()?;
