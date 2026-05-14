@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.16.0](https://github.com/ngergs/optionable/compare/optionable-v0.15.1...optionable-v0.16.0) - 2026-05-14
+
+### Fixed
+
+- [**breaking**] preserve `metadata.resourceVersion` in the `kube3::ExtractManagedFields` helper trait
+
 ## [0.15.1](https://github.com/ngergs/optionable/compare/optionable-v0.15.0...optionable-v0.15.1) - 2026-05-04
 
 ### Fixed
