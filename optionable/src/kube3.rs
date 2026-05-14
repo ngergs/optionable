@@ -9,6 +9,9 @@ use std::collections::{BTreeMap, HashMap};
 use std::marker::PhantomData;
 use std::mem::take;
 
+// Identifier for the `status` subresource
+pub const STATUS: &str = "status";
+
 /// Serializes a `PhantomData` marker to add the API envelope field content for `apiVersion`.
 /// Intended to be used with `apiVersion: PhantomData<T>`.
 ///
@@ -141,7 +144,7 @@ where
 
 /// Only retains those fields in `item` that are also contained in the `filter` json value.
 /// Used by the Kubernetes server-side-apply `extract` implementations.
-/// Has special handling for the `metadata` root entry whose `name`, `namespace` and `generateName` fields are copied over.
+/// Has special handling for the `metadata` root entry whose `name`, `generateName`, `generateName` and `resourceVersion` fields are copied over.
 /// Also copies over `apiVersion` and `kind` root entries.
 // Format of managed fields is described here: http://kubernetes.io/docs/reference/kubernetes-api/common-definitions/object-meta/#System
 #[allow(clippy::too_many_lines)] // just 110 lines and there is not much point in splitting it up
@@ -182,7 +185,10 @@ fn filter_json_value(
                     // if we don't have a filter kv_metadata should still be filtered by this logic here in the next recursion step
                     return (is_root && (k == "apiVersion" || k == "kind" || k == "metadata"))
                         || (is_metadata
-                            && (k == "name" || k == "generateName" || k == "namespace"));
+                            && (k == "name"
+                                || k == "generateName"
+                                || k == "namespace"
+                                || k == "resourceVersion"));
                 }
                 retain_err = if let Some(Value::Object(filter_v)) = &filter {
                     filter_json_value(v, filter_v, false, is_kv_metadata)
