@@ -1,0 +1,76 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// DeviceSelector must have exactly one field set.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct DeviceSelectorAc {
+    /// CEL contains a CEL expression for selecting a device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cel: Option<
+        <::k8s_openapi028::api::resource::v1beta2::CELDeviceSelector as crate::Optionable>::Optioned,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::resource::v1beta2::DeviceSelector {
+    type Optioned = DeviceSelectorAc;
+}
+#[automatically_derived]
+impl crate::Optionable for DeviceSelectorAc {
+    type Optioned = DeviceSelectorAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::resource::v1beta2::DeviceSelector {
+    fn into_optioned(self) -> DeviceSelectorAc {
+        DeviceSelectorAc {
+            cel: crate::OptionableConvert::into_optioned(self.cel),
+        }
+    }
+    fn try_from_optioned(value: DeviceSelectorAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            cel: crate::OptionableConvert::try_from_optioned(value.cel)?,
+        })
+    }
+    fn merge(&mut self, other: DeviceSelectorAc) -> Result<(), crate::Error> {
+        if self.cel.is_none() {
+            self.cel = crate::OptionableConvert::try_from_optioned(other.cel)?;
+        } else if let Some(self_value) = self.cel.as_mut()
+            && let Some(other_value) = other.cel
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::resource::v1beta2::DeviceSelector>
+for DeviceSelectorAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::resource::v1beta2::DeviceSelector,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::resource::v1beta2::DeviceSelector, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::resource::v1beta2::DeviceSelector,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for DeviceSelectorAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.cel, other.cel);
+    }
+}

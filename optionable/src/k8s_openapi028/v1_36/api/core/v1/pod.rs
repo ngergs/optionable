@@ -1,0 +1,127 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct PodAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    pub metadata: ::k8s_openapi028::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub spec: Option<
+        <::k8s_openapi028::api::core::v1::PodSpec as crate::Optionable>::Optioned,
+    >,
+    /// Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<
+        <::k8s_openapi028::api::core::v1::PodStatus as crate::Optionable>::Optioned,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::Pod {
+    type Optioned = PodAc;
+}
+#[automatically_derived]
+impl crate::Optionable for PodAc {
+    type Optioned = PodAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::core::v1::Pod {
+    fn into_optioned(self) -> PodAc {
+        PodAc {
+            api_version: Default::default(),
+            kind: Default::default(),
+            metadata: self.metadata,
+            spec: crate::OptionableConvert::into_optioned(self.spec),
+            status: crate::OptionableConvert::into_optioned(self.status),
+        }
+    }
+    fn try_from_optioned(value: PodAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            metadata: value.metadata,
+            spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
+            status: crate::OptionableConvert::try_from_optioned(value.status)?,
+        })
+    }
+    fn merge(&mut self, other: PodAc) -> Result<(), crate::Error> {
+        self.metadata = other.metadata;
+        if self.spec.is_none() {
+            self.spec = crate::OptionableConvert::try_from_optioned(other.spec)?;
+        } else if let Some(self_value) = self.spec.as_mut()
+            && let Some(other_value) = other.spec
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.status.is_none() {
+            self.status = crate::OptionableConvert::try_from_optioned(other.status)?;
+        } else if let Some(self_value) = self.status.as_mut()
+            && let Some(other_value) = other.status
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::Pod> for PodAc {
+    fn from_optionable(value: k8s_openapi028::api::core::v1::Pod) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::core::v1::Pod, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::Pod,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::Resource for PodAc {
+    const API_VERSION: &'static str = <k8s_openapi028::api::core::v1::Pod as k8s_openapi028::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi028::api::core::v1::Pod as k8s_openapi028::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi028::api::core::v1::Pod as k8s_openapi028::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi028::api::core::v1::Pod as k8s_openapi028::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <k8s_openapi028::api::core::v1::Pod as k8s_openapi028::Resource>::URL_PATH_SEGMENT;
+    type Scope = <k8s_openapi028::api::core::v1::Pod as k8s_openapi028::Resource>::Scope;
+}
+impl k8s_openapi028::Metadata for PodAc {
+    type Ty = <k8s_openapi028::api::core::v1::Pod as k8s_openapi028::Metadata>::Ty;
+    fn metadata(&self) -> &<Self as k8s_openapi028::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi028::Metadata>::Ty {
+        &mut self.metadata
+    }
+}
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_podac() {
+    crate::testutil::roundtrip_test::<k8s_openapi028::api::core::v1::Pod>();
+}
+impl k8s_openapi028::DeepMerge for PodAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.spec, other.spec);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.status, other.status);
+    }
+}

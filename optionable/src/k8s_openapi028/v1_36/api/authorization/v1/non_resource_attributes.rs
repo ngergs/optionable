@@ -1,0 +1,92 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct NonResourceAttributesAc {
+    /// path is the URL path of the request
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path: Option<std::string::String>,
+    /// verb is the standard HTTP verb
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub verb: Option<std::string::String>,
+}
+#[automatically_derived]
+impl crate::Optionable
+for k8s_openapi028::api::authorization::v1::NonResourceAttributes {
+    type Optioned = NonResourceAttributesAc;
+}
+#[automatically_derived]
+impl crate::Optionable for NonResourceAttributesAc {
+    type Optioned = NonResourceAttributesAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::authorization::v1::NonResourceAttributes {
+    fn into_optioned(self) -> NonResourceAttributesAc {
+        NonResourceAttributesAc {
+            path: self.path,
+            verb: self.verb,
+        }
+    }
+    fn try_from_optioned(value: NonResourceAttributesAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            path: value.path,
+            verb: value.verb,
+        })
+    }
+    fn merge(&mut self, other: NonResourceAttributesAc) -> Result<(), crate::Error> {
+        if self.path.is_none() {
+            self.path = crate::OptionableConvert::try_from_optioned(other.path)?;
+        } else if let Some(self_value) = self.path.as_mut()
+            && let Some(other_value) = other.path
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.verb.is_none() {
+            self.verb = crate::OptionableConvert::try_from_optioned(other.verb)?;
+        } else if let Some(self_value) = self.verb.as_mut()
+            && let Some(other_value) = other.verb
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    k8s_openapi028::api::authorization::v1::NonResourceAttributes,
+> for NonResourceAttributesAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::authorization::v1::NonResourceAttributes,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        k8s_openapi028::api::authorization::v1::NonResourceAttributes,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::authorization::v1::NonResourceAttributes,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for NonResourceAttributesAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.path, other.path);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.verb, other.verb);
+    }
+}

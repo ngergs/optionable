@@ -1,0 +1,95 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct PodsMetricStatusAc {
+    /// current contains the current value for the given metric
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub current: Option<
+        <::k8s_openapi028::api::autoscaling::v2::MetricValueStatus as crate::Optionable>::Optioned,
+    >,
+    /// metric identifies the target metric by name and selector
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metric: Option<
+        <::k8s_openapi028::api::autoscaling::v2::MetricIdentifier as crate::Optionable>::Optioned,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::autoscaling::v2::PodsMetricStatus {
+    type Optioned = PodsMetricStatusAc;
+}
+#[automatically_derived]
+impl crate::Optionable for PodsMetricStatusAc {
+    type Optioned = PodsMetricStatusAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::autoscaling::v2::PodsMetricStatus {
+    fn into_optioned(self) -> PodsMetricStatusAc {
+        PodsMetricStatusAc {
+            current: Some(crate::OptionableConvert::into_optioned(self.current)),
+            metric: Some(crate::OptionableConvert::into_optioned(self.metric)),
+        }
+    }
+    fn try_from_optioned(value: PodsMetricStatusAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            current: crate::OptionableConvert::try_from_optioned(
+                value
+                    .current
+                    .ok_or(crate::Error {
+                        missing_field: "current",
+                    })?,
+            )?,
+            metric: crate::OptionableConvert::try_from_optioned(
+                value
+                    .metric
+                    .ok_or(crate::Error {
+                        missing_field: "metric",
+                    })?,
+            )?,
+        })
+    }
+    fn merge(&mut self, other: PodsMetricStatusAc) -> Result<(), crate::Error> {
+        if let Some(other_value) = other.current {
+            crate::OptionableConvert::merge(&mut self.current, other_value)?;
+        }
+        if let Some(other_value) = other.metric {
+            crate::OptionableConvert::merge(&mut self.metric, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::autoscaling::v2::PodsMetricStatus>
+for PodsMetricStatusAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::autoscaling::v2::PodsMetricStatus,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::autoscaling::v2::PodsMetricStatus, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::autoscaling::v2::PodsMetricStatus,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for PodsMetricStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.current, other.current);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.metric, other.metric);
+    }
+}

@@ -1,0 +1,86 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// PodDNSConfigOption defines DNS resolver options of a pod.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct PodDNSConfigOptionAc {
+    /// Name is this DNS resolver option's name. Required.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<std::string::String>,
+    /// Value is this DNS resolver option's value.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<std::string::String>,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::PodDNSConfigOption {
+    type Optioned = PodDNSConfigOptionAc;
+}
+#[automatically_derived]
+impl crate::Optionable for PodDNSConfigOptionAc {
+    type Optioned = PodDNSConfigOptionAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::core::v1::PodDNSConfigOption {
+    fn into_optioned(self) -> PodDNSConfigOptionAc {
+        PodDNSConfigOptionAc {
+            name: self.name,
+            value: self.value,
+        }
+    }
+    fn try_from_optioned(value: PodDNSConfigOptionAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            name: value.name,
+            value: value.value,
+        })
+    }
+    fn merge(&mut self, other: PodDNSConfigOptionAc) -> Result<(), crate::Error> {
+        if self.name.is_none() {
+            self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
+        } else if let Some(self_value) = self.name.as_mut()
+            && let Some(other_value) = other.name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.value.is_none() {
+            self.value = crate::OptionableConvert::try_from_optioned(other.value)?;
+        } else if let Some(self_value) = self.value.as_mut()
+            && let Some(other_value) = other.value
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::PodDNSConfigOption>
+for PodDNSConfigOptionAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::core::v1::PodDNSConfigOption,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::core::v1::PodDNSConfigOption, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::PodDNSConfigOption,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for PodDNSConfigOptionAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.value, other.value);
+    }
+}

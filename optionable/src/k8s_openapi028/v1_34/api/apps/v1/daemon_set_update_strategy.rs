@@ -1,0 +1,99 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct DaemonSetUpdateStrategyAc {
+    /// Rolling update config params. Present only if type = "RollingUpdate".
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rolling_update: Option<
+        <::k8s_openapi028::api::apps::v1::RollingUpdateDaemonSet as crate::Optionable>::Optioned,
+    >,
+    /// Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+    #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub type_: Option<std::string::String>,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::apps::v1::DaemonSetUpdateStrategy {
+    type Optioned = DaemonSetUpdateStrategyAc;
+}
+#[automatically_derived]
+impl crate::Optionable for DaemonSetUpdateStrategyAc {
+    type Optioned = DaemonSetUpdateStrategyAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::apps::v1::DaemonSetUpdateStrategy {
+    fn into_optioned(self) -> DaemonSetUpdateStrategyAc {
+        DaemonSetUpdateStrategyAc {
+            rolling_update: crate::OptionableConvert::into_optioned(self.rolling_update),
+            type_: self.type_,
+        }
+    }
+    fn try_from_optioned(
+        value: DaemonSetUpdateStrategyAc,
+    ) -> Result<Self, crate::Error> {
+        Ok(Self {
+            rolling_update: crate::OptionableConvert::try_from_optioned(
+                value.rolling_update,
+            )?,
+            type_: value.type_,
+        })
+    }
+    fn merge(&mut self, other: DaemonSetUpdateStrategyAc) -> Result<(), crate::Error> {
+        if self.rolling_update.is_none() {
+            self.rolling_update = crate::OptionableConvert::try_from_optioned(
+                other.rolling_update,
+            )?;
+        } else if let Some(self_value) = self.rolling_update.as_mut()
+            && let Some(other_value) = other.rolling_update
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.type_.is_none() {
+            self.type_ = crate::OptionableConvert::try_from_optioned(other.type_)?;
+        } else if let Some(self_value) = self.type_.as_mut()
+            && let Some(other_value) = other.type_
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::apps::v1::DaemonSetUpdateStrategy>
+for DaemonSetUpdateStrategyAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::apps::v1::DaemonSetUpdateStrategy,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::apps::v1::DaemonSetUpdateStrategy, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::apps::v1::DaemonSetUpdateStrategy,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for DaemonSetUpdateStrategyAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.rolling_update,
+            other.rolling_update,
+        );
+        k8s_openapi028::DeepMerge::merge_from(&mut self.type_, other.type_);
+    }
+}

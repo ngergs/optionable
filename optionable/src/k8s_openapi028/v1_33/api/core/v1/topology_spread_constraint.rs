@@ -1,0 +1,204 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct TopologySpreadConstraintAc {
+    /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label_selector: Option<
+        <::k8s_openapi028::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
+    >,
+    /// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+    ///
+    /// This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub match_label_keys: Option<std::vec::Vec<std::string::String>>,
+    /// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_skew: Option<i32>,
+    /// MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
+    ///
+    /// For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub min_domains: Option<i32>,
+    /// NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+    ///
+    /// If this value is nil, the behavior is equivalent to the Honor policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub node_affinity_policy: Option<std::string::String>,
+    /// NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+    ///
+    /// If this value is nil, the behavior is equivalent to the Ignore policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub node_taints_policy: Option<std::string::String>,
+    /// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each \<key, value\> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
+    pub topology_key: std::string::String,
+    /// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
+    ///   but giving higher precedence to topologies that would help reduce the
+    ///   skew.
+    /// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+    pub when_unsatisfiable: std::string::String,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::TopologySpreadConstraint {
+    type Optioned = TopologySpreadConstraintAc;
+}
+#[automatically_derived]
+impl crate::Optionable for TopologySpreadConstraintAc {
+    type Optioned = TopologySpreadConstraintAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::core::v1::TopologySpreadConstraint {
+    fn into_optioned(self) -> TopologySpreadConstraintAc {
+        TopologySpreadConstraintAc {
+            label_selector: crate::OptionableConvert::into_optioned(self.label_selector),
+            match_label_keys: self.match_label_keys,
+            max_skew: Some(self.max_skew),
+            min_domains: self.min_domains,
+            node_affinity_policy: self.node_affinity_policy,
+            node_taints_policy: self.node_taints_policy,
+            topology_key: self.topology_key,
+            when_unsatisfiable: self.when_unsatisfiable,
+        }
+    }
+    fn try_from_optioned(
+        value: TopologySpreadConstraintAc,
+    ) -> Result<Self, crate::Error> {
+        Ok(Self {
+            label_selector: crate::OptionableConvert::try_from_optioned(
+                value.label_selector,
+            )?,
+            match_label_keys: value.match_label_keys,
+            max_skew: value
+                .max_skew
+                .ok_or(crate::Error {
+                    missing_field: "max_skew",
+                })?,
+            min_domains: value.min_domains,
+            node_affinity_policy: value.node_affinity_policy,
+            node_taints_policy: value.node_taints_policy,
+            topology_key: value.topology_key,
+            when_unsatisfiable: value.when_unsatisfiable,
+        })
+    }
+    fn merge(&mut self, other: TopologySpreadConstraintAc) -> Result<(), crate::Error> {
+        if self.label_selector.is_none() {
+            self.label_selector = crate::OptionableConvert::try_from_optioned(
+                other.label_selector,
+            )?;
+        } else if let Some(self_value) = self.label_selector.as_mut()
+            && let Some(other_value) = other.label_selector
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.match_label_keys.is_none() {
+            self.match_label_keys = crate::OptionableConvert::try_from_optioned(
+                other.match_label_keys,
+            )?;
+        } else if let Some(self_value) = self.match_label_keys.as_mut()
+            && let Some(other_value) = other.match_label_keys
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if let Some(other_value) = other.max_skew {
+            self.max_skew = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.min_domains.is_none() {
+            self.min_domains = crate::OptionableConvert::try_from_optioned(
+                other.min_domains,
+            )?;
+        } else if let Some(self_value) = self.min_domains.as_mut()
+            && let Some(other_value) = other.min_domains
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.node_affinity_policy.is_none() {
+            self.node_affinity_policy = crate::OptionableConvert::try_from_optioned(
+                other.node_affinity_policy,
+            )?;
+        } else if let Some(self_value) = self.node_affinity_policy.as_mut()
+            && let Some(other_value) = other.node_affinity_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.node_taints_policy.is_none() {
+            self.node_taints_policy = crate::OptionableConvert::try_from_optioned(
+                other.node_taints_policy,
+            )?;
+        } else if let Some(self_value) = self.node_taints_policy.as_mut()
+            && let Some(other_value) = other.node_taints_policy
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        self.topology_key = other.topology_key;
+        self.when_unsatisfiable = other.when_unsatisfiable;
+        Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi028::api::core::v1::TopologySpreadConstraint {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.topology_key == other.topology_key
+            && self.when_unsatisfiable == other.when_unsatisfiable
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::TopologySpreadConstraint>
+for TopologySpreadConstraintAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::core::v1::TopologySpreadConstraint,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::core::v1::TopologySpreadConstraint, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::TopologySpreadConstraint,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for TopologySpreadConstraintAc {
+    fn merge_from(&mut self, other: Self) {
+        self.label_selector = other.label_selector;
+        self.match_label_keys = other.match_label_keys;
+        k8s_openapi028::DeepMerge::merge_from(&mut self.max_skew, other.max_skew);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.min_domains, other.min_domains);
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.node_affinity_policy,
+            other.node_affinity_policy,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.node_taints_policy,
+            other.node_taints_policy,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.topology_key,
+            other.topology_key,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.when_unsatisfiable,
+            other.when_unsatisfiable,
+        );
+    }
+}
+impl crate::merge::MapKeysEq for TopologySpreadConstraintAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.topology_key == other.topology_key
+            && self.when_unsatisfiable == other.when_unsatisfiable
+    }
+}

@@ -1,0 +1,114 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct RoleAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata.
+    pub metadata: ::k8s_openapi028::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Rules holds all the PolicyRules for this Role
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rules: Option<
+        std::vec::Vec<
+            <::k8s_openapi028::api::rbac::v1::PolicyRule as crate::Optionable>::Optioned,
+        >,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::rbac::v1::Role {
+    type Optioned = RoleAc;
+}
+#[automatically_derived]
+impl crate::Optionable for RoleAc {
+    type Optioned = RoleAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::rbac::v1::Role {
+    fn into_optioned(self) -> RoleAc {
+        RoleAc {
+            api_version: Default::default(),
+            kind: Default::default(),
+            metadata: self.metadata,
+            rules: crate::OptionableConvert::into_optioned(self.rules),
+        }
+    }
+    fn try_from_optioned(value: RoleAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            metadata: value.metadata,
+            rules: crate::OptionableConvert::try_from_optioned(value.rules)?,
+        })
+    }
+    fn merge(&mut self, other: RoleAc) -> Result<(), crate::Error> {
+        self.metadata = other.metadata;
+        if self.rules.is_none() {
+            self.rules = crate::OptionableConvert::try_from_optioned(other.rules)?;
+        } else if let Some(self_value) = self.rules.as_mut()
+            && let Some(other_value) = other.rules
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::rbac::v1::Role> for RoleAc {
+    fn from_optionable(value: k8s_openapi028::api::rbac::v1::Role) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::rbac::v1::Role, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::rbac::v1::Role,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::Resource for RoleAc {
+    const API_VERSION: &'static str = <k8s_openapi028::api::rbac::v1::Role as k8s_openapi028::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi028::api::rbac::v1::Role as k8s_openapi028::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi028::api::rbac::v1::Role as k8s_openapi028::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi028::api::rbac::v1::Role as k8s_openapi028::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <k8s_openapi028::api::rbac::v1::Role as k8s_openapi028::Resource>::URL_PATH_SEGMENT;
+    type Scope = <k8s_openapi028::api::rbac::v1::Role as k8s_openapi028::Resource>::Scope;
+}
+impl k8s_openapi028::Metadata for RoleAc {
+    type Ty = <k8s_openapi028::api::rbac::v1::Role as k8s_openapi028::Metadata>::Ty;
+    fn metadata(&self) -> &<Self as k8s_openapi028::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi028::Metadata>::Ty {
+        &mut self.metadata
+    }
+}
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_roleac() {
+    crate::testutil::roundtrip_test::<k8s_openapi028::api::rbac::v1::Role>();
+}
+impl k8s_openapi028::DeepMerge for RoleAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        self.rules = other.rules;
+    }
+}

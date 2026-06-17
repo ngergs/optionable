@@ -1,0 +1,102 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// TokenRequestStatus is the result of a token request.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct TokenRequestStatusAc {
+    /// ExpirationTimestamp is the time of expiration of the returned token.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expiration_timestamp: Option<
+        <::k8s_openapi028::apimachinery::pkg::apis::meta::v1::Time as crate::Optionable>::Optioned,
+    >,
+    /// Token is the opaque bearer token.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub token: Option<std::string::String>,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::authentication::v1::TokenRequestStatus {
+    type Optioned = TokenRequestStatusAc;
+}
+#[automatically_derived]
+impl crate::Optionable for TokenRequestStatusAc {
+    type Optioned = TokenRequestStatusAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::authentication::v1::TokenRequestStatus {
+    fn into_optioned(self) -> TokenRequestStatusAc {
+        TokenRequestStatusAc {
+            expiration_timestamp: Some(
+                crate::OptionableConvert::into_optioned(self.expiration_timestamp),
+            ),
+            token: Some(self.token),
+        }
+    }
+    fn try_from_optioned(value: TokenRequestStatusAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            expiration_timestamp: crate::OptionableConvert::try_from_optioned(
+                value
+                    .expiration_timestamp
+                    .ok_or(crate::Error {
+                        missing_field: "expiration_timestamp",
+                    })?,
+            )?,
+            token: value
+                .token
+                .ok_or(crate::Error {
+                    missing_field: "token",
+                })?,
+        })
+    }
+    fn merge(&mut self, other: TokenRequestStatusAc) -> Result<(), crate::Error> {
+        if let Some(other_value) = other.expiration_timestamp {
+            crate::OptionableConvert::merge(
+                &mut self.expiration_timestamp,
+                other_value,
+            )?;
+        }
+        if let Some(other_value) = other.token {
+            self.token = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::authentication::v1::TokenRequestStatus>
+for TokenRequestStatusAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::authentication::v1::TokenRequestStatus,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        k8s_openapi028::api::authentication::v1::TokenRequestStatus,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::authentication::v1::TokenRequestStatus,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for TokenRequestStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.expiration_timestamp,
+            other.expiration_timestamp,
+        );
+        k8s_openapi028::DeepMerge::merge_from(&mut self.token, other.token);
+    }
+}

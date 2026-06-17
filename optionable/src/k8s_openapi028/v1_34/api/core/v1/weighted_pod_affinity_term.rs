@@ -1,0 +1,98 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct WeightedPodAffinityTermAc {
+    /// Required. A pod affinity term, associated with the corresponding weight.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pod_affinity_term: Option<
+        <::k8s_openapi028::api::core::v1::PodAffinityTerm as crate::Optionable>::Optioned,
+    >,
+    /// weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub weight: Option<i32>,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::WeightedPodAffinityTerm {
+    type Optioned = WeightedPodAffinityTermAc;
+}
+#[automatically_derived]
+impl crate::Optionable for WeightedPodAffinityTermAc {
+    type Optioned = WeightedPodAffinityTermAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::core::v1::WeightedPodAffinityTerm {
+    fn into_optioned(self) -> WeightedPodAffinityTermAc {
+        WeightedPodAffinityTermAc {
+            pod_affinity_term: Some(
+                crate::OptionableConvert::into_optioned(self.pod_affinity_term),
+            ),
+            weight: Some(self.weight),
+        }
+    }
+    fn try_from_optioned(
+        value: WeightedPodAffinityTermAc,
+    ) -> Result<Self, crate::Error> {
+        Ok(Self {
+            pod_affinity_term: crate::OptionableConvert::try_from_optioned(
+                value
+                    .pod_affinity_term
+                    .ok_or(crate::Error {
+                        missing_field: "pod_affinity_term",
+                    })?,
+            )?,
+            weight: value
+                .weight
+                .ok_or(crate::Error {
+                    missing_field: "weight",
+                })?,
+        })
+    }
+    fn merge(&mut self, other: WeightedPodAffinityTermAc) -> Result<(), crate::Error> {
+        if let Some(other_value) = other.pod_affinity_term {
+            crate::OptionableConvert::merge(&mut self.pod_affinity_term, other_value)?;
+        }
+        if let Some(other_value) = other.weight {
+            self.weight = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::WeightedPodAffinityTerm>
+for WeightedPodAffinityTermAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::core::v1::WeightedPodAffinityTerm,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::core::v1::WeightedPodAffinityTerm, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::WeightedPodAffinityTerm,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for WeightedPodAffinityTermAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.pod_affinity_term,
+            other.pod_affinity_term,
+        );
+        k8s_openapi028::DeepMerge::merge_from(&mut self.weight, other.weight);
+    }
+}

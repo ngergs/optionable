@@ -1,0 +1,114 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct BindingAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    pub metadata: ::k8s_openapi028::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// The target object that you want to bind to the standard object.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<
+        <::k8s_openapi028::api::core::v1::ObjectReference as crate::Optionable>::Optioned,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::Binding {
+    type Optioned = BindingAc;
+}
+#[automatically_derived]
+impl crate::Optionable for BindingAc {
+    type Optioned = BindingAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::core::v1::Binding {
+    fn into_optioned(self) -> BindingAc {
+        BindingAc {
+            api_version: Default::default(),
+            kind: Default::default(),
+            metadata: self.metadata,
+            target: Some(crate::OptionableConvert::into_optioned(self.target)),
+        }
+    }
+    fn try_from_optioned(value: BindingAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            metadata: value.metadata,
+            target: crate::OptionableConvert::try_from_optioned(
+                value
+                    .target
+                    .ok_or(crate::Error {
+                        missing_field: "target",
+                    })?,
+            )?,
+        })
+    }
+    fn merge(&mut self, other: BindingAc) -> Result<(), crate::Error> {
+        self.metadata = other.metadata;
+        if let Some(other_value) = other.target {
+            self.target = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::Binding> for BindingAc {
+    fn from_optionable(value: k8s_openapi028::api::core::v1::Binding) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::core::v1::Binding, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::Binding,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::Resource for BindingAc {
+    const API_VERSION: &'static str = <k8s_openapi028::api::core::v1::Binding as k8s_openapi028::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi028::api::core::v1::Binding as k8s_openapi028::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi028::api::core::v1::Binding as k8s_openapi028::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi028::api::core::v1::Binding as k8s_openapi028::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <k8s_openapi028::api::core::v1::Binding as k8s_openapi028::Resource>::URL_PATH_SEGMENT;
+    type Scope = <k8s_openapi028::api::core::v1::Binding as k8s_openapi028::Resource>::Scope;
+}
+impl k8s_openapi028::Metadata for BindingAc {
+    type Ty = <k8s_openapi028::api::core::v1::Binding as k8s_openapi028::Metadata>::Ty;
+    fn metadata(&self) -> &<Self as k8s_openapi028::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi028::Metadata>::Ty {
+        &mut self.metadata
+    }
+}
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_bindingac() {
+    crate::testutil::roundtrip_test::<k8s_openapi028::api::core::v1::Binding>();
+}
+impl k8s_openapi028::DeepMerge for BindingAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        self.target = other.target;
+    }
+}

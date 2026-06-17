@@ -1,0 +1,147 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// DeviceRequestAllocationResult contains the allocation result for one request.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct DeviceRequestAllocationResultAc {
+    /// AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+    ///
+    /// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub admin_access: Option<bool>,
+    /// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device: Option<std::string::String>,
+    /// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+    ///
+    /// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub driver: Option<std::string::String>,
+    /// This name together with the driver name and the device name field identify which device was allocated (`\<driver name\>/\<pool name\>/\<device name\>`).
+    ///
+    /// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pool: Option<std::string::String>,
+    /// Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request: Option<std::string::String>,
+}
+#[automatically_derived]
+impl crate::Optionable
+for k8s_openapi028::api::resource::v1alpha3::DeviceRequestAllocationResult {
+    type Optioned = DeviceRequestAllocationResultAc;
+}
+#[automatically_derived]
+impl crate::Optionable for DeviceRequestAllocationResultAc {
+    type Optioned = DeviceRequestAllocationResultAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::resource::v1alpha3::DeviceRequestAllocationResult {
+    fn into_optioned(self) -> DeviceRequestAllocationResultAc {
+        DeviceRequestAllocationResultAc {
+            admin_access: self.admin_access,
+            device: Some(self.device),
+            driver: Some(self.driver),
+            pool: Some(self.pool),
+            request: Some(self.request),
+        }
+    }
+    fn try_from_optioned(
+        value: DeviceRequestAllocationResultAc,
+    ) -> Result<Self, crate::Error> {
+        Ok(Self {
+            admin_access: value.admin_access,
+            device: value
+                .device
+                .ok_or(crate::Error {
+                    missing_field: "device",
+                })?,
+            driver: value
+                .driver
+                .ok_or(crate::Error {
+                    missing_field: "driver",
+                })?,
+            pool: value
+                .pool
+                .ok_or(crate::Error {
+                    missing_field: "pool",
+                })?,
+            request: value
+                .request
+                .ok_or(crate::Error {
+                    missing_field: "request",
+                })?,
+        })
+    }
+    fn merge(
+        &mut self,
+        other: DeviceRequestAllocationResultAc,
+    ) -> Result<(), crate::Error> {
+        if self.admin_access.is_none() {
+            self.admin_access = crate::OptionableConvert::try_from_optioned(
+                other.admin_access,
+            )?;
+        } else if let Some(self_value) = self.admin_access.as_mut()
+            && let Some(other_value) = other.admin_access
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if let Some(other_value) = other.device {
+            self.device = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if let Some(other_value) = other.driver {
+            self.driver = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if let Some(other_value) = other.pool {
+            self.pool = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if let Some(other_value) = other.request {
+            self.request = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    k8s_openapi028::api::resource::v1alpha3::DeviceRequestAllocationResult,
+> for DeviceRequestAllocationResultAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::resource::v1alpha3::DeviceRequestAllocationResult,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        k8s_openapi028::api::resource::v1alpha3::DeviceRequestAllocationResult,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::resource::v1alpha3::DeviceRequestAllocationResult,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for DeviceRequestAllocationResultAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.admin_access,
+            other.admin_access,
+        );
+        k8s_openapi028::DeepMerge::merge_from(&mut self.device, other.device);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.driver, other.driver);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.pool, other.pool);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.request, other.request);
+    }
+}

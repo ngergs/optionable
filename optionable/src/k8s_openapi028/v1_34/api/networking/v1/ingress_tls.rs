@@ -1,0 +1,86 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// IngressTLS describes the transport layer security associated with an ingress.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct IngressTLSAc {
+    /// hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hosts: Option<std::vec::Vec<std::string::String>>,
+    /// secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secret_name: Option<std::string::String>,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::networking::v1::IngressTLS {
+    type Optioned = IngressTLSAc;
+}
+#[automatically_derived]
+impl crate::Optionable for IngressTLSAc {
+    type Optioned = IngressTLSAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::networking::v1::IngressTLS {
+    fn into_optioned(self) -> IngressTLSAc {
+        IngressTLSAc {
+            hosts: self.hosts,
+            secret_name: self.secret_name,
+        }
+    }
+    fn try_from_optioned(value: IngressTLSAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            hosts: value.hosts,
+            secret_name: value.secret_name,
+        })
+    }
+    fn merge(&mut self, other: IngressTLSAc) -> Result<(), crate::Error> {
+        if self.hosts.is_none() {
+            self.hosts = crate::OptionableConvert::try_from_optioned(other.hosts)?;
+        } else if let Some(self_value) = self.hosts.as_mut()
+            && let Some(other_value) = other.hosts
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.secret_name.is_none() {
+            self.secret_name = crate::OptionableConvert::try_from_optioned(
+                other.secret_name,
+            )?;
+        } else if let Some(self_value) = self.secret_name.as_mut()
+            && let Some(other_value) = other.secret_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::networking::v1::IngressTLS>
+for IngressTLSAc {
+    fn from_optionable(value: k8s_openapi028::api::networking::v1::IngressTLS) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::networking::v1::IngressTLS, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::networking::v1::IngressTLS,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for IngressTLSAc {
+    fn merge_from(&mut self, other: Self) {
+        self.hosts = other.hosts;
+        k8s_openapi028::DeepMerge::merge_from(&mut self.secret_name, other.secret_name);
+    }
+}

@@ -1,0 +1,125 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// TokenReviewStatus is the result of the token authentication request.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct TokenReviewStatusAc {
+    /// Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub audiences: Option<std::vec::Vec<std::string::String>>,
+    /// Authenticated indicates that the token was associated with a known user.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub authenticated: Option<bool>,
+    /// Error indicates that the token couldn't be checked
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<std::string::String>,
+    /// User is the UserInfo associated with the provided token.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user: Option<
+        <::k8s_openapi028::api::authentication::v1::UserInfo as crate::Optionable>::Optioned,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::authentication::v1::TokenReviewStatus {
+    type Optioned = TokenReviewStatusAc;
+}
+#[automatically_derived]
+impl crate::Optionable for TokenReviewStatusAc {
+    type Optioned = TokenReviewStatusAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::authentication::v1::TokenReviewStatus {
+    fn into_optioned(self) -> TokenReviewStatusAc {
+        TokenReviewStatusAc {
+            audiences: self.audiences,
+            authenticated: self.authenticated,
+            error: self.error,
+            user: crate::OptionableConvert::into_optioned(self.user),
+        }
+    }
+    fn try_from_optioned(value: TokenReviewStatusAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            audiences: value.audiences,
+            authenticated: value.authenticated,
+            error: value.error,
+            user: crate::OptionableConvert::try_from_optioned(value.user)?,
+        })
+    }
+    fn merge(&mut self, other: TokenReviewStatusAc) -> Result<(), crate::Error> {
+        if self.audiences.is_none() {
+            self.audiences = crate::OptionableConvert::try_from_optioned(
+                other.audiences,
+            )?;
+        } else if let Some(self_value) = self.audiences.as_mut()
+            && let Some(other_value) = other.audiences
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.authenticated.is_none() {
+            self.authenticated = crate::OptionableConvert::try_from_optioned(
+                other.authenticated,
+            )?;
+        } else if let Some(self_value) = self.authenticated.as_mut()
+            && let Some(other_value) = other.authenticated
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.error.is_none() {
+            self.error = crate::OptionableConvert::try_from_optioned(other.error)?;
+        } else if let Some(self_value) = self.error.as_mut()
+            && let Some(other_value) = other.error
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.user.is_none() {
+            self.user = crate::OptionableConvert::try_from_optioned(other.user)?;
+        } else if let Some(self_value) = self.user.as_mut()
+            && let Some(other_value) = other.user
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::authentication::v1::TokenReviewStatus>
+for TokenReviewStatusAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::authentication::v1::TokenReviewStatus,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        k8s_openapi028::api::authentication::v1::TokenReviewStatus,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::authentication::v1::TokenReviewStatus,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for TokenReviewStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        self.audiences = other.audiences;
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.authenticated,
+            other.authenticated,
+        );
+        k8s_openapi028::DeepMerge::merge_from(&mut self.error, other.error);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.user, other.user);
+    }
+}
