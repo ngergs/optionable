@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.0](https://github.com/ngergs/optionable/compare/optionable_derive-v0.11.1...optionable_derive-v0.12.0) - 2026-06-17
+
+### Added
+
+- [**breaking**] split the kube feature for the internal optionable-derive crate into kube3 and kube4
+
+### Fixed
+
+- dependency updates
+
 ## [0.11.1](https://github.com/ngergs/optionable/compare/optionable_derive-v0.11.0...optionable_derive-v0.11.1) - 2026-05-03
 
 ### Added
