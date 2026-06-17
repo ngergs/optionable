@@ -207,6 +207,16 @@ mod jiff02;
 #[path = "k8s_openapi027/mod.rs"]
 pub mod k8s_openapi;
 
+#[cfg(any(
+    feature = "k8s_openapi028_v1_32",
+    feature = "k8s_openapi028_v1_33",
+    feature = "k8s_openapi028_v1_34",
+    feature = "k8s_openapi028_v1_35",
+    feature = "k8s_openapi028_v1_36"
+))]
+#[path = "k8s_openapi028/mod.rs"]
+pub mod k8s_openapi;
+
 #[cfg(feature = "kube3")]
 pub mod kube3;
 #[cfg(feature = "serde_json")]
