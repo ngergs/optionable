@@ -140,6 +140,7 @@ fn k8s_openapi_serde_rename(input: &str) -> Option<Cow<'static, str>> {
         "enum_" => Some("enum".into()),
         "ref_" => Some("ref".into()),
         "type_" => Some("type".into()),
+        "stub_pkc_s10_request" => Some("stubPKCS10Request".into()),
         other => {
             if !other.split('_').enumerate().any(|(i, el)| {
                 i != 0 && (UPPERCASE_WORDS.contains(&el) || PLURAL_WORDS.contains(&el))
@@ -195,6 +196,7 @@ fn roundtrip_k8s_openapi_adjust_field_serde() {
         "podIPs",
         "serverAddressByClientCIDR",
         "serverAddressByClientCIDRs",
+        "stubPKCS10Request",
         "targetWWN",
         "targetWWNs",
         "volumeID",
