@@ -1,0 +1,89 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// TokenReviewSpec is a description of the token authentication request.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct TokenReviewSpecAc {
+    /// audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub audiences: Option<std::vec::Vec<std::string::String>>,
+    /// token is the opaque bearer token.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub token: Option<std::string::String>,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::authentication::v1::TokenReviewSpec {
+    type Optioned = TokenReviewSpecAc;
+}
+#[automatically_derived]
+impl crate::Optionable for TokenReviewSpecAc {
+    type Optioned = TokenReviewSpecAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::authentication::v1::TokenReviewSpec {
+    fn into_optioned(self) -> TokenReviewSpecAc {
+        TokenReviewSpecAc {
+            audiences: self.audiences,
+            token: Some(self.token),
+        }
+    }
+    fn try_from_optioned(value: TokenReviewSpecAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            audiences: value.audiences,
+            token: value
+                .token
+                .ok_or(crate::Error {
+                    missing_field: "token",
+                })?,
+        })
+    }
+    fn merge(&mut self, other: TokenReviewSpecAc) -> Result<(), crate::Error> {
+        if self.audiences.is_none() {
+            self.audiences = crate::OptionableConvert::try_from_optioned(
+                other.audiences,
+            )?;
+        } else if let Some(self_value) = self.audiences.as_mut()
+            && let Some(other_value) = other.audiences
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if let Some(other_value) = other.token {
+            self.token = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::authentication::v1::TokenReviewSpec>
+for TokenReviewSpecAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::authentication::v1::TokenReviewSpec,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::authentication::v1::TokenReviewSpec, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::authentication::v1::TokenReviewSpec,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for TokenReviewSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        self.audiences = other.audiences;
+        k8s_openapi028::DeepMerge::merge_from(&mut self.token, other.token);
+    }
+}

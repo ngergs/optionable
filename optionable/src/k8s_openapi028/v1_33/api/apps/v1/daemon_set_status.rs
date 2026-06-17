@@ -1,0 +1,242 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// DaemonSetStatus represents the current status of a daemon set.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct DaemonSetStatusAc {
+    /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub collision_count: Option<i32>,
+    /// Represents the latest available observations of a DaemonSet's current state.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub conditions: Option<
+        std::vec::Vec<
+            <::k8s_openapi028::api::apps::v1::DaemonSetCondition as crate::Optionable>::Optioned,
+        >,
+    >,
+    /// The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub current_number_scheduled: Option<i32>,
+    /// The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub desired_number_scheduled: Option<i32>,
+    /// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub number_available: Option<i32>,
+    /// The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub number_misscheduled: Option<i32>,
+    /// numberReady is the number of nodes that should be running the daemon pod and have one or more of the daemon pod running with a Ready Condition.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub number_ready: Option<i32>,
+    /// The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub number_unavailable: Option<i32>,
+    /// The most recent generation observed by the daemon set controller.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub observed_generation: Option<i64>,
+    /// The total number of nodes that are running updated daemon pod
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub updated_number_scheduled: Option<i32>,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::apps::v1::DaemonSetStatus {
+    type Optioned = DaemonSetStatusAc;
+}
+#[automatically_derived]
+impl crate::Optionable for DaemonSetStatusAc {
+    type Optioned = DaemonSetStatusAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::apps::v1::DaemonSetStatus {
+    fn into_optioned(self) -> DaemonSetStatusAc {
+        DaemonSetStatusAc {
+            collision_count: self.collision_count,
+            conditions: crate::OptionableConvert::into_optioned(self.conditions),
+            current_number_scheduled: Some(self.current_number_scheduled),
+            desired_number_scheduled: Some(self.desired_number_scheduled),
+            number_available: self.number_available,
+            number_misscheduled: Some(self.number_misscheduled),
+            number_ready: Some(self.number_ready),
+            number_unavailable: self.number_unavailable,
+            observed_generation: self.observed_generation,
+            updated_number_scheduled: self.updated_number_scheduled,
+        }
+    }
+    fn try_from_optioned(value: DaemonSetStatusAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            collision_count: value.collision_count,
+            conditions: crate::OptionableConvert::try_from_optioned(value.conditions)?,
+            current_number_scheduled: value
+                .current_number_scheduled
+                .ok_or(crate::Error {
+                    missing_field: "current_number_scheduled",
+                })?,
+            desired_number_scheduled: value
+                .desired_number_scheduled
+                .ok_or(crate::Error {
+                    missing_field: "desired_number_scheduled",
+                })?,
+            number_available: value.number_available,
+            number_misscheduled: value
+                .number_misscheduled
+                .ok_or(crate::Error {
+                    missing_field: "number_misscheduled",
+                })?,
+            number_ready: value
+                .number_ready
+                .ok_or(crate::Error {
+                    missing_field: "number_ready",
+                })?,
+            number_unavailable: value.number_unavailable,
+            observed_generation: value.observed_generation,
+            updated_number_scheduled: value.updated_number_scheduled,
+        })
+    }
+    fn merge(&mut self, other: DaemonSetStatusAc) -> Result<(), crate::Error> {
+        if self.collision_count.is_none() {
+            self.collision_count = crate::OptionableConvert::try_from_optioned(
+                other.collision_count,
+            )?;
+        } else if let Some(self_value) = self.collision_count.as_mut()
+            && let Some(other_value) = other.collision_count
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.conditions.is_none() {
+            self.conditions = crate::OptionableConvert::try_from_optioned(
+                other.conditions,
+            )?;
+        } else if let Some(self_value) = self.conditions.as_mut()
+            && let Some(other_value) = other.conditions
+        {
+            crate::merge::try_merge_optioned_map(self_value, other_value)?;
+        }
+        if let Some(other_value) = other.current_number_scheduled {
+            self.current_number_scheduled = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if let Some(other_value) = other.desired_number_scheduled {
+            self.desired_number_scheduled = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.number_available.is_none() {
+            self.number_available = crate::OptionableConvert::try_from_optioned(
+                other.number_available,
+            )?;
+        } else if let Some(self_value) = self.number_available.as_mut()
+            && let Some(other_value) = other.number_available
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if let Some(other_value) = other.number_misscheduled {
+            self.number_misscheduled = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if let Some(other_value) = other.number_ready {
+            self.number_ready = crate::OptionableConvert::try_from_optioned(
+                other_value,
+            )?;
+        }
+        if self.number_unavailable.is_none() {
+            self.number_unavailable = crate::OptionableConvert::try_from_optioned(
+                other.number_unavailable,
+            )?;
+        } else if let Some(self_value) = self.number_unavailable.as_mut()
+            && let Some(other_value) = other.number_unavailable
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.observed_generation.is_none() {
+            self.observed_generation = crate::OptionableConvert::try_from_optioned(
+                other.observed_generation,
+            )?;
+        } else if let Some(self_value) = self.observed_generation.as_mut()
+            && let Some(other_value) = other.observed_generation
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.updated_number_scheduled.is_none() {
+            self.updated_number_scheduled = crate::OptionableConvert::try_from_optioned(
+                other.updated_number_scheduled,
+            )?;
+        } else if let Some(self_value) = self.updated_number_scheduled.as_mut()
+            && let Some(other_value) = other.updated_number_scheduled
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::apps::v1::DaemonSetStatus>
+for DaemonSetStatusAc {
+    fn from_optionable(value: k8s_openapi028::api::apps::v1::DaemonSetStatus) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::apps::v1::DaemonSetStatus, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::apps::v1::DaemonSetStatus,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for DaemonSetStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.collision_count,
+            other.collision_count,
+        );
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.conditions,
+            other.conditions,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.current_number_scheduled,
+            other.current_number_scheduled,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.desired_number_scheduled,
+            other.desired_number_scheduled,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.number_available,
+            other.number_available,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.number_misscheduled,
+            other.number_misscheduled,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.number_ready,
+            other.number_ready,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.number_unavailable,
+            other.number_unavailable,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.observed_generation,
+            other.observed_generation,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.updated_number_scheduled,
+            other.updated_number_scheduled,
+        );
+    }
+}

@@ -1,0 +1,76 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct LocalObjectReferenceAc {
+    /// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+    pub name: std::string::String,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::LocalObjectReference {
+    type Optioned = LocalObjectReferenceAc;
+}
+#[automatically_derived]
+impl crate::Optionable for LocalObjectReferenceAc {
+    type Optioned = LocalObjectReferenceAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::core::v1::LocalObjectReference {
+    fn into_optioned(self) -> LocalObjectReferenceAc {
+        LocalObjectReferenceAc {
+            name: self.name,
+        }
+    }
+    fn try_from_optioned(value: LocalObjectReferenceAc) -> Result<Self, crate::Error> {
+        Ok(Self { name: value.name })
+    }
+    fn merge(&mut self, other: LocalObjectReferenceAc) -> Result<(), crate::Error> {
+        self.name = other.name;
+        Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi028::api::core::v1::LocalObjectReference {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::LocalObjectReference>
+for LocalObjectReferenceAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::core::v1::LocalObjectReference,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::core::v1::LocalObjectReference, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::LocalObjectReference,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for LocalObjectReferenceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.name, other.name);
+    }
+}
+impl crate::merge::MapKeysEq for LocalObjectReferenceAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}

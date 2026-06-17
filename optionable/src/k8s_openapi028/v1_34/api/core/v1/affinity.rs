@@ -1,0 +1,125 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// Affinity is a group of affinity scheduling rules.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct AffinityAc {
+    /// Describes node affinity scheduling rules for the pod.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub node_affinity: Option<
+        <::k8s_openapi028::api::core::v1::NodeAffinity as crate::Optionable>::Optioned,
+    >,
+    /// Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pod_affinity: Option<
+        <::k8s_openapi028::api::core::v1::PodAffinity as crate::Optionable>::Optioned,
+    >,
+    /// Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pod_anti_affinity: Option<
+        <::k8s_openapi028::api::core::v1::PodAntiAffinity as crate::Optionable>::Optioned,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::Affinity {
+    type Optioned = AffinityAc;
+}
+#[automatically_derived]
+impl crate::Optionable for AffinityAc {
+    type Optioned = AffinityAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::core::v1::Affinity {
+    fn into_optioned(self) -> AffinityAc {
+        AffinityAc {
+            node_affinity: crate::OptionableConvert::into_optioned(self.node_affinity),
+            pod_affinity: crate::OptionableConvert::into_optioned(self.pod_affinity),
+            pod_anti_affinity: crate::OptionableConvert::into_optioned(
+                self.pod_anti_affinity,
+            ),
+        }
+    }
+    fn try_from_optioned(value: AffinityAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            node_affinity: crate::OptionableConvert::try_from_optioned(
+                value.node_affinity,
+            )?,
+            pod_affinity: crate::OptionableConvert::try_from_optioned(
+                value.pod_affinity,
+            )?,
+            pod_anti_affinity: crate::OptionableConvert::try_from_optioned(
+                value.pod_anti_affinity,
+            )?,
+        })
+    }
+    fn merge(&mut self, other: AffinityAc) -> Result<(), crate::Error> {
+        if self.node_affinity.is_none() {
+            self.node_affinity = crate::OptionableConvert::try_from_optioned(
+                other.node_affinity,
+            )?;
+        } else if let Some(self_value) = self.node_affinity.as_mut()
+            && let Some(other_value) = other.node_affinity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.pod_affinity.is_none() {
+            self.pod_affinity = crate::OptionableConvert::try_from_optioned(
+                other.pod_affinity,
+            )?;
+        } else if let Some(self_value) = self.pod_affinity.as_mut()
+            && let Some(other_value) = other.pod_affinity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.pod_anti_affinity.is_none() {
+            self.pod_anti_affinity = crate::OptionableConvert::try_from_optioned(
+                other.pod_anti_affinity,
+            )?;
+        } else if let Some(self_value) = self.pod_anti_affinity.as_mut()
+            && let Some(other_value) = other.pod_anti_affinity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::Affinity> for AffinityAc {
+    fn from_optionable(value: k8s_openapi028::api::core::v1::Affinity) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::core::v1::Affinity, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::Affinity,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for AffinityAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.node_affinity,
+            other.node_affinity,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.pod_affinity,
+            other.pod_affinity,
+        );
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.pod_anti_affinity,
+            other.pod_anti_affinity,
+        );
+    }
+}

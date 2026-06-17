@@ -1,0 +1,306 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct DeviceAc {
+    /// AllNodes indicates that all nodes have access to the device.
+    ///
+    /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub all_nodes: Option<bool>,
+    /// AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+    ///
+    /// If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub allow_multiple_allocations: Option<bool>,
+    /// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
+    ///
+    /// The maximum number of attributes and capacities combined is 32.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub attributes: Option<
+        std::collections::BTreeMap<
+            std::string::String,
+            <::k8s_openapi028::api::resource::v1beta2::DeviceAttribute as crate::Optionable>::Optioned,
+        >,
+    >,
+    /// BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+    ///
+    /// The maximum number of binding conditions is 4.
+    ///
+    /// The conditions must be a valid condition type string.
+    ///
+    /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub binding_conditions: Option<std::vec::Vec<std::string::String>>,
+    /// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+    ///
+    /// The maximum number of binding failure conditions is 4.
+    ///
+    /// The conditions must be a valid condition type string.
+    ///
+    /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub binding_failure_conditions: Option<std::vec::Vec<std::string::String>>,
+    /// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+    ///
+    /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub binds_to_node: Option<bool>,
+    /// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
+    ///
+    /// The maximum number of attributes and capacities combined is 32.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub capacity: Option<
+        std::collections::BTreeMap<
+            std::string::String,
+            <::k8s_openapi028::api::resource::v1beta2::DeviceCapacity as crate::Optionable>::Optioned,
+        >,
+    >,
+    /// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+    ///
+    /// There can only be a single entry per counterSet.
+    ///
+    /// The maximum number of device counter consumptions per device is 2.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub consumes_counters: Option<
+        std::vec::Vec<
+            <::k8s_openapi028::api::resource::v1beta2::DeviceCounterConsumption as crate::Optionable>::Optioned,
+        >,
+    >,
+    /// Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<std::string::String>,
+    /// NodeName identifies the node where the device is available.
+    ///
+    /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub node_name: Option<std::string::String>,
+    /// NodeSelector defines the nodes where the device is available.
+    ///
+    /// Must use exactly one term.
+    ///
+    /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub node_selector: Option<
+        <::k8s_openapi028::api::core::v1::NodeSelector as crate::Optionable>::Optioned,
+    >,
+    /// If specified, these are the driver-defined taints.
+    ///
+    /// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
+    ///
+    /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub taints: Option<
+        std::vec::Vec<
+            <::k8s_openapi028::api::resource::v1beta2::DeviceTaint as crate::Optionable>::Optioned,
+        >,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::resource::v1beta2::Device {
+    type Optioned = DeviceAc;
+}
+#[automatically_derived]
+impl crate::Optionable for DeviceAc {
+    type Optioned = DeviceAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::resource::v1beta2::Device {
+    fn into_optioned(self) -> DeviceAc {
+        DeviceAc {
+            all_nodes: self.all_nodes,
+            allow_multiple_allocations: self.allow_multiple_allocations,
+            attributes: crate::OptionableConvert::into_optioned(self.attributes),
+            binding_conditions: self.binding_conditions,
+            binding_failure_conditions: self.binding_failure_conditions,
+            binds_to_node: self.binds_to_node,
+            capacity: crate::OptionableConvert::into_optioned(self.capacity),
+            consumes_counters: crate::OptionableConvert::into_optioned(
+                self.consumes_counters,
+            ),
+            name: Some(self.name),
+            node_name: self.node_name,
+            node_selector: crate::OptionableConvert::into_optioned(self.node_selector),
+            taints: crate::OptionableConvert::into_optioned(self.taints),
+        }
+    }
+    fn try_from_optioned(value: DeviceAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            all_nodes: value.all_nodes,
+            allow_multiple_allocations: value.allow_multiple_allocations,
+            attributes: crate::OptionableConvert::try_from_optioned(value.attributes)?,
+            binding_conditions: value.binding_conditions,
+            binding_failure_conditions: value.binding_failure_conditions,
+            binds_to_node: value.binds_to_node,
+            capacity: crate::OptionableConvert::try_from_optioned(value.capacity)?,
+            consumes_counters: crate::OptionableConvert::try_from_optioned(
+                value.consumes_counters,
+            )?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
+            node_name: value.node_name,
+            node_selector: crate::OptionableConvert::try_from_optioned(
+                value.node_selector,
+            )?,
+            taints: crate::OptionableConvert::try_from_optioned(value.taints)?,
+        })
+    }
+    fn merge(&mut self, other: DeviceAc) -> Result<(), crate::Error> {
+        if self.all_nodes.is_none() {
+            self.all_nodes = crate::OptionableConvert::try_from_optioned(
+                other.all_nodes,
+            )?;
+        } else if let Some(self_value) = self.all_nodes.as_mut()
+            && let Some(other_value) = other.all_nodes
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.allow_multiple_allocations.is_none() {
+            self.allow_multiple_allocations = crate::OptionableConvert::try_from_optioned(
+                other.allow_multiple_allocations,
+            )?;
+        } else if let Some(self_value) = self.allow_multiple_allocations.as_mut()
+            && let Some(other_value) = other.allow_multiple_allocations
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.attributes.is_none() {
+            self.attributes = crate::OptionableConvert::try_from_optioned(
+                other.attributes,
+            )?;
+        } else if let Some(self_value) = self.attributes.as_mut()
+            && let Some(other_value) = other.attributes
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.binding_conditions.is_none() {
+            self.binding_conditions = crate::OptionableConvert::try_from_optioned(
+                other.binding_conditions,
+            )?;
+        } else if let Some(self_value) = self.binding_conditions.as_mut()
+            && let Some(other_value) = other.binding_conditions
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.binding_failure_conditions.is_none() {
+            self.binding_failure_conditions = crate::OptionableConvert::try_from_optioned(
+                other.binding_failure_conditions,
+            )?;
+        } else if let Some(self_value) = self.binding_failure_conditions.as_mut()
+            && let Some(other_value) = other.binding_failure_conditions
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.binds_to_node.is_none() {
+            self.binds_to_node = crate::OptionableConvert::try_from_optioned(
+                other.binds_to_node,
+            )?;
+        } else if let Some(self_value) = self.binds_to_node.as_mut()
+            && let Some(other_value) = other.binds_to_node
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.capacity.is_none() {
+            self.capacity = crate::OptionableConvert::try_from_optioned(other.capacity)?;
+        } else if let Some(self_value) = self.capacity.as_mut()
+            && let Some(other_value) = other.capacity
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.consumes_counters.is_none() {
+            self.consumes_counters = crate::OptionableConvert::try_from_optioned(
+                other.consumes_counters,
+            )?;
+        } else if let Some(self_value) = self.consumes_counters.as_mut()
+            && let Some(other_value) = other.consumes_counters
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if let Some(other_value) = other.name {
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.node_name.is_none() {
+            self.node_name = crate::OptionableConvert::try_from_optioned(
+                other.node_name,
+            )?;
+        } else if let Some(self_value) = self.node_name.as_mut()
+            && let Some(other_value) = other.node_name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.node_selector.is_none() {
+            self.node_selector = crate::OptionableConvert::try_from_optioned(
+                other.node_selector,
+            )?;
+        } else if let Some(self_value) = self.node_selector.as_mut()
+            && let Some(other_value) = other.node_selector
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.taints.is_none() {
+            self.taints = crate::OptionableConvert::try_from_optioned(other.taints)?;
+        } else if let Some(self_value) = self.taints.as_mut()
+            && let Some(other_value) = other.taints
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::resource::v1beta2::Device>
+for DeviceAc {
+    fn from_optionable(value: k8s_openapi028::api::resource::v1beta2::Device) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::resource::v1beta2::Device, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::resource::v1beta2::Device,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for DeviceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.all_nodes, other.all_nodes);
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.allow_multiple_allocations,
+            other.allow_multiple_allocations,
+        );
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.attributes,
+            other.attributes,
+        );
+        self.binding_conditions = other.binding_conditions;
+        self.binding_failure_conditions = other.binding_failure_conditions;
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.binds_to_node,
+            other.binds_to_node,
+        );
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.capacity,
+            other.capacity,
+        );
+        self.consumes_counters = other.consumes_counters;
+        k8s_openapi028::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.node_name, other.node_name);
+        self.node_selector = other.node_selector;
+        self.taints = other.taints;
+    }
+}

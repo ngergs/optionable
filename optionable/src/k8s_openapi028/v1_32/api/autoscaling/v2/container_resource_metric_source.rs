@@ -1,0 +1,114 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct ContainerResourceMetricSourceAc {
+    /// container is the name of the container in the pods of the scaling target
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub container: Option<std::string::String>,
+    /// name is the name of the resource in question.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<std::string::String>,
+    /// target specifies the target value for the given metric
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<
+        <::k8s_openapi028::api::autoscaling::v2::MetricTarget as crate::Optionable>::Optioned,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable
+for k8s_openapi028::api::autoscaling::v2::ContainerResourceMetricSource {
+    type Optioned = ContainerResourceMetricSourceAc;
+}
+#[automatically_derived]
+impl crate::Optionable for ContainerResourceMetricSourceAc {
+    type Optioned = ContainerResourceMetricSourceAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::autoscaling::v2::ContainerResourceMetricSource {
+    fn into_optioned(self) -> ContainerResourceMetricSourceAc {
+        ContainerResourceMetricSourceAc {
+            container: Some(self.container),
+            name: Some(self.name),
+            target: Some(crate::OptionableConvert::into_optioned(self.target)),
+        }
+    }
+    fn try_from_optioned(
+        value: ContainerResourceMetricSourceAc,
+    ) -> Result<Self, crate::Error> {
+        Ok(Self {
+            container: value
+                .container
+                .ok_or(crate::Error {
+                    missing_field: "container",
+                })?,
+            name: value
+                .name
+                .ok_or(crate::Error {
+                    missing_field: "name",
+                })?,
+            target: crate::OptionableConvert::try_from_optioned(
+                value
+                    .target
+                    .ok_or(crate::Error {
+                        missing_field: "target",
+                    })?,
+            )?,
+        })
+    }
+    fn merge(
+        &mut self,
+        other: ContainerResourceMetricSourceAc,
+    ) -> Result<(), crate::Error> {
+        if let Some(other_value) = other.container {
+            self.container = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if let Some(other_value) = other.name {
+            self.name = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if let Some(other_value) = other.target {
+            crate::OptionableConvert::merge(&mut self.target, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    k8s_openapi028::api::autoscaling::v2::ContainerResourceMetricSource,
+> for ContainerResourceMetricSourceAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::autoscaling::v2::ContainerResourceMetricSource,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        k8s_openapi028::api::autoscaling::v2::ContainerResourceMetricSource,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::autoscaling::v2::ContainerResourceMetricSource,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for ContainerResourceMetricSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.container, other.container);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.target, other.target);
+    }
+}

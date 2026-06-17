@@ -1,0 +1,107 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// LabelSelectorAttributes indicates a label limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct LabelSelectorAttributesAc {
+    /// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub raw_selector: Option<std::string::String>,
+    /// requirements is the parsed interpretation of a label selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub requirements: Option<
+        std::vec::Vec<
+            <::k8s_openapi028::apimachinery::pkg::apis::meta::v1::LabelSelectorRequirement as crate::Optionable>::Optioned,
+        >,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable
+for k8s_openapi028::api::authorization::v1::LabelSelectorAttributes {
+    type Optioned = LabelSelectorAttributesAc;
+}
+#[automatically_derived]
+impl crate::Optionable for LabelSelectorAttributesAc {
+    type Optioned = LabelSelectorAttributesAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::authorization::v1::LabelSelectorAttributes {
+    fn into_optioned(self) -> LabelSelectorAttributesAc {
+        LabelSelectorAttributesAc {
+            raw_selector: self.raw_selector,
+            requirements: crate::OptionableConvert::into_optioned(self.requirements),
+        }
+    }
+    fn try_from_optioned(
+        value: LabelSelectorAttributesAc,
+    ) -> Result<Self, crate::Error> {
+        Ok(Self {
+            raw_selector: value.raw_selector,
+            requirements: crate::OptionableConvert::try_from_optioned(
+                value.requirements,
+            )?,
+        })
+    }
+    fn merge(&mut self, other: LabelSelectorAttributesAc) -> Result<(), crate::Error> {
+        if self.raw_selector.is_none() {
+            self.raw_selector = crate::OptionableConvert::try_from_optioned(
+                other.raw_selector,
+            )?;
+        } else if let Some(self_value) = self.raw_selector.as_mut()
+            && let Some(other_value) = other.raw_selector
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.requirements.is_none() {
+            self.requirements = crate::OptionableConvert::try_from_optioned(
+                other.requirements,
+            )?;
+        } else if let Some(self_value) = self.requirements.as_mut()
+            && let Some(other_value) = other.requirements
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    k8s_openapi028::api::authorization::v1::LabelSelectorAttributes,
+> for LabelSelectorAttributesAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::authorization::v1::LabelSelectorAttributes,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        k8s_openapi028::api::authorization::v1::LabelSelectorAttributes,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::authorization::v1::LabelSelectorAttributes,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for LabelSelectorAttributesAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.raw_selector,
+            other.raw_selector,
+        );
+        self.requirements = other.requirements;
+    }
+}

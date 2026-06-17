@@ -1,0 +1,86 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// EventSource contains information for an event.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct EventSourceAc {
+    /// Component from which the event is generated.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub component: Option<std::string::String>,
+    /// Node name on which the event is generated.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub host: Option<std::string::String>,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::EventSource {
+    type Optioned = EventSourceAc;
+}
+#[automatically_derived]
+impl crate::Optionable for EventSourceAc {
+    type Optioned = EventSourceAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::core::v1::EventSource {
+    fn into_optioned(self) -> EventSourceAc {
+        EventSourceAc {
+            component: self.component,
+            host: self.host,
+        }
+    }
+    fn try_from_optioned(value: EventSourceAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            component: value.component,
+            host: value.host,
+        })
+    }
+    fn merge(&mut self, other: EventSourceAc) -> Result<(), crate::Error> {
+        if self.component.is_none() {
+            self.component = crate::OptionableConvert::try_from_optioned(
+                other.component,
+            )?;
+        } else if let Some(self_value) = self.component.as_mut()
+            && let Some(other_value) = other.component
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.host.is_none() {
+            self.host = crate::OptionableConvert::try_from_optioned(other.host)?;
+        } else if let Some(self_value) = self.host.as_mut()
+            && let Some(other_value) = other.host
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::EventSource>
+for EventSourceAc {
+    fn from_optionable(value: k8s_openapi028::api::core::v1::EventSource) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::core::v1::EventSource, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::EventSource,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for EventSourceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.component, other.component);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.host, other.host);
+    }
+}

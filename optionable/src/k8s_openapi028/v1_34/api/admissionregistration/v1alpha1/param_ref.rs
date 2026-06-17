@@ -1,0 +1,141 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct ParamRefAc {
+    /// `name` is the name of the resource being referenced.
+    ///
+    /// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<std::string::String>,
+    /// namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+    ///
+    /// A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+    ///
+    /// - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+    ///
+    /// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub namespace: Option<std::string::String>,
+    /// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+    ///
+    /// Allowed values are `Allow` or `Deny` Default to `Deny`
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parameter_not_found_action: Option<std::string::String>,
+    /// selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+    ///
+    /// If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+    ///
+    /// One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selector: Option<
+        <::k8s_openapi028::apimachinery::pkg::apis::meta::v1::LabelSelector as crate::Optionable>::Optioned,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable
+for k8s_openapi028::api::admissionregistration::v1alpha1::ParamRef {
+    type Optioned = ParamRefAc;
+}
+#[automatically_derived]
+impl crate::Optionable for ParamRefAc {
+    type Optioned = ParamRefAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::admissionregistration::v1alpha1::ParamRef {
+    fn into_optioned(self) -> ParamRefAc {
+        ParamRefAc {
+            name: self.name,
+            namespace: self.namespace,
+            parameter_not_found_action: self.parameter_not_found_action,
+            selector: crate::OptionableConvert::into_optioned(self.selector),
+        }
+    }
+    fn try_from_optioned(value: ParamRefAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            name: value.name,
+            namespace: value.namespace,
+            parameter_not_found_action: value.parameter_not_found_action,
+            selector: crate::OptionableConvert::try_from_optioned(value.selector)?,
+        })
+    }
+    fn merge(&mut self, other: ParamRefAc) -> Result<(), crate::Error> {
+        if self.name.is_none() {
+            self.name = crate::OptionableConvert::try_from_optioned(other.name)?;
+        } else if let Some(self_value) = self.name.as_mut()
+            && let Some(other_value) = other.name
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.namespace.is_none() {
+            self.namespace = crate::OptionableConvert::try_from_optioned(
+                other.namespace,
+            )?;
+        } else if let Some(self_value) = self.namespace.as_mut()
+            && let Some(other_value) = other.namespace
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.parameter_not_found_action.is_none() {
+            self.parameter_not_found_action = crate::OptionableConvert::try_from_optioned(
+                other.parameter_not_found_action,
+            )?;
+        } else if let Some(self_value) = self.parameter_not_found_action.as_mut()
+            && let Some(other_value) = other.parameter_not_found_action
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.selector.is_none() {
+            self.selector = crate::OptionableConvert::try_from_optioned(other.selector)?;
+        } else if let Some(self_value) = self.selector.as_mut()
+            && let Some(other_value) = other.selector
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    k8s_openapi028::api::admissionregistration::v1alpha1::ParamRef,
+> for ParamRefAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::admissionregistration::v1alpha1::ParamRef,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        k8s_openapi028::api::admissionregistration::v1alpha1::ParamRef,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::admissionregistration::v1alpha1::ParamRef,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for ParamRefAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.name, other.name);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.namespace, other.namespace);
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.parameter_not_found_action,
+            other.parameter_not_found_action,
+        );
+        self.selector = other.selector;
+    }
+}

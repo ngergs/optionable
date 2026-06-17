@@ -1,0 +1,92 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct VariableAc {
+    /// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expression: Option<std::string::String>,
+    /// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+    pub name: std::string::String,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::admissionregistration::v1::Variable {
+    type Optioned = VariableAc;
+}
+#[automatically_derived]
+impl crate::Optionable for VariableAc {
+    type Optioned = VariableAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::admissionregistration::v1::Variable {
+    fn into_optioned(self) -> VariableAc {
+        VariableAc {
+            expression: Some(self.expression),
+            name: self.name,
+        }
+    }
+    fn try_from_optioned(value: VariableAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            expression: value
+                .expression
+                .ok_or(crate::Error {
+                    missing_field: "expression",
+                })?,
+            name: value.name,
+        })
+    }
+    fn merge(&mut self, other: VariableAc) -> Result<(), crate::Error> {
+        if let Some(other_value) = other.expression {
+            self.expression = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        self.name = other.name;
+        Ok(())
+    }
+}
+#[automatically_derived]
+impl crate::merge::OptionableMapKeysEq
+for k8s_openapi028::api::admissionregistration::v1::Variable {
+    fn keys_eq(&self, other: &<Self as crate::Optionable>::Optioned) -> bool {
+        self.name == other.name
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::admissionregistration::v1::Variable>
+for VariableAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::admissionregistration::v1::Variable,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::admissionregistration::v1::Variable, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::admissionregistration::v1::Variable,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for VariableAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.expression, other.expression);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.name, other.name);
+    }
+}
+impl crate::merge::MapKeysEq for VariableAc {
+    fn keys_eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}

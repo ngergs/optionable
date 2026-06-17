@@ -1,0 +1,111 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// VolumeResourceRequirements describes the storage resource requirements for a volume.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct VolumeResourceRequirementsAc {
+    /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub limits: Option<
+        std::collections::BTreeMap<
+            std::string::String,
+            <::k8s_openapi028::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+        >,
+    >,
+    /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub requests: Option<
+        std::collections::BTreeMap<
+            std::string::String,
+            <::k8s_openapi028::apimachinery::pkg::api::resource::Quantity as crate::Optionable>::Optioned,
+        >,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::VolumeResourceRequirements {
+    type Optioned = VolumeResourceRequirementsAc;
+}
+#[automatically_derived]
+impl crate::Optionable for VolumeResourceRequirementsAc {
+    type Optioned = VolumeResourceRequirementsAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::core::v1::VolumeResourceRequirements {
+    fn into_optioned(self) -> VolumeResourceRequirementsAc {
+        VolumeResourceRequirementsAc {
+            limits: crate::OptionableConvert::into_optioned(self.limits),
+            requests: crate::OptionableConvert::into_optioned(self.requests),
+        }
+    }
+    fn try_from_optioned(
+        value: VolumeResourceRequirementsAc,
+    ) -> Result<Self, crate::Error> {
+        Ok(Self {
+            limits: crate::OptionableConvert::try_from_optioned(value.limits)?,
+            requests: crate::OptionableConvert::try_from_optioned(value.requests)?,
+        })
+    }
+    fn merge(
+        &mut self,
+        other: VolumeResourceRequirementsAc,
+    ) -> Result<(), crate::Error> {
+        if self.limits.is_none() {
+            self.limits = crate::OptionableConvert::try_from_optioned(other.limits)?;
+        } else if let Some(self_value) = self.limits.as_mut()
+            && let Some(other_value) = other.limits
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.requests.is_none() {
+            self.requests = crate::OptionableConvert::try_from_optioned(other.requests)?;
+        } else if let Some(self_value) = self.requests.as_mut()
+            && let Some(other_value) = other.requests
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::VolumeResourceRequirements>
+for VolumeResourceRequirementsAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::core::v1::VolumeResourceRequirements,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        k8s_openapi028::api::core::v1::VolumeResourceRequirements,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::VolumeResourceRequirements,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for VolumeResourceRequirementsAc {
+    fn merge_from(&mut self, other: Self) {
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.limits,
+            other.limits,
+        );
+        crate::k8s_openapi::merge::merge_granular_option_wrapped(
+            &mut self.requests,
+            other.requests,
+        );
+    }
+}

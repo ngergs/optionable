@@ -1,0 +1,81 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct ScopeSelectorAc {
+    /// A list of scope selector requirements by scope of the resources.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub match_expressions: Option<
+        std::vec::Vec<
+            <::k8s_openapi028::api::core::v1::ScopedResourceSelectorRequirement as crate::Optionable>::Optioned,
+        >,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::ScopeSelector {
+    type Optioned = ScopeSelectorAc;
+}
+#[automatically_derived]
+impl crate::Optionable for ScopeSelectorAc {
+    type Optioned = ScopeSelectorAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::core::v1::ScopeSelector {
+    fn into_optioned(self) -> ScopeSelectorAc {
+        ScopeSelectorAc {
+            match_expressions: crate::OptionableConvert::into_optioned(
+                self.match_expressions,
+            ),
+        }
+    }
+    fn try_from_optioned(value: ScopeSelectorAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            match_expressions: crate::OptionableConvert::try_from_optioned(
+                value.match_expressions,
+            )?,
+        })
+    }
+    fn merge(&mut self, other: ScopeSelectorAc) -> Result<(), crate::Error> {
+        if self.match_expressions.is_none() {
+            self.match_expressions = crate::OptionableConvert::try_from_optioned(
+                other.match_expressions,
+            )?;
+        } else if let Some(self_value) = self.match_expressions.as_mut()
+            && let Some(other_value) = other.match_expressions
+        {
+            *self_value = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::ScopeSelector>
+for ScopeSelectorAc {
+    fn from_optionable(value: k8s_openapi028::api::core::v1::ScopeSelector) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::core::v1::ScopeSelector, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::ScopeSelector,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for ScopeSelectorAc {
+    fn merge_from(&mut self, other: Self) {
+        self.match_expressions = other.match_expressions;
+    }
+}

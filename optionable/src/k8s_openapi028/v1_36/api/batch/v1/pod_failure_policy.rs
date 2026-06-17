@@ -1,0 +1,77 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// PodFailurePolicy describes how failed pods influence the backoffLimit.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct PodFailurePolicyAc {
+    /// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rules: Option<
+        std::vec::Vec<
+            <::k8s_openapi028::api::batch::v1::PodFailurePolicyRule as crate::Optionable>::Optioned,
+        >,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::batch::v1::PodFailurePolicy {
+    type Optioned = PodFailurePolicyAc;
+}
+#[automatically_derived]
+impl crate::Optionable for PodFailurePolicyAc {
+    type Optioned = PodFailurePolicyAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::batch::v1::PodFailurePolicy {
+    fn into_optioned(self) -> PodFailurePolicyAc {
+        PodFailurePolicyAc {
+            rules: Some(crate::OptionableConvert::into_optioned(self.rules)),
+        }
+    }
+    fn try_from_optioned(value: PodFailurePolicyAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            rules: crate::OptionableConvert::try_from_optioned(
+                value
+                    .rules
+                    .ok_or(crate::Error {
+                        missing_field: "rules",
+                    })?,
+            )?,
+        })
+    }
+    fn merge(&mut self, other: PodFailurePolicyAc) -> Result<(), crate::Error> {
+        if let Some(other_value) = other.rules {
+            self.rules = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::batch::v1::PodFailurePolicy>
+for PodFailurePolicyAc {
+    fn from_optionable(value: k8s_openapi028::api::batch::v1::PodFailurePolicy) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::batch::v1::PodFailurePolicy, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::batch::v1::PodFailurePolicy,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for PodFailurePolicyAc {
+    fn merge_from(&mut self, other: Self) {
+        self.rules = other.rules;
+    }
+}

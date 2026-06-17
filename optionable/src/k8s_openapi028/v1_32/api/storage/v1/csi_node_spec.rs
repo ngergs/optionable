@@ -1,0 +1,80 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct CSINodeSpecAc {
+    /// drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub drivers: Option<
+        std::vec::Vec<
+            <::k8s_openapi028::api::storage::v1::CSINodeDriver as crate::Optionable>::Optioned,
+        >,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::storage::v1::CSINodeSpec {
+    type Optioned = CSINodeSpecAc;
+}
+#[automatically_derived]
+impl crate::Optionable for CSINodeSpecAc {
+    type Optioned = CSINodeSpecAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::storage::v1::CSINodeSpec {
+    fn into_optioned(self) -> CSINodeSpecAc {
+        CSINodeSpecAc {
+            drivers: Some(crate::OptionableConvert::into_optioned(self.drivers)),
+        }
+    }
+    fn try_from_optioned(value: CSINodeSpecAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            drivers: crate::OptionableConvert::try_from_optioned(
+                value
+                    .drivers
+                    .ok_or(crate::Error {
+                        missing_field: "drivers",
+                    })?,
+            )?,
+        })
+    }
+    fn merge(&mut self, other: CSINodeSpecAc) -> Result<(), crate::Error> {
+        if let Some(other_value) = other.drivers {
+            crate::merge::try_merge_optioned_map(&mut self.drivers, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::storage::v1::CSINodeSpec>
+for CSINodeSpecAc {
+    fn from_optionable(value: k8s_openapi028::api::storage::v1::CSINodeSpec) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::storage::v1::CSINodeSpec, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::storage::v1::CSINodeSpec,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for CSINodeSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        crate::k8s_openapi::merge::merge_map_option_wrapped(
+            &mut self.drivers,
+            other.drivers,
+        );
+    }
+}

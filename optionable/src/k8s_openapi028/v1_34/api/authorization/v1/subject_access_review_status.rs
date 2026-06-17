@@ -1,0 +1,125 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// SubjectAccessReviewStatus
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct SubjectAccessReviewStatusAc {
+    /// Allowed is required. True if the action would be allowed, false otherwise.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub allowed: Option<bool>,
+    /// Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub denied: Option<bool>,
+    /// EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub evaluation_error: Option<std::string::String>,
+    /// Reason is optional.  It indicates why a request was allowed or denied.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reason: Option<std::string::String>,
+}
+#[automatically_derived]
+impl crate::Optionable
+for k8s_openapi028::api::authorization::v1::SubjectAccessReviewStatus {
+    type Optioned = SubjectAccessReviewStatusAc;
+}
+#[automatically_derived]
+impl crate::Optionable for SubjectAccessReviewStatusAc {
+    type Optioned = SubjectAccessReviewStatusAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert
+for k8s_openapi028::api::authorization::v1::SubjectAccessReviewStatus {
+    fn into_optioned(self) -> SubjectAccessReviewStatusAc {
+        SubjectAccessReviewStatusAc {
+            allowed: Some(self.allowed),
+            denied: self.denied,
+            evaluation_error: self.evaluation_error,
+            reason: self.reason,
+        }
+    }
+    fn try_from_optioned(
+        value: SubjectAccessReviewStatusAc,
+    ) -> Result<Self, crate::Error> {
+        Ok(Self {
+            allowed: value
+                .allowed
+                .ok_or(crate::Error {
+                    missing_field: "allowed",
+                })?,
+            denied: value.denied,
+            evaluation_error: value.evaluation_error,
+            reason: value.reason,
+        })
+    }
+    fn merge(&mut self, other: SubjectAccessReviewStatusAc) -> Result<(), crate::Error> {
+        if let Some(other_value) = other.allowed {
+            self.allowed = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        if self.denied.is_none() {
+            self.denied = crate::OptionableConvert::try_from_optioned(other.denied)?;
+        } else if let Some(self_value) = self.denied.as_mut()
+            && let Some(other_value) = other.denied
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.evaluation_error.is_none() {
+            self.evaluation_error = crate::OptionableConvert::try_from_optioned(
+                other.evaluation_error,
+            )?;
+        } else if let Some(self_value) = self.evaluation_error.as_mut()
+            && let Some(other_value) = other.evaluation_error
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.reason.is_none() {
+            self.reason = crate::OptionableConvert::try_from_optioned(other.reason)?;
+        } else if let Some(self_value) = self.reason.as_mut()
+            && let Some(other_value) = other.reason
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<
+    k8s_openapi028::api::authorization::v1::SubjectAccessReviewStatus,
+> for SubjectAccessReviewStatusAc {
+    fn from_optionable(
+        value: k8s_openapi028::api::authorization::v1::SubjectAccessReviewStatus,
+    ) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<
+        k8s_openapi028::api::authorization::v1::SubjectAccessReviewStatus,
+        crate::Error,
+    > {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::authorization::v1::SubjectAccessReviewStatus,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for SubjectAccessReviewStatusAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.allowed, other.allowed);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.denied, other.denied);
+        k8s_openapi028::DeepMerge::merge_from(
+            &mut self.evaluation_error,
+            other.evaluation_error,
+        );
+        k8s_openapi028::DeepMerge::merge_from(&mut self.reason, other.reason);
+    }
+}

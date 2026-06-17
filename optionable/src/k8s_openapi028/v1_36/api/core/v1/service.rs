@@ -1,0 +1,127 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct ServiceAc {
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_api_version",
+        deserialize_with = "crate::k8s_openapi::deserialize_api_version"
+    )]
+    pub api_version: std::marker::PhantomData<Self>,
+    #[serde(
+        serialize_with = "crate::k8s_openapi::serialize_kind",
+        deserialize_with = "crate::k8s_openapi::deserialize_kind"
+    )]
+    pub kind: std::marker::PhantomData<Self>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    pub metadata: ::k8s_openapi028::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    /// Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub spec: Option<
+        <::k8s_openapi028::api::core::v1::ServiceSpec as crate::Optionable>::Optioned,
+    >,
+    /// Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<
+        <::k8s_openapi028::api::core::v1::ServiceStatus as crate::Optionable>::Optioned,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::Service {
+    type Optioned = ServiceAc;
+}
+#[automatically_derived]
+impl crate::Optionable for ServiceAc {
+    type Optioned = ServiceAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::core::v1::Service {
+    fn into_optioned(self) -> ServiceAc {
+        ServiceAc {
+            api_version: Default::default(),
+            kind: Default::default(),
+            metadata: self.metadata,
+            spec: crate::OptionableConvert::into_optioned(self.spec),
+            status: crate::OptionableConvert::into_optioned(self.status),
+        }
+    }
+    fn try_from_optioned(value: ServiceAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            metadata: value.metadata,
+            spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
+            status: crate::OptionableConvert::try_from_optioned(value.status)?,
+        })
+    }
+    fn merge(&mut self, other: ServiceAc) -> Result<(), crate::Error> {
+        self.metadata = other.metadata;
+        if self.spec.is_none() {
+            self.spec = crate::OptionableConvert::try_from_optioned(other.spec)?;
+        } else if let Some(self_value) = self.spec.as_mut()
+            && let Some(other_value) = other.spec
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.status.is_none() {
+            self.status = crate::OptionableConvert::try_from_optioned(other.status)?;
+        } else if let Some(self_value) = self.status.as_mut()
+            && let Some(other_value) = other.status
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::Service> for ServiceAc {
+    fn from_optionable(value: k8s_openapi028::api::core::v1::Service) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::core::v1::Service, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::Service,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::Resource for ServiceAc {
+    const API_VERSION: &'static str = <k8s_openapi028::api::core::v1::Service as k8s_openapi028::Resource>::API_VERSION;
+    const GROUP: &'static str = <k8s_openapi028::api::core::v1::Service as k8s_openapi028::Resource>::GROUP;
+    const KIND: &'static str = <k8s_openapi028::api::core::v1::Service as k8s_openapi028::Resource>::KIND;
+    const VERSION: &'static str = <k8s_openapi028::api::core::v1::Service as k8s_openapi028::Resource>::VERSION;
+    const URL_PATH_SEGMENT: &'static str = <k8s_openapi028::api::core::v1::Service as k8s_openapi028::Resource>::URL_PATH_SEGMENT;
+    type Scope = <k8s_openapi028::api::core::v1::Service as k8s_openapi028::Resource>::Scope;
+}
+impl k8s_openapi028::Metadata for ServiceAc {
+    type Ty = <k8s_openapi028::api::core::v1::Service as k8s_openapi028::Metadata>::Ty;
+    fn metadata(&self) -> &<Self as k8s_openapi028::Metadata>::Ty {
+        &self.metadata
+    }
+    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi028::Metadata>::Ty {
+        &mut self.metadata
+    }
+}
+#[cfg(test_k8s_openapi_roundtrip)]
+#[test]
+fn roundtrip_serviceac() {
+    crate::testutil::roundtrip_test::<k8s_openapi028::api::core::v1::Service>();
+}
+impl k8s_openapi028::DeepMerge for ServiceAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.spec, other.spec);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.status, other.status);
+    }
+}

@@ -1,0 +1,68 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// HostIP represents a single IP address allocated to the host.
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct HostIPAc {
+    /// IP is the IP address assigned to the host
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip: Option<std::string::String>,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::core::v1::HostIP {
+    type Optioned = HostIPAc;
+}
+#[automatically_derived]
+impl crate::Optionable for HostIPAc {
+    type Optioned = HostIPAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::core::v1::HostIP {
+    fn into_optioned(self) -> HostIPAc {
+        HostIPAc { ip: Some(self.ip) }
+    }
+    fn try_from_optioned(value: HostIPAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            ip: value
+                .ip
+                .ok_or(crate::Error {
+                    missing_field: "ip",
+                })?,
+        })
+    }
+    fn merge(&mut self, other: HostIPAc) -> Result<(), crate::Error> {
+        if let Some(other_value) = other.ip {
+            self.ip = crate::OptionableConvert::try_from_optioned(other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::core::v1::HostIP> for HostIPAc {
+    fn from_optionable(value: k8s_openapi028::api::core::v1::HostIP) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::core::v1::HostIP, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::core::v1::HostIP,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for HostIPAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.ip, other.ip);
+    }
+}

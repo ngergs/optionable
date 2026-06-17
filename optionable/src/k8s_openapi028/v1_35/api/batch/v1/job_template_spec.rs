@@ -1,0 +1,88 @@
+#[derive(
+    Clone,
+    Default,
+    PartialEq,
+    serde::Deserialize,
+    serde::Serialize,
+    std::fmt::Debug
+)]
+/// JobTemplateSpec describes the data a Job should have when created from a template
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct JobTemplateSpecAc {
+    /// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<
+        <::k8s_openapi028::apimachinery::pkg::apis::meta::v1::ObjectMeta as crate::Optionable>::Optioned,
+    >,
+    /// Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub spec: Option<
+        <::k8s_openapi028::api::batch::v1::JobSpec as crate::Optionable>::Optioned,
+    >,
+}
+#[automatically_derived]
+impl crate::Optionable for k8s_openapi028::api::batch::v1::JobTemplateSpec {
+    type Optioned = JobTemplateSpecAc;
+}
+#[automatically_derived]
+impl crate::Optionable for JobTemplateSpecAc {
+    type Optioned = JobTemplateSpecAc;
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionableConvert for k8s_openapi028::api::batch::v1::JobTemplateSpec {
+    fn into_optioned(self) -> JobTemplateSpecAc {
+        JobTemplateSpecAc {
+            metadata: crate::OptionableConvert::into_optioned(self.metadata),
+            spec: crate::OptionableConvert::into_optioned(self.spec),
+        }
+    }
+    fn try_from_optioned(value: JobTemplateSpecAc) -> Result<Self, crate::Error> {
+        Ok(Self {
+            metadata: crate::OptionableConvert::try_from_optioned(value.metadata)?,
+            spec: crate::OptionableConvert::try_from_optioned(value.spec)?,
+        })
+    }
+    fn merge(&mut self, other: JobTemplateSpecAc) -> Result<(), crate::Error> {
+        if self.metadata.is_none() {
+            self.metadata = crate::OptionableConvert::try_from_optioned(other.metadata)?;
+        } else if let Some(self_value) = self.metadata.as_mut()
+            && let Some(other_value) = other.metadata
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        if self.spec.is_none() {
+            self.spec = crate::OptionableConvert::try_from_optioned(other.spec)?;
+        } else if let Some(self_value) = self.spec.as_mut()
+            && let Some(other_value) = other.spec
+        {
+            crate::OptionableConvert::merge(self_value, other_value)?;
+        }
+        Ok(())
+    }
+}
+#[automatically_derived]
+#[cfg(feature = "k8s_openapi_convert")]
+impl crate::OptionedConvert<k8s_openapi028::api::batch::v1::JobTemplateSpec>
+for JobTemplateSpecAc {
+    fn from_optionable(value: k8s_openapi028::api::batch::v1::JobTemplateSpec) -> Self {
+        crate::OptionableConvert::into_optioned(value)
+    }
+    fn try_into_optionable(
+        self,
+    ) -> Result<k8s_openapi028::api::batch::v1::JobTemplateSpec, crate::Error> {
+        crate::OptionableConvert::try_from_optioned(self)
+    }
+    fn merge_into(
+        self,
+        other: &mut k8s_openapi028::api::batch::v1::JobTemplateSpec,
+    ) -> Result<(), crate::Error> {
+        crate::OptionableConvert::merge(other, self)
+    }
+}
+impl k8s_openapi028::DeepMerge for JobTemplateSpecAc {
+    fn merge_from(&mut self, other: Self) {
+        k8s_openapi028::DeepMerge::merge_from(&mut self.metadata, other.metadata);
+        k8s_openapi028::DeepMerge::merge_from(&mut self.spec, other.spec);
+    }
+}
