@@ -7,8 +7,8 @@ if [[ $(basename "$PWD") != "testscripts" ]]; then
 fi
 cd ..
 
-cargo test --manifest-path=optionable/Cargo.toml --features derive,kube3,kube3/derive,k8s-openapi027/v1_34
-cargo test --manifest-path=optionable/Cargo.toml --features derive,kube3,kube3/derive,k8s-openapi028/v1_36
+cargo test --manifest-path=optionable/Cargo.toml --features derive,kube3,kube3/derive,k8s-openapi027/v1_35
+cargo test --manifest-path=optionable/Cargo.toml --features derive,kube4,kube4/derive,k8s-openapi028/v1_36
 cargo test --manifest-path=optionable/Cargo.toml --no-default-features --features derive --lib --tests
 cargo test --manifest-path=optionable/Cargo.toml --no-default-features --features derive,chrono04,jiff02,serde_json --lib --tests
 cargo test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono04,jiff02,serde_json

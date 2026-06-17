@@ -864,8 +864,18 @@ checksum = "acc5a6a69da2975ed9925d56b5dcfc9cc739b66f37add06785b7c9f6d1e88741"
 dependencies = [
  "k8s-openapi 0.27.1",
  "kube-client",
- "kube-core",
+ "kube-core 3.1.0",
  "kube-derive",
+]
+
+[[package]]
+name = "kube"
+version = "4.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4bb9108095346a7096d11feeaff419c75dddcac1b2f59acb38d7bf3d13c3e146"
+dependencies = [
+ "k8s-openapi 0.28.0",
+ "kube-core 4.0.0",
 ]
 
 [[package]]
@@ -888,7 +898,7 @@ dependencies = [
  "jiff",
  "jsonpath-rust",
  "k8s-openapi 0.27.1",
- "kube-core",
+ "kube-core 3.1.0",
  "pem",
  "rustls",
  "secrecy",
@@ -915,6 +925,23 @@ dependencies = [
  "jiff",
  "k8s-openapi 0.27.1",
  "schemars",
+ "serde",
+ "serde-value",
+ "serde_json",
+ "thiserror",
+]
+
+[[package]]
+name = "kube-core"
+version = "4.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c1b02f5933ba06140d58c7d6727f6c319f0962ec6a344aa5e21e475e891deaa8"
+dependencies = [
+ "derive_more",
+ "form_urlencoded",
+ "http",
+ "jiff",
+ "k8s-openapi 0.28.0",
  "serde",
  "serde-value",
  "serde_json",
@@ -1029,7 +1056,8 @@ dependencies = [
  "jiff",
  "k8s-openapi 0.27.1",
  "k8s-openapi 0.28.0",
- "kube",
+ "kube 3.1.0",
+ "kube 4.0.0",
  "optionable_derive",
  "schemars",
  "serde",
@@ -1082,8 +1110,8 @@ name = "optionable_k8s_example"
 version = "0.1.0"
 dependencies = [
  "autodefault",
- "k8s-openapi 0.27.1",
- "kube",
+ "k8s-openapi 0.28.0",
+ "kube 3.1.0",
  "optionable",
  "schemars",
  "serde",
