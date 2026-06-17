@@ -18,8 +18,8 @@ cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi02
 cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi027_v1_33,kube3,k8s_openapi_convert,kube3/derive
 cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi027_v1_34,kube3,k8s_openapi_convert,kube3/derive
 cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi027_v1_35,kube3,k8s_openapi_convert,kube3/derive
-cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_32,kube3,k8s_openapi_convert,kube3/derive
-cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_33,kube3,k8s_openapi_convert,kube3/derive
-cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_34,kube3,k8s_openapi_convert,kube3/derive
-cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_35,kube3,k8s_openapi_convert,kube3/derive
-cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_36,kube3,k8s_openapi_convert,kube3/derive
+cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_32,kube4,k8s_openapi_convert,kube4/derive
+cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_33,kube4,k8s_openapi_convert,kube4/derive
+cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_34,kube4,k8s_openapi_convert,kube4/derive
+cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_35,kube4,k8s_openapi_convert,kube4/derive
+cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_36,kube4,k8s_openapi_convert,kube4/derive
