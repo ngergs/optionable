@@ -77,6 +77,7 @@ pub struct PodCertificateRequestSpecAc {
     /// The subject public key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
     ///
     /// Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+    #[serde(rename = "stubPKCS10Request")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub stub_pkc_s10_request: Option<
         <::k8s_openapi028::ByteString as crate::Optionable>::Optioned,
