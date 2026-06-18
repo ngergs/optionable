@@ -92,7 +92,7 @@ pub(crate) fn k8s_adjust_fields(
             derive,
             k8s_resource_type,
             crate_name,
-        );
+        )?;
     }
     Ok(())
 }
@@ -236,14 +236,22 @@ fn k8s_openapi_field_resource_add_api_envelope(
     derive: &BTreeSet<String>,
     resource_type: &ResourceType,
     crate_name: &Path,
-) {
+) -> Result<(), Error> {
     let mut envelope_serde_path = crate_name.to_token_stream().to_string();
     match resource_type {
         ResourceType::K8sOpenApi => {
             envelope_serde_path.push_str("::k8s_openapi");
         }
         ResourceType::Kube => {
-            envelope_serde_path.push_str("::kube3");
+            if cfg!(feature = "kube3") {
+                envelope_serde_path.push_str("::kube3");
+            } else if cfg!(fetaure = "kube4") {
+                envelope_serde_path.push_str("::kube4");
+            } else {
+                return Err(
+                    "Using the `#[optionable(kube)]` attribute is only supported with the `kube3` or `kube4` feature enabled",
+                );
+            }
         }
     }
     let serialize_api_version_fn =
@@ -288,6 +296,7 @@ fn k8s_openapi_field_resource_add_api_envelope(
             },
         ],
     );
+    Ok(())
 }
 
 /// Adds a suffix to a string. Helper to reduce lines of code in the function above

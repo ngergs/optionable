@@ -11,7 +11,8 @@ repository.workspace = true
 [features]
 default = []
 k8s_openapi = []
-kube = []
+kube3 = []
+kube4 = []
 
 [lints.clippy]
 pedantic = "warn"
