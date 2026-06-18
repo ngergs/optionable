@@ -92,7 +92,7 @@ pub(crate) fn k8s_adjust_fields(
             derive,
             k8s_resource_type,
             crate_name,
-        )?;
+        );
     }
     Ok(())
 }
@@ -236,7 +236,7 @@ fn k8s_openapi_field_resource_add_api_envelope(
     derive: &BTreeSet<String>,
     resource_type: &ResourceType,
     crate_name: &Path,
-) -> Result<(), Error> {
+) {
     let mut envelope_serde_path = crate_name.to_token_stream().to_string();
     match resource_type {
         ResourceType::K8sOpenApi => {
@@ -245,13 +245,11 @@ fn k8s_openapi_field_resource_add_api_envelope(
         ResourceType::Kube => {
             if cfg!(feature = "kube3") {
                 envelope_serde_path.push_str("::kube3");
-            } else if cfg!(fetaure = "kube4") {
-                envelope_serde_path.push_str("::kube4");
-            } else {
-                return Err(
-                    "Using the `#[optionable(kube)]` attribute is only supported with the `kube3` or `kube4` feature enabled",
-                );
             }
+            if cfg!(feature = "kube4") {
+                envelope_serde_path.push_str("::kube4");
+            }
+            // We already checked via `error_missing_feature` that one of the is active
         }
     }
     let serialize_api_version_fn =
@@ -296,7 +294,6 @@ fn k8s_openapi_field_resource_add_api_envelope(
             },
         ],
     );
-    Ok(())
 }
 
 /// Adds a suffix to a string. Helper to reduce lines of code in the function above
@@ -372,7 +369,7 @@ pub(crate) fn error_missing_features(
             "helper attributes `#[optionable(k8s_openapi(resource))] require one of the `k8s_openapi_*` features to be enabled for the `optionable` crate.",
         );
     }
-    #[cfg(not(feature = "kube"))]
+    #[cfg(not(any(feature = "kube3", feature = "kube4")))]
     if attrs_kube
         .as_ref()
         .is_some_and(|attr| attr.resource.is_some())

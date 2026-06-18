@@ -1,6 +1,6 @@
 use k8s_openapi::api::apps::v1::Deployment;
 use kube::{Api, Client};
-use optionable::kube3::ExtractManagedFields;
+use optionable::kube4::ExtractManagedFields;
 use optionable_k8s_example::FIELD_MANAGER;
 
 #[tokio::main]
