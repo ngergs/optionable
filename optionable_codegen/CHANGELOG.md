@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.0](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.14.2...optionable_codegen-v0.15.0) - 2026-06-18
+
+### Added
+
+- [**breaking**] split kube feature the internal codegen create into kube3 and kube4
+
+### Fixed
+
+- kube3/kube4 feature split fixes
+- add special case handling for k8s rust field names
+- dependency updates
+
+### Other
+
+- semver version adjustments
+- release
+
 ## [0.14.3](https://github.com/ngergs/optionable/compare/optionable_codegen-v0.14.2...optionable_codegen-v0.14.3) - 2026-06-17
 
 ### Fixed
