@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.0](https://github.com/ngergs/optionable/compare/optionable_derive-v0.12.0...optionable_derive-v0.13.0) - 2026-06-19
+
+### Fixed
+
+- [**breaking**] merge the kube3 and kube4 modules for the `ExtractManagedFields` sealed helper trait
+
+### Other
+
+- release
+
 ## [0.12.0](https://github.com/ngergs/optionable/compare/optionable_derive-v0.11.1...optionable_derive-v0.12.0) - 2026-06-17
 
 ### Added
