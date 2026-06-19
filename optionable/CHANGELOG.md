@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.17.2](https://github.com/ngergs/optionable/compare/optionable-v0.16.1...optionable-v0.17.2) - 2026-06-19
+
+### Fixed
+
+- rm spurious Cargo.toml (broke release)
+- publish v0.17.1 due to broken release (missing files at crates.io)
+- [**breaking**] merge the kube3 and kube4 modules for the `ExtractManagedFields` sealed helper trait
+
+### Other
+
+- *(optionable)* release v0.17.1
+- release
+- release
+
 ## [0.17.1](https://github.com/ngergs/optionable/compare/optionable-v0.17.0...optionable-v0.17.1) - 2026-06-19
 
 ### Fixed
