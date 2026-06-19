@@ -11,8 +11,8 @@ repository.workspace = true
 [features]
 default = []
 k8s_openapi = ["optionable_codegen/k8s_openapi"]
-kube3 = ["optionable_codegen/kube3", "dep:kube3-derive", "dep:proc-macro2", "dep:quote"]
-kube4 = ["optionable_codegen/kube4", "dep:kube4-derive", "dep:proc-macro2", "dep:quote"]
+kube3 = ["optionable_codegen/kube", "dep:kube3-derive", "dep:proc-macro2", "dep:quote"]
+kube4 = ["optionable_codegen/kube", "dep:kube4-derive", "dep:proc-macro2", "dep:quote"]
 
 [lints.clippy]
 pedantic = "warn"

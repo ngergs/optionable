@@ -19,7 +19,7 @@ from [k8s-openapi](https://crates.io/crates/k8s-openapi). It also provides tooli
 `kube::CustomResource` implementations.
 
 For detailed documentation, see the documentation
-in [kube4 module](https://docs.rs/optionable/latest/optionable/kube4/index.html)
+in [kube module](https://docs.rs/optionable/latest/optionable/kube/index.html)
 for the CRD use case and the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
 
 ## Deriving optional structs/enums

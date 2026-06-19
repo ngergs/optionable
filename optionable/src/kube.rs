@@ -1,6 +1,9 @@
 //! Tooling to help deriving optioned types for `kube::CustomResource`.
 
 use crate::Optionable;
+#[cfg(feature = "kube3")]
+use kube3::Resource;
+#[cfg(feature = "kube4")]
 use kube4::Resource;
 use serde::de::{DeserializeOwned, Error, Unexpected};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
@@ -277,19 +280,19 @@ fn filter_json_value(
 }
 
 #[cfg(any(
-    feature = "k8s_openapi027_v1_31",
-    feature = "k8s_openapi027_v1_32",
-    feature = "k8s_openapi027_v1_33",
-    feature = "k8s_openapi027_v1_34",
-    feature = "k8s_openapi027_v1_35"
+    feature = "k8s_openapi028_v1_32",
+    feature = "k8s_openapi028_v1_33",
+    feature = "k8s_openapi028_v1_34",
+    feature = "k8s_openapi028_v1_35",
+    feature = "k8s_openapi028_v1_36"
 ))]
 #[cfg(test)]
 mod test {
     use crate::k8s_openapi::api::core::v1::ContainerAc;
-    use crate::kube4::ExtractManagedFields;
-    use k8s_openapi027::api::apps::v1::{Deployment, DeploymentSpec, DeploymentStatus};
-    use k8s_openapi027::api::core::v1::{Container, PodSpec, PodTemplateSpec};
-    use k8s_openapi027::apimachinery::pkg::apis::meta::v1::{
+    use crate::kube::ExtractManagedFields;
+    use k8s_openapi028::api::apps::v1::{Deployment, DeploymentSpec, DeploymentStatus};
+    use k8s_openapi028::api::core::v1::{Container, PodSpec, PodTemplateSpec};
+    use k8s_openapi028::apimachinery::pkg::apis::meta::v1::{
         FieldsV1, ManagedFieldsEntry, ObjectMeta,
     };
     use serde::{Deserialize, Serialize};
@@ -301,13 +304,13 @@ mod test {
     #[serde(rename_all = "camelCase")]
     struct ApiEnvelopeDeployment {
         #[serde(
-            serialize_with = "crate::kube4::serialize_api_version",
-            deserialize_with = "crate::kube4::deserialize_api_version"
+            serialize_with = "crate::kube::serialize_api_version",
+            deserialize_with = "crate::kube::deserialize_api_version"
         )]
         api_version: PhantomData<Deployment>,
         #[serde(
-            serialize_with = "crate::kube4::serialize_kind",
-            deserialize_with = "crate::kube4::deserialize_kind"
+            serialize_with = "crate::kube::serialize_kind",
+            deserialize_with = "crate::kube::deserialize_kind"
         )]
         kind: PhantomData<Deployment>,
     }
@@ -418,7 +421,7 @@ mod test {
             .extract(field_manager, Some("status"))
             .unwrap()
             .unwrap();
-        println!("{:?}", deployment_extract_status);
+        println!("{deployment_extract_status:?}");
         assert_eq!(None, deployment_extract_status.spec);
         assert_eq!(None, deployment_extract_status.metadata.labels);
         assert_eq!(

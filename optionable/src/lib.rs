@@ -11,7 +11,7 @@
 //! from [k8s-openapi](https://crates.io/crates/k8s-openapi). It also provides tooling to derive optioned variants for
 //! `kube::CustomResource` implementations.
 //!
-//! For detailed documentation, see the documentation in [`kube4`] for the CRD use case and the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
+//! For detailed documentation, see the documentation in [`kube`] for the CRD use case and the [examples](https://github.com/ngergs/optionable/tree/main/example/k8s).
 //!
 //! # Deriving optional structs/enums
 //!
@@ -124,8 +124,8 @@
 //! - `k8s_openapi027_v1_(31..=35)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) v0.27 types. Only one feature version, e.g. `k8s_openapi027_v1_35` may be enabled at once.
 //! - `k8s_openapi028_v1_(32..=36)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) v0.28 types. Only one feature version, e.g. `k8s_openapi028_v1_36` may be enabled at once.
 //! - `k8s_openapi_convert`: Adds `OptionableConvert`-implementations for all optioned [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types specified by the `k8s_openapi027_v1_(31..=35)` feature.
-//! - `kube3`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) v3 `CustomResource`. Also includes [`extract`](kube3::ExtractManagedFields)-functionality for server-side apply.
-//! - `kube4`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) v4 `CustomResource`. Also includes [`extract`](kube4::ExtractManagedFields)-functionality for server-side apply.
+//! - `kube3`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) v3 `CustomResource`. Also includes [`extract`](kube::ExtractManagedFields)-functionality for server-side apply.
+//! - `kube4`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) v4 `CustomResource`. Also includes [`extract`](kube::ExtractManagedFields)-functionality for server-side apply.
 //!
 //! # Limitations
 //!
@@ -219,10 +219,8 @@ pub mod k8s_openapi;
 #[path = "k8s_openapi028/mod.rs"]
 pub mod k8s_openapi;
 
-#[cfg(feature = "kube3")]
-pub mod kube3;
-#[cfg(feature = "kube4")]
-pub mod kube4;
+#[cfg(any(feature = "kube3", feature = "kube4"))]
+pub mod kube;
 #[cfg(feature = "serde_json")]
 mod serde_json;
 

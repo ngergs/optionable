@@ -243,12 +243,7 @@ fn k8s_openapi_field_resource_add_api_envelope(
             envelope_serde_path.push_str("::k8s_openapi");
         }
         ResourceType::Kube => {
-            if cfg!(feature = "kube3") {
-                envelope_serde_path.push_str("::kube3");
-            }
-            if cfg!(feature = "kube4") {
-                envelope_serde_path.push_str("::kube4");
-            }
+            envelope_serde_path.push_str("::kube");
             // We already checked via `error_missing_feature` that one of the is active
         }
     }
@@ -369,7 +364,7 @@ pub(crate) fn error_missing_features(
             "helper attributes `#[optionable(k8s_openapi(resource))] require one of the `k8s_openapi_*` features to be enabled for the `optionable` crate.",
         );
     }
-    #[cfg(not(any(feature = "kube3", feature = "kube4")))]
+    #[cfg(not(feature = "kube"))]
     if attrs_kube
         .as_ref()
         .is_some_and(|attr| attr.resource.is_some())
