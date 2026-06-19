@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.17.1](https://github.com/ngergs/optionable/compare/optionable-v0.17.0...optionable-v0.17.1) - 2026-06-19
+
+### Fixed
+
+- publish v0.17.1 due to broken release (missing files at crates.io)
+
 ## [0.17.0](https://github.com/ngergs/optionable/compare/optionable-v0.16.1...optionable-v0.17.0) - 2026-06-19
 
 ### Fixed
