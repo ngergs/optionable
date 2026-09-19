@@ -110,6 +110,7 @@ pub(crate) fn is_option(ty: &Type) -> bool {
     if let Type::Path(TypePath {
         qself: _qself,
         path,
+        attrs: _,
     }) = &ty
         && {
             let segments = &path.segments;

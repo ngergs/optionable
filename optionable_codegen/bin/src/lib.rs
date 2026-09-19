@@ -173,6 +173,7 @@ pub fn file_codegen<Vis: CodegenVisitor>(
         .collect();
     let result = syn::File {
         shebang: None,
+        frontmatter: None,
         attrs: vec![],
         items: result,
     };

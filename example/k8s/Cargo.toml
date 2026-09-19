@@ -16,9 +16,9 @@ pedantic = "warn"
 k8s-openapi = { version = "0.28.0", features = ["v1_36"] }
 optionable = { version = "0.17.2", features = ["kube4", "k8s_openapi028_v1_36"] }
 kube = { version = "4.0.0", features = ["derive"] }
-tokio = { version = "1.52.3", features = ["rt", "rt-multi-thread", "macros"] }
-schemars = "1.2.1"
-serde = "1.0.228"
-serde_json = "1.0.150"
-serde-saphyr = "0.0.27"
+tokio = { version = "1.53.1", features = ["rt", "rt-multi-thread", "macros"] }
+schemars = "1.2.2"
+serde = "1.0.229"
+serde_json = "1.0.151"
+serde-saphyr = "1.1.0"
 autodefault = "2.0.0"

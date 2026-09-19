@@ -1112,7 +1112,12 @@ fn is_self_resolving_optioned(ty: &Type) -> bool {
 fn extract_self_resolving_ident(
     ty: &Type,
 ) -> Option<(String, Option<impl Iterator<Item = &Type>>)> {
-    let Type::Path(TypePath { qself, path }) = ty else {
+    let Type::Path(TypePath {
+        qself,
+        path,
+        attrs: _,
+    }) = ty
+    else {
         return None;
     };
     if qself.is_some() {
@@ -1137,7 +1142,12 @@ fn extract_self_resolving_ident(
 fn extract_self_resolving_ident_mut(
     ty: &mut Type,
 ) -> Option<(String, Option<impl Iterator<Item = &mut Type>>)> {
-    let Type::Path(TypePath { qself, path }) = ty else {
+    let Type::Path(TypePath {
+        qself,
+        path,
+        attrs: _,
+    }) = ty
+    else {
         return None;
     };
     if qself.is_some() {
