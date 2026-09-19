@@ -15,4 +15,4 @@ cargo +nightly docs-rs -p optionable
 cargo msrv verify --path optionable_codegen
 cargo msrv verify --path optionable_derive
 cargo msrv verify --path optionable
-cargo deny check license
+cargo deny check licenses
