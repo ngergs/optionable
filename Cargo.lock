@@ -1163,7 +1163,7 @@ checksum = "7c87def4c32ab89d880effc9e097653c8da5d6ef28e6b539d313baaacfbafcbe"
 
 [[package]]
 name = "optionable"
-version = "0.17.2"
+version = "0.17.3"
 dependencies = [
  "chrono",
  "fake",
@@ -1180,7 +1180,7 @@ dependencies = [
 
 [[package]]
 name = "optionable_codegen"
-version = "0.16.0"
+version = "0.16.1"
 dependencies = [
  "darling 0.24.1",
  "itertools",
@@ -1210,7 +1210,7 @@ dependencies = [
 
 [[package]]
 name = "optionable_derive"
-version = "0.13.0"
+version = "0.13.1"
 dependencies = [
  "kube-derive 3.1.0",
  "kube-derive 4.0.0",
