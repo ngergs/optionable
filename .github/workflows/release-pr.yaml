@@ -21,7 +21,7 @@ jobs:
       cancel-in-progress: false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -29,6 +29,19 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - name: Configure cache
         uses: Swatinem/rust-cache@v2
+      - name: Run semver checks
+        run: |-
+          cargo install cargo-semver-checks --locked
+          cd optionable
+          cargo semver-checks --only-explicit-features \
+            --features alloc \
+            --features chrono04 \
+            --features derive \
+            --features jiff02 \
+            --features kube4 \
+            --features std \
+            --features serde_json \
+            --features k8s_openapi028_v1_36
       - name: Run release-plz
         uses: release-plz/action@v0.5
         with:

@@ -3,4 +3,5 @@ allow_dirty = false
 changelog_update = true
 dependencies_update = false
 publish_allow_dirty = false
-semver_check = true
+# feature auto detection is no longer compatible with the k8s-openapi feature approach
+semver_check = false
