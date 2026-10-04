@@ -17,7 +17,7 @@ k8s_openapi = ["optionable_codegen/k8s_openapi"]
 pedantic = "warn"
 
 [dependencies]
-optionable_codegen = "0.16.0"
+optionable_codegen = "0.16.1"
 quote = "1.0.47"
 syn = { version = "3.0.6", default-features = false, features = ["proc-macro", "derive", "visit"] }
 proc-macro2 = "1.0.107"

@@ -14,9 +14,9 @@ pedantic = "warn"
 
 [dependencies]
 k8s-openapi = { version = "0.28.0", features = ["v1_36"] }
-optionable = { version = "0.17.2", features = ["kube4", "k8s_openapi028_v1_36"] }
+optionable = { version = "0.17.3", features = ["kube4", "k8s_openapi028_v1_36"] }
 kube = { version = "4.0.0", features = ["derive"] }
-tokio = { version = "1.53.1", features = ["rt", "rt-multi-thread", "macros"] }
+tokio = { version = "1.53.2", features = ["rt", "rt-multi-thread", "macros"] }
 schemars = "1.2.2"
 serde = "1.0.229"
 serde_json = "1.0.151"
