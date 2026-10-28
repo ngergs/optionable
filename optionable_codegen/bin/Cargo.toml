@@ -19,14 +19,14 @@ pedantic = "warn"
 [dependencies]
 optionable_codegen = "0.16.1"
 quote = "1.0.47"
-syn = { version = "3.0.6", default-features = false, features = ["proc-macro", "derive", "visit"] }
+syn = { version = "3.0.9", default-features = false, features = ["proc-macro", "derive", "visit"] }
 proc-macro2 = "1.0.107"
 darling = { version = "0.24.1", default-features = false }
 clap = { version = "4.6.7", features = ["derive"] }
 prettyplease = "0.3.0"
 openapiv3 = "2.2.0"
-serde_json = "1.0.151"
-k8s-openapi-codegen-common = "0.28.0"
+serde_json = "1.0.154"
+k8s-openapi-codegen-common = "0.29.0"
 
 [dev-dependencies]
 assert_cmd = "2.2.2"
