@@ -94,11 +94,11 @@ impl CodegenVisitor for Visitor<'_> {
             && let Type::Path(path) = &*item.self_ty
             && path.path.segments.len() == 1
         {
-            if trait_.1 == parse_quote!(crate::Resource) || trait_.1 == parse_quote!(Resource) {
+            if trait_.0 == parse_quote!(crate::Resource) || trait_.0 == parse_quote!(Resource) {
                 self.has_resource_impl
                     .insert(path.path.segments[0].ident.clone());
             }
-            if trait_.1 == parse_quote!(crate::Metadata) || trait_.1 == parse_quote!(Metadata) {
+            if trait_.0 == parse_quote!(crate::Metadata) || trait_.0 == parse_quote!(Metadata) {
                 self.has_metadata_impl
                     .insert(path.path.segments[0].ident.clone());
             }
@@ -220,9 +220,9 @@ impl CodegenVisitor for Visitor<'_> {
             match item {
                 Impl(item)
                     if item.trait_.as_ref().is_some_and(|trait_| {
-                        trait_.1 == parse_quote!(crate::OptionableConvert)
+                        trait_.0 == parse_quote!(crate::OptionableConvert)
                             || trait_
-                                .1
+                                .0
                                 .to_token_stream()
                                 .to_string()
                                 .starts_with("crate :: OptionedConvert") // to remove generic arguments

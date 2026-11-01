@@ -19,6 +19,7 @@ jobs:
         k8s_openapi_version:
          - v0.27.1
          - v0.28.0
+         - v0.29.0
     runs-on: ubuntu-latest
     permissions:
       contents: write

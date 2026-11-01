@@ -141,28 +141,57 @@ fn process_schema(
             // save found list type, ignore explicitly embedded types
             // only supported way to determine the list key type
             if let ListType::Map(list_keys) = &list_type {
-                if let Type::Array(array) = &item
-                    && let Some(array_schema) = &array.items
-                    && let Some(array_schema) = array_schema.clone().as_item()
-                    && let SchemaKind::AllOf { all_of } = &array_schema.schema_kind
-                    && all_of.len() == 1
-                    && let Some(ReferenceOr::Reference { reference }) = all_of.first()
-                    && let Some(reference) = reference.strip_prefix("#/components/schemas/io.k8s.")
-                {
-                    if let Some(existing_list_type) = result.list_map_keys.get(reference)
-                        && existing_list_type != list_keys
+                let reference = {
+                    if let Type::Array(array) = &item
+                        && let Some(array_schema) = &array.items
                     {
+                        let reference = match array_schema {
+                            // with k8s v1.37 a plain $ref has been started to be used for references
+                            ReferenceOr::Reference { reference } => reference,
+                            // old style nested `allOf` with a single `$ref`
+                            ReferenceOr::Item(item) => {
+                                if let SchemaKind::AllOf { all_of } = &item.schema_kind
+                                    && all_of.len() == 1
+                                    && let Some(ReferenceOr::Reference { reference }) =
+                                        all_of.first()
+                                {
+                                    reference
+                                } else {
+                                    return Err(format!(
+                                "Unsupported list mapping array schema for {field_path:?}: {array_schema:?}"
+                            )
+                            .into());
+                                }
+                            }
+                        };
+                        if let Some(reference) =
+                            reference.strip_prefix("#/components/schemas/io.k8s.")
+                        {
+                            reference
+                        } else {
+                            return Err(format!(
+                                "Unsupported list mapping prefix for {field_path:?}: {item:?}"
+                            )
+                            .into());
+                        }
+                    } else {
                         return Err(format!(
+                            "Unsupported list mapping for {field_path:?}: {item:?}"
+                        )
+                        .into());
+                    }
+                };
+                if let Some(existing_list_type) = result.list_map_keys.get(reference)
+                    && existing_list_type != list_keys
+                {
+                    return Err(format!(
                     "Conflicting map keys for `{reference}`: field={field_path:?}, existing={existing_list_type:?}, new={list_type:?}"
                 )
                 .into());
-                    }
-                    result
-                        .list_map_keys
-                        .insert(reference.replace('-', "_"), list_keys.clone());
-                } else {
-                    return Err(format!("Unsupported list mapping for {field_path:?}").into());
                 }
+                result
+                    .list_map_keys
+                    .insert(reference.replace('-', "_"), list_keys.clone());
             }
         }
         // continue recursion
