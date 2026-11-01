@@ -31,6 +31,11 @@ k8s_openapi028_v1_33 = ["dep:k8s-openapi028", "dep:serde", "optionable_derive/k8
 k8s_openapi028_v1_34 = ["dep:k8s-openapi028", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi028/v1_34", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
 k8s_openapi028_v1_35 = ["dep:k8s-openapi028", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi028/v1_35", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
 k8s_openapi028_v1_36 = ["dep:k8s-openapi028", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi028/v1_36", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
+k8s_openapi029_v1_33 = ["dep:k8s-openapi029", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi029/v1_33", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
+k8s_openapi029_v1_34 = ["dep:k8s-openapi029", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi029/v1_34", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
+k8s_openapi029_v1_35 = ["dep:k8s-openapi029", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi029/v1_35", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
+k8s_openapi029_v1_36 = ["dep:k8s-openapi029", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi029/v1_36", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
+k8s_openapi029_v1_37 = ["dep:k8s-openapi029", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi029/v1_37", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
 k8s_openapi_convert = []
 
 [lints.clippy]
@@ -47,6 +52,7 @@ serde = { version = "1.0.229", default-features = false, optional = true }
 serde_json = { version = "1.0.154", default-features = false, optional = true }
 k8s-openapi027 = { package = "k8s-openapi", version = "0.27.1", default-features = false, optional = true }
 k8s-openapi028 = { package = "k8s-openapi", version = "0.28.0", default-features = false, optional = true }
+k8s-openapi029 = { package = "k8s-openapi", version = "0.29.0", default-features = false, optional = true }
 kube3 = { package = "kube", version = "3.1.0", default-features = false, optional = true }
 kube4 = { package = "kube", version = "4.0.0", default-features = false, optional = true }
 
