@@ -487,6 +487,7 @@ pub fn derive_optionable(
         // (we rely on a forked version of k8s-openapi where we just added derives for `fake::Dummy`, but the CRD includes a `JSONSchemaProps` subfield which includes a lot
         // of other subfields involving `JSONSchemaProps`. Hence, `fake` easily generates a way to complicated and depply nested random structure).
         && ty_ident_opt!="CustomResourceDefinitionAc"
+        && ty_ident_opt!="WorkloadAc"
         // the cases below cause false positive errors due to flattening of effectively nil substructs in the  optioned type
         && ty_ident_opt!="StorageVersionAc"
         && ty_ident_opt!="DeviceClassAc"

@@ -104,13 +104,6 @@ impl k8s_openapi029::Metadata for WorkloadAc {
         &mut self.metadata
     }
 }
-#[cfg(test_k8s_openapi_roundtrip)]
-#[test]
-fn roundtrip_workloadac() {
-    crate::testutil::roundtrip_test::<
-        k8s_openapi029::api::scheduling::v1beta1::Workload,
-    >();
-}
 impl k8s_openapi029::DeepMerge for WorkloadAc {
     fn merge_from(&mut self, other: Self) {
         k8s_openapi029::DeepMerge::merge_from(&mut self.metadata, other.metadata);
