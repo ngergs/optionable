@@ -1216,7 +1216,7 @@ name = "optionable_k8s_example"
 version = "0.1.0"
 dependencies = [
  "autodefault",
- "k8s-openapi 0.29.0",
+ "k8s-openapi 0.28.0",
  "kube 4.0.0",
  "optionable",
  "schemars",
