@@ -4,7 +4,7 @@ members = ["optionable", "optionable_codegen", "optionable_derive", "optionable_
 
 [workspace.package]
 edition = "2024"
-rust-version = "1.88.0"
+rust-version = "1.89.0"
 repository = "https://github.com/ngergs/optionable"
 license = "MIT OR Apache-2.0"
 

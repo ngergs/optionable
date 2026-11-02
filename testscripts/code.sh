@@ -9,6 +9,7 @@ cd ..
 
 cargo test --manifest-path=optionable/Cargo.toml --features derive,kube3,kube3/derive,k8s-openapi027/v1_35
 cargo test --manifest-path=optionable/Cargo.toml --features derive,kube4,kube4/derive,k8s-openapi028/v1_36
+cargo test --manifest-path=optionable/Cargo.toml --features derive,kube5,kube5/derive,k8s-openapi029/v1_37
 cargo test --manifest-path=optionable/Cargo.toml --no-default-features --features derive --lib --tests
 cargo test --manifest-path=optionable/Cargo.toml --no-default-features --features derive,chrono04,jiff02,serde_json --lib --tests
 cargo test --manifest-path=optionable/Cargo.toml --no-default-features --features std,derive,chrono04,jiff02,serde_json
@@ -23,3 +24,8 @@ cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi02
 cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_34,kube4,k8s_openapi_convert,kube4/derive
 cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_35,kube4,k8s_openapi_convert,kube4/derive
 cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi028_v1_36,kube4,k8s_openapi_convert,kube4/derive
+cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi029_v1_33,kube5,k8s_openapi_convert,kube5/derive
+cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi029_v1_34,kube5,k8s_openapi_convert,kube5/derive
+cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi029_v1_35,kube5,k8s_openapi_convert,kube5/derive
+cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi029_v1_36,kube5,k8s_openapi_convert,kube5/derive
+cargo test --workspace --exclude optionable_k8s_example --features k8s_openapi029_v1_37,kube5,k8s_openapi_convert,kube5/derive
