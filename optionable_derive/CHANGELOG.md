@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.4](https://github.com/ngergs/optionable/compare/optionable_derive-v0.13.3...optionable_derive-v0.13.4) - 2026-11-02
+
+### Added
+
+- kube v5 support (kube5 feature)
+
 ## [0.13.3](https://github.com/ngergs/optionable/compare/optionable_derive-v0.13.2...optionable_derive-v0.13.3) - 2026-11-01
 
 ### Fixed
