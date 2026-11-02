@@ -13,6 +13,7 @@ default = []
 k8s_openapi = ["optionable_codegen/k8s_openapi"]
 kube3 = ["optionable_codegen/kube", "dep:kube3-derive", "dep:proc-macro2", "dep:quote"]
 kube4 = ["optionable_codegen/kube", "dep:kube4-derive", "dep:proc-macro2", "dep:quote"]
+kube5 = ["optionable_codegen/kube", "dep:kube5-derive", "dep:proc-macro2", "dep:quote"]
 
 [lints.clippy]
 pedantic = "warn"
@@ -25,6 +26,7 @@ optionable_codegen = "0.16.1"
 syn = { version = "3.0.9", default-features = false }
 kube3-derive = { package="kube-derive", version = "3.1.0", default-features = false, optional = true }
 kube4-derive = { package="kube-derive", version = "4.0.0", default-features = false, optional = true }
+kube5-derive = { package="kube-derive", version = "5.0.0", default-features = false, optional = true }
 proc-macro2 = { version = "1.0.107", default-features = false, optional = true }
 quote = { version = "1.0.47", default-features = false, optional = true }
 

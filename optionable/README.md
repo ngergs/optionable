@@ -135,8 +135,7 @@ pub trait OptionedConvert<T>: Sized
 - `k8s_openapi029_v1_(33..=37)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) v0.29 types. 
    Only one feature version, e.g. `k8s_openapi029_v1_37` may be enabled at once.
 - `k8s_openapi_convert`: Adds `OptionableConvert`-implementations for all optioned [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) types specified by the `k8s_openapi027_v1_(31..=35)` feature.
-- `kube3`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) v3 `CustomResource`. Also includes [`extract`](kube::ExtractManagedFields)-functionality for server-side apply.
-- `kube4`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) v4 `CustomResource`. Also includes [`extract`](kube::ExtractManagedFields)-functionality for server-side apply.
+- `kube(3..=5)`: Tooling to derive optioned types for [kube](https://github.com/kube-rs/kube) v3-v5 respectively `CustomResource`. Also includes [`extract`](kube::ExtractManagedFields)-functionality for server-side apply.
 
 ## Limitations
 

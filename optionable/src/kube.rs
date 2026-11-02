@@ -5,6 +5,8 @@ use crate::Optionable;
 use kube3::Resource;
 #[cfg(feature = "kube4")]
 use kube4::Resource;
+#[cfg(feature = "kube5")]
+use kube5::Resource;
 use serde::de::{DeserializeOwned, Error, Unexpected};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::{Map, Value};

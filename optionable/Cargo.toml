@@ -20,6 +20,7 @@ jiff02 = ["dep:jiff02"]
 serde_json = ["dep:serde_json"]
 kube3 = ["dep:kube3", "dep:serde", "serde_json", "optionable_derive/kube3"]
 kube4 = ["dep:kube4", "dep:serde", "serde_json", "optionable_derive/kube4"]
+kube5 = ["dep:kube5", "dep:serde", "serde_json", "optionable_derive/kube5"]
 # k8s openapi and kubernetes versions (i.e. 027_v_1_35 means k8s-openapi v0.27 with the kubernetes feature version v1.35)
 k8s_openapi027_v1_31 = ["dep:k8s-openapi027", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi027/v1_31", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
 k8s_openapi027_v1_32 = ["dep:k8s-openapi027", "dep:serde", "optionable_derive/k8s_openapi", "k8s-openapi027/v1_32", "serde/derive", "serde/std", "serde_json", "std", "jiff02"]
@@ -55,6 +56,7 @@ k8s-openapi028 = { package = "k8s-openapi", version = "0.28.0", default-features
 k8s-openapi029 = { package = "k8s-openapi", version = "0.29.0", default-features = false, optional = true }
 kube3 = { package = "kube", version = "3.1.0", default-features = false, optional = true }
 kube4 = { package = "kube", version = "4.0.0", default-features = false, optional = true }
+kube5 = { package = "kube", version = "5.0.0", default-features = false, optional = true }
 
 [dev-dependencies]
 fake = { version = "5.1.0", default-features = false, features = ["chrono", "derive", "serde_json"] }
