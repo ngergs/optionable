@@ -1246,7 +1246,7 @@ checksum = "7e036b411754132fd6b74e94b74e9a13c5cf606fa93d1885c35860d3060820b1"
 
 [[package]]
 name = "optionable"
-version = "0.17.6"
+version = "0.17.7"
 dependencies = [
  "chrono",
  "fake",
