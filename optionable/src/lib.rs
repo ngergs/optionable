@@ -120,7 +120,8 @@
 //! - `alloc`: Adds `Optionable`-implementations for [alloc](https://doc.rust-lang.org/alloc/) types (only useful when not enabling the `std` feature).
 //! - `serde_json`: Derive [`trait@Optionable`] for [serde_json](https://docs.rs/serde_json/latest/serde_json/)`::Value`.
 //! - `chrono04`: Derive [`trait@Optionable`] for types from [chrono](https://docs.rs/chrono/latest/chrono/) v0.4.
-//! - `jiff02`: Derive `Optionable` for types from [jiff](https://docs.rs/jiff/latest/chrono/) v0.2.
+//! - `jiff02`: Derive `Optionable` for types from [jiff](https://docs.rs/jiff/latest/jiff/) v0.2.
+//! - `jiff`: Derive `Optionable` for types from [jiff](https://docs.rs/jiff/latest/jiff/) v1.
 //! - `k8s_openapi027_v1_(31..=35)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) v0.27 types. Only one feature version, e.g. `k8s_openapi027_v1_35` may be enabled at once.
 //! - `k8s_openapi028_v1_(32..=36)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) v0.28 types. Only one feature version, e.g. `k8s_openapi028_v1_36` may be enabled at once.
 //! - `k8s_openapi029_v1_(33..=37)`: Adds `Optionable`-implementations for all [k8s-openapi](https://docs.rs/k8s-openapi/latest/k8s_openapi) v0.29 types. Only one feature version, e.g. `k8s_openapi029_v1_37` may be enabled at once.
@@ -196,6 +197,8 @@ pub mod merge;
 
 #[cfg(feature = "chrono04")]
 mod chrono04;
+#[cfg(feature = "jiff")]
+mod jiff;
 #[cfg(feature = "jiff02")]
 mod jiff02;
 

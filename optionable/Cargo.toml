@@ -17,6 +17,7 @@ std = []
 derive = ["dep:optionable_derive"]
 chrono04 = ["dep:chrono04"]
 jiff02 = ["dep:jiff02"]
+jiff = ["dep:jiff"]
 serde_json = ["dep:serde_json"]
 kube3 = ["dep:kube3", "dep:serde", "serde_json", "optionable_derive/kube3"]
 kube4 = ["dep:kube4", "dep:serde", "serde_json", "optionable_derive/kube4"]
@@ -49,6 +50,7 @@ unexpected_cfgs = { level = "warn", check-cfg = ['cfg(test_k8s_openapi_roundtrip
 optionable_derive = { version = "0.13.2", optional = true }
 chrono04 = { package = "chrono", version = "0.4.45", default-features = false, optional = true }
 jiff02 = { package = "jiff", version = "0.2.38", default-features = false, optional = true }
+jiff = { package = "jiff", version = "1", default-features = false, optional = true }
 serde = { version = "1.0.229", default-features = false, optional = true }
 serde_json = { version = "1.0.154", default-features = false, optional = true }
 k8s-openapi027 = { package = "k8s-openapi", version = "0.27.1", default-features = false, optional = true }
